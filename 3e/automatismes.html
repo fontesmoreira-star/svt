@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Automatismes 3e SVT</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-<style>body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <style>
 /* Layout : bandeau SVT vert foncé ; vues Sommaire (missions → tuiles de séances), Séance (barre collante avec minuteur, 4 cartes-questions dont le document animé), Révision, Progression, Bilan ; colonne 980 px (1400 px en projection) */
 :root{
@@ -221,7 +221,7 @@ input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid va
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 <script>
-/* Hébergement classique (GitHub Pages…) : le bilan se télécharge comme un fichier .txt */
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
 (function(){
   if(window.claude) return;
   function save(o){

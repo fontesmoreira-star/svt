@@ -1,11 +1,23 @@
-# Activités interactives SVT et EIST
+# Activités interactives SVT, EIST et Enseignement scientifique
 
-Applications HTML autonomes (un fichier par activité, sans dépendance externe) pour la 5e EIST, la 3e SVT et la Terminale.
+Site : https://fontesmoreira-star.github.io/svt/
 
-- Page d'accueil : `index.html` (filtre par classe avec `#5e`, `#3e`, `#tle` à la fin de l'adresse)
-- Aucune collecte de données : la progression reste dans le navigateur de l'élève, et le bilan ne sort que par une action de l'élève (téléchargement .txt, copie, écran « Montrer au professeur »).
+Applications HTML autonomes (un fichier par activité, sans dépendance externe), rangées par niveau, thème et chapitre.
 
-## Ajouter ou mettre à jour une activité
-1. Déposer le fichier `.html` dans le bon dossier (`5e/`, `3e/`, `tle/`…) avec « Add file → Upload files ».
-2. Ajouter une carte dans `index.html` si c'est une nouvelle activité.
-3. La mise à jour est en ligne en 1 à 2 minutes.
+| Niveau | Dossier | Page à donner aux élèves |
+|---|---|---|
+| 5e EIST | `5e/` | https://fontesmoreira-star.github.io/svt/5e/ |
+| 3e SVT | `3e/` | https://fontesmoreira-star.github.io/svt/3e/ |
+| 2nde SVT | `2nde/` | https://fontesmoreira-star.github.io/svt/2nde/ |
+| Terminale ES | `terminale/` | https://fontesmoreira-star.github.io/svt/terminale/ |
+| Terminale spé SVT | `terminale-spe/` | https://fontesmoreira-star.github.io/svt/terminale-spe/ |
+
+Chaque thème et chaque chapitre qui contient une activité a aussi sa propre page, par exemple `3e/vivant-evolution/ch2-transmission/`.
+
+Aucune collecte de données : la progression reste dans le navigateur de l'élève, et le bilan ne sort que par une action de l'élève (téléchargement .txt, copie, écran « Montrer au professeur »).
+
+## Ajouter une activité
+1. Adapter l'app écrite pour claude.ai : `python3 outils/adapter.py source.html <niveau>/<thème>/<chapitre>/nom.html`
+2. Ajouter l'activité dans `outils/catalogue.json` (au niveau, au thème ou au chapitre).
+3. Régénérer les pages : `python3 outils/generer_pages.py`
+4. Publier (commit + push) : le site est à jour en 1 à 2 minutes.
