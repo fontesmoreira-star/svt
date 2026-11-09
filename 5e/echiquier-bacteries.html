@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Échiquier des bactéries</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
+<style>
+/* Layout : bandeau EIST teal, stepper collant en 5 étapes (Parier → Explorer → Calculer → Et en vrai ? → Expliquer), une étape visible à la fois, colonne de 1040 px (1400 px en projection) */
+:root{
+  --bg:#eef4f4; --surface:#ffffff; --surface-2:#e3eded; --ink:#0f2d36; --muted:#46626c; --line:#bfd2d4;
+  --teal:#0b6170; --teal-ink:#ffffff; --teal-soft:#d7ecee;
+  --band:#0a3a45; --band-ink:#eaf5f6; --band-muted:#a7cdd2;
+  --bact:#cf5d17; --bact-soft:#fde7d6; --on-bact:#ffffff; --hot:#b3261e;
+  --ok:#17703c; --ok-soft:#dcf1e3; --bad:#b3261e; --bad-soft:#fbe2df;
+  --info:#1d5fa8; --info-soft:#e4eefb; --warn:#a14f00; --warn-soft:#fdebd6; --key:#17703c; --key-soft:#dcf1e3; --crit:#b3261e; --crit-soft:#fbe2df;
+  --cell-a:#dde8e9; --cell-b:#cfdfe0;
+  --agar-1:#fbefc9; --agar-2:#efd690; --rim:#c4d3d6; --rod:#b8520f;
+  --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs:22px; --maxw:1040px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#5cc6d3; --teal-ink:#06262c; --teal-soft:#173d45;
+  --band:#06272f; --band-ink:#e4f2f4; --band-muted:#93bcc2;
+  --bact:#f0904e; --bact-soft:#3a2517; --on-bact:#1d0d02; --hot:#ff8a7e;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --cell-a:#183038; --cell-b:#132830;
+  --agar-1:#4a3f22; --agar-2:#33291a; --rim:#3d5960; --rod:#ffad6e;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#5cc6d3; --teal-ink:#06262c; --teal-soft:#173d45;
+  --band:#06272f; --band-ink:#e4f2f4; --band-muted:#93bcc2;
+  --bact:#f0904e; --bact-soft:#3a2517; --on-bact:#1d0d02; --hot:#ff8a7e;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --cell-a:#183038; --cell-b:#132830;
+  --agar-1:#4a3f22; --agar-2:#33291a; --rim:#3d5960; --rod:#ffad6e;
+  color-scheme:dark;
+}
+html{font-size:var(--fs)}
+html.proj{--maxw:1400px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Band */
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:18px 20px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.45rem,4.4vw,2.2rem);font-weight:800;margin-top:4px}
+.band .q{color:var(--band-muted);margin-top:4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{min-height:48px;min-width:48px;padding:0 12px;border-radius:12px;border:1.5px solid color-mix(in oklab,var(--band-ink) 35%,transparent);background:transparent;color:var(--band-ink);font-weight:700;cursor:pointer;font-size:.9rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+.tbtn.warn{border-color:var(--warn);background:color-mix(in oklab,var(--warn) 35%,transparent)}
+
+/* Stepper */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.steps .wrap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding-block:6px}
+.step{min-height:56px;border:0;border-radius:12px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px;color:var(--muted);font-weight:700;min-width:0;font-size:.9rem}
+.step .n{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid currentColor;font-family:var(--f-num);font-size:.8rem}
+.step .l{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step[aria-current="step"]{background:var(--teal-soft);color:var(--ink)}
+.step[aria-current="step"] .n{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.step.done .n{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+@media (max-width:760px){.step .l{display:none}}
+
+main .wrap{padding-block:24px 56px}
+section.view{display:flex;flex-direction:column;gap:22px}
+.kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--teal)}
+.h2{font-size:clamp(1.35rem,3.4vw,1.8rem);font-weight:800}
+.lead{max-width:64ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.btn{min-height:52px;padding:0 18px;border-radius:14px;border:2px solid var(--teal);background:var(--teal);color:var(--teal-ink);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.next{display:flex;justify-content:flex-end}
+
+/* Boxes */
+.box{border-radius:14px;padding:14px 16px;border-left:6px solid;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box .bt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.box .ic{font-size:1.1rem;line-height:1}
+.box.info{background:var(--info-soft);border-color:var(--info)}.box.info .bt{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)}.box.warn .bt{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)}.box.key .bt{color:var(--key)}
+.box.crit{background:var(--crit-soft);border-color:var(--crit)}.box.crit .bt{color:var(--crit)}
+
+
+/* Prediction */
+.bets{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.bet{min-height:72px;text-align:left;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.bet[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 2px var(--teal)}
+.bigq{font-family:var(--f-display);font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:800;max-width:32ch}
+.bigq .num{font-family:var(--f-num);font-weight:600;color:var(--bact);white-space:nowrap}
+
+/* Explore */
+.explore{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.explore{grid-template-columns:minmax(0,1fr)}}
+.dishbox{display:flex;flex-direction:column;gap:10px;align-items:center;min-width:0}
+.dishwrap{position:relative;width:100%;max-width:440px}
+.dishwrap canvas{display:block;width:100%;height:auto}
+.clock{position:absolute;left:8px;top:8px;background:var(--ink);color:var(--surface);font-family:var(--f-num);font-weight:600;font-size:.9rem;padding:4px 10px;border-radius:999px}
+.scaleTag{position:absolute;right:8px;bottom:8px;background:var(--surface);border:1px solid var(--line);font-size:.9rem;padding:2px 10px;border-radius:999px;max-width:calc(100% - 16px)}
+.ctrl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
+.ctrl .btn{padding:0 6px;min-width:0}
+.board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.cell{aspect-ratio:1;min-width:0;border:0;border-radius:6px;padding:3px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;font-family:var(--f-num);font-size:.55rem;line-height:1.1;cursor:pointer;color:var(--muted);position:relative;overflow:hidden}
+.cell.a{background:var(--cell-a)}.cell.b{background:var(--cell-b)}
+.cell:disabled{cursor:default}
+.cell .cn{font-weight:600}
+.cell .cv{display:none;font-size:.9em;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:1000px){.cell .cv{display:block}}
+.cell.on{background:color-mix(in oklab,var(--bact) calc(var(--t)*100%),var(--bact-soft));color:var(--ink)}
+.cell.on.dark{color:var(--on-bact)}
+.cell.over::after{content:"";position:absolute;inset:0;border-radius:6px;box-shadow:inset 0 0 0 2px var(--hot)}
+.cell.cur{outline:3px solid var(--teal);outline-offset:1px;z-index:1}
+.cell.pop{animation:pop .45s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+.readout{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.rhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.casebig{font-family:var(--f-display);font-weight:800;font-size:1.5rem}
+.bigval{font-family:var(--f-num);font-weight:600;font-size:clamp(1.15rem,3.4vw,1.6rem);line-height:1.25;color:var(--bact);overflow-wrap:anywhere}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fact{background:var(--surface-2);border-radius:12px;padding:10px 12px;min-width:0}
+.fact .k{font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.fact .v{font-family:var(--f-num);font-weight:600;overflow-wrap:anywhere}
+.fact .v.lock{font-family:var(--f-body);font-weight:400;color:var(--muted);font-size:.9rem}
+.gauge{height:18px;border-radius:9px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line)}
+.gauge>span{display:block;height:100%;background:var(--bact);min-width:3px;transition:width .3s ease}
+.gauge.full>span{background:var(--hot)}
+.glabel{display:flex;justify-content:space-between;gap:8px;font-size:.9rem;color:var(--muted);flex-wrap:wrap}
+.alert{border-radius:12px;padding:12px 14px;background:var(--bad-soft);border:2px solid var(--hot);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.9rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px}
+.big2{font-size:1.5rem;line-height:1}
+.sizecard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.sizeico{font-size:2.6rem;line-height:1;width:3.2rem;text-align:center}
+.sizeval{font-family:var(--f-num);font-weight:600;font-size:1.2rem;color:var(--teal)}
+.ladder{display:flex;gap:4px;flex-wrap:wrap}
+.ladder span{flex:1 1 0;min-width:3.4em;text-align:center;font-size:.9rem;padding:6px 2px;border-radius:8px;background:var(--surface-2);color:var(--muted)}
+.ladder span.on{background:var(--teal);color:var(--teal-ink);font-weight:700}
+
+/* Sprint */
+.sprint{display:flex;flex-direction:column;gap:12px}
+.sprintq{font-family:var(--f-num);font-weight:600;font-size:clamp(1.2rem,4vw,1.8rem);overflow-wrap:anywhere}
+.timer{height:14px;border-radius:7px;background:var(--surface-2);overflow:hidden}
+.timer span{display:block;height:100%;background:var(--teal)}
+.timer.low span{background:var(--hot)}
+.shake{animation:shake .35s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.flash{animation:flash .5s}
+@keyframes flash{0%{background:var(--ok-soft)}100%{background:transparent}}
+
+/* Questions */
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.qhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.qhead h3{font-size:1.15rem;font-weight:800}
+.lvl{font-size:.9rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.qstat{margin-left:auto;font-size:.9rem;font-weight:700;color:var(--muted)}
+.qstat.ok{color:var(--ok)}
+.fields{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.full{flex:1 1 100%}
+.field label{font-size:.9rem;font-weight:700;color:var(--muted)}
+.inp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.ans{min-height:52px;width:7ch;padding:0 10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-family:var(--f-num);font-weight:600;font-size:1rem;min-width:0}
+input.ans.wide{width:100%;max-width:22ch}
+input.ans.xs{width:5ch;min-height:48px;text-align:center;padding:0 4px}
+input.ans[aria-invalid="true"]{border-color:var(--bad);background:var(--bad-soft)}
+input.ans.good{border-color:var(--ok);background:var(--ok-soft)}
+.mk{font-weight:700;font-size:.9rem;white-space:nowrap}
+.mk.ok{color:var(--ok)}.mk.bad{color:var(--bad)}
+.sentence{line-height:2.5}
+.sentence input.ans{vertical-align:middle}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;justify-content:space-between}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 1px var(--teal)}
+.opt.okm{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badm{border-color:var(--bad);background:var(--bad-soft)}
+.fb{border-radius:12px;padding:12px 14px}
+.fb.ok{background:var(--ok-soft);border:2px solid var(--ok)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.hints{display:flex;flex-direction:column;gap:8px}
+.hint{background:var(--warn-soft);border-radius:12px;padding:10px 14px}
+.hint b{color:var(--warn)}
+.corr{border-left:5px solid var(--key);background:var(--key-soft);border-radius:0 12px 12px 0;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.corr .ct{font-weight:700;color:var(--key)}
+.corr .l{font-family:var(--f-num);font-size:.95rem;overflow-wrap:anywhere}
+.corr .warnline{color:var(--crit);font-weight:700;font-family:var(--f-body)}
+details.tbl summary{cursor:pointer;font-weight:700;min-height:48px;display:flex;align-items:center}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tscroll.tall{max-height:340px;overflow-y:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.9rem}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{position:sticky;top:0;background:var(--surface-2);font-weight:700}
+td{font-family:var(--f-num)}
+td:first-child,th:first-child{text-align:center}
+td.q{color:var(--muted)}
+tr.hl td{background:var(--teal-soft)}
+.numtable td{font-family:var(--f-num)}
+.nlist{display:flex;flex-direction:column;gap:6px}
+.nrow{display:flex;flex-wrap:wrap;gap:2px 14px;align-items:baseline;background:var(--surface);border-radius:10px;padding:8px 12px}
+.nn{font-family:var(--f-num);font-weight:600;white-space:nowrap;min-width:11ch}
+.nw{white-space:nowrap}
+.label{border:2px dashed var(--muted);border-radius:14px;padding:12px 14px;background:var(--surface);font-family:var(--f-num);font-size:.95rem;display:flex;flex-direction:column;gap:2px}
+.label b{font-family:var(--f-display)}
+
+.reveal{background:var(--band);color:var(--band-ink);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.reveal .big{font-family:var(--f-num);font-weight:600;font-size:clamp(1.6rem,5vw,2.3rem);color:var(--bact)}
+.reveal .muted{color:var(--band-muted)}
+
+/* Reality check */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 1px var(--teal)}
+.simctl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.simctl{grid-template-columns:minmax(0,1fr)}}
+.cvbox{width:100%;min-width:0}
+.cvbox canvas{display:block;width:100%;touch-action:pan-y;cursor:crosshair}
+.gread{min-height:1.6em;font-weight:700;color:var(--teal)}
+.tag{font-size:.9rem;font-weight:700;color:var(--warn);background:var(--warn-soft);padding:3px 10px;border-radius:999px;align-self:flex-start}
+.simout{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+
+/* Explain */
+textarea{width:100%;min-height:170px;border-radius:12px;border:2px solid var(--line);background:var(--bg);padding:12px;line-height:1.5;resize:vertical}
+.starters{display:flex;flex-wrap:wrap;gap:8px}
+.starter{min-height:48px;padding:6px 14px;border-radius:12px;border:2px dashed var(--teal);background:var(--surface);cursor:pointer;text-align:left}
+.ideas{display:flex;flex-wrap:wrap;gap:8px}
+.idea{font-size:.9rem;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.idea.on{background:var(--ok-soft);color:var(--ok)}
+.crit{display:flex;flex-direction:column;gap:6px}
+.crit label{display:flex;gap:10px;align-items:flex-start;min-height:48px;cursor:pointer}
+.crit input{width:26px;height:26px;flex:none;margin-top:3px;accent-color:var(--ok)}
+
+/* Report */
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.sc{background:var(--surface-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sc .k{font-size:.9rem;color:var(--muted);font-weight:700}
+.sc .v{font-family:var(--f-num);font-weight:600;font-size:1.3rem}
+.sc .bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.sc .bar span{display:block;height:100%;background:var(--ok)}
+.bilantext{white-space:pre-wrap;font-family:var(--f-num);font-size:.9rem;background:var(--surface-2);border-radius:12px;padding:14px;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere}
+input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);width:min(100%,16em)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--surface);overflow:auto;padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.ovin{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.ovname{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,7vw,3.6rem)}
+.ovtot{font-family:var(--f-num);font-weight:600;font-size:clamp(2.4rem,10vw,5rem);color:var(--teal);line-height:1}
+.ovparts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.ovparts .sc .v{font-size:clamp(1.6rem,5vw,2.4rem)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages…) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div style="min-width:0">
+      <div class="eyebrow">5e EIST · Mission 4 · Charger la fusée · Activité 4</div>
+      <h1>Un repas, des bactéries… et des maths</h1>
+      <p class="q">Comment un très petit nombre peut-il devenir immense ?</p>
+    </div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tbtn" id="fsMinus" aria-label="Réduire le texte">A−</button>
+      <button class="tbtn" id="fsPlus" aria-label="Agrandir le texte">A+</button>
+      <button class="tbtn" id="proj" aria-pressed="false">Projection</button>
+      <button class="tbtn" id="theme">Thème</button>
+      <button class="tbtn" id="reset">Recommencer</button>
+    </div>
+  </div>
+</header>
+
+<nav class="steps" aria-label="Étapes">
+  <div class="wrap">
+    <button class="step" data-go="parier"><span class="n">1</span><span class="l">Parier</span></button>
+    <button class="step" data-go="explorer"><span class="n">2</span><span class="l">Explorer</span></button>
+    <button class="step" data-go="calculer"><span class="n">3</span><span class="l">Calculer</span></button>
+    <button class="step" data-go="realite"><span class="n">4</span><span class="l">Et en vrai ?</span></button>
+    <button class="step" data-go="expliquer"><span class="n">5</span><span class="l">Expliquer</span></button>
+  </div>
+</nav>
+
+<main><div class="wrap">
+
+<!-- ÉTAPE 1 -->
+<section class="view" id="v-parier">
+  <div class="card stack">
+    <div class="kicker">La mission de Thomas</div>
+    <p class="lead">Thomas prépare un repas réhydraté pour sa mission spatiale. Pour comprendre comment les bactéries se multiplient, on utilise un <b>modèle mathématique simplifié</b> : au départ, <b>1 bactérie</b> ; toutes les <b>20 minutes</b>, chaque bactérie se divise en deux.</p>
+  </div>
+  <div class="stack">
+    <div class="kicker">Avant de calculer, fais un pari</div>
+    <p class="bigq">Combien de temps faut-il pour que la population dépasse <span class="num">mille milliards</span> de bactéries ?</p>
+    <p class="muted">Ne calcule pas : réponds avec ton intuition. Tu découvriras la réponse à l'étape 3.</p>
+    <div class="bets" id="bets" role="group" aria-label="Ton pari"></div>
+    <p id="betMsg" class="muted" aria-live="polite"></p>
+  </div>
+  <div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Seuil fictif</div>
+    <p><b>Mille milliards</b> = 1 000 000 000 000 bactéries. Ce nombre est inventé : il sert seulement à faire le calcul.</p>
+  </div>
+  <div class="next"><button class="btn" data-go="explorer">Explorer l'échiquier →</button></div>
+</section>
+
+<!-- ÉTAPE 2 -->
+<section class="view" id="v-explorer" hidden>
+  <div class="stack">
+    <div class="kicker">Le défi de l'échiquier</div>
+    <h2 class="h2">Une case, un doublement</h2>
+    <p class="lead">Selon la légende, Sissa demande 1 grain de blé sur la première case, 2 sur la deuxième, puis le double à chaque case. Ici, les grains sont nos bactéries. <b>Case 1 = départ = 0 min.</b> Case suivante = 1 division = 20 minutes de plus.</p>
+  </div>
+  <div class="explore">
+    <div class="dishbox">
+      <div class="dishwrap">
+        <canvas id="dish" aria-label="Boîte de Petri : les bactéries grandissent puis se divisent"></canvas>
+        <span class="clock" id="clock">Temps : ?</span>
+        <span class="scaleTag" id="scaleTag">1 bâtonnet = 1 bactérie</span>
+      </div>
+      <p class="small muted" style="text-align:center">Boîte de Petri (pas à l'échelle). Observe chaque bactérie grandir, puis se couper en deux.</p>
+      <div class="ctrl">
+        <button class="btn" id="bPlay">▶ Lecture</button>
+        <button class="btn ghost" id="bPause">⏸ Pause</button>
+        <button class="btn ghost" id="bNext">Case +1</button>
+        <button class="btn ghost" id="bStart">↺ Départ</button>
+      </div>
+      <div class="row" style="width:100%;justify-content:space-between">
+        <button class="btn ghost" id="bBack">← Reculer</button>
+        <button class="btn ghost" id="bSound" aria-pressed="false">🔇 Son coupé</button>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="readout" aria-live="polite">
+        <div class="rhead"><span class="casebig" id="rCase">Case 1</span><span class="muted" id="rWords"></span></div>
+        <div><div class="bigval" id="rVal">1</div><div class="muted" id="rUnit">bactérie</div></div>
+        <div class="facts">
+          <div class="fact"><div class="k">Divisions</div><div class="v" id="rDiv">0</div></div>
+          <div class="fact"><div class="k">Temps écoulé</div><div class="v" id="rTime">0 min</div></div>
+        </div>
+        <div>
+          <div class="glabel"><span>Vers mille milliards</span><span id="gPct"></span></div>
+          <div class="gauge" id="gauge"><span id="gFill" style="width:0"></span></div>
+        </div>
+        <div class="alert" id="alert" hidden>🎉 Tu as dépassé mille milliards ! Note le numéro de cette case et sa valeur.</div>
+      </div>
+      <div>
+        <div class="board" id="board" aria-label="Échiquier de 64 cases"></div>
+        <div class="legend">
+          <span><i style="background:var(--bact-soft)"></i>peu de bactéries</span>
+          <span><i style="background:var(--bact)"></i>beaucoup</span>
+          <span><i style="box-shadow:inset 0 0 0 2px var(--hot)"></i>plus de mille milliards</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card stack">
+    <div class="kicker">Quelle place prendraient-elles ?</div>
+    <div class="sizecard"><div class="sizeico" id="sizeIco" aria-hidden="true">🔬</div><div class="stack" style="gap:4px"><div class="sizeval" id="sizeVal"></div><p id="sizeTxt"></p></div></div>
+    <div class="ladder" id="ladder" aria-hidden="true"></div>
+    <p class="small muted">Estimation : on imagine qu'une bactérie occupe environ 1 µm³ (un micromètre cube). Les vraies bactéries n'atteignent jamais ces nombres : on verra pourquoi à l'étape 4.</p>
+  </div>
+
+  <div class="box info"><div class="bt"><span class="ic" aria-hidden="true">ℹ&#xFE0E;</span>Méthode · Lire un grand nombre</div>
+    <p>On groupe les chiffres <b>par 3</b> en partant de la droite, avec un espace entre chaque groupe.</p>
+    <div class="nlist"><div class="nrow"><span class="nn">1 000</span><span>mille · <span class="muted">4 chiffres</span></span></div><div class="nrow"><span class="nn">1 000 000</span><span>un million · <span class="muted">7 chiffres</span></span></div><div class="nrow"><span class="nn">1 000 000 000</span><span>un milliard · <span class="muted">10 chiffres</span></span></div><div class="nrow"><span class="nn">1 000 000 000 000</span><span><b>mille milliards</b> · <span class="muted">13 chiffres</span></span></div></div>
+    <p>Exemple : la case 41 contient <b class="nw">1 099 511 627 776</b> bactéries, soit environ <b class="nw">1 100 milliards</b>.</p>
+  </div>
+
+  <div class="card sprint" id="sprint">
+    <div class="row" style="justify-content:space-between"><div class="kicker">Jeu bonus · Le sprint des doublements</div><span class="lvl">🔴 Défi</span></div>
+    <p>Double le nombre autant de fois que possible en <b>60 secondes</b>. Sans calculatrice !</p>
+    <div class="timer" id="spTimer"><span id="spBar" style="width:100%"></span></div>
+    <div class="sprintq" id="spQ">Prêt ?</div>
+    <div class="row">
+      <label class="sr" for="spIn">Ta réponse</label>
+      <input class="ans wide" id="spIn" inputmode="numeric" autocomplete="off" disabled>
+      <button class="btn" id="spOk" disabled>OK</button>
+      <button class="btn ghost" id="spGo">C'est parti</button>
+    </div>
+    <p id="spMsg" aria-live="polite"></p>
+    <p class="muted small" id="spBest"></p>
+  </div>
+  <div class="next"><button class="btn" data-go="calculer">Résoudre le défi →</button></div>
+</section>
+
+<!-- ÉTAPE 3 -->
+<section class="view" id="v-calculer" hidden>
+  <div class="stack">
+    <div class="kicker">Calculer et conclure</div>
+    <h2 class="h2">À toi de résoudre le défi</h2>
+    <p class="lead">Écris aussi tes calculs dans ton cahier. Tu peux utiliser une calculatrice. Le score compte ta réponse au <b>premier essai</b> ; ensuite, tu peux corriger autant de fois que tu veux.</p>
+  </div>
+  <div id="qs-calc" class="stack" style="gap:18px"></div>
+  <div id="revealSlot"></div>
+  <div class="next"><button class="btn" data-go="realite">Et en vrai ? →</button></div>
+</section>
+
+<!-- ÉTAPE 4 -->
+<section class="view" id="v-realite" hidden>
+  <div class="stack">
+    <div class="kicker">Confronter le modèle à la réalité</div>
+    <h2 class="h2">Notre modèle est-il réaliste ?</h2>
+    <p class="lead">Notre calcul repose sur des choix : des <b>hypothèses</b>. Change les conditions et observe la courbe.</p>
+  </div>
+  <div class="card stack" style="gap:16px">
+    <span class="tag">⚠&#xFE0E; Valeurs simulées</span>
+    <div class="simctl">
+      <div class="stack" style="gap:8px"><span class="small" style="font-weight:700" id="lab-t">Température</span><div class="chips" id="chT" role="group" aria-labelledby="lab-t"></div></div>
+      <div class="stack" style="gap:8px"><span class="small" style="font-weight:700" id="lab-n">Bactéries au départ</span><div class="chips" id="chN" role="group" aria-labelledby="lab-n"></div></div>
+      <div class="stack" style="gap:8px"><span class="small" style="font-weight:700" id="lab-f">Nourriture dans le repas</span><div class="chips" id="chF" role="group" aria-labelledby="lab-f"></div></div>
+    </div>
+    <div class="row"><button class="btn" id="rPlay">▶ Lancer</button><button class="btn ghost" id="rPause">⏸ Pause</button><button class="btn ghost" id="rReset">↺ Recommencer</button><button class="btn ghost" id="rModel">Revenir à notre modèle</button></div>
+    <p style="font-weight:700">Nombre de bactéries pendant 24 heures</p>
+    <div class="cvbox"><canvas id="rcv" aria-label="Graphique : nombre de bactéries (en mille milliards) en fonction du temps (en heures)"></canvas></div>
+    <p class="gread" id="rread" aria-live="polite">Touche la courbe pour lire une valeur.</p>
+    <div class="simout" id="simout"></div>
+    <div class="tscroll tall"><table><thead><tr><th>Temps (h)</th><th>Nombre de bactéries</th></tr></thead><tbody id="rtable"></tbody></table></div>
+  </div>
+  <div id="qs-real" class="stack" style="gap:18px"></div>
+  <div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Règle clé</div><p>Au réfrigérateur, la plupart des bactéries se multiplient beaucoup plus lentement. C'est pour ça qu'on garde les repas au froid !</p></div>
+  <div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Vigilance</div><p>Ici, les valeurs sont inventées. La multiplication réelle dépend du type de bactérie, de la température et de l'aliment.</p></div>
+  <div class="next"><button class="btn" data-go="expliquer">Expliquer →</button></div>
+</section>
+
+<!-- ÉTAPE 5 -->
+<section class="view" id="v-expliquer" hidden>
+  <div class="stack">
+    <div class="kicker">Un modèle n'est pas une durée de conservation</div>
+    <h2 class="h2">Expliquer et faire le point</h2>
+  </div>
+  <div class="qcard" id="q5card">
+    <div class="qhead"><h3>8. Ce résultat est-il une durée de conservation ?</h3><span class="lvl">🔴 Défi</span></div>
+    <p>Explique pourquoi notre résultat ne donne pas une vraie durée de conservation pour le repas de Thomas. Aide-toi de l'étape 4.</p>
+    <p class="small" style="font-weight:700">Débuts de phrases · touche pour les ajouter :</p>
+    <div class="starters" id="starters"></div>
+    <label for="q5" class="sr">Ton explication</label>
+    <textarea id="q5" placeholder="Écris ton explication ici (au moins deux phrases)…"></textarea>
+    <div><p class="small" style="font-weight:700;margin-bottom:6px">Idées repérées dans ton texte :</p><div class="ideas" id="ideas"></div></div>
+    <div class="row"><button class="btn" id="q5btn" disabled>Comparer avec une réponse possible</button><span class="muted small" id="q5count"></span></div>
+    <div id="q5out" hidden class="stack">
+      <div class="corr"><span class="ct">✔&#xFE0E; Une réponse possible</span><p>Ce résultat vient d'un modèle simplifié. On a supposé que les bactéries se divisent toujours toutes les 20 minutes, à partir d'une seule bactérie, et le seuil de mille milliards est inventé. En réalité, la vitesse de multiplication dépend du type de bactérie, de la température et de l'aliment. Pour savoir combien de temps on peut garder un repas, on suit la date limite et les consignes de conservation indiquées sur l'emballage.</p></div>
+      <div><p style="font-weight:700;margin-bottom:6px">Coche ce que ta réponse contient :</p><div class="crit" id="crit"></div></div>
+    </div>
+  </div>
+  <div id="qs-expl" class="stack" style="gap:18px"></div>
+
+  <div class="box key">
+    <div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>À retenir</div>
+    <p>Dans notre modèle, la population <b>double</b> à chaque étape : un nombre très petit devient immense en quelques heures.</p>
+    <p>La multiplication réelle dépend de la bactérie, de la température et de l'aliment. Il n'existe pas de seuil unique de bactéries qui rendrait tous les plats dangereux.</p>
+    <p><b>Pour conserver un repas, on suit la date limite et les consignes de conservation indiquées sur son emballage.</b></p>
+  </div>
+
+  <div class="card stack" style="gap:14px">
+    <div class="kicker">Mon bilan</div>
+    <div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet appareil)</label><input class="name" id="pname" autocomplete="off" maxlength="40"></div>
+    <div class="scoregrid" id="scoreGrid"></div>
+    <div id="advice" class="stack"></div>
+    <div class="bilantext" id="bilanText"></div>
+    <div class="row">
+      <button class="btn" id="showProf">Montrer au professeur</button>
+      <button class="btn ghost" id="dlBilan" hidden>Télécharger mon bilan (.txt)</button>
+      <button class="btn ghost" id="copyBilan">Copier mon bilan</button>
+    </div>
+    <p id="bilanMsg" class="muted" aria-live="polite"></p>
+  </div>
+</section>
+
+</div></main>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ovname">
+  <div class="ovin">
+    <div class="row" style="justify-content:space-between"><div class="kicker">Bilan à montrer au professeur</div><button class="btn" id="ovClose">Fermer</button></div>
+    <div class="ovname" id="ovname"></div>
+    <div><div class="muted">Score au premier essai</div><div class="ovtot" id="ovtot"></div></div>
+    <div class="ovparts" id="ovparts"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KEY="echiquier-bacteries-fr-v2";
+var $=function(id){return document.getElementById(id);};
+var TH=1000000000000n;
+var V=function(n){return 1n<<BigInt(n-1);};
+var NB=" ";
+function grp(s){return String(s).replace(/\B(?=(\d{3})+(?!\d))/g,NB);}
+function fmt(b){return grp(b.toString());}
+function dec(x,n){return x.toFixed(n).replace(".",",");}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function hm(min){var h=Math.floor(min/60),m=min%60;return h?(m?h+" h "+m+" min":h+" h"):m+" min";}
+function dur(min){if(min<1440)return hm(min);var d=Math.floor(min/1440),r=min-d*1440,h=Math.floor(r/60);return d+" j"+(h?" "+h+" h":"");}
+var UNITS=[[1e18,"milliard de milliards","milliards de milliards"],[1e15,"million de milliards","millions de milliards"],[1e12,"mille milliards","mille milliards"],[1e9,"milliard","milliards"],[1e6,"million","millions"],[1e3,"millier","milliers"]];
+function words(x){x=Number(x);if(x<1000)return "";for(var i=0;i<UNITS.length;i++){if(x>=UNITS[i][0]){var y=x/UNITS[i][0];var s=y<10?dec(Math.round(y*10)/10,1).replace(",0",""):String(Math.round(y));return "≈ "+s+" "+(y<2?UNITS[i][1]:UNITS[i][2]);}}return "";}
+function shortv(b){var n=Number(b);if(b>=TH)return "> seuil";if(n<1e6)return fmt(b);if(n<1e9){var x=n/1e6;return (x<10?dec(x,1):Math.round(x))+" M";}var y=n/1e9;return (y<10?dec(y,1):Math.round(y))+" Md";}
+function digits(s){var t=String(s==null?"":s).replace(/[\s.,']/g,"");return /^\d{1,30}$/.test(t)?BigInt(t):null;}
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- état ---------- */
+var DEF={bet:null,cur:1,max:1,crossed:false,unlocked:false,ans:{},first:{},tries:{},done:{},hints:{},corr:{},rt:{t:"37",n0:1,food:"plenty"},rDone:false,tried4:false,q5:"",q5shown:false,crit:{},sprintBest:-1,name:"",fs:22,proj:false,theme:null,sound:false};
+function fresh(){return JSON.parse(JSON.stringify(DEF));}
+var S;try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){S=fresh();}
+["ans","first","tries","done","hints","corr","crit","rt"].forEach(function(k){if(!S[k]||typeof S[k]!=="object")S[k]=fresh()[k];});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- affichage ---------- */
+function applyFs(){var r=document.documentElement;r.classList.toggle("proj",!!S.proj);r.style.setProperty("--fs",(S.proj?Math.max(S.fs,30):S.fs)+"px");$("proj").setAttribute("aria-pressed",S.proj?"true":"false");redrawAll();}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme");redrawAll();}
+$("fsMinus").onclick=function(){S.fs=Math.max(20,S.fs-2);applyFs();save();};
+$("fsPlus").onclick=function(){S.fs=Math.min(34,S.fs+2);applyFs();save();};
+$("proj").onclick=function(){S.proj=!S.proj;applyFs();save();};
+$("theme").onclick=function(){var dark=S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);S.theme=dark?"light":"dark";applyTheme();save();};
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",redrawAll);}catch(e){}
+var resetArm=null;
+$("reset").onclick=function(){
+  var b=$("reset");
+  if(!resetArm){b.textContent="Confirmer ?";b.classList.add("warn");resetArm=setTimeout(function(){b.textContent="Recommencer";b.classList.remove("warn");resetArm=null;},4000);return;}
+  clearTimeout(resetArm);resetArm=null;
+  var keep={fs:S.fs,proj:S.proj,theme:S.theme,sound:S.sound};S=Object.assign(fresh(),keep);save();
+  b.textContent="Recommencer";b.classList.remove("warn");
+  for(var k in lastFb)delete lastFb[k];
+  stopPlay();stopReal();rProg=0;rSel=null;endSprint(true);
+  document.querySelectorAll("input.ans").forEach(function(i){if(i.id!=="spIn")i.value="";});
+  renderAll();go("parier");
+};
+
+/* ---------- navigation ---------- */
+var VIEWS=["parier","explorer","calculer","realite","expliquer"],cur="parier";
+function go(v){
+  if(VIEWS.indexOf(v)<0)v="parier";cur=v;
+  VIEWS.forEach(function(x){$("v-"+x).hidden=x!==v;});
+  document.querySelectorAll(".step").forEach(function(b){b.setAttribute("aria-current",b.dataset.go===v?"step":"false");});
+  if(location.hash!=="#"+v){try{history.replaceState(null,"","#"+v);}catch(e){}}
+  if(v!=="explorer"){stopPlay();endSprint(true);}
+  if(v!=="realite")pauseReal();
+  if(v==="expliquer")renderBilan();
+  renderStepsDone();window.scrollTo(0,0);
+  requestAnimationFrame(redrawAll);
+}
+document.addEventListener("click",function(e){var t=e.target.closest("[data-go]");if(t)go(t.dataset.go);});
+window.addEventListener("hashchange",function(){var h=location.hash.slice(1);if(h!==cur)go(h);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")$("overlay").hidden=true;});
+
+/* ---------- étape 1 : pari ---------- */
+var BETS=[["p1","Moins de 6 heures"],["p2","Entre 6 h et 24 h"],["p3","Entre 1 et 7 jours"],["p4","Entre 1 semaine et 1 mois"],["p5","Plus d'un mois"]];
+function betLabel(){var b=BETS.filter(function(x){return x[0]===S.bet;})[0];return b?b[1]:null;}
+function renderBets(){
+  var box=$("bets");box.innerHTML="";
+  BETS.forEach(function(x){var b=document.createElement("button");b.className="bet";b.textContent=x[1];b.setAttribute("aria-pressed",S.bet===x[0]?"true":"false");if(S.unlocked)b.disabled=true;
+    b.onclick=function(){if(S.unlocked)return;S.bet=x[0];save();renderBets();renderStepsDone();};box.appendChild(b);});
+  var l=betLabel();
+  $("betMsg").textContent=S.unlocked?"Pari verrouillé : « "+(l||"aucun")+" ». La réponse est à l'étape 3.":(l?"Pari enregistré : « "+l+" ». Tu peux encore changer d'avis.":"Choisis une réponse.");
+}
+
+/* ---------- étape 2 : son, boîte de Petri, échiquier ---------- */
+var AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){AC=null;}}if(AC&&AC.state==="suspended"){try{AC.resume();}catch(e){}}return AC;}
+function blip(f,d,v,delay){if(!S.sound)return;var a=ac();if(!a)return;try{var t=a.currentTime+(delay||0),o=a.createOscillator(),g=a.createGain();o.type="triangle";o.frequency.value=f;g.gain.setValueAtTime(v||.07,t);g.gain.exponentialRampToValueAtTime(.0001,t+(d||.1));o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+(d||.1)+.03);}catch(e){}}
+function fanfare(){[523,659,784,1046].forEach(function(f,i){blip(f,.22,.08,i*.11);});}
+function renderSound(){$("bSound").textContent=S.sound?"🔊 Son activé":"🔇 Son coupé";$("bSound").setAttribute("aria-pressed",S.sound?"true":"false");}
+$("bSound").onclick=function(){S.sound=!S.sound;save();renderSound();if(S.sound){ac();blip(440,.12);}};
+
+var DISH={t:1};
+function hash(k){var x=Math.sin(k*12.9898+78.233)*43758.5453;return x-Math.floor(x);}
+function phyllo(k,c){var a=k*2.399963,r=c*Math.sqrt(k+.5);return [r*Math.cos(a),r*Math.sin(a)];}
+function lay(G,R){var N=Math.pow(2,Math.min(G,9));var cr=Math.max(R*.09,R*.8*Math.sqrt(N/512));var c=cr/Math.sqrt(N);var len=Math.max(6,Math.min(R*.22,c*1.75));return {N:N,c:c,len:len};}
+function ang(k,G){return hash(k*7+G*13)*Math.PI;}
+function capsule(c,x,y,a,L,W,pinch){c.save();c.translate(x,y);c.rotate(a);var r=W/2,hl=L/2;c.beginPath();
+  if(pinch>0){var pw=r*(1-pinch*.85);c.moveTo(-hl+r,-r);c.quadraticCurveTo(0,-r,0,-pw);c.quadraticCurveTo(0,-r,hl-r,-r);c.arc(hl-r,0,r,-Math.PI/2,Math.PI/2);c.quadraticCurveTo(0,r,0,pw);c.quadraticCurveTo(0,r,-hl+r,r);c.arc(-hl+r,0,r,Math.PI/2,Math.PI*1.5);}
+  else{c.moveTo(-hl+r,-r);c.lineTo(hl-r,-r);c.arc(hl-r,0,r,-Math.PI/2,Math.PI/2);c.lineTo(-hl+r,r);c.arc(-hl+r,0,r,Math.PI/2,Math.PI*1.5);}
+  c.closePath();c.fill();c.restore();}
+function ease(u){return u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;}
+function drawDish(){
+  var cv=$("dish"),box=cv.parentElement,w=Math.min(box.clientWidth,440);if(w<60)return;
+  var dpr=window.devicePixelRatio||1;if(cv.width!==Math.round(w*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(w*dpr);}cv.style.height=w+"px";
+  var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,w);
+  var rs=getComputedStyle(document.documentElement),col=function(n){return rs.getPropertyValue(n).trim()||"#888";};
+  var cx=w/2,cy=w/2,R=w/2-12;
+  c.fillStyle=col("--rim");c.beginPath();c.arc(cx,cy,R+10,0,Math.PI*2);c.fill();
+  var g=c.createRadialGradient(cx-R*.3,cy-R*.3,R*.1,cx,cy,R);g.addColorStop(0,col("--agar-1"));g.addColorStop(1,col("--agar-2"));
+  c.fillStyle=g;c.beginPath();c.arc(cx,cy,R,0,Math.PI*2);c.fill();
+  c.save();c.beginPath();c.arc(cx,cy,R,0,Math.PI*2);c.clip();
+  var G=S.cur-1,t=DISH.t;c.fillStyle=col("--rod");
+  if(G<=9){
+    var L1=lay(G,R);
+    if(t>=1||G===0){for(var k=0;k<L1.N;k++){var p=phyllo(k,L1.c);capsule(c,cx+p[0],cy+p[1],ang(k,G),L1.len,L1.len*.42,0);}}
+    else{
+      var L0=lay(G-1,R),np=L0.N;
+      if(t<.5){var u=t/.5;for(var j=0;j<np;j++){var pp=phyllo(j,L0.c);capsule(c,cx+pp[0],cy+pp[1],ang(j,G-1),L0.len*(1+.95*u),L0.len*.42,Math.max(0,(u-.5)*2));}}
+      else{var v=ease((t-.5)/.5);for(var k2=0;k2<L1.N;k2++){var par=k2>>1,a0=ang(par,G-1),pq=phyllo(par,L0.c),s=(k2&1)?1:-1;
+        var sx=pq[0]+s*Math.cos(a0)*L0.len*.5,sy=pq[1]+s*Math.sin(a0)*L0.len*.5,e=phyllo(k2,L1.c);
+        var x=sx+(e[0]-sx)*v,y=sy+(e[1]-sy)*v,ln=L0.len*.97+(L1.len-L0.len*.97)*v,an=a0+(ang(k2,G)-a0)*v;
+        capsule(c,cx+x,cy+y,an,ln,ln*.42,0);}}
+    }
+  }else{
+    var L9=lay(9,R),pulse=t<1?Math.sin(Math.PI*t):0,dens=Math.min(1,(G-9)/40);
+    var hg=c.createRadialGradient(cx,cy,R*.1,cx,cy,R*.92);hg.addColorStop(0,"rgba(207,93,23,"+(.15+.45*dens)+")");hg.addColorStop(1,"rgba(207,93,23,0)");
+    c.fillStyle=hg;c.beginPath();c.arc(cx,cy,R,0,Math.PI*2);c.fill();
+    c.fillStyle=col("--rod");var rad=Math.max(2.2,L9.len*.32)*(1+.7*pulse);
+    for(var d=0;d<512;d++){var q=phyllo(d,L9.c);c.beginPath();c.arc(cx+q[0],cy+q[1],rad,0,Math.PI*2);c.fill();}
+  }
+  c.restore();
+}
+var dishRaf=null,playing=false,stepTimer=null,stopAt41=false;
+function animateDish(){if(dishRaf)cancelAnimationFrame(dishRaf);if(DISH.t>=1||RM){DISH.t=1;drawDish();onAnimEnd();return;}
+  var d0=(S.cur-1)<=9?1100:320,t0=null;
+  var f=function(ts){if(t0===null)t0=ts;DISH.t=Math.min(1,(ts-t0)/d0);drawDish();if(DISH.t<1)dishRaf=requestAnimationFrame(f);else{dishRaf=null;onAnimEnd();}};
+  dishRaf=requestAnimationFrame(f);}
+function onAnimEnd(){if(!playing)return;
+  if(stopAt41&&S.cur===41){stopPlay();return;}
+  if(S.cur>=64){stopPlay();return;}
+  stepTimer=setTimeout(function(){if(playing)setCur(S.cur+1,true);},RM?700:((S.cur-1)<=9?260:80));}
+function setCur(n,anim){
+  n=Math.max(1,Math.min(64,n));var up=n===S.cur+1;S.cur=n;if(n>S.max)S.max=n;
+  var first41=n>=41&&!S.crossed;if(n>=41)S.crossed=true;save();
+  DISH.t=(anim&&up)?0:1;renderBoard(up);
+  if(anim&&up)blip(260+n*12,.09,.06);
+  if(n===41&&up&&(first41||anim)){celebrate();}
+  animateDish();renderStepsDone();
+}
+function stopPlay(){playing=false;if(stepTimer){clearTimeout(stepTimer);stepTimer=null;}$("bPlay").disabled=false;$("bPause").disabled=true;}
+$("bPlay").onclick=function(){if(S.cur>=64)setCur(1,false);playing=true;stopAt41=S.cur<41;$("bPlay").disabled=true;$("bPause").disabled=false;if(S.sound)ac();setCur(S.cur+1,true);};
+$("bPause").onclick=stopPlay;
+$("bNext").onclick=function(){stopPlay();if(S.sound)ac();setCur(S.cur+1,true);};
+$("bBack").onclick=function(){stopPlay();setCur(S.cur-1,false);};
+$("bStart").onclick=function(){stopPlay();setCur(1,false);};
+
+function celebrate(){fanfare();if(RM)return;
+  var cv=document.createElement("canvas");cv.className="confetti";document.body.appendChild(cv);
+  var w=innerWidth,h=innerHeight,dpr=window.devicePixelRatio||1;cv.width=w*dpr;cv.height=h*dpr;cv.style.width=w+"px";cv.style.height=h+"px";
+  var c=cv.getContext("2d");c.scale(dpr,dpr);var rs=getComputedStyle(document.documentElement);
+  var cols=["--bact","--teal","--ok","--warn","--info"].map(function(n){return rs.getPropertyValue(n).trim();});
+  var P=[];for(var i=0;i<150;i++)P.push({x:w/2+(Math.random()-.5)*w*.3,y:h*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*13-4,r:Math.random()*Math.PI,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[i%cols.length]});
+  var t0=null;var f=function(ts){if(t0===null)t0=ts;var el=ts-t0;c.clearRect(0,0,w,h);
+    P.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;c.save();c.translate(p.x,p.y);c.rotate(p.r);c.globalAlpha=Math.max(0,1-el/2400);c.fillStyle=p.c;c.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);c.restore();});
+    if(el<2400)requestAnimationFrame(f);else cv.remove();};
+  requestAnimationFrame(f);}
+
+function buildBoard(){
+  var bd=$("board");bd.innerHTML="";
+  for(var n=1;n<=64;n++){var r=Math.floor((n-1)/8),cc=(n-1)%8;var b=document.createElement("button");b.className="cell "+(((r+cc)%2)?"b":"a");b.dataset.n=n;
+    b.innerHTML='<span class="cn">'+n+'</span><span class="cv"></span>';bd.appendChild(b);}
+  bd.onclick=function(e){var b=e.target.closest(".cell");if(!b||b.disabled)return;stopPlay();setCur(+b.dataset.n,false);};
+}
+var SIZES=[[0,"🔬","Invisible à l'œil nu : il faut un microscope."],[1e6,"🌫️","Au moins un minuscule grain de poussière (environ 0,1 mm de large). Difficile à voir !"],[1e9,"⏳","Plus qu'un grain de sable (environ 1 mm³)."],[1e12,"🌰","Plus qu'une noisette (environ 1 cm³) !"],[1e15,"🧃","Plus qu'une brique de jus d'un litre !"],[1e18,"📦","Plus qu'une caisse d'un mètre de côté (1 m³) !"],[5e18,"🚐","De quoi remplir une petite camionnette (environ 9 m³) !"]];
+function nfr(x,d){return x.toLocaleString("fr-FR",{maximumFractionDigits:d,minimumFractionDigits:d});}
+function volStr(x){if(x<1e6)return fmt(BigInt(Math.round(x)))+" µm³";if(x<1e12){var mm=x/1e9;return (mm<.01?nfr(mm,4):mm<1?nfr(mm,3):mm<10?nfr(mm,1):nfr(Math.round(mm),0))+" mm³";}if(x<1e15){var cm=x/1e12;return (cm<10?nfr(cm,1):nfr(Math.round(cm),0))+" cm³";}if(x<1e18){var l=x/1e15;return (l<10?nfr(l,1):nfr(Math.round(l),0))+" L";}return nfr(x/1e18,1)+" m³";}
+function renderBoard(pop){
+  document.querySelectorAll(".cell").forEach(function(b){
+    var n=+b.dataset.n,on=n<=S.max,t=(n-1)/63;
+    b.classList.toggle("on",on);b.disabled=!on;b.style.setProperty("--t",on?t.toFixed(3):0);
+    b.classList.toggle("dark",on&&t>.5);b.classList.toggle("over",on&&n>=41);b.classList.toggle("cur",n===S.cur);
+    b.querySelector(".cv").textContent=on?shortv(V(n)):"";
+    b.setAttribute("aria-label",on?"Case "+n+" : "+fmt(V(n))+" bactéries":"Case "+n+", pas encore atteinte");
+    if(pop&&n===S.cur&&!RM){b.classList.remove("pop");void b.offsetWidth;b.classList.add("pop");}
+  });
+  var n=S.cur,v=V(n),num=Number(v);
+  $("rCase").textContent="Case "+n;$("rVal").textContent=fmt(v);$("rUnit").textContent=n===1?"bactérie":"bactéries";$("rWords").textContent=words(v);
+  var show=n<=4||S.unlocked;
+  $("rDiv").textContent=show?String(n-1):"? (étape 3)";$("rDiv").classList.toggle("lock",!show);
+  $("rTime").textContent=show?hm(20*(n-1)):"? (étape 3)";$("rTime").classList.toggle("lock",!show);
+  $("clock").textContent=show?"Temps : "+hm(20*(n-1)):"Temps : ?";
+  var pct=num/1e12*100;$("gFill").style.width=Math.min(pct,100)+"%";$("gauge").classList.toggle("full",v>TH);
+  $("gPct").textContent=v>TH?"seuil dépassé":pct>=1?dec(pct,1)+" %":pct>=.01?dec(pct,2)+" %":"moins de 0,01 %";
+  $("alert").hidden=n!==41;
+  $("scaleTag").textContent=(n-1)<=9?"1 bâtonnet = 1 bactérie":"1 point = "+fmt(V(n)/512n)+" bactéries";
+  var si=0;for(var i=0;i<SIZES.length;i++)if(num>=SIZES[i][0])si=i;
+  $("sizeIco").textContent=SIZES[si][1];$("sizeVal").textContent="≈ "+volStr(num);$("sizeTxt").textContent=SIZES[si][2];
+  $("ladder").innerHTML=SIZES.map(function(s,i){return '<span class="'+(i===si?"on":"")+'">'+s[1]+'</span>';}).join("");
+  $("bBack").disabled=n<=1;$("bNext").disabled=n>=64;$("bStart").disabled=n<=1;
+}
+
+/* ---------- sprint ---------- */
+var SP={on:false,val:1n,steps:0,end:0,raf:null};
+function spRender(){$("spQ").textContent=SP.on?fmt(SP.val)+" × 2 = ?":"Prêt ?";}
+$("spGo").onclick=function(){
+  SP.on=true;SP.val=1n;SP.steps=0;SP.end=performance.now()+60000;
+  $("spIn").disabled=false;$("spOk").disabled=false;$("spGo").disabled=true;$("spIn").value="";$("spMsg").textContent="C'est parti !";spRender();$("spIn").focus();
+  if(S.sound)ac();
+  var f=function(ts){if(!SP.on)return;var left=Math.max(0,SP.end-ts);$("spBar").style.width=(left/600)+"%";$("spTimer").classList.toggle("low",left<10000);if(left<=0){endSprint(false);return;}SP.raf=requestAnimationFrame(f);};
+  SP.raf=requestAnimationFrame(f);
+};
+function spSubmit(){
+  if(!SP.on)return;var a=digits($("spIn").value),inp=$("spIn");
+  if(a===null)return;
+  if(a===SP.val*2n){SP.val*=2n;SP.steps++;inp.value="";blip(300+SP.steps*25,.08,.06);$("spMsg").textContent="✓ Juste ! "+SP.steps+" doublement"+(SP.steps>1?"s":"")+".";var q=$("spQ");q.classList.remove("flash");void q.offsetWidth;q.classList.add("flash");spRender();}
+  else{$("spMsg").textContent="✗ Pas tout à fait. Réessaie !";inp.classList.remove("shake");void inp.offsetWidth;inp.classList.add("shake");blip(150,.15,.06);}
+  inp.focus();
+}
+$("spOk").onclick=spSubmit;
+$("spIn").addEventListener("keydown",function(e){if(e.key==="Enter")spSubmit();});
+function endSprint(silent){
+  var was=SP.on;SP.on=false;if(SP.raf)cancelAnimationFrame(SP.raf);
+  $("spIn").disabled=true;$("spOk").disabled=true;$("spGo").disabled=false;$("spBar").style.width="100%";$("spTimer").classList.remove("low");
+  if(was&&!silent){
+    var best=SP.steps>S.sprintBest;if(best){S.sprintBest=SP.steps;save();}
+    $("spMsg").textContent="⏱ Temps écoulé ! Tu as doublé "+SP.steps+" fois : tu es arrivé à la case "+(SP.steps+1)+" ("+fmt(SP.val)+")."+(best?" Nouveau record !":"");
+    if(best)fanfare();$("spGo").textContent="Rejouer";renderBilan();
+  }
+  spRender();renderSpBest();
+}
+function renderSpBest(){$("spBest").textContent=S.sprintBest>=0?"Ton record : "+S.sprintBest+" doublement"+(S.sprintBest>1?"s":"")+" (case "+(S.sprintBest+1)+").":"";}
+
+/* ---------- questions ---------- */
+var LV={f:"🟢 Facile",m:"🟡 Moyen",d:"🔴 Défi"};
+var RULE='<b>Le modèle :</b> au départ, 1 bactérie. Toutes les 20 minutes, chaque bactérie se divise en deux. <b>Case 1 = départ = 0 min.</b> Chaque passage à la case suivante = 1 division = 20 min de plus.';
+function table64(){var h='<details class="tbl"><summary>Afficher le tableau des 64 cases</summary><div class="tscroll tall"><table><thead><tr><th>Case</th><th>Bactéries</th></tr></thead><tbody>';for(var n=1;n<=64;n++)h+='<tr><td>'+n+'</td><td>'+fmt(V(n))+'</td></tr>';return h+'</tbody></table></div></details>';}
+var LABEL='<div class="label"><b>REPAS SPATIAL · Poulet et riz</b><span>À consommer jusqu\'au : 14/03/2027</span><span>À conserver au réfrigérateur (entre 0 et 4 °C)</span><span>Après ouverture : à consommer dans les 24 heures</span></div><p class="small muted">Étiquette inventée pour l\'exercice.</p>';
+var QS=[
+ {id:"q1",part:1,lvl:"f",type:"num",title:"1. Les premières étapes",prompt:"Écris le nombre de bactéries après 20, 40 et 60 minutes.",doc:'<b>Au départ :</b> 1 bactérie. Toutes les <b>20 minutes</b>, chaque bactérie se divise en deux.',
+  fields:[{k:"a",label:"Après 20 min",unit:"bactéries"},{k:"b",label:"Après 40 min",unit:"bactéries"},{k:"c",label:"Après 60 min",unit:"bactéries"}],
+  check:function(v){var w=[];if(v.a!==2n)w.push("a");if(v.b!==4n)w.push("b");if(v.c!==8n)w.push("c");var m="";
+    if(v.a===20n||v.b===40n||v.c===60n)m="Ne confonds pas les minutes et les bactéries : 20 min, c'est la durée entre deux divisions.";
+    else if(v.b===3n||v.c===4n)m="Le nombre n'augmente pas de 1 à chaque étape : chaque bactérie se coupe en deux, donc le nombre est multiplié par 2.";
+    else if(v.c===6n)m="Après 40 min, il y a 4 bactéries. Chacune se divise en deux : 4 × 2 = ?";
+    return {w:w,m:m};},
+  hints:["Au départ, il y a 1 bactérie. Que se passe-t-il toutes les 20 minutes ?","Chaque bactérie se divise en deux : le nombre de bactéries est multiplié par 2 à chaque étape.","20 min : 1 × 2. 40 min : on multiplie encore par 2. 60 min : encore par 2."],
+  corr:["Départ : 1 bactérie","20 min : 1 × 2 = 2 bactéries","40 min : 2 × 2 = 4 bactéries","60 min : 4 × 2 = 8 bactéries"]},
+ {id:"q2",part:1,lvl:"f",type:"num",title:"2. Repérer le seuil",prompt:"Sur l'échiquier, repère la première case qui contient plus de mille milliards de bactéries. Note son numéro et sa valeur.",
+  doc:'<b>Mille milliards</b> = 1 000 000 000 000 bactéries. Tu peux taper la valeur avec ou sans espaces.'+table64(),
+  fields:[{k:"n",label:"Numéro de la case",unit:""},{k:"v",label:"Valeur de la case",unit:"bactéries",wide:true}],
+  check:function(v){var w=[];if(v.n!==41n)w.push("n");if(v.v!==V(41))w.push("v");var m="";
+    if(v.n===40n)m="La case 40 contient 549 755 813 888 bactéries : c'est moins que 1 000 000 000 000. Compte les chiffres des deux nombres.";
+    else if(v.n!==null&&v.n>41n&&v.n<=64n)m="Cette case dépasse bien le seuil, mais ce n'est pas la première. Regarde les cases juste avant.";
+    else if(v.n===41n&&v.v!==V(41))m="Le numéro est juste. Recopie la valeur de la case 41 en entier, chiffre par chiffre (13 chiffres).";
+    return {w:w,m:m};},
+  hints:["Mille milliards s'écrit 1 000 000 000 000 : un 1 suivi de 12 zéros, soit 13 chiffres.","Cherche la première case dont la valeur a 13 chiffres.","Compare les cases 40 et 41 : la valeur de la case 40 n'a que 12 chiffres."],
+  corr:["Case 40 : 549 755 813 888 → 12 chiffres, donc moins de mille milliards","Case 41 : 1 099 511 627 776 → 13 chiffres, donc plus de mille milliards","Réponse : case 41, valeur 1 099 511 627 776 bactéries"]},
+ {id:"q3",part:1,lvl:"m",type:"num",title:"3. Compter les divisions",prompt:"Calcule le nombre de divisions depuis le départ. Attention : la case 1 correspond à zéro division.",doc:RULE,
+  fields:[{k:"d",label:"Nombre de divisions",unit:"divisions"}],
+  check:function(v){var m="";if(v.d===41n)m="Piège ! Tu as donné le numéro de la case. Or la case 1 correspond à 0 division : il y a toujours une division de moins que le numéro de la case.";else if(v.d===39n)m="Tu as enlevé une division de trop. Case 2 → 1 division, case 3 → 2 divisions… donc case 41 → ?";return {w:v.d===40n?[]:["d"],m:m};},
+  hints:["Case 1 = départ : aucune division n'a encore eu lieu.","Case 2 → 1 division ; case 3 → 2 divisions ; case 4 → 3 divisions. Que remarques-tu ?","Le nombre de divisions est toujours égal au numéro de la case moins 1."],
+  corr:["Case 1 → 0 division, case 2 → 1 division…","Nombre de divisions = numéro de la case − 1","41 − 1 = 40 divisions"]},
+ {id:"q4a",part:1,lvl:"m",type:"num",title:"4a. La durée en minutes",prompt:"Calcule la durée correspondante, en minutes.",doc:RULE,
+  fields:[{k:"m",label:"Durée",unit:"min"}],
+  check:function(v){var m="";if(v.m===820n)m="Tu as utilisé 41 divisions. Reprends ta réponse à la question 3.";else if(v.m===780n)m="Tu as utilisé 39 divisions. Reprends ta réponse à la question 3.";else if(v.m===2400n)m="Une division dure 20 minutes, pas 60.";else if(v.m===60n||v.m===2n)m="Il faut multiplier le nombre de divisions par la durée d'une division.";return {w:v.m===800n?[]:["m"],m:m};},
+  hints:["Chaque division dure 20 minutes.","Multiplie le nombre de divisions (question 3) par 20 min.","40 × 20 = 40 × 2 × 10"],
+  corr:["40 divisions × 20 min = 800 min"]},
+ {id:"q4b",part:1,lvl:"m",type:"num",title:"4b. En heures et minutes",prompt:"Convertis cette durée en heures et minutes.",doc:'<b>Rappel :</b> 1 h = 60 min. Ta durée : 800 min.',
+  fields:[{k:"h",label:"Heures",unit:"h"},{k:"mn",label:"Minutes",unit:"min"}],
+  check:function(v){var w=[];if(v.h!==13n)w.push("h");if(v.mn!==20n)w.push("mn");var m="";
+    if(v.h===13n&&v.mn===33n)m="Piège classique ! 800 ÷ 60 ≈ 13,33 h, mais 0,33 h, ce n'est pas 33 minutes. Calcule plutôt ce qui reste après 13 h : 800 − 13 × 60.";
+    else if(v.h===8n)m="Une heure dure 60 minutes, pas 100. Cherche combien de fois 60 min tient dans 800 min.";
+    else if(v.h===13n&&v.mn===0n)m="Il reste des minutes : 13 × 60 = 780 min. Combien manque-t-il pour arriver à 800 ?";
+    else if(v.h===14n)m="14 × 60 = 840 min : c'est plus que 800. Essaie 13 h.";
+    return {w:w,m:m};},
+  hints:["1 h = 60 min. Combien de fois 60 min tient dans 800 min ?","Essaie : 13 × 60 = ? et 14 × 60 = ?","13 × 60 = 780 min. Il reste 800 − 780 = ? min"],
+  corr:["13 × 60 = 780 min (14 × 60 = 840 min, c'est trop)","800 − 780 = 20 min","800 min = 13 h 20 min","Attention : 800 ÷ 60 ≈ 13,33 h, et 0,33 h ≠ 33 min"]},
+ {id:"sum",part:1,lvl:"m",type:"num",sentence:true,title:"5. Bilan à compléter",prompt:"Complète les phrases avec tes résultats.",
+  segs:["Dans notre modèle, le nombre de bactéries est multiplié par ",{k:"x"}," toutes les ",{k:"t"}," minutes. Le seuil fictif est dépassé après ",{k:"d"}," divisions, soit ",{k:"m"}," min = ",{k:"h"}," h ",{k:"mn"}," min. Ce calcul ne permet pas de savoir si un aliment est consommable."],
+  fields:[{k:"x"},{k:"t"},{k:"d"},{k:"m"},{k:"h"},{k:"mn"}],
+  check:function(v){var e={x:2n,t:20n,d:40n,m:800n,h:13n,mn:20n};var w=Object.keys(e).filter(function(k){return v[k]!==e[k];});var m="";
+    if(v.x===20n)m="Premier blanc : par combien le nombre est-il multiplié à chaque étape ? (Ce n'est pas la durée.)";else if(v.d===41n)m="Le nombre de divisions n'est pas le numéro de la case : relis la question 3.";
+    return {w:w,m:m||(w.length?w.length+" case"+(w.length>1?"s":"")+" à revoir (marquée"+(w.length>1?"s":"")+" ✗).":"")};},
+  hints:["Reprends tes réponses aux questions 1, 3 et 4.","Premier blanc : à chaque étape, par combien le nombre de bactéries est-il multiplié ?","Multiplié par 2 toutes les 20 min ; 40 divisions ; 800 min = 13 h 20 min."],
+  corr:["Dans notre modèle, le nombre de bactéries est multiplié par 2 toutes les 20 minutes.","Le seuil fictif est dépassé après 40 divisions, soit 800 min = 13 h 20 min."]},
+ {id:"r1",part:2,lvl:"m",type:"single",box:"real",title:"6. Le rôle du froid",prompt:"Avec le simulateur, compare <b>37 °C</b> et <b>4 °C</b> (avec 1 bactérie au départ). Que remarques-tu ?",
+  options:[{k:"a",t:"La température ne change rien : il faut toujours 13 h 20 min."},{k:"b",t:"À 4 °C, les bactéries se multiplient beaucoup plus lentement : il faut environ 13 jours au lieu de 13 h 20 min."},{k:"c",t:"À 4 °C, toutes les bactéries meurent."}],answer:"b",
+  fb:{a:"Lance le simulateur à 4 °C et lis la case « Temps pour dépasser mille milliards ».",c:"Au froid, le nombre de bactéries augmente encore, mais très lentement : regarde la courbe à 4 °C."},
+  hints:["Touche « 4 °C · réfrigérateur », puis lis la case « Temps pour dépasser mille milliards ».","À 4 °C, une division prend 8 h au lieu de 20 min.","40 divisions × 8 h = 320 h, soit environ 13 jours."],
+  corr:["À 37 °C (modèle) : une division toutes les 20 min → seuil dépassé en 13 h 20 min.","À 4 °C : une division toutes les 8 h → 40 × 8 h = 320 h ≈ 13 jours.","Le froid ne tue pas les bactéries : il ralentit leur multiplication."]},
+ {id:"r2",part:2,lvl:"d",type:"single",box:"real",title:"7. Quand la nourriture s'épuise",prompt:"Choisis « Nourriture : s'épuise » et regarde la courbe. Que se passe-t-il ?",
+  options:[{k:"a",t:"La population continue de doubler jusqu'à l'infini."},{k:"b",t:"La population augmente, puis cesse d'augmenter : la nourriture manque."},{k:"c",t:"La population disparaît d'un coup."}],answer:"b",
+  fb:{a:"Regarde la fin de la courbe : monte-t-elle encore ?",c:"Regarde le tableau : le nombre de bactéries reste élevé, il ne tombe pas à zéro."},
+  hints:["Lance le simulateur avec « Nourriture : s'épuise ».","Observe la forme de la courbe à la fin : est-elle encore en train de monter ?","Sans nourriture, les bactéries ne peuvent plus se multiplier : la courbe forme un plateau."],
+  corr:["Avec une nourriture limitée, la population augmente, puis se stabilise (vers 100 milliards dans cette simulation).","Notre modèle de doublement sans fin n'est donc valable qu'au début, tant que la nourriture ne manque pas."]},
+ {id:"l3",part:2,lvl:"f",type:"single",box:"expl",title:"9. Lire l'emballage",prompt:"Sur l'emballage du repas de Thomas, la mention « À consommer jusqu'au… » t'indique…",doc:LABEL,
+  options:[{k:"a",t:"le jour où le repas a été fabriqué."},{k:"b",t:"le dernier jour où l'on peut manger le repas sans risque."},{k:"c",t:"le nombre de bactéries dans le repas."}],answer:"b",
+  fb:{a:"Non : ce serait la date de fabrication.",c:"L'emballage n'indique jamais le nombre de bactéries."},
+  hints:["« À consommer jusqu'au » : c'est une date limite.","On l'appelle la DLC : date limite de consommation.","Après cette date, le repas peut devenir dangereux."],
+  corr:["« À consommer jusqu'au » = DLC, date limite de consommation.","Après cette date, le repas peut ne plus être sans risque.","Il faut aussi respecter « À conserver au réfrigérateur » : le froid ralentit les bactéries."]}
+];
+var QM={};QS.forEach(function(q){QM[q.id]=q;});
+var PARTS=[{k:1,t:"Calculer avec le modèle",tip:"Retiens : numéro de la case − 1 = nombre de divisions, et 1 h = 60 min (pas 100)."},{k:2,t:"Modèle et réalité",tip:"Le froid ralentit les bactéries sans les tuer ; sans nourriture, la population cesse d'augmenter ; on suit la DLC de l'emballage."}];
+PARTS.forEach(function(p){p.ids=QS.filter(function(q){return q.part===p.k;}).map(function(q){return q.id;});});
+var lastFb={};
+function withFocus(fn){var a=document.activeElement,id=a&&a.id;fn();if(id&&$(id)&&document.activeElement!==$(id)){try{$(id).focus({preventScroll:true});}catch(e){}}}
+function inputHTML(q,f,cls){var id=q.id+"-"+f.k,val=(S.ans[q.id]||{})[f.k]||"";return '<input class="ans '+(cls||"")+'" id="'+id+'" data-k="'+f.k+'" inputmode="numeric" autocomplete="off" value="'+esc(val)+'">';}
+function buildCard(q){
+  var c=document.createElement("article");c.className="qcard";c.id="card-"+q.id;
+  var body="";
+  if(q.type==="num"){
+    if(q.sentence)body='<p class="sentence">'+q.segs.map(function(p){return typeof p==="string"?p:'<label class="sr" for="'+q.id+'-'+p.k+'">case à compléter</label>'+inputHTML(q,p,"xs")+'<span class="mk" id="mk-'+q.id+'-'+p.k+'"></span>';}).join("")+'</p>';
+    else body='<div class="fields">'+q.fields.map(function(f){return '<div class="field'+(f.wide?" full":"")+'"><label for="'+q.id+'-'+f.k+'">'+f.label+'</label><div class="inp">'+inputHTML(q,f,f.wide?"wide":"")+(f.unit?'<span class="muted">'+f.unit+'</span>':'')+'<span class="mk" id="mk-'+q.id+'-'+f.k+'"></span></div></div>';}).join("")+'</div>';
+  }
+  c.innerHTML='<div class="qhead"><h3>'+q.title+'</h3><span class="lvl">'+LV[q.lvl]+'</span><span class="qstat" id="st-'+q.id+'"></span></div><p>'+q.prompt+'</p>'+
+   (q.doc?'<div class="box info"><div class="bt"><span class="ic" aria-hidden="true">ℹ&#xFE0E;</span>Document</div>'+q.doc+'</div>':'')+
+   '<div class="qbody" id="body-'+q.id+'">'+body+'</div>'+
+   '<div class="row"><button class="btn" id="chk-'+q.id+'">Vérifier</button><button class="btn ghost" id="hnt-'+q.id+'">Indice 1/3</button><button class="btn ghost" id="cor-'+q.id+'" hidden>Voir la correction</button></div>'+
+   '<div id="fb-'+q.id+'" aria-live="polite"></div><div class="hints" id="hs-'+q.id+'"></div><div id="co-'+q.id+'"></div>';
+  $(q.box==="real"?"qs-real":q.box==="expl"?"qs-expl":"qs-calc").appendChild(c);
+  $("chk-"+q.id).onclick=function(){check(q);};
+  $("hnt-"+q.id).onclick=function(){S.hints[q.id]=Math.min(3,(S.hints[q.id]||0)+1);save();renderQ(q);};
+  $("cor-"+q.id).onclick=function(){S.corr[q.id]=true;if(q.id==="q4b")unlock();save();renderQ(q);renderBilan();};
+  if(q.type==="num"){
+    c.querySelectorAll("input.ans").forEach(function(inp){
+      inp.addEventListener("input",function(){(S.ans[q.id]=S.ans[q.id]||{})[inp.dataset.k]=inp.value;save();if(lastFb[q.id]){delete lastFb[q.id];renderQ(q);}});
+      inp.addEventListener("keydown",function(e){if(e.key==="Enter")check(q);});
+    });
+  }else{
+    $("body-"+q.id).addEventListener("click",function(e){var t=e.target.closest("button[data-v]");if(!t)return;(S.ans[q.id]=S.ans[q.id]||{}).x=t.dataset.v;save();delete lastFb[q.id];renderQ(q);});
+  }
+}
+function renderBody(q){
+  var a=S.ans[q.id]||{},L=lastFb[q.id],checked=!!(L&&!L.empty),wrong=checked?L.w:[];
+  var isW=function(k){return wrong.indexOf(k)>=0;};
+  var mk=function(k){return checked?(isW(k)?'<span class="mk bad">✗ à revoir</span>':'<span class="mk ok">✓ juste</span>'):"";};
+  if(q.type==="num"){q.fields.forEach(function(f){var el=$(q.id+"-"+f.k);if(!el)return;if(el.value!==(a[f.k]||""))el.value=a[f.k]||"";el.classList.toggle("good",checked&&!isW(f.k));if(checked&&isW(f.k))el.setAttribute("aria-invalid","true");else el.removeAttribute("aria-invalid");$("mk-"+q.id+"-"+f.k).innerHTML=q.sentence?(checked?(isW(f.k)?'<span class="mk bad"> ✗</span>':'<span class="mk ok"> ✓</span>'):""):mk(f.k);});return;}
+  $("body-"+q.id).innerHTML='<div class="opts" role="group">'+q.options.map(function(o){var on=a.x===o.k;return '<button class="opt'+(on&&checked?(isW("x")?" badm":" okm"):"")+'" id="o-'+q.id+'-'+o.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span>'+o.t+'</span>'+(on?mk("x"):"")+'</button>';}).join("")+'</div>';
+}
+function emptyFb(q,m){lastFb[q.id]={empty:true,m:m};renderQ(q);}
+function check(q){
+  var a=S.ans[q.id]||{},r;
+  if(q.type==="num"){var v={};for(var i=0;i<q.fields.length;i++){var f=q.fields[i];var raw=a[f.k];if(f.k==="x")raw=String(raw||"").replace(/^[×xX*\s]+/,"");v[f.k]=digits(raw);if(v[f.k]===null)return emptyFb(q,"Remplis chaque case avec un nombre entier (sans l'unité) avant de vérifier.");}r=q.check(v);}
+  else{if(!a.x)return emptyFb(q,"Choisis une réponse avant de vérifier.");r={w:a.x===q.answer?[]:["x"],m:(q.fb||{})[a.x]||""};}
+  var ok=r.w.length===0;
+  S.tries[q.id]=(S.tries[q.id]||0)+1;if(S.first[q.id]===undefined)S.first[q.id]=ok;
+  if(ok){S.done[q.id]=true;if(q.id==="q4b")unlock();}
+  lastFb[q.id]={ok:ok,m:r.m,w:r.w};save();renderQ(q);renderBilan();renderStepsDone();
+}
+function renderQ(q){
+  withFocus(function(){renderBody(q);});
+  var st=$("st-"+q.id),fb=$("fb-"+q.id);
+  if(S.done[q.id]){st.textContent=S.first[q.id]?"✓ Réussi au premier essai":"✓ Réussi";st.classList.add("ok");}
+  else{var t=S.tries[q.id]||0;st.textContent=t?t+" essai"+(t>1?"s":""):"";st.classList.remove("ok");}
+  var L=lastFb[q.id];
+  if(L){if(L.empty)fb.innerHTML='<div class="fb bad">'+L.m+'</div>';
+    else if(L.ok)fb.innerHTML='<div class="fb ok"><strong>✓ Juste !</strong> '+(S.first[q.id]&&S.tries[q.id]===1?"Bravo, du premier coup.":"Bien corrigé.")+'</div>';
+    else fb.innerHTML='<div class="fb bad"><strong>✗ Pas encore.</strong> '+(L.m||"Vérifie les cases marquées ✗, puis réessaie.")+'</div>';}
+  else fb.innerHTML="";
+  var nh=S.hints[q.id]||0;
+  $("hs-"+q.id).innerHTML=q.hints.slice(0,nh).map(function(h,i){return '<div class="hint"><b>Indice '+(i+1)+'/3 :</b> '+h+'</div>';}).join("");
+  var hb=$("hnt-"+q.id);hb.disabled=nh>=3;hb.textContent=nh>=3?"Indices épuisés":"Indice "+(nh+1)+"/3";
+  var can=S.done[q.id]||(S.tries[q.id]||0)>=2||nh>=3;
+  $("cor-"+q.id).hidden=!can||!!S.corr[q.id];
+  $("co-"+q.id).innerHTML=S.corr[q.id]?'<div class="corr"><span class="ct">✔&#xFE0E; Correction détaillée</span>'+q.corr.map(function(l){return '<div class="l'+(/^Attention/.test(l)?" warnline":"")+'">'+l+'</div>';}).join("")+'</div>':"";
+  $("chk-"+q.id).textContent=S.done[q.id]?"Vérifier à nouveau":"Vérifier";
+}
+function unlock(){if(S.unlocked)return;S.unlocked=true;save();renderBets();renderBoard(false);renderReveal();celebrate();}
+function renderReveal(){
+  var slot=$("revealSlot");if(!S.unlocked){slot.innerHTML="";return;}
+  var l=betLabel(),win=S.bet==="p2";
+  slot.innerHTML='<div class="reveal"><div class="kicker" style="color:var(--band-muted)">Et ton pari ?</div><div class="big">13 h 20 min</div><p>'+(l?'Tu avais parié : <b>« '+l+' »</b>. ':"Tu n'avais pas fait de pari. ")+(win?"✓ Bravo, ton intuition était juste !":"✗ La bonne réponse était « Entre 6 h et 24 h ».")+'</p><p class="muted">En partant d\'une seule bactérie, notre modèle dépasse mille milliards en moins d\'une journée. Les doublements vont beaucoup plus vite que notre intuition.</p></div>';
+}
+
+/* ---------- étape 4 : et en vrai ? ---------- */
+var TEMPS=[{k:"37",l:"37 °C · chaud (modèle)",gen:20},{k:"20",l:"20 °C · pièce",gen:60},{k:"4",l:"4 °C · réfrigérateur",gen:480}];
+var N0S=[1,10,100,1000];
+var FOODS=[{k:"plenty",l:"Ne s'épuise jamais (modèle)"},{k:"limited",l:"S'épuise"}];
+var K=1e11;
+function genOf(){var t=TEMPS.filter(function(x){return x.k===S.rt.t;})[0]||TEMPS[0];return t.gen;}
+function popAt(hours){var g=genOf(),d=Math.floor(hours*60/g+1e-9),n0=S.rt.n0;
+  if(S.rt.food==="plenty")return {n:BigInt(n0)*(1n<<BigInt(d)),d:d};
+  var x=n0;for(var i=0;i<d;i++){x=x+x*(1-x/K);}return {n:BigInt(Math.round(x)),d:d};}
+function chipRow(id,list,cur,onPick){var el=$(id);el.innerHTML=list.map(function(x){return '<button class="chip" data-k="'+x.k+'" aria-pressed="'+(String(x.k)===String(cur))+'">'+x.l+'</button>';}).join("");el.onclick=function(e){var b=e.target.closest(".chip");if(!b)return;onPick(b.dataset.k);};}
+function renderSimCtl(){
+  chipRow("chT",TEMPS,S.rt.t,function(k){S.rt.t=k;changed();});
+  chipRow("chN",N0S.map(function(n){return {k:n,l:grp(n)};}),S.rt.n0,function(k){S.rt.n0=+k;changed();});
+  chipRow("chF",FOODS,S.rt.food,function(k){S.rt.food=k;changed();});
+}
+function changed(){save();renderSimCtl();renderSimOut();rSel=null;restartReal(true);}
+$("rModel").onclick=function(){S.rt={t:"37",n0:1,food:"plenty"};changed();};
+function renderSimOut(){
+  var g=genOf(),n0=S.rt.n0,txt;
+  if(S.rt.food==="limited"){txt="Jamais : la nourriture s'épuise avant. La population plafonne vers 100 milliards.";}
+  else{var d=0,x=BigInt(n0);while(x<=TH){x*=2n;d++;}txt=dur(d*g)+" ("+d+" divisions)";}
+  $("simout").innerHTML='<div class="fact"><div class="k">Temps entre deux divisions</div><div class="v">'+hm(g)+'</div></div><div class="fact"><div class="k">Temps pour dépasser mille milliards</div><div class="v">'+txt+'</div></div><div class="fact"><div class="k">Notre modèle (étape 3)</div><div class="v">13 h 20 min</div></div>';
+}
+var rProg=0,rRun=false,rRaf=null,rLast=0,rSel=null,rGeo=null;
+function drawReal(){
+  var cv=$("rcv"),box=cv.parentElement,w=box.clientWidth;if(w<60)return;
+  var rs=getComputedStyle(document.documentElement),fs=parseFloat(rs.fontSize)||22;
+  var tf=Math.max(14,Math.round(fs*.7)),h=Math.round(Math.max(280,Math.min(w*.6,fs*20)));
+  var dpr=window.devicePixelRatio||1;if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);}cv.style.height=h+"px";
+  var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+  var col=function(n){return rs.getPropertyValue(n).trim()||"#888";},font=rs.getPropertyValue("--f-body");
+  var L=tf*3.2,R=tf*1.2,T=tf*1.4,B=tf*3.6,pw=w-L-R,ph=h-T-B,YM=2e12;
+  var X=function(x){return L+x/24*pw;},Y=function(y){return T+ph-Math.min(y,YM)/YM*ph;};rGeo={X:X};
+  c.strokeStyle=col("--line");c.lineWidth=1;
+  for(var y=0;y<=4;y++){c.beginPath();c.moveTo(L,Y(y*5e11));c.lineTo(L+pw,Y(y*5e11));c.stroke();}
+  for(var x=0;x<=24;x+=4){c.beginPath();c.moveTo(X(x),T);c.lineTo(X(x),T+ph);c.stroke();}
+  c.strokeStyle=col("--ink");c.lineWidth=2;c.beginPath();c.moveTo(L,T);c.lineTo(L,T+ph);c.lineTo(L+pw,T+ph);c.stroke();
+  c.fillStyle=col("--muted");c.font=tf+"px "+font;c.textAlign="right";c.textBaseline="middle";
+  ["0","0,5","1","1,5","2"].forEach(function(s,i){c.fillText(s,L-8,Y(i*5e11));});
+  c.textAlign="center";c.textBaseline="top";for(x=0;x<=24;x+=4)c.fillText(String(x),X(x),T+ph+6);
+  c.setLineDash([7,6]);c.strokeStyle=col("--hot");c.lineWidth=2;c.beginPath();c.moveTo(L,Y(1e12));c.lineTo(L+pw,Y(1e12));c.stroke();c.setLineDash([]);
+  c.fillStyle=col("--hot");c.font="700 "+tf+"px "+font;c.textAlign="left";c.textBaseline="bottom";c.fillText("seuil : mille milliards",L+6,Y(1e12)-4);
+  c.fillStyle=col("--ink");
+  var fit=function(t,max){var f=tf;c.font="700 "+f+"px "+font;while(c.measureText(t).width>max&&f>11){f--;c.font="700 "+f+"px "+font;}};
+  var xt="Temps (en heures)";fit(xt,w-8);c.textAlign="center";c.textBaseline="bottom";c.fillText(xt,L+pw/2,h-4);
+  var yt="Nombre de bactéries (en mille milliards)";fit(yt,ph+T*.5);c.save();c.translate(4,T+ph/2);c.rotate(-Math.PI/2);c.textAlign="center";c.textBaseline="top";c.fillText(yt,0,0);c.restore();
+  if(rProg>0){
+    c.strokeStyle=col("--bact");c.lineWidth=3.5;c.lineJoin="round";c.beginPath();var off=false;
+    var step=24/Math.max(200,pw),t;
+    for(t=0;t<=rProg+1e-9;t+=step){var n=Number(popAt(t).n),py=Y(n);if(t===0)c.moveTo(X(t),py);else c.lineTo(X(t),py);if(n>=YM){off=true;break;}}
+    c.stroke();
+    var ht=Math.min(rProg,t),hn=Number(popAt(ht).n);
+    if(off){c.fillStyle=col("--hot");c.font="700 "+tf+"px "+font;c.textAlign="center";c.textBaseline="top";var ax=Math.min(Math.max(X(ht),L+90),L+pw-90);c.fillText("↑ sort du graphique !",ax,T+4);}
+    else if(rProg<24){c.fillStyle=col("--bact");c.beginPath();c.arc(X(rProg),Y(hn),7,0,Math.PI*2);c.fill();}
+  }else if(!rRun){c.fillStyle=col("--muted");c.font=tf+"px "+font;c.textAlign="center";c.textBaseline="middle";c.fillText("Appuie sur « Lancer »",L+pw/2,T+ph*.7);}
+  if(rSel!==null&&rSel<=rProg+1e-9){
+    var sn=Number(popAt(rSel).n),label=rSel+" h : "+(sn<1e6?fmt(popAt(rSel).n):words(sn));
+    c.font="700 "+tf+"px "+font;var bw=c.measureText(label).width+18,bh=tf+14,sx=X(rSel),sy=Y(sn);
+    c.setLineDash([4,4]);c.strokeStyle=col("--teal");c.lineWidth=1.5;c.beginPath();c.moveTo(sx,T);c.lineTo(sx,T+ph);c.stroke();c.setLineDash([]);
+    c.fillStyle=col("--teal");c.beginPath();c.arc(sx,sy,7,0,Math.PI*2);c.fill();
+    var bx=Math.max(4,Math.min(w-bw-4,sx-bw/2)),by=Math.max(2,Math.min(T+ph-bh-4,sy-bh-14));
+    c.fillStyle=col("--ink");c.fillRect(bx,by,bw,bh);c.fillStyle=col("--surface");c.textAlign="left";c.textBaseline="middle";c.fillText(label,bx+9,by+bh/2);
+  }
+}
+function renderRTable(){
+  var h="";for(var t=0;t<=24;t+=2){var shown=t<=rProg+1e-9&&rProg>0;var p=popAt(t),n=Number(p.n);
+    h+='<tr class="'+(rSel===t?"hl":"")+'"><td>'+t+'</td><td class="'+(shown?"":"q")+'">'+(shown?(n<1e15?fmt(p.n):words(n)):"?")+'</td></tr>';}
+  $("rtable").innerHTML=h;$("rPlay").disabled=rRun;$("rPause").disabled=!rRun;
+}
+function stepReal(ts){if(!rRun)return;if(!rLast)rLast=ts;var dt=Math.min(.1,(ts-rLast)/1000);rLast=ts;rProg=Math.min(24,rProg+dt*4);if(rProg>=24){rRun=false;S.rDone=true;save();renderStepsDone();}drawReal();renderRTable();if(rRun)rRaf=requestAnimationFrame(stepReal);}
+function startReal(){if(rProg>=24)rProg=0;if(RM){rProg=24;S.rDone=true;save();drawReal();renderRTable();renderStepsDone();return;}rRun=true;rLast=0;renderRTable();rRaf=requestAnimationFrame(stepReal);}
+function pauseReal(){if(rRun){rRun=false;if(rRaf)cancelAnimationFrame(rRaf);renderRTable();drawReal();}}
+function stopReal(){rRun=false;if(rRaf)cancelAnimationFrame(rRaf);}
+function restartReal(auto){stopReal();rProg=0;drawReal();renderRTable();$("rread").textContent="Touche la courbe pour lire une valeur.";if(auto&&cur==="realite")startReal();}
+$("rPlay").onclick=startReal;$("rPause").onclick=pauseReal;$("rReset").onclick=function(){rSel=null;restartReal(false);};
+(function(){var cv=$("rcv");function pick(e){if(!rGeo||rProg<=0)return;var r=cv.getBoundingClientRect(),px=e.clientX-r.left,best=null,bd=1e9;
+  for(var t=0;t<=24;t+=2){if(t<=rProg+1e-9){var d=Math.abs(rGeo.X(t)-px);if(d<bd){bd=d;best=t;}}}
+  rSel=best!==null&&bd<40?best:null;drawReal();renderRTable();
+  $("rread").textContent=rSel===null?"Touche la courbe pour lire une valeur.":"Après "+rSel+" h : "+fmt(popAt(rSel).n)+" bactéries";}
+  cv.addEventListener("pointerdown",pick);cv.addEventListener("pointermove",function(e){if(e.pointerType==="mouse"||e.buttons)pick(e);});})();
+
+/* ---------- étape 5 : expliquer ---------- */
+var STARTERS=["Ce résultat vient d'un modèle simplifié car…","En réalité, les bactéries se multiplient plus ou moins vite selon…","Le nombre de mille milliards est…","Au réfrigérateur, les bactéries…","Pour savoir combien de temps garder un repas, on…"];
+var IDEAS=[{k:"m",l:"modèle / hypothèses",re:/mod[eè]le|simplifi|hypoth|invent|fictif|fictive|suppos|pas r[ée]el/i},{k:"t",l:"température / froid",re:/temp[ée]rature|frigo|r[ée]frig|froid|chaud|°|degr/i},{k:"f",l:"aliment / type de bactérie",re:/aliment|nourriture|nutriment|type|esp[eè]ce|sorte|[ée]puis/i},{k:"l",l:"emballage / date limite",re:/emballage|[ée]tiquette|date|DLC|consigne/i}];
+var CRIT=[["m","Notre calcul utilise un modèle simplifié (des hypothèses inventées)."],["s","Le seuil de mille milliards est fictif."],["f","La multiplication dépend de la bactérie, de la température et de l'aliment."],["e","Pour conserver un repas, on suit la date limite indiquée sur l'emballage."]];
+$("starters").innerHTML=STARTERS.map(function(s,i){return '<button class="starter" data-i="'+i+'">'+esc(s)+'</button>';}).join("");
+$("starters").onclick=function(e){var b=e.target.closest(".starter");if(!b)return;var ta=$("q5"),s=STARTERS[+b.dataset.i].replace("…"," ");ta.value=(ta.value.trim()?ta.value.trim()+" ":"")+s;S.q5=ta.value;save();renderQ5();ta.focus();try{ta.setSelectionRange(ta.value.length,ta.value.length);}catch(err){}};
+function renderIdeas(){var t=S.q5||"";$("ideas").innerHTML=IDEAS.map(function(i){var on=i.re.test(t);return '<span class="idea'+(on?" on":"")+'">'+(on?"✓ ":"○ ")+i.l+'</span>';}).join("");}
+function q5len(){var t=S.q5;STARTERS.forEach(function(s){t=t.split(s.replace("…"," ").trim()).join("");});return t.replace(/…/g,"").trim().length;}
+function q5msg(){var len=q5len();$("q5btn").disabled=len<30&&!S.q5shown;$("q5count").textContent=S.q5shown?"":len<30?"Complète au moins une phrase pour débloquer la comparaison.":"";}
+function renderQ5(){
+  var ta=$("q5");if(ta.value!==S.q5)ta.value=S.q5;
+  q5msg();$("q5out").hidden=!S.q5shown;renderIdeas();
+  $("crit").innerHTML=CRIT.map(function(c){return '<label><input type="checkbox" id="crit-'+c[0]+'" data-k="'+c[0]+'"'+(S.crit[c[0]]?" checked":"")+'><span>'+c[1]+'</span></label>';}).join("");
+}
+$("crit").addEventListener("change",function(e){var i=e.target;if(i.dataset&&i.dataset.k){S.crit[i.dataset.k]=i.checked;save();renderBilan();}});
+$("q5").addEventListener("input",function(e){S.q5=e.target.value;save();q5msg();renderIdeas();renderBilan();});
+$("q5btn").onclick=function(){S.q5shown=true;save();renderQ5();renderBilan();renderStepsDone();};
+
+/* ---------- bilan ---------- */
+function partScore(p){return {s:p.ids.filter(function(k){return S.first[k];}).length,n:p.ids.length};}
+function critN(){return CRIT.filter(function(c){return S.crit[c[0]];}).length;}
+function total(){var s=0,n=0;PARTS.forEach(function(p){var r=partScore(p);s+=r.s;n+=r.n;});return {s:s,n:n};}
+function today(){var d=new Date();return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();}
+function bilanText(){
+  var T=total(),L=[];
+  L.push("5e EIST · Mission 4 · Activité 4 — L'échiquier des bactéries");
+  L.push("Élève : "+(S.name.trim()||"non renseigné")+"   Date : "+today());
+  L.push("Pari : "+(betLabel()||"aucun")+(S.unlocked?" (réponse : 13 h 20 min)":""));
+  L.push("Score au premier essai : "+T.s+"/"+T.n);
+  PARTS.forEach(function(p){var r=partScore(p);L.push("Partie "+p.k+" · "+p.t+" : "+r.s+"/"+r.n);
+    p.ids.forEach(function(k){var t=S.tries[k]||0;L.push("  - "+QM[k].title+" : "+(S.first[k]?"✓ premier essai":S.done[k]?"réussi en "+t+" essais":t?"pas encore réussi ("+t+" essai"+(t>1?"s":"")+")":"pas fait")+(S.corr[k]&&!S.first[k]?" — correction consultée":""));});});
+  L.push("Partie 3 · Explication : "+(S.q5.trim()?"rédigée, "+critN()+"/4 idées cochées":"pas encore rédigée"));
+  L.push("Bonus · Sprint des doublements : "+(S.sprintBest>=0?S.sprintBest+" doublement"+(S.sprintBest>1?"s":""):"pas joué"));
+  var rev=[];if(S.tries.q3&&!S.first.q3)rev.push("numéro de la case − 1 = nombre de divisions");if(S.tries.q4b&&!S.first.q4b)rev.push("convertir des minutes en heures (1 h = 60 min)");if(S.tries.q2&&!S.first.q2)rev.push("comparer de grands nombres (compter les chiffres)");if(S.tries.r1&&!S.first.r1)rev.push("le froid ralentit la multiplication des bactéries");if(S.tries.l3&&!S.first.l3)rev.push("la DLC sur l'emballage");
+  L.push("À revoir : "+(rev.length?rev.join(" ; "):"rien de particulier"));
+  return L.join("\n");
+}
+function scoreCards(){return PARTS.map(function(p){var r=partScore(p);return '<div class="sc"><div class="k">Partie '+p.k+' · '+p.t+'</div><div class="v">'+r.s+'/'+r.n+'</div><div class="bar"><span style="width:'+(r.s/r.n*100)+'%"></span></div></div>';}).join("")+
+  '<div class="sc"><div class="k">Partie 3 · Explication (auto-évaluation)</div><div class="v">'+(S.q5.trim()?critN()+"/4":"—")+'</div><div class="bar"><span style="width:'+(critN()/4*100)+'%"></span></div></div>'+
+  '<div class="sc"><div class="k">Bonus · Sprint des doublements</div><div class="v">'+(S.sprintBest>=0?S.sprintBest:"—")+'</div></div>';}
+function renderBilan(){
+  var T=total();$("scoreGrid").innerHTML='<div class="sc"><div class="k">Total au premier essai</div><div class="v">'+T.s+'/'+T.n+'</div><div class="bar"><span style="width:'+(T.s/T.n*100)+'%"></span></div></div>'+scoreCards();
+  var nf=QS.filter(function(q){return !S.tries[q.id];}),weak=PARTS.filter(function(p){var r=partScore(p);return p.ids.some(function(k){return S.tries[k];})&&r.s<r.n;}),h="";
+  if(nf.length)h+='<div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Pas encore terminé</div><p>Questions restantes : '+nf.map(function(q){return q.title.split(".")[0];}).join(", ")+'.</p></div>';
+  if(weak.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Mes conseils</div>'+weak.map(function(p){return '<p><b>Partie '+p.k+' :</b> '+p.tip+'</p>';}).join("")+'</div>';
+  else if(!nf.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Excellent</div><p>Tout est réussi au premier essai. Prêt pour la mission !</p></div>';
+  $("advice").innerHTML=h;$("bilanText").textContent=bilanText();if($("pname").value!==S.name)$("pname").value=S.name;
+}
+$("pname").addEventListener("input",function(e){S.name=e.target.value;save();$("bilanText").textContent=bilanText();});
+$("copyBilan").onclick=function(){var t=bilanText(),msg=$("bilanMsg");var sel=function(){var r=document.createRange();r.selectNodeContents($("bilanText"));var s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : copie-le avec ton appareil.";};
+  try{navigator.clipboard.writeText(t).then(function(){msg.textContent="Bilan copié.";},sel);}catch(e){sel();}};
+var DL=null;
+(function(){try{if(window.claude&&window.claude.use){window.claude.use("downloads").then(function(d){DL=d;$("dlBilan").hidden=!d;}).catch(function(){});}}catch(e){}})();
+$("dlBilan").onclick=function(){if(!DL)return;var msg=$("bilanMsg");var nm=(S.name.trim()||"eleve").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9_-]+/g,"-").slice(0,30)||"eleve";
+  DL.save({filename:"bilan-bacteries-"+nm+".txt",data:bilanText()}).then(function(){msg.textContent="Bilan téléchargé.";},function(err){var c=err&&err.code;msg.textContent=c==="declined"?"Téléchargement annulé.":c==="rate_limited"?"Patiente un instant, puis réessaie.":"Téléchargement impossible ici : utilise « Copier mon bilan ».";});};
+$("showProf").onclick=function(){var T=total();$("ovname").textContent=S.name.trim()||"Élève";$("ovtot").textContent=T.s+" / "+T.n;$("ovparts").innerHTML=scoreCards();$("overlay").hidden=false;$("ovClose").focus();};
+$("ovClose").onclick=function(){$("overlay").hidden=true;$("showProf").focus();};
+
+function renderStepsDone(){
+  var all=function(ids){return ids.every(function(k){return S.done[k];});};
+  var d={parier:!!S.bet,explorer:S.crossed,calculer:all(PARTS[0].ids),realite:!!S.rDone&&all(["r1","r2"]),expliquer:S.q5shown&&!!S.done.l3};
+  document.querySelectorAll(".step").forEach(function(b){b.classList.toggle("done",!!d[b.dataset.go]&&b.getAttribute("aria-current")!=="step");});
+}
+function redrawAll(){drawDish();drawReal();}
+function renderAll(){applyFs();applyTheme();renderSound();renderBets();renderBoard(false);QS.forEach(renderQ);renderReveal();renderSimCtl();renderSimOut();renderRTable();renderQ5();renderBilan();renderSpBest();spRender();renderStepsDone();stopPlay();redrawAll();}
+
+buildBoard();QS.forEach(buildCard);renderAll();
+go(location.hash.slice(1)||"parier");
+if(window.ResizeObserver){var ro=new ResizeObserver(function(){redrawAll();});ro.observe($("dish").parentElement);ro.observe($("rcv").parentElement);}else window.addEventListener("resize",redrawAll);
+window.__t={S:function(){return S;},sp:function(){return SP;},rp:function(){return rProg;}};
+})();
+</script>
+</body>
+</html>

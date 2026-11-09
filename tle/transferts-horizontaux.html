@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Transferts horizontaux de gènes</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
+<style>
+/* Layout : bandeau SVT vert foncé, stepper collant en 6 étapes (Problème → Griffith → Lederberg → Mécanismes → Acinetobacter → Synthèse), une étape visible à la fois, colonne de 1080 px (1400 px en projection) */
+:root{
+  --bg:#eff4f0; --surface:#ffffff; --surface-2:#e3ece5; --ink:#132a1e; --muted:#4a6355; --line:#c3d5c8;
+  --accent:#1d6b45; --accent-ink:#ffffff; --accent-soft:#d9eee0;
+  --band:#123a28; --band-ink:#ecf6ef; --band-muted:#a9cdb6;
+  --ok:#17703c; --ok-soft:#dcf1e3; --bad:#b3261e; --bad-soft:#fbe2df;
+  --info:#1d5fa8; --info-soft:#e4eefb; --warn:#a14f00; --warn-soft:#fdebd6; --key:#17703c; --key-soft:#dcf1e3; --crit:#b3261e; --crit-soft:#fbe2df;
+  --cell:#f6e7c8; --cell-line:#b08a4a; --dna:#2e8b57; --chromo:#2f5fb5; --gene:#d0362b; --plas:#c2378a; --phage:#5f6b78;
+  --cocci:#7a52b3; --capsule:#d9cdf0; --colS:#f1dc8a; --colR:#d9c9a8; --agar:#fbf0cf; --rim:#c4d3d6;
+  --mouse:#e9e4ef; --mouse-line:#8b8399; --dead:#b9b5bf;
+  --stA:#d0362b; --stB:#0b8a8a; --stP:#7a3fb0;
+  --s1:#2e9a48; --s2:#d0362b; --s3:#1d5fa8;
+  --paper:#fffdf6;
+  --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs:22px; --maxw:1080px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1611; --surface:#13231b; --surface-2:#1b3125; --ink:#e5f1e9; --muted:#a3bfad; --line:#2f4a3a;
+  --accent:#66c995; --accent-ink:#06261a; --accent-soft:#173d2a;
+  --band:#08251a; --band-ink:#e5f3ea; --band-muted:#93c0a4;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --cell:#4a3e28; --cell-line:#c9a86a; --dna:#5fd08f; --chromo:#8ab8f2; --gene:#ff7b70; --plas:#f29cc8; --phage:#b8c2cc;
+  --cocci:#b996f0; --capsule:#3e335a; --colS:#b5a35c; --colR:#8f826a; --agar:#3a321e; --rim:#3d5960;
+  --mouse:#3a3546; --mouse-line:#b7aec8; --dead:#5a5662;
+  --stA:#ff7b70; --stB:#4fd1cf; --stP:#c2a6f2;
+  --s1:#66d68a; --s2:#ff7b70; --s3:#8ab8f2;
+  --paper:#1d2a22;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0c1611; --surface:#13231b; --surface-2:#1b3125; --ink:#e5f1e9; --muted:#a3bfad; --line:#2f4a3a;
+  --accent:#66c995; --accent-ink:#06261a; --accent-soft:#173d2a;
+  --band:#08251a; --band-ink:#e5f3ea; --band-muted:#93c0a4;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --cell:#4a3e28; --cell-line:#c9a86a; --dna:#5fd08f; --chromo:#8ab8f2; --gene:#ff7b70; --plas:#f29cc8; --phage:#b8c2cc;
+  --cocci:#b996f0; --capsule:#3e335a; --colS:#b5a35c; --colR:#8f826a; --agar:#3a321e; --rim:#3d5960;
+  --mouse:#3a3546; --mouse-line:#b7aec8; --dead:#5a5662;
+  --stA:#ff7b70; --stB:#4fd1cf; --stP:#c2a6f2;
+  --s1:#66d68a; --s2:#ff7b70; --s3:#8ab8f2;
+  --paper:#1d2a22;
+  color-scheme:dark;
+}
+html{font-size:var(--fs)}
+html.proj{--maxw:1400px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+sup{font-size:.7em;line-height:0}
+
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:18px 20px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.4rem,4.2vw,2.1rem);font-weight:800;margin-top:4px}
+.band .q{color:var(--band-muted);margin-top:4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{min-height:48px;min-width:48px;padding:0 12px;border-radius:12px;border:1.5px solid color-mix(in oklab,var(--band-ink) 35%,transparent);background:transparent;color:var(--band-ink);font-weight:700;cursor:pointer;font-size:.9rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+.tbtn.warn{border-color:var(--warn);background:color-mix(in oklab,var(--warn) 35%,transparent)}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.steps .wrap{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;padding-block:6px}
+.step{min-height:56px;border:0;border-radius:12px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px;color:var(--muted);font-weight:700;min-width:0;font-size:.9rem}
+.step .n{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid currentColor;font-family:var(--f-num);font-size:.8rem}
+.step .l{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step[aria-current="step"]{background:var(--accent-soft);color:var(--ink)}
+.step[aria-current="step"] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.step.done .n{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+@media (max-width:900px){.step .l{display:none}}
+
+main .wrap{padding-block:24px 56px}
+section.view{display:flex;flex-direction:column;gap:22px}
+.kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.h2{font-size:clamp(1.35rem,3.4vw,1.8rem);font-weight:800}
+.lead{max-width:66ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.btn{min-height:52px;padding:0 18px;border-radius:14px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{min-height:48px;padding:0 12px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.next{display:flex;justify-content:flex-end}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+
+.box{border-radius:14px;padding:14px 16px;border-left:6px solid;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box .bt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.box .ic{font-size:1.1rem;line-height:1}
+.box.info{background:var(--info-soft);border-color:var(--info)}.box.info .bt{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)}.box.warn .bt{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)}.box.key .bt{color:var(--key)}
+.box.crit{background:var(--crit-soft);border-color:var(--crit)}.box.crit .bt{color:var(--crit)}
+.box ol,.box ul{margin:0;padding-left:1.3em}
+.problem{background:var(--paper);border:2px solid var(--accent);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.problem .pq{font-family:var(--f-display);font-weight:800;font-size:clamp(1.15rem,3vw,1.5rem)}
+.bets{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px}
+.bet{min-height:72px;text-align:left;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.bet[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+
+/* Calculator */
+.sliders{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.sliders{grid-template-columns:minmax(0,1fr)}}
+.sl{display:flex;flex-direction:column;gap:4px;min-width:0}
+.sl label{font-weight:700;font-size:.9rem}
+.sl .val{font-family:var(--f-num);font-weight:700;color:var(--accent);font-size:1.15rem}
+input[type=range]{width:100%;height:48px;accent-color:var(--accent)}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px}
+.fact{background:var(--surface-2);border-radius:12px;padding:12px;min-width:0}
+.fact .k{font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.fact .v{font-family:var(--f-num);font-weight:700;font-size:1.15rem;overflow-wrap:anywhere}
+.fact .v small{font-family:var(--f-body);font-weight:400;font-size:.9rem;color:var(--muted)}
+.fact.hl{background:var(--accent-soft)}
+.ruler svg{width:100%;height:auto;display:block}
+.rlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.9rem}
+.rlegend span{display:inline-flex;align-items:center;gap:6px}
+.rlegend i{width:14px;height:14px;border-radius:50%;display:inline-block}
+
+/* Labs */
+.labctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.grp{display:flex;flex-direction:column;gap:6px;min-width:0}
+.grp .gl{font-weight:700;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.chip:disabled{opacity:.4;cursor:not-allowed}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets .chip{min-width:48px;padding:0 10px}
+.presets .chip.seen::after{content:" ✓";color:var(--ok)}
+.stage{background:var(--surface-2);border-radius:16px;padding:10px;min-width:0}
+.stage svg{width:100%;height:auto;display:block}
+.stage .res{font-weight:700;min-height:1.6em;text-align:center}
+.syr{transition:transform .9s cubic-bezier(.4,0,.2,1)}
+.ph1 .syr{transform:translateX(34px)}
+.mbody,.mhead,.mear{transition:fill .8s ease}
+.ph2.dead .mbody,.ph2.dead .mhead,.ph2.dead .mear{fill:var(--dead)}
+.eyeA{transition:opacity .4s}.eyeX{opacity:0;transition:opacity .4s}
+.ph2.dead .eyeA{opacity:0}.ph2.dead .eyeX{opacity:1}
+.mouse{transform-box:fill-box;transform-origin:center;transition:transform .8s}
+.ph2.dead .mouse{transform:rotate(10deg) translateY(6px)}
+.colony{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.2);transition:opacity .4s,transform .5s cubic-bezier(.2,1.5,.4,1)}
+.ph3 .colony{opacity:1;transform:scale(1)}
+.dots circle{transition:cx 1.2s ease,cy 1.2s ease}
+.journal{width:100%;border-collapse:collapse;font-size:.9rem}
+.journal th,.journal td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.journal th{background:var(--surface-2);position:sticky;top:0}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tscroll.tall{max-height:300px;overflow-y:auto}
+.gtab{border-collapse:collapse;font-family:var(--f-num);font-size:.95rem;margin:0 auto}
+.gtab th,.gtab td{border:1px solid var(--line);padding:6px 10px;text-align:center}
+.gtab th{background:var(--surface-2);font-family:var(--f-body)}
+.gtab .m{color:var(--bad);font-weight:700}.gtab .p{color:var(--ok);font-weight:700}
+
+/* Mechanisms */
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tab{min-height:52px;border-radius:12px;border:2px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer}
+.tab[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.cvbox{width:100%;min-width:0}
+.cvbox canvas{display:block;width:100%;border-radius:14px;touch-action:pan-y}
+.caption{min-height:3em;font-weight:700}
+
+/* Charts */
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9rem}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:16px;border-radius:4px;display:inline-grid;place-items:center;font-style:normal;font-size:.7rem;font-weight:800;color:#fff}
+.gread{min-height:1.6em;font-weight:700;color:var(--accent)}
+.pie{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:16px;align-items:center}
+@media (max-width:560px){.pie{grid-template-columns:minmax(0,1fr)}}
+.pie svg{width:100%;max-width:220px;height:auto;display:block;margin:0 auto}
+.pie path{cursor:pointer}
+.pie path.on{stroke:var(--ink);stroke-width:3}
+.cite{font-size:.9rem;color:var(--muted);font-style:italic}
+
+/* Questions */
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:80px}
+.qhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.qhead h3{font-size:1.15rem;font-weight:800}
+.lvl{font-size:.9rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.qstat{margin-left:auto;font-size:.9rem;font-weight:700;color:var(--muted)}
+.qstat.ok{color:var(--ok)}
+.fields{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:.9rem;font-weight:700;color:var(--muted)}
+.inp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.inp .pre{font-family:var(--f-num);font-weight:700}
+input.ans{min-height:52px;width:6.5ch;padding:0 10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-family:var(--f-num);font-weight:600;font-size:1rem;min-width:0}
+input.ans[aria-invalid="true"]{border-color:var(--bad);background:var(--bad-soft)}
+input.ans.good{border-color:var(--ok);background:var(--ok-soft)}
+.mk{font-weight:700;font-size:.9rem;white-space:nowrap}
+.mk.ok{color:var(--ok)}.mk.bad{color:var(--bad)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;justify-content:space-between}
+.opts.inline .opt{justify-content:center}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt.okm{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badm{border-color:var(--bad);background:var(--bad-soft)}
+.rrow{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:14px;background:var(--surface-2)}
+.rlab{font-weight:700}
+.rhd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between}
+.fb{border-radius:12px;padding:12px 14px}
+.fb.ok{background:var(--ok-soft);border:2px solid var(--ok)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.hints{display:flex;flex-direction:column;gap:8px}
+.hint{background:var(--warn-soft);border-radius:12px;padding:10px 14px}
+.hint b{color:var(--warn)}
+.corr{border-left:5px solid var(--key);background:var(--key-soft);border-radius:0 12px 12px 0;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.corr .ct{font-weight:700;color:var(--key)}
+.sentence-live{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-style:italic}
+.sentence-live b{font-style:normal;color:var(--accent)}
+.filltext{line-height:2.5}
+.blank{min-height:48px;min-width:5em;padding:2px 10px;margin:2px;border-radius:10px;border:2px dashed var(--muted);background:var(--bg);cursor:pointer;font-weight:700;vertical-align:middle;line-height:1.3}
+.blank.filled{border-style:solid;border-color:var(--accent)}
+.blank.active{outline:3px solid var(--accent);outline-offset:2px;background:var(--accent-soft)}
+.blank.good{border-color:var(--ok);background:var(--ok-soft)}
+.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border-radius:14px;background:var(--surface-2)}
+.banklab{flex:1 1 100%;font-size:.9rem;font-weight:700;color:var(--muted)}
+.wchip{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--accent);background:var(--surface);font-weight:700;cursor:pointer}
+.wchip:disabled{border-color:var(--line);color:var(--muted);text-decoration:line-through;cursor:default}
+.flow{display:flex;flex-direction:column;gap:10px}
+.flow .top,.flow .bottom{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:10px 12px;text-align:center;font-weight:700}
+.flow .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:10px}
+@media (max-width:640px){.flow .cols{grid-template-columns:minmax(0,1fr)}}
+.flow .col{border:2px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;align-items:stretch;min-width:0}
+.flow .col.no{border-color:var(--crit)}.flow .col.yes{border-color:var(--ok)}
+.flow .col .blank{width:100%;margin:0}
+.flow .arr{text-align:center;font-weight:800;color:var(--muted);line-height:1}
+.flow .tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+@media (max-width:420px){.flow .tri{grid-template-columns:minmax(0,1fr)}}
+.flow .tri .blank{min-width:0;white-space:normal;padding:2px 4px}
+
+textarea{width:100%;min-height:220px;border-radius:12px;border:2px solid var(--line);background:var(--bg);padding:12px;line-height:1.5;resize:vertical}
+.starters{display:flex;flex-wrap:wrap;gap:8px}
+.starter{min-height:48px;padding:6px 14px;border-radius:12px;border:2px dashed var(--accent);background:var(--surface);cursor:pointer;text-align:left}
+.ideas{display:flex;flex-wrap:wrap;gap:8px}
+.idea{font-size:.9rem;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
+.idea.on{background:var(--ok-soft);color:var(--ok)}
+.crit{display:flex;flex-direction:column;gap:6px}
+.crit label{display:flex;gap:10px;align-items:flex-start;min-height:48px;cursor:pointer}
+.crit input{width:26px;height:26px;flex:none;margin-top:3px;accent-color:var(--ok)}
+.wc{font-family:var(--f-num);font-size:.9rem;color:var(--muted)}
+
+.reveal{background:var(--band);color:var(--band-ink);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.reveal .big{font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,4vw,1.9rem)}
+.reveal .muted{color:var(--band-muted)}
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.sc{background:var(--surface-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sc .k{font-size:.9rem;color:var(--muted);font-weight:700}
+.sc .v{font-family:var(--f-num);font-weight:600;font-size:1.3rem}
+.sc .bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.sc .bar span{display:block;height:100%;background:var(--ok)}
+.bilantext{white-space:pre-wrap;font-family:var(--f-num);font-size:.9rem;background:var(--surface-2);border-radius:12px;padding:14px;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere}
+input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);width:min(100%,16em)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--surface);overflow:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovin{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ovname{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,7vw,3.6rem)}
+.ovtot{font-family:var(--f-num);font-weight:600;font-size:clamp(2.4rem,10vw,5rem);color:var(--accent);line-height:1}
+.ovparts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.ovparts .sc .v{font-size:clamp(1.6rem,5vw,2.4rem)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages…) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div style="min-width:0">
+      <div class="eyebrow">Terminale spécialité SVT · Chapitre 5 · Activité 1</div>
+      <h1>Exploiter des documents sur les transferts horizontaux de gènes</h1>
+      <p class="q">Comment expliquer l'apparition si rapide de souches bactériennes multirésistantes aux antibiotiques ?</p>
+    </div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tbtn" id="fsMinus" aria-label="Réduire le texte">A−</button>
+      <button class="tbtn" id="fsPlus" aria-label="Agrandir le texte">A+</button>
+      <button class="tbtn" id="proj" aria-pressed="false">Projection</button>
+      <button class="tbtn" id="theme">Thème</button>
+      <button class="tbtn" id="reset">Recommencer</button>
+    </div>
+  </div>
+</header>
+
+<nav class="steps" aria-label="Étapes">
+  <div class="wrap">
+    <button class="step" data-go="probleme"><span class="n">1</span><span class="l">Problème</span></button>
+    <button class="step" data-go="griffith"><span class="n">2</span><span class="l">Griffith</span></button>
+    <button class="step" data-go="lederberg"><span class="n">3</span><span class="l">Lederberg</span></button>
+    <button class="step" data-go="mecanismes"><span class="n">4</span><span class="l">Mécanismes</span></button>
+    <button class="step" data-go="acineto"><span class="n">5</span><span class="l">Acinetobacter</span></button>
+    <button class="step" data-go="synthese"><span class="n">6</span><span class="l">Synthèse</span></button>
+  </div>
+</nav>
+
+<main><div class="wrap">
+
+<!-- 1 PROBLEME -->
+<section class="view" id="v-probleme">
+  <div class="problem">
+    <div class="kicker">Situation-problème</div>
+    <p>La probabilité d'obtenir par mutation des bactéries résistantes à deux antibiotiques (doubles mutants) est égale au <b>produit</b> des probabilités d'apparition de chacune des mutations, considérées indépendamment. Cela devrait donc être exceptionnel. Pourtant, on observe souvent des souches résistantes à plusieurs antibiotiques.</p>
+    <p class="pq">Comment expliquer l'apparition si rapide de souches bactériennes multirésistantes ?</p>
+    <p class="small"><b>Consigne :</b> à partir de l'exploitation rigoureuse des documents et de vos connaissances, expliquer le mécanisme à l'origine de souches bactériennes multirésistantes aux antibiotiques.</p>
+  </div>
+  <div class="stack">
+    <div class="kicker">Ton hypothèse de départ</div>
+    <p style="font-weight:700">Selon toi, comment une bactérie devient-elle résistante à plusieurs antibiotiques si vite ?</p>
+    <div class="bets" id="bets" role="group" aria-label="Ton hypothèse"></div>
+    <p id="betMsg" class="muted" aria-live="polite"></p>
+  </div>
+  <div class="card stack" style="gap:16px">
+    <div class="kicker">Le paradoxe des doubles mutants</div>
+    <p>Fais varier les fréquences de mutation et la taille de la population, et observe le nombre de doubles mutants attendus.</p>
+    <div class="sliders">
+      <div class="sl"><label for="e1">Fréquence de la mutation de résistance à l'antibiotique 1</label><span class="val" id="e1v"></span><input type="range" id="e1" min="-10" max="-5" step="1"></div>
+      <div class="sl"><label for="e2">Fréquence de la mutation de résistance à l'antibiotique 2</label><span class="val" id="e2v"></span><input type="range" id="e2" min="-10" max="-5" step="1"></div>
+      <div class="sl"><label for="eN">Nombre de bactéries dans une infection</label><span class="val" id="eNv"></span><input type="range" id="eN" min="6" max="12" step="1"></div>
+    </div>
+    <div class="calc" id="calc"></div>
+    <div class="ruler" id="ruler"></div>
+    <div class="rlegend" id="rlegend"></div>
+    <div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Ordres de grandeur indicatifs</div><p>Selon les gènes, une mutation conférant une résistance apparaît chez environ une bactérie sur 10<sup>6</sup> à 10<sup>10</sup>. Les valeurs proposées ici sont des ordres de grandeur pour raisonner, pas des mesures.</p></div>
+  </div>
+  <div id="qs-1" class="stack" style="gap:18px"></div>
+  <div class="next"><button class="btn" data-go="griffith">Document 1 : Griffith →</button></div>
+</section>
+
+<!-- 2 GRIFFITH -->
+<section class="view" id="v-griffith" hidden>
+  <div class="stack">
+    <div class="kicker">Document 1 · Griffith (1928), Avery, MacLeod et McCarty (1944)</div>
+    <h2 class="h2">Le labo virtuel des pneumocoques</h2>
+    <p class="lead">Les pneumocoques de souche <b>S</b> (<i>smooth</i>) possèdent une capsule et sont virulents : ils tuent la souris. Ceux de souche <b>R</b> (<i>rough</i>) n'ont pas de capsule et ne sont pas virulents. Prépare une injection, <b>fais une prédiction</b>, puis injecte. Réalise au moins les 6 expériences du document.</p>
+  </div>
+  <div class="card stack" style="gap:14px">
+    <div class="grp"><span class="gl" id="gl-pre">Expériences du document (raccourcis)</span><div class="presets" id="gPresets" role="group" aria-labelledby="gl-pre"></div></div>
+    <div class="labctl">
+      <div class="grp"><span class="gl" id="gl-inj">Contenu de la seringue</span><div class="chips" id="gInj" role="group" aria-labelledby="gl-inj"></div></div>
+      <div class="grp"><span class="gl" id="gl-tr">Traitement du broyat de S tués</span><div class="chips" id="gTr" role="group" aria-labelledby="gl-tr"></div></div>
+      <div class="grp"><span class="gl" id="gl-pr">Ta prédiction</span><div class="chips" id="gPred" role="group" aria-labelledby="gl-pr"></div></div>
+    </div>
+    <div class="row"><button class="btn" id="gGo">💉 Injecter</button><span class="small muted" id="gHint"></span></div>
+    <div class="stage" id="gStage"></div>
+    <div class="row" style="justify-content:space-between"><b>Cahier de laboratoire</b><span class="small" id="gScore"></span></div>
+    <div class="tscroll tall"><table class="journal"><thead><tr><th>N°</th><th>Injection</th><th>Prédiction</th><th>Souris</th><th>Sang de la souris</th></tr></thead><tbody id="gLog"></tbody></table></div>
+    <p class="small muted">Protéase : enzyme qui détruit les protéines. ARNase : détruit l'ARN. ADNase : détruit l'ADN. L'expérience avec ARNase vient du cours.</p>
+  </div>
+  <div id="qs-2" class="stack" style="gap:18px"></div>
+  <div class="next"><button class="btn" data-go="lederberg">Document 2 : Lederberg →</button></div>
+</section>
+
+<!-- 3 LEDERBERG -->
+<section class="view" id="v-lederberg" hidden>
+  <div class="stack">
+    <div class="kicker">Document 2 · Lederberg et Tatum (1946), Davis (1950)</div>
+    <h2 class="h2">Le labo virtuel des bactéries auxotrophes</h2>
+    <p class="lead">Deux souches mutantes d'<i>E. coli</i> ne peuvent pas pousser seules sur un <b>milieu minimum</b> (gélose sans acides aminés ni vitamines ajoutés), car chacune est incapable de synthétiser trois substances.</p>
+  </div>
+  <div class="box info"><div class="bt"><span class="ic" aria-hidden="true">ℹ&#xFE0E;</span>Génotypes des deux souches</div>
+    <div class="tscroll" style="border:0;background:transparent"><table class="gtab"><thead><tr><th>Souche</th><th>thi</th><th>leu</th><th>thr</th><th>phe</th><th>cys</th><th>bio</th></tr></thead><tbody>
+      <tr><th style="color:var(--stA)">A</th><td class="m">−</td><td class="m">−</td><td class="m">−</td><td class="p">+</td><td class="p">+</td><td class="p">+</td></tr>
+      <tr><th style="color:var(--stB)">B</th><td class="p">+</td><td class="p">+</td><td class="p">+</td><td class="m">−</td><td class="m">−</td><td class="m">−</td></tr>
+    </tbody></table></div>
+    <p class="small">thi : thiamine · leu : leucine · thr : thréonine · phe : phénylalanine · cys : cystéine · bio : biotine. « − » : la souche ne peut pas la synthétiser.</p>
+  </div>
+  <div class="card stack" style="gap:14px">
+    <div class="labctl">
+      <div class="grp"><span class="gl" id="gl-st">Souche(s) mise(s) en culture</span><div class="chips" id="lSt" role="group" aria-labelledby="gl-st"></div></div>
+      <div class="grp"><span class="gl" id="gl-dv">Dispositif</span><div class="chips" id="lDv" role="group" aria-labelledby="gl-dv"></div></div>
+      <div class="grp"><span class="gl" id="gl-md">Milieu de culture</span><div class="chips" id="lMd" role="group" aria-labelledby="gl-md"></div></div>
+    </div>
+    <div class="row"><button class="btn" id="lGo">🧫 Lancer la culture</button></div>
+    <div class="stage" id="lStage"></div>
+    <b>Cahier de laboratoire</b>
+    <div class="tscroll tall"><table class="journal"><thead><tr><th>N°</th><th>Souches</th><th>Dispositif</th><th>Milieu</th><th>Résultat</th></tr></thead><tbody id="lLog"></tbody></table></div>
+    <p class="small muted">Tube en U de Davis : un filtre poreux, aux pores beaucoup plus petits que les bactéries, sépare les deux souches. Le milieu liquide (et les molécules, dont l'ADN) passe d'un côté à l'autre par aspiration et refoulement. Pilus : prolongement permettant l'échange de plasmide entre deux bactéries.</p>
+  </div>
+  <div id="qs-3" class="stack" style="gap:18px"></div>
+  <div class="next"><button class="btn" data-go="mecanismes">Document 3 : les mécanismes →</button></div>
+</section>
+
+<!-- 4 MECANISMES -->
+<section class="view" id="v-mecanismes" hidden>
+  <div class="stack">
+    <div class="kicker">Document 3 · Les modalités des transferts horizontaux</div>
+    <h2 class="h2">Trois façons d'acquérir des gènes sans descendance</h2>
+    <p class="lead">Choisis un mécanisme et lance l'animation. On estime que plus de 80 % des gènes des génomes bactériens ont été acquis par transferts horizontaux, principalement entre bactéries vivant dans les mêmes milieux.</p>
+  </div>
+  <div class="card stack">
+    <div class="tabs" id="mTabs" role="group" aria-label="Mécanisme"></div>
+    <div class="cvbox"><canvas id="mcv" aria-label="Animation du mécanisme de transfert horizontal choisi"></canvas></div>
+    <p class="caption" id="mCap" aria-live="polite"></p>
+    <div class="row"><button class="btn" id="mPlay">▶ Lancer</button><button class="btn ghost" id="mPause">⏸ Pause</button><button class="btn ghost" id="mReset">↺ Recommencer</button></div>
+    <div class="legend"><span><i style="background:var(--dna)"></i>ADN de la bactérie donneuse</span><span><i style="background:var(--gene)"></i>gène transféré</span><span><i style="background:var(--chromo)"></i>chromosome de la receveuse</span><span><i style="background:var(--plas)"></i>plasmide</span><span><i style="background:var(--phage)"></i>virus (phage)</span></div>
+    <p class="small muted">Schémas simplifiés, échelles non respectées.</p>
+  </div>
+  <div id="qs-4" class="stack" style="gap:18px"></div>
+  <div class="next"><button class="btn" data-go="acineto">Document 4 : Acinetobacter →</button></div>
+</section>
+
+<!-- 5 ACINETOBACTER -->
+<section class="view" id="v-acineto" hidden>
+  <div class="stack">
+    <div class="kicker">Document 4 · Un exemple : Acinetobacter baumannii</div>
+    <h2 class="h2">Une bactérie hospitalière multirésistante</h2>
+    <p class="lead"><i>A. baumannii</i> est l'une des principales responsables d'infections nosocomiales (contractées à l'hôpital) chez les patients affaiblis, notamment des pneumonies (mortalité des patients : 70 %). C'est aussi une bactérie « prédatrice » : elle peut tuer et lyser des bactéries d'autres espèces de son milieu. Plus de 60 % des souches à l'origine d'infections nosocomiales sont résistantes à de nombreux antibiotiques.</p>
+  </div>
+  <div class="two">
+    <div class="card stack">
+      <b>Évolution de la résistance à l'imipénème à Taïwan</b>
+      <div class="cvbox"><canvas id="c1" aria-label="Graphique : pourcentage de souches résistantes à l'imipénème de 2002 à 2010"></canvas></div>
+      <p class="gread" id="r1" aria-live="polite">Touche un point pour lire sa valeur.</p>
+      <div class="tscroll"><table class="journal"><thead><tr><th>Année</th><th>2002</th><th>2004</th><th>2006</th><th>2008</th><th>2010</th></tr></thead><tbody><tr><td>Souches résistantes (%)</td><td>3</td><td>16</td><td>31</td><td>48</td><td>55</td></tr></tbody></table></div>
+    </div>
+    <div class="card stack">
+      <b>Localisation des gènes de résistance chez 42 souches résistantes</b>
+      <div class="pie" id="pie"></div>
+      <p class="gread" id="r2" aria-live="polite">Touche une part pour la mettre en évidence.</p>
+      <p class="small muted">Données pour une catégorie de gènes de résistance.</p>
+    </div>
+  </div>
+  <div class="card stack">
+    <b>Document 5 · Transfert de résistance entre deux espèces de bactéries (2017)</b>
+    <p class="small">Les chercheurs disposent d'une souche d'<i>E. coli</i> résistante à la kanamycine (kan) et d'une souche d'<i>Acinetobacter</i> résistante à la tétracycline (tet). Expérience 1 : <i>E. coli</i> seule. Expérience 2 : <i>Acinetobacter</i> seule. Expérience 3 : co-culture des deux. Après 19 heures, ils dénombrent les bactéries et testent leurs résistances.</p>
+    <div class="legend" id="barLegend"></div>
+    <div class="cvbox"><canvas id="c3" aria-label="Graphique en barres avec barres d'erreur : nombre de bactéries selon les expériences"></canvas></div>
+    <div class="row"><button class="btn ghost sm" id="axis0" aria-pressed="false">Afficher l'axe à partir de 0</button><span class="gread" id="r3" aria-live="polite">Touche une barre pour lire sa valeur.</span></div>
+    <div class="tscroll"><table class="journal"><thead><tr><th>Expérience</th><th>Bactéries dénombrées</th><th>Nombre (UA)</th></tr></thead><tbody>
+      <tr><td>1 · <i>E. coli</i> seule</td><td>① <i>E. coli</i> kan</td><td>8,5 ± 0,15</td></tr>
+      <tr><td>2 · <i>Acinetobacter</i> seule</td><td>② <i>Acinetobacter</i> tet</td><td>7,8 ± 0,2</td></tr>
+      <tr><td rowspan="3">3 · co-culture</td><td>① <i>E. coli</i> kan</td><td>4,3 ± 0,95</td></tr>
+      <tr><td>② <i>Acinetobacter</i> tet</td><td>8,0 ± 0,15</td></tr>
+      <tr><td>③ <i>Acinetobacter</i> kan + tet</td><td>5,1 ± 0,2</td></tr>
+    </tbody></table></div>
+    <p class="cite">Valeurs lues sur le graphique du document (UA : unités arbitraires). D'après Cooper et al., eLife, 2017 : l'étude a été menée sur <i>Acinetobacter baylyi</i>, une espèce proche d'<i>A. baumannii</i>.</p>
+  </div>
+  <div id="qs-5" class="stack" style="gap:18px"></div>
+  <div class="next"><button class="btn" data-go="synthese">Synthèse →</button></div>
+</section>
+
+<!-- 6 SYNTHESE -->
+<section class="view" id="v-synthese" hidden>
+  <div class="stack">
+    <div class="kicker">Synthèse</div>
+    <h2 class="h2">Répondre au problème</h2>
+    <p class="lead">Mets en relation les informations tirées de chaque document et tes connaissances, puis rédige ta réponse comme au bac.</p>
+  </div>
+  <div id="qs-6" class="stack" style="gap:18px"></div>
+  <div class="qcard" id="redac">
+    <div class="qhead"><h3>S3. Rédige ta réponse argumentée</h3><span class="lvl">🔴 Défi</span></div>
+    <p>À partir de l'exploitation rigoureuse des documents et de tes connaissances, explique le mécanisme à l'origine de souches bactériennes multirésistantes aux antibiotiques.</p>
+    <p class="small" style="font-weight:700">Amorces de paragraphes · touche pour les ajouter :</p>
+    <div class="starters" id="starters"></div>
+    <label for="essay" class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ta réponse</label>
+    <textarea id="essay" placeholder="Rédige ta réponse ici : problème, exploitation des documents, connaissances, mise en relation, conclusion…"></textarea>
+    <div class="row" style="justify-content:space-between"><span class="wc" id="wc"></span></div>
+    <div><p class="small" style="font-weight:700;margin-bottom:6px">Idées repérées dans ton texte :</p><div class="ideas" id="ideas"></div></div>
+    <div class="row"><button class="btn" id="essayBtn" disabled>Comparer avec une réponse rédigée</button><span class="small muted" id="essayMsg"></span></div>
+    <div id="essayOut" hidden class="stack">
+      <div class="corr"><span class="ct">✔&#xFE0E; Une réponse possible</span>
+        <p>Les mutations sont rares : si deux résistances apparaissent chacune chez environ une bactérie sur 10<sup>7</sup> et 10<sup>8</sup>, un double mutant n'apparaît qu'avec une probabilité de 10<sup>−15</sup>, soit moins d'un double mutant pour 100 000 infections. Les mutations ne suffisent donc pas à expliquer la fréquence des souches multirésistantes.</p>
+        <p>Le document 1 montre que des pneumocoques R non virulents deviennent virulents au contact de pneumocoques S tués, sauf si leur ADN est détruit : l'ADN des S a été intégré par les R. C'est une transformation. Le document 2 montre que deux souches auxotrophes, mélangées, donnent des bactéries capables de tout synthétiser, mais pas si un filtre empêche leur contact : elles échangent de l'ADN par contact direct, c'est la conjugaison. Une réversion par mutation des trois gènes serait beaucoup trop improbable (environ 10<sup>−21</sup>).</p>
+        <p>Le document 3 présente trois modalités de transferts horizontaux : transformation, transduction (par un virus) et conjugaison (souvent par plasmide). Or un plasmide peut porter plusieurs gènes de résistance : une seule conjugaison transmet alors plusieurs résistances en même temps, et cela peut se produire entre espèces différentes.</p>
+        <p>Le document 4 montre que la résistance d'<i>A. baumannii</i> progresse très vite (de 3 % à 55 % des souches en 8 ans) et qu'environ un tiers des gènes de résistance sont sur des plasmides. Le document 5 montre qu'en co-culture, <i>E. coli</i> diminue et qu'une souche d'<i>Acinetobacter</i> résistante à la kanamycine et à la tétracycline apparaît : la bactérie prédatrice a lysé <i>E. coli</i> et intégré son gène de résistance à la kanamycine (transformation).</p>
+        <p>Conclusion : les souches multirésistantes apparaissent rapidement parce que les bactéries acquièrent des gènes de résistance déjà existants par transferts horizontaux (transformation, transduction, conjugaison), parfois plusieurs à la fois et entre espèces. L'utilisation des antibiotiques sélectionne ensuite ces bactéries résistantes, qui survivent et se multiplient.</p>
+      </div>
+      <div><p style="font-weight:700;margin-bottom:6px">Auto-évaluation (grille type bac) · coche ce que ta réponse contient :</p><div class="crit" id="crit"></div></div>
+    </div>
+  </div>
+  <div id="revealSlot"></div>
+  <div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>À retenir</div>
+    <p>À côté des transferts <b>verticaux</b> (reproduction), il existe des transferts <b>horizontaux</b> de gènes entre organismes parfois non apparentés : <b>transformation</b>, <b>transduction</b>, <b>conjugaison</b>.</p>
+    <p>Ces transferts enrichissent les génomes et accélèrent l'évolution des bactéries, en particulier la diffusion des résistances aux antibiotiques, que l'usage des antibiotiques <b>sélectionne</b>.</p>
+    <p>L'être humain utilise aussi ces transferts en biotechnologie (transgenèse) pour produire des molécules d'intérêt.</p>
+  </div>
+  <div class="card stack" style="gap:14px">
+    <div class="kicker">Mon bilan</div>
+    <div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet appareil)</label><input class="name" id="pname" autocomplete="off" maxlength="40"></div>
+    <div class="scoregrid" id="scoreGrid"></div>
+    <div id="advice" class="stack"></div>
+    <div class="bilantext" id="bilanText"></div>
+    <div class="row">
+      <button class="btn" id="showProf">Montrer au professeur</button>
+      <button class="btn ghost" id="dlBilan" hidden>Télécharger mon bilan (.txt)</button>
+      <button class="btn ghost" id="copyBilan">Copier mon bilan</button>
+    </div>
+    <p id="bilanMsg" class="muted" aria-live="polite"></p>
+  </div>
+</section>
+
+</div></main>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ovname">
+  <div class="ovin">
+    <div class="row" style="justify-content:space-between"><div class="kicker">Bilan à montrer au professeur</div><button class="btn" id="ovClose">Fermer</button></div>
+    <div class="ovname" id="ovname"></div>
+    <div><div class="muted">Score au premier essai</div><div class="ovtot" id="ovtot"></div></div>
+    <div class="ovparts" id="ovparts"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KEY="transferts-horizontaux-tle-v1";
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var SUPD={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+function pw(e){return "10"+String(e).split("").map(function(c){return SUPD[c]||c;}).join("");}
+function pwH(e){return "10<sup>"+String(e).replace("-","−")+"</sup>";}
+function dec(x){return String(x).replace(".",",");}
+function num(s){var t=String(s==null?"":s).trim().replace(/\s/g,"").replace(/[−–]/g,"-").replace(",",".");return /^-?\d+(\.\d+)?$/.test(t)?parseFloat(t):null;}
+
+var DEF={bet:null,ans:{},first:{},tries:{},done:{},hints:{},corr:{},act:{},calc:{e1:-7,e2:-8,eN:10},g:{S:false,R:true,K:true,tr:"none",pred:null,log:[]},l:{st:"AB",dv:"mix",md:"min",log:[]},mode:"transfo",axis0:false,essay:"",essayShown:false,crit:{},name:"",fs:22,proj:false,theme:null};
+function fresh(){return JSON.parse(JSON.stringify(DEF));}
+var S;try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){S=fresh();}
+["ans","first","tries","done","hints","corr","act","calc","g","l","crit"].forEach(function(k){if(!S[k]||typeof S[k]!=="object")S[k]=fresh()[k];});
+if(!Array.isArray(S.g.log))S.g.log=[];if(!Array.isArray(S.l.log))S.l.log=[];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+function redrawAll(){drawMeca();drawLine();drawBars();if($("ruler").clientWidth)renderRuler();}
+function applyFs(){var r=document.documentElement;r.classList.toggle("proj",!!S.proj);r.style.setProperty("--fs",(S.proj?Math.max(S.fs,30):S.fs)+"px");$("proj").setAttribute("aria-pressed",S.proj?"true":"false");redrawAll();}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme");redrawAll();renderRuler();}
+$("fsMinus").onclick=function(){S.fs=Math.max(20,S.fs-2);applyFs();save();};
+$("fsPlus").onclick=function(){S.fs=Math.min(34,S.fs+2);applyFs();save();};
+$("proj").onclick=function(){S.proj=!S.proj;applyFs();save();};
+$("theme").onclick=function(){var dark=S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);S.theme=dark?"light":"dark";applyTheme();save();};
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",redrawAll);}catch(e){}
+var resetArm=null;
+$("reset").onclick=function(){
+  var b=$("reset");
+  if(!resetArm){b.textContent="Confirmer ?";b.classList.add("warn");resetArm=setTimeout(function(){b.textContent="Recommencer";b.classList.remove("warn");resetArm=null;},4000);return;}
+  clearTimeout(resetArm);resetArm=null;
+  var keep={fs:S.fs,proj:S.proj,theme:S.theme};S=Object.assign(fresh(),keep);save();
+  b.textContent="Recommencer";b.classList.remove("warn");for(var k in lastFb)delete lastFb[k];
+  stopMeca();MC.t=0;document.querySelectorAll("input.ans").forEach(function(i){i.value="";});
+  renderAll();go("probleme");
+};
+var VIEWS=["probleme","griffith","lederberg","mecanismes","acineto","synthese"],cur="probleme";
+function go(v){if(VIEWS.indexOf(v)<0)v="probleme";cur=v;VIEWS.forEach(function(x){$("v-"+x).hidden=x!==v;});
+  document.querySelectorAll(".step").forEach(function(b){b.setAttribute("aria-current",b.dataset.go===v?"step":"false");});
+  if(location.hash!=="#"+v){try{history.replaceState(null,"","#"+v);}catch(e){}}
+  if(v!=="mecanismes")pauseMeca();
+  if(v==="synthese")renderBilan();
+  renderStepsDone();window.scrollTo(0,0);requestAnimationFrame(redrawAll);}
+document.addEventListener("click",function(e){var t=e.target.closest("[data-go]");if(t)go(t.dataset.go);});
+window.addEventListener("hashchange",function(){var h=location.hash.slice(1);if(h!==cur)go(h);});
+
+/* ---------- 1. calculator ---------- */
+function renderCalc(){
+  var c=S.calc,ep=c.e1+c.e2,ex=c.eN+ep;
+  $("e1").value=c.e1;$("e2").value=c.e2;$("eN").value=c.eN;
+  $("e1v").innerHTML="1 bactérie sur "+pwH(-c.e1)+" ("+pwH(c.e1)+")";
+  $("e2v").innerHTML="1 bactérie sur "+pwH(-c.e2)+" ("+pwH(c.e2)+")";
+  $("eNv").innerHTML=pwH(c.eN)+" bactéries";
+  var interp=ex>=0?"Environ "+pwH(ex)+" double(s) mutant(s) dans une infection.":"Moins d'un double mutant : il faudrait environ "+pwH(-ex)+" infections pour en observer un seul.";
+  $("calc").innerHTML='<div class="fact"><div class="k">Probabilité d\'être double mutant</div><div class="v">'+pwH(c.e1)+' × '+pwH(c.e2)+' = '+pwH(ep)+'</div></div>'+
+    '<div class="fact hl"><div class="k">Doubles mutants attendus</div><div class="v">'+pwH(c.eN)+' × '+pwH(ep)+' = '+pwH(ex)+'<br><small>'+interp+'</small></div></div>';
+  renderRuler();
+}
+function renderRuler(){
+  var c=S.calc,ep=c.e1+c.e2,ex=c.eN+ep,lo=-20,hi=12,W=Math.max(320,Math.round(($("ruler").clientWidth||640))),stepT=W<520?8:4,X=function(e){return 24+(e-lo)/(hi-lo)*(W-48);};
+  var rs=getComputedStyle(document.documentElement),col=function(n){return rs.getPropertyValue(n).trim();};
+  var M=[{e:c.e1,c:col("--s1"),t:"Mutation 1"},{e:c.e2,c:col("--s3"),t:"Mutation 2"},{e:ep,c:col("--crit"),t:"Double mutant (probabilité)"},{e:c.eN,c:col("--accent"),t:"Population"},{e:ex,c:col("--warn"),t:"Doubles mutants attendus"}];
+  var h='<svg viewBox="0 0 '+W+' 110" role="img" aria-label="Échelle logarithmique de 10 puissance moins 20 à 10 puissance 12"><rect x="'+X(lo)+'" y="44" width="'+(X(0)-X(lo))+'" height="22" fill="'+col("--crit-soft")+'"/><text x="'+((X(lo)+X(0))/2)+'" y="60" text-anchor="middle" font-size="13" fill="'+col("--crit")+'" font-weight="700">moins d\'une bactérie</text>';
+  h+='<line x1="'+X(lo)+'" y1="66" x2="'+X(hi)+'" y2="66" stroke="'+col("--ink")+'" stroke-width="2"/>';
+  for(var e=lo;e<=hi;e+=stepT){h+='<line x1="'+X(e)+'" y1="62" x2="'+X(e)+'" y2="72" stroke="'+col("--ink")+'" stroke-width="2"/><text x="'+X(e)+'" y="92" text-anchor="middle" font-size="15" fill="'+col("--muted")+'">'+pw(e)+'</text>';}
+  M.forEach(function(m,i){var x=X(Math.max(lo,Math.min(hi,m.e))),y=i%2?30:14;h+='<line x1="'+x+'" y1="'+(y+8)+'" x2="'+x+'" y2="66" stroke="'+m.c+'" stroke-width="2"/><circle cx="'+x+'" cy="'+y+'" r="9" fill="'+m.c+'"/><text x="'+x+'" y="'+(y+4)+'" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">'+(i+1)+'</text>';});
+  $("ruler").innerHTML=h+'</svg>';
+  $("rlegend").innerHTML=M.map(function(m,i){return '<span><i style="background:'+m.c+'"></i><span>'+(i+1)+'. '+m.t+' : '+pwH(m.e)+'</span></span>';}).join("");
+}
+["e1","e2","eN"].forEach(function(k){$(k).addEventListener("input",function(e){S.calc[k]=+e.target.value;save();renderCalc();});});
+
+/* ---------- 2. Griffith lab ---------- */
+var GP=[{n:1,S:1,R:0,K:0,tr:"none"},{n:2,S:0,R:1,K:0,tr:"none"},{n:3,S:0,R:0,K:1,tr:"none"},{n:4,S:0,R:1,K:1,tr:"none"},{n:5,S:0,R:1,K:1,tr:"prot"},{n:6,S:0,R:1,K:1,tr:"adn"},{n:7,S:0,R:1,K:1,tr:"arn"}];
+var TRL={none:"Aucun",prot:"+ protéase",arn:"+ ARNase",adn:"+ ADNase"};
+function gCombo(g){return {S:!!g.S,R:!!g.R,K:!!g.K,tr:g.K?g.tr:"none"};}
+function gNum(c){for(var i=0;i<GP.length;i++){var p=GP[i];if(!!p.S===c.S&&!!p.R===c.R&&!!p.K===c.K&&(p.K?p.tr===c.tr:true))return p.n;}return null;}
+function gResult(c){var dies=c.S||(c.K&&c.R&&c.tr!=="adn");return {dies:dies,blood:dies?"Nombreux pneumocoques S vivants":"Absence de pneumocoques"};}
+function gLabel(c){var p=[];if(c.S)p.push("S vivants");if(c.R)p.push("R vivants");if(c.K)p.push("S tués"+(c.tr!=="none"?" "+TRL[c.tr]:""));return p.join(" + ")||"—";}
+function renderGCtl(){
+  var g=S.g,seen={};g.log.forEach(function(r){if(r.n)seen[r.n]=1;});
+  $("gPresets").innerHTML=GP.map(function(p){var c=gCombo(g),on=gNum(c)===p.n;return '<button class="chip'+(seen[p.n]?" seen":"")+'" data-gp="'+p.n+'" aria-pressed="'+on+'">Exp. '+p.n+'</button>';}).join("");
+  $("gInj").innerHTML=[["S","S vivants"],["R","R vivants"],["K","S tués par la chaleur"]].map(function(x){return '<button class="chip" data-gi="'+x[0]+'" aria-pressed="'+!!g[x[0]]+'">'+x[1]+'</button>';}).join("");
+  $("gTr").innerHTML=Object.keys(TRL).map(function(k){return '<button class="chip" data-gt="'+k+'" aria-pressed="'+(g.tr===k)+'"'+(g.K?"":" disabled")+'>'+TRL[k]+'</button>';}).join("");
+  $("gPred").innerHTML=[["d","La souris meurt"],["a","La souris survit"]].map(function(x){return '<button class="chip" data-gr="'+x[0]+'" aria-pressed="'+(g.pred===x[0])+'">'+x[1]+'</button>';}).join("");
+  var any=g.S||g.R||g.K;$("gGo").disabled=!any||!g.pred||gRunning;
+  $("gHint").textContent=!any?"Choisis le contenu de la seringue.":!g.pred?"Fais d'abord ta prédiction.":"";
+  var done=Object.keys(seen).filter(function(n){return n<=6;}).length,np=g.log.length,ok=g.log.filter(function(r){return r.ok;}).length;
+  $("gScore").textContent="Expériences du document réalisées : "+done+"/6 · Prédictions justes : "+ok+"/"+np;
+  $("gLog").innerHTML=g.log.length?g.log.map(function(r,i){return '<tr><td>'+(r.n?"Exp. "+r.n:(i+1))+'</td><td>'+esc(r.lab)+'</td><td>'+(r.pred==="d"?"meurt":"survit")+' '+(r.ok?'<b style="color:var(--ok)">✓</b>':'<b style="color:var(--bad)">✗</b>')+'</td><td>'+(r.dies?"Meurt":"Survit")+'</td><td>'+r.blood+'</td></tr>';}).join(""):'<tr><td colspan="5" class="muted">Aucune expérience pour l\'instant.</td></tr>';
+}
+function colonies(n,cx,cy,R,cls){var h="";for(var i=0;i<n;i++){var a=i*2.399963,r=R*.82*Math.sqrt((i+.5)/n),x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);h+='<g class="colony" style="transition-delay:'+(i*25)+'ms"><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="7" fill="var(--colS)" stroke="var(--cell-line)" stroke-width="1"/><circle cx="'+(x-2).toFixed(1)+'" cy="'+(y-2).toFixed(1)+'" r="2" fill="#fff" opacity=".8"/></g>';}return h;}
+function gStageHTML(c,res,phase){
+  var liq=c.S?"var(--cocci)":c.K?"var(--cell-line)":c.R?"var(--capsule)":"transparent";
+  var h='<svg viewBox="0 0 520 170" aria-hidden="true">'+
+   '<g class="syr"><rect x="14" y="74" width="84" height="22" rx="4" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/><rect x="18" y="78" width="70" height="14" fill="'+liq+'" opacity=".8"/><rect x="2" y="80" width="14" height="10" fill="var(--muted)"/><line x1="98" y1="85" x2="128" y2="85" stroke="var(--muted)" stroke-width="2"/></g>'+
+   '<g class="mouse"><path d="M168 118 Q150 140 136 130" fill="none" stroke="var(--mouse-line)" stroke-width="3"/><ellipse class="mbody" cx="210" cy="110" rx="58" ry="30" fill="var(--mouse)" stroke="var(--mouse-line)" stroke-width="2"/><circle class="mear" cx="262" cy="80" r="11" fill="var(--mouse)" stroke="var(--mouse-line)" stroke-width="2"/><circle class="mhead" cx="270" cy="100" r="22" fill="var(--mouse)" stroke="var(--mouse-line)" stroke-width="2"/><circle class="eyeA" cx="278" cy="95" r="3" fill="var(--ink)"/><g class="eyeX" stroke="var(--ink)" stroke-width="2.5"><line x1="274" y1="91" x2="282" y2="99"/><line x1="282" y1="91" x2="274" y2="99"/></g><circle cx="291" cy="104" r="3" fill="var(--crit)"/></g>'+
+   '<circle cx="436" cy="88" r="68" fill="var(--rim)"/><circle cx="436" cy="88" r="60" fill="var(--agar)"/>'+(res&&res.dies?colonies(22,436,88,60):"")+
+   '<text x="436" y="164" text-anchor="middle" font-size="13" fill="var(--muted)">culture du sang</text></svg>';
+  var txt=phase===0?"Prépare ton injection.":phase<2?"Injection en cours…":phase<3?(res.dies?"La souris meurt.":"La souris survit."):(res.dies?"La souris meurt · ":"La souris survit · ")+res.blood+".";
+  return '<div id="gScene" class="ph'+(phase>=1?" ph1":"")+(phase>=2?" ph2":"")+(phase>=3?" ph3":"")+(res&&res.dies?" dead":"")+'">'+h+'</div><p class="res" aria-live="polite">'+txt+'</p>';
+}
+var gRunning=false;
+$("gPresets").addEventListener("click",function(e){var b=e.target.closest("[data-gp]");if(!b||gRunning)return;var p=GP[+b.dataset.gp-1];S.g.S=!!p.S;S.g.R=!!p.R;S.g.K=!!p.K;S.g.tr=p.tr;S.g.pred=null;save();renderGCtl();$("gStage").innerHTML=gStageHTML(gCombo(S.g),null,0);});
+$("gInj").addEventListener("click",function(e){var b=e.target.closest("[data-gi]");if(!b||gRunning)return;var k=b.dataset.gi;S.g[k]=!S.g[k];if(!S.g.K)S.g.tr="none";S.g.pred=null;save();renderGCtl();$("gStage").innerHTML=gStageHTML(gCombo(S.g),null,0);});
+$("gTr").addEventListener("click",function(e){var b=e.target.closest("[data-gt]");if(!b||b.disabled||gRunning)return;S.g.tr=b.dataset.gt;S.g.pred=null;save();renderGCtl();});
+$("gPred").addEventListener("click",function(e){var b=e.target.closest("[data-gr]");if(!b||gRunning)return;S.g.pred=b.dataset.gr;save();renderGCtl();});
+$("gGo").onclick=function(){
+  var c=gCombo(S.g),res=gResult(c),n=gNum(c),pred=S.g.pred;if(!pred)return;gRunning=true;renderGCtl();
+  var st=$("gStage");st.innerHTML=gStageHTML(c,res,0);
+  var fin=function(){gRunning=false;S.g.log.push({n:n,lab:gLabel(c),pred:pred,ok:(pred==="d")===res.dies,dies:res.dies,blood:res.blood});S.g.pred=null;save();renderGCtl();renderBilan();renderStepsDone();};
+  if(RM){st.innerHTML=gStageHTML(c,res,3);fin();return;}
+  setTimeout(function(){var s=$("gScene");if(s)s.classList.add("ph1");},60);
+  setTimeout(function(){st.innerHTML=gStageHTML(c,res,1);var s=$("gScene");void s.offsetWidth;s.classList.add("ph2");if(res.dies)s.classList.add("dead");st.querySelector(".res").textContent=res.dies?"La souris meurt.":"La souris survit.";},1100);
+  setTimeout(function(){var s=$("gScene");if(s){s.classList.add("ph3");}st.querySelector(".res").textContent=(res.dies?"La souris meurt · ":"La souris survit · ")+res.blood+".";fin();},2300);
+};
+
+/* ---------- 3. Lederberg lab ---------- */
+var LST={A:"A seule",B:"B seule",AB:"A + B"},LDV={mix:"Mélange direct",u:"Tube en U avec filtre"},LMD={min:"Minimum",full:"Complet"};
+function lResult(l){var dv=l.st==="AB"?l.dv:"mix";
+  if(l.md==="full")return dv==="u"?{txt:"Colonies des deux côtés (chaque souche pousse)",L:"many",R:"many"}:{txt:"Nombreuses colonies (le milieu complet apporte tout)",L:"many"};
+  if(l.st!=="AB")return {txt:"Aucune colonie",L:"none"};
+  if(dv==="u")return {txt:"Aucune colonie, ni d'un côté ni de l'autre",L:"none",R:"none"};
+  return {txt:"Quelques colonies se développent",L:"few"};}
+function renderLCtl(){var l=S.l;
+  $("lSt").innerHTML=Object.keys(LST).map(function(k){return '<button class="chip" data-ls="'+k+'" aria-pressed="'+(l.st===k)+'">'+LST[k]+'</button>';}).join("");
+  $("lDv").innerHTML=Object.keys(LDV).map(function(k){return '<button class="chip" data-ld="'+k+'" aria-pressed="'+(l.dv===k&&l.st==="AB")+'"'+(l.st==="AB"?"":" disabled")+'>'+LDV[k]+'</button>';}).join("");
+  $("lMd").innerHTML=Object.keys(LMD).map(function(k){return '<button class="chip" data-lm="'+k+'" aria-pressed="'+(l.md===k)+'">'+LMD[k]+'</button>';}).join("");
+  $("lLog").innerHTML=l.log.length?l.log.map(function(r,i){return '<tr><td>'+(i+1)+'</td><td>'+r.st+'</td><td>'+r.dv+'</td><td>'+r.md+'</td><td>'+r.res+'</td></tr>';}).join(""):'<tr><td colspan="5" class="muted">Aucune culture pour l\'instant.</td></tr>';
+  $("lGo").disabled=lRunning;}
+function lDots(st,x0,x1,y0,y1,n,seed,mixed){var h="",k=0;for(var i=0;i<n;i++){var r1=Math.sin((i+seed)*12.9898)*43758.5453,r2=Math.sin((i+seed)*78.233)*12543.13;r1-=Math.floor(r1);r2-=Math.floor(r2);var x=x0+(x1-x0)*r1,y=y0+(y1-y0)*r2;var c=st==="A"?"var(--stA)":st==="B"?"var(--stB)":(i%2?"var(--stA)":"var(--stB)");h+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3.4" fill="'+c+'"/>';
+    if(mixed&&i%9===0&&k<3){k++;h+='<line x1="'+x.toFixed(1)+'" y1="'+y.toFixed(1)+'" x2="'+(x+9).toFixed(1)+'" y2="'+(y-5).toFixed(1)+'" stroke="var(--stP)" stroke-width="2"/><circle cx="'+(x+9).toFixed(1)+'" cy="'+(y-5).toFixed(1)+'" r="3.4" fill="var(--stP)"/>';}}return h;}
+function dishSVG(cx,cy,kind,col){var R=46,h='<circle cx="'+cx+'" cy="'+cy+'" r="'+(R+6)+'" fill="var(--rim)"/><circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="var(--agar)"/>';
+  var n=kind==="many"?26:kind==="few"?4:0;for(var i=0;i<n;i++){var a=i*2.399963,r=R*.8*Math.sqrt((i+.5)/Math.max(n,1)),x=cx+r*Math.cos(a)*(n<6?.7:1),y=cy+r*Math.sin(a)*(n<6?.7:1);h+='<circle class="colony" style="transition-delay:'+(i*30)+'ms" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(n<6?7:5)+'" fill="'+col+'"/>';}
+  if(!n)h+='<text x="'+cx+'" y="'+(cy+4)+'" text-anchor="middle" font-size="12" fill="var(--muted)" class="colony">aucune colonie</text>';return h;}
+function lStageHTML(l,res,phase){var dv=l.st==="AB"?l.dv:"mix",h='<svg viewBox="0 0 520 250" aria-hidden="true">';
+  if(dv==="u"){h+='<path d="M120 20 V150 Q120 180 150 180 H370 Q400 180 400 150 V20" fill="none" stroke="var(--muted)" stroke-width="22" stroke-linecap="round" opacity=".25"/><path d="M120 20 V150 Q120 180 150 180 H370 Q400 180 400 150 V20" fill="none" stroke="var(--muted)" stroke-width="3"/><line x1="260" y1="166" x2="260" y2="194" stroke="var(--warn)" stroke-width="4" stroke-dasharray="4 3"/><text x="260" y="212" text-anchor="middle" font-size="12" fill="var(--warn)" font-weight="700">filtre</text>';
+    h+='<g class="dots">'+lDots("A",110,250,30,190,26,1,false).replace(/cy="(\d+\.?\d*)"/g,function(m,y){return 'cy="'+y+'"';})+lDots("B",270,410,30,190,26,9,false)+'</g>';
+    if(phase>=3)h+='<g>'+dishSVG(120,200,res.L,"var(--stA)")+dishSVG(400,200,res.R,"var(--stB)")+'</g>';}
+  else{h+='<rect x="210" y="14" width="100" height="150" rx="20" fill="var(--surface)" stroke="var(--muted)" stroke-width="3"/><rect x="214" y="60" width="92" height="100" rx="16" fill="var(--info-soft)"/>';
+    h+='<g class="dots">'+lDots(l.st,222,298,66,154,l.st==="AB"?34:22,3,l.st==="AB"&&l.md==="min"?true:l.st==="AB")+'</g>';
+    if(phase>=3)h+='<g>'+dishSVG(260,200,res.L,l.st==="AB"&&l.md==="min"?"var(--stP)":l.st==="A"?"var(--stA)":l.st==="B"?"var(--stB)":"var(--stP)")+'</g>';}
+  h+='</svg>';
+  return '<div>'+h+'</div><p class="res" aria-live="polite">'+(phase>=3?res.txt+".":"Prépare ta culture.")+'</p>';}
+var lRunning=false;
+$("lSt").addEventListener("click",function(e){var b=e.target.closest("[data-ls]");if(!b||lRunning)return;S.l.st=b.dataset.ls;save();renderLCtl();$("lStage").innerHTML=lStageHTML(S.l,null,0);});
+$("lDv").addEventListener("click",function(e){var b=e.target.closest("[data-ld]");if(!b||b.disabled||lRunning)return;S.l.dv=b.dataset.ld;save();renderLCtl();$("lStage").innerHTML=lStageHTML(S.l,null,0);});
+$("lMd").addEventListener("click",function(e){var b=e.target.closest("[data-lm]");if(!b||lRunning)return;S.l.md=b.dataset.lm;save();renderLCtl();});
+$("lGo").onclick=function(){var l=JSON.parse(JSON.stringify(S.l)),res=lResult(l);lRunning=true;renderLCtl();
+  var st=$("lStage");st.innerHTML=lStageHTML(l,res,3);
+  var fin=function(){lRunning=false;S.l.log.push({st:LST[l.st],dv:l.st==="AB"?LDV[l.dv]:"—",md:LMD[l.md],res:res.txt});save();renderLCtl();renderBilan();};
+  if(RM){st.querySelectorAll(".colony").forEach(function(c){c.style.opacity=1;c.style.transform="none";});fin();return;}
+  setTimeout(function(){st.querySelectorAll(".colony").forEach(function(c){c.style.opacity=1;c.style.transform="scale(1)";});fin();},400);};
+
+/* ---------- 4. mechanisms canvas ---------- */
+var MODES={transfo:"Transformation",transd:"Transduction",conj:"Conjugaison"};
+var MC={t:0,run:false,raf:null,last:0,DUR:10};
+function lerp(a,b,u){return a+(b-a)*u;}
+function seg(t,a,b){return Math.max(0,Math.min(1,(t-a)/(b-a)));}
+function ease(u){return u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;}
+function drawMeca(){
+  var cv=$("mcv");if(!cv)return;var box=cv.parentElement,w=box.clientWidth;if(w<60)return;
+  var h=Math.round(Math.min(Math.max(w*.56,270),440)),dpr=window.devicePixelRatio||1;
+  cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);cv.style.height=h+"px";
+  var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);
+  var rs=getComputedStyle(document.documentElement),col=function(n){return rs.getPropertyValue(n).trim()||"#888";},font=rs.getPropertyValue("--f-body"),fs=parseFloat(rs.fontSize)||22,tf=Math.max(13,Math.round(fs*.62));
+  c.fillStyle=col("--surface-2");c.fillRect(0,0,w,h);
+  var bw=Math.min(w*.36,320),bh=Math.min(h*.36,150);
+  var narrow=w<520;function short(l){return narrow?l.replace("Bactérie donneuse","Donneuse").replace("Bactérie receveuse","Receveuse").replace("Bactérie morte (lysée)","Lysée").replace("Bactérie infectée","Infectée").replace("Bactérie tuée","Tuée"):l;}
+  function bact(x,y,a,label){label=label&&short(label);c.save();c.globalAlpha=a;c.fillStyle=col("--cell");c.strokeStyle=col("--cell-line");c.lineWidth=3;var r=bh/2;c.beginPath();c.moveTo(x-bw/2+r,y-r);c.lineTo(x+bw/2-r,y-r);c.arc(x+bw/2-r,y,r,-Math.PI/2,Math.PI/2);c.lineTo(x-bw/2+r,y+r);c.arc(x-bw/2+r,y,r,Math.PI/2,Math.PI*1.5);c.closePath();c.fill();c.stroke();c.restore();
+    if(label){c.fillStyle=col("--ink");c.font="700 "+tf+"px "+font;c.textAlign="center";c.textBaseline="bottom";c.fillText(label,x,y-bh/2-6);}}
+  function loop(x,y,rx,ry,clr,a,gA,gCol){c.save();c.globalAlpha=a;c.lineWidth=4;c.lineCap="round";var N=60;for(var i=0;i<N;i++){var t0=i/N*6.2832,t1=(i+1)/N*6.2832;var inG=gA!=null&&t0>=gA[0]&&t1<=gA[1];c.strokeStyle=inG?gCol:clr;c.beginPath();var p0=[x+Math.cos(t0)*rx*(1+.12*Math.sin(5*t0)),y+Math.sin(t0)*ry*(1+.12*Math.cos(4*t0))],p1=[x+Math.cos(t1)*rx*(1+.12*Math.sin(5*t1)),y+Math.sin(t1)*ry*(1+.12*Math.cos(4*t1))];c.moveTo(p0[0],p0[1]);c.lineTo(p1[0],p1[1]);c.stroke();}c.restore();}
+  function frag(x,y,len,ang,clr,a){c.save();c.globalAlpha=a;c.translate(x,y);c.rotate(ang);c.strokeStyle=clr;c.lineWidth=4;c.lineCap="round";c.beginPath();for(var i=0;i<=12;i++){var u=i/12,px=(u-.5)*len,py=Math.sin(u*Math.PI*2)*len*.12;if(i)c.lineTo(px,py);else c.moveTo(px,py);}c.stroke();c.restore();}
+  function ring(x,y,r,a,dash){c.save();c.globalAlpha=a;c.strokeStyle=col("--plas");c.lineWidth=5;if(dash)c.setLineDash([5,4]);c.beginPath();c.arc(x,y,r,0,6.2832);c.stroke();c.setLineDash([]);c.strokeStyle=col("--gene");c.lineWidth=6;c.beginPath();c.arc(x,y,r,-.6,.6);c.stroke();c.restore();}
+  function phage(x,y,s,a,red){c.save();c.globalAlpha=a;c.translate(x,y);c.strokeStyle=col("--phage");c.lineWidth=2.5;c.fillStyle=red?col("--gene"):col("--surface");c.beginPath();for(var i=0;i<6;i++){var an=i/6*6.2832+Math.PI/6;c[i?"lineTo":"moveTo"](Math.cos(an)*s,Math.sin(an)*s-s*1.6);}c.closePath();c.fill();c.stroke();c.beginPath();c.moveTo(0,-s*.7);c.lineTo(0,s*.8);c.stroke();c.beginPath();c.moveTo(0,s*.8);c.lineTo(-s*.8,s*1.4);c.moveTo(0,s*.8);c.lineTo(s*.8,s*1.4);c.moveTo(0,s*.8);c.lineTo(0,s*1.5);c.stroke();c.restore();}
+  var t=MC.t,m=S.mode,cap="",G=[.3,1.1];
+  if(m==="transfo"){
+    var dx=w*.27,dy=h*.33,rx=w*.72,ry=h*.68,ly=seg(t,.18,.32);
+    bact(dx,dy,1-ly*.85,ly<.5?"Bactérie donneuse":"Bactérie morte (lysée)");bact(rx,ry,1,"Bactérie receveuse");
+    if(ly<1)loop(dx,dy,bw*.3,bh*.28,col("--dna"),1-ly,G,col("--gene"));
+    var F=[[-.6,-.5],[.5,-.7],[.7,.3],[-.4,.6],[.1,.9],[-.8,.1]];
+    F.forEach(function(f,i){if(ly<=0)return;var sx=dx+f[0]*bw*.25,sy=dy+f[1]*bh*.25,ex=dx+f[0]*bw*.55,ey=dy+f[1]*bh*.9;var px=lerp(sx,ex,ease(ly)),py=lerp(sy,ey,ease(ly));
+      if(i===0){var mv=ease(seg(t,.38,.62)),ig=seg(t,.66,.82);px=lerp(px,rx-bw*.05,mv);py=lerp(py,ry,mv);frag(px,py,bw*.16,0,col("--gene"),1-ig);}else frag(px,py,bw*.14,i,col("--dna"),1);});
+    var gI=seg(t,.66,.82);loop(rx,ry,bw*.3,bh*.28,col("--chromo"),1,gI>0?[Math.PI-.4,Math.PI+.4]:null,col("--gene"));
+    cap=t<.18?"1. Une bactérie donneuse possède dans son chromosome un gène X (en rouge), par exemple un gène de résistance.":t<.36?"2. Elle meurt et se lyse : des fragments d'ADN sont libérés dans le milieu.":t<.66?"3. Une bactérie vivante capte un fragment d'ADN libre portant le gène X.":"4. Le fragment est intégré à son chromosome : elle est transformée et exprime le gène X.";
+  }else if(m==="transd"){
+    var Dx=w*.26,Dy=h*.58,Rx=w*.74,Ry=h*.58,s=Math.max(9,Math.min(w,h)*.035);
+    var ly2=seg(t,.4,.5);bact(Dx,Dy,1-ly2*.85,ly2<.5?"Bactérie infectée":"Bactérie tuée");bact(Rx,Ry,1,"Bactérie receveuse");
+    loop(Dx,Dy,bw*.3,bh*.28,col("--dna"),1-ly2,t<.25?G:null,col("--gene"));
+    var a1=ease(seg(t,0,.12));if(t<.2)phage(Dx,lerp(h*.06+s*2,Dy-bh/2-s*1.4,a1),s,1-seg(t,.16,.2),false);
+    if(t>=.14&&t<.4){var asm=seg(t,.2,.36);[[-.25,-.1],[0,.15],[.25,-.12]].forEach(function(p,i){phage(Dx+p[0]*bw,Dy+p[1]*bh+s,s*.8,asm,i===1);});}
+    if(t>=.4){var rel=ease(seg(t,.4,.52));[[-.25,-.1],[0,.15],[.25,-.12]].forEach(function(p,i){var px=Dx+p[0]*bw*(1+rel*1.2),py=Dy+p[1]*bh+s-rel*bh*.6*(i===1?0:1);if(i===1){var mv2=ease(seg(t,.5,.66));px=lerp(Dx,Rx,mv2);py=lerp(Dy-bh*.2,Ry-bh/2-s*1.4,mv2);}phage(px,py,s*.8,i===1?1-seg(t,.7,.74):1-seg(t,.5,.6),i===1);});}
+    var inj=seg(t,.68,.74),int2=seg(t,.76,.9);if(inj>0&&int2<1)frag(Rx-bw*.05,Ry-bh*.1,bw*.16,0,col("--gene"),1-int2);
+    loop(Rx,Ry,bw*.3,bh*.28,col("--chromo"),1,int2>0?[Math.PI-.4,Math.PI+.4]:null,col("--gene"));
+    cap=t<.16?"1. Un virus de bactérie (phage) se fixe sur une bactérie et y injecte son ADN.":t<.4?"2. Le phage se multiplie. Par erreur, un nouveau phage emporte un fragment d'ADN bactérien portant le gène X.":t<.66?"3. La bactérie infectée meurt et libère les phages, dont celui qui transporte le gène X.":"4. Ce phage injecte le gène X dans une autre bactérie, qui l'intègre à son chromosome.";
+  }else{
+    var mv3=ease(seg(t,.2,.35)),back=ease(seg(t,.72,.86)),g0=Math.min(w*.18,w-16-2*bw),gc=Math.max(10,g0*.18),dA=w/2-g0/2-bw/2,dC=w/2-gc/2-bw/2,dX=lerp(lerp(dA,dC,mv3),lerp(dA,dC,.4),back),rX=w-dX,Y=h*.55;
+    var gap=(rX-bw/2)-(dX+bw/2);
+    var br=Math.min(seg(t,.3,.36),1-seg(t,.7,.76));if(br>0){c.save();c.globalAlpha=br;c.fillStyle=col("--cell");c.strokeStyle=col("--cell-line");c.lineWidth=3;c.fillRect(dX+bw/2-6,Y-bh*.12,gap+12,bh*.24);c.restore();}
+    bact(dX,Y,1,"Bactérie donneuse");bact(rX,Y,1,"Bactérie receveuse");
+    var pg=seg(t,.04,.2),pr=seg(t,.2,.3);if(pg>0&&pr<1){c.strokeStyle=col("--cell-line");c.lineWidth=3;c.beginPath();c.moveTo(dX+bw/2,Y);c.lineTo(dX+bw/2+(gap)*Math.min(pg,1)*(1-pr),Y);c.stroke();}
+    loop(dX-bw*.08,Y,bw*.22,bh*.26,col("--dna"),1,null);loop(rX+bw*.08,Y,bw*.22,bh*.26,col("--chromo"),1,null);
+    var pr0=Math.max(8,bh*.14);ring(dX+bw*.26,Y-bh*.12,pr0,1,false);
+    var tr=ease(seg(t,.38,.7));if(t>=.38){ring(lerp(dX+bw*.26,rX-bw*.26,tr),lerp(Y-bh*.12,Y+bh*.12,tr),pr0,1,tr<1);}
+    cap=t<.2?"1. La bactérie donneuse possède un plasmide (petit ADN circulaire) portant un gène de résistance. Elle forme un pilus.":t<.38?"2. Le pilus rapproche les deux bactéries : un pont cytoplasmique se forme.":t<.72?"3. Le plasmide est copié et une copie passe dans la bactérie receveuse.":"4. Les deux bactéries possèdent maintenant le plasmide et ses gènes de résistance.";
+  }
+  if(t<=0&&!MC.run)cap="Choisis un mécanisme puis appuie sur « Lancer ».";
+  $("mCap").textContent=cap;
+}
+function stepMeca(ts){if(!MC.run)return;if(!MC.last)MC.last=ts;var dt=Math.min(.1,(ts-MC.last)/1000);MC.last=ts;MC.t=Math.min(1,MC.t+dt/MC.DUR);drawMeca();if(MC.t>=1){MC.run=false;renderMBtns();return;}MC.raf=requestAnimationFrame(stepMeca);}
+function renderMBtns(){$("mPlay").disabled=MC.run;$("mPause").disabled=!MC.run;$("mTabs").innerHTML=Object.keys(MODES).map(function(k){return '<button class="tab" data-mode="'+k+'" aria-pressed="'+(S.mode===k)+'">'+MODES[k]+'</button>';}).join("");}
+function startMeca(){if(MC.t>=1)MC.t=0;if(RM){MC.t=1;drawMeca();return;}MC.run=true;MC.last=0;renderMBtns();MC.raf=requestAnimationFrame(stepMeca);}
+function pauseMeca(){if(MC.run){MC.run=false;if(MC.raf)cancelAnimationFrame(MC.raf);renderMBtns();drawMeca();}}
+function stopMeca(){MC.run=false;if(MC.raf)cancelAnimationFrame(MC.raf);}
+$("mPlay").onclick=startMeca;$("mPause").onclick=pauseMeca;$("mReset").onclick=function(){stopMeca();MC.t=0;renderMBtns();drawMeca();};
+$("mTabs").addEventListener("click",function(e){var b=e.target.closest("[data-mode]");if(!b)return;S.mode=b.dataset.mode;save();stopMeca();MC.t=0;renderMBtns();startMeca();});
+
+/* ---------- 5. charts ---------- */
+function setupCv(id,ratio,minH,maxH){var cv=$(id);if(!cv)return null;var w=cv.parentElement.clientWidth;if(w<60)return null;var h=Math.round(Math.max(minH,Math.min(w*ratio,maxH))),dpr=window.devicePixelRatio||1;cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);cv.style.height=h+"px";var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+  var rs=getComputedStyle(document.documentElement);return {c:c,w:w,h:h,col:function(n){return rs.getPropertyValue(n).trim()||"#888";},font:rs.getPropertyValue("--f-body"),tf:Math.max(13,Math.round((parseFloat(rs.fontSize)||22)*.62))};}
+function fitText(c,t,max,tf,font){var f=tf;c.font="700 "+f+"px "+font;while(c.measureText(t).width>max&&f>10){f--;c.font="700 "+f+"px "+font;}}
+var LD=[[2002,3],[2004,16],[2006,31],[2008,48],[2010,55]],lSel=null,lGeo=null;
+function drawLine(){var g=setupCv("c1",.7,240,380);if(!g)return;var c=g.c,w=g.w,h=g.h,tf=g.tf;
+  var L=tf*3.2,R=tf*1.2,T=tf*1.2,B=tf*3.4,pw=w-L-R,ph=h-T-B,X=function(x){return L+(x-2001)/10*pw;},Y=function(y){return T+ph-y/80*ph;};lGeo={X:X};
+  c.strokeStyle=g.col("--line");c.lineWidth=1;for(var y=0;y<=80;y+=10){c.beginPath();c.moveTo(L,Y(y));c.lineTo(L+pw,Y(y));c.stroke();}
+  c.strokeStyle=g.col("--ink");c.lineWidth=2;c.beginPath();c.moveTo(L,T);c.lineTo(L,T+ph);c.lineTo(L+pw,T+ph);c.stroke();
+  c.fillStyle=g.col("--muted");c.font=tf+"px "+g.font;c.textAlign="right";c.textBaseline="middle";for(y=0;y<=80;y+=20)c.fillText(String(y),L-6,Y(y));
+  c.textAlign="center";c.textBaseline="top";LD.forEach(function(d){c.fillText(String(d[0]),X(d[0]),T+ph+6);});
+  c.fillStyle=g.col("--ink");var xt="Années";fitText(c,xt,w-8,tf,g.font);c.textAlign="center";c.textBaseline="bottom";c.fillText(xt,L+pw/2,h-4);
+  var yt="Souches résistantes (%)";fitText(c,yt,ph,tf,g.font);c.save();c.translate(4,T+ph/2);c.rotate(-Math.PI/2);c.textBaseline="top";c.fillText(yt,0,0);c.restore();
+  c.strokeStyle=g.col("--plas");c.lineWidth=3.5;c.beginPath();LD.forEach(function(d,i){c[i?"lineTo":"moveTo"](X(d[0]),Y(d[1]));});c.stroke();
+  LD.forEach(function(d,i){c.fillStyle=g.col("--plas");c.beginPath();c.rect(X(d[0])-(lSel===i?7:5),Y(d[1])-(lSel===i?7:5),lSel===i?14:10,lSel===i?14:10);c.fill();});
+  if(lSel!==null){var d=LD[lSel],t=d[0]+" : "+d[1]+" %";c.font="700 "+tf+"px "+g.font;var bw=c.measureText(t).width+16,bh=tf+12,bx=Math.max(4,Math.min(w-bw-4,X(d[0])-bw/2)),by=Math.max(2,Y(d[1])-bh-12);c.fillStyle=g.col("--ink");c.fillRect(bx,by,bw,bh);c.fillStyle=g.col("--surface");c.textAlign="left";c.textBaseline="middle";c.fillText(t,bx+8,by+bh/2);}}
+$("c1").addEventListener("pointerdown",function(e){if(!lGeo)return;var r=e.target.getBoundingClientRect(),px=e.clientX-r.left,b=null,bd=1e9;LD.forEach(function(d,i){var dd=Math.abs(lGeo.X(d[0])-px);if(dd<bd){bd=dd;b=i;}});lSel=bd<40?b:null;drawLine();$("r1").textContent=lSel===null?"Touche un point pour lire sa valeur.":"En "+LD[lSel][0]+" : "+LD[lSel][1]+" % de souches résistantes.";});
+var PIE=[{k:"Chromosome",v:31,c:"--chromo"},{k:"Plasmide",v:33,c:"--warn"},{k:"Indéterminé",v:36,c:"--muted"}],pSel=null;
+function renderPie(){var a0=-Math.PI/2,h='<svg viewBox="0 0 200 200" role="img" aria-label="Diagramme circulaire : chromosome 31 %, plasmide 33 %, indéterminé 36 %">';
+  PIE.forEach(function(p,i){var a1=a0+p.v/100*6.2832,r=90,ri=48,cx=100,cy=100,lg=p.v>50?1:0;var d="M"+(cx+r*Math.cos(a0))+" "+(cy+r*Math.sin(a0))+" A"+r+" "+r+" 0 "+lg+" 1 "+(cx+r*Math.cos(a1))+" "+(cy+r*Math.sin(a1))+" L"+(cx+ri*Math.cos(a1))+" "+(cy+ri*Math.sin(a1))+" A"+ri+" "+ri+" 0 "+lg+" 0 "+(cx+ri*Math.cos(a0))+" "+(cy+ri*Math.sin(a0))+" Z";
+    var am=(a0+a1)/2;h+='<path d="'+d+'" fill="var('+p.c+')" data-pie="'+i+'" class="'+(pSel===i?"on":"")+'"/><text x="'+(cx+69*Math.cos(am))+'" y="'+(cy+69*Math.sin(am)+5)+'" text-anchor="middle" font-size="15" font-weight="800" fill="#fff" pointer-events="none">'+p.v+' %</text>';a0=a1;});
+  h+='</svg><div class="legend" style="flex-direction:column">'+PIE.map(function(p){return '<span><i style="background:var('+p.c+')"></i>'+p.k+' : '+p.v+' %</span>';}).join("")+'</div>';$("pie").innerHTML=h;}
+$("pie").addEventListener("click",function(e){var p=e.target.closest("[data-pie]");if(!p)return;var i=+p.dataset.pie;pSel=pSel===i?null:i;renderPie();$("r2").textContent=pSel===null?"Touche une part pour la mettre en évidence.":PIE[i].k+" : "+PIE[i].v+" % des gènes de résistance.";});
+var SER=[{t:"E. coli résistante à la kanamycine (kan)",c:"--s1"},{t:"Acinetobacter résistante à la tétracycline (tet)",c:"--s2"},{t:"Acinetobacter résistante à kan et tet",c:"--s3"}];
+var BD=[{lab:"Expérience 1",bars:[{s:0,v:8.5,e:.15}]},{lab:"Expérience 2",bars:[{s:1,v:7.8,e:.2}]},{lab:"Expérience 3",bars:[{s:0,v:4.3,e:.95},{s:1,v:8.0,e:.15},{s:2,v:5.1,e:.2}]}],bSel=null,bGeo=[];
+$("barLegend").innerHTML=SER.map(function(s,i){return '<span><i style="background:var('+s.c+')">'+(i+1)+'</i>'+s.t+'</span>';}).join("");
+function drawBars(){var g=setupCv("c3",.5,260,400);if(!g)return;var c=g.c,w=g.w,h=g.h,tf=g.tf;
+  var ymin=S.axis0?0:3.5,ymax=9.5,L=tf*3.2,R=tf*1,T=tf*1,B=tf*3.4,pw=w-L-R,ph=h-T-B,Y=function(v){return T+ph-(v-ymin)/(ymax-ymin)*ph;};
+  c.strokeStyle=g.col("--line");c.lineWidth=1;for(var y=Math.ceil(ymin);y<=9;y++){c.beginPath();c.moveTo(L,Y(y));c.lineTo(L+pw,Y(y));c.stroke();}
+  c.strokeStyle=g.col("--ink");c.lineWidth=2;c.beginPath();c.moveTo(L,T);c.lineTo(L,T+ph);c.lineTo(L+pw,T+ph);c.stroke();
+  if(ymin>0){c.strokeStyle=g.col("--crit");c.lineWidth=2.5;c.beginPath();c.moveTo(L-7,T+ph-14);c.lineTo(L+7,T+ph-20);c.moveTo(L-7,T+ph-6);c.lineTo(L+7,T+ph-12);c.stroke();}
+  c.fillStyle=g.col("--muted");c.font=tf+"px "+g.font;c.textAlign="right";c.textBaseline="middle";for(y=Math.ceil(ymin);y<=9;y++)if(S.axis0?y%2===0||y===9:true)c.fillText(String(y),L-8,Y(y));
+  var gw=pw/3;bGeo=[];
+  BD.forEach(function(gr,gi){var n=gr.bars.length,bw=Math.min(gw*.22,60),x0=L+gw*gi+gw/2-n*bw/2-(n-1)*4;
+    c.fillStyle=g.col("--muted");c.font=tf+"px "+g.font;c.textAlign="center";c.textBaseline="top";var glab=c.measureText(gr.lab).width>gw-8?gr.lab.replace("Expérience ","Exp. "):gr.lab;c.fillText(glab,L+gw*gi+gw/2,T+ph+6);
+    gr.bars.forEach(function(b,bi){var x=x0+bi*(bw+8),top=Y(b.v);c.fillStyle=g.col(SER[b.s].c);c.globalAlpha=bSel&&bSel[0]===gi&&bSel[1]===bi?1:.88;c.fillRect(x,top,bw,T+ph-top);c.globalAlpha=1;
+      c.fillStyle="#fff";c.font="800 "+Math.max(11,tf-2)+"px "+g.font;c.textAlign="center";c.textBaseline="bottom";c.fillText(String(b.s+1),x+bw/2,T+ph-4);
+      c.strokeStyle=g.col("--ink");c.lineWidth=2;var e1=Math.max(T,Y(b.v+b.e)),e2=Math.min(T+ph,Y(b.v-b.e));c.beginPath();c.moveTo(x+bw/2,e1);c.lineTo(x+bw/2,e2);c.moveTo(x+bw/2-6,e1);c.lineTo(x+bw/2+6,e1);c.moveTo(x+bw/2-6,e2);c.lineTo(x+bw/2+6,e2);c.stroke();
+      bGeo.push({gi:gi,bi:bi,x:x,w:bw});});});
+  c.fillStyle=g.col("--ink");var yt="Nombre de bactéries (UA)";fitText(c,yt,ph,tf,g.font);c.save();c.translate(4,T+ph/2);c.rotate(-Math.PI/2);c.textAlign="center";c.textBaseline="top";c.fillText(yt,0,0);c.restore();
+  if(bSel){var b=BD[bSel[0]].bars[bSel[1]],gx=bGeo.filter(function(q){return q.gi===bSel[0]&&q.bi===bSel[1];})[0],t=dec(b.v)+" ± "+dec(b.e)+" UA";c.font="700 "+tf+"px "+g.font;var bw2=c.measureText(t).width+16,bh=tf+12,bx=Math.max(4,Math.min(w-bw2-4,gx.x+gx.w/2-bw2/2)),by=Math.max(2,Y(b.v+b.e)-bh-8);c.fillStyle=g.col("--ink");c.fillRect(bx,by,bw2,bh);c.fillStyle=g.col("--surface");c.textAlign="left";c.textBaseline="middle";c.fillText(t,bx+8,by+bh/2);}
+}
+$("c3").addEventListener("pointerdown",function(e){var r=e.target.getBoundingClientRect(),px=e.clientX-r.left,hit=null;bGeo.forEach(function(q){if(px>=q.x-6&&px<=q.x+q.w+6)hit=q;});bSel=hit?[hit.gi,hit.bi]:null;drawBars();
+  $("r3").textContent=bSel?BD[bSel[0]].lab+" · "+SER[BD[bSel[0]].bars[bSel[1]].s].t+" : "+dec(BD[bSel[0]].bars[bSel[1]].v)+" ± "+dec(BD[bSel[0]].bars[bSel[1]].e)+" UA":"Touche une barre pour lire sa valeur.";});
+$("axis0").onclick=function(){S.axis0=!S.axis0;save();$("axis0").setAttribute("aria-pressed",S.axis0?"true":"false");$("axis0").textContent=S.axis0?"Revenir à l'axe du document":"Afficher l'axe à partir de 0";drawBars();};
+
+/* ---------- questions ---------- */
+var LV={f:"🟢 Facile",m:"🟡 Moyen",d:"🔴 Défi"};
+var GCH=[{k:"c1",t:"Seule la souche S est virulente."},{k:"c2",t:"Les bactéries S tuées ne sont plus virulentes."},{k:"c3",t:"Les R vivants ont été transformés en S par un facteur venant des S tués."},{k:"c4",t:"Le facteur transformant n'est pas une protéine."},{k:"c5",t:"Le facteur transformant est l'ADN."}];
+var MCH=[{k:"tf",t:"Transformation"},{k:"td",t:"Transduction"},{k:"cj",t:"Conjugaison"}];
+var QS=[
+ {id:"p1",part:1,lvl:"f",type:"num",title:"P1. Probabilité d'un double mutant",prompt:"La mutation de résistance à l'antibiotique 1 apparaît avec une probabilité de 10<sup>−7</sup>, celle de l'antibiotique 2 avec une probabilité de 10<sup>−8</sup>. Quelle est la probabilité qu'une bactérie porte les deux mutations ?",
+  fields:[{k:"e",label:"Probabilité = 10 puissance…",pre:"10^"}],
+  check:function(v){var m="";if(v.e===56||v.e===-56)m="On ne multiplie pas les exposants : 10<sup>a</sup> × 10<sup>b</sup> = 10<sup>a+b</sup>.";else if(v.e===-1||v.e===1)m="Tu as soustrait les exposants. Pour un produit, on les additionne.";else if(v.e===15)m="Attention au signe : la probabilité est inférieure à 1, l'exposant est négatif.";return {w:v.e===-15?[]:["e"],m:m};},
+  hints:["La situation-problème dit que la probabilité est le produit des deux probabilités.","10<sup>a</sup> × 10<sup>b</sup> = 10<sup>a+b</sup>.","(−7) + (−8) = −15."],
+  corr:["Les deux mutations sont indépendantes : p = 10<sup>−7</sup> × 10<sup>−8</sup>.","p = 10<sup>−7+(−8)</sup> = 10<sup>−15</sup>."]},
+ {id:"p2",part:1,lvl:"m",type:"num",title:"P2. Combien de doubles mutants dans une infection ?",prompt:"Une infection compte environ 10<sup>10</sup> bactéries. Combien de doubles mutants peut-on y attendre ? Utilise le calculateur pour vérifier.",
+  fields:[{k:"e",label:"Nombre attendu = 10 puissance…",pre:"10^"}],
+  check:function(v){var m="";if(v.e===-150||v.e===150)m="Multiplier par 10<sup>10</sup> revient à ajouter 10 à l'exposant, pas à le multiplier.";else if(v.e===-25)m="Tu as soustrait 10 au lieu de l'ajouter : 10<sup>10</sup> × 10<sup>−15</sup>.";else if(v.e===5)m="Attention au signe : 10 + (−15) = ?";return {w:v.e===-5?[]:["e"],m:m};},
+  hints:["Nombre attendu = nombre de bactéries × probabilité.","10<sup>10</sup> × 10<sup>−15</sup>.","10 + (−15) = −5, soit 0,000 01 double mutant par infection."],
+  corr:["Nombre attendu = 10<sup>10</sup> × 10<sup>−15</sup> = 10<sup>−5</sup>.","C'est moins d'un double mutant : il faudrait environ 10<sup>5</sup> = 100 000 infections pour en observer un seul."]},
+ {id:"p3",part:1,lvl:"m",type:"single",title:"P3. Que conclure ?",prompt:"Pourtant, plus de 60 % des souches d'<i>A. baumannii</i> responsables d'infections à l'hôpital sont multirésistantes. Que peut-on en conclure ?",
+  options:[{k:"a",t:"Les antibiotiques provoquent les mutations de résistance dont la bactérie a besoin."},{k:"b",t:"Les mutations seules ne suffisent pas à expliquer cette fréquence : les bactéries doivent acquérir des gènes de résistance autrement."},{k:"c",t:"Le calcul est faux : les doubles mutants sont en réalité fréquents."}],answer:"b",
+  fb:{a:"Contresens classique : les mutations sont aléatoires et préexistent à l'antibiotique. L'antibiotique sélectionne les résistantes, il ne crée pas les mutations.",c:"Le calcul est juste ; c'est l'observation qui contredit l'hypothèse « tout par mutation »."},
+  hints:["Compare le nombre attendu (10<sup>−5</sup>) et ce qu'on observe à l'hôpital.","Si l'hypothèse « mutations » ne suffit pas, il faut en chercher une autre.","Une bactérie pourrait-elle récupérer des gènes déjà existants chez d'autres bactéries ?"],
+  corr:["Par mutation, les doubles mutants devraient être exceptionnels (10<sup>−5</sup> par infection).","Or les souches multirésistantes sont fréquentes : il existe un autre mécanisme d'acquisition des gènes de résistance.","Attention : les antibiotiques ne provoquent pas les mutations ; ils sélectionnent les bactéries déjà résistantes."]},
+ {id:"g1",part:2,lvl:"m",type:"rows",title:"G1. Que montre chaque expérience ?",prompt:"Associe chaque expérience (ou comparaison) à la conclusion qu'elle permet. Aide-toi de ton cahier de laboratoire.",
+  rows:[{k:"r1",label:"Expériences 1 et 2"},{k:"r3",label:"Expérience 3"},{k:"r4",label:"Expérience 4"},{k:"r5",label:"Expérience 5"},{k:"r6",label:"Expérience 6"}],choices:GCH,answer:{r1:"c1",r3:"c2",r4:"c3",r5:"c4",r6:"c5"},
+  fbf:function(v){if(v.r4==="c2"||v.r3==="c3")return "L'expérience 3 sert de témoin : elle montre que les S tués seuls ne tuent pas la souris. Que change l'ajout de R vivants dans l'expérience 4 ?";if(v.r5==="c5"||v.r6==="c4")return "Protéase → les protéines sont détruites (exp. 5) ; ADNase → l'ADN est détruit (exp. 6). Dans laquelle la transformation n'a plus lieu ?";return "";},
+  hints:["Commence par les témoins : les expériences 1, 2 et 3.","Expérience 4 : ni les S tués seuls, ni les R seuls ne tuent ; ensemble, la souris meurt et on retrouve des S vivants.","Exp. 5 : sans protéines, la transformation a lieu. Exp. 6 : sans ADN, elle n'a pas lieu."],
+  corr:["Exp. 1 et 2 : seule la souche S (à capsule) est virulente.","Exp. 3 : les S tués par la chaleur ne sont plus virulents.","Exp. 4 : les R vivants sont devenus S au contact des S tués : un facteur des S les a transformés.","Exp. 5 : la protéase n'empêche pas la transformation : ce facteur n'est pas une protéine.","Exp. 6 : l'ADNase l'empêche : le facteur transformant est l'ADN."]},
+ {id:"g2",part:2,lvl:"m",type:"rows",title:"G2. Rédige l'exploitation des expériences 5 et 6",prompt:"Construis le raisonnement en choisissant le bon morceau pour chaque partie.",sentence:true,
+  rows:[{k:"a",label:"Je vois que…",options:[{k:"a1",t:"dans l'expérience 1, la souris meurt"},{k:"a2",t:"avec la protéase (exp. 5), la souris meurt alors qu'avec l'ADNase (exp. 6), elle survit"},{k:"a3",t:"les bactéries R ne sont pas virulentes"}]},
+        {k:"b",label:"or…",options:[{k:"b1",t:"la chaleur tue les bactéries"},{k:"b2",t:"les souris ont un système immunitaire"},{k:"b3",t:"la protéase détruit les protéines et l'ADNase détruit l'ADN"}]},
+        {k:"c",label:"donc…",options:[{k:"c1",t:"le facteur transformant est l'ADN des bactéries S"},{k:"c2",t:"le facteur transformant est une protéine"},{k:"c3",t:"les bactéries R sont devenues résistantes à la chaleur"}]}],
+  answer:{a:"a2",b:"b3",c:"c1"},
+  fbf:function(v){if(v.c==="c2")return "Si c'était une protéine, la protéase aurait empêché la transformation dans l'expérience 5.";if(v.a!=="a2")return "« Je vois que » doit comparer les deux expériences qui diffèrent par un seul facteur : 5 et 6.";if(v.b!=="b3")return "Quelle connaissance permet d'interpréter la différence entre protéase et ADNase ?";return "";},
+  hints:["Compare deux expériences qui ne diffèrent que par une seule variable.","Exp. 5 et 6 ne diffèrent que par l'enzyme utilisée.","Seule la destruction de l'ADN empêche la transformation."],
+  corr:["Je vois qu'avec la protéase (exp. 5) la souris meurt alors qu'avec l'ADNase (exp. 6) elle survit, or la protéase détruit les protéines et l'ADNase l'ADN, donc le facteur transformant est l'ADN des bactéries S."]},
+ {id:"g3",part:2,lvl:"d",type:"single",title:"G3. Écarter une hypothèse concurrente",prompt:"Un élève propose : « Dans l'expérience 4, les bactéries S tuées ont été réanimées par les R. » Quelle expérience permet d'écarter cette hypothèse, et quel mécanisme faut-il retenir ?",
+  options:[{k:"a",t:"L'expérience 1 : les S vivants tuent la souris ; il s'agit d'une mutation des R."},{k:"b",t:"L'expérience 6 : sans ADN, il n'y a pas de transformation. Les S ne sont pas réanimés : ce sont les R qui intègrent l'ADN des S (transformation)."},{k:"c",t:"Aucune : on ne peut pas trancher."}],answer:"b",
+  fb:{a:"L'expérience 1 ne dit rien de ce qui arrive aux S tués. Et une mutation ne dépendrait pas de la présence d'ADN de S.",c:"Si les S étaient « réanimés », l'ADNase ne changerait rien. Or elle empêche le phénomène."},
+  hints:["Si les S étaient réanimés, détruire leur ADN empêcherait-il l'apparition de S vivants ?","Pense à l'expérience où l'on détruit uniquement l'ADN.","Les R prélèvent de l'ADN dans le milieu et l'intègrent : c'est la définition de la transformation."],
+  corr:["Dans l'expérience 6, l'ADN des S est détruit et aucune bactérie S vivante n'apparaît.","Ce n'est donc pas une « réanimation » : les R ont prélevé un fragment d'ADN des S (portant le gène de la capsule) et l'ont intégré à leur génome. C'est une transformation, un transfert horizontal de gènes."]},
+ {id:"l1",part:3,lvl:"f",type:"rows",title:"L1. Le génotype des colonies obtenues",prompt:"Sur milieu minimum, quelques colonies se développent à partir du mélange A + B. Quel est leur génotype ?",
+  rows:[{k:"thi",label:"thi"},{k:"leu",label:"leu"},{k:"thr",label:"thr"},{k:"phe",label:"phe"},{k:"cys",label:"cys"},{k:"bio",label:"bio"}],choices:[{k:"p",t:"+"},{k:"m",t:"−"}],inline:true,answer:{thi:"p",leu:"p",thr:"p",phe:"p",cys:"p",bio:"p"},
+  fbf:function(){return "Sur un milieu minimum, une bactérie ne peut se développer que si elle sait synthétiser toutes les substances dont elle a besoin.";},
+  hints:["Le milieu minimum n'apporte aucune des six substances.","Pour former une colonie, la bactérie doit toutes les synthétiser.","Les colonies sont thi⁺ leu⁺ thr⁺ phe⁺ cys⁺ bio⁺ : elles réunissent les allèles + des deux souches."],
+  corr:["Les colonies sont thi⁺ leu⁺ thr⁺ phe⁺ cys⁺ bio⁺.","Elles réunissent des gènes fonctionnels venant de A (phe⁺ cys⁺ bio⁺) et de B (thi⁺ leu⁺ thr⁺) : du matériel génétique a été échangé."]},
+ {id:"l2",part:3,lvl:"d",type:"num",title:"L2. Et si c'était une mutation ?",prompt:"Pour pousser seule sur milieu minimum, une bactérie A devrait corriger ses 3 mutations (thi, leu, thr) par 3 nouvelles mutations indépendantes, chacune de probabilité ≈ 10<sup>−7</sup>. Quelle serait la probabilité de cet événement ?",
+  fields:[{k:"e",label:"Probabilité = 10 puissance…",pre:"10^"}],
+  check:function(v){var m="";if(v.e===-343||v.e===343)m="On additionne les exposants : (−7) + (−7) + (−7).";else if(v.e===-7)m="Il faut les 3 mutations à la fois : on multiplie les 3 probabilités.";else if(v.e===-14)m="Il y a 3 mutations, pas 2.";return {w:v.e===-21?[]:["e"],m:m};},
+  hints:["Les 3 mutations sont indépendantes : on multiplie les probabilités.","10<sup>−7</sup> × 10<sup>−7</sup> × 10<sup>−7</sup>.","(−7) × 3 = −21."],
+  corr:["p = (10<sup>−7</sup>)<sup>3</sup> = 10<sup>−21</sup> : c'est pratiquement impossible.","C'est pour cela que Lederberg et Tatum ont choisi des souches portant 3 mutations : l'apparition de colonies ne peut pas s'expliquer par des mutations, mais par un échange de gènes."]},
+ {id:"l3",part:3,lvl:"m",type:"single",title:"L3. Ce que montre le tube en U de Davis",prompt:"Dans le tube en U, le milieu liquide (et donc l'ADN libre) passe à travers le filtre, mais pas les bactéries. Aucune colonie n'apparaît. Que peut-on en conclure ?",
+  options:[{k:"a",t:"L'ADN libre suffit : c'est une transformation."},{k:"b",t:"Le transfert de gènes nécessite un contact direct entre les bactéries : c'est une conjugaison."},{k:"c",t:"Les bactéries sont mortes dans le tube."}],answer:"b",
+  fb:{a:"Si l'ADN libre suffisait, il traverserait le filtre et des colonies apparaîtraient. Or il n'y en a aucune.",c:"Sur milieu complet, les mêmes bactéries poussent : elles sont vivantes. Teste-le dans le labo !"},
+  hints:["Qu'est-ce qui passe à travers le filtre ? Qu'est-ce qui ne passe pas ?","Seul le contact entre bactéries est empêché.","Un transfert qui exige un contact direct (par un pilus) est une conjugaison."],
+  corr:["Le filtre laisse passer le milieu et les molécules, dont l'ADN, mais empêche le contact entre bactéries.","Sans contact, aucun transfert : l'échange de gènes chez ces bactéries nécessite un contact direct, par un pilus. C'est la conjugaison."]},
+ {id:"m1",part:4,lvl:"m",type:"rows",title:"M1. Quel mécanisme ?",prompt:"Associe chaque situation au mécanisme de transfert horizontal correspondant.",
+  rows:[{k:"s1",label:"Une bactérie intègre un fragment d'ADN libéré par une bactérie morte."},{k:"s2",label:"Un virus transporte un fragment d'ADN d'une bactérie à une autre."},{k:"s3",label:"Deux bactéries reliées par un pilus échangent un plasmide."},{k:"s4",label:"Expérience de Griffith : des R vivants deviennent S au contact de S tués."},{k:"s5",label:"Expérience de Davis : sans contact entre bactéries, pas de transfert."},{k:"s6",label:"La bactérie donneuse reste vivante et garde une copie du gène."}],choices:MCH,inline:true,answer:{s1:"tf",s2:"td",s3:"cj",s4:"tf",s5:"cj",s6:"cj"},
+  fbf:function(v){if(v.s6!=="cj")return "Dans la transformation et la transduction, la bactérie donneuse meurt. Dans quel mécanisme survit-elle ?";if(v.s4!=="tf")return "Les S sont tués : leur ADN est libéré dans le milieu.";return "";},
+  hints:["Transformation : ADN libre ; transduction : virus ; conjugaison : contact et plasmide.","Griffith : les bactéries S sont mortes. Davis : le contact est nécessaire.","La donneuse ne meurt que dans la transformation et la transduction."],
+  corr:["Transformation : ADN libre (situations 1 et 4, Griffith).","Transduction : transport par un virus (situation 2).","Conjugaison : contact par pilus, souvent un plasmide, la donneuse reste vivante (situations 3, 5 et 6)."]},
+ {id:"m2",part:4,lvl:"d",type:"single",title:"M2. Résoudre le paradoxe",prompt:"Pourquoi les plasmides permettent-ils de résoudre le paradoxe des doubles mutants ?",
+  options:[{k:"a",t:"Parce que les plasmides augmentent la fréquence des mutations."},{k:"b",t:"Parce qu'un plasmide peut porter plusieurs gènes de résistance : une seule conjugaison transmet plusieurs résistances à la fois, y compris entre espèces différentes."},{k:"c",t:"Parce que les plasmides détruisent les antibiotiques."}],answer:"b",
+  fb:{a:"Les plasmides ne font pas muter : ils transportent des gènes qui existent déjà.",c:"Certains gènes de résistance codent bien des enzymes qui inactivent un antibiotique, mais ce n'est pas ce qui résout le paradoxe des probabilités."},
+  hints:["Dans le paradoxe, les probabilités se multiplient parce que les deux résistances doivent apparaître séparément.","Que se passe-t-il si les deux gènes sont déjà réunis sur le même ADN ?","Un seul transfert apporte alors les deux résistances."],
+  corr:["Un plasmide peut porter plusieurs gènes de résistance déjà existants.","Une seule conjugaison transmet alors plusieurs résistances en un seul événement : les probabilités ne se multiplient plus.","Ces transferts sont fréquents et peuvent se faire entre espèces différentes."]},
+ {id:"a1",part:5,lvl:"f",type:"num",title:"A1. Lire le graphique de résistance",prompt:"D'après le graphique, quel pourcentage de souches était résistant à l'imipénème en 2002 et en 2010 ?",
+  fields:[{k:"a",label:"En 2002",unit:"%"},{k:"b",label:"En 2010",unit:"%"}],
+  check:function(v){var w=[];if(!(v.a>=2&&v.a<=5))w.push("a");if(!(v.b>=53&&v.b<=57))w.push("b");var m="";if(v.a===2002||v.b===2010)m="Tu as recopié l'année : lis la valeur sur l'axe vertical.";return {w:w,m:m};},
+  hints:["Touche les points du graphique pour lire leur valeur.","Premier point : tout près de 0 ; dernier point : un peu au-dessus de 50.","Environ 3 % en 2002 et 55 % en 2010."],
+  corr:["2002 : environ 3 % de souches résistantes ; 2010 : environ 55 %.","En 8 ans, la proportion de souches résistantes a été multipliée par plus de 15 : la résistance se diffuse très vite."]},
+ {id:"a2",part:5,lvl:"m",type:"single",title:"A2. Où sont les gènes de résistance ?",prompt:"Que peut-on déduire du diagramme sur la localisation des gènes de résistance ?",
+  options:[{k:"a",t:"Tous les gènes de résistance sont sur le chromosome : ils proviennent de mutations."},{k:"b",t:"Au moins un tiers des gènes de résistance sont portés par des plasmides, transférables par conjugaison."},{k:"c",t:"Les gènes portés par des plasmides ne peuvent pas être transmis."}],answer:"b",
+  fb:{a:"Relis le diagramme : seulement 31 % sont sur le chromosome. Et un gène chromosomique peut aussi avoir été acquis par transfert horizontal.",c:"Les plasmides sont justement transmissibles d'une bactérie à une autre (document 3)."},
+  hints:["Quelle part correspond aux plasmides ?","33 % : environ un tiers.","Les plasmides se transmettent par conjugaison."],
+  corr:["33 % des gènes de résistance étudiés sont sur des plasmides (et 36 % ont une localisation indéterminée).","Ces gènes sont transférables par conjugaison : cela favorise la diffusion rapide des résistances."]},
+ {id:"a3",part:5,lvl:"m",type:"rows",title:"A3. Comparer les expériences du document 5",prompt:"Compare l'expérience 3 (co-culture) aux expériences témoins.",
+  rows:[{k:"ec",label:"① E. coli kan : expérience 3 par rapport à l'expérience 1"},{k:"ab",label:"② Acinetobacter tet : expérience 3 par rapport à l'expérience 2"},{k:"kt",label:"③ Acinetobacter kan + tet"}],choices:[{k:"up",t:"Augmente"},{k:"dn",t:"Diminue"},{k:"eq",t:"Reste stable"},{k:"new",t:"Apparaît seulement en co-culture"}],inline:true,answer:{ec:"dn",ab:"eq",kt:"new"},
+  fbf:function(v){if(v.ab==="up")return "8,0 ± 0,15 contre 7,8 ± 0,2 : les barres d'erreur se chevauchent presque. La différence est très faible.";if(v.ec!=="dn")return "Compare 8,5 (exp. 1) et 4,3 (exp. 3) pour E. coli.";return "";},
+  hints:["Touche les barres pour lire leurs valeurs.","Compare chaque bactérie à son témoin cultivé seul.","La souche ③ n'existe dans aucun témoin."],
+  corr:["① E. coli diminue fortement en co-culture (8,5 → 4,3 UA) : Acinetobacter la tue.","② Acinetobacter tet reste stable (7,8 → 8,0 UA, différence faible au regard des barres d'erreur).","③ Une souche d'Acinetobacter résistante à la kanamycine et à la tétracycline apparaît uniquement en co-culture."]},
+ {id:"a4",part:5,lvl:"d",type:"single",title:"A4. Esprit critique : lire un graphique",prompt:"Un camarade affirme : « En co-culture, E. coli est presque éliminée : sa barre est 6 fois plus petite ! » Pourquoi faut-il nuancer ? Utilise le bouton « Afficher l'axe à partir de 0 ».",
+  options:[{k:"a",t:"Il a raison : la hauteur des barres se compare directement."},{k:"b",t:"L'axe vertical ne commence pas à 0 : les écarts paraissent plus grands. De plus, la barre d'erreur d'E. coli en expérience 3 est grande (± 0,95)."},{k:"c",t:"Les barres d'erreur montrent que les mesures sont fausses."}],answer:"b",
+  fb:{a:"Affiche l'axe à partir de 0 : la barre ① de l'expérience 3 fait environ la moitié de celle de l'expérience 1, pas un sixième.",c:"Une barre d'erreur indique la variabilité des mesures répétées, pas une erreur de manipulation."},
+  hints:["Où commence l'axe des ordonnées sur le document ?","Compare les barres avant et après avoir affiché l'axe depuis 0.","Une grande barre d'erreur signale une forte variabilité entre les répétitions."],
+  corr:["L'axe commence vers 3,5 : la différence visuelle est exagérée. Avec un axe depuis 0, E. coli passe de 8,5 à 4,3 UA, soit environ la moitié.","La barre d'erreur d'E. coli en co-culture est grande : le résultat est plus variable. Mais la diminution reste nette.","En plus, l'unité est arbitraire (UA) : il faut rester prudent sur les rapports."]},
+ {id:"a5",part:5,lvl:"d",type:"rows",title:"A5. Interpréter le document 5",prompt:"Construis l'interprétation de l'expérience 3.",sentence:true,
+  rows:[{k:"a",label:"Je vois que…",options:[{k:"a1",t:"en co-culture, E. coli diminue et une souche d'Acinetobacter résistante à la kanamycine et à la tétracycline apparaît"},{k:"a2",t:"Acinetobacter seule pousse bien"},{k:"a3",t:"E. coli est résistante à la tétracycline"}]},
+        {k:"b",label:"or…",options:[{k:"b1",t:"la kanamycine provoque des mutations chez Acinetobacter"},{k:"b2",t:"Acinetobacter est une bactérie prédatrice qui lyse les autres bactéries, ce qui libère leur ADN"},{k:"b3",t:"E. coli et Acinetobacter sont de la même espèce"}]},
+        {k:"c",label:"donc…",options:[{k:"c1",t:"Acinetobacter a intégré l'ADN d'E. coli portant le gène de résistance à la kanamycine : c'est un transfert horizontal par transformation"},{k:"c2",t:"Acinetobacter a muté deux fois"},{k:"c3",t:"E. coli a transmis sa résistance à ses descendants"}]}],
+  answer:{a:"a1",b:"b2",c:"c1"},
+  fbf:function(v){if(v.b==="b1")return "Contresens : un antibiotique ne provoque pas de mutation utile. Et dans l'expérience, rien n'indique qu'on ait ajouté de la kanamycine pendant la co-culture.";if(v.c==="c2")return "Une double mutation serait trop improbable (étape 1). Et la nouvelle résistance correspond exactement à celle d'E. coli.";if(v.c==="c3")return "Transmission aux descendants = transfert vertical. Ici, le gène passe d'une espèce à une autre.";if(v.b==="b3")return "Ce sont deux espèces différentes : c'est justement ce qui rend le transfert remarquable.";return "";},
+  hints:["Que devient E. coli en co-culture ? Quelle souche nouvelle apparaît ?","Que fait une bactérie « prédatrice » de ses proies ? Que devient leur ADN ?","ADN libre intégré par une bactérie vivante : quel mécanisme ?"],
+  corr:["Je vois qu'en co-culture E. coli diminue et qu'une souche d'Acinetobacter résistante à la kanamycine et à la tétracycline apparaît, or Acinetobacter est une bactérie prédatrice qui lyse les autres bactéries et libère leur ADN, donc Acinetobacter a intégré l'ADN d'E. coli portant le gène de résistance à la kanamycine : c'est un transfert horizontal par transformation, entre deux espèces différentes."]},
+ {id:"s1",part:6,lvl:"m",type:"place",layout:"flow",title:"S1. Complète le schéma-bilan",prompt:"Touche une case vide, puis l'étiquette qui convient.",
+  slots:["mut","hgt","t1","t2","t3","plas","sel"],bank:["Mutations","Transferts horizontaux","Transformation","Transduction","Conjugaison","Plasmide","Sélection naturelle","Transferts verticaux","Méiose"],
+  check:function(v){var w=[];if(v.mut!=="Mutations")w.push("mut");if(v.hgt!=="Transferts horizontaux")w.push("hgt");var tri=["Transformation","Transduction","Conjugaison"];["t1","t2","t3"].forEach(function(s){if(tri.indexOf(v[s])<0)w.push(s);});if(v.plas!=="Plasmide")w.push("plas");if(v.sel!=="Sélection naturelle")w.push("sel");
+    var m="";if(v.hgt==="Transferts verticaux")m="Les transferts verticaux se font des parents aux descendants. Ici, les gènes passent entre bactéries non apparentées.";else if(v.sel==="Mutations"||v.mut==="Sélection naturelle")m="Les mutations créent la diversité au hasard ; la sélection par l'antibiotique trie ensuite les bactéries.";
+    return {w:w,m:m};},
+  hints:["Colonne de gauche : le mécanisme rare du paradoxe. Colonne de droite : le mécanisme fréquent.","Trois modalités de transferts horizontaux ; une molécule d'ADN circulaire qui porte souvent plusieurs gènes de résistance.","Dernière case : ce que fait l'antibiotique sur une population de bactéries."],
+  corr:["Mutations : rares, la probabilité d'un double mutant est un produit (10<sup>−15</sup>).","Transferts horizontaux : transformation, transduction, conjugaison.","Un plasmide peut porter plusieurs gènes de résistance.","Sélection naturelle par les antibiotiques : les bactéries résistantes survivent et se multiplient."]},
+ {id:"s2",part:6,lvl:"m",type:"place",layout:"text",title:"S2. Bilan à compléter",prompt:"Touche une case vide, puis le mot qui convient.",
+  segs:["Les gènes se transmettent des parents aux descendants lors de la reproduction : ce sont des transferts ",{s:"b1"},". Il existe aussi des transferts ",{s:"b2"}," entre organismes parfois non étroitement apparentés, selon trois modalités : la ",{s:"b3"}," (intégration d'ADN libre de l'environnement), la ",{s:"b4"}," (transfert d'ADN par l'intermédiaire d'un virus) et la ",{s:"b5"}," (transfert d'ADN entre deux bactéries par un pont cytoplasmique, souvent sous forme de ",{s:"b6"},").<br><br>Ces échanges de gènes ont d'importantes conséquences sur l'évolution rapide des bactéries, notamment l'apparition de souches résistantes aux ",{s:"b7"},"."],
+  slots:["b1","b2","b3","b4","b5","b6","b7"],bank:["verticaux","horizontaux","transformation","transduction","conjugaison","plasmide","antibiotiques","mutation","méiose"],
+  check:function(v){var e={b1:"verticaux",b2:"horizontaux",b3:"transformation",b4:"transduction",b5:"conjugaison",b6:"plasmide",b7:"antibiotiques"};var w=Object.keys(e).filter(function(k){return v[k]!==e[k];});var m="";
+    if(v.b1==="horizontaux"&&v.b2==="verticaux")m="Tu as inversé : vertical = des parents aux descendants ; horizontal = entre individus sans lien de filiation. ";if(v.b3==="transduction"&&v.b4==="transformation")m+="Transformation = ADN libre ; transduction = virus. ";
+    return {w:w,m:(m||(w.length?w.length+" case"+(w.length>1?"s":"")+" à revoir (marquée"+(w.length>1?"s":"")+" ✗).":"")).trim()};},
+  hints:["Vertical : parents → enfants. Horizontal : entre individus non apparentés.","ADN libre → transformation ; virus → transduction ; pont cytoplasmique → conjugaison.","Petit ADN circulaire transmissible : le plasmide."],
+  corr:["Transferts verticaux (reproduction) et horizontaux (entre organismes non apparentés).","Transformation (ADN libre), transduction (virus), conjugaison (pont cytoplasmique, souvent un plasmide).","Conséquence : évolution rapide des bactéries et résistance aux antibiotiques."]}
+];
+var QM={};QS.forEach(function(q){QM[q.id]=q;});
+var PARTS=[{k:1,t:"Le problème (probabilités)",ids:["p1","p2","p3"],tip:"10ᵃ × 10ᵇ = 10ᵃ⁺ᵇ. Un antibiotique sélectionne les bactéries résistantes, il ne provoque pas les mutations."},
+ {k:2,t:"Griffith et Avery",ids:["g1","g2","g3"],tip:"Compare toujours deux expériences qui ne diffèrent que par un seul facteur (exp. 5 et 6 : protéase ou ADNase)."},
+ {k:3,t:"Lederberg, Tatum et Davis",ids:["l1","l2","l3"],tip:"Milieu minimum : seule une bactérie qui synthétise tout pousse. Le filtre empêche le contact, pas le passage de l'ADN."},
+ {k:4,t:"Les mécanismes",ids:["m1","m2"],tip:"Transformation = ADN libre ; transduction = virus ; conjugaison = contact et plasmide. Un plasmide peut porter plusieurs résistances."},
+ {k:5,t:"Acinetobacter",ids:["a1","a2","a3","a4","a5"],tip:"Vérifie où commence l'axe et regarde les barres d'erreur avant de comparer des barres."},
+ {k:6,t:"La synthèse",ids:["s1","s2"],tip:"Mutations rares + transferts horizontaux fréquents + sélection par les antibiotiques = souches multirésistantes."}];
+
+var lastFb={};
+function withFocus(fn){var a=document.activeElement,id=a&&a.id;fn();if(id&&$(id)&&document.activeElement!==$(id)){try{$(id).focus({preventScroll:true});}catch(e){}}}
+function buildCard(q){
+  var c=document.createElement("article");c.className="qcard";c.id="card-"+q.id;
+  c.innerHTML='<div class="qhead"><h3>'+q.title+'</h3><span class="lvl">'+LV[q.lvl]+'</span><span class="qstat" id="st-'+q.id+'"></span></div><p>'+q.prompt+'</p>'+
+   '<div class="qbody stack" id="body-'+q.id+'"></div>'+
+   '<div class="row"><button class="btn" id="chk-'+q.id+'">Vérifier</button><button class="btn ghost" id="hnt-'+q.id+'">Indice 1/3</button><button class="btn ghost" id="cor-'+q.id+'" hidden>Voir la correction</button></div>'+
+   '<div id="fb-'+q.id+'" aria-live="polite"></div><div class="hints" id="hs-'+q.id+'"></div><div id="co-'+q.id+'"></div>';
+  $("qs-"+q.part).appendChild(c);
+  $("chk-"+q.id).onclick=function(){check(q);};
+  $("hnt-"+q.id).onclick=function(){S.hints[q.id]=Math.min(3,(S.hints[q.id]||0)+1);save();renderQ(q);};
+  $("cor-"+q.id).onclick=function(){S.corr[q.id]=true;save();renderQ(q);renderBilan();if(q.id==="s1"){renderReveal();renderBets();}};
+  var b=$("body-"+q.id);
+  if(q.type==="num"){
+    var a=S.ans[q.id]||{};
+    b.innerHTML='<div class="fields">'+q.fields.map(function(f){var id=q.id+"-"+f.k;return '<div class="field"><label for="'+id+'">'+f.label+'</label><div class="inp">'+(f.pre?'<span class="pre">'+f.pre+'</span>':'')+'<input class="ans" id="'+id+'" data-k="'+f.k+'" inputmode="text" autocomplete="off" value="'+esc(a[f.k]||"")+'">'+(f.unit?'<span class="muted">'+f.unit+'</span>':'')+'<span class="mk" id="mk-'+id+'"></span></div></div>';}).join("")+'</div>'+(q.fields[0].pre?'<p class="small muted">Tape seulement l\'exposant, avec son signe (par exemple −3 ou -3).</p>':'');
+    b.querySelectorAll("input.ans").forEach(function(inp){
+      inp.addEventListener("input",function(){(S.ans[q.id]=S.ans[q.id]||{})[inp.dataset.k]=inp.value;save();if(lastFb[q.id]){delete lastFb[q.id];renderQ(q);}});
+      inp.addEventListener("keydown",function(e){if(e.key==="Enter")check(q);});});
+    return;
+  }
+  b.addEventListener("click",function(e){
+    var t=e.target.closest("[data-v],[data-slot],[data-word]");if(!t||t.disabled)return;
+    var a=S.ans[q.id]=S.ans[q.id]||{};
+    if(q.type==="single"&&t.dataset.v){a.x=t.dataset.v;}
+    else if(q.type==="rows"&&t.dataset.r){a[t.dataset.r]=t.dataset.v;}
+    else if(q.type==="place"){
+      if(t.dataset.slot){var s=t.dataset.slot;if(a[s]!==undefined)delete a[s];S.act[q.id]=s;}
+      else if(t.dataset.word!==undefined){var s2=S.act[q.id];if(!s2||a[s2]!==undefined)s2=firstEmpty(q,a);if(!s2){$("pmsg-"+q.id).textContent="Toutes les cases sont remplies. Touche une case pour la vider.";return;}a[s2]=+t.dataset.word;S.act[q.id]=nextEmpty(q,a,s2);}
+      else return;
+    }else return;
+    save();delete lastFb[q.id];renderQ(q);
+  });
+}
+function firstEmpty(q,a){for(var i=0;i<q.slots.length;i++)if(a[q.slots[i]]===undefined)return q.slots[i];return null;}
+function nextEmpty(q,a,s){var i=q.slots.indexOf(s);for(var j=1;j<=q.slots.length;j++){var c=q.slots[(i+j)%q.slots.length];if(a[c]===undefined)return c;}return null;}
+function renderBody(q){
+  var b=$("body-"+q.id),a=S.ans[q.id]||{},L=lastFb[q.id],checked=!!(L&&!L.empty),wrong=checked?L.w:[];
+  var isW=function(k){return wrong.indexOf(k)>=0;};
+  var mk=function(k){return checked?(isW(k)?'<span class="mk bad">✗ à revoir</span>':'<span class="mk ok">✓ juste</span>'):"";};
+  if(q.type==="num"){q.fields.forEach(function(f){var el=$(q.id+"-"+f.k);if(!el)return;if(el.value!==(a[f.k]||""))el.value=a[f.k]||"";el.classList.toggle("good",checked&&!isW(f.k));if(checked&&isW(f.k))el.setAttribute("aria-invalid","true");else el.removeAttribute("aria-invalid");$("mk-"+q.id+"-"+f.k).innerHTML=mk(f.k);});return;}
+  var h="";
+  if(q.type==="single"){h='<div class="opts" role="group">'+q.options.map(function(o){var on=a.x===o.k;return '<button class="opt'+(on&&checked?(isW("x")?" badm":" okm"):"")+'" id="o-'+q.id+'-'+o.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span>'+o.t+'</span>'+(on?mk("x"):"")+'</button>';}).join("")+'</div>';}
+  else if(q.type==="rows"){
+    if(q.sentence){var txt=q.rows.map(function(r){var o=r.options.filter(function(x){return x.k===a[r.k];})[0];return r.label.replace("…","")+" <b>"+(o?o.t:"……")+"</b>";}).join(", ");h+='<p class="sentence-live" aria-live="polite">« '+txt+'. »</p>';}
+    h+=q.rows.map(function(r){var opts=r.options||q.choices;return '<div class="rrow"><div class="rhd"><span class="rlab">'+r.label+'</span>'+(a[r.k]?mk(r.k):"")+'</div><div class="opts'+(q.inline?" inline":"")+'" role="group" aria-label="'+esc(r.label)+'">'+opts.map(function(o){var on=a[r.k]===o.k;return '<button class="opt'+(on&&checked?(isW(r.k)?" badm":" okm"):"")+'" id="o-'+q.id+'-'+r.k+'-'+o.k+'" data-r="'+r.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span>'+o.t+'</span></button>';}).join("")+'</div></div>';}).join("");}
+  else if(q.type==="place"){
+    var act=S.act[q.id];if(act===undefined||(act&&a[act]!==undefined))act=firstEmpty(q,a);
+    var slot=function(s){var w=a[s]!==undefined?q.bank[a[s]]:null,st=checked?(isW(s)?" bad":" good"):"";return '<button class="blank'+(act===s?" active":"")+(w?" filled":"")+st+'" id="s-'+q.id+'-'+s+'" data-slot="'+s+'" aria-label="'+(w?"Case remplie : "+esc(w)+(checked?(isW(s)?", à revoir":", juste"):"")+". Toucher pour la vider.":"Case vide. Toucher pour la choisir.")+'">'+(w?esc(w):"……")+(checked?(isW(s)?" ✗":" ✓"):"")+'</button>';};
+    if(q.layout==="text")h='<p class="filltext">'+q.segs.map(function(x){return typeof x==="string"?x:slot(x.s);}).join("")+'</p>';
+    else h='<div class="flow"><div class="top">Problème : des souches multirésistantes fréquentes</div><div class="cols"><div class="col no">'+slot("mut")+'<span class="small">rares : environ 10<sup>−7</sup> par gène</span><span class="arr">↓</span><span class="small">double mutant : 10<sup>−7</sup> × 10<sup>−8</sup> = 10<sup>−15</sup></span><span class="small" style="color:var(--crit);font-weight:700">✗ n\'explique pas la fréquence observée</span></div>'+
+      '<div class="col yes">'+slot("hgt")+'<span class="small">entre bactéries, même d\'espèces différentes, selon 3 modalités :</span><div class="tri">'+slot("t1")+slot("t2")+slot("t3")+'</div><span class="arr">↓</span><span class="small">un</span>'+slot("plas")+'<span class="small">peut porter plusieurs gènes de résistance : plusieurs résistances acquises en un seul transfert</span></div></div><div class="arr">↓</div><div class="bottom"><div style="max-width:420px;margin:0 auto">'+slot("sel")+'</div><span class="small" style="font-weight:400">par les antibiotiques : les bactéries résistantes survivent et se multiplient → souches multirésistantes fréquentes</span></div></div>';
+    var used=q.slots.map(function(s){return a[s];}).filter(function(x){return x!==undefined;});
+    h+='<div class="bank" role="group" aria-label="Étiquettes à placer"><p class="banklab">Étiquettes :</p>'+q.bank.map(function(wd,i){var u=used.indexOf(i)>=0;return '<button class="wchip" id="w-'+q.id+'-'+i+'" data-word="'+i+'"'+(u?' disabled aria-label="'+esc(wd)+', déjà placé"':'')+'>'+esc(wd)+'</button>';}).join("")+'</div><p class="muted small" id="pmsg-'+q.id+'" aria-live="polite"></p>';}
+  b.innerHTML=h;
+}
+function emptyFb(q,m){lastFb[q.id]={empty:true,m:m};renderQ(q);}
+function words(q,a){var v={};q.slots.forEach(function(s){if(a[s]!==undefined)v[s]=q.bank[a[s]];});return v;}
+function check(q){
+  var a=S.ans[q.id]||{},v=a,r;
+  if(q.type==="num"){v={};for(var i=0;i<q.fields.length;i++){var f=q.fields[i];v[f.k]=num(a[f.k]);if(v[f.k]===null)return emptyFb(q,"Remplis chaque case avec un nombre avant de vérifier.");}}
+  else if(q.type==="single"){if(!a.x)return emptyFb(q,"Choisis une réponse avant de vérifier.");}
+  else if(q.type==="rows"){if(q.rows.some(function(rr){return !a[rr.k];}))return emptyFb(q,"Fais un choix sur chaque ligne avant de vérifier.");}
+  else if(q.type==="place"){if(q.slots.some(function(s){return a[s]===undefined;}))return emptyFb(q,"Remplis toutes les cases avant de vérifier.");v=words(q,a);}
+  if(q.check)r=q.check(v);
+  else if(q.type==="single")r={w:v.x===q.answer?[]:["x"],m:(q.fb||{})[v.x]||""};
+  else if(q.type==="rows"){var w=q.rows.filter(function(rr){return v[rr.k]!==q.answer[rr.k];}).map(function(rr){return rr.k;});r={w:w,m:(q.fbf&&w.length?q.fbf(v,w):"")||(w.length?w.length+" ligne"+(w.length>1?"s":"")+" à revoir (marquée"+(w.length>1?"s":"")+" ✗).":"")};}
+  var ok=r.w.length===0;
+  S.tries[q.id]=(S.tries[q.id]||0)+1;if(S.first[q.id]===undefined)S.first[q.id]=ok;
+  if(ok)S.done[q.id]=true;
+  lastFb[q.id]={ok:ok,m:r.m,w:r.w};save();renderQ(q);renderBilan();renderStepsDone();
+  if(ok&&q.id==="s1"){renderReveal();renderBets();celebrate();}
+}
+function renderQ(q){
+  withFocus(function(){renderBody(q);});
+  var st=$("st-"+q.id),fb=$("fb-"+q.id);
+  if(S.done[q.id]){st.textContent=S.first[q.id]?"✓ Réussi au premier essai":"✓ Réussi";st.classList.add("ok");}
+  else{var t=S.tries[q.id]||0;st.textContent=t?t+" essai"+(t>1?"s":""):"";st.classList.remove("ok");}
+  var L=lastFb[q.id];
+  if(L){if(L.empty)fb.innerHTML='<div class="fb bad">'+L.m+'</div>';
+    else if(L.ok)fb.innerHTML='<div class="fb ok"><strong>✓ Juste !</strong> '+(S.first[q.id]&&S.tries[q.id]===1?"Bravo, du premier coup.":"Bien corrigé.")+'</div>';
+    else fb.innerHTML='<div class="fb bad"><strong>✗ Pas encore.</strong> '+(L.m||"Vérifie les éléments marqués ✗, puis réessaie.")+'</div>';}
+  else fb.innerHTML="";
+  var nh=S.hints[q.id]||0;
+  $("hs-"+q.id).innerHTML=q.hints.slice(0,nh).map(function(h,i){return '<div class="hint"><b>Indice '+(i+1)+'/3 :</b> '+h+'</div>';}).join("");
+  var hb=$("hnt-"+q.id);hb.disabled=nh>=3;hb.textContent=nh>=3?"Indices épuisés":"Indice "+(nh+1)+"/3";
+  var can=S.done[q.id]||(S.tries[q.id]||0)>=2||nh>=3;
+  $("cor-"+q.id).hidden=!can||!!S.corr[q.id];
+  $("co-"+q.id).innerHTML=S.corr[q.id]?'<div class="corr"><span class="ct">✔&#xFE0E; Correction détaillée</span>'+q.corr.map(function(l){return '<p>'+l+'</p>';}).join("")+'</div>':"";
+  $("chk-"+q.id).textContent=S.done[q.id]?"Vérifier à nouveau":"Vérifier";
+}
+
+/* ---------- essay ---------- */
+var STARTERS=["Le problème posé est de comprendre pourquoi…","Par mutation, la probabilité d'obtenir un double mutant est…","Le document 1 montre que… J'en déduis que…","Or, d'après mes connaissances,…","Le document 2 montre que… J'en déduis que…","En mettant en relation les documents 3, 4 et 5,…","En conclusion,…"];
+var IDEAS=[{l:"probabilité des mutations",re:/probabilit|10\s*[\^⁻-]|double[s]? mutant/i},{l:"transformation (ADN libre)",re:/transformation|ADN libre|griffith|avery/i},{l:"conjugaison / plasmide",re:/conjugaison|plasmide|pilus/i},{l:"transduction (virus)",re:/transduction|virus|phage/i},{l:"document 5 (co-culture)",re:/acinetobacter|baumann|co-?culture|kanamycine|prédat/i},{l:"sélection par les antibiotiques",re:/sélection|sélectionn/i},{l:"entre espèces différentes",re:/espèce[s]? différente|entre espèces|non apparent/i}];
+var CRIT=[["pb","J'ai rappelé le problème posé."],["docs","J'ai exploité chaque document (je vois → j'en déduis)."],["conn","J'ai mobilisé mes connaissances (transformation, transduction, conjugaison, sélection)."],["rel","J'ai mis les informations en relation pour construire une explication."],["ccl","Ma conclusion répond clairement au problème."]];
+$("starters").innerHTML=STARTERS.map(function(s,i){return '<button class="starter" data-i="'+i+'">'+esc(s)+'</button>';}).join("");
+$("starters").onclick=function(e){var b=e.target.closest(".starter");if(!b)return;var ta=$("essay"),s=STARTERS[+b.dataset.i].replace(/…$/," ");ta.value=(ta.value.trim()?ta.value.replace(/\s+$/,"")+"\n\n":"")+s;S.essay=ta.value;save();renderEssay();ta.focus();try{ta.setSelectionRange(ta.value.length,ta.value.length);}catch(err){}};
+function wordCount(t){var m=t.trim().match(/\S+/g);return m?m.length:0;}
+function renderEssay(){var ta=$("essay");if(ta.value!==S.essay)ta.value=S.essay;var t=S.essay||"",n=wordCount(t);
+  $("wc").textContent=n+" mot"+(n>1?"s":"")+" · visé : 200 à 400 mots";
+  $("ideas").innerHTML=IDEAS.map(function(i){var on=i.re.test(t);return '<span class="idea'+(on?" on":"")+'">'+(on?"✓ ":"○ ")+i.l+'</span>';}).join("");
+  $("essayBtn").disabled=n<60&&!S.essayShown;$("essayMsg").textContent=S.essayShown?"":n<60?"Écris au moins 60 mots pour débloquer la comparaison.":"";
+  $("essayOut").hidden=!S.essayShown;
+  $("crit").innerHTML=CRIT.map(function(c){return '<label><input type="checkbox" id="crit-'+c[0]+'" data-k="'+c[0]+'"'+(S.crit[c[0]]?" checked":"")+'><span>'+c[1]+'</span></label>';}).join("");}
+$("essay").addEventListener("input",function(e){S.essay=e.target.value;save();var t=S.essay,n=wordCount(t);$("wc").textContent=n+" mot"+(n>1?"s":"")+" · visé : 200 à 400 mots";$("ideas").innerHTML=IDEAS.map(function(i){var on=i.re.test(t);return '<span class="idea'+(on?" on":"")+'">'+(on?"✓ ":"○ ")+i.l+'</span>';}).join("");$("essayBtn").disabled=n<60&&!S.essayShown;$("essayMsg").textContent=S.essayShown?"":n<60?"Écris au moins 60 mots pour débloquer la comparaison.":"";});
+$("essay").addEventListener("change",renderBilan);
+$("essayBtn").onclick=function(){S.essayShown=true;save();renderEssay();renderBilan();renderStepsDone();};
+$("crit").addEventListener("change",function(e){var i=e.target;if(i.dataset&&i.dataset.k){S.crit[i.dataset.k]=i.checked;save();renderBilan();}});
+
+/* ---------- prediction ---------- */
+var BETS=[["p1","Elle mute sous l'effet de l'antibiotique, qui provoque les mutations utiles."],["p2","Elle récupère des gènes de résistance venant d'autres bactéries."],["p3","Elle s'habitue à l'antibiotique, comme un sportif qui s'entraîne."]];
+function betLabel(){var b=BETS.filter(function(x){return x[0]===S.bet;})[0];return b?b[1]:null;}
+function concluded(){return !!(S.done.s1||S.corr.s1);}
+function renderBets(){var box=$("bets");box.innerHTML="";var lock=concluded();
+  BETS.forEach(function(x){var b=document.createElement("button");b.className="bet";b.textContent=x[1];b.setAttribute("aria-pressed",S.bet===x[0]?"true":"false");b.disabled=lock;b.onclick=function(){S.bet=x[0];save();renderBets();renderStepsDone();};box.appendChild(b);});
+  var l=betLabel();$("betMsg").textContent=lock?"Hypothèse verrouillée : « "+(l||"aucune")+" ». Réponse à l'étape 6.":(l?"Hypothèse enregistrée. Tu la confronteras aux documents à l'étape 6.":"Choisis une réponse.");}
+function renderReveal(){var slot=$("revealSlot");if(!concluded()){slot.innerHTML="";return;}var l=betLabel(),win=S.bet==="p2";
+  slot.innerHTML='<div class="reveal"><div class="kicker" style="color:var(--band-muted)">Et ton hypothèse de départ ?</div><div class="big">Des gènes de résistance qui passent d\'une bactérie à l\'autre.</div><p>'+(l?'Tu avais répondu : <b>« '+l+' »</b>. ':"Tu n'avais pas fait d'hypothèse. ")+(win?"Ton hypothèse est validée par les documents.":"Les documents montrent que les bactéries récupèrent des gènes d'autres bactéries.")+'</p><p class="muted">'+(S.bet==="p1"?"L'idée que l'antibiotique « provoque » les mutations est une conception fréquente mais fausse : les mutations sont aléatoires ; l'antibiotique sélectionne les bactéries déjà résistantes.":S.bet==="p3"?"Une bactérie ne s'« habitue » pas : ce sont ses gènes qui déterminent sa résistance, et ils peuvent être acquis par transfert horizontal.":"Mutations rares + transferts horizontaux fréquents + sélection par les antibiotiques : voilà l'explication.")+'</p></div>';}
+
+function celebrate(){if(RM)return;var cv=document.createElement("canvas");cv.className="confetti";document.body.appendChild(cv);
+  var w=innerWidth,h=innerHeight,dpr=window.devicePixelRatio||1;cv.width=w*dpr;cv.height=h*dpr;cv.style.width=w+"px";cv.style.height=h+"px";
+  var c=cv.getContext("2d");c.scale(dpr,dpr);var rs=getComputedStyle(document.documentElement);var cols=["--accent","--plas","--chromo","--gene","--dna"].map(function(n){return rs.getPropertyValue(n).trim();});
+  var P=[];for(var i=0;i<130;i++)P.push({x:w/2+(Math.random()-.5)*w*.3,y:h*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*13-4,r:Math.random()*3,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[i%cols.length]});
+  var t0=null;var f=function(ts){if(t0===null)t0=ts;var el=ts-t0;c.clearRect(0,0,w,h);P.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;c.save();c.translate(p.x,p.y);c.rotate(p.r);c.globalAlpha=Math.max(0,1-el/2200);c.fillStyle=p.c;c.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);c.restore();});if(el<2200)requestAnimationFrame(f);else cv.remove();};
+  requestAnimationFrame(f);}
+
+/* ---------- report ---------- */
+function partScore(p){return {s:p.ids.filter(function(k){return S.first[k];}).length,n:p.ids.length};}
+function total(){var s=0,n=0;PARTS.forEach(function(p){var r=partScore(p);s+=r.s;n+=r.n;});return {s:s,n:n};}
+function critN(){return CRIT.filter(function(c){return S.crit[c[0]];}).length;}
+function today(){var d=new Date();return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();}
+function labStats(){var seen={};S.g.log.forEach(function(r){if(r.n&&r.n<=6)seen[r.n]=1;});return {docs:Object.keys(seen).length,pred:S.g.log.filter(function(r){return r.ok;}).length,np:S.g.log.length,cult:S.l.log.length};}
+function bilanText(){var T=total(),L=[],ls=labStats();
+  L.push("Terminale spécialité SVT · Chapitre 5 · Activité 1 — Transferts horizontaux de gènes et multirésistance");
+  L.push("Élève : "+(S.name.trim()||"non renseigné")+"   Date : "+today());
+  L.push("Hypothèse de départ : "+(betLabel()||"aucune"));
+  L.push("Score au premier essai : "+T.s+"/"+T.n);
+  PARTS.forEach(function(p){var r=partScore(p);L.push("Partie "+p.k+" · "+p.t+" : "+r.s+"/"+r.n);p.ids.forEach(function(k){var t=S.tries[k]||0;L.push("  - "+QM[k].title.replace(/<[^>]+>/g,"")+" : "+(S.first[k]?"✓ premier essai":S.done[k]?"réussi en "+t+" essais":t?"pas encore réussi ("+t+" essai"+(t>1?"s":"")+")":"pas fait")+(S.corr[k]&&!S.first[k]?" — correction consultée":""));});});
+  L.push("Labo Griffith : "+ls.docs+"/6 expériences du document, prédictions justes "+ls.pred+"/"+ls.np);
+  L.push("Labo Lederberg : "+ls.cult+" culture(s) réalisée(s)");
+  L.push("Rédaction : "+(S.essay.trim()?wordCount(S.essay)+" mots, auto-évaluation "+critN()+"/5":"pas encore rédigée"));
+  var weak=PARTS.filter(function(p){var r=partScore(p);return p.ids.some(function(k){return S.tries[k];})&&r.s<r.n;});if(weak.length)L.push("Conseil : "+weak[0].tip);
+  return L.join("\n");}
+function scoreCards(){var ls=labStats();return PARTS.map(function(p){var r=partScore(p);return '<div class="sc"><div class="k">Partie '+p.k+' · '+p.t+'</div><div class="v">'+r.s+'/'+r.n+'</div><div class="bar"><span style="width:'+(r.s/r.n*100)+'%"></span></div></div>';}).join("")+
+  '<div class="sc"><div class="k">Rédaction (auto-évaluation)</div><div class="v">'+(S.essay.trim()?critN()+"/5":"—")+'</div><div class="bar"><span style="width:'+(critN()/5*100)+'%"></span></div></div>'+
+  '<div class="sc"><div class="k">Prédictions justes (labo Griffith)</div><div class="v">'+ls.pred+'/'+ls.np+'</div></div>';}
+function renderBilan(){var T=total();$("scoreGrid").innerHTML='<div class="sc"><div class="k">Total au premier essai</div><div class="v">'+T.s+'/'+T.n+'</div><div class="bar"><span style="width:'+(T.s/T.n*100)+'%"></span></div></div>'+scoreCards();
+  var nf=QS.filter(function(q){return !S.tries[q.id];}).map(function(q){return q.title.split(".")[0];});
+  var weak=PARTS.filter(function(p){var r=partScore(p);return p.ids.some(function(k){return S.tries[k];})&&r.s<r.n;}),h="";
+  if(nf.length)h+='<div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Pas encore terminé</div><p>Il te reste : '+nf.join(", ")+'.</p></div>';
+  if(weak.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Mes conseils</div>'+weak.map(function(p){return '<p><b>Partie '+p.k+' :</b> '+p.tip+'</p>';}).join("")+'</div>';
+  else if(!nf.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Bravo</div><p>Tout est réussi au premier essai. Tu es prêt pour ce type d\'exercice au bac.</p></div>';
+  $("advice").innerHTML=h;$("bilanText").textContent=bilanText();if($("pname").value!==S.name)$("pname").value=S.name;}
+$("pname").addEventListener("input",function(e){S.name=e.target.value;save();$("bilanText").textContent=bilanText();});
+$("copyBilan").onclick=function(){var t=bilanText(),msg=$("bilanMsg");var sel=function(){var r=document.createRange();r.selectNodeContents($("bilanText"));var s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : copie-le avec ton appareil.";};
+  try{navigator.clipboard.writeText(t+(S.essay.trim()?"\n\n— Ma rédaction —\n"+S.essay.trim():"")).then(function(){msg.textContent="Bilan copié (avec ta rédaction).";},sel);}catch(e){sel();}};
+var DL=null;
+(function(){try{if(window.claude&&window.claude.use){window.claude.use("downloads").then(function(d){DL=d;$("dlBilan").hidden=!d;}).catch(function(){});}}catch(e){}})();
+$("dlBilan").onclick=function(){if(!DL)return;var msg=$("bilanMsg");var nm=(S.name.trim()||"eleve").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9_-]+/g,"-").slice(0,30)||"eleve";
+  DL.save({filename:"bilan-transferts-horizontaux-"+nm+".txt",data:bilanText()+(S.essay.trim()?"\n\n— Ma rédaction —\n"+S.essay.trim()+"\n":"")}).then(function(){msg.textContent="Bilan téléchargé (avec ta rédaction).";},function(err){var c=err&&err.code;msg.textContent=c==="declined"?"Téléchargement annulé.":c==="rate_limited"?"Patiente un instant, puis réessaie.":"Téléchargement impossible ici : utilise « Copier mon bilan ».";});};
+$("showProf").onclick=function(){var T=total();$("ovname").textContent=S.name.trim()||"Élève";$("ovtot").textContent=T.s+" / "+T.n;$("ovparts").innerHTML=scoreCards();$("overlay").hidden=false;$("ovClose").focus();};
+$("ovClose").onclick=function(){$("overlay").hidden=true;$("showProf").focus();};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")$("overlay").hidden=true;});
+
+function renderStepsDone(){var all=function(p){return PARTS[p-1].ids.every(function(k){return S.done[k];});};
+  var d={probleme:all(1),griffith:all(2),lederberg:all(3),mecanismes:all(4),acineto:all(5),synthese:all(6)&&S.essayShown};
+  document.querySelectorAll(".step").forEach(function(b){b.classList.toggle("done",!!d[b.dataset.go]&&b.getAttribute("aria-current")!=="step");});}
+function renderAll(){applyFs();applyTheme();renderBets();renderCalc();renderGCtl();$("gStage").innerHTML=gStageHTML(gCombo(S.g),null,0);renderLCtl();$("lStage").innerHTML=lStageHTML(S.l,null,0);renderMBtns();renderPie();
+  $("axis0").setAttribute("aria-pressed",S.axis0?"true":"false");$("axis0").textContent=S.axis0?"Revenir à l'axe du document":"Afficher l'axe à partir de 0";
+  QS.forEach(renderQ);renderEssay();renderReveal();renderBilan();renderStepsDone();redrawAll();}
+
+QS.forEach(buildCard);
+renderAll();
+go(location.hash.slice(1)||"probleme");
+if(window.ResizeObserver){var ro=new ResizeObserver(function(){redrawAll();});["mcv","c1","c3"].forEach(function(id){ro.observe($(id).parentElement);});ro.observe($("ruler"));}else window.addEventListener("resize",redrawAll);
+window.__t={S:function(){return S;},MC:function(){return MC;}};
+})();
+</script>
+</body>
+</html>

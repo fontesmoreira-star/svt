@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Labo d'agglutination</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
+<style>
+/* Layout : bandeau SVT vert foncé (dossier d'enquête n° 7), stepper collant en 5 étapes (Mission → Comprendre → Labo → Conclure → Bilan), une étape visible à la fois, colonne de 1040 px (1400 px en projection) */
+:root{
+  --bg:#eff4f0; --surface:#ffffff; --surface-2:#e3ece5; --ink:#132a1e; --muted:#4a6355; --line:#c3d5c8;
+  --accent:#1d6b45; --accent-ink:#ffffff; --accent-soft:#d9eee0;
+  --band:#123a28; --band-ink:#ecf6ef; --band-muted:#a9cdb6;
+  --ok:#17703c; --ok-soft:#dcf1e3; --bad:#b3261e; --bad-soft:#fbe2df;
+  --info:#1d5fa8; --info-soft:#e4eefb; --warn:#a14f00; --warn-soft:#fdebd6; --key:#17703c; --key-soft:#dcf1e3; --crit:#b3261e; --crit-soft:#fbe2df;
+  --rbc:#c62828; --rbc-in:#e85a4f; --plasma:#f6d3cf; --well:#f7f9f8; --well-rim:#b9c7c0;
+  --agA:#2f74c8; --agB:#e3b21b; --abA:#1d4f99; --abB:#b07f00;
+  --paper:#fffdf6; --tape:#f2d36b;
+  --av1:#2f6fb5; --av2:#a14f00; --av3:#6a3fa0; --av4:#b3367a; --av5:#1d7f7a; --av6:#6b5a2f;
+  --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --f-stamp:"Courier New",ui-monospace,monospace;
+  --fs:22px; --maxw:1040px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1611; --surface:#13231b; --surface-2:#1b3125; --ink:#e5f1e9; --muted:#a3bfad; --line:#2f4a3a;
+  --accent:#66c995; --accent-ink:#06261a; --accent-soft:#173d2a;
+  --band:#08251a; --band-ink:#e5f3ea; --band-muted:#93c0a4;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --rbc:#e0463c; --rbc-in:#ff7d70; --plasma:#5a2622; --well:#1f2f27; --well-rim:#4a6355;
+  --agA:#6ea8f0; --agB:#f2cc4a; --abA:#9cc6ff; --abB:#ffd966;
+  --paper:#1d2a22; --tape:#8a7428;
+  --av1:#8ab8f2; --av2:#f3a95c; --av3:#c2a6f2; --av4:#f29cc8; --av5:#6fd6cf; --av6:#d6c08a;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0c1611; --surface:#13231b; --surface-2:#1b3125; --ink:#e5f1e9; --muted:#a3bfad; --line:#2f4a3a;
+  --accent:#66c995; --accent-ink:#06261a; --accent-soft:#173d2a;
+  --band:#08251a; --band-ink:#e5f3ea; --band-muted:#93c0a4;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --rbc:#e0463c; --rbc-in:#ff7d70; --plasma:#5a2622; --well:#1f2f27; --well-rim:#4a6355;
+  --agA:#6ea8f0; --agB:#f2cc4a; --abA:#9cc6ff; --abB:#ffd966;
+  --paper:#1d2a22; --tape:#8a7428;
+  --av1:#8ab8f2; --av2:#f3a95c; --av3:#c2a6f2; --av4:#f29cc8; --av5:#6fd6cf; --av6:#d6c08a;
+  color-scheme:dark;
+}
+html{font-size:var(--fs)}
+html.proj{--maxw:1400px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:18px 20px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.45rem,4.4vw,2.2rem);font-weight:800;margin-top:4px}
+.band .q{color:var(--band-muted);margin-top:4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{min-height:48px;min-width:48px;padding:0 12px;border-radius:12px;border:1.5px solid color-mix(in oklab,var(--band-ink) 35%,transparent);background:transparent;color:var(--band-ink);font-weight:700;cursor:pointer;font-size:.9rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+.tbtn.warn{border-color:var(--warn);background:color-mix(in oklab,var(--warn) 35%,transparent)}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.steps .wrap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding-block:6px}
+.step{min-height:56px;border:0;border-radius:12px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px;color:var(--muted);font-weight:700;min-width:0;font-size:.9rem}
+.step .n{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid currentColor;font-family:var(--f-num);font-size:.8rem}
+.step .l{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step[aria-current="step"]{background:var(--accent-soft);color:var(--ink)}
+.step[aria-current="step"] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.step.done .n{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+@media (max-width:720px){.step .l{display:none}}
+
+main .wrap{padding-block:24px 56px}
+section.view{display:flex;flex-direction:column;gap:22px}
+.kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.h2{font-size:clamp(1.35rem,3.4vw,1.8rem);font-weight:800}
+.lead{max-width:64ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.btn{min-height:52px;padding:0 18px;border-radius:14px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{min-height:48px;padding:0 12px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.next{display:flex;justify-content:flex-end}
+
+.box{border-radius:14px;padding:14px 16px;border-left:6px solid;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box .bt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.box .ic{font-size:1.1rem;line-height:1}
+.box.info{background:var(--info-soft);border-color:var(--info)}.box.info .bt{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)}.box.warn .bt{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)}.box.key .bt{color:var(--key)}
+.box.crit{background:var(--crit-soft);border-color:var(--crit)}.box.crit .bt{color:var(--crit)}
+.box ol,.box ul{margin:0;padding-left:1.3em}
+
+.dossier{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:6px 18px 18px 18px;padding:22px 18px 18px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:12px}
+.dossier::before{content:"";position:absolute;top:-14px;left:0;width:150px;height:16px;background:var(--paper);border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0}
+.conf{position:absolute;top:14px;right:14px;font-family:var(--f-stamp);font-weight:700;color:var(--crit);border:3px solid var(--crit);padding:2px 10px;transform:rotate(8deg);letter-spacing:.1em;font-size:.9rem;opacity:.85}
+.bets{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
+.bet{min-height:72px;text-align:left;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.bet[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.bigq{font-family:var(--f-display);font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:800;max-width:34ch}
+
+/* Board */
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:12px;background:var(--surface-2);border-radius:18px;padding:14px;border:1px solid var(--line)}
+.sus{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-height:160px;overflow:hidden}
+.sus::before{content:"";position:absolute;top:-6px;left:50%;width:46px;height:16px;margin-left:-23px;background:var(--tape);opacity:.8;transform:rotate(-3deg)}
+.av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;color:var(--surface);font-size:1.1rem}
+.sus .nm{font-weight:700;font-size:.9rem;line-height:1.2}
+.sus .sb{font-size:.9rem;color:var(--muted)}
+.sus .grp{font-family:var(--f-num);font-weight:600;font-size:.9rem;background:var(--surface-2);border-radius:999px;padding:0 10px}
+.stamp{position:absolute;left:4px;right:4px;top:14px;font-family:var(--f-stamp);font-weight:700;font-size:.9rem;letter-spacing:.04em;padding:4px;border:3px solid;border-radius:6px;transform:rotate(-12deg);background:color-mix(in oklab,var(--paper) 70%,transparent);line-height:1.15}
+.stamp.in{color:var(--ok);border-color:var(--ok)}
+.stamp.out{color:var(--crit);border-color:var(--crit)}
+.stamp.anim{animation:stamp .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes stamp{0%{transform:rotate(-12deg) scale(2.4);opacity:0}100%{transform:rotate(-12deg) scale(1);opacity:1}}
+
+/* Cells and groups */
+.groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gcard{border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;cursor:pointer;min-width:0}
+.gcard[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.gcard svg{width:90px;height:90px}
+.gcard b{font-family:var(--f-display);font-size:1.05rem}
+.gcard span{font-size:.9rem;color:var(--muted)}
+.legendrow{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.9rem;align-items:center}
+.legendrow svg{width:22px;height:22px;vertical-align:middle}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.cvbox{width:100%;min-width:0}
+.cvbox canvas{display:block;width:100%;border-radius:14px}
+.caption{min-height:3em;font-weight:700}
+.simctl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:640px){.simctl{grid-template-columns:minmax(0,1fr)}}
+
+/* Wells */
+.reftable{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);gap:6px 10px;align-items:center}
+.reftable .h{font-weight:700;font-size:.9rem;color:var(--muted)}
+.reftable .g{font-family:var(--f-display);font-weight:800;font-size:1.2rem;text-align:center}
+.reftable svg{width:100%;max-width:96px;height:auto;display:block;margin:0 auto}
+.reftable .t{font-size:.9rem}
+.plates{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}
+.plate{background:var(--surface-2);border-radius:16px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.plate .pt{font-weight:700}
+.wells{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.wl{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.9rem;font-weight:700;min-width:0}
+.wl svg{width:100%;max-width:120px;height:auto}
+.wcell{transition:transform 1.6s cubic-bezier(.4,0,.2,1)}
+.wbg{transition:fill-opacity 1.6s ease}
+
+/* Virtual bench */
+.bench{display:flex;flex-direction:column;gap:14px}
+.toolsbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:620px){.toolsbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tool{min-height:64px;border:2px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px;text-align:center;line-height:1.2}
+.tool .tic{font-size:1.4rem;line-height:1}
+.tool[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+.tool small{font-weight:400;color:var(--muted);font-size:.9rem}
+.tray{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;background:var(--surface-2);border-radius:22px;padding:16px;border:1px solid var(--line)}
+.wellbtn{border:3px solid var(--well-rim);border-radius:20px;background:var(--surface);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;min-width:0}
+.wellbtn.target{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.wellbtn.contam{border-color:var(--crit)}
+.wellbtn svg{width:100%;max-width:170px;height:auto}
+.wellbtn .wn{font-weight:800;font-family:var(--f-display)}
+.wellbtn .ws{font-size:.9rem;color:var(--muted);min-height:2.6em;text-align:center}
+.log{font-weight:700;min-height:1.6em}
+.guide{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.guide li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem}
+.guide li .ck{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.guide li.ok .ck{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.guide li.ok{color:var(--muted)}
+.guide li.now{font-weight:700}
+.guide li.now .ck{border-color:var(--accent);color:var(--accent)}
+
+/* Questions */
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:80px}
+.qhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.qhead h3{font-size:1.15rem;font-weight:800}
+.lvl{font-size:.9rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.qstat{margin-left:auto;font-size:.9rem;font-weight:700;color:var(--muted)}
+.qstat.ok{color:var(--ok)}
+.mk{font-weight:700;font-size:.9rem;white-space:nowrap}
+.mk.ok{color:var(--ok)}.mk.bad{color:var(--bad)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;justify-content:space-between}
+.opts.inline .opt{justify-content:center}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt.okm{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badm{border-color:var(--bad);background:var(--bad-soft)}
+.rrow{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:14px;background:var(--surface-2)}
+.rlab{font-weight:700}
+.rhd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between}
+.rrow .rimg{display:grid;grid-template-columns:repeat(2,minmax(0,110px));gap:8px}
+.fb{border-radius:12px;padding:12px 14px}
+.fb.ok{background:var(--ok-soft);border:2px solid var(--ok)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.hints{display:flex;flex-direction:column;gap:8px}
+.hint{background:var(--warn-soft);border-radius:12px;padding:10px 14px}
+.hint b{color:var(--warn)}
+.corr{border-left:5px solid var(--key);background:var(--key-soft);border-radius:0 12px 12px 0;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.corr .ct{font-weight:700;color:var(--key)}
+.sentence-live{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-style:italic}
+.sentence-live b{font-style:normal;color:var(--accent)}
+.seq{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.seq li{display:flex;gap:10px;align-items:center;background:var(--surface-2);border-radius:12px;padding:8px 12px;min-height:52px}
+.seq li .nb{flex:none;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-family:var(--f-num)}
+.seq li.empty{border:2px dashed var(--line);background:transparent;color:var(--muted)}
+.seq li.okm{outline:2px solid var(--ok);background:var(--ok-soft)}
+.seq li.badm{outline:2px solid var(--bad);background:var(--bad-soft)}
+.filltext{line-height:2.5}
+.blank{min-height:48px;min-width:5em;padding:2px 10px;margin:2px;border-radius:10px;border:2px dashed var(--muted);background:var(--bg);cursor:pointer;font-weight:700;vertical-align:middle;line-height:1.3}
+.blank.filled{border-style:solid;border-color:var(--accent)}
+.blank.active{outline:3px solid var(--accent);outline-offset:2px;background:var(--accent-soft)}
+.blank.good{border-color:var(--ok);background:var(--ok-soft)}
+.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border-radius:14px;background:var(--surface-2)}
+.banklab{flex:1 1 100%;font-size:.9rem;font-weight:700;color:var(--muted)}
+.wchip{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--accent);background:var(--surface);font-weight:700;cursor:pointer}
+.wchip:disabled{border-color:var(--line);color:var(--muted);text-decoration:line-through;cursor:default}
+.dtable{width:100%;border-collapse:collapse;font-size:.95rem}
+.dtable th,.dtable td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.dtable th{background:var(--surface-2)}
+.dtable td.g{font-family:var(--f-num);font-weight:700}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+
+.reveal{background:var(--band);color:var(--band-ink);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.reveal .big{font-family:var(--f-display);font-weight:800;font-size:clamp(1.4rem,4.5vw,2rem)}
+.reveal .muted{color:var(--band-muted)}
+
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.sc{background:var(--surface-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sc .k{font-size:.9rem;color:var(--muted);font-weight:700}
+.sc .v{font-family:var(--f-num);font-weight:600;font-size:1.3rem}
+.sc .bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.sc .bar span{display:block;height:100%;background:var(--ok)}
+.bilantext{white-space:pre-wrap;font-family:var(--f-num);font-size:.9rem;background:var(--surface-2);border-radius:12px;padding:14px;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere}
+input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);width:min(100%,16em)}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:.9rem;font-weight:700;color:var(--muted)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--surface);overflow:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovin{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ovname{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,7vw,3.6rem)}
+.ovtot{font-family:var(--f-num);font-weight:600;font-size:clamp(2.4rem,10vw,5rem);color:var(--accent);line-height:1}
+.ovparts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.ovparts .sc .v{font-size:clamp(1.6rem,5vw,2.4rem)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+.shake{animation:shake .35s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages…) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div style="min-width:0">
+      <div class="eyebrow">3e SVT · Génétique et évolution · Activité 7</div>
+      <h1>TP : analyse du sang retrouvé sur les vêtements de la victime</h1>
+      <p class="q">Déterminer le groupe sanguin de l'échantillon pour identifier le coupable</p>
+    </div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tbtn" id="fsMinus" aria-label="Réduire le texte">A−</button>
+      <button class="tbtn" id="fsPlus" aria-label="Agrandir le texte">A+</button>
+      <button class="tbtn" id="proj" aria-pressed="false">Projection</button>
+      <button class="tbtn" id="theme">Thème</button>
+      <button class="tbtn" id="reset">Recommencer</button>
+    </div>
+  </div>
+</header>
+
+<nav class="steps" aria-label="Étapes">
+  <div class="wrap">
+    <button class="step" data-go="mission"><span class="n">1</span><span class="l">Mission</span></button>
+    <button class="step" data-go="comprendre"><span class="n">2</span><span class="l">Comprendre</span></button>
+    <button class="step" data-go="labo"><span class="n">3</span><span class="l">Labo</span></button>
+    <button class="step" data-go="conclure"><span class="n">4</span><span class="l">Conclure</span></button>
+    <button class="step" data-go="bilan"><span class="n">5</span><span class="l">Bilan</span></button>
+  </div>
+</nav>
+
+<main><div class="wrap">
+
+<!-- 1 MISSION -->
+<section class="view" id="v-mission">
+  <div class="dossier">
+    <span class="conf" aria-hidden="true">CONFIDENTIEL</span>
+    <div class="kicker">Dossier n° 7 · Suite de l'enquête</div>
+    <h2 class="h2" style="max-width:24ch">Quelques gouttes de sang peuvent tout révéler !</h2>
+    <p class="lead">Grâce aux caryotypes (activité 6), trois suspects ont été innocentés. Il en reste <b>trois</b>, tous des hommes. Les enquêteurs ont retrouvé du <b>sang</b> sur les vêtements de la victime.</p>
+    <p class="lead"><b>Ta mission :</b> déterminer le groupe sanguin de ce sang grâce à un <b>test d'agglutination</b>, et en déduire qui peut en être l'auteur.</p>
+  </div>
+  <div class="stack">
+    <div class="kicker">Le tableau d'enquête</div>
+    <div class="board" id="board"></div>
+  </div>
+  <div class="stack">
+    <div class="kicker">Avant le TP, fais une hypothèse</div>
+    <p class="bigq">Le groupe sanguin suffira-t-il à prouver qui est le coupable ?</p>
+    <div class="bets" id="bets" role="group" aria-label="Ton hypothèse"></div>
+    <p id="betMsg" class="muted" aria-live="polite"></p>
+  </div>
+  <div class="next"><button class="btn" data-go="comprendre">Comprendre le test →</button></div>
+</section>
+
+<!-- 2 COMPRENDRE -->
+<section class="view" id="v-comprendre" hidden>
+  <div class="stack">
+    <div class="kicker">Rappel · Les groupes sanguins</div>
+    <h2 class="h2">Des antigènes à la surface des globules rouges</h2>
+    <p class="lead">Nos globules rouges portent des <b>antigènes</b> à leur surface. Les antigènes A et B définissent les groupes sanguins. Touche un groupe pour l'observer de près.</p>
+  </div>
+  <div class="legendrow" id="legend"></div>
+  <div class="groups" id="groups"></div>
+  <p class="log" id="groupMsg" aria-live="polite"></p>
+
+  <div class="stack">
+    <div class="kicker">Principe du test</div>
+    <h2 class="h2">Que font les anticorps ?</h2>
+    <p class="lead">On ajoute des <b>anticorps</b> (les sérums anti-A et anti-B). Ils se fixent <b>spécifiquement</b> sur un antigène. S'il y a reconnaissance, ils relient les globules rouges entre eux : c'est l'<b>agglutination</b>. Choisis un sang et un sérum, puis lance la simulation.</p>
+  </div>
+  <div class="card stack">
+    <div class="simctl">
+      <div class="stack" style="gap:8px"><span class="small" style="font-weight:700" id="lab-g">Globules rouges du groupe</span><div class="chips" id="chG" role="group" aria-labelledby="lab-g"></div></div>
+      <div class="stack" style="gap:8px"><span class="small" style="font-weight:700" id="lab-s">Sérum ajouté</span><div class="chips" id="chS" role="group" aria-labelledby="lab-s"></div></div>
+    </div>
+    <div class="cvbox"><canvas id="cv" aria-label="Simulation : des anticorps rencontrent des globules rouges"></canvas></div>
+    <p class="caption" id="caption" aria-live="polite"></p>
+    <div class="row"><button class="btn" id="aPlay">▶ Lancer</button><button class="btn ghost" id="aPause">⏸ Pause</button><button class="btn ghost" id="aReset">↺ Recommencer</button></div>
+    <p class="small muted">Schéma simplifié, tailles non respectées.</p>
+  </div>
+  <div class="box info"><div class="bt"><span class="ic" aria-hidden="true">ℹ&#xFE0E;</span>Résultats de référence</div><div id="ref"></div></div>
+  <div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Attention</div><p>L'absence d'agglutination se voit à une suspension <b>homogène</b> de couleur rouge, sans grumeaux.</p></div>
+  <div id="qs-1" class="stack" style="gap:18px"></div>
+  <div class="next"><button class="btn" data-go="labo">Entrer au labo →</button></div>
+</section>
+
+<!-- 3 LABO -->
+<section class="view" id="v-labo" hidden>
+  <div class="stack">
+    <div class="kicker">Le labo</div>
+    <h2 class="h2">Prépare et réalise le test</h2>
+  </div>
+  <div class="box crit"><div class="bt"><span class="ic" aria-hidden="true">✖&#xFE0E;</span>Sécurité</div><p>Gants, blouse, lunettes. <b>Un cure-dent différent pour chaque puits</b> : sinon les anticorps passent d'un puits à l'autre et le résultat est faux.</p></div>
+  <div id="qs-2a" class="stack" style="gap:18px"></div>
+
+  <div class="stack">
+    <div class="kicker">Partie 1 · Témoin</div>
+    <h2 class="h2">Vérifie le groupe sanguin de Lucie DITÉE</h2>
+    <p class="lead">On connaît déjà le groupe de Lucie (A). La tester permet de vérifier que les sérums fonctionnent : c'est un <b>témoin</b>.</p>
+  </div>
+  <div class="card bench" id="bench-lucie"></div>
+  <div id="qs-2b" class="stack" style="gap:18px"></div>
+
+  <div class="stack">
+    <div class="kicker">Partie 2 · L'indice</div>
+    <h2 class="h2">Analyse le sang du coupable</h2>
+    <p class="lead">Recommence avec le sang retrouvé sur les vêtements de la victime.</p>
+  </div>
+  <div class="card bench" id="bench-coupable"></div>
+  <div id="qs-2c" class="stack" style="gap:18px"></div>
+  <div class="box info"><div class="bt"><span class="ic" aria-hidden="true">ℹ&#xFE0E;</span>En classe</div><p>Ce labo virtuel simule le TP. Compare toujours avec <b>ta vraie plaque</b> : c'est elle qui compte dans ton compte rendu.</p></div>
+  <div class="next"><button class="btn" data-go="conclure">Conclure l'enquête →</button></div>
+</section>
+
+<!-- 4 CONCLURE -->
+<section class="view" id="v-conclure" hidden>
+  <div class="stack">
+    <div class="kicker">Analyse et conclusion</div>
+    <h2 class="h2">Qui est le coupable ?</h2>
+    <p class="lead">Le laboratoire a obtenu le groupe sanguin des trois suspects restants.</p>
+  </div>
+  <div class="box info"><div class="bt"><span class="ic" aria-hidden="true">ℹ&#xFE0E;</span>Document · Groupes sanguins des suspects (données fictives)</div>
+    <div class="tscroll"><table class="dtable"><thead><tr><th>Suspect</th><th>Sexe (activité 6)</th><th>Groupe sanguin</th></tr></thead><tbody>
+      <tr><td>Jean NEYMAR</td><td>Homme (XY)</td><td class="g">O</td></tr>
+      <tr><td>Djamal ALATETE</td><td>Homme (XY)</td><td class="g">A</td></tr>
+      <tr><td>Max HYMOME</td><td>Homme (XY)</td><td class="g">AB</td></tr>
+    </tbody></table></div>
+  </div>
+  <div id="qs-3" class="stack" style="gap:18px"></div>
+  <div id="revealSlot"></div>
+  <div class="next"><button class="btn" data-go="bilan">Faire le bilan →</button></div>
+</section>
+
+<!-- 5 BILAN -->
+<section class="view" id="v-bilan" hidden>
+  <div class="stack">
+    <div class="kicker">Bilan</div>
+    <h2 class="h2">Ce qu'il faut retenir</h2>
+  </div>
+  <div id="qs-4" class="stack" style="gap:18px"></div>
+  <div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>À retenir</div>
+    <p>Les globules rouges portent des <b>antigènes</b> (A, B, les deux, ou aucun) qui définissent le <b>groupe sanguin</b> : A, B, AB ou O.</p>
+    <p>Un <b>anticorps</b> se fixe <b>spécifiquement</b> sur un antigène. S'il le reconnaît, les globules rouges s'<b>agglutinent</b>.</p>
+    <p>Un même groupe sanguin est partagé par beaucoup de personnes : c'est un <b>indice parmi d'autres</b>, pas une preuve à lui seul.</p>
+  </div>
+  <div class="card stack" style="gap:14px">
+    <div class="kicker">Mon bilan</div>
+    <div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet appareil)</label><input class="name" id="pname" autocomplete="off" maxlength="40"></div>
+    <div class="scoregrid" id="scoreGrid"></div>
+    <div id="advice" class="stack"></div>
+    <div class="bilantext" id="bilanText"></div>
+    <div class="row">
+      <button class="btn" id="showProf">Montrer au professeur</button>
+      <button class="btn ghost" id="dlBilan" hidden>Télécharger mon bilan (.txt)</button>
+      <button class="btn ghost" id="copyBilan">Copier mon bilan</button>
+    </div>
+    <p id="bilanMsg" class="muted" aria-live="polite"></p>
+  </div>
+</section>
+
+</div></main>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ovname">
+  <div class="ovin">
+    <div class="row" style="justify-content:space-between"><div class="kicker">Bilan à montrer au professeur</div><button class="btn" id="ovClose">Fermer</button></div>
+    <div class="ovname" id="ovname"></div>
+    <div><div class="muted">Score au premier essai</div><div class="ovtot" id="ovtot"></div></div>
+    <div class="ovparts" id="ovparts"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KEY="labo-agglutination-v1";
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var DEF={bet:null,ans:{},first:{},tries:{},done:{},hints:{},corr:{},act:{},bench:{},grp:"A",sim:{g:"A",s:"A"},name:"",fs:22,proj:false,theme:null};
+function fresh(){return JSON.parse(JSON.stringify(DEF));}
+var S;try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){S=fresh();}
+["ans","first","tries","done","hints","corr","act","bench","sim"].forEach(function(k){if(!S[k]||typeof S[k]!=="object")S[k]=fresh()[k];});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- display ---------- */
+function applyFs(){var r=document.documentElement;r.classList.toggle("proj",!!S.proj);r.style.setProperty("--fs",(S.proj?Math.max(S.fs,30):S.fs)+"px");$("proj").setAttribute("aria-pressed",S.proj?"true":"false");drawSim();}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme");drawSim();}
+$("fsMinus").onclick=function(){S.fs=Math.max(20,S.fs-2);applyFs();save();};
+$("fsPlus").onclick=function(){S.fs=Math.min(34,S.fs+2);applyFs();save();};
+$("proj").onclick=function(){S.proj=!S.proj;applyFs();save();};
+$("theme").onclick=function(){var dark=S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);S.theme=dark?"light":"dark";applyTheme();save();};
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",drawSim);}catch(e){}
+var resetArm=null;
+$("reset").onclick=function(){
+  var b=$("reset");
+  if(!resetArm){b.textContent="Confirmer ?";b.classList.add("warn");resetArm=setTimeout(function(){b.textContent="Recommencer";b.classList.remove("warn");resetArm=null;},4000);return;}
+  clearTimeout(resetArm);resetArm=null;
+  var keep={fs:S.fs,proj:S.proj,theme:S.theme};S=Object.assign(fresh(),keep);save();
+  b.textContent="Recommencer";b.classList.remove("warn");
+  for(var k in lastFb)delete lastFb[k];for(var j in stamped)delete stamped[j];
+  stopSim();simT=0;renderAll();go("mission");
+};
+
+/* ---------- navigation ---------- */
+var VIEWS=["mission","comprendre","labo","conclure","bilan"],cur="mission";
+function go(v){
+  if(VIEWS.indexOf(v)<0)v="mission";cur=v;
+  VIEWS.forEach(function(x){$("v-"+x).hidden=x!==v;});
+  document.querySelectorAll(".step").forEach(function(b){b.setAttribute("aria-current",b.dataset.go===v?"step":"false");});
+  if(location.hash!=="#"+v){try{history.replaceState(null,"","#"+v);}catch(e){}}
+  if(v!=="comprendre")pauseSim();
+  if(v==="bilan")renderBilan();
+  renderStepsDone();window.scrollTo(0,0);requestAnimationFrame(drawSim);
+}
+document.addEventListener("click",function(e){var t=e.target.closest("[data-go]");if(t)go(t.dataset.go);});
+window.addEventListener("hashchange",function(){var h=location.hash.slice(1);if(h!==cur)go(h);});
+
+/* ---------- data ---------- */
+var GROUPS={A:{ag:["A"],t:"Antigène A"},B:{ag:["B"],t:"Antigène B"},AB:{ag:["A","B"],t:"Antigènes A et B"},O:{ag:[],t:"Aucun antigène"}};
+function agglu(group,serum){return GROUPS[group].ag.indexOf(serum)>=0;}
+var SAMPLES={lucie:{g:"A",nm:"Lucie DITÉE"},coupable:{g:"O",nm:"le sang du coupable"}};
+
+/* ---------- cell SVG ---------- */
+function triangle(cx,cy,s,a){var p=[];for(var i=0;i<3;i++){var t=a+i*2.0944;p.push((cx+Math.cos(t)*s).toFixed(1)+","+(cy+Math.sin(t)*s).toFixed(1));}return '<polygon points="'+p.join(" ")+'" fill="var(--agA)"/>';}
+function square(cx,cy,s,a){return '<rect x="'+(cx-s/2).toFixed(1)+'" y="'+(cy-s/2).toFixed(1)+'" width="'+s+'" height="'+s+'" fill="var(--agB)" transform="rotate('+(a*57.3).toFixed(0)+' '+cx.toFixed(1)+' '+cy.toFixed(1)+')"/>';}
+function cellSVG(g){var ag=GROUPS[g].ag,h='<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="var(--rbc)"/><circle cx="50" cy="50" r="18" fill="var(--rbc-in)" opacity=".55"/>';
+  var n=8;for(var i=0;i<n;i++){var a=i/n*6.2832,x=50+Math.cos(a)*38,y=50+Math.sin(a)*38;if(!ag.length)continue;var kind=ag.length===2?(i%2?"B":"A"):ag[0];h+=kind==="A"?triangle(x,y,7,a):square(x,y,9,a);}
+  return h+'</svg>';}
+$("legend").innerHTML='<span><svg viewBox="0 0 20 20" aria-hidden="true">'+triangle(10,11,8,-1.5708)+'</svg> Antigène A</span><span><svg viewBox="0 0 20 20" aria-hidden="true">'+square(10,10,12,0)+'</svg> Antigène B</span><span class="muted">Les mêmes symboles sont utilisés dans tous les schémas.</span>';
+function renderGroups(){$("groups").innerHTML=Object.keys(GROUPS).map(function(g){return '<button class="gcard" data-grp="'+g+'" aria-pressed="'+(S.grp===g)+'">'+cellSVG(g)+'<b>Groupe '+g+'</b><span>'+GROUPS[g].t+'</span></button>';}).join("");
+  var g=S.grp,ag=GROUPS[g].ag;$("groupMsg").textContent="Groupe "+g+" : "+(ag.length===0?"aucun antigène A ni B à la surface des globules rouges.":ag.length===2?"des antigènes A et des antigènes B.":"des antigènes "+ag[0]+" seulement.");}
+$("groups").addEventListener("click",function(e){var b=e.target.closest("[data-grp]");if(!b)return;S.grp=b.dataset.grp;save();renderGroups();});
+
+/* ---------- wells SVG ---------- */
+function hash(k){var x=Math.sin(k*12.9898+78.233)*43758.5453;return x-Math.floor(x);}
+var WN=30;
+var DISP=[],CLMP=[];(function(){for(var i=0;i<WN;i++){var a=i*2.399963,r=6+31*Math.sqrt((i+.5)/WN);DISP.push([50+r*Math.cos(a)+(hash(i)-.5)*4,50+r*Math.sin(a)+(hash(i+50)-.5)*4]);}
+  var C=[[34,38],[64,34],[60,64],[36,66],[50,50]];for(var j=0;j<WN;j++){var c=C[j%5],k=Math.floor(j/5),aa=k*2.4+j,rr=k===0?0:3.2*Math.sqrt(k)+1;CLMP.push([c[0]+rr*Math.cos(aa),c[1]+rr*Math.sin(aa)]);}})();
+/* state: {blood:bool, serum:null|"A"|"B", mixed:bool, contam:bool, agg:bool} */
+function wellSVG(st,id){
+  st=st||{};var h='<svg viewBox="0 0 100 100" aria-hidden="true"'+(id?' id="'+id+'"':'')+'><circle cx="50" cy="50" r="46" fill="var(--well)" stroke="var(--well-rim)" stroke-width="4"/>';
+  if(st.blood){var clumped=st.mixed&&st.agg;h+='<circle class="wbg" cx="50" cy="50" r="42" fill="var(--plasma)" fill-opacity="'+(clumped?.25:.95)+'"/>';
+    for(var i=0;i<WN;i++){var p=clumped?CLMP[i]:DISP[i];h+='<circle class="wcell" cx="0" cy="0" r="'+(clumped?5.2:3.4)+'" fill="var(--rbc)" style="transform:translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)"/>';}}
+  if(st.serum&&!st.mixed){h+='<circle cx="50" cy="50" r="12" fill="'+(st.serum==="A"?"var(--agA)":"var(--agB)")+'" opacity=".85"/>';}
+  if(st.contam){h+='<text x="50" y="58" text-anchor="middle" font-size="26" font-weight="700" fill="var(--crit)">✖</text>';}
+  return h+'</svg>';
+}
+function plateHTML(g,label){return '<div class="plate"><span class="pt">'+label+'</span><div class="wells"><div class="wl">'+wellSVG({blood:1,mixed:1,agg:agglu(g,"A")})+'Anti-A</div><div class="wl">'+wellSVG({blood:1,mixed:1,agg:agglu(g,"B")})+'Anti-B</div></div></div>';}
+function refHTML(){var h='<div class="reftable"><span class="h">Groupe</span><span class="h" style="text-align:center">Anti-A</span><span class="h" style="text-align:center">Anti-B</span><span class="h">Résultat attendu</span>';
+  [["A","Agglutination avec anti-A uniquement."],["B","Agglutination avec anti-B uniquement."],["AB","Agglutination avec anti-A et anti-B."],["O","Pas d'agglutination."]].forEach(function(r){h+='<span class="g">'+r[0]+'</span>'+wellSVG({blood:1,mixed:1,agg:agglu(r[0],"A")})+wellSVG({blood:1,mixed:1,agg:agglu(r[0],"B")})+'<span class="t">'+r[1]+'</span>';});
+  return h+'</div>';}
+$("ref").innerHTML=refHTML();
+
+/* ---------- antibody simulation (canvas) ---------- */
+var simT=0,simRun=false,simRaf=null,simLast=0,SIM_DUR=6;
+var NC=11,NAB=22,CELLS=[],ABS=[];
+(function(){for(var i=0;i<NC;i++)CELLS.push({x:.1+hash(i*3)*.8,y:.15+hash(i*7+1)*.7,ph:hash(i)*6.28});for(var j=0;j<NAB;j++)ABS.push({x:hash(j*5+2),y:hash(j*11+3),a:hash(j)*6.28,ph:hash(j+9)*6.28});})();
+var CLC=[[.3,.45],[.68,.55]];
+function drawY(c,x,y,a,s,col){c.save();c.translate(x,y);c.rotate(a);c.strokeStyle=col;c.lineWidth=Math.max(2,s*.22);c.lineCap="round";c.beginPath();c.moveTo(0,s*.6);c.lineTo(0,0);c.lineTo(-s*.45,-s*.55);c.moveTo(0,0);c.lineTo(s*.45,-s*.55);c.stroke();c.restore();}
+function drawSim(){
+  var cv=$("cv");if(!cv)return;var box=cv.parentElement,w=box.clientWidth;if(w<60)return;
+  var h=Math.round(Math.min(Math.max(w*.55,240),420)),dpr=window.devicePixelRatio||1;
+  cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);cv.style.height=h+"px";
+  var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);
+  var rs=getComputedStyle(document.documentElement),col=function(n){return rs.getPropertyValue(n).trim()||"#888";};
+  c.fillStyle=col("--surface-2");c.fillRect(0,0,w,h);
+  var g=S.sim.g,s=S.sim.s,yes=agglu(g,s),t=simT,R=Math.max(14,Math.min(w,h)*.055);
+  var add=Math.min(1,t/.25),join=yes?Math.max(0,Math.min(1,(t-.3)/.5)):0;
+  var e=function(u){return u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;},je=e(join);
+  var pos=CELLS.map(function(p,i){var wob=Math.sin(t*12+p.ph)*.01;var x=p.x+wob,y=p.y+Math.cos(t*10+p.ph)*.01;
+    if(yes){var cc=CLC[i%2],k=Math.floor(i/2),ang=k*2.1+i,rr=k===0?0:(R*2.05/Math.min(w,h))*(1+.15*k);var tx=cc[0]+Math.cos(ang)*rr*(h/w),ty=cc[1]+Math.sin(ang)*rr;x=x+(tx-x)*je;y=y+(ty-y)*je;}
+    return [x*w,y*h];});
+  // cells
+  var ag=GROUPS[g].ag;
+  pos.forEach(function(p){c.fillStyle=col("--rbc");c.beginPath();c.arc(p[0],p[1],R,0,6.2832);c.fill();c.fillStyle=col("--rbc-in");c.globalAlpha=.5;c.beginPath();c.arc(p[0],p[1],R*.5,0,6.2832);c.fill();c.globalAlpha=1;
+    if(ag.length){for(var i=0;i<8;i++){var a=i/8*6.2832,x=p[0]+Math.cos(a)*R*1.12,y=p[1]+Math.sin(a)*R*1.12,kind=ag.length===2?(i%2?"B":"A"):ag[0],sz=R*.28;
+      c.fillStyle=kind==="A"?col("--agA"):col("--agB");c.beginPath();if(kind==="A"){for(var j=0;j<3;j++){var tt=a+j*2.0944;c[j?"lineTo":"moveTo"](x+Math.cos(tt)*sz,y+Math.sin(tt)*sz);}c.closePath();}else{c.save();c.translate(x,y);c.rotate(a);c.rect(-sz*.8,-sz*.8,sz*1.6,sz*1.6);c.restore();}c.fill();}}});
+  // antibodies
+  var abCol=s==="A"?col("--abA"):col("--abB"),S2=R*.9;
+  if(add>0){c.globalAlpha=add;
+    ABS.forEach(function(ab,i){var fx=(ab.x*w+Math.sin(t*9+ab.ph)*w*.03),fy=(-.15+add*.15+ab.y)*h*.95+Math.cos(t*7+ab.ph)*h*.03,fa=ab.a+t*2;
+      if(yes&&je>0){var a1=pos[i%NC],a2=pos[(i+2)%NC];var mx=(a1[0]+a2[0])/2,my=(a1[1]+a2[1])/2;var dd=Math.hypot(a1[0]-a2[0],a1[1]-a2[1]);
+        if(dd<R*3.2){var aa=Math.atan2(a2[1]-a1[1],a2[0]-a1[0])+Math.PI/2;fx=fx+(mx-fx)*je;fy=fy+(my-fy)*je;fa=fa+(aa-fa)*je;}}
+      drawY(c,fx,fy,fa,S2,abCol);});
+    c.globalAlpha=1;}
+  var cap;
+  if(t<=0&&!simRun)cap="Appuie sur « Lancer » : on ajoute le sérum anti-"+s+" à du sang du groupe "+g+".";
+  else if(t<.3)cap="On ajoute les anticorps anti-"+s+" (en forme de Y).";
+  else cap=yes?"Les anticorps anti-"+s+" reconnaissent les antigènes "+s+" : ils se fixent et relient les globules rouges. Ils s'agglutinent !":"Les globules rouges du groupe "+g+" n'ont pas d'antigène "+s+" : les anticorps ne se fixent pas. Pas d'agglutination.";
+  $("caption").textContent=cap;
+}
+function stepSim(ts){if(!simRun)return;if(!simLast)simLast=ts;var dt=Math.min(.1,(ts-simLast)/1000);simLast=ts;simT=Math.min(1,simT+dt/SIM_DUR);drawSim();if(simT>=1){simRun=false;renderSimBtns();return;}simRaf=requestAnimationFrame(stepSim);}
+function renderSimBtns(){$("aPlay").disabled=simRun;$("aPause").disabled=!simRun;}
+function startSim(){if(simT>=1)simT=0;if(RM){simT=1;drawSim();return;}simRun=true;simLast=0;renderSimBtns();simRaf=requestAnimationFrame(stepSim);}
+function pauseSim(){if(simRun){simRun=false;if(simRaf)cancelAnimationFrame(simRaf);renderSimBtns();drawSim();}}
+function stopSim(){simRun=false;if(simRaf)cancelAnimationFrame(simRaf);renderSimBtns();}
+$("aPlay").onclick=startSim;$("aPause").onclick=pauseSim;$("aReset").onclick=function(){stopSim();simT=0;drawSim();};
+function renderSimCtl(){
+  $("chG").innerHTML=Object.keys(GROUPS).map(function(g){return '<button class="chip" data-sg="'+g+'" aria-pressed="'+(S.sim.g===g)+'">'+g+'</button>';}).join("");
+  $("chS").innerHTML=["A","B"].map(function(s){return '<button class="chip" data-ss="'+s+'" aria-pressed="'+(S.sim.s===s)+'">Anti-'+s+'</button>';}).join("");
+}
+$("chG").addEventListener("click",function(e){var b=e.target.closest("[data-sg]");if(!b)return;S.sim.g=b.dataset.sg;save();renderSimCtl();stopSim();simT=0;startSim();});
+$("chS").addEventListener("click",function(e){var b=e.target.closest("[data-ss]");if(!b)return;S.sim.s=b.dataset.ss;save();renderSimCtl();stopSim();simT=0;startSim();});
+
+/* ---------- virtual bench ---------- */
+var TOOLS=[{k:"blood",ic:"🩸",t:"Goutte de sang"},{k:"sA",ic:"🔵",t:"Sérum anti-A"},{k:"sB",ic:"🟡",t:"Sérum anti-B"},{k:"pick",ic:"🥢",t:"Cure-dent neuf"}];
+var STEPS=["Dépose une goutte de sang dans chaque puits.","Ajoute le sérum anti-A dans le puits anti-A.","Ajoute le sérum anti-B dans le puits anti-B.","Mélange chaque puits avec un cure-dent neuf.","Observe le résultat."];
+function benchState(k){var b=S.bench[k];if(!b||!b.w){b=S.bench[k]={w:{A:{},B:{}},tool:null,pick:null,pickId:0,err:0,msg:"",done:false};}return b;}
+function benchProgress(b){var A=b.w.A,B=b.w.B;return [!!(A.blood&&B.blood),!!A.serum,!!B.serum,!!(A.mixed&&B.mixed),!!(A.mixed&&B.mixed)];}
+function renderBench(k){
+  var b=benchState(k),el=$("bench-"+k),smp=SAMPLES[k],pr=benchProgress(b);var nowI=pr.indexOf(false);
+  var wellBtn=function(s){var w=b.w[s],tgt=b.tool&&!b.done;var sub=w.contam?"Contaminé !":w.mixed?(w.agg?"Agglutination":"Pas d'agglutination"):[w.blood?"sang":"",w.serum?"sérum anti-"+w.serum:"",].filter(Boolean).join(" + ")||"vide";
+    return '<button class="wellbtn'+(tgt?" target":"")+(w.contam?" contam":"")+'" data-well="'+s+'" id="well-'+k+'-'+s+'" aria-label="Puits anti-'+s+' : '+sub+'">'+wellSVG(w,"wsvg-"+k+"-"+s)+'<span class="wn">Puits anti-'+s+'</span><span class="ws">'+sub+'</span></button>';};
+  el.innerHTML='<div class="row" style="justify-content:space-between"><b>Échantillon : '+smp.nm+'</b><span class="small muted">Erreurs : '+b.err+'</span></div>'+
+    '<ol class="guide">'+STEPS.map(function(s,i){var ok=pr[i]&&(i<4||b.done);return '<li class="'+(ok?"ok":i===nowI?"now":"")+'"><span class="ck">'+(ok?"✓":(i+1))+'</span><span>'+s+'</span></li>';}).join("")+'</ol>'+
+    '<div class="toolsbar" role="group" aria-label="Matériel">'+TOOLS.map(function(t){return '<button class="tool" data-tool="'+t.k+'" id="tool-'+k+'-'+t.k+'" aria-pressed="'+(b.tool===t.k)+'"'+(b.done?" disabled":"")+'><span class="tic" aria-hidden="true">'+t.ic+'</span>'+t.t+(t.k==="pick"&&b.pick?'<small>en main'+(b.pick.dirty?" (déjà utilisé)":"")+'</small>':"")+'</button>';}).join("")+'</div>'+
+    '<div class="tray">'+wellBtn("A")+wellBtn("B")+'</div>'+
+    '<p class="log" id="log-'+k+'" aria-live="polite">'+esc(b.msg||"Touche un matériel, puis le puits où l'utiliser.")+'</p>'+
+    (b.contamMsg?'<div class="box crit"><div class="bt"><span class="ic" aria-hidden="true">✖&#xFE0E;</span>Erreur critique</div><p>Tu as utilisé le même cure-dent dans les deux puits : des anticorps sont passés d\'un puits à l\'autre. Le résultat n\'est plus fiable.</p></div>':"")+
+    '<div class="row"><button class="btn ghost sm" data-clean="1">↺ Nettoyer la plaque et recommencer</button></div>'+
+    (b.done?'<div class="fb ok"><strong>✓ Manipulation réussie'+(b.err?"":" sans erreur")+'.</strong> Observe les deux puits, puis note tes résultats ci-dessous.</div>':"");
+  var q=QM[k==="lucie"?"r1":"r2"];var card=$("card-"+q.id);if(card)card.hidden=!b.done&&!S.tries[q.id];
+}
+function benchErr(k,b,msg){b.err++;b.msg="✗ "+msg;var id=k==="lucie"?"m1":"m2";if(S.first[id]===undefined)S.first[id]=false;save();}
+function benchClick(k,e){
+  var b=benchState(k);if(b.done&&!e.target.closest("[data-clean]"))return;
+  var t=e.target.closest("[data-tool],[data-well],[data-clean]");if(!t)return;
+  if(t.dataset.clean){var err=b.err;S.bench[k]={w:{A:{},B:{}},tool:null,pick:null,pickId:0,err:err,msg:"Plaque nettoyée : recommence le protocole.",done:false};var id=k==="lucie"?"m1":"m2";if(S.done[id]){/* keep */}save();renderBench(k);return;}
+  if(t.dataset.tool){var tk=t.dataset.tool;if(tk==="pick"){b.pickId++;b.pick={id:b.pickId,dirty:null};b.tool="pick";b.msg="Tu as un cure-dent neuf en main : touche le puits à mélanger.";}else{b.tool=b.tool===tk?null:tk;b.msg=b.tool?"Touche le puits où l'utiliser.":"";}save();renderBench(k);return;}
+  if(t.dataset.well){var s=t.dataset.well,w=b.w[s],tool=b.tool;
+    if(!tool){b.msg="Choisis d'abord un matériel.";renderBench(k);return;}
+    if(w.contam){b.msg="Ce puits est contaminé : nettoie la plaque.";renderBench(k);return;}
+    if(tool==="blood"){if(w.blood){b.msg="Il y a déjà du sang dans ce puits.";}else{w.blood=true;b.msg="✓ Goutte de sang déposée dans le puits anti-"+s+".";}}
+    else if(tool==="sA"||tool==="sB"){var sr=tool==="sA"?"A":"B";
+      if(sr!==s)benchErr(k,b,"Ce puits est marqué anti-"+s+" : mets-y le sérum anti-"+s+".");
+      else if(w.serum)b.msg="Il y a déjà du sérum dans ce puits.";
+      else{w.serum=sr;b.msg="✓ Sérum anti-"+sr+" ajouté.";}}
+    else if(tool==="pick"){
+      if(!b.pick){b.msg="Prends un cure-dent neuf.";}
+      else if(!w.blood||!w.serum)benchErr(k,b,"Il faut d'abord la goutte de sang ET le sérum dans ce puits.");
+      else if(w.mixed)b.msg="Ce puits est déjà mélangé.";
+      else if(b.pick.dirty&&b.pick.dirty!==s){w.contam=true;b.contamMsg=true;benchErr(k,b,"Contamination ! Ce cure-dent a déjà servi dans l'autre puits.");}
+      else{w.mixed=true;w.agg=agglu(SAMPLES[k].g,s);b.pick.dirty=s;b.msg="✓ Puits anti-"+s+" mélangé. Observe…";
+        var A=b.w.A,B=b.w.B;if(A.mixed&&B.mixed&&!A.contam&&!B.contam){b.done=true;b.tool=null;var id2=k==="lucie"?"m1":"m2";S.done[id2]=true;if(S.first[id2]===undefined)S.first[id2]=true;b.msg="✓ Les deux puits sont prêts. Observe le résultat !";}
+        save();
+        // animate: render unmixed positions first, then transition to mixed
+        var mixedState=JSON.parse(JSON.stringify(w));var pre=JSON.parse(JSON.stringify(w));pre.mixed=false;pre.serum=null;
+        b.w[s]=pre;renderBench(k);b.w[s]=mixedState;
+        var svg=$("wsvg-"+k+"-"+s);
+        setTimeout(function(){if(!svg)return;var clumped=mixedState.agg;
+          svg.querySelectorAll(".wcell").forEach(function(cel,i){var p=clumped?CLMP[i]:DISP[i];cel.style.transform="translate("+p[0].toFixed(1)+"px,"+p[1].toFixed(1)+"px)";cel.setAttribute("r",clumped?5.2:3.4);});
+          var bg=svg.querySelector(".wbg");if(bg)bg.setAttribute("fill-opacity",clumped?.25:.95);
+          setTimeout(function(){renderBench(k);renderStepsDone();renderBilan();if(b.done){var q=QM[k==="lucie"?"r1":"r2"];renderQ(q);}},RM?50:1700);},60);
+        return;}
+    }
+    save();renderBench(k);
+  }
+}
+["lucie","coupable"].forEach(function(k){$("bench-"+k).addEventListener("click",function(e){benchClick(k,e);});});
+
+/* ---------- board ---------- */
+var SUS=[{k:"s1",ini:"JN",nm:"Jean NEYMAR",av:"--av1",g:"O"},{k:"s2",ini:"DA",nm:"Djamal ALATETE",av:"--av2",g:"A"},{k:"s3",ini:"MH",nm:"Max HYMOME",av:"--av3",g:"AB"},{k:"s4",ini:"LD",nm:"Lucie DITÉE",av:"--av4",prev:true,f:true},{k:"s5",ini:"LE",nm:"Laure EDUBOIS",av:"--av5",prev:true,f:true},{k:"dog",ini:"🐕",nm:"Le chien",av:"--av6",prev:true}];
+var stamped={};
+function concluded(){return !!(S.done.k4||S.corr.k4);}
+function renderBoard(){
+  var cc=concluded();
+  $("board").innerHTML=SUS.map(function(s,i){var st="",key=s.k;
+    if(s.prev)st='<span class="stamp in">'+(s.f?"INNOCENTÉE":"INNOCENTÉ")+'<br><small>(activité 6)</small></span>';
+    else if(cc){st='<span class="stamp '+(s.k==="s1"?"out":"in")+(stamped[key]?"":" anim")+'">'+(s.k==="s1"?"DÉSIGNÉ":"INNOCENTÉ")+'</span>';stamped[key]=true;}
+    return '<div class="sus"><span class="av" style="background:var('+s.av+')">'+s.ini+'</span><span class="nm">'+s.nm+'</span><span class="sb">'+(s.prev?"Hors de cause":cc?(s.k==="s1"?"Groupe compatible":"Groupe incompatible"):"Suspect restant")+'</span>'+(cc&&s.g?'<span class="grp">Groupe '+s.g+'</span>':'')+st+'</div>';}).join("");
+}
+
+/* ---------- questions ---------- */
+var LV={f:"🟢 Facile",m:"🟡 Moyen",d:"🔴 Défi"};
+var AG_OPTS=[{k:"A",t:"A"},{k:"B",t:"B"},{k:"AB",t:"A et B"},{k:"0",t:"Aucun"}];
+var GR_OPTS=[{k:"A",t:"A"},{k:"B",t:"B"},{k:"AB",t:"AB"},{k:"O",t:"O"}];
+var RES_OPTS=[{k:"y",t:"Agglutination"},{k:"n",t:"Pas d'agglutination"}];
+var PROT=[{k:"p1",t:"Déposer une goutte de l'échantillon dans deux puits (anti-A et anti-B)."},{k:"p2",t:"Ajouter une goutte de sérum anti-A dans le premier puits."},{k:"p3",t:"Ajouter une goutte de sérum anti-B dans le second puits."},{k:"p4",t:"Mélanger délicatement avec un cure-dent (un par puits)."},{k:"p5",t:"Observer la présence ou non d'agglutination."}];
+var PROT_SHUF=["p4","p2","p5","p1","p3"];
+function resDoc(k){var b=benchState(k),A=b.w.A,B=b.w.B;
+  if(!b.done)return '<p class="muted">Réalise d\'abord la manipulation ci-dessus.</p>';
+  return '<div class="plates"><div class="plate"><span class="pt">Ta plaque : '+SAMPLES[k].nm+'</span><div class="wells"><div class="wl">'+wellSVG(A)+'Anti-A</div><div class="wl">'+wellSVG(B)+'Anti-B</div></div></div></div><details><summary style="cursor:pointer;font-weight:700;min-height:48px;display:flex;align-items:center">Revoir les résultats de référence</summary>'+refHTML()+'</details>';}
+var QS=[
+ /* PARTIE 1 */
+ {id:"c1",part:1,lvl:"f",type:"rows",title:"Q1. Quels antigènes pour quel groupe ?",prompt:"Pour chaque groupe sanguin, indique les antigènes présents à la surface des globules rouges.",sec:"1",
+  doc:function(){return '<div class="groups">'+Object.keys(GROUPS).map(function(g){return '<div class="gcard" style="cursor:default">'+cellSVG(g)+'<b>Groupe '+g+'</b></div>';}).join("")+'</div>';},docTitle:"Document · Les globules rouges",
+  rows:[{k:"A",label:"Groupe A"},{k:"B",label:"Groupe B"},{k:"AB",label:"Groupe AB"},{k:"O",label:"Groupe O"}],choices:AG_OPTS,inline:true,answer:{A:"A",B:"B",AB:"AB",O:"0"},
+  fbf:function(v){if(v.O==="AB"||v.O==="A")return "Groupe O : regarde le globule rouge, il n'a aucun symbole. Le « O » se lit comme « zéro antigène ».";if(v.AB!=="AB")return "Groupe AB : le globule porte les deux symboles, triangles ET carrés.";return "";},
+  hints:["Triangle bleu = antigène A ; carré jaune = antigène B.","Le nom du groupe donne les antigènes : A → A, B → B, AB → A et B.","Le groupe O n'a aucun antigène A ni B."],
+  corr:["Groupe A : antigènes A.","Groupe B : antigènes B.","Groupe AB : antigènes A et B.","Groupe O : aucun antigène A ni B."]},
+ {id:"c2",part:1,lvl:"f",type:"single",title:"Q2. Pourquoi les globules s'agglutinent-ils ?",prompt:"Choisis l'explication correcte.",sec:"1",
+  options:[{k:"a",t:"Le sérum fait éclater les globules rouges."},{k:"b",t:"Les anticorps reconnaissent l'antigène, s'y fixent et relient les globules rouges entre eux."},{k:"c",t:"Les globules rouges se collent dès qu'on ajoute n'importe quel sérum."}],answer:"b",
+  fb:{a:"Les globules ne sont pas détruits : ils se regroupent en amas.",c:"Non : il faut que l'anticorps reconnaisse l'antigène. Relance la simulation avec un groupe O."},
+  hints:["Relance la simulation et observe ce que font les Y.","Les anticorps se fixent uniquement sur l'antigène qui leur correspond.","Un anticorps se fixe sur deux globules à la fois : il les relie."],
+  corr:["Un anticorps se fixe spécifiquement sur un antigène.","S'il reconnaît l'antigène, il se fixe et relie les globules rouges entre eux : ils forment des amas. C'est l'agglutination."]},
+ {id:"c3",part:1,lvl:"m",type:"single",title:"Q3. Prévoir un résultat",prompt:"On ajoute du sérum <b>anti-A</b> à du sang du groupe <b>B</b>. Que va-t-on observer ?",sec:"1",
+  doc:function(){return '<div class="groups" style="grid-template-columns:repeat(2,minmax(0,140px))"><div class="gcard" style="cursor:default">'+cellSVG("B")+'<b>Groupe B</b></div></div>';},docTitle:"Document",
+  options:[{k:"a",t:"Une agglutination."},{k:"b",t:"Pas d'agglutination : une suspension rouge homogène."},{k:"c",t:"On ne peut pas savoir."}],answer:"b",
+  fb:{a:"Le groupe B porte-t-il des antigènes A ? Les anticorps anti-A peuvent-ils se fixer ?",c:"On peut prévoir : il suffit de savoir quels antigènes porte le groupe B."},
+  hints:["Quels antigènes porte le groupe B ?","Les anticorps anti-A ne reconnaissent que l'antigène A.","Pas d'antigène A, donc pas de fixation, donc pas d'agglutination."],
+  corr:["Le groupe B porte uniquement des antigènes B.","Les anticorps anti-A ne trouvent pas d'antigène A : ils ne se fixent pas.","Résultat : pas d'agglutination (suspension rouge homogène)."]},
+ /* PARTIE 2 */
+ {id:"t0",part:2,lvl:"f",type:"order",title:"L1. Remets le protocole dans l'ordre",prompt:"Touche les étapes dans l'ordre où tu dois les réaliser.",sec:"2a",items:PROT,shuf:PROT_SHUF,
+  check:function(v){var seq=v.seq||[],ok1=["p1","p2","p3","p4","p5"],ok2=["p1","p3","p2","p4","p5"];var good=ok1.join()===seq.join()||ok2.join()===seq.join();var w=[];seq.forEach(function(k,i){if(k!==ok1[i]&&k!==ok2[i])w.push("i"+i);});var m="";
+    if(!good){if(seq[0]!=="p1")m="On commence toujours par déposer l'échantillon de sang.";else if(seq.indexOf("p4")<seq.indexOf("p3")||seq.indexOf("p4")<seq.indexOf("p2"))m="On ne peut mélanger qu'une fois le sang ET le sérum dans le puits.";else if(seq[4]!=="p5")m="L'observation vient en dernier.";}
+    return {w:good?[]:(w.length?w:["i0"]),m:m};},
+  hints:["Que faut-il mettre en premier dans les puits ?","On ajoute ensuite les deux sérums, chacun dans son puits.","On mélange, puis on observe."],
+  corr:["1. Déposer une goutte de l'échantillon dans deux puits (anti-A et anti-B).","2. Ajouter le sérum anti-A dans le premier puits.","3. Ajouter le sérum anti-B dans le second puits.","4. Mélanger avec un cure-dent différent pour chaque puits.","5. Observer la présence ou non d'agglutination."]},
+ {id:"t1",part:2,lvl:"m",type:"rows",title:"L2. Entraîne-toi à lire une plaque",prompt:"Pour chaque plaque, détermine le groupe sanguin.",sec:"2a",plates:true,
+  rows:[{k:"p1",label:"Plaque 1",g:"B"},{k:"p2",label:"Plaque 2",g:"AB"},{k:"p3",label:"Plaque 3",g:"O"},{k:"p4",label:"Plaque 4",g:"A"}],choices:GR_OPTS,inline:true,answer:{p1:"B",p2:"AB",p3:"O",p4:"A"},
+  fbf:function(v){if(v.p3==="AB")return "Plaque 3 : aucun puits ne présente de grumeaux. Est-ce AB ou O ?";if(v.p2==="O")return "Plaque 2 : les deux puits ont des grumeaux. Quel groupe agglutine avec les deux sérums ?";if(v.p1==="A"||v.p4==="B")return "Attention à l'ordre des puits : le puits de gauche est anti-A, celui de droite anti-B.";return "";},
+  hints:["Regarde chaque puits : grumeaux = agglutination ; rouge homogène = pas d'agglutination.","Agglutination avec anti-A = antigène A présent ; avec anti-B = antigène B présent.","Les deux = AB ; aucun = O."],
+  corr:["Plaque 1 : agglutination avec anti-B seulement → groupe B.","Plaque 2 : agglutination avec les deux → groupe AB.","Plaque 3 : aucune agglutination → groupe O.","Plaque 4 : agglutination avec anti-A seulement → groupe A."]},
+ {id:"r1",part:2,lvl:"f",type:"rows",title:"L3. Résultats de Lucie DITÉE",prompt:"Note les résultats de ta plaque et confirme le groupe sanguin de Lucie.",sec:"2b",res:"lucie",
+  rows:[{k:"a",label:"Résultat avec anti-A",options:RES_OPTS},{k:"b",label:"Résultat avec anti-B",options:RES_OPTS},{k:"g",label:"Groupe sanguin de Lucie",options:GR_OPTS}],inline:true,answer:{a:"y",b:"n",g:"A"},
+  fbf:function(v){if(v.a==="n"&&v.b==="y")return "Tu as inversé les puits : celui de gauche est le puits anti-A.";if(v.g!=="A"&&v.a==="y"&&v.b==="n")return "Agglutination avec anti-A seulement : quel antigène porte ce sang ?";return "";},
+  hints:["Observe chaque puits de ta plaque : y a-t-il des grumeaux ?","Le puits anti-A présente des amas ; le puits anti-B reste rouge homogène.","Agglutination avec anti-A uniquement : groupe A."],
+  corr:["Anti-A : agglutination. Anti-B : pas d'agglutination.","Les globules de Lucie portent l'antigène A : elle est du groupe A. Le test fonctionne (témoin validé)."]},
+ {id:"r2",part:2,lvl:"m",type:"rows",title:"L4. Résultats du sang du coupable",prompt:"Note les résultats de ta plaque et déduis le groupe sanguin du coupable.",sec:"2c",res:"coupable",
+  rows:[{k:"a",label:"Résultat avec anti-A",options:RES_OPTS},{k:"b",label:"Résultat avec anti-B",options:RES_OPTS},{k:"g",label:"Groupe sanguin du coupable",options:GR_OPTS}],inline:true,answer:{a:"n",b:"n",g:"O"},
+  fbf:function(v){if(v.g==="AB")return "Piège ! AB agglutine avec les deux sérums. Ici, aucun puits n'agglutine.";if(v.a==="y"||v.b==="y")return "Regarde bien : les deux puits restent rouges et homogènes, sans grumeaux.";return "";},
+  hints:["Les deux puits sont rouges et homogènes : y a-t-il agglutination ?","Aucune agglutination : les globules ne portent ni antigène A, ni antigène B.","Aucun antigène = groupe O."],
+  corr:["Anti-A : pas d'agglutination. Anti-B : pas d'agglutination.","Les globules ne portent ni antigène A ni antigène B : le sang retrouvé est du groupe O."]},
+ /* PARTIE 3 */
+ {id:"k1",part:3,lvl:"m",type:"rows",title:"C1. Rédige ton raisonnement sur Jean NEYMAR",prompt:"Choisis le bon morceau de phrase pour chaque partie.",sentence:true,
+  rows:[{k:"a",label:"Je vois que…",options:[{k:"a1",t:"le sang du coupable agglutine avec le sérum anti-A"},{k:"a2",t:"le sang du coupable n'agglutine ni avec anti-A ni avec anti-B : il est du groupe O"},{k:"a3",t:"Lucie est du groupe A"}]},
+        {k:"b",label:"or…",options:[{k:"b1",t:"Jean NEYMAR est un homme"},{k:"b2",t:"Djamal ALATETE est du groupe A"},{k:"b3",t:"Jean NEYMAR est du groupe O"}]},
+        {k:"c",label:"alors j'en déduis que…",options:[{k:"c1",t:"Jean NEYMAR peut être l'auteur de ce sang : son groupe est compatible"},{k:"c2",t:"Jean NEYMAR est forcément coupable"},{k:"c3",t:"Jean NEYMAR est innocenté"}]}],
+  answer:{a:"a2",b:"b3",c:"c1"},
+  fbf:function(v){if(v.c==="c2")return "Attention au mot « forcément » : beaucoup de personnes sont du groupe O. Le test montre une compatibilité, pas une preuve.";if(v.a==="a3")return "« Je vois que » doit décrire le sang retrouvé (l'indice), pas le témoin.";if(v.b==="b2")return "C'est vrai, mais la phrase porte sur Jean NEYMAR.";if(v.b==="b1")return "Vrai, mais le test d'agglutination porte sur le groupe sanguin.";if(v.a==="a1")return "Relis tes résultats : le sang du coupable n'agglutine avec aucun sérum.";return "";},
+  hints:["« Je vois que » : le résultat du test sur le sang retrouvé.","« Or » : ce que l'on sait de Jean (document des groupes sanguins).","Même groupe = compatible ; cela ne prouve pas tout seul la culpabilité."],
+  corr:["Je vois que le sang du coupable n'agglutine ni avec anti-A ni avec anti-B : il est du groupe O, or Jean NEYMAR est du groupe O, alors j'en déduis que Jean NEYMAR peut être l'auteur de ce sang : son groupe est compatible."]},
+ {id:"k2",part:3,lvl:"f",type:"multi",title:"C2. Quels suspects sont compatibles ?",prompt:"Touche <b>tous</b> les suspects dont le groupe sanguin correspond au sang retrouvé.",
+  options:[{k:"s1",t:"Jean NEYMAR (O)"},{k:"s2",t:"Djamal ALATETE (A)"},{k:"s3",t:"Max HYMOME (AB)"}],
+  check:function(v){var sel=v.sel||[],w=sel.filter(function(k){return k!=="s1";}),miss=sel.indexOf("s1")<0;var m="";if(sel.indexOf("s3")>=0)m="Max est du groupe AB : son sang agglutinerait avec les deux sérums. ";if(sel.indexOf("s2")>=0)m+="Djamal est du groupe A : son sang agglutinerait avec anti-A. ";if(miss)m+="Il manque un suspect.";return {w:w.concat(miss?["_miss"]:[]),m:m.trim()};},
+  hints:["Le sang retrouvé est du groupe O.","Compare avec le groupe de chaque suspect.","Seul un suspect est du groupe O."],
+  corr:["Le sang retrouvé est du groupe O.","Djamal (A) et Max (AB) ne sont pas compatibles : ils sont innocentés.","Seul Jean NEYMAR (O) est compatible."]},
+ {id:"k3",part:3,lvl:"d",type:"single",title:"C3. Esprit critique",prompt:"En France, environ <b>4 personnes sur 10</b> sont du groupe O. Le test d'agglutination suffit-il, à lui seul, à prouver que Jean NEYMAR est coupable ?",
+  options:[{k:"a",t:"Oui : il a le même groupe que le sang retrouvé."},{k:"b",t:"Non : des millions de personnes sont du groupe O ; c'est un indice parmi d'autres."},{k:"c",t:"Non : le test d'agglutination ne fonctionne pas."}],answer:"b",
+  fb:{a:"Si 4 personnes sur 10 sont du groupe O, combien de personnes de ta classe pourraient l'être aussi ?",c:"Le témoin (Lucie, groupe A) a montré que le test fonctionne."},
+  hints:["Dans une classe de 25 élèves, combien pourraient être du groupe O ?","Environ 10 élèves sur 25 !","Un groupe sanguin partagé par beaucoup de personnes ne désigne pas une seule personne."],
+  corr:["Environ 42 % des Français sont du groupe O : ce groupe est très répandu.","Avoir le même groupe sanguin est une compatibilité, pas une preuve.","C'est un indice parmi d'autres, à combiner avec les autres résultats de l'enquête."]},
+ {id:"k4",part:3,lvl:"m",type:"single",title:"C4. Le verdict de l'enquête",prompt:"En combinant les indices des activités 6 (caryotypes) et 7 (groupes sanguins), qui désignes-tu ?",
+  options:[{k:"a",t:"Max HYMOME"},{k:"b",t:"Jean NEYMAR : c'est le seul suspect à la fois homme (XY, comme l'échantillon) et du groupe O (comme le sang retrouvé)."},{k:"c",t:"Djamal ALATETE"},{k:"d",t:"Personne : on ne peut rien conclure."}],answer:"b",
+  fb:{a:"Max est du groupe AB : son sang aurait agglutiné avec les deux sérums.",c:"Djamal est du groupe A : son sang aurait agglutiné avec anti-A.",d:"Combine les indices : un seul suspect correspond aux deux résultats."},
+  hints:["Activité 6 : qui reste suspect après les caryotypes ?","Activité 7 : parmi eux, qui est du groupe O ?","Un seul suspect correspond aux deux indices."],
+  corr:["Activité 6 : l'échantillon vient d'un homme → restent Jean, Djamal et Max.","Activité 7 : le sang retrouvé est du groupe O → seul Jean est compatible.","Les indices désignent Jean NEYMAR. Une analyse de l'ADN permettrait de le confirmer."]},
+ /* PARTIE 4 */
+ {id:"b1",part:4,lvl:"m",type:"place",title:"B1. Bilan à compléter",prompt:"Touche une case vide, puis le mot qui convient.",
+  segs:["Nos globules rouges portent des ",{s:"b1"}," à leur surface. Les antigènes A et B définissent les ",{s:"b2"}," : A, B, AB et O.<br><br>Lors du test, on ajoute des ",{s:"b3"}," (sérums anti-A et anti-B) qui se fixent ",{s:"b4"}," sur les antigènes. S'ils les reconnaissent, les globules rouges s'",{s:"b5"},".<br><br>Le groupe ",{s:"b6"}," ne présente aucune agglutination ; le groupe ",{s:"b7"}," agglutine avec les deux sérums.<br><br>Un même groupe sanguin peut être partagé par plusieurs personnes : c'est un ",{s:"b8"}," parmi d'autres, pas une preuve."],
+  slots:["b1","b2","b3","b4","b5","b6","b7","b8"],bank:["antigènes","anticorps","groupes sanguins","spécifiquement","agglutinent","O","AB","A","indice","globules blancs"],
+  check:function(v){var e={b1:"antigènes",b2:"groupes sanguins",b3:"anticorps",b4:"spécifiquement",b5:"agglutinent",b6:"O",b7:"AB",b8:"indice"};var w=Object.keys(e).filter(function(k){return v[k]!==e[k];});var m="";
+    if(v.b1==="anticorps"&&v.b3==="antigènes")m="Tu as inversé : les antigènes sont sur les globules ; les anticorps sont dans les sérums. ";if(v.b6==="AB"&&v.b7==="O")m+="Tu as inversé O et AB. ";
+    return {w:w,m:(m||(w.length?w.length+" case"+(w.length>1?"s":"")+" à revoir (marquée"+(w.length>1?"s":"")+" ✗).":"")).trim()};},
+  hints:["Antigène = sur le globule rouge ; anticorps = dans le sérum.","Les globules qui se collent en amas s'… agglutinent.","O = aucun antigène ; AB = les deux antigènes."],
+  corr:["Nos globules rouges portent des antigènes, qui définissent les groupes sanguins.","Les anticorps se fixent spécifiquement sur les antigènes : si reconnaissance, les globules s'agglutinent.","Le groupe O n'agglutine jamais ; le groupe AB agglutine avec les deux sérums.","Un groupe sanguin est un indice parmi d'autres."]}
+];
+var QM={};QS.forEach(function(q){QM[q.id]=q;});
+var EXTRA={m1:"Manipulation : Lucie DITÉE (témoin)",m2:"Manipulation : sang du coupable"};
+var PARTS=[{k:1,t:"Comprendre le test",ids:["c1","c2","c3"],tip:"Antigène A = triangle, antigène B = carré. Un anticorps ne se fixe que sur l'antigène qui lui correspond."},
+ {k:2,t:"Le TP",ids:["t0","t1","m1","r1","m2","r2"],tip:"Un cure-dent par puits ! Lis chaque puits : grumeaux = agglutination ; rouge homogène = pas d'agglutination."},
+ {k:3,t:"L'argumentation",ids:["k1","k2","k3","k4"],tip:"« Je vois que » = le résultat du test ; « or » = ce qu'on sait du suspect ; « j'en déduis » = compatible ou non. Même groupe ≠ preuve."},
+ {k:4,t:"Le bilan",ids:["b1"],tip:"Antigènes sur les globules, anticorps dans les sérums ; O = aucune agglutination, AB = les deux."}];
+function qTitle(k){return QM[k]?QM[k].title:EXTRA[k];}
+
+var lastFb={};
+function withFocus(fn){var a=document.activeElement,id=a&&a.id;fn();if(id&&$(id)&&document.activeElement!==$(id)){try{$(id).focus({preventScroll:true});}catch(e){}}}
+function renderDoc(q){var d=$("doc-"+q.id);if(!d)return;var h="";
+  if(q.res)h=resDoc(q.res);else if(q.doc)h=typeof q.doc==="function"?q.doc():q.doc;else{d.innerHTML="";return;}
+  d.innerHTML='<div class="box info"><div class="bt"><span class="ic" aria-hidden="true">ℹ&#xFE0E;</span>'+(q.res?"Document · Ta plaque":(q.docTitle||"Document"))+'</div>'+h+'</div>';}
+function buildCard(q){
+  var c=document.createElement("article");c.className="qcard";c.id="card-"+q.id;
+  c.innerHTML='<div class="qhead"><h3>'+q.title+'</h3><span class="lvl">'+LV[q.lvl]+'</span><span class="qstat" id="st-'+q.id+'"></span></div><p>'+q.prompt+'</p><div id="doc-'+q.id+'"></div>'+
+   '<div class="qbody stack" id="body-'+q.id+'"></div>'+
+   '<div class="row"><button class="btn" id="chk-'+q.id+'">Vérifier</button><button class="btn ghost" id="hnt-'+q.id+'">Indice 1/3</button><button class="btn ghost" id="cor-'+q.id+'" hidden>Voir la correction</button></div>'+
+   '<div id="fb-'+q.id+'" aria-live="polite"></div><div class="hints" id="hs-'+q.id+'"></div><div id="co-'+q.id+'"></div>';
+  $("qs-"+(q.sec||q.part)).appendChild(c);
+  $("chk-"+q.id).onclick=function(){check(q);};
+  $("hnt-"+q.id).onclick=function(){S.hints[q.id]=Math.min(3,(S.hints[q.id]||0)+1);save();renderQ(q);};
+  $("cor-"+q.id).onclick=function(){S.corr[q.id]=true;save();renderQ(q);renderBilan();if(q.id==="k4"){renderReveal();renderBets();renderBoard();}};
+  $("body-"+q.id).addEventListener("click",function(e){
+    var t=e.target.closest("[data-v],[data-slot],[data-word],[data-it],[data-undo]");if(!t||t.disabled)return;
+    var a=S.ans[q.id]=S.ans[q.id]||{};
+    if(q.type==="single"&&t.dataset.v){a.x=t.dataset.v;}
+    else if(q.type==="multi"&&t.dataset.v){a.sel=a.sel||[];var i=a.sel.indexOf(t.dataset.v);if(i>=0)a.sel.splice(i,1);else a.sel.push(t.dataset.v);}
+    else if(q.type==="rows"&&t.dataset.r){a[t.dataset.r]=t.dataset.v;}
+    else if(q.type==="order"){a.seq=a.seq||[];if(t.dataset.it){if(a.seq.indexOf(t.dataset.it)<0)a.seq.push(t.dataset.it);}else if(t.dataset.undo){if(t.dataset.undo==="all")a.seq=[];else a.seq.pop();}}
+    else if(q.type==="place"){
+      if(t.dataset.slot){var s=t.dataset.slot;if(a[s]!==undefined)delete a[s];S.act[q.id]=s;}
+      else if(t.dataset.word!==undefined){var s2=S.act[q.id];if(!s2||a[s2]!==undefined)s2=firstEmpty(q,a);if(!s2){$("pmsg-"+q.id).textContent="Toutes les cases sont remplies. Touche une case pour la vider.";return;}a[s2]=+t.dataset.word;S.act[q.id]=nextEmpty(q,a,s2);}
+      else return;
+    }else return;
+    save();delete lastFb[q.id];renderQ(q);
+  });
+}
+function firstEmpty(q,a){for(var i=0;i<q.slots.length;i++)if(a[q.slots[i]]===undefined)return q.slots[i];return null;}
+function nextEmpty(q,a,s){var i=q.slots.indexOf(s);for(var j=1;j<=q.slots.length;j++){var c=q.slots[(i+j)%q.slots.length];if(a[c]===undefined)return c;}return null;}
+function renderBody(q){
+  var b=$("body-"+q.id),a=S.ans[q.id]||{},L=lastFb[q.id],checked=!!(L&&!L.empty),wrong=checked?L.w:[];
+  var isW=function(k){return wrong.indexOf(k)>=0;};
+  var mk=function(k){return checked?(isW(k)?'<span class="mk bad">✗ à revoir</span>':'<span class="mk ok">✓ juste</span>'):"";};
+  var h="";
+  if(q.type==="single"){h='<div class="opts'+(q.inline?" inline":"")+'" role="group">'+q.options.map(function(o){var on=a.x===o.k;return '<button class="opt'+(on&&checked?(isW("x")?" badm":" okm"):"")+'" id="o-'+q.id+'-'+o.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span>'+o.t+'</span>'+(on?mk("x"):"")+'</button>';}).join("")+'</div>';}
+  else if(q.type==="multi"){var sel=a.sel||[];h='<div class="opts inline" role="group">'+q.options.map(function(o){var on=sel.indexOf(o.k)>=0;return '<button class="opt'+(on&&checked?(isW(o.k)?" badm":" okm"):"")+'" id="o-'+q.id+'-'+o.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span>'+o.t+'</span>'+(on?mk(o.k):"")+'</button>';}).join("")+'</div>';
+    if(checked&&isW("_miss"))h+='<p class="mk bad" style="white-space:normal">✗ Il manque au moins un suspect.</p>';}
+  else if(q.type==="rows"){
+    if(q.sentence){var txt=q.rows.map(function(r){var o=r.options.filter(function(x){return x.k===a[r.k];})[0];return r.label.replace("…","")+" <b>"+(o?o.t:"……")+"</b>";}).join(", ");h+='<p class="sentence-live" aria-live="polite">« '+txt+'. »</p>';}
+    h+=q.rows.map(function(r){var opts=r.options||q.choices;return '<div class="rrow"><div class="rhd"><span class="rlab">'+r.label+'</span>'+(a[r.k]?mk(r.k):"")+'</div>'+(q.plates?'<div class="rimg"><div class="wl">'+wellSVG({blood:1,mixed:1,agg:agglu(r.g,"A")})+'Anti-A</div><div class="wl">'+wellSVG({blood:1,mixed:1,agg:agglu(r.g,"B")})+'Anti-B</div></div>':'')+
+      '<div class="opts'+(q.inline?" inline":"")+'" role="group" aria-label="'+esc(r.label)+'">'+opts.map(function(o){var on=a[r.k]===o.k;return '<button class="opt'+(on&&checked?(isW(r.k)?" badm":" okm"):"")+'" id="o-'+q.id+'-'+r.k+'-'+o.k+'" data-r="'+r.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span>'+o.t+'</span></button>';}).join("")+'</div></div>';}).join("");}
+  else if(q.type==="order"){var seq=a.seq||[];var it=function(k){return q.items.filter(function(x){return x.k===k;})[0].t;};
+    h='<ol class="seq">'+q.items.map(function(_,i){var k=seq[i];return k?'<li class="'+(checked?(isW("i"+i)?"badm":"okm"):"")+'"><span class="nb">'+(i+1)+'</span><span>'+it(k)+(checked?(isW("i"+i)?" ✗":" ✓"):"")+'</span></li>':'<li class="empty"><span class="nb" style="background:var(--line);color:var(--muted)">'+(i+1)+'</span><span>…</span></li>';}).join("")+'</ol>'+
+      '<div class="opts">'+q.shuf.filter(function(k){return seq.indexOf(k)<0;}).map(function(k){return '<button class="opt" id="o-'+q.id+'-'+k+'" data-it="'+k+'"><span>'+it(k)+'</span></button>';}).join("")+'</div>'+
+      '<div class="row"><button class="btn ghost sm" data-undo="1"'+(seq.length?"":" disabled")+'>← Annuler la dernière</button><button class="btn ghost sm" data-undo="all"'+(seq.length?"":" disabled")+'>Tout effacer</button></div>';}
+  else if(q.type==="place"){
+    var act=S.act[q.id];if(act===undefined||(act&&a[act]!==undefined))act=firstEmpty(q,a);
+    var slot=function(s){var w=a[s]!==undefined?q.bank[a[s]]:null,st=checked?(isW(s)?" bad":" good"):"";return '<button class="blank'+(act===s?" active":"")+(w?" filled":"")+st+'" id="s-'+q.id+'-'+s+'" data-slot="'+s+'" aria-label="'+(w?"Case remplie : "+esc(w)+(checked?(isW(s)?", à revoir":", juste"):"")+". Toucher pour la vider.":"Case vide. Toucher pour la choisir.")+'">'+(w?esc(w):"……")+(checked?(isW(s)?" ✗":" ✓"):"")+'</button>';};
+    h='<p class="filltext">'+q.segs.map(function(x){return typeof x==="string"?x:slot(x.s);}).join("")+'</p>';
+    var used=q.slots.map(function(s){return a[s];}).filter(function(x){return x!==undefined;});
+    h+='<div class="bank" role="group" aria-label="Mots à placer"><p class="banklab">Mots à placer :</p>'+q.bank.map(function(wd,i){var u=used.indexOf(i)>=0;return '<button class="wchip" id="w-'+q.id+'-'+i+'" data-word="'+i+'"'+(u?' disabled aria-label="'+esc(wd)+', déjà placé"':'')+'>'+esc(wd)+'</button>';}).join("")+'</div><p class="muted small" id="pmsg-'+q.id+'" aria-live="polite"></p>';}
+  b.innerHTML=h;
+}
+function emptyFb(q,m){lastFb[q.id]={empty:true,m:m};renderQ(q);}
+function words(q,a){var v={};q.slots.forEach(function(s){if(a[s]!==undefined)v[s]=q.bank[a[s]];});return v;}
+function check(q){
+  var a=S.ans[q.id]||{},v=a,r;
+  if(q.res&&!benchState(q.res).done)return emptyFb(q,"Réalise d'abord la manipulation sur la plaque virtuelle.");
+  if(q.type==="single"){if(!a.x)return emptyFb(q,"Choisis une réponse avant de vérifier.");}
+  else if(q.type==="multi"){if(!(a.sel&&a.sel.length))return emptyFb(q,"Touche au moins une réponse avant de vérifier.");}
+  else if(q.type==="rows"){if(q.rows.some(function(rr){return !a[rr.k];}))return emptyFb(q,"Fais un choix sur chaque ligne avant de vérifier.");}
+  else if(q.type==="order"){if(!(a.seq&&a.seq.length===q.items.length))return emptyFb(q,"Place toutes les étapes avant de vérifier.");}
+  else if(q.type==="place"){if(q.slots.some(function(s){return a[s]===undefined;}))return emptyFb(q,"Remplis toutes les cases avant de vérifier.");v=words(q,a);}
+  if(q.check)r=q.check(v);
+  else if(q.type==="single")r={w:v.x===q.answer?[]:["x"],m:(q.fb||{})[v.x]||""};
+  else if(q.type==="rows"){var w=q.rows.filter(function(rr){return v[rr.k]!==q.answer[rr.k];}).map(function(rr){return rr.k;});r={w:w,m:(q.fbf&&w.length?q.fbf(v,w):"")||(w.length?w.length+" ligne"+(w.length>1?"s":"")+" à revoir (marquée"+(w.length>1?"s":"")+" ✗).":"")};}
+  var ok=r.w.length===0;
+  S.tries[q.id]=(S.tries[q.id]||0)+1;if(S.first[q.id]===undefined)S.first[q.id]=ok;
+  if(ok)S.done[q.id]=true;
+  lastFb[q.id]={ok:ok,m:r.m,w:r.w};save();renderQ(q);renderBilan();renderStepsDone();
+  if(ok&&q.id==="k4"){renderReveal();renderBets();renderBoard();celebrate();}
+}
+function renderQ(q){
+  withFocus(function(){renderBody(q);});
+  if(q.res)renderDoc(q);
+  var st=$("st-"+q.id),fb=$("fb-"+q.id);
+  if(S.done[q.id]){st.textContent=S.first[q.id]?"✓ Réussi au premier essai":"✓ Réussi";st.classList.add("ok");}
+  else{var t=S.tries[q.id]||0;st.textContent=t?t+" essai"+(t>1?"s":""):"";st.classList.remove("ok");}
+  var L=lastFb[q.id];
+  if(L){if(L.empty)fb.innerHTML='<div class="fb bad">'+L.m+'</div>';
+    else if(L.ok)fb.innerHTML='<div class="fb ok"><strong>✓ Juste !</strong> '+(S.first[q.id]&&S.tries[q.id]===1?"Bravo, du premier coup.":"Bien corrigé.")+'</div>';
+    else fb.innerHTML='<div class="fb bad"><strong>✗ Pas encore.</strong> '+(L.m||"Vérifie les éléments marqués ✗, puis réessaie.")+'</div>';}
+  else fb.innerHTML="";
+  var nh=S.hints[q.id]||0;
+  $("hs-"+q.id).innerHTML=q.hints.slice(0,nh).map(function(h,i){return '<div class="hint"><b>Indice '+(i+1)+'/3 :</b> '+h+'</div>';}).join("");
+  var hb=$("hnt-"+q.id);hb.disabled=nh>=3;hb.textContent=nh>=3?"Indices épuisés":"Indice "+(nh+1)+"/3";
+  var can=S.done[q.id]||(S.tries[q.id]||0)>=2||nh>=3;
+  $("cor-"+q.id).hidden=!can||!!S.corr[q.id];
+  $("co-"+q.id).innerHTML=S.corr[q.id]?'<div class="corr"><span class="ct">✔&#xFE0E; Correction détaillée</span>'+q.corr.map(function(l){return '<p>'+l+'</p>';}).join("")+'</div>':"";
+  $("chk-"+q.id).textContent=S.done[q.id]?"Vérifier à nouveau":"Vérifier";
+}
+
+/* ---------- prediction & reveal ---------- */
+var BETS=[["p1","Oui : le groupe sanguin est une preuve absolue."],["p2","C'est un indice qui s'ajoute aux autres indices de l'enquête."],["p3","Non : le groupe sanguin ne sert à rien dans une enquête."]];
+function betLabel(){var b=BETS.filter(function(x){return x[0]===S.bet;})[0];return b?b[1]:null;}
+function renderBets(){var box=$("bets");box.innerHTML="";var lock=concluded();
+  BETS.forEach(function(x){var b=document.createElement("button");b.className="bet";b.textContent=x[1];b.setAttribute("aria-pressed",S.bet===x[0]?"true":"false");b.disabled=lock;b.onclick=function(){S.bet=x[0];save();renderBets();renderStepsDone();};box.appendChild(b);});
+  var l=betLabel();$("betMsg").textContent=lock?"Hypothèse verrouillée : « "+(l||"aucune")+" ». Réponse à l'étape 4.":(l?"Hypothèse enregistrée. Tu la vérifieras à la fin de l'enquête.":"Choisis une réponse.");}
+function renderReveal(){var slot=$("revealSlot");if(!concluded()){slot.innerHTML="";return;}var l=betLabel(),win=S.bet==="p2";
+  slot.innerHTML='<div class="reveal"><div class="kicker" style="color:var(--band-muted)">Et ton hypothèse ?</div><div class="big">Les indices désignent Jean NEYMAR.</div><p>'+(l?'Tu avais répondu : <b>« '+l+' »</b>. ':"Tu n'avais pas fait d'hypothèse. ")+(win?"Bien vu : ton hypothèse est validée !":"La bonne réponse était : « C'est un indice qui s'ajoute aux autres indices de l'enquête ».")+'</p><p class="muted">Caryotype (homme) + groupe sanguin (O) : Jean est le seul suspect compatible avec les deux indices. Seule l\'analyse de l\'ADN pourrait l\'identifier avec certitude.</p></div>';}
+
+/* ---------- confetti ---------- */
+function celebrate(){if(RM)return;var cv=document.createElement("canvas");cv.className="confetti";document.body.appendChild(cv);
+  var w=innerWidth,h=innerHeight,dpr=window.devicePixelRatio||1;cv.width=w*dpr;cv.height=h*dpr;cv.style.width=w+"px";cv.style.height=h+"px";
+  var c=cv.getContext("2d");c.scale(dpr,dpr);var rs=getComputedStyle(document.documentElement);var cols=["--accent","--rbc","--agA","--agB","--ok"].map(function(n){return rs.getPropertyValue(n).trim();});
+  var P=[];for(var i=0;i<130;i++)P.push({x:w/2+(Math.random()-.5)*w*.3,y:h*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*13-4,r:Math.random()*3,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[i%cols.length]});
+  var t0=null;var f=function(ts){if(t0===null)t0=ts;var el=ts-t0;c.clearRect(0,0,w,h);P.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;c.save();c.translate(p.x,p.y);c.rotate(p.r);c.globalAlpha=Math.max(0,1-el/2200);c.fillStyle=p.c;c.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);c.restore();});if(el<2200)requestAnimationFrame(f);else cv.remove();};
+  requestAnimationFrame(f);}
+
+/* ---------- report ---------- */
+function partScore(p){return {s:p.ids.filter(function(k){return S.first[k];}).length,n:p.ids.length};}
+function total(){var s=0,n=0;PARTS.forEach(function(p){var r=partScore(p);s+=r.s;n+=r.n;});return {s:s,n:n};}
+function today(){var d=new Date();return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();}
+function tried(k){if(k==="m1"||k==="m2"){var b=S.bench[k==="m1"?"lucie":"coupable"];return !!(S.done[k]||(b&&b.err));}return !!S.tries[k];}
+function itemStatus(k){if(k==="m1"||k==="m2"){var b=S.bench[k==="m1"?"lucie":"coupable"]||{},e=b.err||0;return S.done[k]?(S.first[k]?"✓ sans erreur":"réussie avec "+e+" erreur"+(e>1?"s":"")):(e?"pas terminée ("+e+" erreur"+(e>1?"s":"")+")":"pas faite");}
+  var t=S.tries[k]||0;return S.first[k]?"✓ premier essai":S.done[k]?"réussi en "+t+" essais":t?"pas encore réussi ("+t+" essai"+(t>1?"s":"")+")":"pas fait";}
+function bilanText(){var T=total(),L=[];
+  L.push("3e SVT · Activité 7 — TP : analyse du sang retrouvé sur les vêtements de la victime");
+  L.push("Élève : "+(S.name.trim()||"non renseigné")+"   Date : "+today());
+  L.push("Hypothèse de départ : "+(betLabel()||"aucune")+(concluded()?" (réponse : un indice parmi d'autres)":""));
+  L.push("Score au premier essai : "+T.s+"/"+T.n);
+  PARTS.forEach(function(p){var r=partScore(p);L.push("Partie "+p.k+" · "+p.t+" : "+r.s+"/"+r.n);p.ids.forEach(function(k){L.push("  - "+qTitle(k)+" : "+itemStatus(k)+(S.corr[k]&&!S.first[k]?" — correction consultée":""));});});
+  var weak=PARTS.filter(function(p){var r=partScore(p);return p.ids.some(tried)&&r.s<r.n;});if(weak.length)L.push("Conseil : "+weak[0].tip);
+  return L.join("\n");}
+function scoreCards(){return PARTS.map(function(p){var r=partScore(p);return '<div class="sc"><div class="k">Partie '+p.k+' · '+p.t+'</div><div class="v">'+r.s+'/'+r.n+'</div><div class="bar"><span style="width:'+(r.s/r.n*100)+'%"></span></div></div>';}).join("");}
+function renderBilan(){var T=total();$("scoreGrid").innerHTML='<div class="sc"><div class="k">Total au premier essai</div><div class="v">'+T.s+'/'+T.n+'</div><div class="bar"><span style="width:'+(T.s/T.n*100)+'%"></span></div></div>'+scoreCards();
+  var nf=[];PARTS.forEach(function(p){p.ids.forEach(function(k){if(!(S.done[k]||S.tries[k]))nf.push(qTitle(k).split(".")[0].split(" :")[0]);});});
+  var weak=PARTS.filter(function(p){var r=partScore(p);return p.ids.some(tried)&&r.s<r.n;}),h="";
+  if(nf.length)h+='<div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Pas encore terminé</div><p>Il te reste : '+nf.join(", ")+'.</p></div>';
+  if(weak.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Mes conseils</div>'+weak.map(function(p){return '<p><b>Partie '+p.k+' :</b> '+p.tip+'</p>';}).join("")+'</div>';
+  else if(!nf.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Bravo</div><p>Tout est réussi au premier essai. Enquête bouclée !</p></div>';
+  $("advice").innerHTML=h;$("bilanText").textContent=bilanText();if($("pname").value!==S.name)$("pname").value=S.name;}
+$("pname").addEventListener("input",function(e){S.name=e.target.value;save();$("bilanText").textContent=bilanText();});
+$("copyBilan").onclick=function(){var t=bilanText(),msg=$("bilanMsg");var sel=function(){var r=document.createRange();r.selectNodeContents($("bilanText"));var s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : copie-le avec ton appareil.";};
+  try{navigator.clipboard.writeText(t).then(function(){msg.textContent="Bilan copié.";},sel);}catch(e){sel();}};
+var DL=null;
+(function(){try{if(window.claude&&window.claude.use){window.claude.use("downloads").then(function(d){DL=d;$("dlBilan").hidden=!d;}).catch(function(){});}}catch(e){}})();
+$("dlBilan").onclick=function(){if(!DL)return;var msg=$("bilanMsg");var nm=(S.name.trim()||"eleve").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9_-]+/g,"-").slice(0,30)||"eleve";
+  DL.save({filename:"bilan-agglutination-"+nm+".txt",data:bilanText()}).then(function(){msg.textContent="Bilan téléchargé.";},function(err){var c=err&&err.code;msg.textContent=c==="declined"?"Téléchargement annulé.":c==="rate_limited"?"Patiente un instant, puis réessaie.":"Téléchargement impossible ici : utilise « Copier mon bilan ».";});};
+$("showProf").onclick=function(){var T=total();$("ovname").textContent=S.name.trim()||"Élève";$("ovtot").textContent=T.s+" / "+T.n;$("ovparts").innerHTML=scoreCards();$("overlay").hidden=false;$("ovClose").focus();};
+$("ovClose").onclick=function(){$("overlay").hidden=true;$("showProf").focus();};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")$("overlay").hidden=true;});
+
+function renderStepsDone(){var all=function(p){return PARTS[p-1].ids.every(function(k){return S.done[k];});};
+  var d={mission:!!S.bet,comprendre:all(1),labo:all(2),conclure:all(3),bilan:all(4)};
+  document.querySelectorAll(".step").forEach(function(b){b.classList.toggle("done",!!d[b.dataset.go]&&b.getAttribute("aria-current")!=="step");});}
+function renderAll(){applyFs();applyTheme();renderBets();renderBoard();renderGroups();renderSimCtl();renderSimBtns();["lucie","coupable"].forEach(renderBench);QS.forEach(function(q){renderDoc(q);renderQ(q);});renderReveal();renderBilan();renderStepsDone();drawSim();}
+
+QS.forEach(buildCard);
+renderAll();
+go(location.hash.slice(1)||"mission");
+if(window.ResizeObserver){new ResizeObserver(function(){drawSim();}).observe($("cv").parentElement);}else window.addEventListener("resize",drawSim);
+window.__t={S:function(){return S;},simT:function(){return simT;}};
+})();
+</script>
+</body>
+</html>

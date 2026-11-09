@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quand l'eau se met à bouillir</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
+<style>
+/* Layout : bandeau EIST teal (Mission 4), stepper collant en 6 étapes (Mission → Expérience → Courbe → Interpréter → Et si… → Bilan), une étape visible à la fois, colonne de 1080 px (1400 px en projection) */
+:root{
+  --bg:#eef4f4; --surface:#ffffff; --surface-2:#e3eded; --ink:#0f2d36; --muted:#46626c; --line:#bfd2d4;
+  --teal:#0b6170; --teal-ink:#ffffff; --teal-soft:#d7ecee;
+  --band:#0a3a45; --band-ink:#eaf5f6; --band-muted:#a7cdd2;
+  --ok:#17703c; --ok-soft:#dcf1e3; --bad:#b3261e; --bad-soft:#fbe2df;
+  --info:#1d5fa8; --info-soft:#e4eefb; --warn:#a14f00; --warn-soft:#fdebd6; --key:#17703c; --key-soft:#dcf1e3; --crit:#b3261e; --crit-soft:#fbe2df;
+  --glass:#7fa7b3; --glass-fill:rgba(200,228,236,.25); --water:#5aa9d6; --water-2:#2f86bd; --bubble:#ffffff; --drop:#9fd0ea;
+  --plate:#5b6b70; --hot:#e2462f; --mist:#ffffff; --probe:#3d4b50; --curve:#d0362b;
+  --r1:#d0362b; --r2:#1d5fa8; --r3:#17703c; --r4:#a14f00; --r5:#6a3fa0; --r6:#0b8a8a;
+  --paper:#fffdf6;
+  --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs:22px; --maxw:1080px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#5cc6d3; --teal-ink:#06262c; --teal-soft:#173d45;
+  --band:#06272f; --band-ink:#e4f2f4; --band-muted:#93bcc2;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --glass:#8fb8c4; --glass-fill:rgba(120,170,190,.12); --water:#3d8fc0; --water-2:#2a6f9e; --bubble:#e8f6ff; --drop:#7cc0e6;
+  --plate:#8a9aa0; --hot:#ff6a4f; --mist:#dfe9ec; --probe:#c8d6da; --curve:#ff7b70;
+  --r1:#ff7b70; --r2:#8ab8f2; --r3:#66d695; --r4:#f3a95c; --r5:#c2a6f2; --r6:#4fd1cf;
+  --paper:#1d2a22;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#5cc6d3; --teal-ink:#06262c; --teal-soft:#173d45;
+  --band:#06272f; --band-ink:#e4f2f4; --band-muted:#93bcc2;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826; --crit:#ff8f84; --crit-soft:#3d1c1a;
+  --glass:#8fb8c4; --glass-fill:rgba(120,170,190,.12); --water:#3d8fc0; --water-2:#2a6f9e; --bubble:#e8f6ff; --drop:#7cc0e6;
+  --plate:#8a9aa0; --hot:#ff6a4f; --mist:#dfe9ec; --probe:#c8d6da; --curve:#ff7b70;
+  --r1:#ff7b70; --r2:#8ab8f2; --r3:#66d695; --r4:#f3a95c; --r5:#c2a6f2; --r6:#4fd1cf;
+  --paper:#1d2a22;
+  color-scheme:dark;
+}
+html{font-size:var(--fs)}
+html.proj{--maxw:1400px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+button,input{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:18px 20px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.45rem,4.4vw,2.2rem);font-weight:800;margin-top:4px}
+.band .q{color:var(--band-muted);margin-top:4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{min-height:48px;min-width:48px;padding:0 12px;border-radius:12px;border:1.5px solid color-mix(in oklab,var(--band-ink) 35%,transparent);background:transparent;color:var(--band-ink);font-weight:700;cursor:pointer;font-size:.9rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+.tbtn.warn{border-color:var(--warn);background:color-mix(in oklab,var(--warn) 35%,transparent)}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.steps .wrap{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;padding-block:6px}
+.step{min-height:56px;border:0;border-radius:12px;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px;color:var(--muted);font-weight:700;min-width:0;font-size:.9rem}
+.step .n{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid currentColor;font-family:var(--f-num);font-size:.8rem}
+.step .l{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step[aria-current="step"]{background:var(--teal-soft);color:var(--ink)}
+.step[aria-current="step"] .n{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.step.done .n{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+@media (max-width:900px){.step .l{display:none}}
+
+main .wrap{padding-block:24px 56px}
+section.view{display:flex;flex-direction:column;gap:22px}
+.kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--teal)}
+.h2{font-size:clamp(1.35rem,3.4vw,1.8rem);font-weight:800}
+.lead{max-width:64ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.btn{min-height:52px;padding:0 18px;border-radius:14px;border:2px solid var(--teal);background:var(--teal);color:var(--teal-ink);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{min-height:48px;padding:0 12px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn[aria-pressed="true"]{background:var(--teal-soft);border-color:var(--teal);color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.next{display:flex;justify-content:flex-end}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:minmax(0,1fr)}}
+
+.box{border-radius:14px;padding:14px 16px;border-left:6px solid;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box .bt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.box .ic{font-size:1.1rem;line-height:1}
+.box.info{background:var(--info-soft);border-color:var(--info)}.box.info .bt{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)}.box.warn .bt{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)}.box.key .bt{color:var(--key)}
+.box.crit{background:var(--crit-soft);border-color:var(--crit)}.box.crit .bt{color:var(--crit)}
+.box ul,.box ol{margin:0;padding-left:1.3em}
+
+.mission{background:var(--paper);border:2px solid var(--teal);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.bigq{font-family:var(--f-display);font-size:clamp(1.25rem,3.4vw,1.7rem);font-weight:800;max-width:34ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:52px;padding:0 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 1px var(--teal)}
+.shapes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.shapes{grid-template-columns:minmax(0,1fr)}}
+.shape{border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-weight:700;min-width:0}
+.shape svg{width:100%;max-width:180px;height:auto}
+.shape[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 2px var(--teal)}
+.shape:disabled{cursor:default}
+
+/* Lab */
+.lab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.lab{grid-template-columns:minmax(0,1fr)}}
+.cvbox{width:100%;min-width:0;position:relative}
+.cvbox canvas{display:block;width:100%;border-radius:14px;touch-action:pan-y}
+.cvbox.draw canvas{touch-action:none;cursor:crosshair}
+.displays{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:480px){.displays{grid-template-columns:minmax(0,1fr);gap:6px}.disp{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:6px 12px}.disp.state{flex-direction:column;gap:2px}.disp .v{font-size:1.1rem}}
+.disp{background:#0d1b1f;color:#8ff0c8;border-radius:12px;padding:8px 10px;font-family:var(--f-num);border:2px solid #24393f;min-width:0}
+.disp .k{font-family:var(--f-body);font-size:.9rem;color:#9fb7bd;font-weight:700}
+.disp .v{font-size:1.35rem;font-weight:700;white-space:nowrap}
+.disp.state .v{font-family:var(--f-body);font-size:1rem;white-space:normal;color:#fff}
+.markers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:6px 14px;font-size:.9rem}
+.markers .mi{display:flex;gap:8px;align-items:flex-start}
+.markers .mi>b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--teal);color:var(--teal-ink);display:grid;place-items:center;font-size:.8rem}
+.gread{min-height:1.6em;font-weight:700;color:var(--teal)}
+.reltable{border-collapse:collapse;font-variant-numeric:tabular-nums}
+.reltable th,.reltable td{border:1px solid var(--line);padding:4px;text-align:center;min-width:4.2em}
+.reltable th{background:var(--surface-2);font-size:.9rem;position:sticky;left:0;z-index:1;min-width:6.5em}
+.reltable td.cur{background:var(--teal-soft);outline:3px solid var(--teal);outline-offset:-3px}
+.reltable input{width:4em;min-height:48px;border-radius:8px;border:2px solid var(--line);background:var(--bg);font-family:var(--f-num);font-weight:700;text-align:center;font-size:.95rem;padding:0 2px}
+.reltable input:disabled{opacity:.4}
+.reltable input.good{border-color:var(--ok);background:var(--ok-soft)}
+.reltable input.bad{border-color:var(--bad);background:var(--bad-soft)}
+.reltable .mk{display:block;font-size:.8rem;font-weight:700;min-height:1.2em}
+.mk{font-weight:700;font-size:.9rem;white-space:nowrap}
+.mk.ok{color:var(--ok)}.mk.bad{color:var(--bad)}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.prompt{border-radius:12px;padding:12px 14px;background:var(--warn-soft);border:2px solid var(--warn);font-weight:700}
+.dtable{width:100%;border-collapse:collapse;font-size:.95rem;font-variant-numeric:tabular-nums}
+.dtable th,.dtable td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left}
+.dtable th{background:var(--surface-2)}
+.dtable td.n{font-family:var(--f-num);font-weight:700;white-space:nowrap}
+.dtable td.nw{white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.9rem}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:22px;height:4px;border-radius:2px;display:inline-block}
+.check{display:flex;flex-direction:column;gap:6px}
+.check label{display:flex;gap:10px;align-items:flex-start;min-height:48px;cursor:pointer}
+.check input{width:26px;height:26px;flex:none;margin-top:3px;accent-color:var(--ok)}
+
+/* Questions */
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:80px}
+.qhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.qhead h3{font-size:1.15rem;font-weight:800}
+.lvl{font-size:.9rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.qstat{margin-left:auto;font-size:.9rem;font-weight:700;color:var(--muted)}
+.qstat.ok{color:var(--ok)}
+.fields{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:.9rem;font-weight:700;color:var(--muted)}
+.inp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.ans{min-height:52px;width:6.5ch;padding:0 10px;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-family:var(--f-num);font-weight:600;font-size:1rem;min-width:0}
+input.ans[aria-invalid="true"]{border-color:var(--bad);background:var(--bad-soft)}
+input.ans.good{border-color:var(--ok);background:var(--ok-soft)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;justify-content:space-between}
+.opts.inline .opt{justify-content:center}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 1px var(--teal)}
+.opt.okm{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badm{border-color:var(--bad);background:var(--bad-soft)}
+.opt svg{width:100%;max-width:340px;height:auto;display:block}
+.rrow{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:14px;background:var(--surface-2)}
+.rlab{font-weight:700}
+.rhd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between}
+.fb{border-radius:12px;padding:12px 14px}
+.fb.ok{background:var(--ok-soft);border:2px solid var(--ok)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.hints{display:flex;flex-direction:column;gap:8px}
+.hint{background:var(--warn-soft);border-radius:12px;padding:10px 14px}
+.hint b{color:var(--warn)}
+.corr{border-left:5px solid var(--key);background:var(--key-soft);border-radius:0 12px 12px 0;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.corr .ct{font-weight:700;color:var(--key)}
+.filltext{line-height:2.5}
+.blank{min-height:48px;min-width:5em;padding:2px 10px;margin:2px;border-radius:10px;border:2px dashed var(--muted);background:var(--bg);cursor:pointer;font-weight:700;vertical-align:middle;line-height:1.3}
+.blank.filled{border-style:solid;border-color:var(--teal)}
+.blank.active{outline:3px solid var(--teal);outline-offset:2px;background:var(--teal-soft)}
+.blank.good{border-color:var(--ok);background:var(--ok-soft)}
+.blank.bad{border-color:var(--bad);background:var(--bad-soft)}
+.bank{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border-radius:14px;background:var(--surface-2)}
+.banklab{flex:1 1 100%;font-size:.9rem;font-weight:700;color:var(--muted)}
+.wchip{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--teal);background:var(--surface);font-weight:700;cursor:pointer}
+.wchip:disabled{border-color:var(--line);color:var(--muted);text-decoration:line-through;cursor:default}
+
+.reveal{background:var(--band);color:var(--band-ink);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.reveal .big{font-family:var(--f-display);font-weight:800;font-size:clamp(1.3rem,4vw,1.9rem)}
+.reveal .muted{color:var(--band-muted)}
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px}
+.sc{background:var(--surface-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sc .k{font-size:.9rem;color:var(--muted);font-weight:700}
+.sc .v{font-family:var(--f-num);font-weight:600;font-size:1.3rem}
+.sc .bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.sc .bar span{display:block;height:100%;background:var(--ok)}
+.bilantext{white-space:pre-wrap;font-family:var(--f-num);font-size:.9rem;background:var(--surface-2);border-radius:12px;padding:14px;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere}
+input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);width:min(100%,16em)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--surface);overflow:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovin{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ovname{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,7vw,3.6rem)}
+.ovtot{font-family:var(--f-num);font-weight:600;font-size:clamp(2.4rem,10vw,5rem);color:var(--teal);line-height:1}
+.ovparts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.ovparts .sc .v{font-size:clamp(1.6rem,5vw,2.4rem)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages…) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div style="min-width:0">
+      <div class="eyebrow">5e EIST · Mission 4 · Charger la fusée · TP3</div>
+      <h1>Quand l'eau se met à bouillir</h1>
+      <p class="q">À quelle température l'eau pure bout-elle ?</p>
+    </div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tbtn" id="fsMinus" aria-label="Réduire le texte">A−</button>
+      <button class="tbtn" id="fsPlus" aria-label="Agrandir le texte">A+</button>
+      <button class="tbtn" id="proj" aria-pressed="false">Projection</button>
+      <button class="tbtn" id="theme">Thème</button>
+      <button class="tbtn" id="reset">Recommencer</button>
+    </div>
+  </div>
+</header>
+
+<nav class="steps" aria-label="Étapes">
+  <div class="wrap">
+    <button class="step" data-go="mission"><span class="n">1</span><span class="l">Mission</span></button>
+    <button class="step" data-go="experience"><span class="n">2</span><span class="l">Expérience</span></button>
+    <button class="step" data-go="courbe"><span class="n">3</span><span class="l">Courbe</span></button>
+    <button class="step" data-go="interpreter"><span class="n">4</span><span class="l">Interpréter</span></button>
+    <button class="step" data-go="etsi"><span class="n">5</span><span class="l">Et si… ?</span></button>
+    <button class="step" data-go="bilan"><span class="n">6</span><span class="l">Bilan</span></button>
+  </div>
+</nav>
+
+<main><div class="wrap">
+
+<!-- 1 MISSION -->
+<section class="view" id="v-mission">
+  <div class="mission">
+    <div class="kicker">Ta mission</div>
+    <p class="lead">Suivre la température de l'eau pendant son chauffage et expliquer les changements d'état observés.</p>
+    <p class="small"><b>Compétences :</b> relever des mesures, construire une courbe, interpréter des résultats.</p>
+    <p class="small"><b>Ton parcours :</b> observer → mesurer → tracer → expliquer.</p>
+  </div>
+  <div class="stack">
+    <div class="kicker">Avant l'expérience, fais deux prédictions</div>
+    <p class="bigq">1. À quelle température l'eau pure va-t-elle bouillir ?</p>
+    <div class="chips" id="betT" role="group" aria-label="Température prédite"></div>
+    <p class="bigq">2. Si on continue de chauffer pendant l'ébullition, à quoi ressemblera la courbe ?</p>
+    <div class="shapes" id="betS" role="group" aria-label="Forme de la courbe prédite"></div>
+    <p id="betMsg" class="muted" aria-live="polite"></p>
+  </div>
+  <div class="next"><button class="btn" data-go="experience">Lancer l'expérience →</button></div>
+</section>
+
+<!-- 2 EXPERIENCE -->
+<section class="view" id="v-experience" hidden>
+  <div class="stack">
+    <div class="kicker">01 Observer · 02 Mesurer</div>
+    <h2 class="h2">Le montage virtuel</h2>
+    <p class="lead">Lance le chauffage. La simulation s'arrête à chaque minute : <b>lis l'afficheur</b> et note la température dans le tableau, puis continue.</p>
+  </div>
+  <div class="box crit"><div class="bt"><span class="ic" aria-hidden="true">✖&#xFE0E;</span>Sécurité</div><p>Schéma de principe : ne reproduis pas ce montage sans consigne du professeur.</p></div>
+  <div class="card stack" style="gap:14px">
+    <div class="displays">
+      <div class="disp"><div class="k">Temps</div><div class="v" id="dT">0 min 00 s</div></div>
+      <div class="disp"><div class="k">Température</div><div class="v" id="dC">20,0 °C</div></div>
+      <div class="disp state"><div class="k">Observation</div><div class="v" id="dS">Eau liquide à température ambiante</div></div>
+    </div>
+    <div class="lab">
+      <div class="stack">
+        <div class="cvbox"><canvas id="fcv" aria-label="Animation : ballon d'eau chauffé, avec sonde de température"></canvas></div>
+        <button class="btn ghost sm" id="mkBtn" aria-pressed="true">Afficher les repères</button>
+        <div class="markers" id="markers"></div>
+      </div>
+      <div class="stack">
+        <b>Température de l'eau au cours du chauffage</b>
+        <div class="cvbox"><canvas id="tcv" aria-label="Courbe de la température en fonction du temps, tracée en temps réel"></canvas></div>
+        <p class="gread" id="tread" aria-live="polite">Touche la courbe pour lire une valeur.</p>
+      </div>
+    </div>
+    <div class="row"><button class="btn" id="sPlay">▶ Lancer le chauffage</button><button class="btn ghost" id="sPause">⏸ Pause</button><button class="btn ghost" id="sReset">↺ Recommencer</button><button class="btn ghost sm" id="sAuto" aria-pressed="true">Arrêt à chaque minute : oui</button></div>
+    <div id="prompt" class="prompt" hidden aria-live="polite"></div>
+    <div class="stack" style="gap:6px">
+      <div class="row" style="justify-content:space-between"><b>1 · Relever : tableau des mesures</b><span class="small" id="relScore"></span></div>
+      <div class="tscroll"><table class="reltable"><tbody><tr id="rowT"></tr><tr id="rowC"></tr></tbody></table></div>
+      <p class="small muted">Tape la température lue sur l'afficheur (tu peux l'arrondir à l'unité). Recopie ensuite ce tableau dans ton cahier.</p>
+    </div>
+    <p class="small muted">Simulation : 1 minute de chauffage dure environ 2,5 secondes à l'écran. Les mesures sont simulées, avec la petite imprécision d'une vraie sonde.</p>
+  </div>
+  <div class="next"><button class="btn" data-go="courbe">Tracer la courbe →</button></div>
+</section>
+
+<!-- 3 COURBE -->
+<section class="view" id="v-courbe" hidden>
+  <div class="stack">
+    <div class="kicker">2 · Représenter</div>
+    <h2 class="h2">Trace ta courbe</h2>
+    <p class="lead">Place chaque point de ton tableau : pose ton doigt, fais-le glisser jusqu'à la bonne position (les coordonnées s'affichent), puis lève-le. Trace ensuite la courbe et compare-la à celle de la simulation.</p>
+  </div>
+  <div class="card stack" style="gap:12px">
+    <div class="cvbox draw"><canvas id="gcv" aria-label="Repère pour placer les points : temps en minutes en abscisse, température en degrés Celsius en ordonnée"></canvas></div>
+    <p class="gread" id="gread" aria-live="polite">Pose ton doigt sur le repère pour placer un point.</p>
+    <div class="row">
+      <button class="btn ghost sm" id="gUndo">← Effacer le dernier point</button>
+      <button class="btn ghost sm" id="gClear">Tout effacer</button>
+      <button class="btn ghost sm" id="gLine" aria-pressed="false">Relier les points</button>
+      <button class="btn ghost sm" id="gSim" aria-pressed="false">Comparer avec la simulation</button>
+    </div>
+    <div class="row"><button class="btn" id="gChk">Vérifier mes points</button><span class="small" id="gInfo"></span></div>
+    <div id="gFb" aria-live="polite"></div>
+    <div class="tscroll"><table class="dtable" id="gTable"></table></div>
+  </div>
+  <div id="qs-2" class="stack" style="gap:18px"></div>
+  <div class="card stack">
+    <b>Dans ton cahier · coche quand c'est fait</b>
+    <div class="check" id="cahier"></div>
+    <p class="small muted">Capture d'écran : appuie en même temps sur le bouton du haut et le bouton du volume (+) de l'iPad, quand la courbe finale est affichée.</p>
+  </div>
+  <div class="next"><button class="btn" data-go="interpreter">Interpréter →</button></div>
+</section>
+
+<!-- 4 INTERPRETER -->
+<section class="view" id="v-interpreter" hidden>
+  <div class="stack">
+    <div class="kicker">3 · Interpréter</div>
+    <h2 class="h2">Que s'est-il passé dans le ballon ?</h2>
+    <p class="lead">Observe les états de l'eau, les parois et la température pendant l'ébullition. Tu peux revoir la simulation à l'étape 2.</p>
+  </div>
+  <div class="box crit"><div class="bt"><span class="ic" aria-hidden="true">✖&#xFE0E;</span>Erreur fréquente</div><p>La vapeur d'eau est <b>invisible</b>. La « fumée » blanche au-dessus d'une casserole est faite de <b>fines gouttelettes d'eau liquide</b> : la vapeur s'est déjà refroidie.</p></div>
+  <div id="qs-3" class="stack" style="gap:18px"></div>
+  <div id="revealSlot"></div>
+  <div class="next"><button class="btn" data-go="etsi">Et si… ? →</button></div>
+</section>
+
+<!-- 5 ET SI -->
+<section class="view" id="v-etsi" hidden>
+  <div class="stack">
+    <div class="kicker">Question 4 · Proposer une hypothèse</div>
+    <h2 class="h2">L'eau bout-elle toujours à 100 °C ?</h2>
+    <p class="lead">Avant de tester, propose une hypothèse : en haute montagne, où la pression de l'air est plus faible, l'eau bout…</p>
+    <div class="chips" id="betM" role="group" aria-label="Hypothèse"></div>
+    <p id="betMMsg" class="muted" aria-live="polite"></p>
+  </div>
+  <div class="card stack" style="gap:14px">
+    <b>Teste ton hypothèse : chauffe de l'eau à différents endroits</b>
+    <div class="chips" id="places" role="group" aria-label="Lieu ou situation"></div>
+    <div class="cvbox"><canvas id="acv" aria-label="Courbes de chauffage de l'eau selon le lieu"></canvas></div>
+    <p class="gread" id="aread" aria-live="polite">Choisis un lieu : la courbe se trace.</p>
+    <div class="legend" id="aleg"></div>
+    <div class="tscroll"><table class="dtable"><thead><tr><th>Lieu ou situation</th><th>Altitude</th><th>Pression de l'air</th><th>Température du palier</th></tr></thead><tbody id="atab"></tbody></table></div>
+    <div class="row"><button class="btn ghost sm" id="aClear">Effacer les courbes</button></div>
+    <p class="small muted">Valeurs calculées avec un modèle (atmosphère standard). L'eau salée est une solution concentrée, chauffée au niveau de la mer.</p>
+  </div>
+  <div id="qs-4" class="stack" style="gap:18px"></div>
+  <div class="next"><button class="btn" data-go="bilan">Faire le bilan →</button></div>
+</section>
+
+<!-- 6 BILAN -->
+<section class="view" id="v-bilan" hidden>
+  <div class="stack">
+    <div class="kicker">Bilan</div>
+    <h2 class="h2">Ce qu'il faut retenir</h2>
+  </div>
+  <div id="qs-5" class="stack" style="gap:18px"></div>
+  <div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>À retenir</div>
+    <p>À la pression atmosphérique normale (environ 1 013 hPa), l'eau pure bout vers <b>100 °C</b>.</p>
+    <p>Pendant l'<b>ébullition</b>, la température reste <b>constante</b> alors que le chauffage continue : la courbe présente un <b>palier</b>. Ce palier est caractéristique d'un <b>corps pur</b>.</p>
+    <p>La <b>vaporisation</b> (liquide → gaz) regroupe l'évaporation et l'ébullition. La <b>liquéfaction</b> (gaz → liquide) forme les gouttelettes sur les parois froides.</p>
+    <p>La température d'ébullition dépend de la pression : en altitude, l'eau bout à moins de 100 °C.</p>
+  </div>
+  <div class="card stack" style="gap:14px">
+    <div class="kicker">Mon bilan</div>
+    <div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet appareil)</label><input class="name" id="pname" autocomplete="off" maxlength="40"></div>
+    <div class="scoregrid" id="scoreGrid"></div>
+    <div id="advice" class="stack"></div>
+    <div class="bilantext" id="bilanText"></div>
+    <div class="row">
+      <button class="btn" id="showProf">Montrer au professeur</button>
+      <button class="btn ghost" id="dlBilan" hidden>Télécharger mon bilan (.txt)</button>
+      <button class="btn ghost" id="copyBilan">Copier mon bilan</button>
+    </div>
+    <p id="bilanMsg" class="muted" aria-live="polite"></p>
+  </div>
+</section>
+
+</div></main>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ovname">
+  <div class="ovin">
+    <div class="row" style="justify-content:space-between"><div class="kicker">Bilan à montrer au professeur</div><button class="btn" id="ovClose">Fermer</button></div>
+    <div class="ovname" id="ovname"></div>
+    <div><div class="muted">Score au premier essai</div><div class="ovtot" id="ovtot"></div></div>
+    <div class="ovparts" id="ovparts"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KEY="ebullition-eau-5e-v1";
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function dec(x,n){return (n===undefined?String(x):x.toFixed(n)).replace(".",",");}
+function num(s){var t=String(s==null?"":s).trim().replace(/\s/g,"").replace(/[−–]/g,"-").replace(",",".");return /^-?\d+(\.\d+)?$/.test(t)?parseFloat(t):null;}
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var TMAX=15;
+var DEF={betT:null,betS:null,betM:null,ans:{},first:{},tries:{},done:{},hints:{},corr:{},act:{},simT:0,auto:true,marks:true,rel:{},relErr:0,pts:[],gLine:false,gSim:false,runs:[],cahier:{},name:"",fs:22,proj:false,theme:null};
+function fresh(){return JSON.parse(JSON.stringify(DEF));}
+var S;try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){S=fresh();}
+["ans","first","tries","done","hints","corr","act","rel","cahier"].forEach(function(k){if(!S[k]||typeof S[k]!=="object")S[k]=fresh()[k];});
+if(!Array.isArray(S.pts))S.pts=[];if(!Array.isArray(S.runs))S.runs=[];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- physics model (simulated) ---------- */
+var A=12,K=0.06,TA=20;
+function hash(k){var x=Math.sin(k*12.9898+78.233)*43758.5453;return x-Math.floor(x);}
+function tHeat(t){return TA+(A/K)*(1-Math.exp(-K*t));}
+function tReach(tb){return -Math.log(1-(tb-TA)*K/A)/K;}
+function bpOf(hPa){var mm=hPa*0.750062;return 1730.63/(8.07131-Math.log10(mm))-233.426;}
+function pOfAlt(h){return 1013.25*Math.pow(1-2.25577e-5*h,5.25588);}
+function trueT(t,tb,salt){var tr=tReach(tb);if(t<=tr)return tHeat(t);return salt?tb+0.22*(t-tr):tb;}
+function reading(t,tb,salt){var s=Math.floor(t*60+1e-6);var n=s===0?0:(hash(s)-.5)*0.3;var v=trueT(t,tb,salt)+n;return Math.round(v*10)/10;}
+var TB=100.0;
+function R(m){return reading(m,TB,false);}
+
+/* ---------- display ---------- */
+function redrawAll(){drawFlask();drawTCurve();drawGraph();drawAlt();}
+function applyFs(){var r=document.documentElement;r.classList.toggle("proj",!!S.proj);r.style.setProperty("--fs",(S.proj?Math.max(S.fs,30):S.fs)+"px");$("proj").setAttribute("aria-pressed",S.proj?"true":"false");redrawAll();}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme");redrawAll();}
+$("fsMinus").onclick=function(){S.fs=Math.max(20,S.fs-2);applyFs();save();};
+$("fsPlus").onclick=function(){S.fs=Math.min(34,S.fs+2);applyFs();save();};
+$("proj").onclick=function(){S.proj=!S.proj;applyFs();save();};
+$("theme").onclick=function(){var dark=S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);S.theme=dark?"light":"dark";applyTheme();save();};
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",redrawAll);}catch(e){}
+var resetArm=null;
+$("reset").onclick=function(){
+  var b=$("reset");
+  if(!resetArm){b.textContent="Confirmer ?";b.classList.add("warn");resetArm=setTimeout(function(){b.textContent="Recommencer";b.classList.remove("warn");resetArm=null;},4000);return;}
+  clearTimeout(resetArm);resetArm=null;
+  var keep={fs:S.fs,proj:S.proj,theme:S.theme};S=Object.assign(fresh(),keep);save();
+  b.textContent="Recommencer";b.classList.remove("warn");for(var k in lastFb)delete lastFb[k];
+  stopSim();P=[];gFb=null;document.querySelectorAll("input.ans").forEach(function(i){i.value="";});
+  buildRelTable();renderAll();go("mission");
+};
+var VIEWS=["mission","experience","courbe","interpreter","etsi","bilan"],cur="mission";
+function go(v){if(VIEWS.indexOf(v)<0)v="mission";cur=v;VIEWS.forEach(function(x){$("v-"+x).hidden=x!==v;});
+  document.querySelectorAll(".step").forEach(function(b){b.setAttribute("aria-current",b.dataset.go===v?"step":"false");});
+  if(location.hash!=="#"+v){try{history.replaceState(null,"","#"+v);}catch(e){}}
+  if(v!=="experience")pauseSim();
+  if(v==="bilan")renderBilan();
+  renderStepsDone();window.scrollTo(0,0);requestAnimationFrame(redrawAll);}
+document.addEventListener("click",function(e){var t=e.target.closest("[data-go]");if(t)go(t.dataset.go);});
+window.addEventListener("hashchange",function(){var h=location.hash.slice(1);if(h!==cur)go(h);});
+
+/* ---------- 1. predictions ---------- */
+var BT=[["50","Vers 50 °C"],["80","Vers 80 °C"],["100","Vers 100 °C"],["120","Vers 120 °C"],["inf","Elle ne s'arrête jamais de monter"]];
+function shapeSVG(k){var p=k==="a"?"M10 90 L150 10":k==="b"?"M10 90 Q70 30 90 25 L150 25":"M10 90 Q60 20 90 25 Q120 30 150 70";
+  return '<svg viewBox="0 0 160 100" aria-hidden="true"><line x1="10" y1="92" x2="155" y2="92" stroke="var(--muted)" stroke-width="2"/><line x1="10" y1="92" x2="10" y2="5" stroke="var(--muted)" stroke-width="2"/><path d="'+p+'" fill="none" stroke="var(--curve)" stroke-width="4" stroke-linecap="round"/><text x="150" y="88" font-size="10" text-anchor="end" fill="var(--muted)">temps</text><text x="14" y="12" font-size="10" fill="var(--muted)">T</text></svg>';}
+var BS=[["a","La température monte sans arrêt"],["b","Elle monte, puis reste constante"],["c","Elle monte, puis redescend"]];
+function revealed(){return !!(S.done.i3||S.corr.i3);}
+function renderBets(){var lock=revealed();
+  $("betT").innerHTML=BT.map(function(x){return '<button class="chip" data-bt="'+x[0]+'" aria-pressed="'+(S.betT===x[0])+'"'+(lock?" disabled":"")+'>'+x[1]+'</button>';}).join("");
+  $("betS").innerHTML=BS.map(function(x){return '<button class="shape" data-bs="'+x[0]+'" aria-pressed="'+(S.betS===x[0])+'"'+(lock?" disabled":"")+'>'+shapeSVG(x[0])+'<span>'+x[1]+'</span></button>';}).join("");
+  $("betMsg").textContent=lock?"Prédictions verrouillées. La réponse est à l'étape 4.":(S.betT&&S.betS?"Prédictions enregistrées : tu les vérifieras à l'étape 4.":"Fais les deux prédictions.");}
+$("betT").addEventListener("click",function(e){var b=e.target.closest("[data-bt]");if(!b||b.disabled)return;S.betT=b.dataset.bt;save();renderBets();renderStepsDone();});
+$("betS").addEventListener("click",function(e){var b=e.target.closest("[data-bs]");if(!b||b.disabled)return;S.betS=b.dataset.bs;save();renderBets();renderStepsDone();});
+function renderReveal(){var slot=$("revealSlot");if(!revealed()){slot.innerHTML="";return;}
+  var bt=BT.filter(function(x){return x[0]===S.betT;})[0],bs=BS.filter(function(x){return x[0]===S.betS;})[0];
+  slot.innerHTML='<div class="reveal"><div class="kicker" style="color:var(--band-muted)">Et tes prédictions ?</div><div class="big">Ébullition vers 100 °C, puis un palier.</div><p>Température : '+(bt?'tu avais prédit <b>« '+bt[1]+' »</b> '+(S.betT==="100"?"✓ bien vu !":"✗"):"pas de prédiction")+'</p><p>Forme de la courbe : '+(bs?'tu avais prédit <b>« '+bs[1]+' »</b> '+(S.betS==="b"?"✓ bien vu !":"✗"):"pas de prédiction")+'</p><p class="muted">Pendant l\'ébullition, le chauffage continue mais la température ne monte plus : l\'énergie reçue sert à transformer l\'eau liquide en vapeur.</p></div>';}
+
+/* ---------- 2. simulation ---------- */
+var run=false,raf=null,last=0,vt=0,SPEED=1/2.5;/* simulated minutes per real second */
+var P=[];/* particles */
+function stateText(t){var T=trueT(t,TB,false);if(t<=0)return "Eau liquide à température ambiante";if(T<60)return "L'eau liquide chauffe";if(T<90)return "L'eau chauffe : de la buée apparaît sur les parois froides";if(T<TB-0.05)return "Frémissement : des bulles naissent au fond puis disparaissent";return "Ébullition : de grosses bulles de vapeur montent et éclatent";}
+function updDisplays(){var t=S.simT,m=Math.floor(t+1e-9),s=Math.round((t-m)*60);if(s===60){m++;s=0;}
+  $("dT").textContent=m+" min "+("0"+s).slice(-2)+" s";$("dC").textContent=dec(reading(t,TB,false),1)+" °C";$("dS").textContent=stateText(t);}
+function geo(w,h){var R=Math.min(w*.24,h*.22),cx=w*.42,cy=h*.64;return {R:R,cx:cx,cy:cy,nw:R*.42,neckTop:cy-R-R*.8,plateY:cy+R+4};}
+function drawFlask(dtReal){
+  var cv=$("fcv");if(!cv)return;var box=cv.parentElement,w=box.clientWidth;if(w<60)return;
+  var h=Math.round(Math.min(Math.max(w*.95,320),480)),dpr=window.devicePixelRatio||1;
+  if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);cv.style.height=h+"px";}
+  var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);
+  var rs=getComputedStyle(document.documentElement),col=function(n){return rs.getPropertyValue(n).trim()||"#888";},font=rs.getPropertyValue("--f-body");
+  c.fillStyle=col("--surface-2");c.fillRect(0,0,w,h);
+  var g=geo(w,h),R=g.R,cx=g.cx,cy=g.cy,t=S.simT,T=trueT(t,TB,false),boil=T>=TB-0.05,heat=t>0&&t<TMAX+1;
+  var tr=tReach(TB),lost=boil?Math.min(.18,(t-tr)*.02):0,wy=cy-R*.12+R*lost;
+  // heater
+  c.fillStyle=col("--plate");c.fillRect(cx-R*.9,g.plateY,R*1.8,R*.26);
+  if(heat){var gl=Math.min(1,t/1.5);c.fillStyle=col("--hot");c.globalAlpha=.25+.55*gl;c.fillRect(cx-R*.75,g.plateY+3,R*1.5,R*.08);c.globalAlpha=1;}
+  c.fillStyle=col("--muted");c.font="700 "+Math.max(12,R*.13)+"px "+font;c.textAlign="center";c.textBaseline="top";c.fillText("CHAUFFAGE",cx,g.plateY+R*.3);
+  // flask path
+  var ja=Math.asin((g.nw/2)/R);
+  var flaskPath=function(){c.beginPath();c.moveTo(cx-g.nw/2,g.neckTop);c.lineTo(cx-g.nw/2,cy-R*Math.cos(ja));c.arc(cx,cy,R,-Math.PI/2-ja,-Math.PI/2+ja,true);c.lineTo(cx+g.nw/2,g.neckTop);};
+  flaskPath();c.fillStyle=col("--glass-fill");c.fill();
+  // water
+  c.save();c.beginPath();c.arc(cx,cy,R-3,0,Math.PI*2);c.clip();
+  var grd=c.createLinearGradient(0,wy,0,cy+R);grd.addColorStop(0,col("--water"));grd.addColorStop(1,col("--water-2"));c.fillStyle=grd;c.globalAlpha=.75;
+  c.beginPath();c.moveTo(cx-R,wy);var amp=boil?R*.025:T>90?R*.008:0,ph=vt*5.5;
+  for(var x=cx-R;x<=cx+R;x+=4){c.lineTo(x,wy+Math.sin(x*.08+ph)*amp);}c.lineTo(cx+R,cy+R);c.lineTo(cx-R,cy+R);c.closePath();c.fill();c.globalAlpha=1;
+  // bubbles
+  P.forEach(function(p){c.globalAlpha=p.a;c.strokeStyle=col("--bubble");c.fillStyle="rgba(255,255,255,.25)";c.lineWidth=1.5;c.beginPath();c.arc(p.x,p.y,p.r,0,Math.PI*2);c.fill();c.stroke();});c.globalAlpha=1;
+  c.restore();
+  // droplets on cool walls (upper part of the flask and neck)
+  var dropN=Math.max(0,Math.min(46,Math.floor((T-45)*.9)));
+  for(var i=0;i<dropN;i++){var dx,dy,u=hash(i*3.1),v2=hash(i*7.7);if(i%3===2){dx=cx+(u<.5?-1:1)*(g.nw/2-3);dy=g.neckTop+R*.12+v2*(cy-R-g.neckTop-R*.1);}else{var an=-Math.PI/2+(u-.5)*2.2;dx=cx+Math.cos(an)*(R-5);dy=cy+Math.sin(an)*(R-5);if(dy>wy-4)continue;}
+    c.fillStyle=col("--drop");c.globalAlpha=.9;c.beginPath();c.ellipse(dx,dy,1.8+hash(i)*1.4,2.4+hash(i)*1.6,0,0,Math.PI*2);c.fill();}c.globalAlpha=1;
+  // flask outline
+  flaskPath();c.strokeStyle=col("--glass");c.lineWidth=3;c.stroke();
+  // probe
+  c.strokeStyle=col("--probe");c.lineWidth=4;c.beginPath();c.moveTo(cx+g.nw*.15,g.neckTop-R*.25);c.lineTo(cx+g.nw*.15,cy+R*.45);c.stroke();
+  c.fillStyle=col("--probe");c.beginPath();c.arc(cx+g.nw*.15,cy+R*.47,4,0,Math.PI*2);c.fill();
+  c.beginPath();c.moveTo(cx+g.nw*.15,g.neckTop-R*.25);c.quadraticCurveTo(cx+R*.6,g.neckTop-R*.6,Math.min(w-10,cx+R*1.45),g.neckTop-R*.2);c.lineWidth=2;c.stroke();
+  c.fillStyle="#0d1b1f";var bx=Math.min(w-10,cx+R*1.45)-R*.5,by=g.neckTop-R*.2;c.fillRect(bx,by,R*.6,R*.32);c.fillStyle="#8ff0c8";c.font="700 "+Math.max(11,R*.13)+"px "+rs.getPropertyValue("--f-num");c.textAlign="center";c.textBaseline="middle";c.fillText(Math.round(reading(t,TB,false))+"°C",bx+R*.3,by+R*.16);
+  // mist above the opening (gap = invisible vapour)
+  var mistA=boil?.95:T>85?(T-85)/15*.45:0;
+  if(mistA>0){var now=vt;for(var j=0;j<14;j++){var ph2=(now*.35+hash(j))%1,mx=cx+(hash(j+4)-.5)*g.nw*.8+ph2*R*.25*(hash(j+9)-.5),my=g.neckTop-R*.32-ph2*R*.6,mr=R*.07+ph2*R*.14;c.globalAlpha=mistA*Math.min(1,ph2*4)*(1-ph2)*.85;c.fillStyle=col("--mist");c.beginPath();c.arc(mx,my,mr,0,Math.PI*2);c.fill();}c.globalAlpha=1;}
+  // markers
+  if(S.marks){var mk=function(n,x,y){c.fillStyle=col("--teal");c.beginPath();c.arc(x,y,11,0,Math.PI*2);c.fill();c.fillStyle=col("--teal-ink");c.font="800 12px "+font;c.textAlign="center";c.textBaseline="middle";c.fillText(String(n),x,y+.5);};
+    mk(1,cx+g.nw*.15+16,cy+R*.2);mk(2,cx-R*.62,cy-R*.62);mk(3,cx-R*.35,cy+R*.55);mk(4,cx-g.nw/2-16,g.neckTop-R*.22);mk(5,cx+g.nw/2+20,g.neckTop-R*.7);mk(6,cx-R*1.08,g.plateY+R*.13);}
+}
+$("markers").innerHTML=[["Sonde de température","elle mesure la température de l'eau."],["Parois plus froides","observe ce qui apparaît dessus."],["Eau chauffée","observe le liquide et la formation des bulles."],["Juste au-dessus du goulot","la vapeur d'eau est là, mais elle est invisible."],["« Fumée » blanche","de fines gouttelettes d'eau liquide."],["Chauffage","il fonctionne pendant toute l'expérience."]].map(function(x,i){return '<span class="mi"><b>'+(i+1)+'</b><span><strong>'+x[0]+'</strong> : '+x[1]+'</span></span>';}).join("");
+function spawn(dt){var cv=$("fcv"),w=cv.parentElement.clientWidth,h=parseFloat(cv.style.height)||w*.95,g=geo(w,h),T=trueT(S.simT,TB,false),boil=T>=TB-0.05;
+  var tr=tReach(TB),lost=boil?Math.min(.18,(S.simT-tr)*.02):0,wy=g.cy-g.R*.12+g.R*lost,bottom=g.cy+g.R-6;
+  var rate=boil?26:T>90?10:T>45?2.5:0;var n=rate*dt;while(n>0){if(Math.random()<n){var ddx=(Math.random()-.5)*g.R*1.3,bxx=g.cx+ddx,byy=g.cy+Math.sqrt(Math.max(0,g.R*g.R-ddx*ddx))-7-Math.random()*4;if(T<=90&&!boil&&Math.random()<.5){var an2=Math.PI*(.15+Math.random()*.7);bxx=g.cx+Math.cos(an2)*(g.R-7);byy=g.cy+Math.sin(an2)*(g.R-7);if(byy<wy+6)byy=wy+6+Math.random()*g.R*.3;}P.push({x:bxx,y:byy,r:boil?2+Math.random()*2:1+Math.random()*1.2,vy:boil?-(30+Math.random()*30):T>90?-(12+Math.random()*10):0,a:T>90?.9:.6,life:boil?9:T>90?.7+Math.random()*.5:1.6,kind:boil?"b":T>90?"f":"air",wy:wy});}n-=1;}
+  P.forEach(function(p){p.life-=dt;if(p.kind==="b"){p.vy-=40*dt;p.r+=1.6*dt;p.x+=(Math.random()-.5)*12*dt;}else if(p.kind==="f"){p.r=Math.max(.4,p.r-1.2*dt);}p.y+=p.vy*dt;if(p.y<wy+p.r){p.life=0;}if(p.life<.3)p.a=Math.max(0,p.life/.3)*.9;});
+  P=P.filter(function(p){return p.life>0;});if(P.length>260)P=P.slice(-260);}
+function tGeo(w,h,tf){var L=tf*3.1,Rr=tf*1.2,T=tf*1.2,B=tf*3.4;return {L:L,T:T,pw:w-L-Rr,ph:h-T-B,X:function(x){return L+x/TMAX*(w-L-Rr);},Y:function(y){return T+(h-T-B)-y/110*(h-T-B);}};}
+function axes(c,g,w,h,tf,col,font,stepX){c.strokeStyle=col("--line");c.lineWidth=1;for(var y=0;y<=110;y+=10){c.beginPath();c.moveTo(g.L,g.Y(y));c.lineTo(g.L+g.pw,g.Y(y));c.stroke();}for(var x=0;x<=TMAX;x+=1){c.beginPath();c.moveTo(g.X(x),g.T);c.lineTo(g.X(x),g.T+g.ph);c.stroke();}
+  c.strokeStyle=col("--ink");c.lineWidth=2;c.beginPath();c.moveTo(g.L,g.T);c.lineTo(g.L,g.T+g.ph);c.lineTo(g.L+g.pw,g.T+g.ph);c.stroke();
+  c.fillStyle=col("--muted");c.font=tf+"px "+font;c.textAlign="right";c.textBaseline="middle";for(y=0;y<=110;y+=20)c.fillText(String(y),g.L-6,g.Y(y));
+  c.textAlign="center";c.textBaseline="top";for(x=0;x<=TMAX;x+=stepX)c.fillText(String(x),g.X(x),g.T+g.ph+5);
+  c.fillStyle=col("--ink");var xt="Temps (min)",yt="Température (°C)";c.font="700 "+tf+"px "+font;c.textAlign="center";c.textBaseline="bottom";c.fillText(xt,g.L+g.pw/2,h-3);
+  c.save();c.translate(3,g.T+g.ph/2);c.rotate(-Math.PI/2);c.textBaseline="top";c.fillText(yt,0,0);c.restore();}
+function cvSetup(id,ratio,minH,maxH){var cv=$(id);if(!cv)return null;var w=cv.parentElement.clientWidth;if(w<60)return null;var h=Math.round(Math.max(minH,Math.min(w*ratio,maxH))),dpr=window.devicePixelRatio||1;if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);}cv.style.height=h+"px";var c=cv.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);var rs=getComputedStyle(document.documentElement);return {cv:cv,c:c,w:w,h:h,col:function(n){return rs.getPropertyValue(n).trim()||"#888";},font:rs.getPropertyValue("--f-body"),tf:Math.max(13,Math.round((parseFloat(rs.fontSize)||22)*.62))};}
+var tSel=null,tG=null;
+function drawTCurve(){var s=cvSetup("tcv",.72,260,420);if(!s)return;var c=s.c,g=tGeo(s.w,s.h,s.tf);tG=g;axes(c,g,s.w,s.h,s.tf,s.col,s.font,s.w<420?3:1);
+  var t=S.simT;if(t>0){c.strokeStyle=s.col("--curve");c.lineWidth=3;c.beginPath();for(var u=0;u<=t+1e-9;u+=1/30){var v=reading(u,TB,false);if(u===0)c.moveTo(g.X(u),g.Y(v));else c.lineTo(g.X(u),g.Y(v));}c.stroke();
+    c.fillStyle=s.col("--curve");c.beginPath();c.arc(g.X(t),g.Y(reading(t,TB,false)),5,0,Math.PI*2);c.fill();}
+  else{c.fillStyle=s.col("--muted");c.font=s.tf+"px "+s.font;c.textAlign="center";c.textBaseline="middle";c.fillText("Lance le chauffage",g.L+g.pw/2,g.T+g.ph/2);}
+  if(tSel!==null&&tSel<=t){var vv=R(tSel),lab=tSel+" min : "+dec(vv,1)+" °C";c.font="700 "+s.tf+"px "+s.font;var bw=c.measureText(lab).width+16,bh=s.tf+12,bx=Math.max(4,Math.min(s.w-bw-4,g.X(tSel)-bw/2)),by=Math.max(2,g.Y(vv)-bh-10);c.fillStyle=s.col("--ink");c.fillRect(bx,by,bw,bh);c.fillStyle=s.col("--surface");c.textAlign="left";c.textBaseline="middle";c.fillText(lab,bx+8,by+bh/2);c.fillStyle=s.col("--ink");c.beginPath();c.arc(g.X(tSel),g.Y(vv),6,0,Math.PI*2);c.fill();}}
+$("tcv").addEventListener("pointerdown",function(e){if(!tG||S.simT<=0)return;var r=e.target.getBoundingClientRect(),px=e.clientX-r.left;var m=Math.round((px-tG.L)/tG.pw*TMAX);if(m<0||m>Math.floor(S.simT+1e-9)){tSel=null;}else tSel=m;drawTCurve();$("tread").textContent=tSel===null?"Touche la courbe pour lire une valeur.":"À "+tSel+" min : "+dec(R(tSel),1)+" °C";});
+function loop(ts){if(!last)last=ts;var dt=Math.min(.1,(ts-last)/1000);last=ts;
+  if(run){var nt=Math.min(TMAX,S.simT+dt*SPEED),nextM=Math.floor(S.simT+1e-9)+1,stopped=false;
+    if(S.auto&&nt>=nextM&&nextM<=TMAX&&S.rel[nextM]===undefined){S.simT=nextM;run=false;stopped=true;save();onMinute(nextM);}
+    else S.simT=nt;
+    if(!stopped&&S.simT>=TMAX){run=false;save();say("Fin du chauffage. Vérifie que ton tableau est complet, puis passe à la courbe.");buildRelTable();}
+    updDisplays();drawTCurve();renderSimBtns();}
+  if(cur==="experience"){if(run)vt+=dt;spawn(run?dt:0);drawFlask();}
+  raf=requestAnimationFrame(loop);}
+function say(t){var p=$("prompt");p.hidden=!t;p.textContent=t||"";}
+function onMinute(m){renderSimBtns();buildRelTable();say("⏸ Temps : "+m+" min. Lis la température sur l'afficheur et note-la dans le tableau (colonne "+m+" min), puis appuie sur « Continuer ».");var inp=$("rel-"+m);if(inp){try{inp.focus({preventScroll:false});}catch(e){}}}
+function renderSimBtns(){var started=S.simT>0,ended=S.simT>=TMAX;$("sPlay").textContent=started&&!ended?"▶ Continuer":"▶ Lancer le chauffage";$("sPlay").disabled=run||ended;$("sPause").disabled=!run;$("sAuto").textContent="Arrêt à chaque minute : "+(S.auto?"oui":"non");$("sAuto").setAttribute("aria-pressed",S.auto?"true":"false");}
+function startSim(){if(S.simT>=TMAX)return;say("");run=true;renderSimBtns();}
+function pauseSim(){if(run){run=false;save();renderSimBtns();}}
+function stopSim(){run=false;}
+$("sPlay").onclick=startSim;$("sPause").onclick=pauseSim;
+$("sReset").onclick=function(){run=false;S.simT=0;P=[];tSel=null;save();say("");updDisplays();drawTCurve();renderSimBtns();buildRelTable();};
+$("sAuto").onclick=function(){S.auto=!S.auto;save();renderSimBtns();};
+$("mkBtn").onclick=function(){S.marks=!S.marks;save();$("mkBtn").setAttribute("aria-pressed",S.marks?"true":"false");$("mkBtn").textContent=S.marks?"Masquer les repères":"Afficher les repères";$("markers").hidden=!S.marks;};
+
+/* readings table */
+function buildRelTable(){var reached=Math.floor(S.simT+1e-9),rt=$("rowT"),rc=$("rowC");
+  if(rc.children.length!==TMAX+2){
+    rt.innerHTML='<th scope="row">Temps (min)</th>'+Array.apply(null,Array(TMAX+1)).map(function(_,m){return '<td id="relh-'+m+'">'+m+'</td>';}).join("");
+    rc.innerHTML='<th scope="row">T (°C)</th>'+Array.apply(null,Array(TMAX+1)).map(function(_,m){return '<td><input id="rel-'+m+'" data-m="'+m+'" inputmode="decimal" autocomplete="off" aria-label="Température à '+m+' min"><span class="mk" id="relmk-'+m+'"></span></td>';}).join("");}
+  var nOk=0;
+  for(var m=0;m<=TMAX;m++){var v=S.rel[m],ok=v!==undefined&&Math.abs(v-R(m))<=0.6,inp=$("rel-"+m),mk=$("relmk-"+m);if(ok)nOk++;
+    if(document.activeElement!==inp)inp.value=v!==undefined?dec(v):"";
+    inp.disabled=m>reached;inp.className=v===undefined?"":ok?"good":"bad";
+    mk.className="mk"+(v===undefined?"":ok?" ok":" bad");mk.textContent=v===undefined?"":ok?"✓":"✗";
+    $("relh-"+m).className=(m===reached&&!run&&v===undefined&&S.simT>0)?"cur":"";}
+  $("relScore").textContent="Relevés justes : "+nOk+" / "+(TMAX+1)+(S.relErr?" · erreurs corrigées : "+S.relErr:"");
+  if(nOk===TMAX+1&&!S.done.rel){S.done.rel=true;if(S.first.rel===undefined)S.first.rel=S.relErr===0;save();renderBilan();renderStepsDone();}}
+function commitRel(inp,cont){var m=+inp.dataset.m,v=num(inp.value);if(v===null){if(inp.value.trim()==="")return;say("Tape un nombre (par exemple "+dec(Math.round(R(m)))+").");return;}
+  var ok=Math.abs(v-R(m))<=0.6,same=S.rel[m]===v;S.rel[m]=v;if(!ok&&!same){S.relErr++;if(S.first.rel===undefined)S.first.rel=false;}save();inp.value=dec(v);buildRelTable();
+  if(!ok){say("✗ À "+m+" min, l'afficheur indiquait une autre valeur. Relis la courbe (touche-la) ou l'afficheur, puis corrige.");var el=$("rel-"+m);if(el)el.focus();}
+  else{say(m===TMAX?"✓ Tableau terminé !":"✓ Bien relevé. Appuie sur « Continuer ».");if(cont&&S.simT<TMAX&&Math.floor(S.simT+1e-9)===m)startSim();}}
+$("rowC").addEventListener("change",function(e){var i=e.target.closest("input[data-m]");if(i)commitRel(i,false);});
+$("rowC").addEventListener("keydown",function(e){var i=e.target.closest("input[data-m]");if(i&&e.key==="Enter"){e.preventDefault();commitRel(i,true);}});
+
+/* ---------- 3. graph builder ---------- */
+var gG=null,drag=null,gFb=null;
+function snap(px,py){var x=Math.round((px-gG.L)/gG.pw*TMAX),y=Math.round(110*(1-(py-gG.T)/gG.ph));return [Math.max(0,Math.min(TMAX,x)),Math.max(0,Math.min(110,y))];}
+function drawGraph(){var s=cvSetup("gcv",.72,280,460);if(!s)return;var c=s.c,g=tGeo(s.w,s.h,s.tf);gG=g;axes(c,g,s.w,s.h,s.tf,s.col,s.font,s.w<420?3:1);
+  if(S.gSim){c.strokeStyle=s.col("--muted");c.lineWidth=3;c.setLineDash([6,5]);c.beginPath();for(var u=0;u<=TMAX;u+=1/30){var v=reading(u,TB,false);if(u===0)c.moveTo(g.X(u),g.Y(v));else c.lineTo(g.X(u),g.Y(v));}c.stroke();c.setLineDash([]);}
+  var pts=S.pts.slice().sort(function(a,b){return a[0]-b[0];});
+  if(S.gLine&&pts.length>1){c.strokeStyle=s.col("--teal");c.lineWidth=3;c.beginPath();pts.forEach(function(p,i){c[i?"lineTo":"moveTo"](g.X(p[0]),g.Y(p[1]));});c.stroke();}
+  var bad=gFb?gFb.bad:[];
+  S.pts.forEach(function(p){var isBad=bad.indexOf(p[0])>=0,x=g.X(p[0]),y=g.Y(p[1]);c.strokeStyle=isBad?s.col("--bad"):s.col("--teal");c.lineWidth=3;c.beginPath();c.moveTo(x-6,y-6);c.lineTo(x+6,y+6);c.moveTo(x+6,y-6);c.lineTo(x-6,y+6);c.stroke();});
+  if(drag){var sp=snap(drag[0],drag[1]),x2=g.X(sp[0]),y2=g.Y(sp[1]);c.strokeStyle=s.col("--warn");c.lineWidth=1.5;c.setLineDash([4,4]);c.beginPath();c.moveTo(g.L,y2);c.lineTo(x2,y2);c.lineTo(x2,g.T+g.ph);c.stroke();c.setLineDash([]);c.fillStyle=s.col("--warn");c.beginPath();c.arc(x2,y2,7,0,Math.PI*2);c.fill();
+    var lab=sp[0]+" min ; "+sp[1]+" °C";c.font="700 "+s.tf+"px "+s.font;var bw=c.measureText(lab).width+16,bh=s.tf+12,bx=Math.max(4,Math.min(s.w-bw-4,x2-bw/2)),by=y2-bh-16<2?y2+16:y2-bh-16;c.fillStyle=s.col("--ink");c.fillRect(bx,by,bw,bh);c.fillStyle=s.col("--surface");c.textAlign="left";c.textBaseline="middle";c.fillText(lab,bx+8,by+bh/2);}
+}
+function gPos(e){var r=$("gcv").getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top];}
+$("gcv").addEventListener("pointerdown",function(e){if(!gG)return;e.preventDefault();try{$("gcv").setPointerCapture(e.pointerId);}catch(err){}drag=gPos(e);var sp=snap(drag[0],drag[1]);$("gread").textContent="Point : "+sp[0]+" min ; "+sp[1]+" °C — lève le doigt pour le placer.";drawGraph();});
+$("gcv").addEventListener("pointermove",function(e){if(!drag)return;drag=gPos(e);var sp=snap(drag[0],drag[1]);$("gread").textContent="Point : "+sp[0]+" min ; "+sp[1]+" °C — lève le doigt pour le placer.";drawGraph();});
+$("gcv").addEventListener("pointerup",function(e){if(!drag)return;var sp=snap(drag[0],drag[1]);drag=null;S.pts=S.pts.filter(function(p){return p[0]!==sp[0];});S.pts.push(sp);gFb=null;save();drawGraph();renderGTable();$("gread").textContent="Point placé : "+sp[0]+" min ; "+sp[1]+" °C. ("+S.pts.length+" point"+(S.pts.length>1?"s":"")+")";});
+$("gcv").addEventListener("pointercancel",function(){drag=null;drawGraph();});
+$("gUndo").onclick=function(){S.pts.pop();gFb=null;save();drawGraph();renderGTable();};
+$("gClear").onclick=function(){S.pts=[];gFb=null;save();drawGraph();renderGTable();};
+$("gLine").onclick=function(){S.gLine=!S.gLine;save();renderGBtns();drawGraph();};
+$("gSim").onclick=function(){S.gSim=!S.gSim;save();renderGBtns();drawGraph();};
+function renderGBtns(){$("gLine").setAttribute("aria-pressed",S.gLine?"true":"false");$("gSim").setAttribute("aria-pressed",S.gSim?"true":"false");$("gLine").textContent=S.gLine?"Masquer la courbe":"Relier les points";$("gSim").textContent=S.gSim?"Masquer la simulation":"Comparer avec la simulation";}
+function renderGTable(){var by={};S.pts.forEach(function(p){by[p[0]]=p[1];});var bad=gFb?gFb.bad:[];
+  $("gTable").innerHTML='<thead><tr><th>Temps (min)</th><th>Ton tableau (°C)</th><th>Ton point (°C)</th><th></th></tr></thead><tbody>'+Array.apply(null,Array(TMAX+1)).map(function(_,m){var tv=S.rel[m],pv=by[m];return '<tr><td>'+m+'</td><td class="n">'+(tv!==undefined?dec(tv):"—")+'</td><td class="n">'+(pv!==undefined?pv:"—")+'</td><td>'+(gFb&&pv!==undefined?(bad.indexOf(m)>=0?'<span class="mk bad">✗ à déplacer</span>':'<span class="mk ok">✓</span>'):"")+'</td></tr>';}).join("")+'</tbody>';
+  $("gInfo").textContent=S.pts.length+" / "+(TMAX+1)+" points placés";}
+$("gChk").onclick=function(){var by={};S.pts.forEach(function(p){by[p[0]]=p[1];});var missing=[],bad=[];
+  for(var m=0;m<=TMAX;m++){if(by[m]===undefined){missing.push(m);continue;}var ref=S.rel[m]!==undefined?S.rel[m]:R(m);if(Math.abs(by[m]-ref)>2.5)bad.push(m);}
+  gFb={bad:bad};var ok=!missing.length&&!bad.length;S.tries.trace=(S.tries.trace||0)+1;if(S.first.trace===undefined)S.first.trace=ok;if(ok)S.done.trace=true;save();
+  var msg=ok?'<div class="fb ok"><strong>✓ Tous tes points sont bien placés !</strong> Relie-les et compare avec la simulation.</div>':'<div class="fb bad"><strong>✗ Pas encore.</strong> '+(missing.length?"Il manque "+missing.length+" point"+(missing.length>1?"s":"")+" (minute"+(missing.length>1?"s":"")+" "+missing.join(", ")+"). ":"")+(bad.length?bad.length+" point"+(bad.length>1?"s sont mal placés":" est mal placé")+" (en rouge) : vérifie la valeur sur l'axe vertical.":"")+'</div>';
+  $("gFb").innerHTML=msg;drawGraph();renderGTable();renderBilan();renderStepsDone();if(ok){S.gLine=true;S.gSim=true;save();renderGBtns();drawGraph();celebrate();}};
+var CAH=[["tab","J'ai recopié le tableau des mesures."],["ax","J'ai gradué les axes avec des échelles régulières."],["un","J'ai indiqué les grandeurs et les unités (min, °C)."],["pts","J'ai placé les points et tracé la courbe."],["tit","J'ai écrit un titre."],["cap","J'ai pris une capture d'écran de la courbe finale."]];
+function renderCahier(){$("cahier").innerHTML=CAH.map(function(c){return '<label><input type="checkbox" id="cah-'+c[0]+'" data-k="'+c[0]+'"'+(S.cahier[c[0]]?" checked":"")+'><span>'+c[1]+'</span></label>';}).join("");}
+$("cahier").addEventListener("change",function(e){var i=e.target;if(i.dataset&&i.dataset.k){S.cahier[i.dataset.k]=i.checked;save();renderBilan();}});
+
+/* ---------- 5. et si ---------- */
+var PLACES=[{k:"lux",nm:"Luxembourg",alt:300,col:"--r2"},{k:"sea",nm:"Bord de mer",alt:0,col:"--r1"},{k:"mb",nm:"Sommet du mont Blanc",alt:4809,col:"--r3"},{k:"ev",nm:"Sommet de l'Everest",alt:8849,col:"--r5"},{k:"coc",nm:"Autocuiseur (cocotte-minute)",alt:0,p:2000,col:"--r4"},{k:"salt",nm:"Eau très salée (bord de mer)",alt:0,salt:true,col:"--r6"}];
+function placeInfo(p){var hPa=p.p||pOfAlt(p.alt);var tb=p.salt?101.5:bpOf(hPa);return {hPa:hPa,tb:tb};}
+var aAnim=null;
+function renderPlaces(){$("places").innerHTML=PLACES.map(function(p){var done=S.runs.indexOf(p.k)>=0;return '<button class="chip" data-pl="'+p.k+'" aria-pressed="'+done+'">'+p.nm+'</button>';}).join("");
+  $("aleg").innerHTML=S.runs.map(function(k){var p=PLACES.filter(function(x){return x.k===k;})[0];return '<span><i style="background:var('+p.col+')"></i>'+p.nm+'</span>';}).join("");
+  $("atab").innerHTML=S.runs.length?S.runs.map(function(k){var p=PLACES.filter(function(x){return x.k===k;})[0],i=placeInfo(p);return '<tr><td>'+p.nm+'</td><td class="nw">'+(p.k==="coc"?"—":p.alt.toLocaleString("fr-FR")+" m")+'</td><td class="nw">'+Math.round(i.hPa).toLocaleString("fr-FR")+' hPa</td>'+(p.salt?'<td>pas de vrai palier : commence vers 101,5 °C, puis monte</td>':'<td class="n">≈ '+Math.round(i.tb)+' °C</td>')+'</tr>';}).join(""):'<tr><td colspan="4" class="muted">Aucun essai pour l\'instant.</td></tr>';}
+function drawAlt(){var s=cvSetup("acv",.62,260,420);if(!s)return;var c=s.c,w=s.w,h=s.h,tf=s.tf;
+  var L=tf*3.1,Rr=tf*1.2,T=tf*1.2,B=tf*3.4,pw=w-L-Rr,ph=h-T-B,X=function(x){return L+x/TMAX*pw;},Y=function(y){return T+ph-(y-20)/(130-20)*ph;};
+  c.strokeStyle=s.col("--line");c.lineWidth=1;for(var y=20;y<=130;y+=10){c.beginPath();c.moveTo(L,Y(y));c.lineTo(L+pw,Y(y));c.stroke();}
+  c.strokeStyle=s.col("--ink");c.lineWidth=2;c.beginPath();c.moveTo(L,T);c.lineTo(L,T+ph);c.lineTo(L+pw,T+ph);c.stroke();
+  c.fillStyle=s.col("--muted");c.font=tf+"px "+s.font;c.textAlign="right";c.textBaseline="middle";for(y=20;y<=130;y+=20)c.fillText(String(y),L-6,Y(y));c.textAlign="center";c.textBaseline="top";for(var x=0;x<=TMAX;x+=3)c.fillText(String(x),X(x),T+ph+5);
+  c.fillStyle=s.col("--ink");c.font="700 "+tf+"px "+s.font;c.textBaseline="bottom";c.fillText("Temps (min)",L+pw/2,h-3);c.save();c.translate(3,T+ph/2);c.rotate(-Math.PI/2);c.textBaseline="top";c.fillText("Température (°C)",0,0);c.restore();
+  c.setLineDash([5,5]);c.strokeStyle=s.col("--muted");c.lineWidth=1.5;c.beginPath();c.moveTo(L,Y(100));c.lineTo(L+pw,Y(100));c.stroke();c.setLineDash([]);
+  S.runs.forEach(function(k){var p=PLACES.filter(function(q){return q.k===k;})[0],i=placeInfo(p),tEnd=aAnim&&aAnim.k===k?aAnim.t:TMAX;c.strokeStyle=s.col(p.col);c.lineWidth=3;c.beginPath();for(var u=0;u<=tEnd+1e-9;u+=1/20){var v=trueT(u,i.tb,!!p.salt);if(u===0)c.moveTo(X(u),Y(v));else c.lineTo(X(u),Y(v));}c.stroke();});}
+$("places").addEventListener("click",function(e){var b=e.target.closest("[data-pl]");if(!b)return;var k=b.dataset.pl;if(S.runs.indexOf(k)<0)S.runs.push(k);save();renderPlaces();var p=PLACES.filter(function(q){return q.k===k;})[0],i=placeInfo(p);
+  $("aread").textContent=p.nm+" : "+(p.salt?"l'ébullition commence vers 101,5 °C, puis la température continue de monter lentement : pas de palier.":"palier à environ "+Math.round(i.tb)+" °C (pression de l'air : "+Math.round(i.hPa).toLocaleString("fr-FR")+" hPa).");
+  if(RM){aAnim=null;drawAlt();return;}aAnim={k:k,t:0};var l0=0;var f=function(ts){if(!aAnim||aAnim.k!==k)return;if(!l0)l0=ts;aAnim.t=Math.min(TMAX,aAnim.t+(ts-l0)/1000*6);l0=ts;drawAlt();if(aAnim.t<TMAX)requestAnimationFrame(f);else{aAnim=null;drawAlt();}};requestAnimationFrame(f);});
+$("aClear").onclick=function(){S.runs=[];aAnim=null;save();renderPlaces();drawAlt();$("aread").textContent="Choisis un lieu : la courbe se trace.";};
+var BM=[["100","à 100 °C, comme partout"],["moins","à moins de 100 °C"],["plus","à plus de 100 °C"],["nsp","je ne sais pas"]];
+function renderBetM(){var lock=!!(S.done.e2||S.corr.e2);$("betM").innerHTML=BM.map(function(x){return '<button class="chip" data-bm="'+x[0]+'" aria-pressed="'+(S.betM===x[0])+'"'+(lock?" disabled":"")+'>'+x[1]+'</button>';}).join("");
+  var l=BM.filter(function(x){return x[0]===S.betM;})[0];$("betMMsg").textContent=lock?(l?"Ton hypothèse : « "+l[1]+" ». "+(S.betM==="moins"?"✓ Elle est validée par le test.":"✗ Le test montre que l'eau bout à moins de 100 °C en altitude."):""):(l?"Hypothèse notée. Teste-la avec le simulateur.":"Choisis une hypothèse avant de tester.");}
+$("betM").addEventListener("click",function(e){var b=e.target.closest("[data-bm]");if(!b||b.disabled)return;S.betM=b.dataset.bm;save();renderBetM();});
+
+/* ---------- questions ---------- */
+var LV={f:"🟢 Facile",m:"🟡 Moyen",d:"🔴 Défi"};
+function axisSVG(vals){var h='<svg viewBox="0 0 340 58" role="img" aria-label="Axe gradué : '+vals.join(", ")+'"><line x1="22" y1="18" x2="318" y2="18" stroke="var(--ink)" stroke-width="2"/>';vals.forEach(function(v,i){var x=22+i*(296/(vals.length-1));h+='<line x1="'+x+'" y1="10" x2="'+x+'" y2="26" stroke="var(--ink)" stroke-width="2"/><text x="'+x+'" y="50" text-anchor="middle" font-size="20" fill="var(--ink)">'+v+'</text>';});return h+'</svg>';}
+var QS=[
+ {id:"c1",part:2,lvl:"f",type:"single",title:"C1. Le titre de la courbe",prompt:"Quel titre convient le mieux à ta courbe ?",
+  options:[{k:"a",t:"Courbe"},{k:"b",t:"Évolution de la température de l'eau pure en fonction du temps pendant son chauffage"},{k:"c",t:"Température et temps"}],answer:"b",
+  fb:{a:"Trop vague : un titre doit dire ce que montre la courbe.",c:"Presque : il manque de quel objet on parle et ce qu'on fait (le chauffage de l'eau)."},
+  hints:["Un bon titre dit quelle grandeur évolue, en fonction de quoi, et dans quelle situation.","La grandeur mesurée est la température de l'eau.","« Évolution de … en fonction de … »."],
+  corr:["Titre : « Évolution de la température de l'eau pure en fonction du temps pendant son chauffage ».","On peut aussi écrire : « Température de l'eau en fonction du temps »."]},
+ {id:"c2",part:2,lvl:"m",type:"single",title:"C2. Des graduations régulières",prompt:"Quel axe est gradué avec une <b>échelle régulière</b> ?",
+  options:[{k:"a",t:axisSVG([0,20,30,60,100])},{k:"b",t:axisSVG([0,20,40,60,80,100])},{k:"c",t:axisSVG([20,40,100])}],answer:"b",
+  fb:{a:"Entre deux traits, l'écart doit toujours être le même : ici on passe de 20 à 30, puis de 30 à 60.",c:"De 20 à 40, puis de 40 à 100 : les écarts ne sont pas égaux."},
+  hints:["Regarde l'écart entre deux graduations voisines.","Sur un axe régulier, l'écart est toujours le même.","0, 20, 40, 60… : +20 à chaque fois."],
+  corr:["Une échelle régulière ajoute toujours la même valeur d'une graduation à la suivante : 0, 20, 40, 60, 80, 100.","Attention : on ne gradue pas un axe avec les valeurs du tableau !"]},
+ {id:"i1",part:3,lvl:"f",type:"rows",title:"Q1. Les états de l'eau dans le ballon",prompt:"Indique les états de l'eau avant et pendant l'ébullition.",
+  rows:[{k:"av",label:"Avant l'ébullition, l'eau du ballon est…",options:[{k:"l",t:"liquide"},{k:"g",t:"gazeuse"},{k:"s",t:"solide"}]},{k:"pd",label:"Pendant l'ébullition, il y a…",options:[{k:"l",t:"seulement de l'eau liquide"},{k:"lg",t:"de l'eau liquide et de la vapeur d'eau"},{k:"g",t:"seulement de la vapeur d'eau"}]},{k:"bu",label:"Les grosses bulles d'ébullition contiennent…",options:[{k:"air",t:"de l'air"},{k:"vap",t:"de la vapeur d'eau"},{k:"vide",t:"du vide"}]}],
+  answer:{av:"l",pd:"lg",bu:"vap"},
+  fbf:function(v){if(v.bu==="air")return "Les toutes petites bulles du début sont de l'air dissous. Mais les grosses bulles d'ébullition sont de l'eau devenue gaz : de la vapeur d'eau.";if(v.pd==="g")return "Il reste de l'eau liquide dans le ballon pendant l'ébullition : les deux états coexistent.";return "";},
+  hints:["Regarde l'animation : que contient le ballon avant les grosses bulles ?","Pendant l'ébullition, il reste du liquide, et de la vapeur se forme.","Les bulles naissent dans l'eau chauffée : c'est de l'eau qui passe à l'état gazeux."],
+  corr:["Avant l'ébullition : l'eau est liquide (elle peut déjà s'évaporer à sa surface).","Pendant l'ébullition : eau liquide et vapeur d'eau coexistent.","Les bulles d'ébullition contiennent de la vapeur d'eau."]},
+ {id:"i2",part:3,lvl:"m",type:"rows",title:"Q2. Sur les parois froides",prompt:"Décris ce qui apparaît sur les parois plus froides du ballon et explique sa formation.",
+  rows:[{k:"quoi",label:"Sur les parois apparaissent…",options:[{k:"g",t:"des gouttelettes d'eau liquide"},{k:"v",t:"de la vapeur visible"},{k:"s",t:"de la glace"}]},{k:"pq",label:"Elles se forment car…",options:[{k:"a",t:"l'eau traverse le verre"},{k:"b",t:"la vapeur d'eau se refroidit au contact de la paroi froide"},{k:"c",t:"l'air se transforme en eau"}]},{k:"nom",label:"Ce changement d'état (gaz → liquide) s'appelle…",options:[{k:"vap",t:"la vaporisation"},{k:"liq",t:"la liquéfaction"},{k:"sol",t:"la solidification"}]}],
+  answer:{quoi:"g",pq:"b",nom:"liq"},
+  fbf:function(v){if(v.nom==="vap")return "Vaporisation = liquide → gaz. Ici, c'est l'inverse : gaz → liquide.";if(v.quoi==="v")return "La vapeur d'eau est invisible : ce que tu vois sur la paroi, ce sont des gouttes.";if(v.pq==="a")return "Le verre est étanche : l'eau ne le traverse pas.";return "";},
+  hints:["Zoome sur les parois en haut du ballon dans l'animation.","La paroi est plus froide que la vapeur qui la touche.","Gaz → liquide : la liquéfaction (on dit aussi condensation)."],
+  corr:["Des gouttelettes d'eau liquide apparaissent sur les parois plus froides.","La vapeur d'eau se refroidit au contact de la paroi et redevient liquide.","C'est la liquéfaction, aussi appelée condensation."]},
+ {id:"i3",part:3,lvl:"f",type:"num",title:"Q3. La température d'ébullition",prompt:"Relève la température d'ébullition de l'eau pure dans cette simulation.",
+  fields:[{k:"t",label:"Température d'ébullition",unit:"°C"}],
+  check:function(v){var m="";if(v.t>=8&&v.t<=9)m="Tu as relevé le temps (en minutes). On demande une température.";else if(v.t<95)m="Regarde la partie plate de la courbe : à quelle valeur se trouve-t-elle ?";return {w:v.t>=99&&v.t<=101?[]:["t"],m:m};},
+  hints:["L'ébullition correspond à la partie plate de la courbe.","Lis la valeur de cette partie plate sur l'axe vertical.","Elle est très proche de 100 °C."],
+  corr:["Dans cette simulation, l'eau pure bout vers 100 °C (la sonde affiche entre 99,8 et 100,2 °C)."]},
+ {id:"i4",part:3,lvl:"m",type:"single",title:"Q3 (suite). La forme de la courbe pendant l'ébullition",prompt:"Décris la partie de la courbe qui correspond à l'ébullition.",
+  options:[{k:"a",t:"La courbe continue de monter, car le chauffage continue."},{k:"b",t:"La courbe présente un palier : la température reste constante alors que le chauffage continue."},{k:"c",t:"La courbe redescend, car l'eau s'évapore."}],answer:"b",
+  fb:{a:"Regarde la fin de ta courbe : la température monte-t-elle encore après 9 minutes ?",c:"Regarde la fin de ta courbe : la température baisse-t-elle ?"},
+  hints:["Observe la courbe après environ 9 minutes.","Le chauffage fonctionne toujours (repère 6).","Une partie horizontale s'appelle un palier."],
+  corr:["Avant l'ébullition, la température augmente.","Pendant l'ébullition, elle reste pratiquement constante (vers 100 °C) alors que le chauffage continue : la courbe présente un palier.","L'énergie reçue sert à transformer l'eau liquide en vapeur, pas à augmenter la température."]},
+ {id:"i5",part:3,lvl:"m",type:"rows",title:"Plus loin 1 · Dans la vie de tous les jours",prompt:"Associe chaque situation au bon changement d'état.",
+  rows:[{k:"a",label:"Le linge mouillé sèche dehors."},{k:"b",label:"L'eau des pâtes bout dans la casserole."},{k:"c",label:"De la buée se forme sur le miroir de la salle de bain."},{k:"d",label:"Un glaçon fond dans un verre."}],choices:[{k:"ev",t:"Évaporation"},{k:"eb",t:"Ébullition"},{k:"lq",t:"Liquéfaction"},{k:"fu",t:"Fusion"}],inline:true,answer:{a:"ev",b:"eb",c:"lq",d:"fu"},
+  fbf:function(v){if(v.a==="eb")return "Le linge ne bout pas ! L'eau passe à l'état gazeux doucement, à sa surface, sans bulles : c'est l'évaporation.";if(v.c==="ev")return "Sur le miroir, de la vapeur d'eau redevient liquide : gaz → liquide.";return "";},
+  hints:["Vaporisation (liquide → gaz) = évaporation (lente, en surface) ou ébullition (avec bulles, dans tout le liquide).","Gaz → liquide : liquéfaction. Solide → liquide : fusion.","Linge : évaporation ; casserole : ébullition ; miroir : liquéfaction ; glaçon : fusion."],
+  corr:["Linge qui sèche : évaporation (vaporisation lente, en surface).","Eau qui bout : ébullition (vaporisation rapide, avec des bulles).","Buée sur le miroir : liquéfaction.","Glaçon qui fond : fusion."]},
+ {id:"i6",part:3,lvl:"f",type:"single",title:"Plus loin 2 · La « fumée » au-dessus du ballon",prompt:"Au-dessus du goulot, on voit une petite « fumée » blanche. De quoi est-elle faite ?",
+  options:[{k:"a",t:"De vapeur d'eau."},{k:"b",t:"De fines gouttelettes d'eau liquide."},{k:"c",t:"De fumée, comme un feu."}],answer:"b",
+  fb:{a:"Piège ! La vapeur d'eau est invisible. Regarde : juste au-dessus du goulot (repère 4), on ne voit rien.",c:"Rien ne brûle dans le ballon : c'est de l'eau."},
+  hints:["Regarde le repère 4 : que vois-tu juste au-dessus du goulot ?","La vapeur d'eau est un gaz invisible.","En se refroidissant dans l'air, la vapeur redevient liquide."],
+  corr:["La vapeur d'eau est invisible (repère 4).","Un peu plus haut, elle se refroidit dans l'air et forme de fines gouttelettes d'eau liquide : c'est cette « fumée » qu'on voit (repère 5)."]},
+ {id:"e1",part:4,lvl:"m",type:"num",title:"Q4. Au sommet du mont Blanc",prompt:"Avec le simulateur, relève la température d'ébullition de l'eau au sommet du mont Blanc.",
+  fields:[{k:"t",label:"Température d'ébullition",unit:"°C"}],
+  check:function(v){var m="";if(v.t===100)m="Lance la simulation « Sommet du mont Blanc » et lis la hauteur du palier.";else if(v.t>4000)m="Tu as recopié l'altitude. On demande une température.";return {w:v.t>=82&&v.t<=86?[]:["t"],m:m};},
+  hints:["Touche « Sommet du mont Blanc » dans le simulateur.","Lis la hauteur du palier sur l'axe vertical, ou dans le tableau.","Le palier est vers 84 °C."],
+  corr:["Au sommet du mont Blanc (4 809 m), l'eau bout vers 84 °C."]},
+ {id:"e2",part:4,lvl:"m",type:"single",title:"Q4 (suite). Pourquoi ?",prompt:"Comment expliquer ce résultat ?",
+  options:[{k:"a",t:"Il fait froid en montagne, donc l'eau ne peut pas chauffer."},{k:"b",t:"La pression de l'air est plus faible en altitude : l'eau bout à une température inférieure à 100 °C."},{k:"c",t:"L'eau de montagne n'est pas la même que l'eau de mer."}],answer:"b",
+  fb:{a:"L'eau chauffe bien, mais son palier est plus bas. Compare la colonne « pression » du tableau.",c:"Dans le simulateur, c'est la même eau pure : seul le lieu change."},
+  hints:["Compare les colonnes « pression » et « température du palier » du tableau.","Plus on monte, plus la pression de l'air diminue.","Moins de pression → l'eau bout à plus basse température."],
+  corr:["La température d'ébullition dépend de la pression.","En altitude, la pression atmosphérique est plus faible : l'eau bout à moins de 100 °C (environ 84 °C au mont Blanc, 70 °C à l'Everest).","Les 100 °C correspondent à la pression atmosphérique normale (environ 1 013 hPa)."]},
+ {id:"e3",part:4,lvl:"d",type:"single",title:"Défi. La cocotte-minute",prompt:"Dans un autocuiseur fermé, la pression est environ deux fois plus forte. Pourquoi les aliments y cuisent-ils plus vite ?",
+  options:[{k:"a",t:"Parce que l'eau y bout à environ 120 °C : les aliments sont plus chauds."},{k:"b",t:"Parce que l'eau n'y bout jamais."},{k:"c",t:"Parce que la vapeur est remplacée par de l'air chaud."}],answer:"a",
+  fb:{b:"Teste « Autocuiseur » : il y a bien un palier, mais plus haut.",c:"L'autocuiseur contient de l'eau et sa vapeur."},
+  hints:["Teste « Autocuiseur » dans le simulateur.","Où se situe le palier ?","Plus la pression est forte, plus la température d'ébullition est élevée."],
+  corr:["Dans l'autocuiseur, la pression plus forte fait bouillir l'eau vers 120 °C.","Les aliments sont donc cuits à une température plus élevée qu'à 100 °C : la cuisson est plus rapide."]},
+ {id:"e4",part:4,lvl:"d",type:"single",title:"Défi. Et l'eau salée ?",prompt:"Teste « Eau très salée ». Que remarques-tu ?",
+  options:[{k:"a",t:"Elle présente le même palier que l'eau pure, à 100 °C."},{k:"b",t:"Pendant l'ébullition, sa température continue de monter lentement : il n'y a pas de vrai palier, car l'eau salée n'est pas un corps pur."},{k:"c",t:"Elle ne bout jamais."}],answer:"b",
+  fb:{a:"Regarde bien la courbe turquoise après le début de l'ébullition : est-elle horizontale ?",c:"Elle bout, vers 101,5 °C au début."},
+  hints:["Compare la courbe « Eau très salée » à celle du bord de mer.","Après le début de l'ébullition, la courbe est-elle horizontale ?","Un palier bien horizontal est caractéristique d'un corps pur."],
+  corr:["L'eau salée commence à bouillir un peu au-dessus de 100 °C, puis sa température continue de monter lentement.","Il n'y a pas de vrai palier : l'eau salée est un mélange, pas un corps pur.","Le palier de température est donc un moyen de reconnaître un corps pur."]},
+ {id:"b1",part:5,lvl:"m",type:"place",title:"Bilan à compléter",prompt:"Touche une case vide, puis le mot qui convient.",
+  segs:["À la pression atmosphérique normale, l'eau pure bout vers ",{s:"b1"}," °C. Pendant l'",{s:"b2"},", la courbe présente un ",{s:"b3"}," : la température reste ",{s:"b4"}," tant que l'eau bout. Sur une paroi plus froide, la vapeur peut redevenir ",{s:"b5"}," : c'est la liquéfaction."],
+  slots:["b1","b2","b3","b4","b5"],bank:["100","0","ébullition","fusion","palier","pic","constante","croissante","liquide","solide"],
+  check:function(v){var e={b1:"100",b2:"ébullition",b3:"palier",b4:"constante",b5:"liquide"};var w=Object.keys(e).filter(function(k){return v[k]!==e[k];});var m="";if(v.b1==="0")m="0 °C, c'est la température de fusion de la glace. ";if(v.b4==="croissante")m+="Pendant le palier, la température ne monte plus. ";
+    return {w:w,m:(m||(w.length?w.length+" case"+(w.length>1?"s":"")+" à revoir (marquée"+(w.length>1?"s":"")+" ✗).":"")).trim()};},
+  hints:["Relis tes réponses aux questions 3 et 2.","Partie horizontale de la courbe : un palier. Température qui ne change pas : constante.","100 · ébullition · palier · constante · liquide."],
+  corr:["À la pression atmosphérique normale, l'eau pure bout vers 100 °C.","Pendant l'ébullition, la courbe présente un palier : la température reste constante tant que l'eau bout.","Sur une paroi plus froide, la vapeur peut redevenir liquide : c'est la liquéfaction."]}
+];
+var QM={};QS.forEach(function(q){QM[q.id]=q;});
+var EXTRA={rel:"Relevés de température",trace:"Tracé des points de la courbe"};
+var SH={rel:"le tableau de relevés",trace:"le tracé de la courbe",c1:"C1",c2:"C2",i1:"Q1",i2:"Q2",i3:"Q3",i4:"Q3 (suite)",i5:"Plus loin 1",i6:"Plus loin 2",e1:"Q4 mont Blanc",e2:"Q4 (suite)",e3:"Défi cocotte-minute",e4:"Défi eau salée",b1:"le bilan à compléter"};
+var PARTS=[{k:1,t:"Relever des mesures",ids:["rel"],tip:"Lis l'afficheur au moment exact de chaque minute ; tu peux arrondir à l'unité."},
+ {k:2,t:"Construire une courbe",ids:["trace","c1","c2"],tip:"Une échelle régulière ajoute toujours la même valeur ; un titre dit « évolution de … en fonction de … »."},
+ {k:3,t:"Interpréter",ids:["i1","i2","i3","i4","i5","i6"],tip:"Palier = température constante pendant l'ébullition. La vapeur d'eau est invisible ; gaz → liquide = liquéfaction."},
+ {k:4,t:"Hypothèse : et si… ?",ids:["e1","e2","e3","e4"],tip:"La température d'ébullition dépend de la pression : plus basse en altitude, plus haute dans un autocuiseur."},
+ {k:5,t:"Bilan",ids:["b1"],tip:"100 °C · ébullition · palier · constante · liquide."}];
+function qTitle(k){return QM[k]?QM[k].title:EXTRA[k];}
+
+var lastFb={};
+function withFocus(fn){var a=document.activeElement,id=a&&a.id;fn();if(id&&$(id)&&document.activeElement!==$(id)){try{$(id).focus({preventScroll:true});}catch(e){}}}
+function buildCard(q){
+  var c=document.createElement("article");c.className="qcard";c.id="card-"+q.id;
+  c.innerHTML='<div class="qhead"><h3>'+q.title+'</h3><span class="lvl">'+LV[q.lvl]+'</span><span class="qstat" id="st-'+q.id+'"></span></div><p>'+q.prompt+'</p>'+
+   '<div class="qbody stack" id="body-'+q.id+'"></div>'+
+   '<div class="row"><button class="btn" id="chk-'+q.id+'">Vérifier</button><button class="btn ghost" id="hnt-'+q.id+'">Indice 1/3</button><button class="btn ghost" id="cor-'+q.id+'" hidden>Voir la correction</button></div>'+
+   '<div id="fb-'+q.id+'" aria-live="polite"></div><div class="hints" id="hs-'+q.id+'"></div><div id="co-'+q.id+'"></div>';
+  $("qs-"+q.part).appendChild(c);
+  $("chk-"+q.id).onclick=function(){check(q);};
+  $("hnt-"+q.id).onclick=function(){S.hints[q.id]=Math.min(3,(S.hints[q.id]||0)+1);save();renderQ(q);};
+  $("cor-"+q.id).onclick=function(){S.corr[q.id]=true;save();renderQ(q);renderBilan();if(q.id==="i3"){renderReveal();renderBets();}if(q.id==="e2")renderBetM();};
+  var b=$("body-"+q.id);
+  if(q.type==="num"){var a=S.ans[q.id]||{};
+    b.innerHTML='<div class="fields">'+q.fields.map(function(f){var id=q.id+"-"+f.k;return '<div class="field"><label for="'+id+'">'+f.label+'</label><div class="inp"><input class="ans" id="'+id+'" data-k="'+f.k+'" inputmode="decimal" autocomplete="off" value="'+esc(a[f.k]||"")+'">'+(f.unit?'<span class="muted">'+f.unit+'</span>':'')+'<span class="mk" id="mk-'+id+'"></span></div></div>';}).join("")+'</div>';
+    b.querySelectorAll("input.ans").forEach(function(inp){inp.addEventListener("input",function(){(S.ans[q.id]=S.ans[q.id]||{})[inp.dataset.k]=inp.value;save();if(lastFb[q.id]){delete lastFb[q.id];renderQ(q);}});inp.addEventListener("keydown",function(e){if(e.key==="Enter")check(q);});});return;}
+  b.addEventListener("click",function(e){var t=e.target.closest("[data-v],[data-slot],[data-word]");if(!t||t.disabled)return;var a=S.ans[q.id]=S.ans[q.id]||{};
+    if(q.type==="single"&&t.dataset.v){a.x=t.dataset.v;}
+    else if(q.type==="rows"&&t.dataset.r){a[t.dataset.r]=t.dataset.v;}
+    else if(q.type==="place"){if(t.dataset.slot){var s=t.dataset.slot;if(a[s]!==undefined)delete a[s];S.act[q.id]=s;}else if(t.dataset.word!==undefined){var s2=S.act[q.id];if(!s2||a[s2]!==undefined)s2=firstEmpty(q,a);if(!s2){$("pmsg-"+q.id).textContent="Toutes les cases sont remplies. Touche une case pour la vider.";return;}a[s2]=+t.dataset.word;S.act[q.id]=nextEmpty(q,a,s2);}else return;}
+    else return;save();delete lastFb[q.id];renderQ(q);});
+}
+function firstEmpty(q,a){for(var i=0;i<q.slots.length;i++)if(a[q.slots[i]]===undefined)return q.slots[i];return null;}
+function nextEmpty(q,a,s){var i=q.slots.indexOf(s);for(var j=1;j<=q.slots.length;j++){var c=q.slots[(i+j)%q.slots.length];if(a[c]===undefined)return c;}return null;}
+function renderBody(q){var b=$("body-"+q.id),a=S.ans[q.id]||{},L=lastFb[q.id],checked=!!(L&&!L.empty),wrong=checked?L.w:[];
+  var isW=function(k){return wrong.indexOf(k)>=0;};var mk=function(k){return checked?(isW(k)?'<span class="mk bad">✗ à revoir</span>':'<span class="mk ok">✓ juste</span>'):"";};
+  if(q.type==="num"){q.fields.forEach(function(f){var el=$(q.id+"-"+f.k);if(!el)return;if(el.value!==(a[f.k]||""))el.value=a[f.k]||"";el.classList.toggle("good",checked&&!isW(f.k));if(checked&&isW(f.k))el.setAttribute("aria-invalid","true");else el.removeAttribute("aria-invalid");$("mk-"+q.id+"-"+f.k).innerHTML=mk(f.k);});return;}
+  var h="";
+  if(q.type==="single")h='<div class="opts" role="group">'+q.options.map(function(o){var on=a.x===o.k;return '<button class="opt'+(on&&checked?(isW("x")?" badm":" okm"):"")+'" id="o-'+q.id+'-'+o.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span style="flex:1;min-width:0">'+o.t+'</span>'+(on?mk("x"):"")+'</button>';}).join("")+'</div>';
+  else if(q.type==="rows")h=q.rows.map(function(r){var opts=r.options||q.choices;return '<div class="rrow"><div class="rhd"><span class="rlab">'+r.label+'</span>'+(a[r.k]?mk(r.k):"")+'</div><div class="opts'+(q.inline||r.options?" inline":"")+'" role="group" aria-label="'+esc(r.label)+'">'+opts.map(function(o){var on=a[r.k]===o.k;return '<button class="opt'+(on&&checked?(isW(r.k)?" badm":" okm"):"")+'" id="o-'+q.id+'-'+r.k+'-'+o.k+'" data-r="'+r.k+'" data-v="'+o.k+'" aria-pressed="'+on+'"><span>'+o.t+'</span></button>';}).join("")+'</div></div>';}).join("");
+  else if(q.type==="place"){var act=S.act[q.id];if(act===undefined||(act&&a[act]!==undefined))act=firstEmpty(q,a);
+    var slot=function(s){var w=a[s]!==undefined?q.bank[a[s]]:null,st=checked?(isW(s)?" bad":" good"):"";return '<button class="blank'+(act===s?" active":"")+(w?" filled":"")+st+'" id="s-'+q.id+'-'+s+'" data-slot="'+s+'" aria-label="'+(w?"Case remplie : "+esc(w)+(checked?(isW(s)?", à revoir":", juste"):"")+". Toucher pour la vider.":"Case vide. Toucher pour la choisir.")+'">'+(w?esc(w):"……")+(checked?(isW(s)?" ✗":" ✓"):"")+'</button>';};
+    h='<p class="filltext">'+q.segs.map(function(x){return typeof x==="string"?x:slot(x.s);}).join("")+'</p>';var used=q.slots.map(function(s){return a[s];}).filter(function(x){return x!==undefined;});
+    h+='<div class="bank" role="group" aria-label="Mots à placer"><p class="banklab">Mots à placer :</p>'+q.bank.map(function(wd,i){var u=used.indexOf(i)>=0;return '<button class="wchip" id="w-'+q.id+'-'+i+'" data-word="'+i+'"'+(u?' disabled aria-label="'+esc(wd)+', déjà placé"':'')+'>'+esc(wd)+'</button>';}).join("")+'</div><p class="muted small" id="pmsg-'+q.id+'" aria-live="polite"></p>';}
+  b.innerHTML=h;}
+function emptyFb(q,m){lastFb[q.id]={empty:true,m:m};renderQ(q);}
+function words(q,a){var v={};q.slots.forEach(function(s){if(a[s]!==undefined)v[s]=q.bank[a[s]];});return v;}
+function check(q){var a=S.ans[q.id]||{},v=a,r;
+  if(q.type==="num"){v={};for(var i=0;i<q.fields.length;i++){var f=q.fields[i];v[f.k]=num(a[f.k]);if(v[f.k]===null)return emptyFb(q,"Remplis la case avec un nombre avant de vérifier.");}}
+  else if(q.type==="single"){if(!a.x)return emptyFb(q,"Choisis une réponse avant de vérifier.");}
+  else if(q.type==="rows"){if(q.rows.some(function(rr){return !a[rr.k];}))return emptyFb(q,"Fais un choix sur chaque ligne avant de vérifier.");}
+  else if(q.type==="place"){if(q.slots.some(function(s){return a[s]===undefined;}))return emptyFb(q,"Remplis toutes les cases avant de vérifier.");v=words(q,a);}
+  if(q.check)r=q.check(v);else if(q.type==="single")r={w:v.x===q.answer?[]:["x"],m:(q.fb||{})[v.x]||""};
+  else if(q.type==="rows"){var w=q.rows.filter(function(rr){return v[rr.k]!==q.answer[rr.k];}).map(function(rr){return rr.k;});r={w:w,m:(q.fbf&&w.length?q.fbf(v,w):"")||(w.length?w.length+" ligne"+(w.length>1?"s":"")+" à revoir (marquée"+(w.length>1?"s":"")+" ✗).":"")};}
+  var ok=r.w.length===0;S.tries[q.id]=(S.tries[q.id]||0)+1;if(S.first[q.id]===undefined)S.first[q.id]=ok;if(ok)S.done[q.id]=true;
+  lastFb[q.id]={ok:ok,m:r.m,w:r.w};save();renderQ(q);renderBilan();renderStepsDone();
+  if(ok&&q.id==="i3"){renderReveal();renderBets();celebrate();}if(ok&&q.id==="e2")renderBetM();}
+function renderQ(q){withFocus(function(){renderBody(q);});var st=$("st-"+q.id),fb=$("fb-"+q.id);
+  if(S.done[q.id]){st.textContent=S.first[q.id]?"✓ Réussi au premier essai":"✓ Réussi";st.classList.add("ok");}else{var t=S.tries[q.id]||0;st.textContent=t?t+" essai"+(t>1?"s":""):"";st.classList.remove("ok");}
+  var L=lastFb[q.id];if(L){if(L.empty)fb.innerHTML='<div class="fb bad">'+L.m+'</div>';else if(L.ok)fb.innerHTML='<div class="fb ok"><strong>✓ Juste !</strong> '+(S.first[q.id]&&S.tries[q.id]===1?"Bravo, du premier coup.":"Bien corrigé.")+'</div>';else fb.innerHTML='<div class="fb bad"><strong>✗ Pas encore.</strong> '+(L.m||"Vérifie les éléments marqués ✗, puis réessaie.")+'</div>';}else fb.innerHTML="";
+  var nh=S.hints[q.id]||0;$("hs-"+q.id).innerHTML=q.hints.slice(0,nh).map(function(h,i){return '<div class="hint"><b>Indice '+(i+1)+'/3 :</b> '+h+'</div>';}).join("");
+  var hb=$("hnt-"+q.id);hb.disabled=nh>=3;hb.textContent=nh>=3?"Indices épuisés":"Indice "+(nh+1)+"/3";
+  var can=S.done[q.id]||(S.tries[q.id]||0)>=2||nh>=3;$("cor-"+q.id).hidden=!can||!!S.corr[q.id];
+  $("co-"+q.id).innerHTML=S.corr[q.id]?'<div class="corr"><span class="ct">✔&#xFE0E; Correction détaillée</span>'+q.corr.map(function(l){return '<p>'+l+'</p>';}).join("")+'</div>':"";
+  $("chk-"+q.id).textContent=S.done[q.id]?"Vérifier à nouveau":"Vérifier";}
+
+function celebrate(){if(RM)return;var cv=document.createElement("canvas");cv.className="confetti";document.body.appendChild(cv);
+  var w=innerWidth,h=innerHeight,dpr=window.devicePixelRatio||1;cv.width=w*dpr;cv.height=h*dpr;cv.style.width=w+"px";cv.style.height=h+"px";
+  var c=cv.getContext("2d");c.scale(dpr,dpr);var rs=getComputedStyle(document.documentElement);var cols=["--teal","--curve","--water","--warn","--ok"].map(function(n){return rs.getPropertyValue(n).trim();});
+  var Pp=[];for(var i=0;i<130;i++)Pp.push({x:w/2+(Math.random()-.5)*w*.3,y:h*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*13-4,r:Math.random()*3,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[i%cols.length]});
+  var t0=null;var f=function(ts){if(t0===null)t0=ts;var el=ts-t0;c.clearRect(0,0,w,h);Pp.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;c.save();c.translate(p.x,p.y);c.rotate(p.r);c.globalAlpha=Math.max(0,1-el/2200);c.fillStyle=p.c;c.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);c.restore();});if(el<2200)requestAnimationFrame(f);else cv.remove();};
+  requestAnimationFrame(f);}
+
+/* ---------- report ---------- */
+function partScore(p){return {s:p.ids.filter(function(k){return S.first[k];}).length,n:p.ids.length};}
+function total(){var s=0,n=0;PARTS.forEach(function(p){var r=partScore(p);s+=r.s;n+=r.n;});return {s:s,n:n};}
+function today(){var d=new Date();return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();}
+function tried(k){if(k==="rel")return Object.keys(S.rel).length>0;return !!S.tries[k];}
+function status(k){if(k==="rel"){var n=0;for(var m=0;m<=TMAX;m++)if(S.rel[m]!==undefined&&Math.abs(S.rel[m]-R(m))<=0.6)n++;return S.done.rel?(S.first.rel?"✓ 16/16 sans erreur":"16/16, avec "+S.relErr+" erreur"+(S.relErr>1?"s":"")+" corrigée"+(S.relErr>1?"s":"")):n+"/16 relevés justes";}
+  var t=S.tries[k]||0;return S.first[k]?"✓ premier essai":S.done[k]?"réussi en "+t+" essais":t?"pas encore réussi ("+t+" essai"+(t>1?"s":"")+")":"pas fait";}
+function bilanText(){var T=total(),L=[];
+  L.push("5e EIST · Mission 4 · TP3 — Quand l'eau se met à bouillir (vaporisation de l'eau pure)");
+  L.push("Élève : "+(S.name.trim()||"non renseigné")+"   Date : "+today());
+  var bt=BT.filter(function(x){return x[0]===S.betT;})[0],bs=BS.filter(function(x){return x[0]===S.betS;})[0];
+  L.push("Prédictions : "+(bt?bt[1]:"—")+" · "+(bs?bs[1]:"—"));
+  L.push("Score au premier essai : "+T.s+"/"+T.n);
+  PARTS.forEach(function(p){var r=partScore(p);L.push("Partie "+p.k+" · "+p.t+" : "+r.s+"/"+r.n);p.ids.forEach(function(k){L.push("  - "+qTitle(k).replace(/<[^>]+>/g,"")+" : "+status(k)+(S.corr[k]&&!S.first[k]?" — correction consultée":""));});});
+  var bm=BM.filter(function(x){return x[0]===S.betM;})[0];L.push("Hypothèse « haute montagne » : "+(bm?bm[1]:"—")+" · lieux testés : "+S.runs.length+"/6");
+  L.push("Cahier : "+CAH.filter(function(c){return S.cahier[c[0]];}).length+"/6 éléments cochés");
+  var weak=PARTS.filter(function(p){var r=partScore(p);return p.ids.some(tried)&&r.s<r.n;});if(weak.length)L.push("Conseil : "+weak[0].tip);
+  return L.join("\n");}
+function scoreCards(){return PARTS.map(function(p){var r=partScore(p);return '<div class="sc"><div class="k">Partie '+p.k+' · '+p.t+'</div><div class="v">'+r.s+'/'+r.n+'</div><div class="bar"><span style="width:'+(r.s/r.n*100)+'%"></span></div></div>';}).join("")+'<div class="sc"><div class="k">Cahier (auto-contrôle)</div><div class="v">'+CAH.filter(function(c){return S.cahier[c[0]];}).length+'/6</div></div>';}
+function renderBilan(){var T=total();$("scoreGrid").innerHTML='<div class="sc"><div class="k">Total au premier essai</div><div class="v">'+T.s+'/'+T.n+'</div><div class="bar"><span style="width:'+(T.s/T.n*100)+'%"></span></div></div>'+scoreCards();
+  var nf=[];PARTS.forEach(function(p){p.ids.forEach(function(k){if(!(S.done[k]||tried(k)))nf.push(SH[k]);});});
+  var weak=PARTS.filter(function(p){var r=partScore(p);return p.ids.some(tried)&&r.s<r.n;}),h="";
+  if(nf.length)h+='<div class="box warn"><div class="bt"><span class="ic" aria-hidden="true">⚠&#xFE0E;</span>Pas encore terminé</div><p>Il te reste : '+nf.join(", ")+'.</p></div>';
+  if(weak.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Mes conseils</div>'+weak.map(function(p){return '<p><b>Partie '+p.k+' :</b> '+p.tip+'</p>';}).join("")+'</div>';
+  else if(!nf.length)h+='<div class="box key"><div class="bt"><span class="ic" aria-hidden="true">✔&#xFE0E;</span>Bravo</div><p>Tout est réussi au premier essai. Mission accomplie !</p></div>';
+  $("advice").innerHTML=h;$("bilanText").textContent=bilanText();if($("pname").value!==S.name)$("pname").value=S.name;}
+$("pname").addEventListener("input",function(e){S.name=e.target.value;save();$("bilanText").textContent=bilanText();});
+$("copyBilan").onclick=function(){var t=bilanText(),msg=$("bilanMsg");var sel=function(){var r=document.createRange();r.selectNodeContents($("bilanText"));var s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : copie-le avec ton appareil.";};try{navigator.clipboard.writeText(t).then(function(){msg.textContent="Bilan copié.";},sel);}catch(e){sel();}};
+var DL=null;(function(){try{if(window.claude&&window.claude.use){window.claude.use("downloads").then(function(d){DL=d;$("dlBilan").hidden=!d;}).catch(function(){});}}catch(e){}})();
+$("dlBilan").onclick=function(){if(!DL)return;var msg=$("bilanMsg");var nm=(S.name.trim()||"eleve").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9_-]+/g,"-").slice(0,30)||"eleve";
+  var tab="\n\nTableau des mesures :\nTemps (min) ; T (°C)\n";for(var m=0;m<=TMAX;m++)tab+=m+" ; "+(S.rel[m]!==undefined?dec(S.rel[m]):"")+"\n";
+  DL.save({filename:"bilan-ebullition-"+nm+".txt",data:bilanText()+tab}).then(function(){msg.textContent="Bilan téléchargé (avec ton tableau de mesures).";},function(err){var c=err&&err.code;msg.textContent=c==="declined"?"Téléchargement annulé.":c==="rate_limited"?"Patiente un instant, puis réessaie.":"Téléchargement impossible ici : utilise « Copier mon bilan ».";});};
+$("showProf").onclick=function(){var T=total();$("ovname").textContent=S.name.trim()||"Élève";$("ovtot").textContent=T.s+" / "+T.n;$("ovparts").innerHTML=scoreCards();$("overlay").hidden=false;$("ovClose").focus();};
+$("ovClose").onclick=function(){$("overlay").hidden=true;$("showProf").focus();};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")$("overlay").hidden=true;});
+
+function renderStepsDone(){var all=function(p){return PARTS[p-1].ids.every(function(k){return S.done[k];});};
+  var d={mission:!!(S.betT&&S.betS),experience:all(1),courbe:all(2),interpreter:all(3),etsi:all(4),bilan:all(5)};
+  document.querySelectorAll(".step").forEach(function(b){b.classList.toggle("done",!!d[b.dataset.go]&&b.getAttribute("aria-current")!=="step");});}
+function renderAll(){applyFs();applyTheme();renderBets();updDisplays();renderSimBtns();buildRelTable();$("mkBtn").setAttribute("aria-pressed",S.marks?"true":"false");$("mkBtn").textContent=S.marks?"Masquer les repères":"Afficher les repères";$("markers").hidden=!S.marks;
+  renderGBtns();renderGTable();renderCahier();renderPlaces();renderBetM();QS.forEach(renderQ);renderReveal();renderBilan();renderStepsDone();redrawAll();}
+
+QS.forEach(buildCard);
+renderAll();
+go(location.hash.slice(1)||"mission");
+raf=requestAnimationFrame(loop);
+if(window.ResizeObserver){var ro=new ResizeObserver(function(){drawTCurve();drawGraph();drawAlt();});["tcv","gcv","acv"].forEach(function(id){ro.observe($(id).parentElement);});}else window.addEventListener("resize",redrawAll);
+window.__t={S:function(){return S;},R:R,run:function(){return run;},seek:function(t){S.simT=t;P=[];updDisplays();renderSimBtns();buildRelTable();drawTCurve();}};
+})();
+</script>
+</body>
+</html>

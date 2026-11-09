@@ -1,0 +1,1188 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Automatismes 3e SVT</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style>
+<style>
+/* Layout : bandeau SVT vert foncé ; vues Sommaire (missions → tuiles de séances), Séance (barre collante avec minuteur, 4 cartes-questions dont le document animé), Révision, Progression, Bilan ; colonne 980 px (1400 px en projection) */
+:root{
+  --bg:#eff4f1; --surface:#ffffff; --surface-2:#e3ede7; --ink:#0f2d36; --muted:#46626c; --line:#bfd2d4;
+  --teal:#1f6b45; --teal-ink:#ffffff; --teal-soft:#dbeee2;
+  --band:#123d2a; --band-ink:#eaf5ee; --band-muted:#a8cdb5;
+  --ok:#17703c; --ok-soft:#dcf1e3; --bad:#b3261e; --bad-soft:#fbe2df;
+  --info:#1d5fa8; --info-soft:#e4eefb; --warn:#a14f00; --warn-soft:#fdebd6; --key:#17703c; --key-soft:#dcf1e3;
+  --t-r6:#6a3fa0; --t-sp:#0b6170; --t-se:#a14f00; --t-doc:#1d5fa8;
+  --sky:#0e1a2b; --sun:#f2b705; --sunglow:rgba(242,183,5,.35); --water:#4b9fd6; --water-2:#2f7fb5; --ice:#cfe8f7;
+  --blood:#c62828; --blood-2:#6d4c8a; --leaf:#3f8f3a; --leaf-2:#8cc66b; --bark:#8a5a2b; --soil:#7a5536;
+  --org:#d9822b; --bact:#cf5d17; --nerve:#e0b100; --muscle:#d9665b; --bone:#e9e2cf; --skin:#f1c9a5;
+  --metal:#7d8d93; --wire:#37474f; --lamp:#ffd54f; --iodine-b:#1b1d4a; --iodine-y:#c9a227; --lava:#e65100; --rock:#4e4a47; --rock-l:#c9bfae;
+  --paper:#fffdf6; --o2:#1d5fa8; --co2:#7a6b5d; --glu:#d39b00;
+  --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs:22px; --maxw:980px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#6fcf97; --teal-ink:#06261a; --teal-soft:#173a28;
+  --band:#0b2a1c; --band-ink:#e4f2ea; --band-muted:#93c2a6;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826;
+  --t-r6:#c2a6f2; --t-sp:#5cc6d3; --t-se:#f3a95c; --t-doc:#8ab8f2;
+  --sky:#050b14; --water:#3d8fc0; --water-2:#2a6f9e; --ice:#9fc6de; --blood:#ef5350; --blood-2:#9575cd; --leaf:#5cae55; --leaf-2:#9fd17f; --bark:#b07a44; --soil:#9b7350;
+  --metal:#9aaab0; --wire:#b0bec5; --bone:#d8d0bb; --rock:#8a8580; --rock-l:#d8cfbf; --paper:#1d2a22; --o2:#8ab8f2; --co2:#b6a898;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#6fcf97; --teal-ink:#06261a; --teal-soft:#173a28;
+  --band:#0b2a1c; --band-ink:#e4f2ea; --band-muted:#93c2a6;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826;
+  --t-r6:#c2a6f2; --t-sp:#5cc6d3; --t-se:#f3a95c; --t-doc:#8ab8f2;
+  --sky:#050b14; --water:#3d8fc0; --water-2:#2a6f9e; --ice:#9fc6de; --blood:#ef5350; --blood-2:#9575cd; --leaf:#5cae55; --leaf-2:#9fd17f; --bark:#b07a44; --soil:#9b7350;
+  --metal:#9aaab0; --wire:#b0bec5; --bone:#d8d0bb; --rock:#8a8580; --rock-l:#d8cfbf; --paper:#1d2a22; --o2:#8ab8f2; --co2:#b6a898;
+  color-scheme:dark;
+}
+html{font-size:var(--fs)}
+html.proj{--maxw:1400px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:16px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.4rem,4.4vw,2.1rem);font-weight:800;margin-top:2px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{min-height:48px;min-width:48px;padding:0 12px;border-radius:12px;border:1.5px solid color-mix(in oklab,var(--band-ink) 35%,transparent);background:transparent;color:var(--band-ink);font-weight:700;cursor:pointer;font-size:.9rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+
+main .wrap{padding-block:22px 64px}
+section.view{display:flex;flex-direction:column;gap:20px}
+.kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--teal)}
+.h2{font-size:clamp(1.3rem,3.4vw,1.75rem);font-weight:800}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{min-height:52px;padding:0 18px;border-radius:14px;border:2px solid var(--teal);background:var(--teal);color:var(--teal-ink);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none}
+.btn{max-width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.weak .btn{white-space:normal;justify-content:flex-start;text-align:left;padding-block:8px}
+@media (max-width:560px){.hl{display:none}.sbar .ttl{font-size:.95rem}.sbar .wrap{gap:6px 8px}}
+.btn.sm{min-height:48px;padding:0 12px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn[aria-pressed="true"]{background:var(--teal-soft);border-color:var(--teal);color:var(--ink)}
+
+.box{border-radius:14px;padding:12px 16px;border-left:6px solid;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box .bt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.box.info{background:var(--info-soft);border-color:var(--info)}.box.info .bt{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)}.box.warn .bt{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)}.box.key .bt{color:var(--key)}
+
+/* Sommaire */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+@media (max-width:640px){.hero{grid-template-columns:minmax(0,1fr)}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
+.stat{background:var(--surface-2);border-radius:12px;padding:10px 12px;min-width:0}
+.stat .k{font-size:.9rem;color:var(--muted);font-weight:700}
+.stat .v{font-family:var(--f-num);font-weight:700;font-size:1.25rem}
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.mission{display:flex;flex-direction:column;gap:10px}
+.mhead{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;justify-content:space-between}
+.mhead h3{font-size:1.1rem;font-weight:800}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:10px}
+.tile{min-height:96px;text-align:left;border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .tn{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800}
+.tile .tt{font-size:.9rem;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.badge{font-family:var(--f-num);font-size:.9rem;font-weight:700;padding:1px 8px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.badge.full{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.badge.part{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+.tile.cur{border-color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
+
+/* Séance */
+.sbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.sbar .wrap{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding-block:6px}
+.sbar .ttl{font-weight:800;min-width:0}
+.timer{display:flex;align-items:center;gap:6px}
+.tclock{font-family:var(--f-num);font-weight:700;font-size:1.15rem;min-width:4.2ch;text-align:center;padding:4px 10px;border-radius:10px;background:var(--surface-2)}
+.tclock.low{background:var(--warn-soft);color:var(--warn)}
+.tclock.end{background:var(--bad-soft);color:var(--bad)}
+.ibtn{min-width:48px;min-height:48px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.sco{font-family:var(--f-num);font-weight:700;padding:4px 10px;border-radius:10px;background:var(--teal-soft)}
+.shead{display:flex;flex-direction:column;gap:4px}
+.snav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:80px}
+.qhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.qnum{font-family:var(--f-num);font-weight:800;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--teal-ink);flex:none}
+.tag{font-size:.9rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1.5px solid currentColor;display:inline-block;max-width:100%}
+.tag.r6{color:var(--t-r6)}.tag.sp{color:var(--t-sp)}.tag.se{color:var(--t-se)}.tag.doc{color:var(--t-doc)}
+a.tag{text-decoration:none}
+.qstat{margin-left:auto;font-size:.9rem;font-weight:700;color:var(--muted)}
+.qstat.ok{color:var(--ok)}.qstat.bad{color:var(--bad)}
+.qtext{font-weight:700;font-size:1.05rem}
+.ins{font-size:.9rem;color:var(--muted)}
+.part{display:flex;flex-direction:column;gap:8px;min-width:0}
+.part+.part{border-top:1px dashed var(--line);padding-top:12px}
+.pq{font-weight:700}
+.fields{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.grow{flex:1 1 260px}
+.field label{font-size:.9rem;font-weight:700;color:var(--muted)}
+.inp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.ans{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-size:1rem;min-width:0;width:100%}
+input.ans.num{width:8ch;font-family:var(--f-num);font-weight:700}
+input.ans.good{border-color:var(--ok);background:var(--ok-soft)}
+input.ans.badi{border-color:var(--bad);background:var(--bad-soft)}
+.mk{font-weight:700;font-size:.9rem;white-space:nowrap}
+.mk.ok{color:var(--ok)}.mk.bad{color:var(--bad)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.opt .ck{flex:none;width:26px;height:26px;border-radius:7px;border:2px solid var(--muted);display:grid;place-items:center;font-size:.9rem;font-weight:800}
+.opt.radio .ck{border-radius:50%}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 1px var(--teal)}
+.opt[aria-pressed="true"] .ck{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.opt.okm{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badm{border-color:var(--bad);background:var(--bad-soft)}
+.opt.gone{opacity:.35;text-decoration:line-through;pointer-events:none}
+.ordbox{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:8px;border-radius:12px;border:2px dashed var(--line);background:var(--bg);align-items:center}
+.ordbox.okb{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.ordbox.badb{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
+.chipw{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--teal);background:var(--surface);font-weight:700;cursor:pointer}
+.chipw.placed{background:var(--teal-soft)}
+.chipw .no{font-family:var(--f-num);margin-right:6px;color:var(--teal)}
+.chipw:disabled{border-color:var(--line);color:var(--muted);opacity:.5}
+.mrow{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:12px;background:var(--surface-2)}
+.mrow .rl{font-weight:700;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.qbtns{display:flex;flex-wrap:wrap;gap:10px}
+.fb{border-radius:12px;padding:10px 14px}
+.fb.ok{background:var(--ok-soft);border:2px solid var(--ok)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.hint{background:var(--warn-soft);border-radius:12px;padding:10px 14px}
+.hint b{color:var(--warn)}
+.corr{border-left:5px solid var(--key);background:var(--key-soft);border-radius:0 12px 12px 0;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.corr .ct{font-weight:700;color:var(--key)}
+
+/* Document animé */
+.doc{display:flex;flex-direction:column;gap:12px;background:var(--surface-2);border-radius:14px;padding:12px;min-width:0}
+.dcap{font-style:italic;color:var(--muted)}
+.anim{display:flex;flex-direction:column;gap:10px;min-width:0}
+.anim .stage-wrap{background:var(--surface);border-radius:12px;border:1px solid var(--line);overflow:hidden;min-width:0}
+svg.stg{display:block;width:100%;height:auto;font-family:var(--f-body)}
+svg.stg text{fill:var(--ink);font-size:18px}
+svg.stg text.m{fill:var(--muted)}
+svg.stg text.b{font-weight:700}
+svg.stg text.w{fill:#fff}
+svg.stg .tk{stroke:var(--ink);stroke-width:2}
+svg.stg .ln{stroke:var(--line);stroke-width:1}
+.actl{display:flex;flex-wrap:wrap;gap:8px}
+.anote{font-size:.9rem;color:var(--muted)}
+.alive{min-height:1.5em;font-weight:700;color:var(--teal)}
+.simtag{align-self:flex-start;font-size:.9rem;font-weight:700;color:var(--warn);background:var(--warn-soft);padding:2px 10px;border-radius:999px}
+.dtable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;background:var(--surface);border-radius:10px;overflow:hidden}
+.dtable th,.dtable td{padding:7px 10px;border:1px solid var(--line);text-align:left;font-size:.95rem}
+.dtable th{background:var(--teal-soft)}
+.tscroll{overflow-x:auto;border-radius:10px}
+.endcard{background:var(--band);color:var(--band-ink);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.endcard .big{font-family:var(--f-num);font-weight:700;font-size:clamp(1.8rem,6vw,2.6rem)}
+.endcard .muted{color:var(--band-muted)}
+.endcard .btn.ghost{color:var(--band-ink);border-color:var(--band-muted)}
+
+/* Progression / bilan */
+.pbar{display:flex;flex-direction:column;gap:6px}
+.pbar .pl{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:700}
+.track{height:16px;border-radius:8px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line)}
+.track span{display:block;height:100%;background:var(--ok)}
+.weak{display:flex;flex-direction:column;gap:8px}
+.weak button{text-align:left}
+.bilantext{white-space:pre-wrap;font-family:var(--f-num);font-size:.9rem;background:var(--surface-2);border-radius:12px;padding:14px;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere}
+input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);width:min(100%,16em)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--surface);overflow:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovin{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ovname{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,7vw,3.6rem)}
+.ovtot{font-family:var(--f-num);font-weight:700;font-size:clamp(2.6rem,11vw,5.4rem);color:var(--teal);line-height:1}
+.ovlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
+.ovitem{background:var(--surface-2);border-radius:12px;padding:12px;font-size:1.2rem;font-weight:700}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages…) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band" id="band">
+  <div class="wrap">
+    <div style="min-width:0">
+      <div class="eyebrow">3e SVT · Début de cours · 5 minutes</div>
+      <h1>Automatismes</h1>
+    </div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tbtn" id="fsMinus" aria-label="Réduire le texte">A−</button>
+      <button class="tbtn" id="fsPlus" aria-label="Agrandir le texte">A+</button>
+      <button class="tbtn" id="proj" aria-pressed="false">Projection</button>
+      <button class="tbtn" id="theme">Thème</button>
+    </div>
+  </div>
+</header>
+<div class="sbar" id="sbar" hidden>
+  <div class="wrap">
+    <button class="btn ghost sm" data-go="home" aria-label="Retour au sommaire"><span aria-hidden="true">←</span><span class="hl">&nbsp;Sommaire</span></button>
+    <span class="ttl" id="sbTitle"></span>
+    <div class="timer" id="timerBox">
+      <span class="tclock" id="tclock" role="timer" aria-label="Minuteur">5:00</span>
+      <button class="ibtn" id="tPlay" aria-label="Lancer ou mettre en pause le minuteur">▶</button>
+      <button class="ibtn" id="tReset" aria-label="Remettre le minuteur à 5 minutes">↺</button>
+    </div>
+    <span class="sco"><span class="hl">Score : </span><span id="sbScore"></span></span>
+  </div>
+</div>
+<main><div class="wrap" id="app"></div></main>
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ovname">
+  <div class="ovin">
+    <div class="row" style="justify-content:space-between"><div class="kicker" id="ovkick">À montrer au professeur</div><button class="btn" id="ovClose">Fermer</button></div>
+    <div class="ovname" id="ovname"></div>
+    <div><div class="muted" id="ovsub"></div><div class="ovtot" id="ovtot"></div></div>
+    <div class="ovlist" id="ovlist"></div>
+  </div>
+</div>
+<script>
+(function(){
+"use strict";
+const DATA=[{"n": 1, "date": "lun. 08/09", "q": [{"k": 1, "text": "Qu'est-ce qu'une espèce ?", "tag": "rappel 4e"}, {"k": 2, "text": "Quel est l'élément de base qui constitue tous les êtres vivants ?", "tag": "rappel 5e"}, {"k": 3, "text": "Comment nomme-t-on la cellule reproductrice mâle ? Et la femelle ?", "tag": "rappel 4e"}], "doc": {"title": "Lire un tableau de caractères", "tag": "lire un document", "cap": "On a relevé quelques caractères chez trois personnes.", "table": [["Individu", "Nombre de doigts par main", "Couleur des yeux", "Groupe sanguin"], ["A", "5", "marron", "A"], ["B", "5", "bleu", "O"], ["C", "5", "vert", "A"]], "question": "Quel caractère est commun à tous les individus de l'espèce humaine ? Justifie avec le tableau."}, "mission": "Chapitre 1 · L'information génétique — Les caractères héréditaires", "corr": ["Ensemble d'individus qui se ressemblent et peuvent se reproduire entre eux en donnant une descendance fertile.", "La cellule.", "Le spermatozoïde ; l'ovule.", "Le nombre de doigts (5 chez A, B et C) : c'est un caractère de l'espèce. Les deux autres varient d'un individu à l'autre : ce sont des variations individuelles."]}, {"n": 2, "date": "lun. 15/09", "q": [{"k": 1, "text": "Quelle différence fais-tu entre un caractère spécifique et une variation individuelle ?", "tag": "séance précédente"}, {"k": 2, "text": "Définis le phénotype d'un individu.", "tag": "séance précédente"}, {"k": 3, "text": "Que veut dire « caractère héréditaire » ?", "tag": "rappel 4e"}], "doc": {"title": "Lire un tableau familial", "tag": "lire un document", "cap": "Couleur des yeux dans trois familles.", "table": [["Famille", "Père", "Mère", "Enfant"], ["1", "marron", "marron", "bleu"], ["2", "bleu", "bleu", "bleu"], ["3", "marron", "bleu", "marron"]], "question": "Que montre la famille 1 à propos de la transmission des caractères ?"}, "mission": "Chapitre 1 · L'information génétique — ", "corr": ["Le caractère spécifique est commun à tous les individus de l'espèce ; la variation individuelle diffère d'un individu à l'autre.", "L'ensemble des caractères observables de cet individu.", "Un caractère transmis des parents à leurs enfants.", "Un caractère (yeux bleus) peut apparaître chez l'enfant sans être visible chez les parents : il est donc transmis sans forcément être exprimé à chaque génération."]}, {"n": 3, "date": "lun. 22/09", "q": [{"k": 1, "text": "Un caractère héréditaire peut-il « sauter » une génération ?", "tag": "séance précédente"}, {"k": 2, "text": "Donne un exemple de caractère spécifique de l'espèce humaine.", "tag": "séance n°1"}, {"k": 3, "text": "Cite les trois constituants communs à toutes les cellules animales.", "tag": "rappel 5e"}], "doc": {"title": "Analyser un résultat expérimental", "tag": "lire un document", "cap": "Deux clonages de grenouilles par transfert de noyau.", "table": [["Expérience", "Origine du noyau", "Origine du cytoplasme", "Aspect du têtard obtenu"], ["1", "grenouille brune", "grenouille blanche", "brun"], ["2", "grenouille blanche", "grenouille brune", "blanc"]], "question": "Dans quelle partie de la cellule se situe le programme génétique ? Justifie."}, "mission": "Chapitre 1 · L'information génétique — ", "corr": ["Oui : il peut être transmis sans être exprimé chez les parents.", "Par exemple : 5 doigts par main, station debout permanente, pouce opposable.", "La membrane, le cytoplasme et le noyau.", "Dans le noyau : le têtard ressemble toujours à la grenouille qui a fourni le noyau, jamais à celle du cytoplasme."]}, {"n": 4, "date": "lun. 29/09", "q": [{"k": 1, "text": "Dans quel élément de la cellule se trouve le programme génétique ?", "tag": "séance précédente"}, {"k": 2, "text": "Comment appelle-t-on un caractère transmis des parents aux enfants ?", "tag": "séance n°2"}, {"k": 3, "text": "Définis le mot « phénotype ».", "tag": "séance n°1"}], "doc": {"title": "Comparer des données chiffrées", "tag": "lire un document", "cap": null, "table": [["Espèce", "Nombre de chromosomes"], ["Homme", "46"], ["Chien", "78"], ["Drosophile", "8"], ["Chironome", "8"]], "question": "Le nombre de chromosomes est-il un caractère de l'espèce ou une variation individuelle ? Justifie."}, "mission": "Chapitre 1 · L'information génétique — Chromosomes", "corr": ["Dans le noyau.", "Un caractère héréditaire.", "L'ensemble des caractères observables d'un individu.", "C'est un caractère de l'espèce : il est identique chez tous les individus d'une même espèce, mais différent d'une espèce à l'autre."]}, {"n": 5, "date": "lun. 06/10", "q": [{"k": 1, "text": "De quelle molécule les chromosomes sont-ils constitués ?", "tag": "séance précédente"}, {"k": 2, "text": "Quelle expérience montre que le programme génétique se situe dans le noyau ?", "tag": "il y a 2 semaines"}, {"k": 3, "text": "Quel grossissement obtient-on avec un oculaire ×10 et un objectif ×40 ?", "tag": "rappel 5e"}], "doc": {"title": "Suivre un protocole", "tag": "lire un document", "cap": "Étapes de l'extraction d'ADN réalisée au laboratoire.", "table": [["Étape", "Ce que l'on ajoute", "Rôle"], ["1", "broyage (rien)", "libérer les cellules"], ["2", "liquide vaisselle", "détruire les membranes"], ["3", "sel", "regrouper l'ADN"], ["4", "éthanol glacé", "?"]], "question": "À quelle étape voit-on apparaître l'ADN, et sous quelle forme ?"}, "mission": "Chapitre 1 · L'information génétique — L'ADN", "corr": ["De l'ADN.", "Le clonage par transfert de noyau : le clone ressemble au donneur du noyau.", "×400 (on multiplie les deux grossissements).", "À l'étape 4 : l'éthanol glacé fait précipiter l'ADN, qui apparaît sous forme de filaments blanchâtres remontant à la surface."]}, {"n": 6, "date": "lun. 13/10", "q": [{"k": 1, "text": "Quelle molécule est le support de l'information génétique ?", "tag": "séance précédente"}, {"k": 2, "text": "Où se trouve le programme génétique d'une cellule ?", "tag": "il y a 3 semaines"}, {"k": 3, "text": "Deux frères n'ont pas la même couleur d'yeux : caractère spécifique ou variation individuelle ?", "tag": "séance n°1"}], "doc": {"title": "Lire un caryotype", "tag": "lire un document", "cap": "Trois caryotypes humains analysés au laboratoire.", "table": [["Caryotype", "Nombre total de chromosomes", "Dernière paire", "Particularité"], ["A", "46", "XX", "aucune"], ["B", "46", "XY", "aucune"], ["C", "47", "XY", "chromosome 21 en 3 exemplaires"]], "question": "Quel est le sexe de l'individu B ? Que présente l'individu C ?"}, "mission": "Chapitre 2 · La transmission de l'information génétique — ", "corr": ["L'ADN.", "Dans le noyau.", "Une variation individuelle.", "B est de sexe masculin (XY). C présente une trisomie 21 : 47 chromosomes, avec le chromosome 21 en trois exemplaires."]}, {"n": 7, "date": "lun. 10/11", "q": [{"k": 1, "text": "Que représente un caryotype ?", "tag": "avant les vacances"}, {"k": 2, "text": "Quelle molécule est le support de l'information génétique ?", "tag": "il y a 1 mois"}, {"k": 3, "text": "Cite deux caractères spécifiques de l'espèce humaine.", "tag": "septembre"}], "doc": {"title": "Interpréter un test d'agglutination", "tag": "lire un document", "cap": "Résultats obtenus avec deux sérums-tests.", "table": [["Sang testé", "Sérum anti-A", "Sérum anti-B"], ["Patient 1", "agglutination", "pas d'agglutination"], ["Patient 2", "pas d'agglutination", "pas d'agglutination"]], "question": "Quel est le groupe sanguin de chaque patient ?"}, "mission": "Chapitre 2 · La transmission de l'information génétique — ", "corr": ["La photographie classée par paires de tous les chromosomes d'une cellule.", "L'ADN.", "Par exemple : 46 chromosomes, station debout permanente, pouce opposable.", "Patient 1 : groupe A (agglutination avec l'anti-A seulement). Patient 2 : groupe O (aucune agglutination)."]}, {"n": 8, "date": "lun. 17/11", "q": [{"k": 1, "text": "Le groupe sanguin est-il un caractère héréditaire ? Justifie.", "tag": "séance précédente"}, {"k": 2, "text": "Combien de chromosomes contient une cellule humaine ?", "tag": "il y a 1 mois"}, {"k": 3, "text": "Où se situe l'information génétique dans une cellule ?", "tag": "septembre"}], "doc": {"title": "Suivre une quantité d'ADN", "tag": "lire un document", "cap": "Évolution des chromosomes au cours de la multiplication cellulaire.", "table": [["Moment", "Nombre de chromosomes", "Chromatides par chromosome"], ["Cellule mère au départ", "46", "1"], ["Après duplication de l'ADN", "46", "2"], ["Dans chaque cellule fille", "46", "1"]], "question": "Que se passe-t-il avant la division ? Les cellules filles sont-elles identiques à la cellule mère ?"}, "mission": "Chapitre 2 · La transmission de l'information génétique — Mitose", "corr": ["Oui : il est transmis par les parents et n'est pas modifié par le milieu de vie.", "46 chromosomes, soit 23 paires.", "Dans le noyau, portée par les chromosomes constitués d'ADN.", "L'ADN est d'abord dupliqué (chaque chromosome passe à 2 chromatides). Oui : chaque cellule fille reçoit 46 chromosomes identiques, l'information génétique est conservée."]}, {"n": 9, "date": "lun. 24/11", "q": [{"k": 1, "text": "Comment s'appelle la division qui donne deux cellules identiques à la cellule mère ?", "tag": "séance précédente"}, {"k": 2, "text": "Que met en évidence un test d'agglutination ?", "tag": "il y a 2 semaines"}, {"k": 3, "text": "Quelle expérience prouve que le noyau contient le programme génétique ?", "tag": "septembre"}], "doc": {"title": "Relier des termes à leur définition", "tag": "lire un document", "cap": "Trois notions clés du chapitre.", "table": [["Terme", "Définitions proposées"], ["1. Gène", "A. Molécule support de l'information génétique"], ["2. ADN", "B. Portion d'ADN qui détermine un caractère"], ["3. Chromosome", "C. Élément du noyau formé d'ADN enroulé"]], "question": "Associe chaque terme à sa définition : 1 — … ; 2 — … ; 3 — …"}, "mission": "Chapitre 2 · La transmission de l'information génétique — ", "corr": ["La mitose (multiplication cellulaire).", "Le groupe sanguin, grâce aux marqueurs A et/ou B portés par les hématies.", "Le clonage par transfert de noyau.", "1 — B ; 2 — A ; 3 — C."]}, {"n": 10, "date": "lun. 01/12", "q": [{"k": 1, "text": "Qu'est-ce qu'un gène ?", "tag": "séance précédente"}, {"k": 2, "text": "Combien de chromosomes possède chaque cellule fille après une mitose ?", "tag": "il y a 3 semaines"}, {"k": 3, "text": "Le phénotype d'un individu, c'est…", "tag": "septembre"}], "doc": {"title": "Comparer des cellules", "tag": "lire un document", "cap": null, "table": [["Cellule", "Nombre de chromosomes"], ["Cellule de la peau", "46"], ["Spermatozoïde", "23"], ["Ovule", "23"], ["Cellule-œuf", "46"]], "question": "Explique pourquoi la cellule-œuf possède 46 chromosomes alors que les cellules reproductrices n'en ont que 23."}, "mission": "Chapitre 2 · La transmission de l'information génétique — Méiose", "corr": ["Une portion d'ADN qui détermine un caractère héréditaire.", "46, comme la cellule mère.", "L'ensemble de ses caractères observables.", "Lors de la fécondation, les 23 chromosomes du spermatozoïde s'ajoutent aux 23 de l'ovule : 23 + 23 = 46 chromosomes."]}, {"n": 11, "date": "lun. 15/12", "q": [{"k": 1, "text": "Quelle division produit les cellules reproductrices ? Combien de chromosomes contiennent-elles ?", "tag": "séance précédente"}, {"k": 2, "text": "Après une mitose, les deux cellules filles sont-elles identiques ?", "tag": "il y a 1 mois"}, {"k": 3, "text": "Cite une variation individuelle chez l'être humain.", "tag": "septembre"}], "doc": {"title": "Comparer deux séquences d'ADN", "tag": "lire un document", "cap": "Début d'un même gène chez deux souris.", "table": [["Allèle", "Séquence d'ADN", "Phénotype"], ["Allèle 1", "AATGCCTAG", "pelage foncé"], ["Allèle 2", "AATGCTTAG", "pelage clair"]], "question": "Compare les deux séquences. Comment expliquer la différence de pelage ?"}, "mission": "Chapitre 3 · Diversité et évolution des êtres vivants — ", "corr": ["La méiose ; 23 chromosomes chez l'Homme.", "Oui : elles possèdent la même information génétique que la cellule mère.", "Par exemple : la couleur des yeux, le groupe sanguin, la taille.", "Une seule lettre diffère (C remplacé par T en 6e position). Cette mutation crée un nouvel allèle du gène, donc un nouveau caractère."]}, {"n": 12, "date": "lun. 05/01", "q": [{"k": 1, "text": "Qu'est-ce qu'une mutation ?", "tag": "séance précédente"}, {"k": 2, "text": "Combien de chromosomes possède un spermatozoïde humain ?", "tag": "décembre"}, {"k": 3, "text": "Où se trouve l'ADN dans la cellule ?", "tag": "septembre"}], "doc": {"title": "Lire des pourcentages", "tag": "lire un document", "cap": "Comparaison de l'ADN de l'Homme avec celui d'autres espèces.", "table": [["Espèce comparée à l'Homme", "Gènes en commun (%)"], ["Chimpanzé", "98,8"], ["Souris", "85"], ["Poulet", "60"], ["Levure", "30"]], "question": "Quelle espèce est la plus proche parente de l'Homme ? Que traduisent ces pourcentages ?"}, "mission": "Chapitre 3 · Diversité et évolution des êtres vivants — ", "corr": ["Une modification de la séquence d'ADN d'un gène.", "23.", "Dans le noyau, sur les chromosomes.", "Le chimpanzé (98,8 %). Plus deux espèces ont d'ADN en commun, plus leur ancêtre commun est récent : elles sont proches parentes."]}, {"n": 13, "date": "lun. 19/01", "q": [{"k": 1, "text": "Que montre une forte ressemblance de l'ADN entre deux espèces ?", "tag": "séance précédente"}, {"k": 2, "text": "Qu'est-ce qu'un allèle ?", "tag": "décembre"}, {"k": 3, "text": "Combien de paires de chromosomes possède l'être humain ?", "tag": "septembre"}], "doc": {"title": "Construire une parenté", "tag": "lire un document", "cap": "Caractères présents chez quatre espèces.", "table": [["Espèce", "Vertèbres", "Poils", "Pouce opposable", "Bipédie permanente"], ["Homme", "oui", "oui", "oui", "oui"], ["Chimpanzé", "oui", "oui", "oui", "non"], ["Chat", "oui", "oui", "non", "non"], ["Truite", "oui", "non", "non", "non"]], "question": "Quelle espèce partage le plus de caractères avec l'Homme ? Qu'en déduis-tu ?"}, "mission": "Chapitre 3 · Diversité et évolution des êtres vivants — ", "corr": ["Qu'elles sont proches parentes et possèdent un ancêtre commun récent.", "Une version différente d'un même gène.", "23 paires, soit 46 chromosomes.", "Le chimpanzé (3 caractères communs sur 4). C'est l'espèce la plus proche parente de l'Homme : ils partagent un ancêtre commun récent."]}, {"n": 14, "date": "lun. 26/01", "q": [{"k": 1, "text": "Que partagent deux espèces qui possèdent beaucoup de caractères communs ?", "tag": "séance précédente"}, {"k": 2, "text": "Quel pourcentage de gènes l'Homme partage-t-il avec le chimpanzé ?", "tag": "il y a 3 semaines"}, {"k": 3, "text": "Quelle division cellulaire conserve le nombre de chromosomes ?", "tag": "novembre"}], "doc": {"title": "Lire une évolution chiffrée", "tag": "lire un document", "cap": "Quelques fossiles de la lignée humaine.", "table": [["Fossile", "Âge (millions d'années)", "Volume crânien (cm³)"], ["Australopithèque", "3,2", "450"], ["Homo habilis", "2,0", "650"], ["Homo erectus", "1,5", "950"], ["Homo sapiens", "0,3", "1400"]], "question": "Décris l'évolution du volume crânien au cours du temps dans la lignée humaine."}, "mission": "Chapitre 3 · Diversité et évolution des êtres vivants — ", "corr": ["Un ancêtre commun récent.", "Environ 99 % (98,8 %).", "La mitose.", "Le volume crânien augmente régulièrement au cours du temps : il passe d'environ 450 cm³ il y a 3,2 millions d'années à 1400 cm³ chez Homo sapiens, soit environ trois fois plus."]}, {"n": 15, "date": "lun. 02/02", "q": [{"k": 1, "text": "Cite deux caractères propres à la lignée humaine.", "tag": "séance précédente"}, {"k": 2, "text": "Que signifie « deux espèces apparentées » ?", "tag": "il y a 1 mois"}, {"k": 3, "text": "Qu'est-ce qu'une mutation ?", "tag": "décembre"}], "doc": {"title": "Analyser un fossile", "tag": "lire un document", "cap": "Caractères observés chez l'Archéoptéryx, fossile daté de 150 millions d'années.", "table": [["Caractère", "Dinosaure", "Archéoptéryx", "Oiseau actuel"], ["Dents", "oui", "oui", "non"], ["Plumes", "non", "oui", "oui"], ["Griffes aux ailes", "oui", "oui", "non"]], "question": "Pourquoi l'Archéoptéryx est-il considéré comme une forme intermédiaire ?"}, "mission": "Chapitre 3 · Diversité et évolution des êtres vivants — ", "corr": ["Par exemple : bipédie permanente, volume crânien important, face aplatie.", "Qu'elles descendent d'un même ancêtre commun.", "Une modification de la séquence d'ADN d'un gène.", "Parce qu'il possède à la fois des caractères de dinosaure (dents, griffes aux ailes) et des caractères d'oiseau (plumes) : il témoigne de la parenté entre ces deux groupes."]}, {"n": 16, "date": "lun. 09/03", "q": [{"k": 1, "text": "Qu'est-ce qu'un fossile ?", "tag": "avant les vacances"}, {"k": 2, "text": "Comment un nouveau caractère apparaît-il dans une espèce ?", "tag": "février"}, {"k": 3, "text": "Où est stockée l'information génétique d'une cellule ?", "tag": "septembre"}], "doc": {"title": "Comparer deux conditions expérimentales", "tag": "lire un document", "cap": "Croissance d'un pin selon la présence d'un champignon du sol.", "table": [["Condition", "Masse sèche moyenne (g)", "Phosphore absorbé (mg)"], ["Sans champignon", "2,1", "0,8"], ["Avec champignon", "5,4", "3,2"]], "question": "Quel bénéfice la plante retire-t-elle de cette association ? Et le champignon ?"}, "mission": "Chapitre 3 · Diversité et évolution des êtres vivants — ", "corr": ["Un reste ou une trace d'être vivant du passé, conservé dans une roche.", "Par une mutation de l'ADN, transmise à la descendance si elle touche les cellules reproductrices.", "Dans le noyau, sur les chromosomes constitués d'ADN.", "La plante absorbe 4 fois plus de phosphore et sa masse est multipliée par 2,5. Le champignon reçoit en échange du glucose produit par la photosynthèse : c'est une symbiose."]}, {"n": 17, "date": "lun. 23/03", "q": [{"k": 1, "text": "Qu'est-ce qu'une symbiose ?", "tag": "séance précédente"}, {"k": 2, "text": "L'Archéoptéryx possède des caractères de quels deux groupes ?", "tag": "février"}, {"k": 3, "text": "Quelle division cellulaire produit les cellules reproductrices ?", "tag": "automne"}], "doc": {"title": "Comparer des micro-organismes", "tag": "lire un document", "cap": "Trois grands types de micro-organismes.", "table": [["Micro-organisme", "Taille", "Constitué d'une cellule ?", "Exemple de maladie"], ["Bactérie", "≈ 1 µm", "oui", "angine, tétanos"], ["Virus", "≈ 0,1 µm", "non", "grippe, varicelle"], ["Champignon microscopique", "≈ 5 µm", "oui", "mycose"]], "question": "Lequel n'est pas constitué d'une cellule ? Quelle conséquence pour le traitement ?"}, "mission": "Chapitre 4 · Le monde microbien et la santé — ", "corr": ["Une association durable entre deux espèces, bénéfique aux deux partenaires.", "Des dinosaures (reptiles) et des oiseaux.", "La méiose.", "Le virus. Il n'est pas sensible aux antibiotiques, qui n'agissent que sur les bactéries."]}, {"n": 18, "date": "lun. 13/04", "q": [{"k": 1, "text": "Cite trois types de micro-organismes.", "tag": "séance précédente"}, {"k": 2, "text": "Le champignon des mycorhizes est-il un parasite ? Justifie.", "tag": "mars"}, {"k": 3, "text": "Que signifie « héréditaire » ?", "tag": "septembre"}], "doc": {"title": "Classer des barrières", "tag": "lire un document", "cap": "Les défenses qui empêchent l'entrée des micro-organismes.", "table": [["Barrière", "Localisation", "Mode d'action"], ["Peau", "surface du corps", "barrière mécanique imperméable"], ["Mucus et cils", "voies respiratoires", "piègent puis évacuent les micro-organismes"], ["Acidité gastrique", "estomac", "détruit les micro-organismes avalés"]], "question": "Que se passe-t-il lorsque la peau est coupée ?"}, "mission": "Chapitre 4 · Le monde microbien et la santé — ", "corr": ["Les bactéries, les virus et les champignons microscopiques.", "Non : les deux partenaires en tirent bénéfice, c'est une symbiose.", "Transmis des parents aux descendants.", "La barrière est rompue : les micro-organismes peuvent pénétrer dans l'organisme (contamination), puis s'y multiplier (infection)."]}, {"n": 19, "date": "lun. 27/04", "q": [{"k": 1, "text": "Cite deux barrières naturelles de l'organisme.", "tag": "séance précédente"}, {"k": 2, "text": "Quelle différence entre contamination et infection ?", "tag": "mars"}, {"k": 3, "text": "Qu'est-ce qu'un ancêtre commun ?", "tag": "hiver"}], "doc": {"title": "Lire un antibiogramme", "tag": "lire un document", "cap": "Diamètre de la zone sans bactéries autour de trois pastilles d'antibiotiques.", "table": [["Antibiotique testé", "Diamètre de la zone sans bactéries (mm)"], ["A", "22"], ["B", "6"], ["C", "15"]], "question": "Quel antibiotique le médecin doit-il prescrire ? Justifie."}, "mission": "Chapitre 4 · Le monde microbien et la santé — ", "corr": ["Par exemple : la peau, le mucus et les cils, l'acidité de l'estomac, les larmes.", "La contamination est l'entrée des micro-organismes ; l'infection est leur multiplication dans l'organisme.", "Une espèce du passé dont descendent plusieurs espèces actuelles.", "L'antibiotique A : sa zone sans bactéries est la plus large (22 mm), c'est donc le plus efficace contre cette bactérie."]}, {"n": 20, "date": "lun. 04/05", "q": [{"k": 1, "text": "Les antibiotiques sont-ils efficaces contre la grippe ? Pourquoi ?", "tag": "séance précédente"}, {"k": 2, "text": "Cite une barrière naturelle des voies respiratoires.", "tag": "il y a 3 semaines"}, {"k": 3, "text": "Comment un nouveau caractère apparaît-il dans une espèce ?", "tag": "hiver"}], "doc": {"title": "Lire une analyse de sang", "tag": "lire un document", "cap": "Résultats d'une prise de sang chez deux personnes.", "table": [["Élément du sang", "Sujet sain", "Patient infecté"], ["Hématies (millions/mm³)", "5,0", "4,9"], ["Leucocytes (par mm³)", "7 000", "16 000"]], "question": "Quelle cellule augmente fortement ? Que peut-on en conclure ?"}, "mission": "Chapitre 4 · Le monde microbien et la santé — ", "corr": ["Non : la grippe est due à un virus, or les antibiotiques n'agissent que sur les bactéries.", "Le mucus et les cils qui piègent et évacuent les micro-organismes.", "Par une mutation de l'ADN.", "Les leucocytes (globules blancs), qui passent de 7 000 à 16 000 par mm³, soit plus du double. Ils interviennent donc dans la défense de l'organisme contre l'infection."]}, {"n": 21, "date": "lun. 18/05", "q": [{"k": 1, "text": "Quelles cellules du sang assurent la défense de l'organisme ?", "tag": "séance précédente"}, {"k": 2, "text": "Que mesure-t-on sur un antibiogramme ?", "tag": "il y a 3 semaines"}, {"k": 3, "text": "Combien de chromosomes contient un ovule humain ?", "tag": "hiver"}], "doc": {"title": "Remettre un mécanisme dans l'ordre", "tag": "lire un document", "cap": "Les quatre temps d'un mécanisme de défense.", "table": [["Étape", "Ce qui se passe"], ["1", "le phagocyte adhère au micro-organisme"], ["2", "il l'entoure de prolongements"], ["3", "il l'ingère dans une vésicule"], ["4", "il le digère"]], "question": "Comment s'appelle ce mécanisme ? Est-il dirigé contre un seul micro-organisme ?"}, "mission": "Chapitre 4 · Le monde microbien et la santé — ", "corr": ["Les leucocytes (globules blancs) : phagocytes et lymphocytes.", "Le diamètre de la zone sans bactéries, qui traduit l'efficacité de l'antibiotique.", "23.", "La phagocytose. Non : c'est une réponse rapide et non spécifique, efficace contre de très nombreux micro-organismes différents."]}, {"n": 22, "date": "lun. 01/06", "q": [{"k": 1, "text": "Quelle molécule les lymphocytes B produisent-ils ?", "tag": "séance précédente"}, {"k": 2, "text": "Qu'est-ce que la phagocytose ?", "tag": "il y a 2 semaines"}, {"k": 3, "text": "Par quelles cellules un caractère héréditaire est-il transmis ?", "tag": "septembre"}], "doc": {"title": "Comparer deux réponses", "tag": "lire un document", "cap": "Quantité d'anticorps produite après un premier puis un second contact avec le même microbe.", "table": [["Temps après le contact", "1er contact (u.a.)", "2e contact (u.a.)"], ["5 jours", "2", "40"], ["10 jours", "15", "120"], ["20 jours", "10", "90"]], "question": "Compare les deux réponses. Sur quoi repose alors le principe de la vaccination ?"}, "mission": "Chapitre 4 · Le monde microbien et la santé — ", "corr": ["Les anticorps.", "L'ingestion puis la digestion d'un micro-organisme par un phagocyte.", "Par les cellules reproductrices (spermatozoïde et ovule), qui portent l'ADN.", "La seconde réponse est bien plus rapide et environ 8 fois plus intense : c'est la mémoire immunitaire. La vaccination provoque un premier contact sans danger afin de préparer une réponse rapide et efficace."]}];
+/* ===================== RÉPONSES ATTENDUES · 3e SVT ===================== */
+const M=(...o)=>({t:"mcq",o});
+const X=(k,...o)=>({t:"multi",k,o});
+const W=(a,s,x)=>Object.assign({t:"txt",a,s},x||{});
+const P=(p,n,s,x)=>Object.assign({t:"txt",p,n,s},x||{});
+const F=(...f)=>({t:"txtf",f:f.map(x=>({l:x[0],a:x[1],s:x[2]}))});
+const N=(...f)=>({t:"num",f:f.map(x=>({l:x[0],u:x[1],v:x[2],tol:x[3]||0,alt:x[4]}))});
+const NH=(h,...f)=>Object.assign(N(...f),{h});
+const O=(...o)=>({t:"order",o});
+const R=(r,c,a)=>({t:"match",r,c,a});
+const C=(h,...parts)=>({t:"parts",h,parts:parts.map(p=>Object.assign({q:p[0]},p[1]))});
+const D=(an,h,...parts)=>({t:"parts",an,h,parts:parts.map(p=>Object.assign({q:p[0]},p[1]))});
+
+const NUCLEUS=()=>W("noyau","dans le noyau",{bad:"cytoplasm|membrane"});
+const DNA=()=>W("adn|acide desoxyribonucleique","l'ADN",{bad:"arn"});
+const PHENO=()=>M("L'ensemble des caractères observables d'un individu.","L'ensemble de ses chromosomes.","Le nombre de cellules de son corps.","Son groupe sanguin uniquement.");
+const MUTATION=()=>M("Une modification de la séquence d'ADN d'un gène.","Un changement de couleur dû au soleil.","Une cellule qui se divise.","Un chromosome supplémentaire.");
+const NEWTRAIT=()=>M("Par une mutation de l'ADN, transmise à la descendance si elle touche les cellules reproductrices.","Par l'entraînement au cours de la vie.","Par l'alimentation.","Par le changement des saisons.");
+const MITOSE=()=>W("mitose","la mitose",{bad:"meiose"});
+const MEIOSE=()=>W("meiose","la méiose",{bad:"mitose"});
+const CLONE=()=>M("Le clonage par transfert de noyau : le clone ressemble au donneur du noyau.","L'observation d'un caryotype.","Le test d'agglutination.","L'extraction d'ADN.");
+const SPEC_CHAR="doigt|bipede|bipedie|debout|pouce|46|chromosome|langage|parole|deux jambes|2 jambes|deux bras|2 bras|marche|vertebr|colonne|coeur|poumon|deux yeux|2 yeux|nez|bouche|oreille|squelette|cerveau|poil";
+const VAR_BAD="bleu|marron|vert|noir|groupe|taille|cheveu|couleur|blond|brun|roux|grand|petit|tache|fossette|lobe";
+
+const SPEC={
+1:[M("Un ensemble d'individus qui se ressemblent et peuvent se reproduire entre eux en donnant une descendance fertile.","Un ensemble d'individus qui vivent au même endroit.","Un ensemble d'individus qui ont exactement tous les mêmes caractères.","Un groupe d'animaux de la même couleur."),
+   W("cellul","la cellule"),
+   F(["Cellule reproductrice mâle","spermato","le spermatozoïde"],["Cellule reproductrice femelle","ovule|ovocyte","l'ovule"]),
+   D("traits","Cherche la colonne où les trois individus ont exactement la même valeur.",
+     ["Quel caractère est commun à tous ?",M("Le nombre de doigts par main","La couleur des yeux","Le groupe sanguin")],
+     ["Justifie avec le tableau.",M("A, B et C ont tous 5 doigts par main, alors que la couleur des yeux et le groupe sanguin changent d'un individu à l'autre.","A et C ont le même groupe sanguin.","Chacun a une couleur d'yeux différente.")])],
+2:[M("Le caractère spécifique est commun à tous les individus de l'espèce ; la variation individuelle diffère d'un individu à l'autre.","Le caractère spécifique est transmis ; la variation individuelle ne l'est jamais.","Le caractère spécifique est visible ; la variation individuelle est invisible.","Il n'y a aucune différence."),
+   PHENO(),
+   M("Un caractère transmis des parents à leurs enfants.","Un caractère acquis au cours de la vie (par exemple un bronzage).","Un caractère commun à toute l'espèce.","Un caractère qui n'apparaît qu'une seule fois."),
+   D("family","Dans la famille 1, les parents ont-ils les yeux bleus ? Et l'enfant ?",
+     ["Que montre la famille 1 ?",M("Un caractère (yeux bleus) peut apparaître chez l'enfant sans être visible chez les parents : il a été transmis sans être exprimé.","L'enfant n'est pas celui de ces parents.","La couleur des yeux n'est pas un caractère héréditaire.","Les yeux de l'enfant changeront de couleur plus tard.")])],
+3:[M("Oui : il peut être transmis sans être exprimé chez les parents.","Non, jamais.","Seulement chez les animaux, jamais chez l'être humain."),
+   W(SPEC_CHAR,"cinq doigts par main",{bad:VAR_BAD}),
+   P(["membrane","cytoplasm","noyau"],3,"la membrane, le cytoplasme, le noyau"),
+   D("clone","Compare l'aspect du têtard avec l'origine du noyau, puis avec l'origine du cytoplasme.",
+     ["Où se situe le programme génétique ?",W("noyau","dans le noyau",{bad:"cytoplasm"})],
+     ["Justifie.",M("Le têtard ressemble toujours à la grenouille qui a fourni le noyau, jamais à celle qui a fourni le cytoplasme.","Le têtard ressemble à la grenouille qui a fourni le cytoplasme.","Le têtard est toujours brun.")])],
+4:[NUCLEUS(),W("heredit","un caractère héréditaire"),PHENO(),
+   D("chromocount","Compare les espèces entre elles. Le nombre de chromosomes change-t-il entre deux êtres humains ?",
+     ["Le nombre de chromosomes est…",M("un caractère de l'espèce","une variation individuelle")],
+     ["Justifie.",M("Il est identique chez tous les individus d'une même espèce, mais différent d'une espèce à l'autre.","Il change d'un individu à l'autre dans une même espèce.","Plus une espèce est grande, plus elle a de chromosomes.")])],
+5:[DNA(),CLONE(),
+   N(["Grossissement","fois",400,0,[[50,"Tu as additionné : on multiplie le grossissement de l'oculaire par celui de l'objectif."]]]),
+   D("dnaextract","L'éthanol glacé est ajouté en dernier : que voit-on apparaître alors ?",
+     ["À quelle étape voit-on apparaître l'ADN ?",N(["Étape n°","",4,0])],
+     ["Sous quelle forme ?",M("Des filaments blanchâtres qui remontent à la surface","Une poudre bleue au fond du tube","Des cristaux colorés","Des bulles de gaz")])],
+6:[DNA(),NUCLEUS(),M("Une variation individuelle","Un caractère spécifique"),
+   D("karyo","Regarde la dernière paire (XX ou XY) et le nombre total de chromosomes.",
+     ["Quel est le sexe de l'individu B ?",M("Masculin (XY)","Féminin (XX)")],
+     ["Que présente l'individu C ?",M("Une trisomie 21 : 47 chromosomes, avec le chromosome 21 en trois exemplaires.","Un chromosome en moins.","Rien de particulier.","Deux chromosomes X.")])],
+7:[M("La photographie, classée par paires, de tous les chromosomes d'une cellule.","Une photographie du noyau entier.","La liste des gènes d'un individu.","Le résultat d'une prise de sang."),
+   DNA(),
+   P(["doigt","bipede|bipedie|debout|marche|deux jambes|2 jambes","pouce","46|chromosome","langage|parole","vertebr|colonne","poil","cerveau|crane"],2,"cinq doigts par main, la station debout",{bad:VAR_BAD}),
+   D("agglut","Une agglutination avec le sérum anti-A signifie que les hématies portent le marqueur A.",
+     ["Quel est le groupe sanguin de chaque patient ?",R(["Patient 1","Patient 2"],["Groupe A","Groupe B","Groupe AB","Groupe O"],[0,3])])],
+8:[M("Oui : il est transmis par les parents et ne change pas au cours de la vie.","Non : il dépend de l'alimentation.","Non : il change à chaque prise de sang."),
+   N(["Nombre","chromosomes",46,0,[[23,"23, ce sont les paires : combien de chromosomes en tout ?"]]]),
+   NUCLEUS(),
+   D("mitosis","Compare le nombre de chromatides par chromosome avant et après la duplication.",
+     ["Que se passe-t-il avant la division ?",M("L'ADN est dupliqué : chaque chromosome passe à 2 chromatides.","Le nombre de chromosomes double et passe à 92.","La cellule perd la moitié de ses chromosomes.")],
+     ["Les cellules filles sont-elles identiques à la cellule mère ?",M("Oui : chacune reçoit 46 chromosomes identiques, l'information génétique est conservée.","Non : chacune n'a que 23 chromosomes.","Non : elles ont des gènes différents.")])],
+9:[MITOSE(),
+   M("Le groupe sanguin, grâce aux marqueurs A et/ou B portés par les hématies.","La présence d'une maladie génétique.","Le nombre de chromosomes.","La quantité de sang."),
+   M("Le clonage par transfert de noyau.","La mitose.","Le test d'agglutination.","L'observation d'une cellule de joue au microscope."),
+   D("zoom","Du plus grand au plus petit : chromosome, puis ADN, puis gène.",
+     ["Associe chaque terme à sa définition.",R(["1. Gène","2. ADN","3. Chromosome"],["A. Molécule support de l'information génétique","B. Portion d'ADN qui détermine un caractère","C. Élément du noyau formé d'ADN enroulé"],[1,0,2])])],
+10:[M("Une portion d'ADN qui détermine un caractère héréditaire.","Un chromosome entier.","Une cellule reproductrice.","Une protéine du sang."),
+   N(["Nombre","chromosomes",46,0,[[23,"23, c'est après la méiose. La mitose conserve le nombre de chromosomes."],[92,"Les chromosomes sont dupliqués puis répartis : chaque cellule fille en reçoit autant que la cellule mère."]]]),
+   M("…l'ensemble de ses caractères observables.","…l'ensemble de ses gènes.","…le nombre de ses chromosomes."),
+   D("fecond","Additionne les chromosomes apportés par chaque cellule reproductrice.",
+     ["Combien de chromosomes apporte chaque cellule reproductrice ?",N(["Spermatozoïde","chromosomes",23,0],["Ovule","chromosomes",23,0])],
+     ["Pourquoi la cellule-œuf en possède-t-elle 46 ?",M("Lors de la fécondation, les 23 chromosomes du spermatozoïde s'ajoutent aux 23 de l'ovule.","La cellule-œuf fabrique 23 chromosomes supplémentaires.","Le spermatozoïde apporte 46 chromosomes.")])],
+11:[C(null,["Quelle division produit les cellules reproductrices ?",MEIOSE()],["Combien de chromosomes contiennent-elles chez l'être humain ?",N(["Nombre","chromosomes",23,0])]),
+   M("Oui : elles possèdent la même information génétique que la cellule mère.","Non : chacune a la moitié des chromosomes.","Non : elles subissent des mutations à chaque fois."),
+   W("yeux|oeil|cheveu|taille|groupe|peau|poids|nez|oreille|tache|fossette|lobe|voix|empreinte|couleur|forme|grain de beaute|rousseur|boucle|frise","la couleur des yeux",{bad:"doigt|debout|bipede|pouce|46|chromosome"}),
+   D("mutation","Compare les deux séquences lettre par lettre, en partant de la gauche.",
+     ["À quelle position les deux séquences diffèrent-elles ?",N(["Position","e lettre",6,0])],
+     ["Comment expliquer la différence de pelage ?",M("Une mutation (C remplacé par T) a créé un nouvel allèle du gène, donc un caractère différent.","Les deux souris n'ont pas le même nombre de chromosomes.","Le pelage dépend seulement de la nourriture.","Les deux séquences sont identiques.")])],
+12:[MUTATION(),
+   N(["Nombre","chromosomes",23,0,[[46,"46, c'est une cellule ordinaire : une cellule reproductrice en a la moitié."]]]),
+   NUCLEUS(),
+   D("dnashare","Plus le pourcentage est élevé, plus les ADN se ressemblent.",
+     ["Quelle espèce est la plus proche parente de l'Homme ?",M("Le chimpanzé","La souris","Le poulet","La levure")],
+     ["Que traduisent ces pourcentages ?",M("Plus deux espèces ont d'ADN en commun, plus leur ancêtre commun est récent.","L'Homme descend du chimpanzé actuel.","Le chimpanzé descend de l'Homme.","La levure est un animal.")])],
+13:[M("Qu'elles sont proches parentes et possèdent un ancêtre commun récent.","Que l'une descend de l'autre.","Qu'elles vivent dans le même milieu.","Qu'elles ont la même taille."),
+   M("Une version différente d'un même gène.","Un gène en double.","Un chromosome sexuel.","Une cellule reproductrice."),
+   N(["Nombre","paires",23,0,[[46,"46, ce sont les chromosomes : combien de paires ?"]]]),
+   D("traittable","Compte, pour chaque espèce, les caractères qu'elle partage avec l'Homme.",
+     ["Quelle espèce partage le plus de caractères avec l'Homme ?",M("Le chimpanzé","Le chat","La truite")],
+     ["Combien de caractères partage-t-elle avec l'Homme ?",N(["Caractères communs","sur 4",3,0])],
+     ["Qu'en déduis-tu ?",M("Le chimpanzé est l'espèce la plus proche parente de l'Homme : ils partagent un ancêtre commun récent.","Le chimpanzé est l'ancêtre de l'Homme.","Le chat est plus proche de l'Homme que le chimpanzé.")])],
+14:[M("Un ancêtre commun récent.","Le même milieu de vie.","La même alimentation.","Le même nombre d'individus."),
+   N(["Environ","%",99,1.2]),
+   MITOSE(),
+   D("cranial","Compare la première et la dernière ligne du tableau.",
+     ["Comment évolue le volume crânien au cours du temps ?",M("Il augmente régulièrement.","Il diminue.","Il reste constant.","Il augmente puis diminue.")],
+     ["Il est environ combien de fois plus grand chez Homo sapiens que chez l'Australopithèque ?",NH("Divise 1 400 par 450, puis arrondis à l'unité.",["Environ","fois",3,0])])],
+15:[P(["bipede|bipedie|debout|deux jambes|2 jambes","crane|cerveau|cranien","face|machoire|menton","pouce","outil","langage|parole"],2,"la bipédie permanente, un grand volume crânien"),
+   M("Qu'elles descendent d'un même ancêtre commun.","Qu'elles vivent ensemble.","Qu'elles peuvent se reproduire entre elles.","Que l'une est l'ancêtre de l'autre."),
+   MUTATION(),
+   D("archaeo","Pour chaque caractère, regarde s'il est présent chez le dinosaure ou chez l'oiseau actuel.",
+     ["Classe les caractères de l'Archéoptéryx.",R(["Dents","Plumes","Griffes aux ailes"],["caractère de dinosaure","caractère d'oiseau"],[0,1,0])],
+     ["Pourquoi est-il considéré comme une forme intermédiaire ?",M("Il possède à la fois des caractères de dinosaure et des caractères d'oiseau : il témoigne de la parenté entre ces deux groupes.","C'est l'ancêtre direct de tous les oiseaux actuels.","C'est un hybride, né d'un dinosaure et d'un oiseau.")])],
+16:[M("Un reste ou une trace d'être vivant du passé, conservé dans une roche.","Un être vivant très âgé.","Une roche en forme d'animal.","Un os d'animal actuel."),
+   NEWTRAIT(),NUCLEUS(),
+   D("mycorrhiza","Compare les deux lignes : par combien le phosphore absorbé est-il multiplié ?",
+     ["Le phosphore absorbé est multiplié par…",NH("Divise 3,2 par 0,8.",["Facteur","",4,0])],
+     ["Quel bénéfice chaque partenaire retire-t-il ?",R(["La plante","Le champignon"],["absorbe plus de phosphore et grandit davantage","reçoit du glucose produit par la photosynthèse"],[0,1])])],
+17:[M("Une association durable entre deux espèces, bénéfique aux deux partenaires.","Une association où l'un profite de l'autre en lui nuisant.","Une compétition entre deux espèces.","Une maladie des plantes."),
+   P(["dinosaur|reptile","oiseau"],2,"les dinosaures, les oiseaux"),
+   MEIOSE(),
+   D("microbes","Lis la colonne « Constitué d'une cellule ? ».",
+     ["Lequel n'est pas constitué d'une cellule ?",M("Le virus","La bactérie","Le champignon microscopique")],
+     ["Quelle conséquence pour le traitement ?",M("Les antibiotiques n'agissent pas sur les virus : ils ne traitent que les infections bactériennes.","Les antibiotiques sont plus efficaces contre les virus.","On ne peut soigner aucune maladie microbienne.")])],
+18:[P(["bacteri","virus","champignon|levure|moisissure"],3,"les bactéries, les virus, les champignons microscopiques"),
+   M("Non : les deux partenaires en tirent bénéfice, c'est une symbiose.","Oui : il prend les sucres de la plante.","Oui : il détruit les racines."),
+   M("Transmis des parents aux descendants.","Acquis au cours de la vie.","Commun à toute l'espèce."),
+   D("barriers","La peau est une barrière : que devient-elle quand elle est coupée ?",
+     ["Que se passe-t-il lorsque la peau est coupée ?",M("La barrière est rompue : les micro-organismes peuvent entrer (contamination), puis se multiplier (infection).","Rien : le mucus remplace aussitôt la peau.","Les micro-organismes sont aussitôt détruits par l'acidité de l'estomac.")],
+     ["Remets les étapes dans l'ordre.",O("coupure de la peau","contamination (entrée des micro-organismes)","infection (multiplication)")])],
+19:[P(["peau","mucus|cil","acid|estomac|gastrique","larme","salive","flore|microbiote"],2,"la peau, le mucus"),
+   M("La contamination est l'entrée des micro-organismes ; l'infection est leur multiplication dans l'organisme.","C'est la même chose.","L'infection est l'entrée ; la contamination est la multiplication.","La contamination concerne les virus ; l'infection les bactéries."),
+   M("Une espèce du passé dont descendent plusieurs espèces actuelles.","Le plus vieil individu d'une espèce.","Un fossile de dinosaure.","Une espèce actuelle dont descendent toutes les autres."),
+   D("antibio","Plus la zone sans bactéries est large, plus l'antibiotique est efficace.",
+     ["Quel antibiotique le médecin doit-il prescrire ?",M("L'antibiotique A","L'antibiotique B","L'antibiotique C")],
+     ["Justifie.",M("Sa zone sans bactéries est la plus large (22 mm) : c'est le plus efficace contre cette bactérie.","Sa zone sans bactéries est la plus petite.","C'est le premier de la liste.")])],
+20:[M("Non : la grippe est due à un virus, or les antibiotiques n'agissent que sur les bactéries.","Oui, ils tuent tous les microbes.","Oui, si on en prend beaucoup."),
+   W("mucus|cil","le mucus et les cils"),
+   M("Par une mutation de l'ADN.","Par l'entraînement.","Par l'alimentation."),
+   D("bloodcount","Compare les deux colonnes ligne par ligne.",
+     ["Quelle cellule augmente fortement ?",M("Les leucocytes (globules blancs)","Les hématies (globules rouges)")],
+     ["Que peut-on en conclure ?",M("Les leucocytes interviennent dans la défense de l'organisme contre l'infection.","Les hématies défendent l'organisme.","Le patient a perdu beaucoup de sang.")])],
+21:[M("Les leucocytes (globules blancs) : phagocytes et lymphocytes.","Les hématies (globules rouges).","Les plaquettes uniquement."),
+   M("Le diamètre de la zone sans bactéries, qui traduit l'efficacité de l'antibiotique.","Le nombre de bactéries dans le sang.","La taille des bactéries."),
+   N(["Nombre","chromosomes",23,0,[[46,"Un ovule est une cellule reproductrice : il a la moitié des chromosomes."]]]),
+   D("phago","Le phagocyte « mange » le micro-organisme.",
+     ["Comment s'appelle ce mécanisme ?",W("phagocyt","la phagocytose")],
+     ["Est-il dirigé contre un seul micro-organisme ?",M("Non : c'est une réponse rapide et non spécifique, efficace contre de nombreux micro-organismes.","Oui : chaque phagocyte ne reconnaît qu'un seul microbe.","Oui : il faut un vaccin pour l'activer.")])],
+22:[W("anticorp","les anticorps"),
+   M("L'ingestion puis la digestion d'un micro-organisme par un phagocyte.","La production d'anticorps.","La multiplication des bactéries."),
+   M("Par les cellules reproductrices (spermatozoïde et ovule), qui portent l'ADN.","Par le sang.","Par les cellules de la peau."),
+   D("immunmemory","Compare la quantité d'anticorps au même moment après chaque contact.",
+     ["Le maximum d'anticorps est environ combien de fois plus élevé lors du 2e contact ?",NH("Compare les deux maximums : 120 et 15.",["Environ","fois",8,0])],
+     ["Sur quoi repose la vaccination ?",M("Elle provoque un premier contact sans danger pour préparer une réponse rapide et intense : la mémoire immunitaire.","Elle injecte des antibiotiques.","Elle tue directement tous les microbes.")])]
+};
+
+/* ===================== MOTEUR ===================== */
+const KEY="automatismes-3e-svt-v1";
+const $=id=>document.getElementById(id);
+const RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const frn=(x,d)=>Number(x).toLocaleString("fr-FR",{maximumFractionDigits:d==null?2:d,minimumFractionDigits:0});
+const DEF={name:"",fs:22,proj:false,theme:null,qs:{},box:{},last:{},lastSn:0};
+let S;
+try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
+["qs","box","last"].forEach(k=>{if(!S[k]||typeof S[k]!=="object")S[k]={};});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function qst(id){return S.qs[id]||(S.qs[id]={a:{},tries:0,hints:0});}
+
+/* ---------- données ---------- */
+function tagOf(t){const l=t.toLowerCase();let mm=/^rappel (\d)e$/.exec(l);if(mm)return ["r6","Rappel de "+mm[1]+"e"];if(l==="séance précédente")return ["sp","Séance précédente"];if(l==="lire un document")return ["doc","Lire un document"];return ["se","Rappel · "+t];}
+function norm(sp){return sp.t==="parts"?sp:{t:"parts",h:sp.h,parts:[sp]};}
+const SEANCES=DATA.map((s,i)=>{
+  const sp=SPEC[s.n];if(!sp||sp.length!==4)console.warn("spec manquante",s.n);
+  const qs=s.q.map((q,j)=>{const tg=tagOf(q.tag);return {id:"s"+s.n+"q"+(j+1),sn:s.n,k:j+1,text:q.text,tc:tg[0],tl:tg[1],tagRaw:q.tag,corr:s.corr[j],spec:norm(sp[j])};});
+  const tg=tagOf(s.doc.tag);
+  qs.push({id:"s"+s.n+"q4",sn:s.n,k:4,text:s.doc.question,title:s.doc.title,tc:tg[0],tl:tg[1],tagRaw:s.doc.tag,corr:s.corr[3],doc:s.doc,spec:norm(sp[3])});
+  const mm=s.mission.split(" — ");
+  return {n:s.n,date:s.date,mission:mm[0],theme:mm.slice(1).join(" — "),qs:qs};
+});
+const QBY={};SEANCES.forEach(s=>s.qs.forEach(q=>QBY[q.id]=q));
+const MISSIONS=[];SEANCES.forEach(s=>{const l=MISSIONS[MISSIONS.length-1];if(l&&l.name===s.mission)l.ss.push(s);else MISSIONS.push({name:s.mission,ss:[s]});});
+
+/* ---------- texte tolérant ---------- */
+function nz(s){return String(s==null?"":s).toLowerCase().replace(/œ/g,"oe").replace(/æ/g,"ae").replace(/₂/g,"2").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
+function lev(a,b){if(a===b)return 0;const m=a.length,n=b.length;let p=new Array(n+1);for(let j=0;j<=n;j++)p[j]=j;for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c;}return p[n];}
+function has(t,alts,exact){const T=" "+t+" ",toks=t.split(" ");return alts.split("|").some(st=>{st=nz(st);if(!st)return false;if(T.indexOf(" "+st)>=0)return true;
+  if(!exact&&st.indexOf(" ")<0&&st.length>=5){const tol=st.length>=9?2:1;return toks.some(w=>w.length>=st.length-1&&lev(w.slice(0,st.length),st)<=tol);}return false;});}
+function parseNum(s){const t=String(s==null?"":s).trim().replace(/\s/g,"").replace(/[−–]/g,"-").replace(",",".");return /^-?\d+(\.\d+)?$/.test(t)?parseFloat(t):null;}
+
+/* ---------- mélange déterministe ---------- */
+function seedOf(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function perm(n,seed){const a=[...Array(n).keys()];let x=seed||1;for(let i=n-1;i>0;i--){x=(Math.imul(x,1103515245)+12345)>>>0;const j=x%(i+1);[a[i],a[j]]=[a[j],a[i]];}
+  if(n>1&&a.every((v,i)=>v===i)){a.push(a.shift());}return a;}
+
+/* ---------- évaluation ---------- */
+function evalPart(p,a){
+  switch(p.t){
+    case "txt":{const t=nz(a);if(!t)return {empty:true};
+      if(p.bad&&has(t,p.bad,true))return {ok:false};
+      if(p.p){const f=p.p.filter(x=>has(t,x)).length;return {ok:f>=p.n,found:f};}
+      const al=Array.isArray(p.a)?p.a:[p.a];return {ok:al.every(x=>has(t,x))};}
+    case "txtf":{const v=a||[];if(p.f.some((f,i)=>!nz(v[i])))return {empty:true};const m=p.f.map((f,i)=>{const t=nz(v[i]);const al=Array.isArray(f.a)?f.a:[f.a];return al.every(x=>has(t,x));});return {ok:m.every(Boolean),m};}
+    case "mcq":{if(a==null)return {empty:true};return {ok:a===0};}
+    case "multi":{const v=a||[];if(!v.length)return {empty:true};const wrong=v.some(i=>i>=p.k),good=v.filter(i=>i<p.k).length;return {ok:!wrong&&(p.min?good>=p.min:good===p.k)};}
+    case "num":{const v=a||[];const x=p.f.map((f,i)=>parseNum(v[i]));if(x.some(y=>y===null))return {empty:true};const m=p.f.map((f,i)=>Math.abs(x[i]-f.v)<=f.tol+1e-9);
+      let msg="";p.f.forEach((f,i)=>{if(!m[i]&&f.alt&&f.alt.some(z=>Math.abs(x[i]-z[0])<1e-9))msg=f.alt.find(z=>Math.abs(x[i]-z[0])<1e-9)[1];});return {ok:m.every(Boolean),m,msg};}
+    case "order":{const v=a||[];if(v.length<p.o.length)return {empty:true};const m=v.map((x,i)=>x===i);return {ok:m.every(Boolean),m};}
+    case "match":{const v=a||[];if(p.r.some((r,i)=>v[i]==null))return {empty:true};const m=p.r.map((r,i)=>v[i]===p.a[i]);return {ok:m.every(Boolean),m};}
+  }
+  return {ok:false};
+}
+function evalQ(q,ans){const rs=q.spec.parts.map((p,i)=>evalPart(p,ans[i]));return {parts:rs,empty:rs.some(r=>r.empty),ok:rs.every(r=>r.ok)};}
+
+/* ---------- coups de pouce ---------- */
+const ART=/^(le |la |les |l'|l’|un |une |des |du |de la |de l'|d'|en |dans |au |aux |par |se |sa |son |ses )+/i;
+function words(s){return String(s).split(/\s*,\s*|\s+et\s+|\s*;\s*/).map(w=>w.replace(ART,"").replace(/\(.*?\)/g,"").replace(/…/g,"").trim()).filter(Boolean);}
+function txtHint(s,L){const w=words(s);if(L===1)return "Commence par « "+w.map(x=>x[0].toUpperCase()+"…").join(" », « ")+" ».";return w.map(x=>"« "+x.slice(0,Math.max(2,Math.ceil(x.length/2)))+"… » ("+x.replace(/[\s’'-]/g,"").length+" lettres)").join(" ; ");}
+function wrongOrder(q,pi,p){return perm(p.o.length,seedOf(q.id+"w"+pi)).filter(i=>i>=(p.t==="multi"?p.k:1));}
+function hintFx(q,L){ // effets cumulés pour le niveau L
+  const fx={txt:[],gone:{},ord:{},mt:{}};const sp=q.spec;const steps=[];
+  if(sp.h)steps.push({h:sp.h});steps.push({lv:1});if(!sp.h)steps.push({lv:2});
+  for(let s=0;s<Math.min(L,steps.length);s++){const st=steps[s];
+    if(st.h){fx.txt.push(st.h);continue;}
+    sp.parts.forEach((p,pi)=>{const pre=sp.parts.length>1?"Partie "+(pi+1)+" : ":"";const lv=st.lv;
+      if(p.t==="txt"){fx.txt.push(pre+(p.h&&lv===1?p.h:txtHint(p.s,lv)));}
+      else if(p.t==="txtf"){p.f.forEach(f=>fx.txt.push(pre+f.l+" — "+txtHint(f.s,lv)));}
+      else if(p.t==="mcq"){const n=Math.min(lv,p.o.length-2);if(n>0){fx.gone[pi]=n;fx.txt.push(pre+(n>1?n+" mauvaises réponses sont barrées.":"Une mauvaise réponse est barrée."));}else fx.txt.push(pre+"Relis bien la question et le document : une seule réponse est juste.");}
+      else if(p.t==="multi"){if(lv===1)fx.txt.push(pre+"Il y a "+p.k+" bonne"+(p.k>1?"s":"")+" réponse"+(p.k>1?"s":"")+(p.min?" (il en faut au moins "+p.min+")":"")+".");else{fx.gone[pi]=1;fx.txt.push(pre+"Une mauvaise réponse est barrée.");}}
+      else if(p.t==="num"){if(lv===1)fx.txt.push(pre+(p.h||"Relis le document et pose le calcul dans ton cahier."));else p.f.forEach(f=>{const d=Math.max(1,Math.abs(f.v)*.25);fx.txt.push(pre+f.l+" : entre "+frn(Math.floor(f.v-d))+" et "+frn(Math.ceil(f.v+d))+(f.u?" "+f.u:"")+".");});}
+      else if(p.t==="order"){fx.ord[pi]=Math.min(lv,p.o.length-1);fx.txt.push(pre+"Début de l'ordre : "+p.o.slice(0,fx.ord[pi]).join(" → ")+" → …");}
+      else if(p.t==="match"){fx.mt[pi]=Math.min(lv,p.r.length-1);for(let r=0;r<fx.mt[pi];r++)fx.txt.push(pre+"« "+p.r[r]+" » → « "+p.c[p.a[r]]+" »");}
+    });
+  }
+  return {fx,max:steps.length};
+}
+
+/* ---------- carte-question ---------- */
+const lastFb={};
+const LETTERS="ABCDEFGH";
+function insOf(p){return {txt:p.p?"Tape ta réponse (sépare les éléments par des virgules).":"Tape ta réponse.",txtf:"Tape tes réponses.",mcq:"Choisis la bonne réponse.",multi:p.min?"Coche au moins "+p.min+" bonnes réponses (et aucune fausse).":"Coche toutes les bonnes réponses.",num:"Tape un nombre.",order:"Touche les étiquettes dans le bon ordre (touche une étiquette placée pour la retirer).",match:"Pour chaque ligne, choisis la bonne réponse."}[p.t];}
+function buildCard(q,ctx){
+  const st=ctx.st(q),c=document.createElement("article");c.className="qcard";c.id="card-"+q.id;
+  let tagHtml='<span class="tag '+q.tc+'">'+esc(q.tl)+'</span>';
+  if(ctx.mode==="seance"){const m=/s[ée]ance n°(\d+)/i.exec(q.tagRaw);const tgt=q.tc==="sp"?q.sn-1:m?+m[1]:0;if(tgt>0)tagHtml='<a class="tag '+q.tc+'" href="#s'+tgt+'" aria-label="'+esc(q.tl)+' : revoir la séance n°'+tgt+'">'+esc(q.tl)+(q.tc==="sp"?" (n°"+tgt+")":"")+' ↗</a>';}
+  if(ctx.mode==="rev")tagHtml='<span class="tag sp">Séance n°'+q.sn+'</span>'+tagHtml;
+  c.innerHTML='<div class="qhead"><span class="qnum">'+(ctx.num||q.k)+'</span>'+tagHtml+'<span class="qstat" id="st-'+ctx.p+q.id+'"></span></div>'+
+    (q.title?'<h3>'+esc(q.title)+'</h3>':'')+(q.doc?'<div class="doc" id="doc-'+ctx.p+q.id+'"></div>':'')+
+    '<p class="qtext">'+esc(q.text)+'</p><div class="stack" id="body-'+ctx.p+q.id+'"></div>'+
+    '<div class="qbtns"><button class="btn" id="chk-'+ctx.p+q.id+'">Vérifier</button><button class="btn ghost" id="hnt-'+ctx.p+q.id+'">Coup de pouce</button></div>'+
+    '<div id="fb-'+ctx.p+q.id+'" aria-live="polite"></div><div class="stack" id="hs-'+ctx.p+q.id+'" style="gap:8px"></div><div id="co-'+ctx.p+q.id+'"></div>';
+  ctx.host.appendChild(c);
+  if(q.doc)buildDoc(q,c.querySelector("#doc-"+ctx.p+q.id),ctx);
+  const body=c.querySelector("#body-"+ctx.p+q.id);
+  q.spec.parts.forEach((p,pi)=>{const d=document.createElement("div");d.className="part";d.id="pt-"+ctx.p+q.id+"-"+pi;body.appendChild(d);});
+  c.querySelector("#chk-"+ctx.p+q.id).onclick=()=>check(q,ctx);
+  c.querySelector("#hnt-"+ctx.p+q.id).onclick=()=>{st.hints=(st.hints||0)+1;ctx.save();renderCard(q,ctx);};
+  body.addEventListener("click",e=>{const b=e.target.closest("button[data-pi]");if(!b||b.disabled)return;const pi=+b.dataset.pi,p=q.spec.parts[pi];let a=st.a[pi];
+    if(p.t==="mcq")a=+b.dataset.v;
+    else if(p.t==="multi"){a=(a||[]).slice();const v=+b.dataset.v,ix=a.indexOf(v);if(ix>=0)a.splice(ix,1);else a.push(v);}
+    else if(p.t==="order"){a=(a||[]).slice();const v=+b.dataset.v;if(b.dataset.placed){const ix=a.indexOf(v);if(ix>=0)a.splice(ix,1);}else if(a.indexOf(v)<0)a.push(v);}
+    else if(p.t==="match"){a=(a||[]).slice();a[+b.dataset.r]=+b.dataset.v;}
+    st.a[pi]=a;delete lastFb[ctx.p+q.id];ctx.save();renderPart(q,pi,ctx);renderStatus(q,ctx);});
+  body.addEventListener("input",e=>{const i=e.target.closest("input[data-pi]");if(!i)return;const pi=+i.dataset.pi,p=q.spec.parts[pi];
+    if(p.t==="txt")st.a[pi]=i.value;else{const a=(st.a[pi]||[]).slice();a[+i.dataset.f]=i.value;st.a[pi]=a;}
+    i.classList.remove("good","badi");if(lastFb[ctx.p+q.id]){delete lastFb[ctx.p+q.id];renderStatus(q,ctx);}ctx.save();});
+  body.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("input"))check(q,ctx);});
+  renderCard(q,ctx);
+  return c;
+}
+function curEval(q,ctx){const st=ctx.st(q);const L=lastFb[ctx.p+q.id];if(L)return L;if(st.done)return evalQ(q,st.a);return null;}
+function renderPart(q,pi,ctx){
+  const st=ctx.st(q),p=q.spec.parts[pi],d=document.getElementById("pt-"+ctx.p+q.id+"-"+pi);if(!d)return;
+  const a=st.a[pi],E=curEval(q,ctx),r=E?E.parts[pi]:null,hx=hintFx(q,st.hints||0).fx,id=ctx.p+q.id+"-"+pi;
+  const mark=ok=>ok?'<span class="mk ok">✓ juste</span>':'<span class="mk bad">✗ à revoir</span>';
+  let h=(p.q?'<p class="pq">'+esc(p.q)+'</p>':'')+'<p class="ins">'+insOf(p)+'</p>';
+  if(p.t==="txt"){const ok=r&&!r.empty?r.ok:null;h+='<div class="inp"><label class="sr" for="in-'+id+'">Ta réponse</label><input class="ans'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'" data-pi="'+pi+'" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc(a||"")+'" placeholder="'+(p.p?"réponse 1, réponse 2…":"Ta réponse")+'">'+(ok===null?"":mark(ok))+'</div>';}
+  else if(p.t==="txtf"){h+='<div class="fields">'+p.f.map((f,i)=>{const ok=r&&r.m?r.m[i]:null;return '<div class="field grow"><label for="in-'+id+'-'+i+'">'+esc(f.l)+'</label><div class="inp"><input class="ans'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'-'+i+'" data-pi="'+pi+'" data-f="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc((a||[])[i]||"")+'">'+(ok==null?"":mark(ok))+'</div></div>';}).join("")+'</div>';}
+  else if(p.t==="num"){h+='<div class="fields">'+p.f.map((f,i)=>{const ok=r&&r.m?r.m[i]:null;return '<div class="field"><label for="in-'+id+'-'+i+'">'+esc(f.l)+'</label><div class="inp"><input class="ans num'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'-'+i+'" data-pi="'+pi+'" data-f="'+i+'" inputmode="decimal" autocomplete="off" value="'+esc((a||[])[i]||"")+'">'+(f.u?'<span class="muted">'+esc(f.u)+'</span>':'')+(ok==null?"":mark(ok))+'</div></div>';}).join("")+'</div>';}
+  else if(p.t==="mcq"||p.t==="multi"){const pm=perm(p.o.length,seedOf(q.id+"o"+pi)),multi=p.t==="multi",sel=multi?(a||[]):[a],gone=wrongOrder(q,pi,p).filter(i=>sel.indexOf(i)<0).slice(0,hx.gone[pi]||0);
+    h+='<div class="opts" role="group">'+pm.map((oi,j)=>{const on=sel.indexOf(oi)>=0;let cls="opt"+(multi?"":" radio");if(gone.indexOf(oi)>=0&&!on)cls+=" gone";if(r&&!r.empty&&on)cls+=(multi?(oi<p.k):(oi===0))?" okm":" badm";
+      return '<button class="'+cls+'" data-pi="'+pi+'" data-v="'+oi+'" aria-pressed="'+on+'"'+(gone.indexOf(oi)>=0&&!on?' aria-disabled="true" tabindex="-1"':'')+'><span class="ck" aria-hidden="true">'+(on?"✓":"")+'</span><span style="flex:1;min-width:0">'+esc(p.o[oi])+'</span>'+(r&&!r.empty&&on?(multi?(oi<p.k?'<span class="mk ok">✓</span>':'<span class="mk bad">✗</span>'):mark(oi===0)):"")+'</button>';}).join("")+'</div>';
+    if(r&&!r.empty&&!r.ok&&multi)h+='<p class="ins">'+((a||[]).some(i=>i>=p.k)?"Au moins une case cochée est fausse.":"Il manque au moins une bonne réponse.")+'</p>';}
+  else if(p.t==="order"){const pm=perm(p.o.length,seedOf(q.id+"r"+pi)),v=a||[],pre=hx.ord[pi]||0;
+    const cls=r&&!r.empty?(r.ok?" okb":" badb"):"";
+    h+='<div class="ordbox'+cls+'" aria-label="Ton ordre">'+(v.length?v.map((oi,j)=>'<button class="chipw placed" data-pi="'+pi+'" data-v="'+oi+'" data-placed="1" aria-label="Position '+(j+1)+' : '+esc(p.o[oi])+'. Toucher pour retirer."><span class="no">'+(j+1)+'</span>'+esc(p.o[oi])+(r&&!r.empty?(r.m[j]?" ✓":" ✗"):"")+'</button>').join(""):'<span class="muted small">Ton ordre apparaîtra ici.</span>')+'</div>'+
+      '<div class="opts inline">'+pm.map(oi=>'<button class="chipw" data-pi="'+pi+'" data-v="'+oi+'"'+(v.indexOf(oi)>=0?" disabled":"")+'>'+esc(p.o[oi])+'</button>').join("")+'</div>';
+    if(pre)h+='';}
+  else if(p.t==="match"){const v=a||[];h+=p.r.map((row,ri)=>{const ok=r&&r.m?r.m[ri]:null;return '<div class="mrow"><div class="rl"><span>'+esc(row)+'</span>'+(ok==null?"":mark(ok))+'</div><div class="opts inline" role="group" aria-label="'+esc(row)+'">'+p.c.map((ch,ci)=>{const on=v[ri]===ci;return '<button class="opt radio'+(on&&ok!=null?(ok?" okm":" badm"):"")+'" data-pi="'+pi+'" data-r="'+ri+'" data-v="'+ci+'" aria-pressed="'+on+'"><span class="ck" aria-hidden="true">'+(on?"✓":"")+'</span><span>'+esc(ch)+'</span></button>';}).join("")+'</div></div>';}).join("");}
+  if(r&&!r.empty&&r.msg)h+='<p class="ins" style="color:var(--warn);font-weight:700">'+esc(r.msg)+'</p>';
+  const ae=document.activeElement,aid=ae&&ae.id,pos=ae&&ae.selectionStart;
+  d.innerHTML=h;
+  if(aid&&d.querySelector("#"+CSS.escape(aid))){const el=$(aid);try{el.focus({preventScroll:true});if(pos!=null&&el.setSelectionRange)el.setSelectionRange(pos,pos);}catch(e){}}
+}
+function renderStatus(q,ctx){
+  const st=ctx.st(q),s=$("st-"+ctx.p+q.id),fb=$("fb-"+ctx.p+q.id);if(!s)return;
+  if(st.done){s.textContent=st.first?"✓ Réussi au 1er essai":"✓ Réussi";s.className="qstat ok";}
+  else if(st.tries){s.textContent="✗ "+st.tries+" essai"+(st.tries>1?"s":"");s.className="qstat bad";}else{s.textContent="";s.className="qstat";}
+  const L=lastFb[ctx.p+q.id];
+  if(L&&L.empty)fb.innerHTML='<div class="fb bad">Réponds à toutes les parties avant de vérifier.</div>';
+  else if(L&&L.ok)fb.innerHTML='<div class="fb ok"><strong>✓ Juste !</strong> '+(st.first&&st.tries===1?"Du premier coup, bravo.":"Bien corrigé.")+'</div>';
+  else if(L)fb.innerHTML='<div class="fb bad"><strong>✗ Pas encore.</strong> '+(q.spec.parts.length>1?"Vérifie les parties marquées ✗. ":"")+'Lis le corrigé, puis corrige ta réponse.</div>';
+  else fb.innerHTML="";
+  const H=hintFx(q,st.hints||0),hb=$("hnt-"+ctx.p+q.id);
+  hb.disabled=(st.hints||0)>=H.max||!!st.done;hb.textContent=(st.hints||0)>=H.max?"Plus de coup de pouce":"Coup de pouce "+((st.hints||0)+1)+"/"+H.max;
+  $("hs-"+ctx.p+q.id).innerHTML=H.fx.txt.length?'<div class="hint"><b>💡 Coup de pouce :</b> '+H.fx.txt.map(esc).join("<br>")+'</div>':"";
+  $("co-"+ctx.p+q.id).innerHTML=st.tries?'<div class="corr"><span class="ct">✔&#xFE0E; Corrigé</span><p>'+esc(q.corr)+'</p></div>':"";
+  $("chk-"+ctx.p+q.id).textContent=st.done?"Vérifier à nouveau":"Vérifier";
+}
+function renderCard(q,ctx){q.spec.parts.forEach((p,pi)=>renderPart(q,pi,ctx));renderStatus(q,ctx);}
+function check(q,ctx){
+  const st=ctx.st(q),E=evalQ(q,st.a);
+  if(E.empty){lastFb[ctx.p+q.id]={empty:true,parts:E.parts};renderStatus(q,ctx);return;}
+  st.tries=(st.tries||0)+1;const firstTime=st.first===undefined;if(firstTime)st.first=E.ok;if(E.ok)st.done=true;
+  lastFb[ctx.p+q.id]=E;ctx.after(q,E,firstTime);ctx.save();renderCard(q,ctx);
+}
+
+/* ---------- document ---------- */
+let CLEAN=[];
+function cleanup(){CLEAN.forEach(f=>{try{f();}catch(e){}});CLEAN=[];}
+function buildDoc(q,box,ctx){
+  const d=q.doc;
+  box.innerHTML='<p class="dcap">'+esc(d.cap||"")+'</p><div class="anim" id="an-'+ctx.p+q.id+'"></div>'+
+   '<details'+(ctx.mode==="seance"?" open":"")+'><summary class="btn ghost sm" style="list-style:none">Tableau du document</summary><div class="tscroll" style="margin-top:8px"><table class="dtable"><thead><tr>'+d.table[0].map(c=>'<th scope="col">'+esc(c)+'</th>').join("")+'</tr></thead><tbody>'+d.table.slice(1).map(r=>'<tr>'+r.map((c,i)=>i?'<td>'+esc(c)+'</td>':'<th scope="row">'+esc(c)+'</th>').join("")+'</tr>').join("")+'</tbody></table></div></details>';
+  const an=box.querySelector(".anim"),key=q.spec.an,fn=ANIMS[key];
+  if(!fn){an.innerHTML='<p class="anote">Animation à venir.</p>';return;}
+  const api={solved:()=>!!ctx.st(q).done,_s:[],onSolve(f){this._s.push(f);}};
+  ctx.apis[q.id]=api;
+  try{fn(an,api);}catch(e){console.error(e);an.innerHTML='<p class="anote">Animation indisponible.</p>';}
+}
+
+/* ---------- outils d'animation ---------- */
+const NS="http://www.w3.org/2000/svg";
+function E(tag,at,par){const e=document.createElementNS(NS,tag);if(at)for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
+function TX(par,x,y,s,at){const t=E("text",Object.assign({x:x,y:y},at||{}),par);t.textContent=s;if(at&&at.fill)t.style.fill=at.fill;if(at&&at["font-size"])t.style.fontSize=at["font-size"]+"px";return t;}
+function stage(box,w,h,label){const wr=document.createElement("div");wr.className="stage-wrap";const s=E("svg",{viewBox:"0 0 "+w+" "+h,class:"stg",role:"img","aria-label":label||"Animation"});wr.appendChild(s);box.appendChild(wr);return s;}
+function ctl(box,defs){const r=document.createElement("div");r.className="actl";const bs=defs.map(d=>{const b=document.createElement("button");b.className="btn ghost sm";b.textContent=d[0];b.onclick=()=>d[1](b);if(d[2])b.setAttribute("aria-pressed","false");r.appendChild(b);return b;});box.appendChild(r);return bs;}
+function press(bs,b){bs.forEach(x=>{if(x.hasAttribute("aria-pressed"))x.setAttribute("aria-pressed",x===b?"true":"false");});}
+function live(box,t){const p=document.createElement("p");p.className="alive";p.setAttribute("aria-live","polite");p.textContent=t||"";box.appendChild(p);return p;}
+function note(box,t,sim){if(sim){const s=document.createElement("span");s.className="simtag";s.textContent="⚠︎ Valeurs simulées";box.appendChild(s);}if(t){const p=document.createElement("p");p.className="anote";p.textContent=t;box.appendChild(p);}}
+let LOOPS=[];
+function loop(fn){const o={on:true,last:0};const f=ts=>{if(!o.on)return;const dt=o.last?Math.min(.1,(ts-o.last)/1000):0;o.last=ts;if(fn(dt,ts)===false){o.on=false;return;}requestAnimationFrame(f);};requestAnimationFrame(f);LOOPS.push(o);return o;}
+function stopLoops(){LOOPS.forEach(o=>o.on=false);LOOPS=[];}
+const ease=u=>u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+function tween(ms,fn,done){if(RM)ms=1;let t=0;return loop(dt=>{t+=dt*1000;const u=Math.min(1,t/ms);fn(ease(u),u);if(u>=1){if(done)done();return false;}});}
+const lerp=(a,b,u)=>a+(b-a)*u;
+function hash(k){const x=Math.sin(k*12.9898+78.233)*43758.5453;return x-Math.floor(x);}
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||"#888";}
+/* graphique réactif : cfg {xmax,xstep,xlab,ymin,ymax,ystep,ylab,f(x),dec,band:[lo,hi],bandLab,col} */
+function chart(box,cfg){
+  const wr=document.createElement("div");wr.className="stage-wrap";box.appendChild(wr);
+  const rd=document.createElement("p");rd.className="alive";rd.setAttribute("aria-live","polite");rd.textContent="Touche la courbe pour lire une valeur.";box.appendChild(rd);
+  const o={p:0,sel:null};
+  function draw(){
+    const W=Math.max(280,wr.clientWidth||600),fs=Math.max(14,Math.round((parseFloat(getComputedStyle(document.documentElement).fontSize)||22)*.7)),H=Math.round(Math.max(240,Math.min(W*.55,fs*17)));
+    const L=fs*3.4,R=fs*1.2,T=fs*1.2,B=fs*3.4,pw=W-L-R,ph=H-T-B;
+    const X=x=>L+x/cfg.xmax*pw,Y=y=>T+ph-(y-cfg.ymin)/(cfg.ymax-cfg.ymin)*ph;o.X=X;o.L=L;o.pw=pw;
+    wr.innerHTML="";const s=E("svg",{viewBox:"0 0 "+W+" "+H,class:"stg",role:"img","aria-label":cfg.aria||cfg.ylab},wr);s.style.fontSize=fs+"px";
+    const st={"font-size":fs};
+    if(cfg.band){E("rect",{x:L,y:Y(cfg.band[1]),width:pw,height:Y(cfg.band[0])-Y(cfg.band[1]),fill:"var(--ok-soft)"},s);if(cfg.bandLab)TX(s,L+pw-6,Y(cfg.band[1])+fs+2,cfg.bandLab,Object.assign({"text-anchor":"end",fill:"var(--ok)"},st)).style.fill="var(--ok)";}
+    for(let y=cfg.ymin;y<=cfg.ymax+1e-9;y+=cfg.ystep){E("line",{x1:L,x2:L+pw,y1:Y(y),y2:Y(y),class:"ln"},s);TX(s,L-6,Y(y)+fs*.35,frn(+y.toFixed(3)),Object.assign({"text-anchor":"end",class:"m"},st));}
+    for(let x=0;x<=cfg.xmax+1e-9;x+=cfg.xstep){E("line",{x1:X(x),x2:X(x),y1:T,y2:T+ph,class:"ln"},s);TX(s,X(x),T+ph+fs*1.2,frn(x),Object.assign({"text-anchor":"middle",class:"m"},st));}
+    E("path",{d:"M"+L+" "+T+"V"+(T+ph)+"H"+(L+pw),fill:"none",class:"tk"},s);
+    if(cfg.zero!=null)E("line",{x1:L,x2:L+pw,y1:Y(cfg.zero),y2:Y(cfg.zero),stroke:"var(--muted)","stroke-dasharray":"6 5"},s);
+    TX(s,L+pw/2,H-6,cfg.xlab,Object.assign({"text-anchor":"middle",class:"b"},st));
+    const yl=TX(s,0,0,cfg.ylab,Object.assign({"text-anchor":"middle",class:"b",transform:"translate("+(fs*1.05)+" "+(T+ph/2)+") rotate(-90)"},st));
+    const SER=cfg.series||[{f:cfg.f,col:cfg.col}];
+    if(o.p>0){SER.forEach(se=>{let d="";const n=Math.max(60,Math.round(pw/3));for(let i=0;i<=n;i++){const x=Math.min(o.p,cfg.xmax*i/n);d+=(i?"L":"M")+X(x).toFixed(1)+" "+Y(se.f(x)).toFixed(1);if(x>=o.p)break;}
+      E("path",{d:d,fill:"none",stroke:se.col||"var(--bad)","stroke-width":3.5,"stroke-linejoin":"round","stroke-dasharray":se.dash||""},s);
+      E("circle",{cx:X(o.p),cy:Y(se.f(o.p)),r:6,fill:se.col||"var(--bad)"},s);});
+      if(cfg.series)cfg.series.forEach((se,i)=>{E("line",{x1:L+10,x2:L+40,y1:T+12+i*(fs+8),y2:T+12+i*(fs+8),stroke:se.col,"stroke-width":4,"stroke-dasharray":se.dash||""},s);TX(s,L+48,T+12+i*(fs+8)+fs*.35,se.lab,Object.assign({class:"b"},st));});}
+    else TX(s,L+pw/2,T+ph/2,"Appuie sur « Lancer »",Object.assign({"text-anchor":"middle",class:"m"},st));
+    if(o.sel!=null&&o.sel<=o.p+1e-9){const x=o.sel;E("line",{x1:X(x),x2:X(x),y1:T,y2:T+ph,stroke:"var(--teal)","stroke-dasharray":"4 4"},s);SER.forEach(se=>E("circle",{cx:X(x),cy:Y(se.f(x)),r:7,fill:"var(--teal)"},s));}
+    s.addEventListener("pointerdown",e=>{const r=s.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;let x=(px-L)/pw*cfg.xmax;x=Math.round(x/(cfg.snap||cfg.xstep))*(cfg.snap||cfg.xstep);if(x<0||x>o.p+1e-9){o.sel=null;rd.textContent="Touche la courbe pour lire une valeur.";}else{o.sel=x;rd.textContent=cfg.read(x,cfg.f?cfg.f(x):null);}draw();});
+  }
+  o.set=p=>{o.p=p;draw();};o.draw=draw;
+  let ro=null;if(window.ResizeObserver){let lw=0;ro=new ResizeObserver(()=>{const w=wr.clientWidth;if(Math.abs(w-lw)>2){lw=w;draw();}});ro.observe(wr);CLEAN.push(()=>ro.disconnect());}
+  draw();return o;
+}
+/* contrôles Lancer / Pause / Recommencer pour une progression 0→max */
+function player(box,max,speed,onP,onEnd){
+  const o={p:0,run:false};let lp=null;
+  const bs=ctl(box,[["▶ Lancer",()=>{if(o.p>=max)o.p=0;if(RM){o.p=max;onP(o.p);end();return;}o.run=true;upd();lp=loop(dt=>{if(!o.run)return false;o.p=Math.min(max,o.p+dt*speed);onP(o.p);if(o.p>=max){o.run=false;end();upd();return false;}});}],["⏸ Pause",()=>{o.run=false;upd();}],["↺ Recommencer",()=>{o.run=false;o.p=0;onP(0);upd();}]]);
+  function end(){if(onEnd)onEnd();}
+  function upd(){bs[0].disabled=o.run;bs[1].disabled=!o.run;}
+  upd();o.bs=bs;return o;
+}
+
+/* ===================== ANIMATIONS · 3e SVT ===================== */
+const ANIMS={};
+const G=(par,at)=>E("g",at||{},par);
+function hidden(el,h){el.style.display=h?"none":"";}
+function docCells(box,col){const t=box.closest(".doc");if(!t)return [];return [...t.querySelectorAll("tr")].map(r=>r.children[col]).filter(Boolean);}
+function hlCol(box,col){const t=box.closest(".doc");if(!t)return;t.querySelectorAll("th,td").forEach(c=>c.style.outline="");if(col!=null)docCells(box,col).forEach(c=>c.style.outline="3px solid var(--teal)");}
+function piece(pts){return x=>{if(x<=pts[0][0])return pts[0][1];for(let i=1;i<pts.length;i++){if(x<=pts[i][0]){const k=(x-pts[i-1][0])/(pts[i][0]-pts[i-1][0]);return lerp(pts[i-1][1],pts[i][1],k);}}return pts[pts.length-1][1];};}
+
+/* 1 · Caractères de trois individus */
+ANIMS.traits=(box)=>{
+  const s=stage(box,640,300,"Trois personnes : doigts, couleur des yeux, groupe sanguin");
+  const P=[["A","#6d4c41","A"],["B","#1e88e5","O"],["C","#43a047","A"]];const parts={d:[],y:[],g:[]};
+  P.forEach((p,i)=>{const x=110+i*210;TX(s,x,26,"Individu "+p[0],{"text-anchor":"middle",class:"b"});
+    E("circle",{cx:x,cy:90,r:44,fill:"var(--skin)"},s);const ey=G(s);[-16,16].forEach(dx=>{E("ellipse",{cx:x+dx,cy:84,rx:10,ry:7,fill:"#fff",stroke:"#5d4037"},ey);E("circle",{cx:x+dx,cy:84,r:5,fill:p[1]},ey);});parts.y.push(ey);
+    const h=G(s);E("rect",{x:x-60,y:170,width:44,height:46,rx:10,fill:"var(--skin)"},h);[0,1,2,3].forEach(k=>E("rect",{x:x-60+k*11,y:140,width:9,height:32,rx:4,fill:"var(--skin)"},h));E("rect",{x:x-20,y:178,width:24,height:9,rx:4,fill:"var(--skin)"},h);parts.d.push(h);TX(s,x-38,240,"5 doigts",{"text-anchor":"middle","font-size":15});
+    const g=G(s);E("path",{d:`M${x+50} 140 C${x+30} 170 ${x+30} 200 ${x+50} 205 C${x+70} 200 ${x+70} 170 ${x+50} 140Z`,fill:"var(--blood)"},g);TX(g,x+50,192,p[2],{"text-anchor":"middle",class:"w b"});parts.g.push(g);TX(s,x+50,240,"groupe "+p[2],{"text-anchor":"middle","font-size":15});});
+  const ring=G(s);const msg=live(box,"Choisis un caractère à comparer.");
+  function show(k,col,same,txt){ring.innerHTML="";parts[k].forEach(el=>{const b=el.getBBox();E("rect",{x:b.x-6,y:b.y-6,width:b.width+12,height:b.height+12,rx:10,fill:"none",stroke:same?"var(--ok)":"var(--warn)","stroke-width":4},ring);});hlCol(box,col);msg.textContent=txt;}
+  const bs=ctl(box,[["Nombre de doigts",b=>{press(bs,b);show("d",1,true,"Identique chez A, B et C : 5 doigts par main. C'est un caractère de l'espèce humaine.");},1],
+    ["Couleur des yeux",b=>{press(bs,b);show("y",2,false,"Différente chez chacun : c'est une variation individuelle.");},1],
+    ["Groupe sanguin",b=>{press(bs,b);show("g",3,false,"A et C sont du groupe A, B du groupe O : il varie, c'est une variation individuelle.");},1]]);
+  CLEAN.push(()=>hlCol(box,null));
+};
+
+/* 2 · Transmission dans trois familles */
+ANIMS.family=(box)=>{
+  const s=stage(box,640,340,"Couleur des yeux dans trois familles");const BR="#6d4c41",BL="#1e88e5";
+  const F=[[["m","b"],["m","b"],["b","b"]],[["b","b"],["b","b"],["b","b"]],[["m","m"],["b","b"],["m","b"]]];
+  const all=[];
+  F.forEach((f,i)=>{const x=110+i*210;TX(s,x,20,"Famille "+(i+1),{"text-anchor":"middle",class:"b"});
+    const pos=[[x-50,82,"Père"],[x+50,82,"Mère"],[x,230,"Enfant"]];E("path",{d:`M${x-50} 136 V156 H${x+50} V136 M${x} 156 V202`,stroke:"var(--muted)","stroke-width":2,fill:"none"},s);
+    pos.forEach((p,j)=>{const al=f[j],ph=al.indexOf("m")>=0?BR:BL;const sh=j===0?E("rect",{x:p[0]-28,y:p[1]-28,width:56,height:56,rx:6,fill:"var(--surface)",stroke:"var(--ink)","stroke-width":2},s):j===1?E("circle",{cx:p[0],cy:p[1],r:28,fill:"var(--surface)",stroke:"var(--ink)","stroke-width":2},s):E("rect",{x:p[0]-28,y:p[1]-28,width:56,height:56,rx:28,fill:"var(--surface)",stroke:"var(--ink)","stroke-width":2,"stroke-dasharray":"5 4"},s);
+      E("circle",{cx:p[0],cy:p[1],r:13,fill:ph},s);TX(s,p[0],j<2?p[1]-34:p[1]+66,p[2],{"text-anchor":"middle","font-size":14,class:"m"});
+      const ch=al.map((a,k)=>{const exp=a==="m"||al.every(z=>z==="b");return E("rect",{x:p[0]-30+k*34,y:p[1]+32,width:26,height:16,rx:5,fill:a==="m"?BR:BL,opacity:0,stroke:exp?"none":"var(--ink)","stroke-dasharray":exp?"":"3 2"},s);});
+      all.push({ch,j,i,al});});});
+  const leg=G(s,{opacity:0});E("rect",{x:20,y:316,width:22,height:14,rx:4,fill:BL,stroke:"var(--ink)","stroke-dasharray":"3 2"},leg);TX(leg,48,328,"information « yeux bleus » présente mais non exprimée (cadre pointillé)",{"font-size":13});
+  const msg=live(box,"");
+  ctl(box,[["▶ Montrer l'information transmise",()=>{leg.setAttribute("opacity",1);all.forEach(a=>a.ch.forEach(c=>c.setAttribute("opacity",0)));
+    tween(1500,(e)=>{all.forEach(a=>{if(a.j<2)a.ch.forEach(c=>c.setAttribute("opacity",e));});},()=>tween(1200,e=>{all.forEach(a=>{if(a.j===2)a.ch.forEach(c=>c.setAttribute("opacity",e));});},()=>{msg.textContent="Famille 1 : chaque parent porte l'information « yeux bleus » sans l'exprimer et la transmet à l'enfant, qui l'exprime.";}));}]]);
+  note(box,"Modèle simplifié : chaque individu possède deux versions de l'information pour ce caractère (une venant de chaque parent).",false);
+};
+
+/* 3 · Clonage par transfert de noyau */
+ANIMS.clone=(box)=>{
+  const s=stage(box,640,320,"Transfert de noyau entre une grenouille brune et une grenouille blanche");
+  const frog=(x,y,c,lab)=>{const g=G(s);E("ellipse",{cx:x,cy:y,rx:48,ry:30,fill:c,stroke:"#5d4037","stroke-width":2},g);[-20,20].forEach(dx=>{E("circle",{cx:x+dx,cy:y-26,r:9,fill:c,stroke:"#5d4037","stroke-width":2},g);E("circle",{cx:x+dx,cy:y-27,r:3,fill:"#000"},g);});TX(s,x,y+52,lab,{"text-anchor":"middle","font-size":14,class:"b"});return g;};
+  const BRO="#8d6e63",WHI="#f5f5f5";const fL=frog(90,70,BRO,"grenouille brune"),fR=frog(550,70,WHI,"grenouille blanche");
+  const donor=E("circle",{cx:90,cy:200,r:34,fill:"#ffe0b2",stroke:"#8d6e63","stroke-width":2},s),dN=E("circle",{cx:90,cy:200,r:12,fill:BRO},s);TX(s,90,256,"cellule du donneur",{"text-anchor":"middle","font-size":13,class:"m"});
+  const egg=E("circle",{cx:320,cy:190,r:52,fill:"#fff8e1",stroke:"#8d6e63","stroke-width":2},s),eN=E("circle",{cx:320,cy:190,r:13,fill:WHI,stroke:"#5d4037"},s);TX(s,320,262,"ovule (cytoplasme)",{"text-anchor":"middle","font-size":13,class:"m"});
+  const nuc=E("circle",{r:12,opacity:0},s),pip=E("path",{d:"M0 0 L60 -60",stroke:"#78909c","stroke-width":6,"stroke-linecap":"round",opacity:0},s);
+  const tad=G(s,{opacity:0});const tb=E("ellipse",{cx:320,cy:190,rx:30,ry:20},tad);E("path",{d:"M348 190 q30 -14 56 0 q-26 14 -56 0",fill:"none","stroke-width":6},tad);const tail=tad.lastChild;
+  const msg=live(box,"Choisis une expérience.");let busy=false;
+  function run(n){if(busy)return;busy=true;const nucC=n===1?BRO:WHI,cytC=n===1?WHI:BRO;
+    egg.setAttribute("opacity",1);dN.setAttribute("fill",nucC);egg.setAttribute("fill",n===1?"#f5f5f5":"#d7ccc8");eN.setAttribute("fill",cytC);eN.setAttribute("opacity",1);tad.setAttribute("opacity",0);
+    fL.querySelectorAll("ellipse,circle").forEach((e,i)=>{if(e.getAttribute("r")!=="3")e.setAttribute("fill",nucC);});fR.querySelectorAll("ellipse,circle").forEach(e=>{if(e.getAttribute("r")!=="3")e.setAttribute("fill",cytC);});
+    msg.textContent="1. On détruit le noyau de l'ovule ("+(n===1?"grenouille blanche":"grenouille brune")+").";
+    tween(900,e=>eN.setAttribute("opacity",1-e),()=>{msg.textContent="2. On prélève le noyau d'une cellule de la grenouille "+(n===1?"brune":"blanche")+" et on l'injecte dans l'ovule.";
+      nuc.setAttribute("fill",nucC);nuc.setAttribute("stroke","#5d4037");pip.setAttribute("opacity",1);
+      tween(1600,e=>{const x=lerp(90,320,e),y=lerp(200,190,e)-Math.sin(e*Math.PI)*60;nuc.setAttribute("cx",x);nuc.setAttribute("cy",y);nuc.setAttribute("opacity",1);pip.setAttribute("transform","translate("+x+" "+y+")");},()=>{pip.setAttribute("opacity",0);
+        msg.textContent="3. L'ovule se développe…";tween(1500,e=>{egg.setAttribute("r",52-e*20);nuc.setAttribute("opacity",1-e);},()=>{egg.setAttribute("r",52);tb.setAttribute("fill",nucC);tb.setAttribute("stroke","#5d4037");tail.setAttribute("stroke",nucC);tad.setAttribute("opacity",1);egg.setAttribute("opacity",0);
+          msg.textContent="Résultat : têtard "+(n===1?"brun":"blanc")+", comme la grenouille qui a fourni le noyau.";busy=false;});});});}
+  const bs=ctl(box,[["Expérience 1",b=>{press(bs,b);run(1);},1],["Expérience 2",b=>{press(bs,b);run(2);},1]]);
+};
+
+/* 4 · Nombre de chromosomes */
+ANIMS.chromocount=(box)=>{
+  const s=stage(box,640,330,"Nombre de chromosomes de quatre espèces");
+  const sp=[["Homme",46,"#5c6bc0"],["Chien",78,"#8d6e63"],["Drosophile",8,"#43a047"],["Chironome",8,"#00897b"]];
+  const rows=sp.map((r,i)=>{const y=30+i*66;TX(s,10,y+22,r[0],{class:"b","font-size":16});const g=G(s);const t=TX(s,630,y+22,"",{"text-anchor":"end",class:"b"});return {g,y,n:r[1],c:r[2],t};});
+  const extra=G(s,{opacity:0});TX(extra,10,300,"Autre humain",{class:"b","font-size":16});const g2=G(extra);const t2=TX(extra,630,300,"46",{"text-anchor":"end",class:"b"});
+  function rods(g,y,n,c){g.innerHTML="";const per=Math.min(40,n),rowsN=Math.ceil(n/per);for(let k=0;k<n;k++){const col=k%per,rw=Math.floor(k/per);E("rect",{x:130+col*11.5,y:y+rw*26-(rowsN>1?6:0),width:6,height:20,rx:3,fill:c,opacity:0},g);}}
+  rows.forEach(r=>rods(r.g,r.y,r.n,r.c));rods(g2,282,46,"#5c6bc0");
+  const msg=live(box,"");
+  function count(){rows.forEach(r=>{const els=[...r.g.childNodes];els.forEach(e=>e.setAttribute("opacity",0));tween(1800,(e,u)=>{const k=Math.round(els.length*u);els.forEach((el,i)=>el.setAttribute("opacity",i<k?1:0));r.t.textContent=k;});});}
+  ctl(box,[["▶ Compter les chromosomes",count],["Comparer deux êtres humains",()=>{extra.setAttribute("opacity",1);[...g2.childNodes].forEach(e=>e.setAttribute("opacity",1));msg.textContent="Deux êtres humains ont le même nombre de chromosomes (46) ; deux espèces différentes peuvent en avoir un nombre très différent.";}]]);
+  count();note(box,"Chaque bâtonnet représente un chromosome.",false);
+};
+
+/* 5 · Extraction d'ADN */
+ANIMS.dnaextract=(box)=>{
+  const s=stage(box,640,320,"Les quatre étapes de l'extraction d'ADN");
+  E("path",{d:"M130 30 V270 Q130 300 160 300 Q190 300 190 270 V30",fill:"none",stroke:"var(--muted)","stroke-width":3},s);
+  const liq=E("path",{d:"M132 150 V270 Q132 298 160 298 Q188 298 188 270 V150Z",fill:"#dce775"},s);const eth=E("rect",{x:132,y:90,width:56,height:60,fill:"#bbdefb",opacity:0},s);
+  const fil=G(s,{opacity:0});for(let i=0;i<6;i++)E("path",{d:`M${145+i*6} 150 q${(i%2?6:-6)} -20 0 -38 q${(i%2?-6:6)} -10 0 -18`,stroke:"#fafafa","stroke-width":3,fill:"none"},fil);
+  E("rect",{x:270,y:20,width:350,height:280,rx:14,fill:"var(--surface-2)",stroke:"var(--line)"},s);TX(s,445,44,"Zoom (schéma)",{"text-anchor":"middle","font-size":14,class:"m"});
+  const z=G(s);const lab=TX(s,160,22,"",{"text-anchor":"middle",class:"b","font-size":15});
+  const cells=[];for(let i=0;i<4;i++){const cx=330+(i%2)*150,cy=110+Math.floor(i/2)*110;const g=G(z);const m=E("circle",{cx,cy,r:44,fill:"#f1f8e9",stroke:"#689f38","stroke-width":3},g);const n=E("circle",{cx,cy,r:16,fill:"#ce93d8",stroke:"#6a1b9a"},g);const d=G(g,{opacity:0});for(let k=0;k<4;k++)E("path",{d:`M${cx-30+k*14} ${cy-20} q12 20 0 40`,stroke:"#6a1b9a","stroke-width":2,fill:"none"},d);cells.push({m,n,d,cx,cy});}
+  const clump=G(s,{opacity:0});for(let k=0;k<10;k++)E("path",{d:`M${400+k*6} 120 q14 40 0 90`,stroke:"#6a1b9a","stroke-width":2.5,fill:"none"},clump);
+  let st=0;const msg=live(box,"");
+  const T=["Étape 1 : broyage — les cellules sont libérées.","Étape 2 : liquide vaisselle — les membranes sont détruites, l'ADN se répand.","Étape 3 : sel — l'ADN se regroupe.","Étape 4 : éthanol glacé — l'ADN précipite : des filaments blanchâtres remontent à la surface !"];
+  function set(k){st=k;lab.textContent="Étape "+k;msg.textContent=T[k-1];
+    cells.forEach(c=>{c.m.setAttribute("stroke-dasharray",k>=2?"4 10":"");c.m.setAttribute("opacity",k>=2?.35:1);c.n.setAttribute("opacity",k>=2?0:1);c.d.setAttribute("opacity",k===2?1:0);hidden(c.m.parentNode,k>=3);});
+    clump.setAttribute("opacity",k===3?1:0);eth.setAttribute("opacity",k>=4?.8:0);liq.setAttribute("fill",k>=2?"#e6ee9c":"#dce775");
+    if(k>=4){tween(1600,e=>fil.setAttribute("opacity",e));}else fil.setAttribute("opacity",0);bs[0].disabled=k>=4;}
+  const bs=ctl(box,[["Étape suivante →",()=>set(Math.min(4,st+1))],["↺ Recommencer",()=>set(1)]]);set(1);
+};
+
+/* 6 · Caryotypes */
+ANIMS.karyo=(box)=>{
+  const s=stage(box,640,340,"Caryotypes schématiques A, B et C");const g=G(s);const msg=live(box,"");
+  function draw(k){g.innerHTML="";let tot=0;
+    for(let p=1;p<=23;p++){const col=(p-1)%8,row=Math.floor((p-1)/8),x=40+col*74,y=44+row*96;const L=Math.max(18,60-p*1.8);
+      let ch=[["#7986cb",L],["#7986cb",L]];
+      if(p===23)ch=k==="A"?[["#ef9a9a",50],["#ef9a9a",50]]:[["#ef9a9a",50],["#90caf9",22]];
+      if(p===21&&k==="C")ch.push(["#ffb74d",L]);
+      ch.forEach((c,i)=>{tot++;E("rect",{x:x+i*14,y:y+60-c[1],width:10,height:c[1],rx:5,fill:c[0],stroke:p===23||(p===21&&k==="C")?"var(--ink)":"none","stroke-width":2},g);});
+      TX(g,x+14,y+82,p===23?(k==="A"?"XX":"XY"):String(p),{"text-anchor":"middle","font-size":13,class:p===23?"b":"m"});}
+    TX(g,630,22,"Caryotype "+k+" : "+tot+" chromosomes",{"text-anchor":"end",class:"b","font-size":15});
+    msg.textContent=k==="A"?"A : 46 chromosomes, dernière paire XX : individu de sexe féminin.":k==="B"?"B : 46 chromosomes, dernière paire XY : individu de sexe masculin.":"C : 47 chromosomes, XY, et trois chromosomes 21 (en orange) : trisomie 21.";}
+  const bs=ctl(box,[["Caryotype A",b=>{press(bs,b);draw("A");},1],["Caryotype B",b=>{press(bs,b);draw("B");},1],["Caryotype C",b=>{press(bs,b);draw("C");},1]]);press(bs,bs[0]);draw("A");
+};
+
+/* 7 · Test d'agglutination */
+ANIMS.agglut=(box)=>{
+  const s=stage(box,640,290,"Test d'agglutination pour deux patients");const msg=live(box,"");
+  const pts=[];
+  [["Patient 1",[true,false]],["Patient 2",[false,false]]].forEach((p,i)=>{const y=150;const x0=i*320;E("rect",{x:x0+10,y:20,width:300,height:250,rx:14,fill:"var(--surface-2)"},s);TX(s,x0+160,48,p[0],{"text-anchor":"middle",class:"b"});
+    ["Sérum anti-A","Sérum anti-B"].forEach((lab,j)=>{const cx=x0+90+j*140;E("circle",{cx,cy:y,r:56,fill:"#fff8e1",stroke:"var(--muted)","stroke-width":2},s);TX(s,cx,236,lab,{"text-anchor":"middle","font-size":14});
+      const cl=[[cx-18,y-14],[cx+16,y+10],[cx-6,y+24]];for(let k=0;k<26;k++){const a=hash(k+i*50+j*9)*Math.PI*2,r=Math.sqrt(hash(k*3+i+j))*44;const e=E("circle",{cx:cx+r*Math.cos(a),cy:y+r*Math.sin(a),r:4.5,fill:"#c62828"},s);pts.push({e,x0:cx+r*Math.cos(a),y0:y+r*Math.sin(a),tx:cl[k%3][0]+(hash(k)-.5)*12,ty:cl[k%3][1]+(hash(k+1)-.5)*12,agg:p[1][j]});}});});
+  ctl(box,[["💧 Ajouter les sérums",()=>{tween(1800,e=>pts.forEach(p=>{if(p.agg){p.e.setAttribute("cx",lerp(p.x0,p.tx,e));p.e.setAttribute("cy",lerp(p.y0,p.ty,e));}}),()=>{msg.textContent="Patient 1 : amas avec l'anti-A seulement → ses hématies portent le marqueur A. Patient 2 : aucun amas → ni A ni B.";});}],
+    ["↺ Recommencer",()=>{pts.forEach(p=>{p.e.setAttribute("cx",p.x0);p.e.setAttribute("cy",p.y0);});msg.textContent="";}]]);
+};
+
+/* 8 · Mitose */
+ANIMS.mitosis=(box)=>{
+  const s=stage(box,640,320,"Duplication de l'ADN puis division d'une cellule");
+  const cellA=E("ellipse",{cx:320,cy:160,rx:150,ry:110,fill:"#f1f8e9",stroke:"#689f38","stroke-width":3},s),cellB=E("ellipse",{cx:320,cy:160,rx:0,ry:110,fill:"#f1f8e9",stroke:"#689f38","stroke-width":3,opacity:0},s);
+  const C=[["#e53935",34],["#e53935",34],["#1e88e5",24],["#1e88e5",24]];const home=[[260,120],[290,190],[350,130],[380,195]];
+  const ch=C.map((c,i)=>{const g=G(s);const a=E("rect",{x:-4,y:-c[1]/2,width:8,height:c[1],rx:4,fill:c[0]},g),b=E("rect",{x:-4,y:-c[1]/2,width:8,height:c[1],rx:4,fill:c[0],opacity:0},g);return {g,a,b,c};});
+  const lab=TX(s,320,300,"",{"text-anchor":"middle",class:"b","font-size":15}),cnt=TX(s,320,26,"",{"text-anchor":"middle","font-size":15});
+  function set(p){const ph=Math.min(4,Math.floor(p)),u=p-Math.floor(p);
+    let txt,cn;
+    ch.forEach((o,i)=>{let x,y,sep=0,dup=0;const left=i%2===0;
+      if(p<1){[x,y]=home[i];}
+      else if(p<2){[x,y]=home[i];dup=u;}
+      else if(p<3){x=lerp(home[i][0],320,u);y=lerp(home[i][1],80+i*50,u);dup=1;}
+      else if(p<4){x=320;y=80+i*50;dup=1;sep=u;}
+      else{x=320;y=80+i*50;dup=1;sep=1;}
+      o.b.setAttribute("opacity",dup>0?1:0);
+      const off=6*dup+sep*120;o.a.setAttribute("transform","translate("+(-off)+" 0)");o.b.setAttribute("transform","translate("+(off)+" 0)");
+      o.g.setAttribute("transform","translate("+x+" "+y+")");});
+    if(p>=4){const k=Math.min(1,p-4);cellA.setAttribute("rx",lerp(150,75,k));cellA.setAttribute("cx",lerp(320,200,k));cellB.setAttribute("opacity",k>0?1:0);cellB.setAttribute("rx",lerp(0,75,k));cellB.setAttribute("cx",lerp(320,440,k));}
+    else{cellA.setAttribute("rx",150);cellA.setAttribute("cx",320);cellB.setAttribute("opacity",0);}
+    txt=p<1?"Cellule mère : chaque chromosome a 1 chromatide.":p<2?"Duplication de l'ADN : chaque chromosome passe à 2 chromatides.":p<3?"Les chromosomes s'alignent au centre de la cellule.":p<4?"Les deux chromatides de chaque chromosome se séparent.":"Deux cellules filles, chacune avec le même nombre de chromosomes (1 chromatide).";
+    cn=p<1?"46 chromosomes · 1 chromatide":p<4?"46 chromosomes · 2 chromatides":"chaque cellule fille : 46 chromosomes · 1 chromatide";lab.textContent=txt;cnt.textContent=cn;}
+  player(box,5,.6,set);set(0);
+  note(box,"Schéma : 4 chromosomes représentent les 46 d'une cellule humaine.",false);
+};
+
+/* 9 · Du chromosome au gène */
+ANIMS.zoom=(box)=>{
+  const s=stage(box,640,300,"Zoom de la cellule jusqu'au gène");const g=G(s);let lv=0;const msg=live(box,"");
+  const L=["Une cellule et son noyau","Dans le noyau : les chromosomes","Un chromosome : de l'ADN enroulé","L'ADN déroulé : une très longue molécule","Un gène : une portion d'ADN"];
+  function draw(){g.innerHTML="";const d=g;
+    if(lv===0){E("ellipse",{cx:320,cy:150,rx:200,ry:120,fill:"#f1f8e9",stroke:"#689f38","stroke-width":3},d);E("circle",{cx:320,cy:150,r:50,fill:"#e1bee7",stroke:"#6a1b9a","stroke-width":3},d);TX(d,390,90,"noyau",{"font-size":15,class:"b"});}
+    else if(lv===1){E("circle",{cx:320,cy:150,r:130,fill:"#f3e5f5",stroke:"#6a1b9a","stroke-width":3},d);for(let i=0;i<10;i++){const a=i/10*Math.PI*2;E("path",{d:`M${320+Math.cos(a)*70-8} ${150+Math.sin(a)*70-14} l16 28 M${320+Math.cos(a)*70+8} ${150+Math.sin(a)*70-14} l-16 28`,stroke:i%2?"#5c6bc0":"#e57373","stroke-width":6,"stroke-linecap":"round"},d);}}
+    else if(lv===2){E("path",{d:"M260 40 L380 260 M380 40 L260 260",stroke:"#5c6bc0","stroke-width":34,"stroke-linecap":"round",opacity:.85},d);for(let i=0;i<14;i++)E("path",{d:`M${270+i*8} ${60+i*14} q20 -6 30 4`,stroke:"#fff","stroke-width":2,fill:"none",opacity:.7},d);TX(d,420,150,"chromosome",{"font-size":15,class:"b"});}
+    else{for(let x=30;x<610;x+=4){const y1=150+Math.sin(x/22)*40,y2=150-Math.sin(x/22)*40;if(x%16===0)E("line",{x1:x,x2:x,y1,y2,stroke:"#bdbdbd","stroke-width":2},d);}
+      E("path",{d:"M30 150 "+Array.from({length:146},(_,i)=>{const x=30+i*4;return "L"+x+" "+(150+Math.sin(x/22)*40);}).join(" "),stroke:"#5c6bc0","stroke-width":5,fill:"none"},d);
+      E("path",{d:"M30 150 "+Array.from({length:146},(_,i)=>{const x=30+i*4;return "L"+x+" "+(150-Math.sin(x/22)*40);}).join(" "),stroke:"#e57373","stroke-width":5,fill:"none"},d);
+      if(lv===4){E("rect",{x:250,y:95,width:140,height:110,rx:10,fill:"rgba(255,193,7,.25)",stroke:"#f9a825","stroke-width":3},d);TX(d,320,240,"un gène",{"text-anchor":"middle",class:"b"});}}
+    TX(d,320,290,L[lv],{"text-anchor":"middle",class:"b","font-size":15});msg.textContent=L[lv]+".";bs[0].disabled=lv>=4;bs[1].disabled=lv<=0;}
+  const bs=ctl(box,[["🔍 Zoom avant",()=>{lv=Math.min(4,lv+1);draw();}],["Zoom arrière",()=>{lv=Math.max(0,lv-1);draw();}]]);draw();
+};
+
+/* 10 · Fécondation */
+ANIMS.fecond=(box)=>{
+  const s=stage(box,640,300,"Fécondation : 23 + 23 chromosomes");
+  const ov=E("circle",{cx:420,cy:150,r:100,fill:"#fff3e0",stroke:"#ef6c00","stroke-width":3},s);const on=E("circle",{cx:420,cy:150,r:34,fill:"#ffe0b2",stroke:"#ef6c00","stroke-width":2},s);
+  const oT=TX(s,420,156,"23",{"text-anchor":"middle",class:"b"});TX(s,420,280,"ovule",{"text-anchor":"middle","font-size":14,class:"m"});
+  const sp=G(s);E("ellipse",{cx:0,cy:0,rx:16,ry:11,fill:"#bbdefb",stroke:"#1565c0","stroke-width":2},sp);const tail=E("path",{d:"M-16 0 q-20 -10 -40 0 q-20 10 -40 0",stroke:"#1565c0","stroke-width":3,fill:"none"},sp);TX(sp,0,5,"23",{"text-anchor":"middle","font-size":12,class:"b"});
+  const spT=TX(s,90,200,"spermatozoïde",{"text-anchor":"middle","font-size":14,class:"m"});
+  const res=TX(s,420,40,"",{"text-anchor":"middle",class:"b"});const msg=live(box,"");
+  function run(){on.setAttribute("r",34);oT.textContent="23";res.textContent="";sp.setAttribute("opacity",1);let ph=0;
+    tween(2400,e=>{ph+=.3;tail.setAttribute("d",`M-16 0 q-20 ${-10*Math.sin(ph)} -40 0 q-20 ${10*Math.sin(ph)} -40 0`);sp.setAttribute("transform","translate("+lerp(90,420,e)+" "+lerp(150,150,e)+")");},()=>{sp.setAttribute("opacity",0);
+      tween(1200,e=>on.setAttribute("r",34+10*e),()=>{oT.textContent="46";res.textContent="23 + 23 = 46 chromosomes";msg.textContent="Les deux noyaux fusionnent : la cellule-œuf possède 46 chromosomes, 23 venant du père et 23 de la mère.";});});}
+  ctl(box,[["▶ Fécondation",run]]);sp.setAttribute("transform","translate(90 150)");
+};
+
+/* 11 · Comparer deux séquences */
+ANIMS.mutation=(box)=>{
+  const s=stage(box,640,280,"Comparaison lettre à lettre de deux séquences d'ADN");
+  const A="AATGCCTAG",B="AATGCTTAG",col={A:"#43a047",T:"#e53935",G:"#fbc02d",C:"#1e88e5"};
+  const box2=(seq,y,lab,fur)=>{TX(s,20,y+30,lab,{class:"b","font-size":15});const cs=[...seq].map((ch,i)=>{const x=150+i*48;E("rect",{x,y,width:42,height:46,rx:6,fill:col[ch],opacity:.85},s);TX(s,x+21,y+31,ch,{"text-anchor":"middle",class:"w b"});return x;});
+    const m=G(s,{transform:"translate(590 "+(y+24)+")"});E("ellipse",{cx:0,cy:0,rx:26,ry:16,fill:fur},m);E("circle",{cx:20,cy:-10,r:8,fill:fur},m);return cs;};
+  const xs=box2(A,50,"Allèle 1","#4e342e");box2(B,150,"Allèle 2","#d7ccc8");
+  for(let i=0;i<9;i++)TX(s,150+i*48+21,226,String(i+1),{"text-anchor":"middle","font-size":13,class:"m"});TX(s,20,226,"Position",{"font-size":13,class:"m"});
+  const cur=E("rect",{x:0,y:44,width:48,height:158,rx:8,fill:"none",stroke:"var(--teal)","stroke-width":4,opacity:0},s);const mk=G(s);const msg=live(box,"");
+  ctl(box,[["▶ Comparer",()=>{mk.innerHTML="";cur.setAttribute("opacity",1);let i=0;const step=()=>{if(i>=9){cur.setAttribute("opacity",0);msg.textContent="Une seule différence : en 6e position, C est remplacé par T. Cette mutation crée un nouvel allèle.";return;}
+      cur.setAttribute("x",xs[i]-3);const same=A[i]===B[i];TX(mk,xs[i]+21,124,same?"=":"≠",{"text-anchor":"middle",class:"b",fill:same?"var(--ok)":"var(--bad)","font-size":24});if(!same)E("rect",{x:xs[i]-5,y:42,width:52,height:162,rx:8,fill:"none",stroke:"var(--bad)","stroke-width":4},mk);
+      i++;tween(450,()=>{},step);};step();}]]);
+};
+
+/* 12 · ADN en commun et parenté */
+ANIMS.dnashare=(box)=>{
+  const s=stage(box,640,330,"Pourcentage d'ADN commun avec l'Homme et arbre de parenté");
+  const D=[["Chimpanzé",98.8],["Souris",85],["Poulet",60],["Levure",30]];
+  const bars=D.map((d,i)=>{const y=30+i*44;TX(s,10,y+20,d[0],{"font-size":15,class:"b"});const r=E("rect",{x:120,y:y+4,width:0,height:22,rx:5,fill:"var(--teal)"},s);const t=TX(s,0,y+21,"",{"font-size":14,class:"b"});return {r,t,v:d[1]};});
+  const tree=G(s,{opacity:0});const sp=["Levure","Poulet","Souris","Chimpanzé","Homme"];const X0=60,Y=310;
+  sp.forEach((n,i)=>{const x=X0+i*120;E("line",{x1:x,x2:x,y1:Y-10,y2:Y-30-(i?0:0),stroke:"var(--ink)","stroke-width":2},tree);TX(tree,x,Y+14,n,{"text-anchor":"middle","font-size":13,class:"b"});});
+  let d="";const tips=sp.map((n,i)=>X0+i*120);let prevX=tips[0],prevY=Y-30;
+  for(let k=1;k<5;k++){const ny=Y-30-(5-k)*16;const nx=(prevX+tips[k])/2;d+=`M${prevX} ${prevY} L${nx} ${ny} L${tips[k]} ${Y-30} `;prevX=nx;prevY=ny;}
+  E("path",{d,stroke:"var(--ink)","stroke-width":2,fill:"none"},tree);
+  const msg=live(box,"");
+  function grow(){tree.setAttribute("opacity",0);bars.forEach(b=>tween(1200,e=>{b.r.setAttribute("width",b.v*4.6*e);b.t.setAttribute("x",126+b.v*4.6*e);b.t.textContent=frn(+(b.v*e).toFixed(1))+" %";}));}
+  ctl(box,[["▶ Comparer les ADN",grow],["Construire l'arbre de parenté",()=>{tween(900,e=>tree.setAttribute("opacity",e));msg.textContent="Plus l'ADN est semblable, plus l'ancêtre commun est récent : le chimpanzé partage avec l'Homme l'ancêtre commun le plus récent. Aucune espèce actuelle n'est l'ancêtre d'une autre.";}]]);grow();
+};
+
+/* 13 · Caractères partagés : boîtes emboîtées */
+ANIMS.traittable=(box)=>{
+  const s=stage(box,640,330,"Groupes emboîtés selon les caractères partagés");
+  const sp=[["Truite",80],["Chat",230],["Chimpanzé",380],["Homme",520]];
+  const B=[["Vertèbres",20,20,600,290,"#90a4ae"],["Poils",170,60,450,240,"#8d6e63"],["Pouce opposable",320,100,300,190,"#7e57c2"],["Bipédie permanente",460,140,160,140,"#e53935"]];
+  const bx=B.map(b=>{const g=G(s,{opacity:0});E("rect",{x:b[1],y:b[2],width:b[3],height:b[4],rx:16,fill:"none",stroke:b[5],"stroke-width":4},g);TX(g,b[1]+12,b[2]+24,b[0],{"font-size":15,class:"b",fill:b[5]});return g;});
+  sp.forEach(p=>{E("circle",{cx:p[1],cy:250,r:7,fill:"var(--ink)"},s);TX(s,p[1],276,p[0],{"text-anchor":"middle",class:"b","font-size":15});});
+  const msg=live(box,"");
+  ctl(box,[["▶ Emboîter les caractères",()=>{bx.forEach(b=>b.setAttribute("opacity",0));let k=0;const nx=()=>{if(k>=bx.length){msg.textContent="L'Homme et le chimpanzé sont dans les mêmes boîtes, sauf la dernière : ils partagent 3 caractères sur 4. Ce sont les plus proches parents du tableau.";return;}tween(700,e=>bx[k].setAttribute("opacity",e),()=>{k++;nx();});};nx();}]]);
+};
+
+/* 14 · Volume crânien */
+ANIMS.cranial=(box)=>{
+  const s=stage(box,640,330,"Volume crânien de fossiles de la lignée humaine en fonction de leur âge");
+  const L=90,R=610,T=20,Bt=260,X=a=>L+(3.5-a)/3.5*(R-L),Y=v=>Bt-v/1500*(Bt-T);
+  for(let v=0;v<=1500;v+=300){E("line",{x1:L,x2:R,y1:Y(v),y2:Y(v),class:"ln"},s);TX(s,L-8,Y(v)+6,String(v),{"text-anchor":"end",class:"m","font-size":14});}
+  for(let a=3.5;a>=0;a-=.5){E("line",{x1:X(a),x2:X(a),y1:T,y2:Bt,class:"ln"},s);TX(s,X(a),Bt+20,frn(a),{"text-anchor":"middle",class:"m","font-size":14});}
+  E("path",{d:`M${L} ${T}V${Bt}H${R}`,fill:"none",class:"tk"},s);
+  TX(s,(L+R)/2,Bt+50,"Âge du fossile (millions d'années avant aujourd'hui)",{"text-anchor":"middle",class:"b","font-size":15});
+  TX(s,0,0,"Volume crânien (cm³)",{"text-anchor":"middle",class:"b","font-size":15,transform:`translate(22 ${(T+Bt)/2}) rotate(-90)`});
+  const F=[["Australopithèque",3.2,450],["Homo habilis",2.0,650],["Homo erectus",1.5,950],["Homo sapiens",0.3,1400]];
+  const g=G(s),rd=live(box,"Touche un point pour lire ses valeurs.");
+  function run(){g.innerHTML="";let k=0;const nx=()=>{if(k>=F.length)return;const f=F[k],x=X(f[1]),y=Y(f[2]);
+      if(k){const p=F[k-1];const ln=E("line",{x1:X(p[1]),y1:Y(p[2]),x2:X(p[1]),y2:Y(p[2]),stroke:"var(--teal)","stroke-width":3,"stroke-dasharray":"6 5"},g);tween(500,e=>{ln.setAttribute("x2",lerp(X(p[1]),x,e));ln.setAttribute("y2",lerp(Y(p[2]),y,e));});}
+      const c=E("circle",{cx:x,cy:y,r:Math.sqrt(f[2])/3,fill:"#d7ccc8",stroke:"#5d4037","stroke-width":2,style:"cursor:pointer"},g);c.addEventListener("pointerdown",()=>{rd.textContent=f[0]+" : il y a "+frn(f[1])+" millions d'années, "+f[2].toLocaleString("fr-FR")+" cm³.";});
+      TX(g,x,y-Math.sqrt(f[2])/3-8,f[0],{"text-anchor":k===3?"end":"middle","font-size":13,class:"b"});k++;tween(600,()=>{},nx);};nx();}
+  ctl(box,[["▶ Placer les fossiles",run]]);run();
+  note(box,"Ces espèces ne descendent pas forcément les unes des autres : ce sont des représentants de la lignée humaine à différentes époques.",false);
+};
+
+/* 15 · Archéoptéryx */
+ANIMS.archaeo=(box)=>{
+  const s=stage(box,640,320,"Caractères du dinosaure, de l'Archéoptéryx et de l'oiseau actuel");
+  const C=[["Dinosaure",200,"#a1887f"],["Archéoptéryx",360,"#9575cd"],["Oiseau actuel",520,"#64b5f6"]];const Rw=[["Dents",[1,1,0]],["Plumes",[0,1,1]],["Griffes aux ailes",[1,1,0]]];
+  C.forEach(c=>{TX(s,c[1],30,c[0],{"text-anchor":"middle",class:"b"});E("rect",{x:c[1]-70,y:44,width:140,height:250,rx:12,fill:c[2],opacity:.18},s);});
+  const cells=[];Rw.forEach((r,i)=>{const y=100+i*75;TX(s,20,y+6,r[0],{class:"b","font-size":15});r[1].forEach((v,j)=>{const g=G(s,{opacity:0});const x=C[j][1];
+      E("circle",{cx:x,cy:y,r:24,fill:v?(j===1?(r[0]==="Plumes"?"#64b5f6":"#a1887f"):"var(--ok-soft)"):"var(--surface)",stroke:v?"var(--ok)":"var(--muted)","stroke-width":3},g);TX(g,x,y+7,v?"✓":"✗",{"text-anchor":"middle",class:"b","font-size":20});cells.push(g);});});
+  const msg=live(box,"");TX(s,360,310,"Archéoptéryx : brun = comme le dinosaure · bleu = comme l'oiseau",{"text-anchor":"middle","font-size":13,class:"m"});
+  ctl(box,[["▶ Comparer",()=>{cells.forEach(c=>c.setAttribute("opacity",0));let k=0;const nx=()=>{if(k>=cells.length){msg.textContent="L'Archéoptéryx réunit des caractères de dinosaure (dents, griffes) et un caractère d'oiseau (plumes) : c'est une forme intermédiaire.";return;}tween(260,e=>cells[k].setAttribute("opacity",e),()=>{k++;nx();});};nx();}]]);
+};
+
+/* 16 · Mycorhizes */
+ANIMS.mycorrhiza=(box)=>{
+  const s=stage(box,640,330,"Pin sans ou avec champignon du sol");
+  E("rect",{x:0,y:180,width:400,height:150,fill:"#a1887f"},s);E("rect",{x:0,y:0,width:400,height:180,fill:"#e3f2fd"},s);
+  const plant=G(s);const stem=E("rect",{x:196,y:120,width:8,height:60,fill:"#6d4c41"},plant);const crown=E("path",{d:"",fill:"#2e7d32"},plant);
+  for(let i=0;i<7;i++)E("path",{d:`M200 180 q${(i-3)*12} 30 ${(i-3)*24} 60`,stroke:"#5d4037","stroke-width":3,fill:"none"},s);
+  const hy=G(s,{opacity:0});for(let i=0;i<22;i++){const x=200+(hash(i)-.5)*360,y=200+hash(i+5)*120;E("path",{d:`M${200+(i%7-3)*24} 240 Q${(x+200)/2} ${y-20} ${x} ${y}`,stroke:"#fafafa","stroke-width":1.6,fill:"none"},hy);}
+  const P=[];for(let i=0;i<30;i++)P.push({x:20+hash(i*3)*360,y:200+hash(i*7)*120,e:E("circle",{r:5,fill:"#ffb300"},s),u:0});
+  const bars=[["Masse sèche (g)",2.1,5.4,"#2e7d32"],["Phosphore absorbé (mg)",.8,3.2,"#ffb300"]].map((b,i)=>{const y=60+i*120;TX(s,420,y,b[0],{class:"b","font-size":15});const r=E("rect",{x:420,y:y+12,width:0,height:24,rx:5,fill:b[3]},s);const t=TX(s,420,y+60,"",{class:"b","font-size":15});return {r,t,b};});
+  let withF=false;const msg=live(box,"");
+  function set(f){withF=f;hy.setAttribute("opacity",f?1:0);const k=f?1:0;
+    bars.forEach(o=>{const v=f?o.b[2]:o.b[1];tween(900,e=>{o.r.setAttribute("width",v/(o.b[2])*200*e);});o.t.textContent=frn(v)+(f?" (avec)":" (sans)");});
+    const h=f?110:50;crown.setAttribute("d",`M200 ${180-h-40} L${200-h*.6} ${180-40} L${200+h*.6} ${180-40}Z`);stem.setAttribute("y",180-40);
+    msg.textContent=f?"Avec le champignon, les filaments explorent un grand volume de sol : la plante absorbe 4 fois plus de phosphore et grandit beaucoup plus. En échange, elle donne du glucose au champignon.":"Sans champignon, seules les racines prélèvent le phosphore du sol.";}
+  loop(dt=>{P.forEach(p=>{const reach=withF||Math.hypot(p.x-200,p.y-240)<70;if(reach){p.u+=dt*.4;if(p.u>1){p.u=0;}}const x=lerp(p.x,200,reach?p.u:0),y=lerp(p.y,215,reach?p.u:0);p.e.setAttribute("cx",x);p.e.setAttribute("cy",y);});});
+  const bs=ctl(box,[["Sans champignon",b=>{press(bs,b);set(false);},1],["Avec champignon",b=>{press(bs,b);set(true);},1]]);press(bs,bs[0]);set(false);
+  note(box,"Points jaunes : phosphore du sol. Filaments blancs : champignon (mycorhize).",false);
+};
+
+/* 17 · Micro-organismes */
+ANIMS.microbes=(box)=>{
+  const s=stage(box,640,300,"Champignon, bactérie et virus à la même échelle");const K=50;
+  const fun=E("circle",{cx:150,cy:150,r:2.5*K,fill:"#fff59d",stroke:"#f9a825","stroke-width":3},s);E("circle",{cx:150,cy:150,r:28,fill:"#ffe082"},s);TX(s,150,290,"champignon ≈ 5 µm",{"text-anchor":"middle","font-size":14,class:"b"});
+  const bac=G(s);E("rect",{x:380,y:150-.35*K,width:K,height:.7*K,rx:.35*K,fill:"#a5d6a7",stroke:"#2e7d32","stroke-width":2},bac);TX(s,405,210,"bactérie ≈ 1 µm",{"text-anchor":"middle","font-size":14,class:"b"});
+  const vir=E("circle",{cx:560,cy:150,r:.05*K+2,fill:"#e53935"},s);TX(s,560,210,"virus ≈ 0,1 µm",{"text-anchor":"middle","font-size":14,class:"b"});TX(s,560,130,"↓",{"text-anchor":"middle","font-size":20});
+  const ab=G(s);const msg=live(box,"Le virus n'est pas une cellule : c'est un point minuscule à cette échelle.");
+  ctl(box,[["💊 Ajouter un antibiotique",()=>{ab.innerHTML="";bac.setAttribute("opacity",1);const D=[];for(let i=0;i<30;i++)D.push({x:300+hash(i)*320,y:40+hash(i+3)*220,e:E("rect",{width:5,height:5,fill:"#7e57c2"},ab)});
+      tween(1600,e=>D.forEach((d,i)=>{const tx=405+(hash(i+9)-.5)*60,ty=150+(hash(i+11)-.5)*40;d.e.setAttribute("x",lerp(d.x,i%3?tx:d.x,e));d.e.setAttribute("y",lerp(d.y,i%3?ty:d.y,e));}),()=>{tween(900,e=>bac.setAttribute("opacity",1-e),()=>{msg.textContent="L'antibiotique détruit la bactérie, mais n'a aucun effet sur le virus (qui n'est pas une cellule) ni sur le champignon.";});});}]]);
+};
+
+/* 18 · Barrières et infection */
+ANIMS.barriers=(box)=>{
+  const s=stage(box,640,300,"Peau intacte puis coupée : contamination et infection");
+  E("rect",{x:0,y:0,width:640,height:120,fill:"#e3f2fd"},s);const skin=E("rect",{x:0,y:120,width:640,height:30,fill:"#f8bbd0",stroke:"#ad1457"},s);E("rect",{x:0,y:150,width:640,height:150,fill:"#ffebee"},s);
+  TX(s,10,140,"peau",{"font-size":14,class:"b"});TX(s,10,290,"intérieur du corps",{"font-size":14,class:"m"});
+  const cut=E("rect",{x:300,y:118,width:40,height:34,fill:"#e3f2fd",opacity:0},s);
+  const M=[];for(let i=0;i<14;i++)M.push({x:hash(i)*620+10,y:hash(i+4)*90+15,vx:(hash(i+7)-.5)*80,vy:(hash(i+8)-.5)*80,inside:false,e:E("circle",{r:6,fill:"#43a047"},s)});
+  let open=false,t=0;const cnt=TX(s,630,290,"",{"text-anchor":"end",class:"b","font-size":15});const msg=live(box,"La peau intacte arrête les micro-organismes.");
+  loop(dt=>{t+=dt;M.forEach(m=>{m.x+=m.vx*dt;m.y+=m.vy*dt;if(m.x<6||m.x>634)m.vx*=-1;
+      if(!m.inside){if(m.y<8)m.vy=Math.abs(m.vy);if(m.y>112){if(open&&m.x>300&&m.x<340){m.inside=true;m.vy=Math.abs(m.vy)+20;}else m.vy=-Math.abs(m.vy);}}
+      else{if(m.y<160)m.vy=Math.abs(m.vy);if(m.y>292)m.vy=-Math.abs(m.vy);}
+      if(open&&!m.inside&&Math.abs(m.x-320)<120&&m.y>60)m.vx+=(320-m.x)*dt*.8;
+      m.e.setAttribute("cx",m.x);m.e.setAttribute("cy",m.y);});
+    const ins=M.filter(m=>m.inside);if(ins.length&&ins.length<70&&Math.random()<dt*ins.length*.12){const p=ins[Math.floor(Math.random()*ins.length)];M.push({x:p.x,y:p.y,vx:(Math.random()-.5)*80,vy:(Math.random()-.5)*80,inside:true,e:E("circle",{r:6,fill:"#43a047"},s)});}
+    cnt.textContent=ins.length?ins.length+" micro-organismes dans le corps":"";
+    if(open)msg.textContent=ins.length<4?"Contamination : les micro-organismes entrent par la plaie.":"Infection : ils se multiplient à l'intérieur du corps.";});
+  ctl(box,[["✂︎ Couper la peau",()=>{open=true;cut.setAttribute("opacity",1);}],["↺ Peau intacte",()=>{open=false;cut.setAttribute("opacity",0);M.splice(14).forEach(m=>m.e.remove());M.forEach((m,i)=>{m.inside=false;m.y=hash(i+4)*90+15;});msg.textContent="La peau intacte arrête les micro-organismes.";}]]);
+};
+
+/* 19 · Antibiogramme */
+ANIMS.antibio=(box)=>{
+  const s=stage(box,640,330,"Antibiogramme : zones sans bactéries autour de trois pastilles");const cx=230,cy=165,R=150,K=R/45;
+  E("circle",{cx,cy,r:R+6,fill:"#cfd8dc"},s);E("circle",{cx,cy,r:R,fill:"#fff8e1"},s);
+  const pa=[["A",22,cx-60,cy-50],["B",6,cx+70,cy-30],["C",15,cx-10,cy+70]];
+  const lawn=G(s);const pts=[];for(let i=0;i<1400;i++){const a=hash(i)*Math.PI*2,r=Math.sqrt(hash(i+.5))*R*.97;const x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);if(pa.some(p=>Math.hypot(x-p[2],y-p[3])<p[1]/2*K))continue;pts.push(E("circle",{cx:x,cy:y,r:2.2,fill:"#c0ca33",opacity:0},lawn));}
+  pa.forEach(p=>{E("circle",{cx:p[2],cy:p[3],r:9,fill:"#fff",stroke:"#546e7a","stroke-width":2},s);TX(s,p[2],p[3]+5,p[0],{"text-anchor":"middle","font-size":13,class:"b"});});
+  const meas=G(s,{opacity:0});pa.forEach(p=>{const r=p[1]/2*K;E("line",{x1:p[2]-r,x2:p[2]+r,y1:p[3]+16,y2:p[3]+16,stroke:"var(--bad)","stroke-width":3},meas);});
+  const res=G(s,{opacity:0});pa.forEach((p,i)=>TX(res,420,90+i*60,"Pastille "+p[0]+" : zone de "+p[1]+" mm",{class:"b","font-size":15}));
+  const msg=live(box,"");
+  ctl(box,[["▶ Incuber 24 h",()=>{meas.setAttribute("opacity",0);res.setAttribute("opacity",0);tween(2200,(e,u)=>{const k=Math.round(pts.length*u);pts.forEach((p,i)=>p.setAttribute("opacity",i<k?.9:0));},()=>{msg.textContent="Autour de chaque pastille, une zone reste sans bactéries.";});}],
+    ["📏 Mesurer les zones",()=>{meas.setAttribute("opacity",1);res.setAttribute("opacity",1);msg.textContent="La zone la plus large est autour de A (22 mm) : c'est l'antibiotique le plus efficace contre cette bactérie.";}]]);
+};
+
+/* 20 · Analyse de sang */
+ANIMS.bloodcount=(box)=>{
+  const s=stage(box,640,330,"Frottis sanguins d'un sujet sain et d'un patient infecté");
+  const F=[["Sujet sain",160,7],["Patient infecté",480,16]].map(f=>{E("circle",{cx:f[1],cy:165,r:125,fill:"#fce4ec",stroke:"var(--muted)","stroke-width":3},s);TX(s,f[1],316,f[0],{"text-anchor":"middle",class:"b"});const g=G(s);const t=TX(s,f[1],26,"",{"text-anchor":"middle","font-size":15,class:"b"});return {g,x:f[1],w:f[2],t};});
+  const msg=live(box,"");
+  function obs(){F.forEach((f,fi)=>{f.g.innerHTML="";const items=[];for(let i=0;i<70;i++){const a=hash(i+fi*3)*Math.PI*2,r=Math.sqrt(hash(i*2+1))*115;items.push(()=>E("circle",{cx:f.x+r*Math.cos(a),cy:165+r*Math.sin(a),r:7,fill:"#ef5350",opacity:.75},f.g));}
+      for(let i=0;i<f.w;i++){const a=hash(i*5+fi*41)*Math.PI*2,r=Math.sqrt(hash(i*7+fi))*100;items.push(()=>{const g=G(f.g);E("circle",{cx:f.x+r*Math.cos(a),cy:165+r*Math.sin(a),r:12,fill:"#e1bee7",stroke:"#6a1b9a"},g);E("circle",{cx:f.x+r*Math.cos(a)+2,cy:165+r*Math.sin(a),r:6,fill:"#7b1fa2"},g);});}
+      let k=0;tween(1800,(e,u)=>{while(k<items.length*u){items[k]();k++;}});f.t.textContent="globules blancs (violets) : "+(fi?"16 000":"7 000")+" /mm³";});
+    msg.textContent="Les globules rouges sont aussi nombreux dans les deux cas ; les globules blancs (en violet) sont plus de deux fois plus nombreux chez le patient infecté.";}
+  ctl(box,[["🔬 Observer au microscope",obs]]);
+  note(box,"Schéma : le nombre de globules dessinés est proportionnel aux valeurs du tableau, pas réel.",false);
+};
+
+/* 21 · Phagocytose */
+ANIMS.phago=(box)=>{
+  const s=stage(box,640,300,"Les quatre étapes de la phagocytose");
+  const ph=E("path",{fill:"#e1bee7",stroke:"#6a1b9a","stroke-width":3},s);const nu=E("ellipse",{rx:20,ry:14,fill:"#8e24aa"},s);const vs=E("circle",{r:0,fill:"none",stroke:"#6a1b9a","stroke-width":3,"stroke-dasharray":"4 3"},s);
+  const mic=G(s);let shape=0;const SH=[["bactérie",()=>E("rect",{x:-22,y:-11,width:44,height:22,rx:11,fill:"#a5d6a7",stroke:"#2e7d32","stroke-width":2},mic)],["levure",()=>E("ellipse",{rx:20,ry:16,fill:"#fff59d",stroke:"#f9a825","stroke-width":2},mic)],["autre bactérie",()=>{for(let k=0;k<3;k++)E("circle",{cx:-14+k*14,cy:0,r:7,fill:"#80cbc4",stroke:"#00695c","stroke-width":2},mic);}]];
+  function drawMic(){mic.innerHTML="";SH[shape][1]();}
+  const lab=TX(s,320,290,"",{"text-anchor":"middle",class:"b","font-size":15});
+  function blob(cx,cy,arms,rad){let d="";const n=60;for(let i=0;i<=n;i++){const a=i/n*Math.PI*2;let r=rad*(1+.06*Math.sin(a*5));const toward=Math.cos(a);if(arms>0&&toward>0)r+=arms*Math.pow(toward,4)*rad*1.2;d+=(i?"L":"M")+(cx+r*Math.cos(a)).toFixed(1)+" "+(cy+r*Math.sin(a)).toFixed(1);}return d+"Z";}
+  function set(p){const cx=220+Math.min(1,p)*60,cy=150;ph.setAttribute("d",blob(cx,cy,p<1?0:p<2?(p-1):p<3?1-(p-2):0,90));nu.setAttribute("cx",cx-40);nu.setAttribute("cy",cy);
+    let mx=440-Math.min(1,p)*60,my=150,op=1,sc=1;if(p>=2){mx=lerp(380,cx+30,Math.min(1,p-2));}if(p>=3){mx=cx+30;op=Math.max(0,1-(p-3)*1.2);sc=1-(p-3)*.5;}
+    mic.setAttribute("transform","translate("+mx+" "+my+") scale("+Math.max(.3,sc)+")");mic.setAttribute("opacity",op);
+    vs.setAttribute("cx",cx+30);vs.setAttribute("cy",cy);vs.setAttribute("r",p>=2.6?30:0);
+    lab.textContent=p<1?"1. Adhésion : le phagocyte se colle au micro-organisme":p<2?"2. Il l'entoure de prolongements":p<3?"3. Il l'ingère dans une vésicule":"4. Il le digère";}
+  drawMic();player(box,4,.5,set);set(0);
+  ctl(box,[["Changer de micro-organisme",()=>{shape=(shape+1)%SH.length;drawMic();msg.textContent="Le même phagocyte peut ingérer une "+SH[shape][0]+" : la phagocytose n'est pas spécifique.";}]]);
+  const msg=live(box,"");
+};
+
+/* 22 · Mémoire immunitaire */
+ANIMS.immunmemory=(box)=>{
+  const f1=piece([[0,0],[5,2],[10,15],[20,10]]),f2=piece([[0,0],[5,40],[10,120],[20,90]]);
+  const ch=chart(box,{xmax:20,xstep:5,snap:5,ymin:0,ymax:140,ystep:20,xlab:"Temps après le contact (jours)",ylab:"Anticorps (u.a.)",
+    series:[{f:f1,col:"var(--warn)",lab:"1er contact",dash:"8 5"},{f:f2,col:"var(--bad)",lab:"2e contact"}],read:x=>"Jour "+x+" : 1er contact "+frn(+f1(x).toFixed(1))+" u.a. ; 2e contact "+frn(+f2(x).toFixed(1))+" u.a."});
+  player(box,20,3,p=>ch.set(p));ch.set(0);
+  note(box,"Points du tableau (jours 5, 10 et 20) reliés par des segments : l'allure entre deux mesures est simulée.",true);
+};
+
+/* ===================== VUES ===================== */
+const app=$("app");const NSE=SEANCES.length;
+function scoreOf(s){let f=0,t=0,d=0;s.qs.forEach(q=>{const st=S.qs[q.id];if(st&&st.tries){t++;if(st.first)f++;}if(st&&st.done)d++;});return {f,t,d};}
+function started(s){return s.qs.some(q=>S.qs[q.id]&&S.qs[q.id].tries);}
+function totals(){let f=0,t=0,ns=0;SEANCES.forEach(s=>{const r=scoreOf(s);f+=r.f;t+=r.t;if(r.t)ns++;});return {f,t,ns};}
+const CATS=[["r6","Rappel des années précédentes"],["sp","Séance précédente"],["se","Rappel espacé"],["doc","Lire un document"]];
+function catStats(){const o={};CATS.forEach(c=>o[c[0]]={f:0,t:0});SEANCES.forEach(s=>s.qs.forEach(q=>{const st=S.qs[q.id];if(st&&st.tries){o[q.tc].t++;if(st.first)o[q.tc].f++;}}));return o;}
+function pct(f,t){return t?Math.round(100*f/t):0;}
+function nextSeance(){let last=0;SEANCES.forEach(s=>{if(started(s))last=s.n;});if(!last)return 1;const s=SEANCES[last-1];return scoreOf(s).t<4?last:Math.min(NSE,last+1);}
+function mainCtx(host){return {mode:"seance",p:"",host,apis:{},st:q=>qst(q.id),save,after:(q,E,first)=>{if(first){S.box[q.id]=E.ok?2:1;S.last[q.id]=Date.now();}
+  const api=curCtx&&curCtx.apis[q.id];if(E.ok&&api)api._s.forEach(f=>{try{f();}catch(e){}});updSeance();}};}
+let curCtx=null,curView="";
+
+/* ---------- réglages ---------- */
+function applyFs(){const r=document.documentElement;r.classList.toggle("proj",!!S.proj);r.style.setProperty("--fs",(S.proj?Math.max(S.fs,30):S.fs)+"px");$("proj").setAttribute("aria-pressed",S.proj?"true":"false");}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme");}
+$("fsMinus").onclick=()=>{S.fs=Math.max(20,S.fs-2);applyFs();save();};
+$("fsPlus").onclick=()=>{S.fs=Math.min(34,S.fs+2);applyFs();save();};
+$("proj").onclick=()=>{S.proj=!S.proj;applyFs();save();};
+$("theme").onclick=()=>{const dark=S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);S.theme=dark?"light":"dark";applyTheme();save();};
+
+/* ---------- minuteur ---------- */
+const TM={left:300,run:false,last:0,iv:null};
+function tDraw(){const s=Math.max(0,Math.ceil(TM.left)),c=$("tclock");c.textContent=Math.floor(s/60)+":"+("0"+s%60).slice(-2);c.className="tclock"+(s===0?" end":s<=60?" low":"");$("tPlay").textContent=TM.run?"⏸":"▶";$("tPlay").setAttribute("aria-label",TM.run?"Mettre le minuteur en pause":"Lancer le minuteur");}
+function tStart(){if(TM.left<=0)TM.left=300;TM.run=true;TM.last=performance.now();clearInterval(TM.iv);TM.iv=setInterval(()=>{const n=performance.now();TM.left-=(n-TM.last)/1000;TM.last=n;if(TM.left<=0){TM.left=0;TM.run=false;clearInterval(TM.iv);$("tclock").setAttribute("aria-label","Temps écoulé : termine ta question en cours.");}tDraw();},250);tDraw();}
+function tStop(){TM.run=false;clearInterval(TM.iv);tDraw();}
+$("tPlay").onclick=()=>{TM.run?tStop():tStart();};
+$("tReset").onclick=()=>{tStop();TM.left=300;tDraw();};
+
+/* ---------- routage ---------- */
+function go(h){if(location.hash!=="#"+h)location.hash=h;else route();}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-go]");if(t){e.preventDefault();go(t.dataset.go);}});
+window.addEventListener("hashchange",route);
+function leave(){stopLoops();cleanup();tStop();curCtx=null;}
+function route(){
+  const h=(location.hash||"#home").slice(1);leave();window.scrollTo(0,0);
+  $("sbar").hidden=true;
+  let m;
+  if((m=/^s(\d+)$/.exec(h))&&+m[1]>=1&&+m[1]<=NSE)viewSeance(+m[1]);
+  else if((m=/^rev(?:-(r6|sp|se))?$/.exec(h)))viewRev(m[1]||null);
+  else if(h==="prog")viewProg();
+  else if(h==="bilan")viewBilan();
+  else viewHome();
+}
+
+/* ---------- sommaire ---------- */
+function viewHome(){
+  curView="home";const T=totals(),nx=nextSeance();
+  app.innerHTML='<section class="view">'+
+   '<div class="card stack"><div class="hero"><div class="stack" style="gap:6px"><div class="kicker">Mon carnet d\'automatismes</div><p>'+NSE+' séances de 5 minutes pour réactiver ce que tu as appris. Le score compte ta réponse au <b>premier essai</b> ; ensuite, tu peux corriger autant que tu veux.</p></div>'+
+   '<div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet iPad)</label><input class="name" id="pname" autocomplete="off" maxlength="40" value="'+esc(S.name)+'"></div></div>'+
+   '<div class="stats"><div class="stat"><div class="k">Séances commencées</div><div class="v">'+T.ns+' / '+NSE+'</div></div><div class="stat"><div class="k">Réussies au 1er essai</div><div class="v">'+T.f+' / '+T.t+'</div></div><div class="stat"><div class="k">Taux de réussite</div><div class="v">'+(T.t?pct(T.f,T.t)+" %":"—")+'</div></div></div>'+
+   '<div class="quick"><button class="btn" data-go="s'+nx+'">▶ '+(T.ns?"Reprendre : séance n°":"Commencer : séance n°")+nx+'</button><button class="btn ghost" data-go="rev">🔀 Révision mélangée</button><button class="btn ghost" data-go="prog">📈 Ma progression</button><button class="btn ghost" data-go="bilan">📄 Mon bilan</button></div></div>'+
+   MISSIONS.map(mi=>'<div class="mission"><div class="mhead"><h3>'+esc(mi.name)+'</h3><span class="muted small">'+esc([...new Set(mi.ss.map(s=>s.theme).filter(Boolean))].join(" · "))+'</span></div><div class="tiles">'+mi.ss.map(s=>{const r=scoreOf(s);const b=r.t?'<span class="badge '+(r.t===4?(r.f===4?"full":"part"):"part")+'">'+r.f+'/'+(r.t===4?4:r.t)+(r.t<4?" …":"")+'</span>':'<span class="badge">à faire</span>';
+     return '<button class="tile'+(s.n===nx?" cur":"")+'" data-go="s'+s.n+'" aria-label="Séance '+s.n+', '+esc(s.theme||s.mission)+', '+(r.t?r.f+" sur 4 au premier essai":"à faire")+'"><span class="tn"><span>Séance n°'+s.n+'</span>'+b+'</span><span class="tt">'+esc(s.date)+(s.theme?' · '+esc(s.theme):'')+'</span></button>';}).join("")+'</div></div>').join("")+
+   '</section>';
+  $("pname").addEventListener("input",e=>{S.name=e.target.value;save();});
+}
+
+/* ---------- séance ---------- */
+function viewSeance(n){
+  curView="s";const s=SEANCES[n-1];S.lastSn=n;save();
+  $("sbar").hidden=false;$("sbTitle").textContent="Séance n°"+n;
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">'+esc(s.mission)+(s.theme?' · '+esc(s.theme):'')+'</div><h2 class="h2">Séance n°'+n+'</h2><p class="muted">'+esc(s.date)+' · 5 minutes · 4 questions</p></div><div class="stack" id="qhost" style="gap:18px"></div><div id="endSlot"></div>'+
+   '<div class="snav">'+(n>1?'<button class="btn ghost" data-go="s'+(n-1)+'">← Séance n°'+(n-1)+'</button>':'<span></span>')+(n<NSE?'<button class="btn ghost" data-go="s'+(n+1)+'">Séance n°'+(n+1)+' →</button>':'')+'</div></section>';
+  curCtx=mainCtx($("qhost"));
+  s.qs.forEach(q=>buildCard(q,curCtx));
+  updSeance();
+  TM.left=300;tDraw();if(!started(s))tStart();
+}
+function updSeance(){
+  const m=/^#s(\d+)$/.exec(location.hash||"");if(!m)return;const s=SEANCES[+m[1]-1],r=scoreOf(s);
+  $("sbScore").textContent=(r.t?r.f:"–")+" / 4";
+  const slot=$("endSlot");if(!slot)return;
+  if(r.t<4){slot.innerHTML="";return;}
+  const perfect=r.f===4;
+  slot.innerHTML='<div class="endcard" aria-live="polite"><div class="kicker" style="color:var(--band-muted)">Séance terminée</div><div class="big">'+r.f+' / 4</div><p>'+(perfect?"Parfait : tout juste au premier essai !":r.f>=3?"Très bien. Relis le corrigé de la question ratée.":r.f>=2?"C'est en bonne voie : relis les corrigés et refais les questions ratées.":"Relis bien les corrigés : ces notions reviendront dans les prochaines séances.")+'</p>'+
+   '<div class="row"><button class="btn" id="showProf">Montrer au professeur</button>'+(s.n<NSE?'<button class="btn ghost" data-go="s'+(s.n+1)+'">Séance suivante →</button>':'')+'<button class="btn ghost" data-go="rev">🔀 Révision mélangée</button></div></div>';
+  $("showProf").onclick=()=>showProfSeance(s);
+  if(perfect&&!s._cel){s._cel=1;celebrate();}
+}
+function showProfSeance(s){
+  $("ovkick").textContent="À montrer au professeur";$("ovname").textContent=S.name.trim()||"Élève";$("ovsub").textContent="Séance n°"+s.n+" · score au premier essai";
+  const r=scoreOf(s);$("ovtot").textContent=r.f+" / 4";
+  $("ovlist").innerHTML=s.qs.map(q=>{const st=S.qs[q.id]||{};return '<div class="ovitem">'+q.k+'. '+(st.tries?(st.first?'<span style="color:var(--ok)">✓ juste</span>':'<span style="color:var(--bad)">✗ raté</span>'+(st.done?" puis corrigé":"")):'<span class="muted">non fait</span>')+'<div class="muted small" style="font-weight:400">'+esc(q.tl)+'</div></div>';}).join("");
+  $("overlay").hidden=false;$("ovClose").focus();
+}
+$("ovClose").onclick=()=>{$("overlay").hidden=true;};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("overlay").hidden=true;});
+
+/* ---------- révision mélangée ---------- */
+let REV=null;
+function revPool(cat){const pool=[];SEANCES.forEach(s=>{if(!started(s))return;s.qs.forEach(q=>{if(q.k===4)return;if(cat&&q.tc!==cat)return;pool.push(q);});});
+  return pool.map(q=>({q,b:S.box[q.id]||((S.qs[q.id]&&S.qs[q.id].tries)?(S.qs[q.id].first?2:1):1),l:S.last[q.id]||0,r:Math.random()})).sort((a,b)=>a.b-b.b||a.l-b.l||a.r-b.r);}
+function viewRev(cat){
+  curView="rev";const pool=revPool(cat);const catl=cat?CATS.find(c=>c[0]===cat)[1]:null;
+  if(!pool.length){app.innerHTML='<section class="view"><div class="kicker">Révision mélangée</div><h2 class="h2">Rien à réviser pour l\'instant</h2><p>Fais d\'abord quelques séances : la révision reprend les questions des séances que tu as commencées, en priorité celles que tu as ratées.</p><div class="row"><button class="btn" data-go="home">← Sommaire</button></div></section>';return;}
+  const top=pool.slice(0,Math.min(pool.length,14));for(let i=top.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[top[i],top[j]]=[top[j],top[i]];}
+  top.sort((a,b)=>a.b-b.b);const list=top.slice(0,8).map(x=>x.q);
+  REV={list,i:0,st:{},res:[],cat};
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">Révision mélangée'+(catl?" · "+esc(catl):"")+'</div><h2 class="h2">Rappel espacé</h2><p class="muted">Questions tirées des séances déjà faites, en priorité celles que tu as ratées. Ce score ne compte pas dans tes séances.</p></div><p class="alive" id="revProg"></p><div id="revHost" class="stack"></div><div class="row" id="revNav"></div></section>';
+  revShow();
+}
+function revShow(){
+  const host=$("revHost");host.innerHTML="";stopLoops();cleanup();
+  if(REV.i>=REV.list.length){const ok=REV.res.filter(Boolean).length;$("revProg").textContent="";
+    host.innerHTML='<div class="endcard"><div class="kicker" style="color:var(--band-muted)">Révision terminée</div><div class="big">'+ok+' / '+REV.list.length+'</div><p>'+(ok===REV.list.length?"Tout juste du premier coup : ces notions sont bien ancrées !":"Les questions ratées reviendront en priorité lors de ta prochaine révision.")+'</p><div class="row"><button class="btn" id="revAgain">🔀 Nouvelle révision</button><button class="btn ghost" data-go="prog">📈 Ma progression</button><button class="btn ghost" data-go="home">Sommaire</button></div></div>';
+    $("revNav").innerHTML="";$("revAgain").onclick=()=>viewRev(REV.cat);return;}
+  const q=REV.list[REV.i];$("revProg").textContent="Question "+(REV.i+1)+" / "+REV.list.length;
+  const ctx={mode:"rev",p:"r"+REV.i+"-",host,apis:{},num:REV.i+1,st:x=>REV.st[x.id]||(REV.st[x.id]={a:{},tries:0,hints:0}),save:()=>{},after:(x,E,first)=>{if(first){REV.res[REV.i]=E.ok;S.box[x.id]=E.ok?Math.min(5,(S.box[x.id]||1)+1):1;S.last[x.id]=Date.now();save();}revNav();}};
+  curCtx=ctx;buildCard(q,ctx);revNav();
+}
+function revNav(){const done=REV.res[REV.i]!==undefined;$("revNav").innerHTML='<button class="btn" id="revNext"'+(done?"":" disabled")+'>'+(REV.i+1<REV.list.length?"Question suivante →":"Voir mon résultat →")+'</button>';$("revNext").onclick=()=>{REV.i++;revShow();window.scrollTo(0,0);};}
+
+/* ---------- progression ---------- */
+function viewProg(){
+  curView="prog";const C=catStats(),T=totals();
+  const weak=[];SEANCES.forEach(s=>s.qs.forEach(q=>{const st=S.qs[q.id];if(st&&st.tries&&!st.first)weak.push({q,done:!!st.done});}));
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">Ma progression</div><h2 class="h2">Réussite au premier essai, par type de question</h2></div>'+
+   '<div class="card stack">'+CATS.map(c=>{const o=C[c[0]];return '<div class="pbar"><div class="pl"><span><span class="tag '+c[0]+'">'+esc(c[1])+'</span></span><span>'+(o.t?pct(o.f,o.t)+" % ("+o.f+" / "+o.t+")":"pas encore de réponse")+'</span></div><div class="track" role="img" aria-label="'+esc(c[1])+' : '+pct(o.f,o.t)+' %"><span style="width:'+pct(o.f,o.t)+'%"></span></div>'+(c[0]!=="doc"&&o.t?'<div><button class="btn ghost sm" data-go="rev-'+c[0]+'">Réviser ce type de questions</button></div>':"")+'</div>';}).join("")+'</div>'+
+   (T.t?'<div class="box info"><div class="bt">ℹ︎ Mon point faible</div><p>'+esc(advice(C))+'</p></div>':'')+
+   '<div class="card stack"><div class="kicker">Par mission</div>'+MISSIONS.map(mi=>{let f=0,t=0;mi.ss.forEach(s=>{const r=scoreOf(s);f+=r.f;t+=r.t;});return t?'<div class="pbar"><div class="pl"><span>'+esc(mi.name)+'</span><span>'+pct(f,t)+' % ('+f+' / '+t+')</span></div><div class="track"><span style="width:'+pct(f,t)+'%"></span></div></div>':"";}).join("")+(T.t?"":'<p class="muted">Aucune séance commencée.</p>')+'</div>'+
+   '<div class="card stack"><div class="kicker">Questions ratées au premier essai ('+weak.length+')</div><div class="weak">'+(weak.length?weak.slice(-15).reverse().map(w=>'<button class="btn ghost sm" data-go="s'+w.q.sn+'">Séance n°'+w.q.sn+', question '+w.q.k+' · '+esc(w.q.text.length>70?w.q.text.slice(0,68)+"…":w.q.text)+(w.done?" · corrigée ✓":"")+'</button>').join(""):'<p class="muted">Aucune pour l\'instant.</p>')+'</div></div>'+
+   '<div class="row"><button class="btn" data-go="rev">🔀 Révision mélangée</button><button class="btn ghost" data-go="bilan">📄 Mon bilan</button><button class="btn ghost" data-go="home">Sommaire</button></div></section>';
+}
+function advice(C){const l=CATS.filter(c=>C[c[0]].t>=2).map(c=>({c,p:C[c[0]].f/C[c[0]].t})).sort((a,b)=>a.p-b.p);if(!l.length)return "Continue les séances pour obtenir un conseil personnalisé.";const w=l[0].c[0];
+  return {r6:"Les rappels des années précédentes : relis tes cahiers de 4e et de 5e ou lance une révision ciblée.",sp:"Les questions sur la séance précédente : relis le corrigé de la dernière séance avant chaque cours.",se:"Les notions plus anciennes : fais une révision mélangée chaque semaine pour ne pas les oublier.",doc:"La lecture de documents : prends le temps de lire le titre, les colonnes et les unités avant de répondre."}[w];}
+
+/* ---------- bilan ---------- */
+function today(){const d=new Date();return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();}
+function bilanText(){const T=totals(),C=catStats(),L=[];
+  L.push("Automatismes 3e SVT — bilan");L.push("Élève : "+(S.name.trim()||"non renseigné")+"   Date : "+today());
+  L.push("Séances commencées : "+T.ns+" / "+NSE);L.push("Réussite au premier essai : "+T.f+" / "+T.t+(T.t?" ("+pct(T.f,T.t)+" %)":""));
+  L.push("Par type de question :");CATS.forEach(c=>{const o=C[c[0]];L.push("  - "+c[1]+" : "+(o.t?o.f+" / "+o.t+" ("+pct(o.f,o.t)+" %)":"—"));});
+  L.push("Détail des séances :");SEANCES.forEach(s=>{const r=scoreOf(s);if(r.t)L.push("  - Séance n°"+s.n+" ("+(s.theme||s.mission)+") : "+r.f+" / "+r.t+(r.t<4?" (incomplète)":""));});
+  const w=[];SEANCES.forEach(s=>s.qs.forEach(q=>{const st=S.qs[q.id];if(st&&st.tries&&!st.first)w.push("S"+s.n+"Q"+q.k);}));L.push("Questions ratées au premier essai : "+(w.length?w.join(", "):"aucune"));
+  return L.join("\n");}
+function viewBilan(){
+  curView="bilan";const T=totals(),C=catStats();
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">Mon bilan</div><h2 class="h2">Tout mon carnet d\'automatismes</h2></div><div class="card stack">'+
+   '<div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet iPad)</label><input class="name" id="pname" autocomplete="off" maxlength="40" value="'+esc(S.name)+'"></div>'+
+   '<div class="stats"><div class="stat"><div class="k">Séances</div><div class="v">'+T.ns+' / '+NSE+'</div></div><div class="stat"><div class="k">1er essai</div><div class="v">'+T.f+' / '+T.t+'</div></div><div class="stat"><div class="k">Réussite</div><div class="v">'+(T.t?pct(T.f,T.t)+" %":"—")+'</div></div></div>'+
+   '<div class="bilantext" id="bilanText"></div><div class="row"><button class="btn" id="bProf">Montrer au professeur</button><button class="btn ghost" id="dlB" hidden>Télécharger mon bilan (.txt)</button><button class="btn ghost" id="cpB">Copier mon bilan</button></div><p class="muted" id="bMsg" aria-live="polite"></p></div>'+
+   '<div class="row"><button class="btn ghost" data-go="prog">📈 Ma progression</button><button class="btn ghost" data-go="home">Sommaire</button></div></section>';
+  $("bilanText").textContent=bilanText();
+  $("pname").addEventListener("input",e=>{S.name=e.target.value;save();$("bilanText").textContent=bilanText();});
+  $("cpB").onclick=()=>{const t=bilanText(),msg=$("bMsg");const sel=()=>{const r=document.createRange();r.selectNodeContents($("bilanText"));const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : copie-le avec ton iPad.";};try{navigator.clipboard.writeText(t).then(()=>{msg.textContent="Bilan copié.";},sel);}catch(e){sel();}};
+  if(DL)$("dlB").hidden=false;
+  $("dlB").onclick=()=>{if(!DL)return;const msg=$("bMsg"),nm=(S.name.trim()||"eleve").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9_-]+/g,"-").slice(0,30)||"eleve";
+    DL.save({filename:"automatismes-"+nm+".txt",data:bilanText()}).then(()=>{msg.textContent="Bilan téléchargé.";},err=>{const c=err&&err.code;msg.textContent=c==="declined"?"Téléchargement annulé.":c==="rate_limited"?"Patiente un instant, puis réessaie.":"Téléchargement impossible ici : utilise « Copier mon bilan ».";});};
+  $("bProf").onclick=()=>{$("ovkick").textContent="Bilan à montrer au professeur";$("ovname").textContent=S.name.trim()||"Élève";$("ovsub").textContent=T.ns+" séances commencées · réussite au premier essai";$("ovtot").textContent=T.t?pct(T.f,T.t)+" %":"—";
+    $("ovlist").innerHTML=CATS.map(c=>{const o=C[c[0]];return '<div class="ovitem">'+esc(c[1])+'<div style="font-family:var(--f-num)">'+(o.t?o.f+" / "+o.t:"—")+'</div></div>';}).join("");$("overlay").hidden=false;$("ovClose").focus();};
+}
+let DL=null;try{if(window.claude&&window.claude.use)window.claude.use("downloads").then(d=>{DL=d;const b=$("dlB");if(b&&d)b.hidden=false;}).catch(()=>{});}catch(e){}
+
+/* ---------- confettis ---------- */
+function celebrate(){if(RM)return;const cv=document.createElement("canvas");cv.className="confetti";document.body.appendChild(cv);const w=innerWidth,h=innerHeight,dpr=window.devicePixelRatio||1;cv.width=w*dpr;cv.height=h*dpr;cv.style.width=w+"px";cv.style.height=h+"px";const c=cv.getContext("2d");c.scale(dpr,dpr);
+  const cols=["--teal","--ok","--warn","--info","--sun"].map(css);const P=[];for(let i=0;i<140;i++)P.push({x:w/2+(Math.random()-.5)*w*.3,y:h*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*13-4,r:Math.random()*3,vr:(Math.random()-.5)*.3,s:6+Math.random()*7,c:cols[i%cols.length]});
+  let t0=null;const f=ts=>{if(t0===null)t0=ts;const el=ts-t0;c.clearRect(0,0,w,h);P.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;c.save();c.translate(p.x,p.y);c.rotate(p.r);c.globalAlpha=Math.max(0,1-el/2200);c.fillStyle=p.c;c.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);c.restore();});if(el<2200)requestAnimationFrame(f);else cv.remove();};requestAnimationFrame(f);}
+
+applyFs();applyTheme();route();
+window.__t={S:()=>S,SEANCES,evalQ,QBY,go};
+
+})();
+</script>
+</body>
+</html>
