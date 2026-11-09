@@ -6,50 +6,221 @@
       "sous": "Sciences et technologie · séquence Mission Mars",
       "couleur": "eist",
       "transversal": [
-        {"fichier": "automatismes.html", "tag": "Automatismes", "titre": "Mes automatismes de 5e", "desc": "45 séances de 5 minutes, corrigées, avec documents animés et révision."}
+        {
+          "fichier": "automatismes.html",
+          "tag": "Automatismes",
+          "titre": "Mes automatismes de 5e",
+          "desc": "45 séances de 5 minutes, corrigées, avec documents animés et révision."
+        }
       ],
       "themes": [
-        {"id": "mission-1", "titre": "Mission 1", "chapitres": [
-          {"id": "systeme-solaire", "titre": "Le système solaire"},
-          {"id": "voyages-espace", "titre": "Les voyages dans l'espace"},
-          {"id": "sources-lumiere", "titre": "Physique-chimie · Les sources de lumière"},
-          {"id": "gestion-projet", "titre": "Technologie · La gestion de projet"}]},
-        {"id": "mission-2", "titre": "Mission 2", "chapitres": [
-          {"id": "devenir-astronaute", "titre": "Devenir astronaute"}]},
-        {"id": "mission-3", "titre": "Mission 3", "chapitres": [
-          {"id": "impesanteur", "titre": "Le corps humain en impesanteur"},
-          {"id": "mouvement-commande", "titre": "Le mouvement et sa commande"}]},
-        {"id": "mission-4", "titre": "Mission 4 · Charger la fusée", "chapitres": [
-          {"id": "micro-organismes", "titre": "Les micro-organismes", "activites": [
-            {"fichier": "echiquier-bacteries.html", "tag": "Défi", "titre": "Un repas, des bactéries… et des maths", "desc": "Le défi de l'échiquier : la multiplication des bactéries en animation."},
-            {"fichier": "bacteria-chessboard.html", "lang": "en", "tag": "English · DNL", "titre": "A meal, some bacteria… and maths", "desc": "Version anglaise du défi de l'échiquier."}]},
-          {"id": "changements-etat", "titre": "Physique-chimie · Les changements d'état", "activites": [
-            {"fichier": "ebullition-eau.html", "tag": "TP virtuel", "titre": "Quand l'eau se met à bouillir", "desc": "TP 3 : chauffer l'eau, relever la température, tracer et interpréter la courbe."}]},
-          {"id": "microbes-sante", "titre": "Les micro-organismes et la santé"}]},
-        {"id": "mission-5", "titre": "Mission 5", "chapitres": [
-          {"id": "decollage", "titre": "Le décollage", "activites": [
-            {"fichier": "decollage-corps-humain.html", "tag": "Mission Mars", "titre": "Le décollage et le corps humain", "desc": "Quels effets une forte accélération a-t-elle sur le corps des astronautes ?"}]},
-          {"id": "mouvement", "titre": "Physique-chimie · Le mouvement"},
-          {"id": "soleil-terre-lune", "titre": "Signaux lumineux : le système Soleil-Terre-Lune"},
-          {"id": "energie", "titre": "Les sources et conversions d'énergie"}]},
-        {"id": "mission-robots", "titre": "Mission robots", "chapitres": [
-          {"id": "programmation", "titre": "Technologie · La programmation"}]},
-        {"id": "mission-6", "titre": "Mission 6", "chapitres": [
-          {"id": "nourrir-marsonautes", "titre": "Nourrir les marsonautes"}]},
-        {"id": "mission-7", "titre": "Mission 7", "chapitres": [
-          {"id": "nutrition-vegetaux", "titre": "La nutrition des végétaux"}]},
-        {"id": "mission-8", "titre": "Mission 8", "chapitres": [
-          {"id": "circuits-electriques", "titre": "L'énergie et ses conversions : les circuits électriques"}]},
-        {"id": "mission-9", "titre": "Mission 9", "chapitres": [
-          {"id": "respiration", "titre": "La respiration des animaux"}]},
-        {"id": "mission-10", "titre": "Mission 10", "chapitres": [
-          {"id": "digestion", "titre": "La digestion"}]},
-        {"id": "mission-11", "titre": "Mission 11", "chapitres": [
-          {"id": "circulation", "titre": "La circulation sanguine"}]},
-        {"id": "mission-12", "titre": "Mission 12", "chapitres": [
-          {"id": "volcans-mars", "titre": "Les volcans de Mars"}]},
-        {"id": "mission-13", "titre": "Mission 13", "chapitres": [
-          {"id": "signaux-lumineux", "titre": "Physique-chimie · Les signaux lumineux"}]}
+        {
+          "id": "mission-1",
+          "titre": "Mission 1",
+          "chapitres": [
+            {
+              "id": "systeme-solaire",
+              "titre": "Le système solaire"
+            },
+            {
+              "id": "voyages-espace",
+              "titre": "Les voyages dans l'espace"
+            },
+            {
+              "id": "sources-lumiere",
+              "titre": "Physique-chimie · Les sources de lumière"
+            },
+            {
+              "id": "gestion-projet",
+              "titre": "Technologie · La gestion de projet"
+            }
+          ]
+        },
+        {
+          "id": "mission-2",
+          "titre": "Mission 2",
+          "chapitres": [
+            {
+              "id": "devenir-astronaute",
+              "titre": "Devenir astronaute"
+            }
+          ]
+        },
+        {
+          "id": "mission-3",
+          "titre": "Mission 3",
+          "chapitres": [
+            {
+              "id": "impesanteur",
+              "titre": "Le corps humain en impesanteur"
+            },
+            {
+              "id": "mouvement-commande",
+              "titre": "Le mouvement et sa commande"
+            }
+          ]
+        },
+        {
+          "id": "mission-4",
+          "titre": "Mission 4 · Charger la fusée",
+          "chapitres": [
+            {
+              "id": "micro-organismes",
+              "titre": "Les micro-organismes",
+              "activites": [
+                {
+                  "fichier": "echiquier-bacteries.html",
+                  "tag": "Défi",
+                  "titre": "Un repas, des bactéries… et des maths",
+                  "desc": "Le défi de l'échiquier : la multiplication des bactéries en animation."
+                },
+                {
+                  "fichier": "bacteria-chessboard.html",
+                  "lang": "en",
+                  "tag": "English · DNL",
+                  "titre": "A meal, some bacteria… and maths",
+                  "desc": "Version anglaise du défi de l'échiquier."
+                }
+              ]
+            },
+            {
+              "id": "changements-etat",
+              "titre": "Physique-chimie · Les changements d'état",
+              "activites": [
+                {
+                  "fichier": "ebullition-eau.html",
+                  "tag": "TP virtuel",
+                  "titre": "Quand l'eau se met à bouillir",
+                  "desc": "TP 3 : chauffer l'eau, relever la température, tracer et interpréter la courbe."
+                }
+              ]
+            },
+            {
+              "id": "microbes-sante",
+              "titre": "Les micro-organismes et la santé"
+            }
+          ]
+        },
+        {
+          "id": "mission-5",
+          "titre": "Mission 5",
+          "chapitres": [
+            {
+              "id": "decollage",
+              "titre": "Le décollage",
+              "activites": [
+                {
+                  "fichier": "decollage-corps-humain.html",
+                  "tag": "Mission Mars",
+                  "titre": "Le décollage et le corps humain",
+                  "desc": "Quels effets une forte accélération a-t-elle sur le corps des astronautes ?"
+                }
+              ]
+            },
+            {
+              "id": "mouvement",
+              "titre": "Physique-chimie · Le mouvement"
+            },
+            {
+              "id": "soleil-terre-lune",
+              "titre": "Signaux lumineux : le système Soleil-Terre-Lune"
+            },
+            {
+              "id": "energie",
+              "titre": "Les sources et conversions d'énergie"
+            }
+          ]
+        },
+        {
+          "id": "mission-robots",
+          "titre": "Mission robots",
+          "chapitres": [
+            {
+              "id": "programmation",
+              "titre": "Technologie · La programmation"
+            }
+          ]
+        },
+        {
+          "id": "mission-6",
+          "titre": "Mission 6",
+          "chapitres": [
+            {
+              "id": "nourrir-marsonautes",
+              "titre": "Nourrir les marsonautes"
+            }
+          ]
+        },
+        {
+          "id": "mission-7",
+          "titre": "Mission 7",
+          "chapitres": [
+            {
+              "id": "nutrition-vegetaux",
+              "titre": "La nutrition des végétaux"
+            }
+          ]
+        },
+        {
+          "id": "mission-8",
+          "titre": "Mission 8",
+          "chapitres": [
+            {
+              "id": "circuits-electriques",
+              "titre": "L'énergie et ses conversions : les circuits électriques"
+            }
+          ]
+        },
+        {
+          "id": "mission-9",
+          "titre": "Mission 9",
+          "chapitres": [
+            {
+              "id": "respiration",
+              "titre": "La respiration des animaux"
+            }
+          ]
+        },
+        {
+          "id": "mission-10",
+          "titre": "Mission 10",
+          "chapitres": [
+            {
+              "id": "digestion",
+              "titre": "La digestion"
+            }
+          ]
+        },
+        {
+          "id": "mission-11",
+          "titre": "Mission 11",
+          "chapitres": [
+            {
+              "id": "circulation",
+              "titre": "La circulation sanguine"
+            }
+          ]
+        },
+        {
+          "id": "mission-12",
+          "titre": "Mission 12",
+          "chapitres": [
+            {
+              "id": "volcans-mars",
+              "titre": "Les volcans de Mars"
+            }
+          ]
+        },
+        {
+          "id": "mission-13",
+          "titre": "Mission 13",
+          "chapitres": [
+            {
+              "id": "signaux-lumineux",
+              "titre": "Physique-chimie · Les signaux lumineux"
+            }
+          ]
+        }
       ]
     },
     {
@@ -58,19 +229,67 @@
       "sous": "Cycle 4 · préparation du brevet",
       "couleur": "svt",
       "transversal": [
-        {"fichier": "automatismes.html", "tag": "Automatismes", "titre": "Mes automatismes de 3e", "desc": "22 séances de 5 minutes, corrigées, avec documents animés et révision."}
+        {
+          "fichier": "automatismes.html",
+          "tag": "Automatismes",
+          "titre": "Mes automatismes de 3e",
+          "desc": "22 séances de 5 minutes, corrigées, avec documents animés et révision."
+        }
       ],
       "themes": [
-        {"id": "vivant-evolution", "titre": "Le vivant et son évolution", "chapitres": [
-          {"id": "ch1-information-genetique", "titre": "Chapitre 1 · L'information génétique"},
-          {"id": "ch2-transmission", "titre": "Chapitre 2 · La transmission de l'information génétique", "activites": [
-            {"fichier": "enquete-caryotypes.html", "tag": "Enquête · dossier 6", "titre": "Enquête caryotypes", "desc": "S'informer à l'aide de différents caryotypes."},
-            {"fichier": "labo-agglutination.html", "tag": "Enquête · dossier 7", "titre": "Labo d'agglutination", "desc": "TP : analyser le sang retrouvé sur les vêtements de la victime."},
-            {"fichier": "arbre-jean.html", "tag": "Enquête · dossier 8", "titre": "L'arbre de Jean", "desc": "Construire l'arbre généalogique de la famille de Jean : la transmission des allèles."}]},
-          {"id": "ch3-diversite-evolution", "titre": "Chapitre 3 · Diversité et évolution des êtres vivants"}]},
-        {"id": "corps-sante", "titre": "Le corps humain et la santé", "chapitres": [
-          {"id": "ch4-microbes-sante", "titre": "Chapitre 4 · Le monde microbien et la santé"}]},
-        {"id": "planete-terre", "titre": "La planète Terre, l'environnement et l'action humaine", "chapitres": []}
+        {
+          "id": "vivant-evolution",
+          "titre": "Le vivant et son évolution",
+          "chapitres": [
+            {
+              "id": "ch1-information-genetique",
+              "titre": "Chapitre 1 · L'information génétique"
+            },
+            {
+              "id": "ch2-transmission",
+              "titre": "Chapitre 2 · La transmission de l'information génétique",
+              "activites": [
+                {
+                  "fichier": "enquete-caryotypes.html",
+                  "tag": "Enquête · dossier 6",
+                  "titre": "Enquête caryotypes",
+                  "desc": "S'informer à l'aide de différents caryotypes."
+                },
+                {
+                  "fichier": "labo-agglutination.html",
+                  "tag": "Enquête · dossier 7",
+                  "titre": "Labo d'agglutination",
+                  "desc": "TP : analyser le sang retrouvé sur les vêtements de la victime."
+                },
+                {
+                  "fichier": "arbre-jean.html",
+                  "tag": "Enquête · dossier 8",
+                  "titre": "L'arbre de Jean",
+                  "desc": "Construire l'arbre généalogique de la famille de Jean : la transmission des allèles."
+                }
+              ]
+            },
+            {
+              "id": "ch3-diversite-evolution",
+              "titre": "Chapitre 3 · Diversité et évolution des êtres vivants"
+            }
+          ]
+        },
+        {
+          "id": "corps-sante",
+          "titre": "Le corps humain et la santé",
+          "chapitres": [
+            {
+              "id": "ch4-microbes-sante",
+              "titre": "Chapitre 4 · Le monde microbien et la santé"
+            }
+          ]
+        },
+        {
+          "id": "planete-terre",
+          "titre": "La planète Terre, l'environnement et l'action humaine",
+          "chapitres": []
+        }
       ]
     },
     {
@@ -78,30 +297,116 @@
       "titre": "2nde SVT",
       "sous": "Programme de seconde (BO 2019)",
       "couleur": "svt",
-      "transversal": [],
+      "transversal": [
+        {
+          "fichier": "automatismes.html",
+          "tag": "Automatismes",
+          "titre": "Mes automatismes de 2nde",
+          "desc": "23 séances de 5 minutes, corrigées, avec documents animés, simulations et révision."
+        }
+      ],
       "themes": [
-        {"id": "theme-1", "titre": "Thème 1 · La Terre, la vie et l'organisation du vivant", "chapitres": [
-          {"id": "cellules-specialisees", "titre": "L'organisme pluricellulaire, un ensemble de cellules spécialisées"},
-          {"id": "metabolisme", "titre": "Le métabolisme des cellules", "activites": [
-            {"fichier": "tp-elodee.html", "tag": "TP virtuel · ExAO", "titre": "TP Élodée : photosynthèse ou respiration ?", "desc": "Enquête expérimentale sur l'élodée, données ExAO simulées."},
-            {"fichier": "elodea-lab.html", "lang": "en", "tag": "English · DNL", "titre": "Elodea Lab: photosynthesis or respiration?", "desc": "Version anglaise du TP Élodée."}]},
-          {"id": "echelles-biodiversite", "titre": "Les échelles de la biodiversité"},
-          {"id": "biodiversite-temps", "titre": "La biodiversité change au cours du temps"},
-          {"id": "forces-evolutives", "titre": "Les forces évolutives : sélection naturelle et dérive génétique"},
-          {"id": "communication-selection-sexuelle", "titre": "Communication intra-spécifique et sélection sexuelle"}]},
-        {"id": "theme-2", "titre": "Thème 2 · Les enjeux contemporains de la planète", "chapitres": [
-          {"id": "erosion", "titre": "L'érosion, processus et conséquences"},
-          {"id": "sedimentation", "titre": "Sédimentation et milieux de sédimentation"},
-          {"id": "erosion-activite-humaine", "titre": "Érosion et activité humaine"},
-          {"id": "agrosystemes", "titre": "Structure et fonctionnement des agrosystèmes"},
-          {"id": "sols-biomasse", "titre": "Caractéristiques des sols et production de biomasse"},
-          {"id": "agrosystemes-durables", "titre": "Vers une gestion durable des agrosystèmes"}]},
-        {"id": "theme-3", "titre": "Thème 3 · Corps humain et santé", "chapitres": [
-          {"id": "fecondation-puberte", "titre": "Corps humain : de la fécondation à la puberté"},
-          {"id": "cerveau-plaisir-sexualite", "titre": "Cerveau, plaisir, sexualité"},
-          {"id": "hormones-procreation", "titre": "Hormones et procréation humaine"},
-          {"id": "pathogenes", "titre": "Agents pathogènes et maladies vectorielles"},
-          {"id": "microbiote", "titre": "Microbiote humain et santé"}]}
+        {
+          "id": "theme-1",
+          "titre": "Thème 1 · La Terre, la vie et l'organisation du vivant",
+          "chapitres": [
+            {
+              "id": "cellules-specialisees",
+              "titre": "L'organisme pluricellulaire, un ensemble de cellules spécialisées"
+            },
+            {
+              "id": "metabolisme",
+              "titre": "Le métabolisme des cellules",
+              "activites": [
+                {
+                  "fichier": "tp-elodee.html",
+                  "tag": "TP virtuel · ExAO",
+                  "titre": "TP Élodée : photosynthèse ou respiration ?",
+                  "desc": "Enquête expérimentale sur l'élodée, données ExAO simulées."
+                },
+                {
+                  "fichier": "elodea-lab.html",
+                  "lang": "en",
+                  "tag": "English · DNL",
+                  "titre": "Elodea Lab: photosynthesis or respiration?",
+                  "desc": "Version anglaise du TP Élodée."
+                }
+              ]
+            },
+            {
+              "id": "echelles-biodiversite",
+              "titre": "Les échelles de la biodiversité"
+            },
+            {
+              "id": "biodiversite-temps",
+              "titre": "La biodiversité change au cours du temps"
+            },
+            {
+              "id": "forces-evolutives",
+              "titre": "Les forces évolutives : sélection naturelle et dérive génétique"
+            },
+            {
+              "id": "communication-selection-sexuelle",
+              "titre": "Communication intra-spécifique et sélection sexuelle"
+            }
+          ]
+        },
+        {
+          "id": "theme-2",
+          "titre": "Thème 2 · Les enjeux contemporains de la planète",
+          "chapitres": [
+            {
+              "id": "erosion",
+              "titre": "L'érosion, processus et conséquences"
+            },
+            {
+              "id": "sedimentation",
+              "titre": "Sédimentation et milieux de sédimentation"
+            },
+            {
+              "id": "erosion-activite-humaine",
+              "titre": "Érosion et activité humaine"
+            },
+            {
+              "id": "agrosystemes",
+              "titre": "Structure et fonctionnement des agrosystèmes"
+            },
+            {
+              "id": "sols-biomasse",
+              "titre": "Caractéristiques des sols et production de biomasse"
+            },
+            {
+              "id": "agrosystemes-durables",
+              "titre": "Vers une gestion durable des agrosystèmes"
+            }
+          ]
+        },
+        {
+          "id": "theme-3",
+          "titre": "Thème 3 · Corps humain et santé",
+          "chapitres": [
+            {
+              "id": "fecondation-puberte",
+              "titre": "Corps humain : de la fécondation à la puberté"
+            },
+            {
+              "id": "cerveau-plaisir-sexualite",
+              "titre": "Cerveau, plaisir, sexualité"
+            },
+            {
+              "id": "hormones-procreation",
+              "titre": "Hormones et procréation humaine"
+            },
+            {
+              "id": "pathogenes",
+              "titre": "Agents pathogènes et maladies vectorielles"
+            },
+            {
+              "id": "microbiote",
+              "titre": "Microbiote humain et santé"
+            }
+          ]
+        }
       ]
     },
     {
@@ -112,25 +417,88 @@
       "couleur": "es",
       "transversal": [],
       "themes": [
-        {"id": "theme-1", "titre": "Thème 1 · Science, climat et société",
+        {
+          "id": "theme-1",
+          "titre": "Thème 1 · Science, climat et société",
           "activites": [
-            {"fichier": "fiches-atmosphere-climat.html", "tag": "Fiches · rappel espacé", "titre": "Fiches Atmosphère et climat", "desc": "Dix fiches courtes pour réviser les chapitres 1.1 et 1.2, avec cartes de rappel."},
-            {"fichier": "entrainement-atmosphere-climat.html", "tag": "Entraînement à paliers", "titre": "Entraînement Atmosphère et climat", "desc": "Sept exercices sur documents, à trois paliers, avec indices et correction."},
-            {"fichier": "qcm-atmosphere-climat.html", "tag": "QCM", "titre": "QCM Atmosphère et climat", "desc": "38 questions en 6 parties, score au premier essai, sans points négatifs."}],
+            {
+              "fichier": "fiches-atmosphere-climat.html",
+              "tag": "Fiches · rappel espacé",
+              "titre": "Fiches Atmosphère et climat",
+              "desc": "Dix fiches courtes pour réviser les chapitres 1.1 et 1.2, avec cartes de rappel."
+            },
+            {
+              "fichier": "entrainement-atmosphere-climat.html",
+              "tag": "Entraînement à paliers",
+              "titre": "Entraînement Atmosphère et climat",
+              "desc": "Sept exercices sur documents, à trois paliers, avec indices et correction."
+            },
+            {
+              "fichier": "qcm-atmosphere-climat.html",
+              "tag": "QCM",
+              "titre": "QCM Atmosphère et climat",
+              "desc": "38 questions en 6 parties, score au premier essai, sans points négatifs."
+            }
+          ],
           "chapitres": [
-          {"id": "1-1-atmosphere-vie", "titre": "1.1 L'atmosphère terrestre et la vie"},
-          {"id": "1-2-systeme-climatique", "titre": "1.2 La complexité du système climatique"},
-          {"id": "1-3-climat-futur", "titre": "1.3 Le climat du futur"}]},
-        {"id": "theme-2", "titre": "Thème 2 · Le futur des énergies", "chapitres": [
-          {"id": "2-1-energie-electrique", "titre": "2.1 Deux siècles d'énergie électrique"},
-          {"id": "2-2-atouts-electricite", "titre": "2.2 Les atouts de l'électricité et l'optimisation de son transport"},
-          {"id": "2-3-choix-energetiques", "titre": "2.3 Énergie, choix de développement et futur climatique"}]},
-        {"id": "theme-3", "titre": "Thème 3 · Une histoire du vivant", "chapitres": [
-          {"id": "3-1-biodiversite", "titre": "3.1 La biodiversité et son évolution"},
-          {"id": "3-2-evolution-grille-lecture", "titre": "3.2 L'évolution comme grille de lecture du monde"},
-          {"id": "3-3-evolution-humaine", "titre": "3.3 L'évolution humaine"},
-          {"id": "3-4-modeles-demographiques", "titre": "3.4 Les modèles démographiques"},
-          {"id": "3-5-intelligence-artificielle", "titre": "3.5 De la machine de Turing à l'intelligence artificielle"}]}
+            {
+              "id": "1-1-atmosphere-vie",
+              "titre": "1.1 L'atmosphère terrestre et la vie"
+            },
+            {
+              "id": "1-2-systeme-climatique",
+              "titre": "1.2 La complexité du système climatique"
+            },
+            {
+              "id": "1-3-climat-futur",
+              "titre": "1.3 Le climat du futur"
+            }
+          ]
+        },
+        {
+          "id": "theme-2",
+          "titre": "Thème 2 · Le futur des énergies",
+          "chapitres": [
+            {
+              "id": "2-1-energie-electrique",
+              "titre": "2.1 Deux siècles d'énergie électrique"
+            },
+            {
+              "id": "2-2-atouts-electricite",
+              "titre": "2.2 Les atouts de l'électricité et l'optimisation de son transport"
+            },
+            {
+              "id": "2-3-choix-energetiques",
+              "titre": "2.3 Énergie, choix de développement et futur climatique"
+            }
+          ]
+        },
+        {
+          "id": "theme-3",
+          "titre": "Thème 3 · Une histoire du vivant",
+          "chapitres": [
+            {
+              "id": "3-1-biodiversite",
+              "titre": "3.1 La biodiversité et son évolution"
+            },
+            {
+              "id": "3-2-evolution-grille-lecture",
+              "titre": "3.2 L'évolution comme grille de lecture du monde"
+            },
+            {
+              "id": "3-3-evolution-humaine",
+              "titre": "3.3 L'évolution humaine"
+            },
+            {
+              "id": "3-4-modeles-demographiques",
+              "titre": "3.4 Les modèles démographiques"
+            },
+            {
+              "id": "3-5-intelligence-artificielle",
+              "titre": "3.5 De la machine de Turing à l'intelligence artificielle"
+            }
+          ]
+        }
       ]
     },
     {
@@ -142,9 +510,24 @@
       "secondaire": true,
       "transversal": [],
       "themes": [
-        {"id": "genetique-evolution", "titre": "Génétique et évolution", "chapitres": [
-          {"id": "ch5-complexification-genomes", "titre": "Chapitre 5 · La complexification des génomes : transferts horizontaux et endosymbioses", "activites": [
-            {"fichier": "transferts-horizontaux.html", "tag": "Documents", "titre": "Transferts horizontaux de gènes", "desc": "Exploiter des documents : transferts horizontaux et multirésistance aux antibiotiques."}]}]}
+        {
+          "id": "genetique-evolution",
+          "titre": "Génétique et évolution",
+          "chapitres": [
+            {
+              "id": "ch5-complexification-genomes",
+              "titre": "Chapitre 5 · La complexification des génomes : transferts horizontaux et endosymbioses",
+              "activites": [
+                {
+                  "fichier": "transferts-horizontaux.html",
+                  "tag": "Documents",
+                  "titre": "Transferts horizontaux de gènes",
+                  "desc": "Exploiter des documents : transferts horizontaux et multirésistance aux antibiotiques."
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
   ],
