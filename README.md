@@ -7,6 +7,7 @@ Applications HTML autonomes (un fichier par activité, sans dépendance externe)
 | Niveau | Dossier | Page à donner aux élèves |
 |---|---|---|
 | 5e EIST | `5e/` | https://fontesmoreira-star.github.io/svt/5e/ |
+| 4e SVT | `4e/` | https://fontesmoreira-star.github.io/svt/4e/ |
 | 3e SVT | `3e/` | https://fontesmoreira-star.github.io/svt/3e/ |
 | 2nde SVT | `2nde/` | https://fontesmoreira-star.github.io/svt/2nde/ |
 | Terminale ES | `terminale/` | https://fontesmoreira-star.github.io/svt/terminale/ |

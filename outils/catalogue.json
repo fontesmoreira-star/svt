@@ -224,6 +224,43 @@
       ]
     },
     {
+      "id": "4e",
+      "titre": "4e SVT",
+      "sous": "Cycle 4",
+      "couleur": "svt",
+      "transversal": [],
+      "themes": [
+        {
+          "id": "planete-terre",
+          "titre": "La planète Terre, l'environnement et l'action humaine",
+          "chapitres": [
+            {
+              "id": "tectonique-des-plaques",
+              "titre": "La tectonique des plaques",
+              "activites": [
+                {
+                  "fichier": "plaques-en-mouvement.html",
+                  "tag": "Séance animée · 45 min",
+                  "titre": "Plaques en mouvement",
+                  "desc": "Cinq étapes : séismes, Wegener, lithosphère, frontières de plaques, moteur. Bilan à recopier."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vivant-evolution",
+          "titre": "Le vivant et son évolution",
+          "chapitres": []
+        },
+        {
+          "id": "corps-sante",
+          "titre": "Le corps humain et la santé",
+          "chapitres": []
+        }
+      ]
+    },
+    {
       "id": "3e",
       "titre": "3e SVT",
       "sous": "Cycle 4 · préparation du brevet",
