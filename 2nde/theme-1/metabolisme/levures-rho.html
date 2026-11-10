@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Levures Rho</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout : bandeau SVT vert foncé ; vues Sommaire (missions → tuiles de séances), Séance (barre collante avec minuteur, 4 cartes-questions dont le document animé), Révision, Progression, Bilan ; colonne 980 px (1400 px en projection) */
+:root{
+  --bg:#eff4f1; --surface:#ffffff; --surface-2:#e3ede7; --ink:#0f2d36; --muted:#46626c; --line:#bfd2d4;
+  --teal:#1f6b45; --teal-ink:#ffffff; --teal-soft:#dbeee2;
+  --band:#123d2a; --band-ink:#eaf5ee; --band-muted:#a8cdb5;
+  --ok:#17703c; --ok-soft:#dcf1e3; --bad:#b3261e; --bad-soft:#fbe2df;
+  --info:#1d5fa8; --info-soft:#e4eefb; --warn:#a14f00; --warn-soft:#fdebd6; --key:#17703c; --key-soft:#dcf1e3;
+  --t-r6:#6a3fa0; --t-sp:#0b6170; --t-se:#a14f00; --t-doc:#1d5fa8;
+  --sky:#0e1a2b; --sun:#f2b705; --sunglow:rgba(242,183,5,.35); --water:#4b9fd6; --water-2:#2f7fb5; --ice:#cfe8f7;
+  --blood:#c62828; --blood-2:#6d4c8a; --leaf:#3f8f3a; --leaf-2:#8cc66b; --bark:#8a5a2b; --soil:#7a5536;
+  --org:#d9822b; --bact:#cf5d17; --nerve:#e0b100; --muscle:#d9665b; --bone:#e9e2cf; --skin:#f1c9a5;
+  --metal:#7d8d93; --wire:#37474f; --lamp:#ffd54f; --iodine-b:#1b1d4a; --iodine-y:#c9a227; --lava:#e65100; --rock:#4e4a47; --rock-l:#c9bfae;
+  --paper:#fffdf6; --o2:#1d5fa8; --co2:#7a6b5d; --glu:#d39b00;
+  --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs:22px; --maxw:980px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#6fcf97; --teal-ink:#06261a; --teal-soft:#173a28;
+  --band:#0b2a1c; --band-ink:#e4f2ea; --band-muted:#93c2a6;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826;
+  --t-r6:#c2a6f2; --t-sp:#5cc6d3; --t-se:#f3a95c; --t-doc:#8ab8f2;
+  --sky:#050b14; --water:#3d8fc0; --water-2:#2a6f9e; --ice:#9fc6de; --blood:#ef5350; --blood-2:#9575cd; --leaf:#5cae55; --leaf-2:#9fd17f; --bark:#b07a44; --soil:#9b7350;
+  --metal:#9aaab0; --wire:#b0bec5; --bone:#d8d0bb; --rock:#8a8580; --rock-l:#d8cfbf; --paper:#1d2a22; --o2:#8ab8f2; --co2:#b6a898;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#6fcf97; --teal-ink:#06261a; --teal-soft:#173a28;
+  --band:#0b2a1c; --band-ink:#e4f2ea; --band-muted:#93c2a6;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826;
+  --t-r6:#c2a6f2; --t-sp:#5cc6d3; --t-se:#f3a95c; --t-doc:#8ab8f2;
+  --sky:#050b14; --water:#3d8fc0; --water-2:#2a6f9e; --ice:#9fc6de; --blood:#ef5350; --blood-2:#9575cd; --leaf:#5cae55; --leaf-2:#9fd17f; --bark:#b07a44; --soil:#9b7350;
+  --metal:#9aaab0; --wire:#b0bec5; --bone:#d8d0bb; --rock:#8a8580; --rock-l:#d8cfbf; --paper:#1d2a22; --o2:#8ab8f2; --co2:#b6a898;
+  color-scheme:dark;
+}
+html{font-size:var(--fs)}
+html.proj{--maxw:1400px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:16px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.4rem,4.4vw,2.1rem);font-weight:800;margin-top:2px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{min-height:48px;min-width:48px;padding:0 12px;border-radius:12px;border:1.5px solid color-mix(in oklab,var(--band-ink) 35%,transparent);background:transparent;color:var(--band-ink);font-weight:700;cursor:pointer;font-size:.9rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+
+main .wrap{padding-block:22px 64px}
+section.view{display:flex;flex-direction:column;gap:20px}
+.kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--teal)}
+.h2{font-size:clamp(1.3rem,3.4vw,1.75rem);font-weight:800}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{min-height:52px;padding:0 18px;border-radius:14px;border:2px solid var(--teal);background:var(--teal);color:var(--teal-ink);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none}
+.btn{max-width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.weak .btn{white-space:normal;justify-content:flex-start;text-align:left;padding-block:8px}
+@media (max-width:560px){.hl{display:none}.sbar .ttl{font-size:.95rem}.sbar .wrap{gap:6px 8px}}
+.btn.sm{min-height:48px;padding:0 12px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn[aria-pressed="true"]{background:var(--teal-soft);border-color:var(--teal);color:var(--ink)}
+
+.box{border-radius:14px;padding:12px 16px;border-left:6px solid;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box .bt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.box.info{background:var(--info-soft);border-color:var(--info)}.box.info .bt{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)}.box.warn .bt{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)}.box.key .bt{color:var(--key)}
+
+/* Sommaire */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+@media (max-width:640px){.hero{grid-template-columns:minmax(0,1fr)}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
+.stat{background:var(--surface-2);border-radius:12px;padding:10px 12px;min-width:0}
+.stat .k{font-size:.9rem;color:var(--muted);font-weight:700}
+.stat .v{font-family:var(--f-num);font-weight:700;font-size:1.25rem}
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.mission{display:flex;flex-direction:column;gap:10px}
+.mhead{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;justify-content:space-between}
+.mhead h3{font-size:1.1rem;font-weight:800}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:10px}
+.tile{min-height:96px;text-align:left;border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .tn{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800}
+.tile .tt{font-size:.9rem;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.badge{font-family:var(--f-num);font-size:.9rem;font-weight:700;padding:1px 8px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.badge.full{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.badge.part{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+.tile.cur{border-color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
+
+/* Séance */
+.sbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.sbar .wrap{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding-block:6px}
+.sbar .ttl{font-weight:800;min-width:0}
+.timer{display:flex;align-items:center;gap:6px}
+.tclock{font-family:var(--f-num);font-weight:700;font-size:1.15rem;min-width:4.2ch;text-align:center;padding:4px 10px;border-radius:10px;background:var(--surface-2)}
+.tclock.low{background:var(--warn-soft);color:var(--warn)}
+.tclock.end{background:var(--bad-soft);color:var(--bad)}
+.ibtn{min-width:48px;min-height:48px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.sco{font-family:var(--f-num);font-weight:700;padding:4px 10px;border-radius:10px;background:var(--teal-soft)}
+.shead{display:flex;flex-direction:column;gap:4px}
+.snav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:80px}
+.qhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.qnum{font-family:var(--f-num);font-weight:800;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--teal-ink);flex:none}
+.tag{font-size:.9rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1.5px solid currentColor;display:inline-block;max-width:100%}
+.tag.r6{color:var(--t-r6)}.tag.sp{color:var(--t-sp)}.tag.se{color:var(--t-se)}.tag.doc{color:var(--t-doc)}
+a.tag{text-decoration:none}
+.qstat{margin-left:auto;font-size:.9rem;font-weight:700;color:var(--muted)}
+.qstat.ok{color:var(--ok)}.qstat.bad{color:var(--bad)}
+.qtext{font-weight:700;font-size:1.05rem}
+.ins{font-size:.9rem;color:var(--muted)}
+.part{display:flex;flex-direction:column;gap:8px;min-width:0}
+.part+.part{border-top:1px dashed var(--line);padding-top:12px}
+.pq{font-weight:700}
+.fields{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.grow{flex:1 1 260px}
+.field label{font-size:.9rem;font-weight:700;color:var(--muted)}
+.inp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.ans{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-size:1rem;min-width:0;width:100%}
+input.ans.num{width:8ch;font-family:var(--f-num);font-weight:700}
+input.ans.good{border-color:var(--ok);background:var(--ok-soft)}
+input.ans.badi{border-color:var(--bad);background:var(--bad-soft)}
+.mk{font-weight:700;font-size:.9rem;white-space:nowrap}
+.mk.ok{color:var(--ok)}.mk.bad{color:var(--bad)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.opt .ck{flex:none;width:26px;height:26px;border-radius:7px;border:2px solid var(--muted);display:grid;place-items:center;font-size:.9rem;font-weight:800}
+.opt.radio .ck{border-radius:50%}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 1px var(--teal)}
+.opt[aria-pressed="true"] .ck{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.opt.okm{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badm{border-color:var(--bad);background:var(--bad-soft)}
+.opt.gone{opacity:.35;text-decoration:line-through;pointer-events:none}
+.ordbox{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:8px;border-radius:12px;border:2px dashed var(--line);background:var(--bg);align-items:center}
+.ordbox.okb{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.ordbox.badb{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
+.chipw{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--teal);background:var(--surface);font-weight:700;cursor:pointer}
+.chipw.placed{background:var(--teal-soft)}
+.chipw .no{font-family:var(--f-num);margin-right:6px;color:var(--teal)}
+.chipw:disabled{border-color:var(--line);color:var(--muted);opacity:.5}
+.mrow{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:12px;background:var(--surface-2)}
+.mrow .rl{font-weight:700;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.qbtns{display:flex;flex-wrap:wrap;gap:10px}
+.fb{border-radius:12px;padding:10px 14px}
+.fb.ok{background:var(--ok-soft);border:2px solid var(--ok)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.hint{background:var(--warn-soft);border-radius:12px;padding:10px 14px}
+.hint b{color:var(--warn)}
+.corr{border-left:5px solid var(--key);background:var(--key-soft);border-radius:0 12px 12px 0;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.corr .ct{font-weight:700;color:var(--key)}
+
+/* Document animé */
+.doc{display:flex;flex-direction:column;gap:12px;background:var(--surface-2);border-radius:14px;padding:12px;min-width:0}
+.dcap{font-style:italic;color:var(--muted)}
+.anim{display:flex;flex-direction:column;gap:10px;min-width:0}
+.anim .stage-wrap{background:var(--surface);border-radius:12px;border:1px solid var(--line);overflow:hidden;min-width:0}
+svg.stg{display:block;width:100%;height:auto;font-family:var(--f-body)}
+svg.stg text{fill:var(--ink);font-size:18px}
+svg.stg text.m{fill:var(--muted)}
+svg.stg text.b{font-weight:700}
+svg.stg text.w{fill:#fff}
+svg.stg .tk{stroke:var(--ink);stroke-width:2}
+svg.stg .ln{stroke:var(--line);stroke-width:1}
+.actl{display:flex;flex-wrap:wrap;gap:8px}
+.anote{font-size:.9rem;color:var(--muted)}
+.alive{min-height:1.5em;font-weight:700;color:var(--teal)}
+.simtag{align-self:flex-start;font-size:.9rem;font-weight:700;color:var(--warn);background:var(--warn-soft);padding:2px 10px;border-radius:999px}
+.dtable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;background:var(--surface);border-radius:10px;overflow:hidden}
+.dtable th,.dtable td{padding:7px 10px;border:1px solid var(--line);text-align:left;font-size:.95rem}
+.dtable th{background:var(--teal-soft)}
+.tscroll{overflow-x:auto;border-radius:10px}
+.endcard{background:var(--band);color:var(--band-ink);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.endcard .big{font-family:var(--f-num);font-weight:700;font-size:clamp(1.8rem,6vw,2.6rem)}
+.endcard .muted{color:var(--band-muted)}
+.endcard .btn.ghost{color:var(--band-ink);border-color:var(--band-muted)}
+
+/* Progression / bilan */
+.pbar{display:flex;flex-direction:column;gap:6px}
+.pbar .pl{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:700}
+.track{height:16px;border-radius:8px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line)}
+.track span{display:block;height:100%;background:var(--ok)}
+.weak{display:flex;flex-direction:column;gap:8px}
+.weak button{text-align:left}
+.bilantext{white-space:pre-wrap;font-family:var(--f-num);font-size:.9rem;background:var(--surface-2);border-radius:12px;padding:14px;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere}
+input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);width:min(100%,16em)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--surface);overflow:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovin{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ovname{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,7vw,3.6rem)}
+.ovtot{font-family:var(--f-num);font-weight:700;font-size:clamp(2.6rem,11vw,5.4rem);color:var(--teal);line-height:1}
+.ovlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
+.ovitem{background:var(--surface-2);border-radius:12px;padding:12px;font-size:1.2rem;font-weight:700}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band" id="band">
+  <div class="wrap">
+    <div style="min-width:0">
+      <div class="eyebrow">2nde SVT · Thème 1 · Chapitre 2 · Le métabolisme des cellules</div>
+      <h1>L'étude d'un mutant de levure</h1>
+    </div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tbtn" id="fsMinus" aria-label="Réduire le texte">A−</button>
+      <button class="tbtn" id="fsPlus" aria-label="Agrandir le texte">A+</button>
+      <button class="tbtn" id="proj" aria-pressed="false">Projection</button>
+      <button class="tbtn" id="theme">Thème</button>
+    </div>
+  </div>
+</header>
+<div class="sbar" id="sbar" hidden>
+  <div class="wrap">
+    <button class="btn ghost sm" data-go="home" aria-label="Retour au sommaire"><span aria-hidden="true">←</span><span class="hl">&nbsp;Sommaire</span></button>
+    <span class="ttl" id="sbTitle"></span>
+    <div class="timer" id="timerBox">
+      <span class="tclock" id="tclock" role="timer" aria-label="Minuteur">45:00</span>
+      <button class="ibtn" id="tPlay" aria-label="Lancer ou mettre en pause le minuteur">▶</button>
+      <button class="ibtn" id="tReset" aria-label="Remettre le minuteur à zéro">↺</button>
+    </div>
+    <span class="sco"><span class="hl">Score : </span><span id="sbScore"></span></span>
+  </div>
+</div>
+<main><div class="wrap" id="app"></div></main>
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ovname">
+  <div class="ovin">
+    <div class="row" style="justify-content:space-between"><div class="kicker" id="ovkick">À montrer au professeur</div><button class="btn" id="ovClose">Fermer</button></div>
+    <div class="ovname" id="ovname"></div>
+    <div><div class="muted" id="ovsub"></div><div class="ovtot" id="ovtot"></div></div>
+    <div class="ovlist" id="ovlist"></div>
+  </div>
+</div>
+<script>
+(function(){
+"use strict";
+/* ===================== CONTENU · L'étude d'un mutant de levure (2nde) ===================== */
+const M=(...o)=>({t:"mcq",o});
+const X=(k,...o)=>({t:"multi",k,o});
+const W=(a,s,x)=>Object.assign({t:"txt",a,s},x||{});
+const N=(...f)=>({t:"num",f:f.map(x=>({l:x[0],u:x[1],v:x[2],tol:x[3]||0,alt:x[4]}))});
+const O=(...o)=>({t:"order",o});
+const R=(r,c,a)=>({t:"match",r,c,a});
+const C=(h,...parts)=>({t:"parts",h,parts:parts.map(p=>Object.assign({q:p[0]},p[1]))});
+const Q=(id,lv,title,text,spec,corr)=>({q:{id,lv,title,text,spec,corr}});
+const H=html=>({html});
+const A=(an,qid)=>({an,qid});
+const ES=(id,title,prompt,crit,model)=>({essay:{id,title,prompt,crit,model}});
+
+const DUREE=45,LBL_BILAN="Bilan de l'activité";
+const MISSION="Une même levure peut-elle changer de métabolisme ? On compare une souche <b>sauvage</b> de <i>Schizosaccharomyces pombe</i> (Rho⁺) à une souche <b>mutante</b> (Rho⁻), dont le patrimoine génétique est altéré. En <b>5 étapes</b>, tu vas identifier les réactions réalisées par chaque souche, les structures cellulaires impliquées, puis les <b>deux facteurs</b> qui contrôlent le métabolisme.";
+const TITRE_BILAN="L'ÉTUDE D'UN MUTANT DE LEVURE — 2nde SVT, thème 1, chapitre 2 : le métabolisme des cellules";
+const TITRE_COURT="Levures Rho";
+const TITRE_CAHIER="Le métabolisme dépend du milieu et du patrimoine génétique";
+const FICHIER="bilan-levures-rho-";
+const EQ='<div class="box info"><div class="bt">ℹ︎ Contenu · Quelques réactions du métabolisme</div><p><b>Respiration</b> : glucose + O₂ → CO₂ + H₂O + énergie<br><b>Fermentation alcoolique</b> : glucose → CO₂ + éthanol + énergie<br><b>Fermentation lactique</b> : glucose → acide lactique + énergie<br><b>Photosynthèse</b> : lumière + CO₂ + H₂O → glucose + O₂</p></div>';
+const EVO=["diminue","augmente","reste nul"];
+
+const STEPS=[
+{id:"e1",t:"La levure sauvage au microscope",min:7,goal:"Comparer la levure sauvage cultivée avec et sans dioxygène.",blocks:[
+  H('<p><b>Document 1.</b> Des levures sauvages (Rho⁺) sont cultivées avec ou sans dioxygène, puis observées au microscope électronique. Touche les mitochondries pour les compter.</p>'),
+  A("cellWild"),
+  Q("e1a","f","Je vois","Combien de mitochondries comptes-tu dans chaque levure sauvage ?",
+    C("Touche chaque mitochondrie (les petits organites sombres, striés) : le compteur s'affiche sous chaque cellule.",["",N(["Avec dioxygène","",10,1],["Sans dioxygène","",3,1])]),
+    "On compte environ 10 mitochondries dans la levure cultivée avec dioxygène, contre 3 seulement, plus petites, sans dioxygène."),
+  Q("e1b","f","Je compare","Quelle est la différence entre les deux levures sauvages ?",
+    C("Compare le nombre et la taille des mitochondries.",["",M("Avec dioxygène, les mitochondries sont nombreuses et bien développées ; sans dioxygène, elles sont rares et réduites.","Sans dioxygène, la levure n'a plus de noyau.","Avec dioxygène, la levure n'a plus de paroi.","Il n'y a aucune différence.")]),
+    "Avec dioxygène, les mitochondries sont nombreuses et bien développées. Sans dioxygène, elles sont rares et de petite taille. Le noyau, la paroi, la membrane et le cytoplasme sont identiques.")
+]},
+{id:"e2",t:"ExAO : les échanges de la levure sauvage",min:13,goal:"Identifier les réactions du métabolisme réalisées par la levure sauvage.",blocks:[
+  H('<p><b>Document 2.</b> Des levures sauvages sont placées dans de l\'eau. Quatre sondes mesurent le dioxygène, le dioxyde de carbone, le glucose et l\'éthanol. <b>Au temps 10 minutes, on ajoute du glucose.</b> Lance la mesure, puis affiche chaque sonde.</p>'+EQ),
+  A("exaoWild"),
+  Q("e2a","f","Lire le graphique","À quel instant le dioxygène du milieu est-il épuisé ?",
+    C("Affiche la sonde O₂ et touche la courbe à l'endroit où elle atteint zéro.",["",N(["Le dioxygène est épuisé à","min",20,1])]),
+    "Le dioxygène diminue à partir de l'ajout de glucose (10 min) et il est épuisé à 20 min."),
+  Q("e2b","m","De 10 à 20 minutes","Décris les échanges, puis identifie la réaction.",
+    C("Compare avec les équations de l'encadré bleu : quels sont les réactifs consommés et les produits formés ?",
+      ["Entre 10 et 20 min, que fait chaque grandeur ?",R(["Dioxygène (O₂)","Dioxyde de carbone (CO₂)","Glucose","Éthanol"],EVO,[0,1,0,2])],
+      ["Quelle réaction la levure réalise-t-elle ?",M("La respiration","La fermentation alcoolique","La photosynthèse","La fermentation lactique")]),
+    "Je vois que le glucose et le dioxygène diminuent, que le CO₂ augmente et qu'il n'y a pas d'éthanol. Je sais que la respiration consomme du glucose et du dioxygène et produit du CO₂. J'en déduis que la levure respire."),
+  Q("e2c","m","De 20 à 30 minutes","Il n'y a plus de dioxygène. Décris les échanges, puis identifie la réaction.",
+    C("Un nouveau produit apparaît : lequel ? Cherche-le dans les équations.",
+      ["Entre 20 et 30 min, que fait chaque grandeur ?",R(["Dioxygène (O₂)","Dioxyde de carbone (CO₂)","Glucose","Éthanol"],EVO,[2,1,0,1])],
+      ["Quelle réaction la levure réalise-t-elle ?",M("La fermentation alcoolique","La respiration","La photosynthèse","La fermentation lactique")]),
+    "Je vois qu'il n'y a plus de dioxygène, que le glucose continue de diminuer, que le CO₂ augmente encore et que de l'éthanol apparaît. Je sais que la fermentation alcoolique produit du CO₂ et de l'éthanol sans dioxygène. J'en déduis que la levure fermente."),
+  Q("e2d","d","Avant 10 minutes","Pourquoi n'observe-t-on presque aucun échange avant l'ajout de glucose ?",
+    C("Regarde ce qui manque dans le milieu avant 10 minutes.",["",M("Sans glucose, la levure n'a pas de substrat à transformer : son métabolisme est très réduit.","Les levures sont mortes avant 10 minutes.","Il n'y a pas de dioxygène avant 10 minutes.","Les sondes ne fonctionnent pas encore.")]),
+    "Avant 10 minutes, il n'y a pas de glucose dans le milieu : sans ce substrat, ni la respiration ni la fermentation ne sont possibles.")
+]},
+{id:"e3",t:"Relier la structure à la fonction",min:6,goal:"Déduire quelles structures de la cellule sont impliquées dans chaque réaction.",blocks:[
+  H('<p>Rapproche tes deux résultats : les observations au microscope (étape 1) et les mesures ExAO (étape 2).</p><div class="box key"><div class="bt">✔︎ Règle clé · La méthode</div><p><b>Je vois</b> (ce que montre le document) → <b>je sais</b> (une connaissance) → <b>j\'en déduis</b> (la réponse au problème).</p></div>'),
+  Q("e3a","m","Où se déroule chaque réaction ?","Associe chaque réaction à la structure cellulaire où elle se déroule.",
+    C("La structure qui disparaît presque sans dioxygène est liée à la réaction qui a besoin de dioxygène.",["",R(["Respiration","Fermentation alcoolique"],["Mitochondries","Cytoplasme","Noyau","Paroi"],[0,1])]),
+    "La respiration se déroule dans les mitochondries : elles sont nombreuses quand la levure respire. La fermentation se déroule dans le cytoplasme, qui est présent dans toutes les conditions."),
+  Q("e3b","m","Rédiger avec la méthode","Remets les trois phrases dans l'ordre de la méthode.",
+    C("Commence par ce que l'on observe, termine par la conclusion.",["",O("Je vois que les mitochondries sont nombreuses lorsque la levure dispose de dioxygène et respire, et rares lorsqu'elle fermente.","Je sais que les organites d'une cellule lui permettent de réaliser certaines réactions.","J'en déduis que la respiration se déroule dans les mitochondries.")]),
+    "Je vois que… (observation) ; je sais que… (connaissance) ; j'en déduis que… (conclusion).")
+]},
+{id:"e4",t:"Le mutant Rho⁻",min:12,goal:"Identifier la réaction réalisée par la levure mutante et l'expliquer.",blocks:[
+  H('<p><b>Document 3.</b> La souche mutante Rho⁻ est observée dans les mêmes conditions.</p>'),
+  A("cellMut"),
+  Q("e4a","f","Je vois","Qu'observes-tu chez la levure mutante ?",
+    C("Compare avec la levure sauvage cultivée avec dioxygène.",["",M("Ses mitochondries sont rares et réduites, qu'il y ait du dioxygène ou non.","Elle a plus de mitochondries que la levure sauvage.","Elle n'a de mitochondries que lorsqu'il y a du dioxygène.","Elle n'a pas de noyau.")]),
+    "Chez le mutant Rho⁻, les mitochondries sont rares et réduites dans les deux conditions : la présence de dioxygène ne change rien."),
+  H('<p><b>Document 4.</b> On mesure la concentration en dioxygène dans trois milieux. Après 1 minute, on injecte du glucose.<br><b>Milieu A</b> : eau + sels minéraux · <b>Milieu B</b> : + levures Rho⁺ · <b>Milieu C</b> : + levures Rho⁻</p>'),
+  A("exaoO2"),
+  Q("e4b","f","Lire le graphique","Quelle est la concentration en dioxygène à 6 minutes ?",
+    C("Touche la courbe à 6 minutes : les trois valeurs s'affichent.",["",N(["Milieu B (Rho⁺)","mg/L",.7,.3],["Milieu C (Rho⁻)","mg/L",5,.25])]),
+    "À 6 minutes : environ 0,7 mg/L dans le milieu B, contre 5,0 mg/L dans le milieu C (presque inchangé)."),
+  Q("e4c","m","Le milieu A","À quoi sert le milieu A, qui ne contient pas de levures ?",
+    C("Sans lui, pourrait-on être sûr que ce sont les levures qui consomment le dioxygène ?",["",M("C'est un témoin : il montre que, sans levures, la concentration en dioxygène ne varie pas.","Il sert à nourrir les levures des autres milieux.","Il sert à mesurer la quantité de glucose.","Il ne sert à rien.")]),
+    "Le milieu A est un témoin. La concentration en dioxygène y reste stable : la baisse observée dans le milieu B est donc bien due aux levures."),
+  Q("e4d","m","J'en déduis","Que montre la comparaison des milieux B et C ?",
+    C("Laquelle des deux souches consomme du dioxygène après l'injection de glucose ?",["",M("La levure Rho⁻ ne consomme pas de dioxygène : elle ne respire pas, contrairement à la levure Rho⁺.","La levure Rho⁻ respire plus que la levure Rho⁺.","Les deux souches respirent de la même façon.","Aucune des deux souches ne respire.")]),
+    "Dans le milieu B, le dioxygène chute après l'injection : la levure Rho⁺ respire. Dans le milieu C, il reste presque constant : la levure Rho⁻ ne respire pas."),
+  Q("e4e","d","Expliquer","La levure Rho⁻ vit pourtant et se multiplie. Comment se procure-t-elle de l'énergie, et pourquoi ne respire-t-elle pas ?",
+    C("Pense à ce que tu as vu au microscope chez le mutant, et à la réaction possible sans mitochondries.",["",M("Elle fermente : ses mitochondries ne sont pas fonctionnelles, à cause de l'altération de son patrimoine génétique.","Elle fait la photosynthèse.","Elle respire grâce à son noyau.","Elle n'a besoin d'aucune énergie.")]),
+    "L'altération de son patrimoine génétique prive la levure Rho⁻ de mitochondries fonctionnelles : elle ne peut pas respirer, même en présence de dioxygène. Elle tire son énergie de la fermentation, dans le cytoplasme.")
+]},
+{id:"e5",t:"Conclusion : qu'est-ce qui contrôle le métabolisme ?",min:7,goal:"Identifier les deux facteurs qui contrôlent le métabolisme d'une cellule.",blocks:[
+  Q("e5a","d","Les deux facteurs","D'après toute ton étude, quels sont les deux facteurs principaux qui contrôlent le métabolisme d'une cellule ?",
+    C("Un facteur vient de l'extérieur de la cellule (compare avec et sans dioxygène) ; l'autre vient de la cellule elle-même (compare Rho⁺ et Rho⁻).",["",X(2,"Les conditions du milieu (présence de dioxygène, de glucose…)","Le patrimoine génétique, qui détermine l'équipement de la cellule (organites, enzymes)","La taille de la cellule","L'heure de la mesure")]),
+    "Le métabolisme d'une cellule dépend des conditions du milieu (dioxygène, substrat disponible) et de son patrimoine génétique, qui détermine son équipement en organites et en enzymes."),
+  H('<p>Vérifie avec le simulateur : choisis la souche et le milieu, et observe la réaction réalisée.</p>'),
+  A("simul","e5a"),
+  ES("concl","Rédige ta conclusion","En quelques phrases, réponds à la consigne : quelles réactions réalisent les deux levures, quelles structures sont impliquées, et quels sont les deux facteurs qui contrôlent le métabolisme ?",
+    ["J'ai cité des observations précises (documents 1 à 4).","J'ai nommé les réactions : respiration et fermentation alcoolique.","J'ai relié la respiration aux mitochondries.","J'ai expliqué le cas du mutant Rho⁻.","J'ai conclu avec les deux facteurs : milieu et patrimoine génétique."],
+    "La levure sauvage Rho⁺ respire lorsqu'elle dispose de dioxygène : elle consomme du glucose et du dioxygène et rejette du CO₂ ; ses mitochondries sont alors nombreuses. Sans dioxygène, elle réalise la fermentation alcoolique (glucose → CO₂ + éthanol) et ses mitochondries sont rares. La respiration se déroule donc dans les mitochondries, la fermentation dans le cytoplasme. La levure mutante Rho⁻, dont le patrimoine génétique est altéré, possède des mitochondries réduites et ne consomme pas de dioxygène : elle ne peut que fermenter. Le métabolisme d'une cellule dépend donc de deux facteurs : les conditions du milieu et son patrimoine génétique, qui détermine son équipement en organites et en enzymes.")
+]}
+];
+
+const CAHIER=[
+ "La levure sauvage (Rho⁺) respire en présence de dioxygène (glucose + O₂ → CO₂ + H₂O + énergie) et réalise la fermentation alcoolique en son absence (glucose → CO₂ + éthanol + énergie).",
+ "La respiration se déroule dans les mitochondries, nombreuses lorsque la levure dispose de dioxygène ; la fermentation se déroule dans le cytoplasme.",
+ "La levure mutante (Rho⁻), dont le patrimoine génétique est altéré, n'a pas de mitochondries fonctionnelles : elle ne respire pas et ne peut que fermenter.",
+ "Le métabolisme d'une cellule dépend donc de deux facteurs : les conditions du milieu et son patrimoine génétique, qui détermine son équipement (organites, enzymes)."
+];
+
+/* ===================== MOTEUR ===================== */
+const KEY="levures-rho-2nde-v1";
+const $=id=>document.getElementById(id);
+const RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const frn=(x,d)=>Number(x).toLocaleString("fr-FR",{maximumFractionDigits:d==null?2:d,minimumFractionDigits:0});
+const DEF={name:"",fs:22,proj:false,theme:null,qs:{},box:{},last:{},lastSn:0};
+let S;
+try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
+["qs","box","last"].forEach(k=>{if(!S[k]||typeof S[k]!=="object")S[k]={};});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function qst(id){return S.qs[id]||(S.qs[id]={a:{},tries:0,hints:0});}
+
+/* ---------- données ---------- */
+function norm(sp){return sp.t==="parts"?sp:{t:"parts",h:sp.h,parts:[sp]};}
+const QS=[];STEPS.forEach((s,si)=>s.blocks.forEach(b=>{if(b.q){const q=b.q;q.spec=norm(q.spec);q.sn=si+1;q.tagRaw="";q.tc={f:"sp",m:"se",d:"r6"}[q.lv];q.tl={f:"🟢 Facile",m:"🟡 Moyen",d:"🔴 Défi"}[q.lv];QS.push(q);}}));
+const QBY={};QS.forEach((q,i)=>{q.k=i+1;QBY[q.id]=q;});
+function nz(s){return String(s==null?"":s).toLowerCase().replace(/œ/g,"oe").replace(/æ/g,"ae").replace(/₂/g,"2").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
+function lev(a,b){if(a===b)return 0;const m=a.length,n=b.length;let p=new Array(n+1);for(let j=0;j<=n;j++)p[j]=j;for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c;}return p[n];}
+function has(t,alts,exact){const T=" "+t+" ",toks=t.split(" ");return alts.split("|").some(st=>{st=nz(st);if(!st)return false;if(T.indexOf(" "+st)>=0)return true;
+  if(!exact&&st.indexOf(" ")<0&&st.length>=5){const tol=st.length>=9?2:1;return toks.some(w=>w.length>=st.length-1&&lev(w.slice(0,st.length),st)<=tol);}return false;});}
+function parseNum(s){const t=String(s==null?"":s).trim().replace(/\s/g,"").replace(/[−–]/g,"-").replace(",",".");return /^-?\d+(\.\d+)?$/.test(t)?parseFloat(t):null;}
+
+/* ---------- mélange déterministe ---------- */
+function seedOf(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function perm(n,seed){const a=[...Array(n).keys()];let x=seed||1;for(let i=n-1;i>0;i--){x=(Math.imul(x,1103515245)+12345)>>>0;const j=x%(i+1);[a[i],a[j]]=[a[j],a[i]];}
+  if(n>1&&a.every((v,i)=>v===i)){a.push(a.shift());}return a;}
+
+/* ---------- évaluation ---------- */
+function evalPart(p,a){
+  switch(p.t){
+    case "txt":{const t=nz(a);if(!t)return {empty:true};
+      if(p.bad&&has(t,p.bad,true))return {ok:false};
+      if(p.p){const f=p.p.filter(x=>has(t,x)).length;return {ok:f>=p.n,found:f};}
+      const al=Array.isArray(p.a)?p.a:[p.a];return {ok:al.every(x=>has(t,x))};}
+    case "txtf":{const v=a||[];if(p.f.some((f,i)=>!nz(v[i])))return {empty:true};const m=p.f.map((f,i)=>{const t=nz(v[i]);const al=Array.isArray(f.a)?f.a:[f.a];return al.every(x=>has(t,x));});return {ok:m.every(Boolean),m};}
+    case "mcq":{if(a==null)return {empty:true};return {ok:a===0};}
+    case "multi":{const v=a||[];if(!v.length)return {empty:true};const wrong=v.some(i=>i>=p.k),good=v.filter(i=>i<p.k).length;return {ok:!wrong&&(p.min?good>=p.min:good===p.k)};}
+    case "num":{const v=a||[];const x=p.f.map((f,i)=>parseNum(v[i]));if(x.some(y=>y===null))return {empty:true};const m=p.f.map((f,i)=>Math.abs(x[i]-f.v)<=f.tol+1e-9);
+      let msg="";p.f.forEach((f,i)=>{if(!m[i]&&f.alt&&f.alt.some(z=>Math.abs(x[i]-z[0])<1e-9))msg=f.alt.find(z=>Math.abs(x[i]-z[0])<1e-9)[1];});return {ok:m.every(Boolean),m,msg};}
+    case "order":{const v=a||[];if(v.length<p.o.length)return {empty:true};const m=v.map((x,i)=>x===i);return {ok:m.every(Boolean),m};}
+    case "match":{const v=a||[];if(p.r.some((r,i)=>v[i]==null))return {empty:true};const m=p.r.map((r,i)=>v[i]===p.a[i]);return {ok:m.every(Boolean),m};}
+  }
+  return {ok:false};
+}
+function evalQ(q,ans){const rs=q.spec.parts.map((p,i)=>evalPart(p,ans[i]));return {parts:rs,empty:rs.some(r=>r.empty),ok:rs.every(r=>r.ok)};}
+
+/* ---------- coups de pouce ---------- */
+const ART=/^(le |la |les |l'|l’|un |une |des |du |de la |de l'|d'|en |dans |au |aux |par |se |sa |son |ses )+/i;
+function words(s){return String(s).split(/\s*,\s*|\s+et\s+|\s*;\s*/).map(w=>w.replace(ART,"").replace(/\(.*?\)/g,"").replace(/…/g,"").trim()).filter(Boolean);}
+function txtHint(s,L){const w=words(s);if(L===1)return "Commence par « "+w.map(x=>x[0].toUpperCase()+"…").join(" », « ")+" ».";return w.map(x=>"« "+x.slice(0,Math.max(2,Math.ceil(x.length/2)))+"… » ("+x.replace(/[\s’'-]/g,"").length+" lettres)").join(" ; ");}
+function wrongOrder(q,pi,p){return perm(p.o.length,seedOf(q.id+"w"+pi)).filter(i=>i>=(p.t==="multi"?p.k:1));}
+function hintFx(q,L){ // effets cumulés pour le niveau L
+  const fx={txt:[],gone:{},ord:{},mt:{}};const sp=q.spec;const steps=[];
+  if(sp.h)steps.push({h:sp.h});steps.push({lv:1});steps.push({lv:2});
+  for(let s=0;s<Math.min(L,steps.length);s++){const st=steps[s];
+    if(st.h){fx.txt.push(st.h);continue;}
+    sp.parts.forEach((p,pi)=>{const pre=sp.parts.length>1?"Partie "+(pi+1)+" : ":"";const lv=st.lv;
+      if(p.t==="txt"){fx.txt.push(pre+(p.h&&lv===1?p.h:txtHint(p.s,lv)));}
+      else if(p.t==="txtf"){p.f.forEach(f=>fx.txt.push(pre+f.l+" — "+txtHint(f.s,lv)));}
+      else if(p.t==="mcq"){const n=Math.min(lv,p.o.length-2);if(n>0){fx.gone[pi]=n;fx.txt.push(pre+(n>1?n+" mauvaises réponses sont barrées.":"Une mauvaise réponse est barrée."));}else fx.txt.push(pre+"Relis bien la question et le document : une seule réponse est juste.");}
+      else if(p.t==="multi"){if(lv===1)fx.txt.push(pre+"Il y a "+p.k+" bonne"+(p.k>1?"s":"")+" réponse"+(p.k>1?"s":"")+(p.min?" (il en faut au moins "+p.min+")":"")+".");else{fx.gone[pi]=1;fx.txt.push(pre+"Une mauvaise réponse est barrée.");}}
+      else if(p.t==="num"){if(lv===1)fx.txt.push(pre+(p.h||"Relis le document et pose le calcul dans ton cahier."));else p.f.forEach(f=>{const d=Math.max(1,Math.abs(f.v)*.25);fx.txt.push(pre+f.l+" : entre "+frn(Math.floor(f.v-d))+" et "+frn(Math.ceil(f.v+d))+(f.u?" "+f.u:"")+".");});}
+      else if(p.t==="order"){fx.ord[pi]=Math.min(lv,p.o.length-1);fx.txt.push(pre+"Début de l'ordre : "+p.o.slice(0,fx.ord[pi]).join(" → ")+" → …");}
+      else if(p.t==="match"){fx.mt[pi]=Math.min(lv,p.r.length-1);for(let r=0;r<fx.mt[pi];r++)fx.txt.push(pre+"« "+p.r[r]+" » → « "+p.c[p.a[r]]+" »");}
+    });
+  }
+  return {fx,max:steps.length};
+}
+
+/* ---------- carte-question ---------- */
+const lastFb={};
+const LETTERS="ABCDEFGH";
+function insOf(p){return {txt:p.p?"Tape ta réponse (sépare les éléments par des virgules).":"Tape ta réponse.",txtf:"Tape tes réponses.",mcq:"Choisis la bonne réponse.",multi:p.min?"Coche au moins "+p.min+" bonnes réponses (et aucune fausse).":"Coche toutes les bonnes réponses.",num:"Tape un nombre.",order:"Touche les étiquettes dans le bon ordre (touche une étiquette placée pour la retirer).",match:"Pour chaque ligne, choisis la bonne réponse."}[p.t];}
+function buildCard(q,ctx){
+  const st=ctx.st(q),c=document.createElement("article");c.className="qcard";c.id="card-"+q.id;
+  let tagHtml='<span class="tag '+q.tc+'">'+esc(q.tl)+'</span>';
+  if(ctx.mode==="seance"){const m=/s[ée]ance n°(\d+)/i.exec(q.tagRaw);const tgt=q.tc==="sp"?q.sn-1:m?+m[1]:0;if(tgt>0)tagHtml='<a class="tag '+q.tc+'" href="#s'+tgt+'" aria-label="'+esc(q.tl)+' : revoir la séance n°'+tgt+'">'+esc(q.tl)+(q.tc==="sp"?" (n°"+tgt+")":"")+' ↗</a>';}
+  if(ctx.mode==="rev")tagHtml='<span class="tag sp">Séance n°'+q.sn+'</span>'+tagHtml;
+  c.innerHTML='<div class="qhead"><span class="qnum">'+(ctx.num||q.k)+'</span>'+tagHtml+'<span class="qstat" id="st-'+ctx.p+q.id+'"></span></div>'+
+    (q.title?'<h3>'+esc(q.title)+'</h3>':'')+(q.doc?'<div class="doc" id="doc-'+ctx.p+q.id+'"></div>':'')+
+    '<p class="qtext">'+esc(q.text)+'</p><div class="stack" id="body-'+ctx.p+q.id+'"></div>'+
+    '<div class="qbtns"><button class="btn" id="chk-'+ctx.p+q.id+'">Vérifier</button><button class="btn ghost" id="hnt-'+ctx.p+q.id+'">Coup de pouce</button></div>'+
+    '<div id="fb-'+ctx.p+q.id+'" aria-live="polite"></div><div class="stack" id="hs-'+ctx.p+q.id+'" style="gap:8px"></div><div id="co-'+ctx.p+q.id+'"></div>';
+  ctx.host.appendChild(c);
+  if(q.doc)buildDoc(q,c.querySelector("#doc-"+ctx.p+q.id),ctx);
+  const body=c.querySelector("#body-"+ctx.p+q.id);
+  q.spec.parts.forEach((p,pi)=>{const d=document.createElement("div");d.className="part";d.id="pt-"+ctx.p+q.id+"-"+pi;body.appendChild(d);});
+  c.querySelector("#chk-"+ctx.p+q.id).onclick=()=>check(q,ctx);
+  c.querySelector("#hnt-"+ctx.p+q.id).onclick=()=>{st.hints=(st.hints||0)+1;ctx.save();renderCard(q,ctx);};
+  body.addEventListener("click",e=>{const b=e.target.closest("button[data-pi]");if(!b||b.disabled)return;const pi=+b.dataset.pi,p=q.spec.parts[pi];let a=st.a[pi];
+    if(p.t==="mcq")a=+b.dataset.v;
+    else if(p.t==="multi"){a=(a||[]).slice();const v=+b.dataset.v,ix=a.indexOf(v);if(ix>=0)a.splice(ix,1);else a.push(v);}
+    else if(p.t==="order"){a=(a||[]).slice();const v=+b.dataset.v;if(b.dataset.placed){const ix=a.indexOf(v);if(ix>=0)a.splice(ix,1);}else if(a.indexOf(v)<0)a.push(v);}
+    else if(p.t==="match"){a=(a||[]).slice();a[+b.dataset.r]=+b.dataset.v;}
+    st.a[pi]=a;delete lastFb[ctx.p+q.id];ctx.save();renderPart(q,pi,ctx);renderStatus(q,ctx);});
+  body.addEventListener("input",e=>{const i=e.target.closest("input[data-pi]");if(!i)return;const pi=+i.dataset.pi,p=q.spec.parts[pi];
+    if(p.t==="txt")st.a[pi]=i.value;else{const a=(st.a[pi]||[]).slice();a[+i.dataset.f]=i.value;st.a[pi]=a;}
+    i.classList.remove("good","badi");if(lastFb[ctx.p+q.id]){delete lastFb[ctx.p+q.id];renderStatus(q,ctx);}ctx.save();});
+  body.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("input"))check(q,ctx);});
+  renderCard(q,ctx);
+  return c;
+}
+function curEval(q,ctx){const st=ctx.st(q);const L=lastFb[ctx.p+q.id];if(L)return L;if(st.done)return evalQ(q,st.a);return null;}
+function renderPart(q,pi,ctx){
+  const st=ctx.st(q),p=q.spec.parts[pi],d=document.getElementById("pt-"+ctx.p+q.id+"-"+pi);if(!d)return;
+  const a=st.a[pi],E=curEval(q,ctx),r=E?E.parts[pi]:null,hx=hintFx(q,st.hints||0).fx,id=ctx.p+q.id+"-"+pi;
+  const mark=ok=>ok?'<span class="mk ok">✓ juste</span>':'<span class="mk bad">✗ à revoir</span>';
+  let h=(p.q?'<p class="pq">'+esc(p.q)+'</p>':'')+'<p class="ins">'+insOf(p)+'</p>';
+  if(p.t==="txt"){const ok=r&&!r.empty?r.ok:null;h+='<div class="inp"><label class="sr" for="in-'+id+'">Ta réponse</label><input class="ans'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'" data-pi="'+pi+'" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc(a||"")+'" placeholder="'+(p.p?"réponse 1, réponse 2…":"Ta réponse")+'">'+(ok===null?"":mark(ok))+'</div>';}
+  else if(p.t==="txtf"){h+='<div class="fields">'+p.f.map((f,i)=>{const ok=r&&r.m?r.m[i]:null;return '<div class="field grow"><label for="in-'+id+'-'+i+'">'+esc(f.l)+'</label><div class="inp"><input class="ans'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'-'+i+'" data-pi="'+pi+'" data-f="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc((a||[])[i]||"")+'">'+(ok==null?"":mark(ok))+'</div></div>';}).join("")+'</div>';}
+  else if(p.t==="num"){h+='<div class="fields">'+p.f.map((f,i)=>{const ok=r&&r.m?r.m[i]:null;return '<div class="field"><label for="in-'+id+'-'+i+'">'+esc(f.l)+'</label><div class="inp"><input class="ans num'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'-'+i+'" data-pi="'+pi+'" data-f="'+i+'" inputmode="decimal" autocomplete="off" value="'+esc((a||[])[i]||"")+'">'+(f.u?'<span class="muted">'+esc(f.u)+'</span>':'')+(ok==null?"":mark(ok))+'</div></div>';}).join("")+'</div>';}
+  else if(p.t==="mcq"||p.t==="multi"){const pm=perm(p.o.length,seedOf(q.id+"o"+pi)),multi=p.t==="multi",sel=multi?(a||[]):[a],gone=wrongOrder(q,pi,p).filter(i=>sel.indexOf(i)<0).slice(0,hx.gone[pi]||0);
+    h+='<div class="opts" role="group">'+pm.map((oi,j)=>{const on=sel.indexOf(oi)>=0;let cls="opt"+(multi?"":" radio");if(gone.indexOf(oi)>=0&&!on)cls+=" gone";if(r&&!r.empty&&on)cls+=(multi?(oi<p.k):(oi===0))?" okm":" badm";
+      return '<button class="'+cls+'" data-pi="'+pi+'" data-v="'+oi+'" aria-pressed="'+on+'"'+(gone.indexOf(oi)>=0&&!on?' aria-disabled="true" tabindex="-1"':'')+'><span class="ck" aria-hidden="true">'+(on?"✓":"")+'</span><span style="flex:1;min-width:0">'+esc(p.o[oi])+'</span>'+(r&&!r.empty&&on?(multi?(oi<p.k?'<span class="mk ok">✓</span>':'<span class="mk bad">✗</span>'):mark(oi===0)):"")+'</button>';}).join("")+'</div>';
+    if(r&&!r.empty&&!r.ok&&multi)h+='<p class="ins">'+((a||[]).some(i=>i>=p.k)?"Au moins une case cochée est fausse.":"Il manque au moins une bonne réponse.")+'</p>';}
+  else if(p.t==="order"){const pm=perm(p.o.length,seedOf(q.id+"r"+pi)),v=a||[],pre=hx.ord[pi]||0;
+    const cls=r&&!r.empty?(r.ok?" okb":" badb"):"";
+    h+='<div class="ordbox'+cls+'" aria-label="Ton ordre">'+(v.length?v.map((oi,j)=>'<button class="chipw placed" data-pi="'+pi+'" data-v="'+oi+'" data-placed="1" aria-label="Position '+(j+1)+' : '+esc(p.o[oi])+'. Toucher pour retirer."><span class="no">'+(j+1)+'</span>'+esc(p.o[oi])+(r&&!r.empty?(r.m[j]?" ✓":" ✗"):"")+'</button>').join(""):'<span class="muted small">Ton ordre apparaîtra ici.</span>')+'</div>'+
+      '<div class="opts inline">'+pm.map(oi=>'<button class="chipw" data-pi="'+pi+'" data-v="'+oi+'"'+(v.indexOf(oi)>=0?" disabled":"")+'>'+esc(p.o[oi])+'</button>').join("")+'</div>';
+    if(pre)h+='';}
+  else if(p.t==="match"){const v=a||[];h+=p.r.map((row,ri)=>{const ok=r&&r.m?r.m[ri]:null;return '<div class="mrow"><div class="rl"><span>'+esc(row)+'</span>'+(ok==null?"":mark(ok))+'</div><div class="opts inline" role="group" aria-label="'+esc(row)+'">'+p.c.map((ch,ci)=>{const on=v[ri]===ci;return '<button class="opt radio'+(on&&ok!=null?(ok?" okm":" badm"):"")+'" data-pi="'+pi+'" data-r="'+ri+'" data-v="'+ci+'" aria-pressed="'+on+'"><span class="ck" aria-hidden="true">'+(on?"✓":"")+'</span><span>'+esc(ch)+'</span></button>';}).join("")+'</div></div>';}).join("");}
+  if(r&&!r.empty&&r.msg)h+='<p class="ins" style="color:var(--warn);font-weight:700">'+esc(r.msg)+'</p>';
+  const ae=document.activeElement,aid=ae&&ae.id,pos=ae&&ae.selectionStart;
+  d.innerHTML=h;
+  if(aid&&d.querySelector("#"+CSS.escape(aid))){const el=$(aid);try{el.focus({preventScroll:true});if(pos!=null&&el.setSelectionRange)el.setSelectionRange(pos,pos);}catch(e){}}
+}
+function renderStatus(q,ctx){
+  const st=ctx.st(q),s=$("st-"+ctx.p+q.id),fb=$("fb-"+ctx.p+q.id);if(!s)return;
+  if(st.done){s.textContent=st.first?"✓ Réussi au 1er essai":"✓ Réussi";s.className="qstat ok";}
+  else if(st.tries){s.textContent="✗ "+st.tries+" essai"+(st.tries>1?"s":"");s.className="qstat bad";}else{s.textContent="";s.className="qstat";}
+  const L=lastFb[ctx.p+q.id];
+  if(L&&L.empty)fb.innerHTML='<div class="fb bad">Réponds à toutes les parties avant de vérifier.</div>';
+  else if(L&&L.ok)fb.innerHTML='<div class="fb ok"><strong>✓ Juste !</strong> '+(st.first&&st.tries===1?"Du premier coup, bravo.":"Bien corrigé.")+'</div>';
+  else if(L)fb.innerHTML='<div class="fb bad"><strong>✗ Pas encore.</strong> '+(q.spec.parts.length>1?"Vérifie les parties marquées ✗. ":"")+'Utilise un coup de pouce, puis corrige ta réponse (le corrigé apparaît au 2e essai).</div>';
+  else fb.innerHTML="";
+  const H=hintFx(q,st.hints||0),hb=$("hnt-"+ctx.p+q.id);
+  hb.disabled=(st.hints||0)>=H.max||!!st.done;hb.textContent=(st.hints||0)>=H.max?"Plus de coup de pouce":"Coup de pouce "+((st.hints||0)+1)+"/"+H.max;
+  $("hs-"+ctx.p+q.id).innerHTML=H.fx.txt.length?'<div class="hint"><b>💡 Coup de pouce :</b> '+H.fx.txt.map(esc).join("<br>")+'</div>':"";
+  $("co-"+ctx.p+q.id).innerHTML=(st.done||st.tries>=2)?'<div class="corr"><span class="ct">✔&#xFE0E; Corrigé</span><p>'+esc(q.corr)+'</p></div>':"";
+  $("chk-"+ctx.p+q.id).textContent=st.done?"Vérifier à nouveau":"Vérifier";
+}
+function renderCard(q,ctx){q.spec.parts.forEach((p,pi)=>renderPart(q,pi,ctx));renderStatus(q,ctx);}
+function check(q,ctx){
+  const st=ctx.st(q),E=evalQ(q,st.a);
+  if(E.empty){lastFb[ctx.p+q.id]={empty:true,parts:E.parts};renderStatus(q,ctx);return;}
+  st.tries=(st.tries||0)+1;const firstTime=st.first===undefined;if(firstTime)st.first=E.ok;if(E.ok)st.done=true;
+  lastFb[ctx.p+q.id]=E;ctx.after(q,E,firstTime);ctx.save();renderCard(q,ctx);
+}
+
+/* ---------- document ---------- */
+let CLEAN=[];
+function cleanup(){CLEAN.forEach(f=>{try{f();}catch(e){}});CLEAN=[];}
+function buildDoc(q,box,ctx){
+  const d=q.doc;
+  box.innerHTML='<p class="dcap">'+esc(d.cap||"")+'</p><div class="anim" id="an-'+ctx.p+q.id+'"></div>'+
+   '<details'+(ctx.mode==="seance"?" open":"")+'><summary class="btn ghost sm" style="list-style:none">Tableau du document</summary><div class="tscroll" style="margin-top:8px"><table class="dtable"><thead><tr>'+d.table[0].map(c=>'<th scope="col">'+esc(c)+'</th>').join("")+'</tr></thead><tbody>'+d.table.slice(1).map(r=>'<tr>'+r.map((c,i)=>i?'<td>'+esc(c)+'</td>':'<th scope="row">'+esc(c)+'</th>').join("")+'</tr>').join("")+'</tbody></table></div></details>';
+  const an=box.querySelector(".anim"),key=q.spec.an,fn=ANIMS[key];
+  if(!fn){an.innerHTML='<p class="anote">Animation à venir.</p>';return;}
+  const api={solved:()=>!!ctx.st(q).done,_s:[],onSolve(f){this._s.push(f);}};
+  ctx.apis[q.id]=api;
+  try{fn(an,api);}catch(e){console.error(e);an.innerHTML='<p class="anote">Animation indisponible.</p>';}
+}
+
+/* ---------- outils d'animation ---------- */
+const NS="http://www.w3.org/2000/svg";
+function E(tag,at,par){const e=document.createElementNS(NS,tag);if(at)for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
+function TX(par,x,y,s,at){const t=E("text",Object.assign({x:x,y:y},at||{}),par);t.textContent=s;if(at&&at.fill)t.style.fill=at.fill;if(at&&at["font-size"])t.style.fontSize=at["font-size"]+"px";return t;}
+function stage(box,w,h,label){const wr=document.createElement("div");wr.className="stage-wrap";const s=E("svg",{viewBox:"0 0 "+w+" "+h,class:"stg",role:"img","aria-label":label||"Animation"});wr.appendChild(s);box.appendChild(wr);return s;}
+function ctl(box,defs){const r=document.createElement("div");r.className="actl";const bs=defs.map(d=>{const b=document.createElement("button");b.className="btn ghost sm";b.textContent=d[0];b.onclick=()=>d[1](b);if(d[2])b.setAttribute("aria-pressed","false");r.appendChild(b);return b;});box.appendChild(r);return bs;}
+function press(bs,b){bs.forEach(x=>{if(x.hasAttribute("aria-pressed"))x.setAttribute("aria-pressed",x===b?"true":"false");});}
+function live(box,t){const p=document.createElement("p");p.className="alive";p.setAttribute("aria-live","polite");p.textContent=t||"";box.appendChild(p);return p;}
+function note(box,t,sim){if(sim){const s=document.createElement("span");s.className="simtag";s.textContent="⚠︎ Valeurs simulées";box.appendChild(s);}if(t){const p=document.createElement("p");p.className="anote";p.textContent=t;box.appendChild(p);}}
+let LOOPS=[];
+function loop(fn){const o={on:true,last:0};const f=ts=>{if(!o.on)return;const dt=o.last?Math.min(.1,(ts-o.last)/1000):0;o.last=ts;if(fn(dt,ts)===false){o.on=false;return;}requestAnimationFrame(f);};requestAnimationFrame(f);LOOPS.push(o);return o;}
+function stopLoops(){LOOPS.forEach(o=>o.on=false);LOOPS=[];}
+const ease=u=>u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+function tween(ms,fn,done){if(RM)ms=1;let t=0;return loop(dt=>{t+=dt*1000;const u=Math.min(1,t/ms);fn(ease(u),u);if(u>=1){if(done)done();return false;}});}
+const lerp=(a,b,u)=>a+(b-a)*u;
+function hash(k){const x=Math.sin(k*12.9898+78.233)*43758.5453;return x-Math.floor(x);}
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||"#888";}
+/* graphique réactif : cfg {xmax,xstep,xlab,ymin,ymax,ystep,ylab,f(x),dec,band:[lo,hi],bandLab,col} */
+function chart(box,cfg){
+  const wr=document.createElement("div");wr.className="stage-wrap";box.appendChild(wr);
+  const rd=document.createElement("p");rd.className="alive";rd.setAttribute("aria-live","polite");rd.textContent="Touche la courbe pour lire une valeur.";box.appendChild(rd);
+  const o={p:0,sel:null};
+  function draw(){
+    const W=Math.max(280,wr.clientWidth||600),fs=Math.max(14,Math.round((parseFloat(getComputedStyle(document.documentElement).fontSize)||22)*.7)),H=Math.round(Math.max(240,Math.min(W*.55,fs*17)));
+    const L=fs*3.4,R=fs*1.2,T=fs*1.2,B=fs*3.4,pw=W-L-R,ph=H-T-B;
+    const X=x=>L+x/cfg.xmax*pw,Y=y=>T+ph-(y-cfg.ymin)/(cfg.ymax-cfg.ymin)*ph;o.X=X;o.L=L;o.pw=pw;
+    wr.innerHTML="";const s=E("svg",{viewBox:"0 0 "+W+" "+H,class:"stg",role:"img","aria-label":cfg.aria||cfg.ylab},wr);s.style.fontSize=fs+"px";
+    const st={"font-size":fs};
+    if(cfg.band){E("rect",{x:L,y:Y(cfg.band[1]),width:pw,height:Y(cfg.band[0])-Y(cfg.band[1]),fill:"var(--ok-soft)"},s);if(cfg.bandLab)TX(s,L+pw-6,Y(cfg.band[1])+fs+2,cfg.bandLab,Object.assign({"text-anchor":"end",fill:"var(--ok)"},st)).style.fill="var(--ok)";}
+    for(let y=cfg.ymin;y<=cfg.ymax+1e-9;y+=cfg.ystep){E("line",{x1:L,x2:L+pw,y1:Y(y),y2:Y(y),class:"ln"},s);TX(s,L-6,Y(y)+fs*.35,frn(+y.toFixed(3)),Object.assign({"text-anchor":"end",class:"m"},st));}
+    for(let x=0;x<=cfg.xmax+1e-9;x+=cfg.xstep){E("line",{x1:X(x),x2:X(x),y1:T,y2:T+ph,class:"ln"},s);TX(s,X(x),T+ph+fs*1.2,cfg.xfmt?cfg.xfmt(x):frn(x),Object.assign({"text-anchor":"middle",class:"m"},st));}
+    E("path",{d:"M"+L+" "+T+"V"+(T+ph)+"H"+(L+pw),fill:"none",class:"tk"},s);
+    if(cfg.zero!=null)E("line",{x1:L,x2:L+pw,y1:Y(cfg.zero),y2:Y(cfg.zero),stroke:"var(--muted)","stroke-dasharray":"6 5"},s);
+    TX(s,L+pw/2,H-6,cfg.xlab,Object.assign({"text-anchor":"middle",class:"b"},st));
+    const yl=TX(s,0,0,cfg.ylab,Object.assign({"text-anchor":"middle",class:"b",transform:"translate("+(fs*1.05)+" "+(T+ph/2)+") rotate(-90)"},st));
+    const SER=cfg.series||[{f:cfg.f,col:cfg.col}];
+    if(o.p>0){SER.forEach(se=>{let d="";const n=Math.max(60,Math.round(pw/3));for(let i=0;i<=n;i++){const x=Math.min(o.p,cfg.xmax*i/n);d+=(i?"L":"M")+X(x).toFixed(1)+" "+Y(se.f(x)).toFixed(1);if(x>=o.p)break;}
+      E("path",{d:d,fill:"none",stroke:se.col||"var(--bad)","stroke-width":3.5,"stroke-linejoin":"round","stroke-dasharray":se.dash||""},s);
+      E("circle",{cx:X(o.p),cy:Y(se.f(o.p)),r:6,fill:se.col||"var(--bad)"},s);});
+      if(cfg.series){const ly=cfg.legBottom?T+ph-cfg.series.length*(fs+8)-2:T;cfg.series.forEach((se,i)=>{E("line",{x1:L+10,x2:L+40,y1:ly+12+i*(fs+8),y2:ly+12+i*(fs+8),stroke:se.col,"stroke-width":4,"stroke-dasharray":se.dash||""},s);TX(s,L+48,ly+12+i*(fs+8)+fs*.35,se.lab,Object.assign({class:"b"},st));});}}
+    else TX(s,L+pw/2,T+ph/2,"Appuie sur « Lancer »",Object.assign({"text-anchor":"middle",class:"m"},st));
+    if(o.sel!=null&&o.sel<=o.p+1e-9){const x=o.sel;E("line",{x1:X(x),x2:X(x),y1:T,y2:T+ph,stroke:"var(--teal)","stroke-dasharray":"4 4"},s);SER.forEach(se=>E("circle",{cx:X(x),cy:Y(se.f(x)),r:7,fill:"var(--teal)"},s));}
+    s.addEventListener("pointerdown",e=>{const r=s.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;let x=(px-L)/pw*cfg.xmax;x=Math.round(x/(cfg.snap||cfg.xstep))*(cfg.snap||cfg.xstep);if(x<0||x>o.p+1e-9){o.sel=null;rd.textContent="Touche la courbe pour lire une valeur.";}else{o.sel=x;rd.textContent=cfg.read(x,cfg.f?cfg.f(x):null);}draw();});
+  }
+  o.set=p=>{o.p=p;draw();};o.draw=draw;
+  let ro=null;if(window.ResizeObserver){let lw=0;ro=new ResizeObserver(()=>{const w=wr.clientWidth;if(Math.abs(w-lw)>2){lw=w;draw();}});ro.observe(wr);CLEAN.push(()=>ro.disconnect());}
+  draw();return o;
+}
+/* contrôles Lancer / Pause / Recommencer pour une progression 0→max */
+function player(box,max,speed,onP,onEnd){
+  const o={p:0,run:false};let lp=null;
+  const bs=ctl(box,[["▶ Lancer",()=>{if(o.p>=max)o.p=0;if(RM){o.p=max;onP(o.p);end();return;}o.run=true;upd();lp=loop(dt=>{if(!o.run)return false;o.p=Math.min(max,o.p+dt*speed);onP(o.p);if(o.p>=max){o.run=false;end();upd();return false;}});}],["⏸ Pause",()=>{o.run=false;upd();}],["↺ Recommencer",()=>{o.run=false;o.p=0;onP(0);upd();}]]);
+  function end(){if(onEnd)onEnd();}
+  function upd(){bs[0].disabled=o.run;bs[1].disabled=!o.run;}
+  upd();o.bs=bs;return o;
+}
+
+/* ===================== ANIMATIONS · Levures Rho ===================== */
+const ANIMS={};
+const G=(par,at)=>E("g",at||{},par);
+function hidden(el,h){el.style.display=h?"none":"";}
+function piece(pts){return x=>{if(x<=pts[0][0])return pts[0][1];for(let i=1;i<pts.length;i++){if(x<=pts[i][0]){const k=(x-pts[i-1][0])/(pts[i][0]-pts[i-1][0]);return lerp(pts[i-1][1],pts[i][1],k);}}return pts[pts.length-1][1];};}
+const C_O2="#e08600",C_CO2="#c2185b",C_GLU="#1e88e5",C_ETH="#2e9e5b";
+
+/* mitochondrie dessinée (ovale strié) */
+function mito(par,x,y,rx,ry,rot,pale){const g=G(par,{transform:"translate("+x+" "+y+") rotate("+rot+")"});E("ellipse",{cx:0,cy:0,rx:rx,ry:ry,fill:pale?"#a9a39a":"#5d5a55",stroke:"#2f2c28","stroke-width":1.5},g);
+  for(let k=-2;k<=2;k++)E("line",{x1:k*rx*.3,x2:k*rx*.3+rx*.12,y1:-ry*.6,y2:ry*.6,stroke:pale?"#d8d3ca":"#bdb7ab","stroke-width":1.3},g);return g;}
+/* deux cellules de levure : avec et sans dioxygène ; n = [nombre avec O2, nombre sans O2] */
+function yeastPair(box,strain,n){
+  const s=stage(box,640,360,"Deux levures "+strain+" dessinées d'après des observations au microscope électronique, l'une cultivée avec dioxygène, l'autre sans");
+  const cx=[132,508],cnt=[0,0],lab=[];
+  ["avec dioxygène","sans dioxygène"].forEach((t,i)=>{const x=cx[i],y=178;TX(s,x,24,"Levure "+strain+" "+t,{"text-anchor":"middle",class:"b","font-size":15});
+    E("ellipse",{cx:x,cy:y,rx:122,ry:126,fill:"#cfc7b6",stroke:"#6e675b","stroke-width":3},s);E("ellipse",{cx:x,cy:y,rx:111,ry:115,fill:"#e4dccb",stroke:"#3f3a33","stroke-width":2},s);
+    for(let k=0;k<70;k++)E("circle",{cx:x+(hash(k*3+i)-.5)*150,cy:y+(hash(k*7+i*5)-.5)*160,r:1.2,fill:"#8f8778",opacity:.6},s);
+    E("circle",{cx:x-6,cy:y+26,r:40,fill:"#d7cebb",stroke:"#3f3a33","stroke-width":2},s);E("circle",{cx:x-8,cy:y-44,r:13,fill:"#fff",stroke:"#6e675b","stroke-width":1.5},s);
+    const big=i===0&&n[0]>5,N=n[i];for(let k=0;k<N;k++){const a=(k/N)*Math.PI*2+hash(k+i*9+N)*.35+(i?1.1:.2),r=big?80:72+hash(k+2)*10,mx=x+Math.cos(a)*r,my=y+Math.sin(a)*r*1.04;
+      const pale=!big;mito(s,mx,my,pale?9:15,pale?5.5:9,hash(k*5+i)*180,pale);
+      const ring=E("circle",{cx:mx,cy:my,r:20,fill:"none",stroke:"var(--bad)","stroke-width":3,opacity:0},s),hit=E("circle",{cx:mx,cy:my,r:24,fill:"transparent"},s);hit.style.cursor="pointer";
+      hit.addEventListener("pointerdown",()=>{const on=ring.getAttribute("opacity")==="1";ring.setAttribute("opacity",on?0:1);cnt[i]+=on?-1:1;lab[i].textContent="Mitochondries repérées : "+cnt[i];});}
+    lab[i]=TX(s,x,334,"Mitochondries repérées : 0",{"text-anchor":"middle","font-size":14,class:"b"});
+    E("line",{x1:x+70,x2:x+114,y1:296,y2:296,stroke:"var(--ink)","stroke-width":3},s);TX(s,x+92,290,"1 µm",{"text-anchor":"middle","font-size":11});});
+  const lg=G(s,{opacity:0}),LG=[["paroi",132+Math.cos(-1)*118,178+Math.sin(-1)*122],["membrane",132+Math.cos(-.55)*111,178+Math.sin(-.55)*115],["cytoplasme",132+38,178-18],["noyau",132+18,178+34],["mitochondrie",132+Math.cos(.2)*80,178+Math.sin(.2)*83]];
+  LG.forEach((l,k)=>{const ty=64+k*52;E("line",{x1:l[1],y1:l[2],x2:316,y2:ty,stroke:"var(--ink)","stroke-width":1.3},lg);E("rect",{x:270,y:ty-13,width:100,height:22,rx:5,fill:"var(--surface)",stroke:"var(--ink)"},lg);TX(lg,320,ty+3,l[0],{"text-anchor":"middle","font-size":12.5,class:"b"});});
+  ctl(box,[["Afficher ou masquer les légendes",()=>lg.setAttribute("opacity",lg.getAttribute("opacity")==="1"?0:1)]]);
+  note(box,"Dessins réalisés d'après les photographies du document (microscope électronique à transmission). Touche une mitochondrie pour la marquer.");
+}
+ANIMS.cellWild=box=>yeastPair(box,"sauvage",[10,3]);
+ANIMS.cellMut=box=>yeastPair(box,"mutante Rho⁻",[3,3]);
+
+/* ExAO sur la souche sauvage : quatre sondes, ajout de glucose à 10 min */
+ANIMS.exaoWild=(box)=>{
+  const s=stage(box,640,250,"Un bioréacteur contenant des levures sauvages, avec quatre sondes ; du glucose est injecté à 10 minutes");
+  const F={o2:piece([[0,.85],[10,.8],[20,0],[40,0]]),co2:piece([[0,1],[10,1.1],[20,1.7],[30,2.05],[40,2.1]]),glu:piece([[0,0],[10,0],[10.01,1.5],[20,.55],[30,0],[40,0]]),eth:piece([[0,0],[20,0],[30,.55],[40,.55]])};
+  const PR=[["o2","Dioxygène (O₂)",C_O2],["co2","Dioxyde de carbone (CO₂)",C_CO2],["glu","Glucose",C_GLU],["eth","Éthanol",C_ETH]];
+  E("rect",{x:40,y:70,width:230,height:160,rx:16,fill:"#e6f1f7",stroke:"var(--muted)","stroke-width":4},s);E("rect",{x:44,y:104,width:222,height:122,rx:12,fill:"#f3ecc9"},s);E("rect",{x:30,y:60,width:250,height:16,rx:6,fill:"var(--muted)"},s);
+  const ye=[];for(let k=0;k<26;k++)ye.push({el:E("ellipse",{rx:9,ry:6,fill:"#f1c232",stroke:"#9c7400","stroke-width":1},s),x:60+hash(k)*190,y:120+hash(k+30)*92,ph:hash(k+7)*6});
+  PR.forEach((p,i)=>E("rect",{x:76+i*44,y:36,width:8,height:110,rx:3,fill:p[2]},s));
+  const bub=[];for(let k=0;k<8;k++)bub.push(E("circle",{r:4,fill:"none",stroke:C_CO2,"stroke-width":2,opacity:0},s));
+  const syr=G(s);E("rect",{x:-10,y:-54,width:20,height:44,rx:3,fill:"#e3f2fd",stroke:"var(--ink)","stroke-width":1.5},syr);const liq=E("rect",{x:-7,y:-50,width:14,height:36,fill:C_GLU},syr);E("line",{x1:0,y1:-10,x2:0,y2:10,stroke:"var(--ink)","stroke-width":2},syr);TX(syr,16,-28,"glucose",{"font-size":12,class:"b",fill:C_GLU});
+  syr.setAttribute("transform","translate(244 56)");
+  const disp=PR.map((p,i)=>{const y=40+i*50;E("rect",{x:330,y:y,width:290,height:42,rx:10,fill:"var(--surface)",stroke:p[2],"stroke-width":3},s);TX(s,342,y+26,p[1],{"font-size":13,class:"b",fill:p[2]});return TX(s,608,y+28,"",{"text-anchor":"end","font-size":18,class:"b"});});
+  const clock=TX(s,155,28,"",{"text-anchor":"middle","font-size":17,class:"b"});
+  note(box,"Mesures ExAO du document : concentrations en unités arbitraires (u.a.).");
+  let cur=0;const cfg={xmax:40,xstep:10,snap:1,xlab:"Temps (min)",ymin:0,ymax:2.5,ystep:.5,ylab:"",f:null,col:"",aria:"",read:(x)=>"À "+x+" min · "+PR[cur][1]+" : "+frn(F[PR[cur][0]](x+.02),2)+" u.a."};
+  function pick(i){cur=i;cfg.f=x=>F[PR[i][0]](x);cfg.col=PR[i][2];cfg.ylab=PR[i][1]+" (u.a.)";cfg.aria=PR[i][1]+" en fonction du temps";}
+  pick(0);const ch=chart(box,cfg);let P=0,t=0;
+  const msg=live(box,"Lance la mesure. Le glucose est ajouté à 10 minutes.");
+  function draw(){const p=P;clock.textContent="Temps : "+Math.floor(p)+" min";disp.forEach((d,i)=>d.textContent=frn(F[PR[i][0]](p+.02),2)+" u.a.");
+    liq.setAttribute("height",p>=10?0:36);const act=p>10&&p<30;
+    ye.forEach(o=>{o.el.setAttribute("cx",o.x+Math.sin(t*(act?2.4:.5)+o.ph)*5);o.el.setAttribute("cy",o.y+Math.cos(t*(act?2:.4)+o.ph)*4);});
+    bub.forEach((b,k)=>{const u=((t*.5+k/8)%1);b.setAttribute("cx",70+k*26);b.setAttribute("cy",220-u*112);b.setAttribute("opacity",act?.9*(1-u):0);});
+    msg.textContent=p<=0?"Lance la mesure. Le glucose est ajouté à 10 minutes.":p<10?"De 0 à 10 min : levures dans l'eau, sans glucose.":p<10.8?"10 min : ajout de glucose.":p<20?"De 10 à 20 min : observe les quatre sondes.":p<30?"De 20 à 30 min : une sonde est tombée à zéro, une autre décolle.":"Mesure terminée. Affiche chaque sonde et touche les courbes.";}
+  if(!RM)loop(dt=>{t+=dt;draw();});
+  player(box,40,3.2,p=>{P=p;ch.set(p);draw();});
+  const bs=ctl(box,PR.map((p,i)=>["Sonde "+["O₂","CO₂","glucose","éthanol"][i],b=>{press(bs,b);pick(i);ch.sel=null;ch.draw();},1]));press(bs,bs[0]);draw();
+};
+
+/* ExAO : dioxygène dans trois milieux */
+ANIMS.exaoO2=(box)=>{
+  const s=stage(box,640,190,"Trois milieux de culture avec une sonde à dioxygène : sans levures, avec levures Rho plus, avec levures Rho moins");
+  const fA=piece([[0,5.3],[6,5.4]]),fB=piece([[0,4.9],[1.2,4.9],[1.6,4.8],[3.5,3.7],[6,.7]]),fC=piece([[0,5.3],[1,5.3],[6,5.0]]);
+  const Mi=[["Milieu A","eau + sels minéraux",fA,"#37474f",0],["Milieu B","+ levures Rho⁺",fB,"var(--bad)",1],["Milieu C","+ levures Rho⁻",fC,"var(--info)",2]];
+  const dv=Mi.map((m,i)=>{const x=110+i*210;TX(s,x,22,m[0],{"text-anchor":"middle",class:"b","font-size":16,fill:m[3]});TX(s,x,40,m[1],{"text-anchor":"middle","font-size":12.5});
+    E("path",{d:"M"+(x-56)+" 58 v84 q0 16 16 16 h80 q16 0 16 -16 v-84",fill:"#e6f1f7",stroke:"var(--muted)","stroke-width":3},s);E("rect",{x:x-54,y:84,width:108,height:72,rx:10,fill:i?"#f3ecc9":"#dcecf5"},s);
+    if(i)for(let k=0;k<12;k++)E("ellipse",{cx:x-42+hash(k+i*20)*84,cy:96+hash(k*3+i)*52,rx:7,ry:4.5,fill:i===1?"#f1c232":"#d9b98a",stroke:"#9c7400","stroke-width":1},s);
+    E("rect",{x:x+26,y:48,width:7,height:84,rx:3,fill:C_O2},s);return TX(s,x,182,"",{"text-anchor":"middle","font-size":15,class:"b"});});
+  const inj=TX(s,320,66,"",{"text-anchor":"middle","font-size":12,class:"b",fill:C_GLU});
+  note(box,"Mesures ExAO du document. Injection de glucose à 1 minute.");
+  const ch=chart(box,{xmax:6,xstep:1,snap:.5,xlab:"Temps (min)",ymin:0,ymax:6,ystep:1,legBottom:1,ylab:"Concentration en O₂ (mg/L)",aria:"Concentration en dioxygène en fonction du temps dans les trois milieux",
+    series:Mi.map(m=>({f:m[2],col:m[3],lab:m[0]+" · "+m[1],dash:m[4]===2?"8 5":m[4]===0?"2 5":""})),read:x=>"À "+frn(x,1)+" min : A "+frn(fA(x),1)+" mg/L · B "+frn(fB(x),1)+" mg/L · C "+frn(fC(x),1)+" mg/L."});
+  function set(p){dv.forEach((d,i)=>d.textContent="O₂ : "+frn(Mi[i][2](p),1)+" mg/L");inj.textContent=p>=1?"":"";ch.set(p);}
+  set(0);player(box,6,.55,set);
+};
+
+/* Simulateur : souche × milieu → réaction */
+ANIMS.simul=(box,api)=>{
+  if(!api.solved()){const p=document.createElement("p");p.className="anote";p.textContent="🔒 Le simulateur se débloque quand tu as trouvé les deux facteurs.";box.appendChild(p);api.onSolve(()=>{box.innerHTML="";build();});return;}
+  build();
+  function build(){
+    const s=stage(box,640,360,"Une levure dont le métabolisme change selon la souche et les conditions du milieu");
+    E("ellipse",{cx:300,cy:190,rx:190,ry:140,fill:"#cfc7b6",stroke:"#6e675b","stroke-width":3},s);E("ellipse",{cx:300,cy:190,rx:178,ry:128,fill:"#efe8d6",stroke:"#3f3a33","stroke-width":2},s);
+    E("circle",{cx:220,cy:226,r:44,fill:"#d7cebb",stroke:"#3f3a33","stroke-width":2},s);TX(s,220,231,"noyau",{"text-anchor":"middle","font-size":12,class:"m"});
+    const mg=G(s),title=TX(s,300,26,"",{"text-anchor":"middle",class:"b","font-size":18}),eq=TX(s,300,350,"",{"text-anchor":"middle","font-size":14,class:"b"});
+    E("rect",{x:540,y:70,width:36,height:230,rx:8,fill:"var(--surface-2)",stroke:"var(--muted)"},s);const eb=E("rect",{x:540,y:300,width:36,height:0,rx:8,fill:"var(--sun)"},s);TX(s,558,58,"énergie",{"text-anchor":"middle","font-size":13,class:"b"});const et=TX(s,558,322,"",{"text-anchor":"middle","font-size":12,class:"b"});
+    const mk=(col,n,r)=>{const a=[];for(let k=0;k<n;k++)a.push({el:E("circle",{r:r||6,fill:col,stroke:"var(--ink)","stroke-width":1,opacity:0},s),ph:k/n});return a;};
+    const pG=mk(C_GLU,5,7),pO=mk(C_O2,5),pC=mk(C_CO2,6),pE=mk(C_ETH,4),pW=mk("#64b5f6",4);
+    const tl=[["glucose",40,196,C_GLU],["O₂",120,62,C_O2],["CO₂",470,62,C_CO2],["H₂O",478,112,"#1976d2"],["éthanol",456,330,C_ETH]].map(l=>TX(s,l[1],l[2],l[0],{"font-size":13,class:"b",fill:l[3]}));
+    const st={rho:1,o2:1,glu:1};let t=0;const msg=live(box,"");
+    function mode(){return !st.glu?0:(st.rho&&st.o2)?1:2;}
+    function refresh(){mg.innerHTML="";const m=mode(),big=st.rho&&st.o2;const N=big?9:3;for(let k=0;k<N;k++){const a=k/N*Math.PI*2+.4,x=big?360+Math.cos(a)*86*((k%2)?.55:1):330+Math.cos(a)*120,y=big?170+Math.sin(a)*74*((k%2)?.55:1):180+Math.sin(a)*96;mito(mg,x,y,big?17:9,big?10:5.5,k*40,!big);}
+      title.textContent="Levure "+(st.rho?"Rho⁺ (sauvage)":"Rho⁻ (mutante)")+" · "+(st.o2?"avec":"sans")+" dioxygène · "+(st.glu?"avec":"sans")+" glucose";
+      eq.textContent=["Pas de substrat : métabolisme très réduit","RESPIRATION · glucose + O₂ → CO₂ + H₂O + beaucoup d'énergie","FERMENTATION ALCOOLIQUE · glucose → CO₂ + éthanol + un peu d'énergie"][m];
+      const h=[4,230,26][m];eb.setAttribute("y",300-h);eb.setAttribute("height",h);et.textContent=["presque nulle","forte","faible"][m];
+      tl[1].setAttribute("opacity",st.o2?1:.25);tl[2].setAttribute("opacity",m?1:.25);tl[3].setAttribute("opacity",m===1?1:.25);tl[4].setAttribute("opacity",m===2?1:.25);tl[0].setAttribute("opacity",st.glu?1:.25);
+      msg.textContent=m===0?"Sans glucose, la levure n'a rien à transformer.":m===1?"Dioxygène disponible et mitochondries fonctionnelles : la levure respire, dans ses mitochondries.":!st.rho&&st.o2?"Il y a du dioxygène, mais le mutant n'a pas de mitochondries fonctionnelles : il fermente, dans son cytoplasme.":"Sans dioxygène, la respiration est impossible : la levure fermente, dans son cytoplasme.";frame(0);}
+    const mv=(o,u,x0,y0,x1,y1,on)=>{o.el.setAttribute("cx",lerp(x0,x1,u));o.el.setAttribute("cy",lerp(y0,y1,u)+Math.sin(u*9+o.ph*20)*4);o.el.setAttribute("opacity",on?(u<.08||u>.94?0:1):0);};
+    function frame(dt){t+=dt;const m=mode();const tx=m===1?360:300,ty=m===1?170:150;
+      pG.forEach(o=>mv(o,(t*.28+o.ph)%1,60,190,tx,ty,m>0));pO.forEach(o=>mv(o,(t*.28+o.ph)%1,130,70,360,160,m===1));
+      pC.forEach(o=>mv(o,(t*.28+o.ph)%1,tx,ty,470,74,m>0));pW.forEach(o=>mv(o,(t*.28+o.ph)%1,360,176,478,118,m===1));pE.forEach(o=>mv(o,(t*.28+o.ph)%1,300,160,456,318,m===2));}
+    if(!RM)loop(frame);
+    const b1=ctl(box,[["Souche Rho⁺",b=>{st.rho=1;press(b1,b);refresh();},1],["Souche Rho⁻",b=>{st.rho=0;press(b1,b);refresh();},1]]);
+    const b2=ctl(box,[["Avec dioxygène",b=>{st.o2=1;press(b2,b);refresh();},1],["Sans dioxygène",b=>{st.o2=0;press(b2,b);refresh();},1]]);
+    const b3=ctl(box,[["Avec glucose",b=>{st.glu=1;press(b3,b);refresh();},1],["Sans glucose",b=>{st.glu=0;press(b3,b);refresh();},1]]);
+    press(b1,b1[0]);press(b2,b2[0]);press(b3,b3[0]);refresh();
+    note(box,"Modèle simplifié du métabolisme de la levure.",true);
+  }
+};
+
+/* ===================== VUES · activité à étapes ===================== */
+const app=$("app"),NST=STEPS.length,NQ=QS.length,TOTAL=DUREE*60;
+const stepQs=s=>s.blocks.filter(b=>b.q).map(b=>b.q);
+function scoreOf(s){let f=0,t=0,d=0;stepQs(s).forEach(q=>{const st=S.qs[q.id];if(st&&st.tries){t++;if(st.first)f++;}if(st&&st.done)d++;});return {f,t,d,n:stepQs(s).length};}
+function totals(){let f=0,t=0;STEPS.forEach(s=>{const r=scoreOf(s);f+=r.f;t+=r.t;});return {f,t};}
+function pct(f,t){return t?Math.round(100*f/t):0;}
+let curCtx=null;
+if(!S.essay||typeof S.essay!=="object")S.essay={};
+const ESSAYS=[];STEPS.forEach(s=>s.blocks.forEach(b=>{if(b.essay)ESSAYS.push(b.essay);}));
+/* rédaction libre : non notée, auto-évaluée avec une liste de critères, exportée dans le bilan */
+function buildEssay(e,host){const st=S.essay[e.id]||(S.essay[e.id]={t:"",c:[],shown:false});const c=document.createElement("article");c.className="qcard";
+  c.innerHTML='<div class="qhead"><span class="qnum">✍</span><span class="tag doc">Rédaction · non notée</span></div><h3>'+esc(e.title)+'</h3><p class="qtext">'+esc(e.prompt)+'</p>'+
+   '<label class="sr" for="es-'+e.id+'">Ta rédaction</label><textarea id="es-'+e.id+'" rows="6" style="width:100%;min-height:9em;font:inherit;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)" placeholder="Rédige ici…"></textarea>'+
+   '<p class="ins">Relis ton texte, puis coche ce que tu as bien fait :</p><div class="opts">'+e.crit.map((k,i)=>'<button class="opt" data-i="'+i+'" aria-pressed="'+(!!st.c[i])+'"><span class="ck" aria-hidden="true">'+(st.c[i]?"✓":"")+'</span><span style="flex:1;min-width:0">'+esc(k)+'</span></button>').join("")+'</div>'+
+   '<div class="qbtns"><button class="btn ghost" id="em-'+e.id+'">Voir une réponse possible</button></div><div id="eo-'+e.id+'"></div>';
+  host.appendChild(c);const ta=c.querySelector("textarea");ta.value=st.t||"";ta.addEventListener("input",()=>{st.t=ta.value;save();});
+  c.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;st.c[i]=!st.c[i];b.setAttribute("aria-pressed",String(!!st.c[i]));b.querySelector(".ck").textContent=st.c[i]?"✓":"";save();});
+  const out=c.querySelector("#eo-"+e.id),show=()=>{out.innerHTML='<div class="corr"><span class="ct">✔&#xFE0E; Une réponse possible</span><p>'+esc(e.model)+'</p></div>';};
+  c.querySelector("#em-"+e.id).onclick=()=>{if((st.t||"").trim().length<40){out.innerHTML='<div class="fb bad">Rédige d\'abord ta propre réponse (au moins deux phrases).</div>';return;}st.shown=true;save();show();};
+  if(st.shown)show();}
+
+/* ---------- réglages ---------- */
+function applyFs(){const r=document.documentElement;r.classList.toggle("proj",!!S.proj);r.style.setProperty("--fs",(S.proj?Math.max(S.fs,30):S.fs)+"px");$("proj").setAttribute("aria-pressed",S.proj?"true":"false");}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme");}
+$("fsMinus").onclick=()=>{S.fs=Math.max(20,S.fs-2);applyFs();save();};
+$("fsPlus").onclick=()=>{S.fs=Math.min(34,S.fs+2);applyFs();save();};
+$("proj").onclick=()=>{S.proj=!S.proj;applyFs();save();};
+$("theme").onclick=()=>{const dark=S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);S.theme=dark?"light":"dark";applyTheme();save();};
+
+/* ---------- minuteur de séance (45 min, continue d'une étape à l'autre) ---------- */
+const TM={left:TOTAL,run:false,last:0,iv:null};
+function tDraw(){const s=Math.max(0,Math.ceil(TM.left)),c=$("tclock");c.textContent=Math.floor(s/60)+":"+("0"+s%60).slice(-2);c.className="tclock"+(s===0?" end":s<=300?" low":"");$("tPlay").textContent=TM.run?"⏸":"▶";$("tPlay").setAttribute("aria-label",TM.run?"Mettre le minuteur en pause":"Lancer le minuteur");}
+function tStart(){if(TM.left<=0)TM.left=TOTAL;TM.run=true;TM.last=performance.now();clearInterval(TM.iv);TM.iv=setInterval(()=>{const n=performance.now();TM.left-=(n-TM.last)/1000;TM.last=n;if(TM.left<=0){TM.left=0;TM.run=false;clearInterval(TM.iv);}tDraw();},500);tDraw();}
+function tStop(){TM.run=false;clearInterval(TM.iv);tDraw();}
+$("tPlay").onclick=()=>{TM.run?tStop():tStart();};
+$("tReset").onclick=()=>{tStop();TM.left=TOTAL;tDraw();};
+
+/* ---------- routage ---------- */
+function go(h){if(location.hash!=="#"+h)location.hash=h;else route();}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-go]");if(t){e.preventDefault();go(t.dataset.go);}});
+window.addEventListener("hashchange",route);
+function route(){
+  const h=(location.hash||"#home").slice(1);stopLoops();cleanup();curCtx=null;window.scrollTo(0,0);
+  const i=STEPS.findIndex(s=>s.id===h);$("sbar").hidden=i<0;
+  if(i>=0)viewStep(i);else if(h==="bilan")viewBilan();else viewHome();
+}
+function updScore(){const T=totals();$("sbScore").textContent=T.f+" / "+NQ;}
+
+/* ---------- accueil ---------- */
+function viewHome(){
+  const T=totals();let nx=STEPS.findIndex(s=>scoreOf(s).t<scoreOf(s).n);if(nx<0)nx=NST-1;
+  app.innerHTML='<section class="view"><div class="card stack"><div class="kicker">Ta mission</div>'+
+   '<p>'+MISSION+'</p>'+
+   '<p class="muted">Ton score compte la réponse au <b>premier essai</b>. Ensuite, tu peux utiliser les coups de pouce et corriger autant que tu veux.</p>'+
+   '<div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet iPad)</label><input class="name" id="pname" autocomplete="off" maxlength="40" value="'+esc(S.name)+'"></div>'+
+   '<div class="quick"><button class="btn" data-go="'+STEPS[nx].id+'">▶ '+(T.t?"Reprendre à l\'étape ":"Commencer : étape ")+(nx+1)+'</button><button class="btn ghost" data-go="bilan">📄 Mon bilan</button></div></div>'+
+   '<div class="mission"><div class="mhead"><h3>Les '+NST+' étapes</h3><span class="muted small">environ '+DUREE+' minutes</span></div><div class="tiles">'+STEPS.map((s,i)=>{const r=scoreOf(s);
+     return '<button class="tile'+(i===nx?" cur":"")+'" data-go="'+s.id+'"><span class="tn"><span>Étape '+(i+1)+'</span><span class="badge '+(r.t===r.n?(r.f===r.n?"full":"part"):r.t?"part":"")+'">'+(r.t?r.f+"/"+r.n:"à faire")+'</span></span><span class="tt">'+esc(s.t)+' · '+s.min+' min</span></button>';}).join("")+'</div></div></section>';
+  $("pname").addEventListener("input",e=>{S.name=e.target.value;save();});
+}
+
+/* ---------- étape ---------- */
+function viewStep(i){
+  const s=STEPS[i];$("sbTitle").textContent="Étape "+(i+1)+" / "+NST;
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">Étape '+(i+1)+' sur '+NST+' · environ '+s.min+' minutes</div><h2 class="h2">'+esc(s.t)+'</h2></div>'+
+   '<div class="box key"><div class="bt">🎯 Règle clé · Objectif</div><p>'+esc(s.goal)+'</p></div><div class="stack" id="host" style="gap:18px"></div><div id="endSlot"></div>'+
+   '<div class="snav">'+(i>0?'<button class="btn ghost" data-go="'+STEPS[i-1].id+'">← Étape '+i+'</button>':'<button class="btn ghost" data-go="home">← Accueil</button>')+'<button class="btn" data-go="'+(i<NST-1?STEPS[i+1].id:"bilan")+'">'+(i<NST-1?"Étape "+(i+2)+" →":"Mon bilan →")+'</button></div></section>';
+  const host=$("host");
+  const ctx=curCtx={mode:"act",p:"",host,apis:{},st:q=>qst(q.id),save,after:(q,E)=>{if(E.ok)(ctx.apis[q.id]||[]).forEach(a=>a._s.forEach(f=>{try{f();}catch(e){}}));updStep(i);}};
+  s.blocks.forEach(b=>{
+    if(b.html){const d=document.createElement("div");d.className="stack";d.innerHTML=b.html;host.appendChild(d);}
+    else if(b.an){const c=document.createElement("div");c.className="card";const an=document.createElement("div");an.className="anim";c.appendChild(an);host.appendChild(c);
+      const api={solved:()=>b.qid?!!qst(b.qid).done:true,_s:[],onSolve(f){this._s.push(f);}};if(b.qid)(ctx.apis[b.qid]=ctx.apis[b.qid]||[]).push(api);
+      try{ANIMS[b.an](an,api);}catch(e){console.error(e);an.innerHTML='<p class="anote">Animation indisponible.</p>';}}
+    else if(b.essay)buildEssay(b.essay,host);
+    else if(b.q)buildCard(b.q,ctx);});
+  updStep(i);if(!TM.run&&TM.left===TOTAL)tStart();else tDraw();
+}
+function updStep(i){updScore();const s=STEPS[i],r=scoreOf(s),slot=$("endSlot");if(!slot)return;
+  if(r.t<r.n){slot.innerHTML="";return;}
+  slot.innerHTML='<div class="endcard" aria-live="polite"><div class="kicker" style="color:var(--band-muted)">Étape '+(i+1)+' terminée</div><div class="big">'+r.f+' / '+r.n+'</div><p>'+(r.f===r.n?"Tout juste au premier essai !":r.d===r.n?"Tout est corrigé : bien joué.":"Corrige les questions marquées ✗ avant de continuer, si tu as le temps.")+'</p></div>';
+}
+
+/* ---------- bilan ---------- */
+function today(){const d=new Date();return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();}
+function attempted(){return QS.filter(q=>S.qs[q.id]&&S.qs[q.id].tries).length;}
+function bilanText(){const T=totals(),L=[];
+  L.push(TITRE_BILAN);L.push("Élève : "+(S.name.trim()||"non renseigné")+"   Date : "+today());L.push("");
+  L.push("RÉSUMÉ DE L'ACTIVITÉ");STEPS.forEach((s,i)=>L.push("  Étape "+(i+1)+" · "+s.t+" — "+s.goal));L.push("");
+  L.push("MON BILAN");L.push("  Score au premier essai : "+T.f+" / "+NQ+" ("+attempted()+" questions traitées sur "+NQ+")");
+  STEPS.forEach((s,i)=>{const r=scoreOf(s);L.push("  Étape "+(i+1)+" : "+(r.t?r.f+" / "+r.n+(r.t<r.n?" (incomplète)":""):"non faite"));});
+  const w=QS.filter(q=>{const st=S.qs[q.id];return st&&st.tries&&!st.first;}).map(q=>"étape "+q.sn+" « "+q.title+" »"+(S.qs[q.id].done?" (corrigée)":""));
+  L.push("  Questions ratées au premier essai : "+(w.length?w.join(" ; "):"aucune"));
+  ESSAYS.forEach(e=>{const v=(S.essay[e.id]||{}).t;if(v&&v.trim()){L.push("");L.push("MA RÉDACTION — "+e.title);L.push(v.trim());}});
+  if(unlocked()){L.push("");L.push(LBL_BILAN.toUpperCase());CAHIER.forEach((c,i)=>L.push("  "+(i+1)+". "+c));}
+  return L.join("\n");}
+function unlocked(){return attempted()>=NQ-2||!!S.unlock;}
+function viewBilan(){
+  const T=totals(),ok=unlocked();
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">Fin de l\'activité</div><h2 class="h2">Mon bilan</h2></div>'+
+   '<div class="card stack"><div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet iPad)</label><input class="name" id="pname" autocomplete="off" maxlength="40" value="'+esc(S.name)+'"></div>'+
+   '<div class="stats"><div class="stat"><div class="k">Réussies au 1er essai</div><div class="v">'+T.f+' / '+NQ+'</div></div><div class="stat"><div class="k">Questions traitées</div><div class="v">'+attempted()+' / '+NQ+'</div></div>'+STEPS.map((s,i)=>{const r=scoreOf(s);return '<div class="stat"><div class="k">Étape '+(i+1)+'</div><div class="v">'+(r.t?r.f+" / "+r.n:"—")+'</div></div>';}).join("")+'</div></div>'+
+   (ok?'<div class="box key"><div class="bt">✏️ Règle clé · '+esc(LBL_BILAN)+'</div><p><b>'+esc(TITRE_CAHIER)+'</b></p><ol style="margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px">'+CAHIER.map(c=>'<li>'+esc(c)+'</li>').join("")+'</ol></div>'
+      :'<div class="box warn"><div class="bt">⚠︎ Vigilance · '+esc(LBL_BILAN)+'</div><p>Il s\'affichera quand tu auras traité presque toutes les questions ('+attempted()+' / '+NQ+' pour l\'instant).</p><div><button class="btn ghost sm" id="unl">Mon professeur m\'autorise à l\'afficher</button></div></div>')+
+   '<div class="card stack"><div class="kicker">Exporter</div><div class="bilantext" id="bilanText"></div><div class="row"><button class="btn" id="dlB" hidden>⬇ Exporter mon résumé et mon bilan (.txt)</button><button class="btn ghost" id="cpB">Copier</button><button class="btn ghost" id="bProf">Montrer au professeur</button></div><p class="muted" id="bMsg" aria-live="polite"></p></div>'+
+   '<div class="row"><button class="btn ghost" data-go="home">← Accueil</button><button class="btn ghost" id="rst">Tout recommencer</button></div></section>';
+  $("bilanText").textContent=bilanText();
+  $("pname").addEventListener("input",e=>{S.name=e.target.value;save();$("bilanText").textContent=bilanText();});
+  if($("unl"))$("unl").onclick=()=>{S.unlock=true;save();viewBilan();};
+  $("cpB").onclick=()=>{const t=bilanText(),msg=$("bMsg");const sel=()=>{const r=document.createRange();r.selectNodeContents($("bilanText"));const g=getSelection();g.removeAllRanges();g.addRange(r);msg.textContent="Le texte est sélectionné : copie-le avec ton iPad.";};try{navigator.clipboard.writeText(t).then(()=>{msg.textContent="Bilan copié.";},sel);}catch(e){sel();}};
+  if(DL)$("dlB").hidden=false;
+  $("dlB").onclick=()=>{if(!DL)return;const msg=$("bMsg"),nm=(S.name.trim()||"eleve").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9_-]+/g,"-").slice(0,30)||"eleve";
+    DL.save({filename:FICHIER+nm+".txt",data:bilanText()}).then(()=>{msg.textContent="Fichier téléchargé.";},()=>{msg.textContent="Téléchargement impossible ici : utilise « Copier ».";});};
+  $("bProf").onclick=()=>{$("ovkick").textContent="Bilan à montrer au professeur";$("ovname").textContent=S.name.trim()||"Élève";$("ovsub").textContent=TITRE_COURT+" · score au premier essai";$("ovtot").textContent=T.f+" / "+NQ;
+    $("ovlist").innerHTML=STEPS.map((s,i)=>{const r=scoreOf(s);return '<div class="ovitem">Étape '+(i+1)+'<div style="font-family:var(--f-num)">'+(r.t?r.f+" / "+r.n:"—")+'</div></div>';}).join("");$("overlay").hidden=false;$("ovClose").focus();};
+  let arm=false;$("rst").onclick=()=>{if(!arm){arm=true;$("rst").textContent="Confirmer : effacer mes réponses";return;}S.qs={};S.essay={};S.unlock=false;save();TM.left=TOTAL;tStop();go("home");};
+}
+$("ovClose").onclick=()=>{$("overlay").hidden=true;};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("overlay").hidden=true;});
+let DL=null;try{if(window.claude&&window.claude.use)window.claude.use("downloads").then(d=>{DL=d;const b=$("dlB");if(b&&d)b.hidden=false;}).catch(()=>{});}catch(e){}
+
+applyFs();applyTheme();tDraw();route();
+window.__t={S:()=>S,STEPS,QS,evalQ,QBY,go};
+
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

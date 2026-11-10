@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flux de matière</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout : bandeau SVT vert foncé ; vues Sommaire (missions → tuiles de séances), Séance (barre collante avec minuteur, 4 cartes-questions dont le document animé), Révision, Progression, Bilan ; colonne 980 px (1400 px en projection) */
+:root{
+  --bg:#eff4f1; --surface:#ffffff; --surface-2:#e3ede7; --ink:#0f2d36; --muted:#46626c; --line:#bfd2d4;
+  --teal:#1f6b45; --teal-ink:#ffffff; --teal-soft:#dbeee2;
+  --band:#123d2a; --band-ink:#eaf5ee; --band-muted:#a8cdb5;
+  --ok:#17703c; --ok-soft:#dcf1e3; --bad:#b3261e; --bad-soft:#fbe2df;
+  --info:#1d5fa8; --info-soft:#e4eefb; --warn:#a14f00; --warn-soft:#fdebd6; --key:#17703c; --key-soft:#dcf1e3;
+  --t-r6:#6a3fa0; --t-sp:#0b6170; --t-se:#a14f00; --t-doc:#1d5fa8;
+  --sky:#0e1a2b; --sun:#f2b705; --sunglow:rgba(242,183,5,.35); --water:#4b9fd6; --water-2:#2f7fb5; --ice:#cfe8f7;
+  --blood:#c62828; --blood-2:#6d4c8a; --leaf:#3f8f3a; --leaf-2:#8cc66b; --bark:#8a5a2b; --soil:#7a5536;
+  --org:#d9822b; --bact:#cf5d17; --nerve:#e0b100; --muscle:#d9665b; --bone:#e9e2cf; --skin:#f1c9a5;
+  --metal:#7d8d93; --wire:#37474f; --lamp:#ffd54f; --iodine-b:#1b1d4a; --iodine-y:#c9a227; --lava:#e65100; --rock:#4e4a47; --rock-l:#c9bfae;
+  --paper:#fffdf6; --o2:#1d5fa8; --co2:#7a6b5d; --glu:#d39b00;
+  --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-body:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs:22px; --maxw:980px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#6fcf97; --teal-ink:#06261a; --teal-soft:#173a28;
+  --band:#0b2a1c; --band-ink:#e4f2ea; --band-muted:#93c2a6;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826;
+  --t-r6:#c2a6f2; --t-sp:#5cc6d3; --t-se:#f3a95c; --t-doc:#8ab8f2;
+  --sky:#050b14; --water:#3d8fc0; --water-2:#2a6f9e; --ice:#9fc6de; --blood:#ef5350; --blood-2:#9575cd; --leaf:#5cae55; --leaf-2:#9fd17f; --bark:#b07a44; --soil:#9b7350;
+  --metal:#9aaab0; --wire:#b0bec5; --bone:#d8d0bb; --rock:#8a8580; --rock-l:#d8cfbf; --paper:#1d2a22; --o2:#8ab8f2; --co2:#b6a898;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b171b; --surface:#12242a; --surface-2:#1a3138; --ink:#e4eff1; --muted:#a3bac1; --line:#2f4a52;
+  --teal:#6fcf97; --teal-ink:#06261a; --teal-soft:#173a28;
+  --band:#0b2a1c; --band-ink:#e4f2ea; --band-muted:#93c2a6;
+  --ok:#66d695; --ok-soft:#173826; --bad:#ff8f84; --bad-soft:#3d1c1a;
+  --info:#8ab8f2; --info-soft:#15263b; --warn:#f3a95c; --warn-soft:#352310; --key:#66d695; --key-soft:#173826;
+  --t-r6:#c2a6f2; --t-sp:#5cc6d3; --t-se:#f3a95c; --t-doc:#8ab8f2;
+  --sky:#050b14; --water:#3d8fc0; --water-2:#2a6f9e; --ice:#9fc6de; --blood:#ef5350; --blood-2:#9575cd; --leaf:#5cae55; --leaf-2:#9fd17f; --bark:#b07a44; --soil:#9b7350;
+  --metal:#9aaab0; --wire:#b0bec5; --bone:#d8d0bb; --rock:#8a8580; --rock-l:#d8cfbf; --paper:#1d2a22; --o2:#8ab8f2; --co2:#b6a898;
+  color-scheme:dark;
+}
+html{font-size:var(--fs)}
+html.proj{--maxw:1400px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+button,input,textarea{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:16px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.4rem,4.4vw,2.1rem);font-weight:800;margin-top:2px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.tbtn{min-height:48px;min-width:48px;padding:0 12px;border-radius:12px;border:1.5px solid color-mix(in oklab,var(--band-ink) 35%,transparent);background:transparent;color:var(--band-ink);font-weight:700;cursor:pointer;font-size:.9rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+
+main .wrap{padding-block:22px 64px}
+section.view{display:flex;flex-direction:column;gap:20px}
+.kicker{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--teal)}
+.h2{font-size:clamp(1.3rem,3.4vw,1.75rem);font-weight:800}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{min-height:52px;padding:0 18px;border-radius:14px;border:2px solid var(--teal);background:var(--teal);color:var(--teal-ink);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none}
+.btn{max-width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.weak .btn{white-space:normal;justify-content:flex-start;text-align:left;padding-block:8px}
+@media (max-width:560px){.hl{display:none}.sbar .ttl{font-size:.95rem}.sbar .wrap{gap:6px 8px}}
+.btn.sm{min-height:48px;padding:0 12px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn[aria-pressed="true"]{background:var(--teal-soft);border-color:var(--teal);color:var(--ink)}
+
+.box{border-radius:14px;padding:12px 16px;border-left:6px solid;display:flex;flex-direction:column;gap:6px;min-width:0}
+.box .bt{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.box.info{background:var(--info-soft);border-color:var(--info)}.box.info .bt{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)}.box.warn .bt{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)}.box.key .bt{color:var(--key)}
+
+/* Sommaire */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+@media (max-width:640px){.hero{grid-template-columns:minmax(0,1fr)}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px}
+.stat{background:var(--surface-2);border-radius:12px;padding:10px 12px;min-width:0}
+.stat .k{font-size:.9rem;color:var(--muted);font-weight:700}
+.stat .v{font-family:var(--f-num);font-weight:700;font-size:1.25rem}
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.mission{display:flex;flex-direction:column;gap:10px}
+.mhead{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;justify-content:space-between}
+.mhead h3{font-size:1.1rem;font-weight:800}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:10px}
+.tile{min-height:96px;text-align:left;border:2px solid var(--line);border-radius:14px;background:var(--surface);padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile .tn{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800}
+.tile .tt{font-size:.9rem;color:var(--muted);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.badge{font-family:var(--f-num);font-size:.9rem;font-weight:700;padding:1px 8px;border-radius:999px;border:1.5px solid var(--line);white-space:nowrap}
+.badge.full{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.badge.part{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+.tile.cur{border-color:var(--teal);box-shadow:inset 0 0 0 2px var(--teal)}
+
+/* Séance */
+.sbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.sbar .wrap{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;padding-block:6px}
+.sbar .ttl{font-weight:800;min-width:0}
+.timer{display:flex;align-items:center;gap:6px}
+.tclock{font-family:var(--f-num);font-weight:700;font-size:1.15rem;min-width:4.2ch;text-align:center;padding:4px 10px;border-radius:10px;background:var(--surface-2)}
+.tclock.low{background:var(--warn-soft);color:var(--warn)}
+.tclock.end{background:var(--bad-soft);color:var(--bad)}
+.ibtn{min-width:48px;min-height:48px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.sco{font-family:var(--f-num);font-weight:700;padding:4px 10px;border-radius:10px;background:var(--teal-soft)}
+.shead{display:flex;flex-direction:column;gap:4px}
+.snav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;scroll-margin-top:80px}
+.qhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.qnum{font-family:var(--f-num);font-weight:800;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--teal-ink);flex:none}
+.tag{font-size:.9rem;font-weight:700;padding:2px 10px;border-radius:999px;border:1.5px solid currentColor;display:inline-block;max-width:100%}
+.tag.r6{color:var(--t-r6)}.tag.sp{color:var(--t-sp)}.tag.se{color:var(--t-se)}.tag.doc{color:var(--t-doc)}
+a.tag{text-decoration:none}
+.qstat{margin-left:auto;font-size:.9rem;font-weight:700;color:var(--muted)}
+.qstat.ok{color:var(--ok)}.qstat.bad{color:var(--bad)}
+.qtext{font-weight:700;font-size:1.05rem}
+.ins{font-size:.9rem;color:var(--muted)}
+.part{display:flex;flex-direction:column;gap:8px;min-width:0}
+.part+.part{border-top:1px dashed var(--line);padding-top:12px}
+.pq{font-weight:700}
+.fields{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.grow{flex:1 1 260px}
+.field label{font-size:.9rem;font-weight:700;color:var(--muted)}
+.inp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+input.ans{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-size:1rem;min-width:0;width:100%}
+input.ans.num{width:8ch;font-family:var(--f-num);font-weight:700}
+input.ans.good{border-color:var(--ok);background:var(--ok-soft)}
+input.ans.badi{border-color:var(--bad);background:var(--bad-soft)}
+.mk{font-weight:700;font-size:.9rem;white-space:nowrap}
+.mk.ok{color:var(--ok)}.mk.bad{color:var(--bad)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{min-height:52px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.opt .ck{flex:none;width:26px;height:26px;border-radius:7px;border:2px solid var(--muted);display:grid;place-items:center;font-size:.9rem;font-weight:800}
+.opt.radio .ck{border-radius:50%}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft);box-shadow:inset 0 0 0 1px var(--teal)}
+.opt[aria-pressed="true"] .ck{background:var(--teal);border-color:var(--teal);color:var(--teal-ink)}
+.opt.okm{border-color:var(--ok);background:var(--ok-soft)}
+.opt.badm{border-color:var(--bad);background:var(--bad-soft)}
+.opt.gone{opacity:.35;text-decoration:line-through;pointer-events:none}
+.ordbox{display:flex;flex-wrap:wrap;gap:8px;min-height:56px;padding:8px;border-radius:12px;border:2px dashed var(--line);background:var(--bg);align-items:center}
+.ordbox.okb{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.ordbox.badb{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
+.chipw{min-height:48px;padding:0 14px;border-radius:999px;border:2px solid var(--teal);background:var(--surface);font-weight:700;cursor:pointer}
+.chipw.placed{background:var(--teal-soft)}
+.chipw .no{font-family:var(--f-num);margin-right:6px;color:var(--teal)}
+.chipw:disabled{border-color:var(--line);color:var(--muted);opacity:.5}
+.mrow{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:12px;background:var(--surface-2)}
+.mrow .rl{font-weight:700;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.qbtns{display:flex;flex-wrap:wrap;gap:10px}
+.fb{border-radius:12px;padding:10px 14px}
+.fb.ok{background:var(--ok-soft);border:2px solid var(--ok)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.hint{background:var(--warn-soft);border-radius:12px;padding:10px 14px}
+.hint b{color:var(--warn)}
+.corr{border-left:5px solid var(--key);background:var(--key-soft);border-radius:0 12px 12px 0;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.corr .ct{font-weight:700;color:var(--key)}
+
+/* Document animé */
+.doc{display:flex;flex-direction:column;gap:12px;background:var(--surface-2);border-radius:14px;padding:12px;min-width:0}
+.dcap{font-style:italic;color:var(--muted)}
+.anim{display:flex;flex-direction:column;gap:10px;min-width:0}
+.anim .stage-wrap{background:var(--surface);border-radius:12px;border:1px solid var(--line);overflow:hidden;min-width:0}
+svg.stg{display:block;width:100%;height:auto;font-family:var(--f-body)}
+svg.stg text{fill:var(--ink);font-size:18px}
+svg.stg text.m{fill:var(--muted)}
+svg.stg text.b{font-weight:700}
+svg.stg text.w{fill:#fff}
+svg.stg .tk{stroke:var(--ink);stroke-width:2}
+svg.stg .ln{stroke:var(--line);stroke-width:1}
+.actl{display:flex;flex-wrap:wrap;gap:8px}
+.anote{font-size:.9rem;color:var(--muted)}
+.alive{min-height:1.5em;font-weight:700;color:var(--teal)}
+.simtag{align-self:flex-start;font-size:.9rem;font-weight:700;color:var(--warn);background:var(--warn-soft);padding:2px 10px;border-radius:999px}
+.dtable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;background:var(--surface);border-radius:10px;overflow:hidden}
+.dtable th,.dtable td{padding:7px 10px;border:1px solid var(--line);text-align:left;font-size:.95rem}
+.dtable th{background:var(--teal-soft)}
+.tscroll{overflow-x:auto;border-radius:10px}
+.endcard{background:var(--band);color:var(--band-ink);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.endcard .big{font-family:var(--f-num);font-weight:700;font-size:clamp(1.8rem,6vw,2.6rem)}
+.endcard .muted{color:var(--band-muted)}
+.endcard .btn.ghost{color:var(--band-ink);border-color:var(--band-muted)}
+
+/* Progression / bilan */
+.pbar{display:flex;flex-direction:column;gap:6px}
+.pbar .pl{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:700}
+.track{height:16px;border-radius:8px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line)}
+.track span{display:block;height:100%;background:var(--ok)}
+.weak{display:flex;flex-direction:column;gap:8px}
+.weak button{text-align:left}
+.bilantext{white-space:pre-wrap;font-family:var(--f-num);font-size:.9rem;background:var(--surface-2);border-radius:12px;padding:14px;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere}
+input.name{min-height:52px;padding:0 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);width:min(100%,16em)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--surface);overflow:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ovin{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ovname{font-family:var(--f-display);font-weight:800;font-size:clamp(2rem,7vw,3.6rem)}
+.ovtot{font-family:var(--f-num);font-weight:700;font-size:clamp(2.6rem,11vw,5.4rem);color:var(--teal);line-height:1}
+.ovlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
+.ovitem{background:var(--surface-2);border-radius:12px;padding:12px;font-size:1.2rem;font-weight:700}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band" id="band">
+  <div class="wrap">
+    <div style="min-width:0">
+      <div class="eyebrow">2nde SVT · Thème 1 · Chapitre 2 · Activité 2</div>
+      <h1>Les flux de matière dans l'environnement</h1>
+    </div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tbtn" id="fsMinus" aria-label="Réduire le texte">A−</button>
+      <button class="tbtn" id="fsPlus" aria-label="Agrandir le texte">A+</button>
+      <button class="tbtn" id="proj" aria-pressed="false">Projection</button>
+      <button class="tbtn" id="theme">Thème</button>
+    </div>
+  </div>
+</header>
+<div class="sbar" id="sbar" hidden>
+  <div class="wrap">
+    <button class="btn ghost sm" data-go="home" aria-label="Retour au sommaire"><span aria-hidden="true">←</span><span class="hl">&nbsp;Sommaire</span></button>
+    <span class="ttl" id="sbTitle"></span>
+    <div class="timer" id="timerBox">
+      <span class="tclock" id="tclock" role="timer" aria-label="Minuteur">45:00</span>
+      <button class="ibtn" id="tPlay" aria-label="Lancer ou mettre en pause le minuteur">▶</button>
+      <button class="ibtn" id="tReset" aria-label="Remettre le minuteur à zéro">↺</button>
+    </div>
+    <span class="sco"><span class="hl">Score : </span><span id="sbScore"></span></span>
+  </div>
+</div>
+<main><div class="wrap" id="app"></div></main>
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ovname">
+  <div class="ovin">
+    <div class="row" style="justify-content:space-between"><div class="kicker" id="ovkick">À montrer au professeur</div><button class="btn" id="ovClose">Fermer</button></div>
+    <div class="ovname" id="ovname"></div>
+    <div><div class="muted" id="ovsub"></div><div class="ovtot" id="ovtot"></div></div>
+    <div class="ovlist" id="ovlist"></div>
+  </div>
+</div>
+<script>
+(function(){
+"use strict";
+/* ===================== CONTENU · Les flux de matière dans l'environnement (2nde) ===================== */
+const M=(...o)=>({t:"mcq",o});
+const X=(k,...o)=>({t:"multi",k,o});
+const W=(a,s,x)=>Object.assign({t:"txt",a,s},x||{});
+const N=(...f)=>({t:"num",f:f.map(x=>({l:x[0],u:x[1],v:x[2],tol:x[3]||0,alt:x[4]}))});
+const O=(...o)=>({t:"order",o});
+const R=(r,c,a)=>({t:"match",r,c,a});
+const C=(h,...parts)=>({t:"parts",h,parts:parts.map(p=>Object.assign({q:p[0]},p[1]))});
+const Q=(id,lv,title,text,spec,corr)=>({q:{id,lv,title,text,spec,corr}});
+const H=html=>({html});
+const A=(an,qid)=>({an,qid});
+const ES=(id,title,prompt,crit,model)=>({essay:{id,title,prompt,crit,model}});
+
+const DUREE=45,LBL_BILAN="Bilan de l'activité";
+const MISSION="Les molécules produites par le métabolisme circulent dans un organisme, et d'un organisme à l'autre. Autour d'un <b>tilleul</b> vivent un champignon, des abeilles, des pucerons et des coccinelles. En <b>5 étapes</b>, tu vas repérer les échanges de matière, construire le <b>schéma fonctionnel</b>, puis expliquer pourquoi les flux de matière sont associés à des flux d'énergie.";
+const TITRE_BILAN="LES FLUX DE MATIÈRE DANS L'ENVIRONNEMENT — 2nde SVT, thème 1, chapitre 2, activité 2";
+const TITRE_COURT="Flux de matière";
+const TITRE_CAHIER="Des flux de matière associés à des flux d'énergie";
+const FICHIER="bilan-flux-matiere-";
+
+const STEPS=[
+{id:"e1",t:"Dans le tilleul : deux sèves",min:9,goal:"Repérer les flux de matière à l'intérieur d'un végétal et avec son milieu.",blocks:[
+  H('<p><b>Documents 1 et 2.</b> Grâce à leurs chloroplastes, les cellules des feuilles du tilleul réalisent la photosynthèse : elles produisent des <b>molécules organiques</b>, transportées dans tout l\'arbre par la <b>sève élaborée</b>. Les racines prélèvent dans le sol de l\'<b>eau et des sels minéraux</b> : c\'est la <b>sève brute</b>, qui monte jusqu\'aux feuilles.</p>'),
+  A("tree"),
+  Q("e1a","f","Le mot-clé","Qu'est-ce qu'un flux de matière ?",
+    C("Dans l'animation, que font les points colorés ?",["",M("Un déplacement de matière d'un endroit à un autre : dans un organisme, entre organismes, ou entre un organisme et son milieu.","Une réaction chimique dans une cellule.","La quantité de matière contenue dans un être vivant.","Un être vivant qui se déplace.")]),
+    "Un flux de matière est un déplacement de matière : à l'intérieur d'un organisme, d'un organisme à l'autre, ou entre un organisme et son milieu."),
+  Q("e1b","f","Les deux sèves","Associe chaque sève à ce qu'elle transporte.",
+    C("Relis le texte : laquelle part des racines, laquelle part des feuilles ?",["",R(["Sève brute","Sève élaborée"],["Eau et sels minéraux, du sol vers les feuilles","Molécules organiques, des feuilles vers tout l'arbre","Dioxygène, des racines vers les feuilles"],[0,1])]),
+    "La sève brute transporte l'eau et les sels minéraux du sol vers les feuilles. La sève élaborée distribue dans tout l'arbre les molécules organiques produites par la photosynthèse."),
+  Q("e1c","m","Avec l'atmosphère","Lors de la photosynthèse, quels échanges la feuille réalise-t-elle avec l'air ?",
+    C("Rappel : lumière + CO₂ + H₂O → molécules organiques + O₂.",["",R(["Dioxyde de carbone (CO₂)","Dioxygène (O₂)"],["Entre dans la feuille","Sort de la feuille"],[0,1])]),
+    "La feuille prélève du dioxyde de carbone dans l'atmosphère et y rejette du dioxygène.")
+]},
+{id:"e2",t:"Des animaux qui se nourrissent",min:8,goal:"Repérer les flux de matière entre le tilleul et les animaux.",blocks:[
+  H('<p><b>Documents 3, 4 et 5.</b> Les fleurs du tilleul produisent du <b>nectar</b>, un liquide sucré issu de la photosynthèse : les abeilles et les syrphes s\'en nourrissent. Le <b>puceron du tilleul</b> perce les tiges avec son stylet pour prélever la <b>sève élaborée</b>. Les <b>coccinelles</b> parcourent les jeunes tiges et mangent les pucerons.</p>'),
+  A("foodchain"),
+  Q("e2a","f","Qui mange quoi ?","Associe chaque animal à sa source de matière organique.",
+    C("Observe où se trouve chaque animal dans l'animation.",["",R(["Abeille","Puceron","Coccinelle"],["Le nectar des fleurs","La sève élaborée","Les pucerons"],[0,1,2])]),
+    "L'abeille se nourrit du nectar des fleurs, le puceron prélève la sève élaborée, la coccinelle mange les pucerons."),
+  Q("e2b","m","Suivre la matière","Remets dans l'ordre le trajet de la matière organique, de sa fabrication jusqu'à la coccinelle.",
+    C("La matière organique est fabriquée par la photosynthèse.",["",O("Feuilles du tilleul : photosynthèse","Sève élaborée","Puceron","Coccinelle")]),
+    "La matière organique est produite dans les feuilles par la photosynthèse, circule dans la sève élaborée, est prélevée par le puceron, puis passe dans la coccinelle qui le mange.")
+]},
+{id:"e3",t:"Sous terre : le cèpe et le tilleul",min:7,goal:"Repérer les échanges entre un champignon et un arbre.",blocks:[
+  H('<p><b>Document 6.</b> Le cèpe de Bordeaux est un champignon associé aux racines d\'arbres comme le tilleul, par ses filaments qui explorent le sol. Grâce à cette association, le champignon <b>reçoit de l\'arbre des molécules organiques</b> issues de la photosynthèse. En retour, il <b>fournit à l\'arbre de l\'eau et des éléments minéraux</b>, comme l\'azote.</p>'),
+  A("myco","e3a"),
+  Q("e3a","m","Un échange dans les deux sens","Que circule dans chaque sens ?",
+    C("Relis le texte : qui fait la photosynthèse ? Qui explore le sol avec ses filaments ?",["",R(["Du tilleul vers le cèpe","Du cèpe vers le tilleul"],["Des molécules organiques","De l'eau et des éléments minéraux","Du dioxygène"],[0,1])]),
+    "Le tilleul fournit au cèpe des molécules organiques issues de la photosynthèse ; le cèpe fournit au tilleul de l'eau et des éléments minéraux puisés dans le sol."),
+  Q("e3b","f","Le nom de l'association","Comment appelle-t-on l'association entre les filaments d'un champignon et les racines d'un arbre ?",
+    C("Le mot vient du grec « mukês », champignon, et « rhiza », racine.",["",W("mycorhiz|mycorrhiz","une mycorhize")]),
+    "C'est une mycorhize : une association à bénéfices réciproques entre un champignon et les racines d'une plante.")
+]},
+{id:"e4",t:"Construire le schéma fonctionnel",min:12,goal:"Représenter tous les flux de matière sur un schéma fonctionnel.",blocks:[
+  H('<div class="box key"><div class="bt">✔︎ Règle clé · Un schéma fonctionnel</div><p>Des <b>formes simples</b> pour les structures, des <b>flèches</b> pour les échanges, une <b>légende</b> et un <b>titre</b>. Chaque flèche doit préciser ce qui circule.</p></div><p>Voici le schéma, avec ses huit flèches numérotées. À toi de dire ce que transporte chacune : les flèches se colorent quand tu as trouvé.</p>'),
+  A("schema"),
+  Q("e4a","m","Les échanges avec le milieu","Que transporte chaque flèche ?",
+    C("Aide-toi des étapes 1 et 3. Une même réponse peut servir deux fois.",["",R(["① De l'atmosphère vers le tilleul","② Du tilleul vers l'atmosphère","③ Du sol vers le tilleul","④ Du cèpe vers le tilleul"],["CO₂","O₂","Eau et éléments minéraux","Matière organique"],[0,1,2,2])]),
+    "① CO₂ · ② O₂ · ③ eau et sels minéraux · ④ eau et éléments minéraux."),
+  Q("e4b","m","Les échanges entre êtres vivants","Que transporte chaque flèche ?",
+    C("Aide-toi des étapes 2 et 3 : toutes ces flèches transportent de la matière organique, mais sous une forme différente.",["",R(["⑤ Du tilleul vers le cèpe","⑥ Du tilleul vers le puceron","⑦ Du puceron vers la coccinelle","⑧ Du tilleul vers l'abeille"],["Molécules organiques (par la mycorhize)","Sève élaborée","Pucerons mangés","Nectar"],[0,1,2,3])]),
+    "⑤ molécules organiques par la mycorhize · ⑥ sève élaborée · ⑦ pucerons mangés · ⑧ nectar. Toutes ces flèches transportent de la matière organique produite, au départ, par le tilleul.")
+]},
+{id:"e5",t:"Matière et énergie",min:9,goal:"Expliquer pourquoi les flux de matière sont associés à des flux d'énergie.",blocks:[
+  Q("e5a","m","À la base des flux","Quels organismes sont à la base des flux de matière organique ?",
+    C("Regarde ton schéma : de quel organisme partent toutes les flèches de matière organique ?",["",M("Les végétaux chlorophylliens, comme le tilleul : ils fabriquent de la matière organique à partir de matière minérale, grâce à la lumière.","Les coccinelles, qui mangent les pucerons.","Les champignons, qui explorent le sol.","Les pucerons, qui prélèvent la sève.")]),
+    "Les végétaux chlorophylliens sont à la base des flux : par la photosynthèse, ils produisent la matière organique dont dépendent tous les autres organismes."),
+  Q("e5b","d","Le lien avec l'énergie","Pourquoi dit-on que les flux de matière sont associés à des flux d'énergie ?",
+    C("La photosynthèse a besoin de lumière. Où cette énergie se retrouve-t-elle ensuite ?",["",M("La matière organique renferme de l'énergie chimique, issue de l'énergie lumineuse captée par la photosynthèse : quand la matière passe d'un être vivant à l'autre, l'énergie passe avec elle.","Parce que la matière se transforme en lumière chez les animaux.","Parce que les animaux captent directement l'énergie du Soleil.","Il n'y a en réalité aucun lien entre matière et énergie.")]),
+    "Lors de la photosynthèse, l'énergie lumineuse est convertie en énergie chimique, stockée dans les molécules organiques. Quand cette matière circule (sève, nectar, proie), l'énergie qu'elle contient circule avec elle."),
+  A("energy","e5b"),
+  ES("texte","Rédige ton texte","En quelques phrases, explique pourquoi on peut dire que les flux de matière sont associés à des flux d'énergie. Appuie-toi sur l'exemple du tilleul.",
+    ["J'ai dit d'où vient l'énergie (la lumière du Soleil).","J'ai expliqué le rôle de la photosynthèse.","J'ai utilisé l'expression « énergie chimique » ou « matière organique ».","J'ai donné un exemple de transfert (puceron, coccinelle, abeille, cèpe).","Mes phrases sont complètes et dans un ordre logique."],
+    "Le tilleul capte l'énergie lumineuse du Soleil. Grâce à la photosynthèse, il la convertit en énergie chimique, stockée dans les molécules organiques qu'il fabrique à partir de CO₂, d'eau et de sels minéraux. Cette matière organique circule ensuite : dans l'arbre par la sève élaborée, vers le puceron qui prélève cette sève, vers la coccinelle qui mange le puceron, vers l'abeille par le nectar et vers le cèpe par la mycorhize. À chaque fois, l'énergie chimique contenue dans la matière est transférée avec elle. Les flux de matière sont donc associés à des flux d'énergie.")
+]}
+];
+
+const CAHIER=[
+ "Un flux de matière est un déplacement de matière : dans un organisme (sèves brute et élaborée), entre organismes, ou entre un organisme et son milieu.",
+ "Le tilleul prélève du CO₂ dans l'atmosphère, de l'eau et des sels minéraux dans le sol ; par la photosynthèse, il produit de la matière organique et rejette du dioxygène.",
+ "Cette matière organique passe aux autres êtres vivants : au puceron (sève élaborée) puis à la coccinelle, à l'abeille (nectar), au cèpe (mycorhize), qui fournit en retour de l'eau et des éléments minéraux.",
+ "Les végétaux chlorophylliens sont à la base de ces flux. Comme la matière organique renferme de l'énergie chimique issue de la lumière, les flux de matière sont associés à des flux d'énergie."
+];
+
+/* ===================== MOTEUR ===================== */
+const KEY="flux-matiere-2nde-v1";
+const $=id=>document.getElementById(id);
+const RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const frn=(x,d)=>Number(x).toLocaleString("fr-FR",{maximumFractionDigits:d==null?2:d,minimumFractionDigits:0});
+const DEF={name:"",fs:22,proj:false,theme:null,qs:{},box:{},last:{},lastSn:0};
+let S;
+try{S=Object.assign(JSON.parse(JSON.stringify(DEF)),JSON.parse(localStorage.getItem(KEY)||"{}"));}catch(e){S=JSON.parse(JSON.stringify(DEF));}
+["qs","box","last"].forEach(k=>{if(!S[k]||typeof S[k]!=="object")S[k]={};});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function qst(id){return S.qs[id]||(S.qs[id]={a:{},tries:0,hints:0});}
+
+/* ---------- données ---------- */
+function norm(sp){return sp.t==="parts"?sp:{t:"parts",h:sp.h,parts:[sp]};}
+const QS=[];STEPS.forEach((s,si)=>s.blocks.forEach(b=>{if(b.q){const q=b.q;q.spec=norm(q.spec);q.sn=si+1;q.tagRaw="";q.tc={f:"sp",m:"se",d:"r6"}[q.lv];q.tl={f:"🟢 Facile",m:"🟡 Moyen",d:"🔴 Défi"}[q.lv];QS.push(q);}}));
+const QBY={};QS.forEach((q,i)=>{q.k=i+1;QBY[q.id]=q;});
+function nz(s){return String(s==null?"":s).toLowerCase().replace(/œ/g,"oe").replace(/æ/g,"ae").replace(/₂/g,"2").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
+function lev(a,b){if(a===b)return 0;const m=a.length,n=b.length;let p=new Array(n+1);for(let j=0;j<=n;j++)p[j]=j;for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c;}return p[n];}
+function has(t,alts,exact){const T=" "+t+" ",toks=t.split(" ");return alts.split("|").some(st=>{st=nz(st);if(!st)return false;if(T.indexOf(" "+st)>=0)return true;
+  if(!exact&&st.indexOf(" ")<0&&st.length>=5){const tol=st.length>=9?2:1;return toks.some(w=>w.length>=st.length-1&&lev(w.slice(0,st.length),st)<=tol);}return false;});}
+function parseNum(s){const t=String(s==null?"":s).trim().replace(/\s/g,"").replace(/[−–]/g,"-").replace(",",".");return /^-?\d+(\.\d+)?$/.test(t)?parseFloat(t):null;}
+
+/* ---------- mélange déterministe ---------- */
+function seedOf(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function perm(n,seed){const a=[...Array(n).keys()];let x=seed||1;for(let i=n-1;i>0;i--){x=(Math.imul(x,1103515245)+12345)>>>0;const j=x%(i+1);[a[i],a[j]]=[a[j],a[i]];}
+  if(n>1&&a.every((v,i)=>v===i)){a.push(a.shift());}return a;}
+
+/* ---------- évaluation ---------- */
+function evalPart(p,a){
+  switch(p.t){
+    case "txt":{const t=nz(a);if(!t)return {empty:true};
+      if(p.bad&&has(t,p.bad,true))return {ok:false};
+      if(p.p){const f=p.p.filter(x=>has(t,x)).length;return {ok:f>=p.n,found:f};}
+      const al=Array.isArray(p.a)?p.a:[p.a];return {ok:al.every(x=>has(t,x))};}
+    case "txtf":{const v=a||[];if(p.f.some((f,i)=>!nz(v[i])))return {empty:true};const m=p.f.map((f,i)=>{const t=nz(v[i]);const al=Array.isArray(f.a)?f.a:[f.a];return al.every(x=>has(t,x));});return {ok:m.every(Boolean),m};}
+    case "mcq":{if(a==null)return {empty:true};return {ok:a===0};}
+    case "multi":{const v=a||[];if(!v.length)return {empty:true};const wrong=v.some(i=>i>=p.k),good=v.filter(i=>i<p.k).length;return {ok:!wrong&&(p.min?good>=p.min:good===p.k)};}
+    case "num":{const v=a||[];const x=p.f.map((f,i)=>parseNum(v[i]));if(x.some(y=>y===null))return {empty:true};const m=p.f.map((f,i)=>Math.abs(x[i]-f.v)<=f.tol+1e-9);
+      let msg="";p.f.forEach((f,i)=>{if(!m[i]&&f.alt&&f.alt.some(z=>Math.abs(x[i]-z[0])<1e-9))msg=f.alt.find(z=>Math.abs(x[i]-z[0])<1e-9)[1];});return {ok:m.every(Boolean),m,msg};}
+    case "order":{const v=a||[];if(v.length<p.o.length)return {empty:true};const m=v.map((x,i)=>x===i);return {ok:m.every(Boolean),m};}
+    case "match":{const v=a||[];if(p.r.some((r,i)=>v[i]==null))return {empty:true};const m=p.r.map((r,i)=>v[i]===p.a[i]);return {ok:m.every(Boolean),m};}
+  }
+  return {ok:false};
+}
+function evalQ(q,ans){const rs=q.spec.parts.map((p,i)=>evalPart(p,ans[i]));return {parts:rs,empty:rs.some(r=>r.empty),ok:rs.every(r=>r.ok)};}
+
+/* ---------- coups de pouce ---------- */
+const ART=/^(le |la |les |l'|l’|un |une |des |du |de la |de l'|d'|en |dans |au |aux |par |se |sa |son |ses )+/i;
+function words(s){return String(s).split(/\s*,\s*|\s+et\s+|\s*;\s*/).map(w=>w.replace(ART,"").replace(/\(.*?\)/g,"").replace(/…/g,"").trim()).filter(Boolean);}
+function txtHint(s,L){const w=words(s);if(L===1)return "Commence par « "+w.map(x=>x[0].toUpperCase()+"…").join(" », « ")+" ».";return w.map(x=>"« "+x.slice(0,Math.max(2,Math.ceil(x.length/2)))+"… » ("+x.replace(/[\s’'-]/g,"").length+" lettres)").join(" ; ");}
+function wrongOrder(q,pi,p){return perm(p.o.length,seedOf(q.id+"w"+pi)).filter(i=>i>=(p.t==="multi"?p.k:1));}
+function hintFx(q,L){ // effets cumulés pour le niveau L
+  const fx={txt:[],gone:{},ord:{},mt:{}};const sp=q.spec;const steps=[];
+  if(sp.h)steps.push({h:sp.h});steps.push({lv:1});steps.push({lv:2});
+  for(let s=0;s<Math.min(L,steps.length);s++){const st=steps[s];
+    if(st.h){fx.txt.push(st.h);continue;}
+    sp.parts.forEach((p,pi)=>{const pre=sp.parts.length>1?"Partie "+(pi+1)+" : ":"";const lv=st.lv;
+      if(p.t==="txt"){fx.txt.push(pre+(p.h&&lv===1?p.h:txtHint(p.s,lv)));}
+      else if(p.t==="txtf"){p.f.forEach(f=>fx.txt.push(pre+f.l+" — "+txtHint(f.s,lv)));}
+      else if(p.t==="mcq"){const n=Math.min(lv,p.o.length-2);if(n>0){fx.gone[pi]=n;fx.txt.push(pre+(n>1?n+" mauvaises réponses sont barrées.":"Une mauvaise réponse est barrée."));}else fx.txt.push(pre+"Relis bien la question et le document : une seule réponse est juste.");}
+      else if(p.t==="multi"){if(lv===1)fx.txt.push(pre+"Il y a "+p.k+" bonne"+(p.k>1?"s":"")+" réponse"+(p.k>1?"s":"")+(p.min?" (il en faut au moins "+p.min+")":"")+".");else{fx.gone[pi]=1;fx.txt.push(pre+"Une mauvaise réponse est barrée.");}}
+      else if(p.t==="num"){if(lv===1)fx.txt.push(pre+(p.h||"Relis le document et pose le calcul dans ton cahier."));else p.f.forEach(f=>{const d=Math.max(1,Math.abs(f.v)*.25);fx.txt.push(pre+f.l+" : entre "+frn(Math.floor(f.v-d))+" et "+frn(Math.ceil(f.v+d))+(f.u?" "+f.u:"")+".");});}
+      else if(p.t==="order"){fx.ord[pi]=Math.min(lv,p.o.length-1);fx.txt.push(pre+"Début de l'ordre : "+p.o.slice(0,fx.ord[pi]).join(" → ")+" → …");}
+      else if(p.t==="match"){fx.mt[pi]=Math.min(lv,p.r.length-1);for(let r=0;r<fx.mt[pi];r++)fx.txt.push(pre+"« "+p.r[r]+" » → « "+p.c[p.a[r]]+" »");}
+    });
+  }
+  return {fx,max:steps.length};
+}
+
+/* ---------- carte-question ---------- */
+const lastFb={};
+const LETTERS="ABCDEFGH";
+function insOf(p){return {txt:p.p?"Tape ta réponse (sépare les éléments par des virgules).":"Tape ta réponse.",txtf:"Tape tes réponses.",mcq:"Choisis la bonne réponse.",multi:p.min?"Coche au moins "+p.min+" bonnes réponses (et aucune fausse).":"Coche toutes les bonnes réponses.",num:"Tape un nombre.",order:"Touche les étiquettes dans le bon ordre (touche une étiquette placée pour la retirer).",match:"Pour chaque ligne, choisis la bonne réponse."}[p.t];}
+function buildCard(q,ctx){
+  const st=ctx.st(q),c=document.createElement("article");c.className="qcard";c.id="card-"+q.id;
+  let tagHtml='<span class="tag '+q.tc+'">'+esc(q.tl)+'</span>';
+  if(ctx.mode==="seance"){const m=/s[ée]ance n°(\d+)/i.exec(q.tagRaw);const tgt=q.tc==="sp"?q.sn-1:m?+m[1]:0;if(tgt>0)tagHtml='<a class="tag '+q.tc+'" href="#s'+tgt+'" aria-label="'+esc(q.tl)+' : revoir la séance n°'+tgt+'">'+esc(q.tl)+(q.tc==="sp"?" (n°"+tgt+")":"")+' ↗</a>';}
+  if(ctx.mode==="rev")tagHtml='<span class="tag sp">Séance n°'+q.sn+'</span>'+tagHtml;
+  c.innerHTML='<div class="qhead"><span class="qnum">'+(ctx.num||q.k)+'</span>'+tagHtml+'<span class="qstat" id="st-'+ctx.p+q.id+'"></span></div>'+
+    (q.title?'<h3>'+esc(q.title)+'</h3>':'')+(q.doc?'<div class="doc" id="doc-'+ctx.p+q.id+'"></div>':'')+
+    '<p class="qtext">'+esc(q.text)+'</p><div class="stack" id="body-'+ctx.p+q.id+'"></div>'+
+    '<div class="qbtns"><button class="btn" id="chk-'+ctx.p+q.id+'">Vérifier</button><button class="btn ghost" id="hnt-'+ctx.p+q.id+'">Coup de pouce</button></div>'+
+    '<div id="fb-'+ctx.p+q.id+'" aria-live="polite"></div><div class="stack" id="hs-'+ctx.p+q.id+'" style="gap:8px"></div><div id="co-'+ctx.p+q.id+'"></div>';
+  ctx.host.appendChild(c);
+  if(q.doc)buildDoc(q,c.querySelector("#doc-"+ctx.p+q.id),ctx);
+  const body=c.querySelector("#body-"+ctx.p+q.id);
+  q.spec.parts.forEach((p,pi)=>{const d=document.createElement("div");d.className="part";d.id="pt-"+ctx.p+q.id+"-"+pi;body.appendChild(d);});
+  c.querySelector("#chk-"+ctx.p+q.id).onclick=()=>check(q,ctx);
+  c.querySelector("#hnt-"+ctx.p+q.id).onclick=()=>{st.hints=(st.hints||0)+1;ctx.save();renderCard(q,ctx);};
+  body.addEventListener("click",e=>{const b=e.target.closest("button[data-pi]");if(!b||b.disabled)return;const pi=+b.dataset.pi,p=q.spec.parts[pi];let a=st.a[pi];
+    if(p.t==="mcq")a=+b.dataset.v;
+    else if(p.t==="multi"){a=(a||[]).slice();const v=+b.dataset.v,ix=a.indexOf(v);if(ix>=0)a.splice(ix,1);else a.push(v);}
+    else if(p.t==="order"){a=(a||[]).slice();const v=+b.dataset.v;if(b.dataset.placed){const ix=a.indexOf(v);if(ix>=0)a.splice(ix,1);}else if(a.indexOf(v)<0)a.push(v);}
+    else if(p.t==="match"){a=(a||[]).slice();a[+b.dataset.r]=+b.dataset.v;}
+    st.a[pi]=a;delete lastFb[ctx.p+q.id];ctx.save();renderPart(q,pi,ctx);renderStatus(q,ctx);});
+  body.addEventListener("input",e=>{const i=e.target.closest("input[data-pi]");if(!i)return;const pi=+i.dataset.pi,p=q.spec.parts[pi];
+    if(p.t==="txt")st.a[pi]=i.value;else{const a=(st.a[pi]||[]).slice();a[+i.dataset.f]=i.value;st.a[pi]=a;}
+    i.classList.remove("good","badi");if(lastFb[ctx.p+q.id]){delete lastFb[ctx.p+q.id];renderStatus(q,ctx);}ctx.save();});
+  body.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("input"))check(q,ctx);});
+  renderCard(q,ctx);
+  return c;
+}
+function curEval(q,ctx){const st=ctx.st(q);const L=lastFb[ctx.p+q.id];if(L)return L;if(st.done)return evalQ(q,st.a);return null;}
+function renderPart(q,pi,ctx){
+  const st=ctx.st(q),p=q.spec.parts[pi],d=document.getElementById("pt-"+ctx.p+q.id+"-"+pi);if(!d)return;
+  const a=st.a[pi],E=curEval(q,ctx),r=E?E.parts[pi]:null,hx=hintFx(q,st.hints||0).fx,id=ctx.p+q.id+"-"+pi;
+  const mark=ok=>ok?'<span class="mk ok">✓ juste</span>':'<span class="mk bad">✗ à revoir</span>';
+  let h=(p.q?'<p class="pq">'+esc(p.q)+'</p>':'')+'<p class="ins">'+insOf(p)+'</p>';
+  if(p.t==="txt"){const ok=r&&!r.empty?r.ok:null;h+='<div class="inp"><label class="sr" for="in-'+id+'">Ta réponse</label><input class="ans'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'" data-pi="'+pi+'" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc(a||"")+'" placeholder="'+(p.p?"réponse 1, réponse 2…":"Ta réponse")+'">'+(ok===null?"":mark(ok))+'</div>';}
+  else if(p.t==="txtf"){h+='<div class="fields">'+p.f.map((f,i)=>{const ok=r&&r.m?r.m[i]:null;return '<div class="field grow"><label for="in-'+id+'-'+i+'">'+esc(f.l)+'</label><div class="inp"><input class="ans'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'-'+i+'" data-pi="'+pi+'" data-f="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc((a||[])[i]||"")+'">'+(ok==null?"":mark(ok))+'</div></div>';}).join("")+'</div>';}
+  else if(p.t==="num"){h+='<div class="fields">'+p.f.map((f,i)=>{const ok=r&&r.m?r.m[i]:null;return '<div class="field"><label for="in-'+id+'-'+i+'">'+esc(f.l)+'</label><div class="inp"><input class="ans num'+(ok===true?" good":ok===false?" badi":"")+'" id="in-'+id+'-'+i+'" data-pi="'+pi+'" data-f="'+i+'" inputmode="decimal" autocomplete="off" value="'+esc((a||[])[i]||"")+'">'+(f.u?'<span class="muted">'+esc(f.u)+'</span>':'')+(ok==null?"":mark(ok))+'</div></div>';}).join("")+'</div>';}
+  else if(p.t==="mcq"||p.t==="multi"){const pm=perm(p.o.length,seedOf(q.id+"o"+pi)),multi=p.t==="multi",sel=multi?(a||[]):[a],gone=wrongOrder(q,pi,p).filter(i=>sel.indexOf(i)<0).slice(0,hx.gone[pi]||0);
+    h+='<div class="opts" role="group">'+pm.map((oi,j)=>{const on=sel.indexOf(oi)>=0;let cls="opt"+(multi?"":" radio");if(gone.indexOf(oi)>=0&&!on)cls+=" gone";if(r&&!r.empty&&on)cls+=(multi?(oi<p.k):(oi===0))?" okm":" badm";
+      return '<button class="'+cls+'" data-pi="'+pi+'" data-v="'+oi+'" aria-pressed="'+on+'"'+(gone.indexOf(oi)>=0&&!on?' aria-disabled="true" tabindex="-1"':'')+'><span class="ck" aria-hidden="true">'+(on?"✓":"")+'</span><span style="flex:1;min-width:0">'+esc(p.o[oi])+'</span>'+(r&&!r.empty&&on?(multi?(oi<p.k?'<span class="mk ok">✓</span>':'<span class="mk bad">✗</span>'):mark(oi===0)):"")+'</button>';}).join("")+'</div>';
+    if(r&&!r.empty&&!r.ok&&multi)h+='<p class="ins">'+((a||[]).some(i=>i>=p.k)?"Au moins une case cochée est fausse.":"Il manque au moins une bonne réponse.")+'</p>';}
+  else if(p.t==="order"){const pm=perm(p.o.length,seedOf(q.id+"r"+pi)),v=a||[],pre=hx.ord[pi]||0;
+    const cls=r&&!r.empty?(r.ok?" okb":" badb"):"";
+    h+='<div class="ordbox'+cls+'" aria-label="Ton ordre">'+(v.length?v.map((oi,j)=>'<button class="chipw placed" data-pi="'+pi+'" data-v="'+oi+'" data-placed="1" aria-label="Position '+(j+1)+' : '+esc(p.o[oi])+'. Toucher pour retirer."><span class="no">'+(j+1)+'</span>'+esc(p.o[oi])+(r&&!r.empty?(r.m[j]?" ✓":" ✗"):"")+'</button>').join(""):'<span class="muted small">Ton ordre apparaîtra ici.</span>')+'</div>'+
+      '<div class="opts inline">'+pm.map(oi=>'<button class="chipw" data-pi="'+pi+'" data-v="'+oi+'"'+(v.indexOf(oi)>=0?" disabled":"")+'>'+esc(p.o[oi])+'</button>').join("")+'</div>';
+    if(pre)h+='';}
+  else if(p.t==="match"){const v=a||[];h+=p.r.map((row,ri)=>{const ok=r&&r.m?r.m[ri]:null;return '<div class="mrow"><div class="rl"><span>'+esc(row)+'</span>'+(ok==null?"":mark(ok))+'</div><div class="opts inline" role="group" aria-label="'+esc(row)+'">'+p.c.map((ch,ci)=>{const on=v[ri]===ci;return '<button class="opt radio'+(on&&ok!=null?(ok?" okm":" badm"):"")+'" data-pi="'+pi+'" data-r="'+ri+'" data-v="'+ci+'" aria-pressed="'+on+'"><span class="ck" aria-hidden="true">'+(on?"✓":"")+'</span><span>'+esc(ch)+'</span></button>';}).join("")+'</div></div>';}).join("");}
+  if(r&&!r.empty&&r.msg)h+='<p class="ins" style="color:var(--warn);font-weight:700">'+esc(r.msg)+'</p>';
+  const ae=document.activeElement,aid=ae&&ae.id,pos=ae&&ae.selectionStart;
+  d.innerHTML=h;
+  if(aid&&d.querySelector("#"+CSS.escape(aid))){const el=$(aid);try{el.focus({preventScroll:true});if(pos!=null&&el.setSelectionRange)el.setSelectionRange(pos,pos);}catch(e){}}
+}
+function renderStatus(q,ctx){
+  const st=ctx.st(q),s=$("st-"+ctx.p+q.id),fb=$("fb-"+ctx.p+q.id);if(!s)return;
+  if(st.done){s.textContent=st.first?"✓ Réussi au 1er essai":"✓ Réussi";s.className="qstat ok";}
+  else if(st.tries){s.textContent="✗ "+st.tries+" essai"+(st.tries>1?"s":"");s.className="qstat bad";}else{s.textContent="";s.className="qstat";}
+  const L=lastFb[ctx.p+q.id];
+  if(L&&L.empty)fb.innerHTML='<div class="fb bad">Réponds à toutes les parties avant de vérifier.</div>';
+  else if(L&&L.ok)fb.innerHTML='<div class="fb ok"><strong>✓ Juste !</strong> '+(st.first&&st.tries===1?"Du premier coup, bravo.":"Bien corrigé.")+'</div>';
+  else if(L)fb.innerHTML='<div class="fb bad"><strong>✗ Pas encore.</strong> '+(q.spec.parts.length>1?"Vérifie les parties marquées ✗. ":"")+'Utilise un coup de pouce, puis corrige ta réponse (le corrigé apparaît au 2e essai).</div>';
+  else fb.innerHTML="";
+  const H=hintFx(q,st.hints||0),hb=$("hnt-"+ctx.p+q.id);
+  hb.disabled=(st.hints||0)>=H.max||!!st.done;hb.textContent=(st.hints||0)>=H.max?"Plus de coup de pouce":"Coup de pouce "+((st.hints||0)+1)+"/"+H.max;
+  $("hs-"+ctx.p+q.id).innerHTML=H.fx.txt.length?'<div class="hint"><b>💡 Coup de pouce :</b> '+H.fx.txt.map(esc).join("<br>")+'</div>':"";
+  $("co-"+ctx.p+q.id).innerHTML=(st.done||st.tries>=2)?'<div class="corr"><span class="ct">✔&#xFE0E; Corrigé</span><p>'+esc(q.corr)+'</p></div>':"";
+  $("chk-"+ctx.p+q.id).textContent=st.done?"Vérifier à nouveau":"Vérifier";
+}
+function renderCard(q,ctx){q.spec.parts.forEach((p,pi)=>renderPart(q,pi,ctx));renderStatus(q,ctx);}
+function check(q,ctx){
+  const st=ctx.st(q),E=evalQ(q,st.a);
+  if(E.empty){lastFb[ctx.p+q.id]={empty:true,parts:E.parts};renderStatus(q,ctx);return;}
+  st.tries=(st.tries||0)+1;const firstTime=st.first===undefined;if(firstTime)st.first=E.ok;if(E.ok)st.done=true;
+  lastFb[ctx.p+q.id]=E;ctx.after(q,E,firstTime);ctx.save();renderCard(q,ctx);
+}
+
+/* ---------- document ---------- */
+let CLEAN=[];
+function cleanup(){CLEAN.forEach(f=>{try{f();}catch(e){}});CLEAN=[];}
+function buildDoc(q,box,ctx){
+  const d=q.doc;
+  box.innerHTML='<p class="dcap">'+esc(d.cap||"")+'</p><div class="anim" id="an-'+ctx.p+q.id+'"></div>'+
+   '<details'+(ctx.mode==="seance"?" open":"")+'><summary class="btn ghost sm" style="list-style:none">Tableau du document</summary><div class="tscroll" style="margin-top:8px"><table class="dtable"><thead><tr>'+d.table[0].map(c=>'<th scope="col">'+esc(c)+'</th>').join("")+'</tr></thead><tbody>'+d.table.slice(1).map(r=>'<tr>'+r.map((c,i)=>i?'<td>'+esc(c)+'</td>':'<th scope="row">'+esc(c)+'</th>').join("")+'</tr>').join("")+'</tbody></table></div></details>';
+  const an=box.querySelector(".anim"),key=q.spec.an,fn=ANIMS[key];
+  if(!fn){an.innerHTML='<p class="anote">Animation à venir.</p>';return;}
+  const api={solved:()=>!!ctx.st(q).done,_s:[],onSolve(f){this._s.push(f);}};
+  ctx.apis[q.id]=api;
+  try{fn(an,api);}catch(e){console.error(e);an.innerHTML='<p class="anote">Animation indisponible.</p>';}
+}
+
+/* ---------- outils d'animation ---------- */
+const NS="http://www.w3.org/2000/svg";
+function E(tag,at,par){const e=document.createElementNS(NS,tag);if(at)for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
+function TX(par,x,y,s,at){const t=E("text",Object.assign({x:x,y:y},at||{}),par);t.textContent=s;if(at&&at.fill)t.style.fill=at.fill;if(at&&at["font-size"])t.style.fontSize=at["font-size"]+"px";return t;}
+function stage(box,w,h,label){const wr=document.createElement("div");wr.className="stage-wrap";const s=E("svg",{viewBox:"0 0 "+w+" "+h,class:"stg",role:"img","aria-label":label||"Animation"});wr.appendChild(s);box.appendChild(wr);return s;}
+function ctl(box,defs){const r=document.createElement("div");r.className="actl";const bs=defs.map(d=>{const b=document.createElement("button");b.className="btn ghost sm";b.textContent=d[0];b.onclick=()=>d[1](b);if(d[2])b.setAttribute("aria-pressed","false");r.appendChild(b);return b;});box.appendChild(r);return bs;}
+function press(bs,b){bs.forEach(x=>{if(x.hasAttribute("aria-pressed"))x.setAttribute("aria-pressed",x===b?"true":"false");});}
+function live(box,t){const p=document.createElement("p");p.className="alive";p.setAttribute("aria-live","polite");p.textContent=t||"";box.appendChild(p);return p;}
+function note(box,t,sim){if(sim){const s=document.createElement("span");s.className="simtag";s.textContent="⚠︎ Valeurs simulées";box.appendChild(s);}if(t){const p=document.createElement("p");p.className="anote";p.textContent=t;box.appendChild(p);}}
+let LOOPS=[];
+function loop(fn){const o={on:true,last:0};const f=ts=>{if(!o.on)return;const dt=o.last?Math.min(.1,(ts-o.last)/1000):0;o.last=ts;if(fn(dt,ts)===false){o.on=false;return;}requestAnimationFrame(f);};requestAnimationFrame(f);LOOPS.push(o);return o;}
+function stopLoops(){LOOPS.forEach(o=>o.on=false);LOOPS=[];}
+const ease=u=>u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+function tween(ms,fn,done){if(RM)ms=1;let t=0;return loop(dt=>{t+=dt*1000;const u=Math.min(1,t/ms);fn(ease(u),u);if(u>=1){if(done)done();return false;}});}
+const lerp=(a,b,u)=>a+(b-a)*u;
+function hash(k){const x=Math.sin(k*12.9898+78.233)*43758.5453;return x-Math.floor(x);}
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()||"#888";}
+/* graphique réactif : cfg {xmax,xstep,xlab,ymin,ymax,ystep,ylab,f(x),dec,band:[lo,hi],bandLab,col} */
+function chart(box,cfg){
+  const wr=document.createElement("div");wr.className="stage-wrap";box.appendChild(wr);
+  const rd=document.createElement("p");rd.className="alive";rd.setAttribute("aria-live","polite");rd.textContent="Touche la courbe pour lire une valeur.";box.appendChild(rd);
+  const o={p:0,sel:null};
+  function draw(){
+    const W=Math.max(280,wr.clientWidth||600),fs=Math.max(14,Math.round((parseFloat(getComputedStyle(document.documentElement).fontSize)||22)*.7)),H=Math.round(Math.max(240,Math.min(W*.55,fs*17)));
+    const L=fs*3.4,R=fs*1.2,T=fs*1.2,B=fs*3.4,pw=W-L-R,ph=H-T-B;
+    const X=x=>L+x/cfg.xmax*pw,Y=y=>T+ph-(y-cfg.ymin)/(cfg.ymax-cfg.ymin)*ph;o.X=X;o.L=L;o.pw=pw;
+    wr.innerHTML="";const s=E("svg",{viewBox:"0 0 "+W+" "+H,class:"stg",role:"img","aria-label":cfg.aria||cfg.ylab},wr);s.style.fontSize=fs+"px";
+    const st={"font-size":fs};
+    if(cfg.band){E("rect",{x:L,y:Y(cfg.band[1]),width:pw,height:Y(cfg.band[0])-Y(cfg.band[1]),fill:"var(--ok-soft)"},s);if(cfg.bandLab)TX(s,L+pw-6,Y(cfg.band[1])+fs+2,cfg.bandLab,Object.assign({"text-anchor":"end",fill:"var(--ok)"},st)).style.fill="var(--ok)";}
+    for(let y=cfg.ymin;y<=cfg.ymax+1e-9;y+=cfg.ystep){E("line",{x1:L,x2:L+pw,y1:Y(y),y2:Y(y),class:"ln"},s);TX(s,L-6,Y(y)+fs*.35,frn(+y.toFixed(3)),Object.assign({"text-anchor":"end",class:"m"},st));}
+    for(let x=0;x<=cfg.xmax+1e-9;x+=cfg.xstep){E("line",{x1:X(x),x2:X(x),y1:T,y2:T+ph,class:"ln"},s);TX(s,X(x),T+ph+fs*1.2,cfg.xfmt?cfg.xfmt(x):frn(x),Object.assign({"text-anchor":"middle",class:"m"},st));}
+    E("path",{d:"M"+L+" "+T+"V"+(T+ph)+"H"+(L+pw),fill:"none",class:"tk"},s);
+    if(cfg.zero!=null)E("line",{x1:L,x2:L+pw,y1:Y(cfg.zero),y2:Y(cfg.zero),stroke:"var(--muted)","stroke-dasharray":"6 5"},s);
+    TX(s,L+pw/2,H-6,cfg.xlab,Object.assign({"text-anchor":"middle",class:"b"},st));
+    const yl=TX(s,0,0,cfg.ylab,Object.assign({"text-anchor":"middle",class:"b",transform:"translate("+(fs*1.05)+" "+(T+ph/2)+") rotate(-90)"},st));
+    const SER=cfg.series||[{f:cfg.f,col:cfg.col}];
+    if(o.p>0){SER.forEach(se=>{let d="";const n=Math.max(60,Math.round(pw/3));for(let i=0;i<=n;i++){const x=Math.min(o.p,cfg.xmax*i/n);d+=(i?"L":"M")+X(x).toFixed(1)+" "+Y(se.f(x)).toFixed(1);if(x>=o.p)break;}
+      E("path",{d:d,fill:"none",stroke:se.col||"var(--bad)","stroke-width":3.5,"stroke-linejoin":"round","stroke-dasharray":se.dash||""},s);
+      E("circle",{cx:X(o.p),cy:Y(se.f(o.p)),r:6,fill:se.col||"var(--bad)"},s);});
+      if(cfg.series){const ly=cfg.legBottom?T+ph-cfg.series.length*(fs+8)-2:T;cfg.series.forEach((se,i)=>{E("line",{x1:L+10,x2:L+40,y1:ly+12+i*(fs+8),y2:ly+12+i*(fs+8),stroke:se.col,"stroke-width":4,"stroke-dasharray":se.dash||""},s);TX(s,L+48,ly+12+i*(fs+8)+fs*.35,se.lab,Object.assign({class:"b"},st));});}}
+    else TX(s,L+pw/2,T+ph/2,"Appuie sur « Lancer »",Object.assign({"text-anchor":"middle",class:"m"},st));
+    if(o.sel!=null&&o.sel<=o.p+1e-9){const x=o.sel;E("line",{x1:X(x),x2:X(x),y1:T,y2:T+ph,stroke:"var(--teal)","stroke-dasharray":"4 4"},s);SER.forEach(se=>E("circle",{cx:X(x),cy:Y(se.f(x)),r:7,fill:"var(--teal)"},s));}
+    s.addEventListener("pointerdown",e=>{const r=s.getBoundingClientRect(),px=(e.clientX-r.left)*W/r.width;let x=(px-L)/pw*cfg.xmax;x=Math.round(x/(cfg.snap||cfg.xstep))*(cfg.snap||cfg.xstep);if(x<0||x>o.p+1e-9){o.sel=null;rd.textContent="Touche la courbe pour lire une valeur.";}else{o.sel=x;rd.textContent=cfg.read(x,cfg.f?cfg.f(x):null);}draw();});
+  }
+  o.set=p=>{o.p=p;draw();};o.draw=draw;
+  let ro=null;if(window.ResizeObserver){let lw=0;ro=new ResizeObserver(()=>{const w=wr.clientWidth;if(Math.abs(w-lw)>2){lw=w;draw();}});ro.observe(wr);CLEAN.push(()=>ro.disconnect());}
+  draw();return o;
+}
+/* contrôles Lancer / Pause / Recommencer pour une progression 0→max */
+function player(box,max,speed,onP,onEnd){
+  const o={p:0,run:false};let lp=null;
+  const bs=ctl(box,[["▶ Lancer",()=>{if(o.p>=max)o.p=0;if(RM){o.p=max;onP(o.p);end();return;}o.run=true;upd();lp=loop(dt=>{if(!o.run)return false;o.p=Math.min(max,o.p+dt*speed);onP(o.p);if(o.p>=max){o.run=false;end();upd();return false;}});}],["⏸ Pause",()=>{o.run=false;upd();}],["↺ Recommencer",()=>{o.run=false;o.p=0;onP(0);upd();}]]);
+  function end(){if(onEnd)onEnd();}
+  function upd(){bs[0].disabled=o.run;bs[1].disabled=!o.run;}
+  upd();o.bs=bs;return o;
+}
+
+/* ===================== ANIMATIONS · Flux de matière ===================== */
+const ANIMS={};
+const G=(par,at)=>E("g",at||{},par);
+function hidden(el,h){el.style.display=h?"none":"";}
+const C_CO2="#8e24aa",C_O2="#1e88e5",C_EAU="#00897b",C_ORG="#e67e00",C_NEC="#f5b301",C_SUN="#f2b705";
+/* points qui suivent un chemin SVG */
+function flow(s,d,col,n,r){const p=E("path",{d:d,fill:"none",stroke:"none"},s),L=p.getTotalLength(),a=[];for(let k=0;k<n;k++)a.push(E("circle",{r:r||5,fill:col,stroke:"var(--ink)","stroke-width":1,opacity:0},s));
+  return {set(t,on,speed){a.forEach((c,k)=>{const u=((t*(speed||.25)+k/n)%1),pt=p.getPointAtLength(u*L);c.setAttribute("cx",pt.x);c.setAttribute("cy",pt.y);c.setAttribute("opacity",on?(u<.05||u>.95?0:1):0);});}};}
+function arrow(g,x1,y1,x2,y2,col,w){const a=Math.atan2(y2-y1,x2-x1),hx=x2-Math.cos(a)*12,hy=y2-Math.sin(a)*12;
+  const l=E("line",{x1:x1,y1:y1,x2:hx,y2:hy,stroke:col,"stroke-width":w||4,"stroke-linecap":"round"},g),h=E("path",{d:"M"+x2+" "+y2+" L"+(hx-Math.sin(a)*8)+" "+(hy+Math.cos(a)*8)+" L"+(hx+Math.sin(a)*8)+" "+(hy-Math.cos(a)*8)+"Z",fill:col},g);return {l,h,color(c){l.setAttribute("stroke",c);h.setAttribute("fill",c);}};}
+function sun(s,x,y,r){E("circle",{cx:x,cy:y,r:r,fill:C_SUN},s);for(let k=0;k<10;k++){const a=k/10*Math.PI*2;E("line",{x1:x+Math.cos(a)*(r+5),y1:y+Math.sin(a)*(r+5),x2:x+Math.cos(a)*(r+15),y2:y+Math.sin(a)*(r+15),stroke:C_SUN,"stroke-width":4,"stroke-linecap":"round"},s);}}
+function treeShape(s,x,gy,k){E("path",{d:"M"+(x-14*k)+" "+gy+" L"+(x-9*k)+" "+(gy-130*k)+" H"+(x+9*k)+" L"+(x+14*k)+" "+gy+"Z",fill:"#8a5a2b"},s);
+  [[0,-190,70],[-52,-150,52],[52,-150,52],[-28,-210,46],[30,-214,46]].forEach(c=>E("circle",{cx:x+c[0]*k,cy:gy+c[1]*k,r:c[2]*k,fill:"#3f8f3a"},s));[[-20,-175,30],[26,-190,26]].forEach(c=>E("circle",{cx:x+c[0]*k,cy:gy+c[1]*k,r:c[2]*k,fill:"#5aa850",opacity:.7},s));}
+
+/* 1 · Le tilleul et ses deux sèves */
+ANIMS.tree=(box)=>{
+  const s=stage(box,640,400,"Un tilleul : la sève brute monte des racines aux feuilles, la sève élaborée descend des feuilles vers tout l'arbre, et les feuilles échangent des gaz avec l'air");
+  E("rect",{x:0,y:0,width:640,height:290,fill:"#dceefb"},s);E("rect",{x:0,y:290,width:640,height:110,fill:"#b08a5e"},s);E("rect",{x:0,y:284,width:640,height:10,fill:"#6aa84f"},s);
+  sun(s,74,64,30);const ray=[0,1,2].map(k=>E("line",{x1:104,y1:78+k*12,x2:250,y2:110+k*22,stroke:C_SUN,"stroke-width":3,"stroke-dasharray":"8 8"},s));
+  ["M320 290 C300 320 250 330 200 372","M320 290 C330 330 320 350 326 390","M320 290 C350 316 400 326 450 366"].forEach(d=>E("path",{d:d,fill:"none",stroke:"#6b4420","stroke-width":8,"stroke-linecap":"round"},s));
+  treeShape(s,320,290,1);
+  const fB=[flow(s,"M200 372 C250 330 300 320 314 290 L314 120",C_EAU,6),flow(s,"M450 366 C400 326 350 316 316 290 L316 150 L270 130",C_EAU,6),flow(s,"M150 350 L200 372",C_EAU,2),flow(s,"M500 344 L450 366",C_EAU,2)];
+  const fE=[flow(s,"M350 110 L326 150 L326 290 C330 330 320 350 326 388",C_ORG,6),flow(s,"M290 100 L324 160 L324 290 C350 316 400 326 448 364",C_ORG,6)];
+  const fC=flow(s,"M470 40 C440 60 400 80 372 104",C_CO2,4),fO=flow(s,"M270 96 C240 70 210 50 180 30",C_O2,4);
+  const lb=G(s);const T=[["sève brute ↑",236,236,C_EAU,0],["sève élaborée ↓",336,236,C_ORG,1],["CO₂",476,36,C_CO2,2],["O₂",150,30,C_O2,2],["eau + sels minéraux",510,378,C_EAU,0],["lumière",150,110,"#9a6b00",2]].map(l=>{const bg=E("rect",{x:0,y:0,width:10,height:22,rx:6,fill:"var(--surface)",opacity:.9},lb),t=TX(lb,l[1],l[2],l[0],{"font-size":13,class:"b",fill:l[3]});return {bg,t,k:l[4]};});
+  requestAnimationFrame(()=>T.forEach(o=>{try{const b=o.t.getBBox();o.bg.setAttribute("x",b.x-5);o.bg.setAttribute("y",b.y-2);o.bg.setAttribute("width",b.width+10);o.bg.setAttribute("height",b.height+4);}catch(e){}}));
+  let sel=3,t=0;const msg=live(box,"");
+  function frame(dt){t+=dt;fB.forEach(f=>f.set(t,sel===0||sel===3,.16));fE.forEach(f=>f.set(t+.3,sel===1||sel===3,.16));fC.set(t,sel===2||sel===3,.3);fO.set(t,sel===2||sel===3,.3);
+    T.forEach(o=>{const on=sel===3||o.k===sel;o.t.setAttribute("opacity",on?1:.15);o.bg.setAttribute("opacity",on?.9:0);});ray.forEach(r=>r.setAttribute("stroke-dashoffset",-t*30));}
+  frame(0);if(!RM)loop(frame);
+  const TXT=["La sève brute monte des racines vers les feuilles.","La sève élaborée part des feuilles et alimente tout l'arbre, jusqu'aux racines.","Au niveau des feuilles : un gaz entre, un autre sort.","Tous les flux de matière du tilleul."];
+  const bs=ctl(box,[["Sève brute",b=>pick(0,b),1],["Sève élaborée",b=>pick(1,b),1],["Échanges avec l'air",b=>pick(2,b),1],["Tout",b=>pick(3,b),1]]);
+  function pick(k,b){sel=k;press(bs,b);msg.textContent=TXT[k];frame(0);}pick(3,bs[3]);
+  note(box,"Schéma simplifié : dans l'arbre, chaque sève circule dans ses propres vaisseaux conducteurs.");
+};
+
+/* 2 · Abeille, puceron, coccinelle */
+ANIMS.foodchain=(box)=>{
+  const s=stage(box,640,330,"Une branche de tilleul : une abeille butine une fleur, des pucerons prélèvent la sève, une coccinelle mange les pucerons");
+  E("rect",{x:0,y:0,width:640,height:330,fill:"#dceefb"},s);
+  E("path",{d:"M0 250 C160 232 320 250 640 196",fill:"none",stroke:"#7a9a3a","stroke-width":18,"stroke-linecap":"round"},s);const sap=E("path",{d:"M0 250 C160 232 320 250 640 196",fill:"none",stroke:C_ORG,"stroke-width":4,"stroke-dasharray":"10 12",opacity:.8},s);
+  E("path",{d:"M430 222 q-10 -90 60 -130 q60 50 -20 128z",fill:"#3f8f3a",stroke:"#2c6b29","stroke-width":2},s);E("path",{d:"M440 216 q20 -70 50 -118",fill:"none",stroke:"#2c6b29","stroke-width":2},s);
+  E("path",{d:"M150 240 C150 180 130 150 120 120",fill:"none",stroke:"#7a9a3a","stroke-width":5},s);for(let k=0;k<8;k++){const a=k/8*Math.PI*2;E("ellipse",{cx:120+Math.cos(a)*18,cy:112+Math.sin(a)*18,rx:12,ry:7,fill:"#fff8dc",stroke:"#d9c36a",transform:"rotate("+(a*180/Math.PI)+" "+(120+Math.cos(a)*18)+" "+(112+Math.sin(a)*18)+")"},s);}E("circle",{cx:120,cy:112,r:10,fill:C_NEC},s);
+  TX(s,14,60,"fleur de tilleul",{"font-size":13,class:"b"});TX(s,520,84,"feuille",{"font-size":13,class:"b"});
+  const bee=TX(s,150,96,"🐝",{"font-size":40}),nec=flow(s,"M122 112 L158 88",C_NEC,3,4);
+  const AP=[[250,228],[290,231],[330,232],[370,231]],aph=AP.map(p=>{const g=G(s);E("ellipse",{cx:p[0],cy:p[1],rx:13,ry:9,fill:"#9ccc65",stroke:"#33691e","stroke-width":1.5},g);E("circle",{cx:p[0]+11,cy:p[1]-2,r:2,fill:"var(--ink)"},g);E("line",{x1:p[0]+6,y1:p[1]+7,x2:p[0]+8,y2:p[1]+16,stroke:"#33691e","stroke-width":2},g);[-6,0].forEach(d=>E("line",{x1:p[0]+d,y1:p[1]+8,x2:p[0]+d-3,y2:p[1]+14,stroke:"#33691e","stroke-width":1.5},g));
+    return {g,f:flow(s,"M"+(p[0]+8)+" "+(p[1]+16)+" L"+(p[0]+6)+" "+(p[1]+2),C_ORG,2,3)};});
+  TX(s,310,286,"pucerons",{"text-anchor":"middle","font-size":13,class:"b"});
+  const lady=TX(s,0,0,"🐞",{"font-size":38}),lt=TX(s,0,0,"coccinelle",{"text-anchor":"middle","font-size":13,class:"b"});
+  const msg=live(box,"");let t=0;
+  function frame(dt){t+=dt;const cyc=(t%14)/14;bee.setAttribute("y",96+Math.sin(t*5)*4);nec.set(t,true,.6);sap.setAttribute("stroke-dashoffset",-t*18);
+    const lx=lerp(600,236,Math.min(1,cyc/.8)),ly=206+(lx-236)/364*-10+26;lady.setAttribute("x",lx-18);lady.setAttribute("y",ly);lt.setAttribute("x",lx);lt.setAttribute("y",ly-40);
+    let eaten=0;aph.forEach((a,i)=>{const gone=lx<AP[3-i][0]+18&&cyc<.97;const o=aph[3-i];o.g.setAttribute("opacity",gone?0:1);o.f.set(t,!gone,.8);if(gone)eaten++;});
+    msg.textContent=eaten?"La coccinelle a mangé "+eaten+" puceron"+(eaten>1?"s":"")+". La matière des pucerons passe dans la coccinelle.":"L'abeille aspire le nectar ; les pucerons piquent la tige ; la coccinelle approche…";}
+  frame(0);if(!RM)loop(frame);
+  note(box,"Pointillés orange : la sève élaborée qui circule dans la tige. Points jaunes : le nectar.");
+};
+
+/* 3 · Mycorhize : le cèpe et les racines du tilleul */
+ANIMS.myco=(box,api)=>{
+  const s=stage(box,640,360,"Sous le sol, les filaments du cèpe entourent une racine du tilleul ; des échanges ont lieu dans les deux sens");
+  E("rect",{x:0,y:0,width:640,height:130,fill:"#dceefb"},s);E("rect",{x:0,y:130,width:640,height:230,fill:"#a98258"},s);E("rect",{x:0,y:124,width:640,height:10,fill:"#6aa84f"},s);
+  treeShape(s,500,130,.55);E("path",{d:"M500 130 C470 190 380 210 250 230",fill:"none",stroke:"#6b4420","stroke-width":16,"stroke-linecap":"round"},s);
+  E("path",{d:"M108 130 V84 q0 -10 12 -10 q12 0 12 10 V130Z",fill:"#f3e3c2",stroke:"#b08a5e","stroke-width":2},s);E("path",{d:"M70 84 q50 -58 100 0 q-50 14 -100 0z",fill:"#8a5a2b",stroke:"#5d3b18","stroke-width":2},s);TX(s,120,24,"cèpe de Bordeaux",{"text-anchor":"middle","font-size":13,class:"b"});TX(s,548,116,"tilleul",{"font-size":13,class:"b"});
+  ["M120 130 C130 180 200 190 250 214","M120 130 C100 200 180 250 256 244","M120 130 C160 170 220 180 300 206","M120 130 C90 230 200 290 330 240","M120 130 C150 210 260 270 360 226"].forEach(d=>E("path",{d:d,fill:"none",stroke:"#fdf6e3","stroke-width":2.5},s));
+  for(let k=0;k<26;k++){const x=250+hash(k)*120,y=206+hash(k+9)*40;E("path",{d:"M"+x+" "+y+" q6 -10 12 0 t12 0",fill:"none",stroke:"#fdf6e3","stroke-width":2},s);}
+  TX(s,310,286,"mycorhize : filaments du champignon autour de la racine",{"text-anchor":"middle","font-size":13,class:"b",fill:"#fff"});TX(s,60,186,"filaments",{"font-size":12,class:"b",fill:"#fff"});TX(s,420,180,"racine",{"font-size":12,class:"b",fill:"#fff"});
+  const fT=flow(s,"M470 176 C400 206 330 218 262 226 C200 200 150 180 122 136",C_ORG,7),fF=flow(s,"M122 150 C120 220 200 262 300 240 C380 224 440 200 486 150",C_O2,7);
+  E("rect",{x:392,y:300,width:240,height:52,rx:8,fill:"var(--surface)",opacity:.93},s);E("circle",{cx:408,cy:316,r:6,fill:C_ORG},s);E("circle",{cx:408,cy:338,r:6,fill:C_O2},s);
+  const l1=TX(s,420,321,"",{"font-size":12.5,class:"b"}),l2=TX(s,420,343,"",{"font-size":12.5,class:"b"});
+  function labels(){const ok=api.solved();l1.textContent=ok?"molécules organiques":"du tilleul vers le cèpe : ?";l2.textContent=ok?"eau et éléments minéraux":"du cèpe vers le tilleul : ?";}
+  labels();api.onSolve(labels);let t=0;const f=dt=>{t+=dt;fT.set(t,true,.14);fF.set(t+.4,true,.14);};f(0);if(!RM)loop(f);
+  note(box,"Les points orange vont du tilleul vers le cèpe ; les points bleus vont du cèpe vers le tilleul.");
+};
+
+/* 4 · Schéma fonctionnel à compléter */
+ANIMS.schema=(box)=>{
+  const s=stage(box,640,462,"Schéma fonctionnel : le tilleul au centre, relié à l'atmosphère, au sol, au cèpe, au puceron, à la coccinelle et à l'abeille par huit flèches numérotées");
+  const node=(x,y,w,h,t,fill)=>{E("rect",{x:x-w/2,y:y-h/2,width:w,height:h,rx:12,fill:fill||"var(--surface)",stroke:"var(--ink)","stroke-width":2.5},s);TX(s,x,y+6,t,{"text-anchor":"middle",class:"b","font-size":15});};
+  sun(s,60,50,24);TX(s,60,100,"Soleil",{"text-anchor":"middle","font-size":13,class:"b"});
+  E("path",{d:"M94 60 q22 -6 30 12 t32 14 t30 16 t30 18 t28 22",fill:"none",stroke:C_SUN,"stroke-width":4,"stroke-linecap":"round"},s);E("path",{d:"M256 162 l-14 -6 l10 -10z",fill:C_SUN},s);TX(s,196,92,"lumière",{"font-size":12,class:"b",fill:"#9a6b00"});
+  node(320,44,210,44,"Atmosphère","#e3f2fd");node(320,200,130,70,"TILLEUL","#dcedc8");node(320,402,210,44,"Sol","#e0c9a6");node(96,200,130,50,"Cèpe");node(556,200,130,50,"Puceron");node(556,330,140,50,"Coccinelle");node(556,60,120,50,"Abeille");
+  /* x1,y1,x2,y2,couleur,texte, position du numéro, position et alignement du texte */
+  const AR=[[292,68,292,164,C_CO2,"CO₂",274,116,256,121,"end"],[348,164,348,68,C_O2,"O₂",366,116,384,121,"start"],[320,378,320,238,C_EAU,"eau + sels minéraux",302,318,284,323,"end"],[162,186,254,186,C_EAU,"eau + éléments minéraux",208,164,96,160,"middle"],
+            [254,216,162,216,C_ORG,"molécules organiques",208,240,208,266,"middle"],[386,200,490,200,C_ORG,"sève élaborée",438,224,438,188,"middle"],[556,226,556,304,C_ORG,"pucerons mangés",538,266,520,271,"end"],[384,164,494,84,C_ORG,"nectar",452,138,470,143,"start"]];
+  const obj=AR.map((a,i)=>{const g=G(s),ar=arrow(g,a[0],a[1],a[2],a[3],"var(--muted)",4);
+    E("circle",{cx:a[6],cy:a[7],r:13,fill:"var(--surface)",stroke:"var(--ink)","stroke-width":2},g);TX(g,a[6],a[7]+5,String(i+1),{"text-anchor":"middle","font-size":14,class:"b"});
+    const lab=TX(g,a[8],a[9],"",{"text-anchor":a[10],"font-size":12.5,class:"b",fill:a[4]});
+    return {ar,lab,a,fl:flow(s,"M"+a[0]+" "+a[1]+" L"+a[2]+" "+a[3],a[4],3,4.5)};});
+  const title=TX(s,320,452,"",{"text-anchor":"middle","font-size":13,class:"b"});
+  const msg=live(box,"");let t=0;
+  function state(){const A=!!qst("e4a").done,B=!!qst("e4b").done;obj.forEach((o,i)=>{const on=i<4?A:B;o.ar.color(on?o.a[4]:"var(--muted)");o.lab.textContent=on?o.a[5]:"";o.on=on;});
+    title.textContent=A&&B?"Schéma fonctionnel des flux de matière autour d'un tilleul":"";msg.textContent=A&&B?"Schéma complet : à reproduire dans ton cahier, avec une légende et un titre.":A||B?"Une partie des flèches est identifiée : continue.":"Réponds aux deux questions ci-dessous pour colorer les flèches.";}
+  state();const iv=setInterval(state,500);CLEAN.push(()=>clearInterval(iv));
+  const f=dt=>{t+=dt;obj.forEach((o,i)=>o.fl.set(t+i*.13,!!o.on,.45));};f(0);if(!RM)loop(f);
+  note(box,"La flèche jaune ondulée n'est pas un flux de matière : c'est l'énergie lumineuse.");
+};
+
+/* 5 · La matière transporte l'énergie */
+ANIMS.energy=(box,api)=>{
+  if(!api.solved()){const p=document.createElement("p");p.className="anote";p.textContent="🔒 L'animation « matière et énergie » se débloque quand tu as répondu à la question.";box.appendChild(p);api.onSolve(()=>{box.innerHTML="";build();});return;}
+  build();
+  function build(){
+    const s=stage(box,640,250,"L'énergie lumineuse est convertie en énergie chimique par le tilleul, puis transmise au puceron et à la coccinelle avec la matière organique");
+    sun(s,60,110,28);TX(s,60,172,"énergie",{"text-anchor":"middle","font-size":12,class:"b",fill:"#9a6b00"});TX(s,60,188,"lumineuse",{"text-anchor":"middle","font-size":12,class:"b",fill:"#9a6b00"});
+    const N=[[230,"Tilleul","#dcedc8","photosynthèse"],[410,"Puceron","var(--surface)",""],[570,"Coccinelle","var(--surface)",""]];
+    N.forEach(n=>{E("rect",{x:n[0]-60,y:76,width:120,height:68,rx:12,fill:n[2],stroke:"var(--ink)","stroke-width":2.5},s);TX(s,n[0],106,n[1],{"text-anchor":"middle",class:"b","font-size":15});if(n[3])TX(s,n[0],128,n[3],{"text-anchor":"middle","font-size":12});});
+    const wav=E("path",{d:"M96 110 q10 -12 20 0 t20 0 t20 0",fill:"none",stroke:C_SUN,"stroke-width":5,"stroke-linecap":"round"},s);E("path",{d:"M170 110 l-12 -8 v16z",fill:C_SUN},s);
+    arrow(s,292,110,346,110,C_ORG,5);arrow(s,472,110,506,110,C_ORG,5);TX(s,320,66,"sève élaborée",{"text-anchor":"middle","font-size":12,class:"b",fill:C_ORG});TX(s,490,66,"puceron mangé",{"text-anchor":"middle","font-size":12,class:"b",fill:C_ORG});
+    const pk=[0,1,2,3].map(()=>{const g=G(s);E("circle",{cx:0,cy:0,r:11,fill:C_ORG,stroke:"var(--ink)","stroke-width":1.5},g);E("path",{d:"M-2 -7 L4 -1 H-1 L2 7 L-5 0 H0Z",fill:"#fff59d"},g);return g;});
+    TX(s,320,206,"Chaque paquet de matière organique (orange) contient de l'énergie chimique (éclair).",{"text-anchor":"middle","font-size":12.5,class:"b"});
+    TX(s,320,228,"Là où va la matière, l'énergie va aussi.",{"text-anchor":"middle","font-size":12.5});
+    let t=0;const f=dt=>{t+=dt;wav.setAttribute("transform","translate("+(Math.sin(t*4)*4)+" 0)");pk.forEach((g,k)=>{const u=((t*.16+k/4)%1),x=lerp(250,560,u);g.setAttribute("transform","translate("+x+" "+(160+Math.sin(u*Math.PI*2)*-6)+")");g.setAttribute("opacity",u<.04||u>.96?0:1);});};
+    f(0);if(!RM)loop(f);
+  }
+};
+
+/* ===================== VUES · activité à étapes ===================== */
+const app=$("app"),NST=STEPS.length,NQ=QS.length,TOTAL=DUREE*60;
+const stepQs=s=>s.blocks.filter(b=>b.q).map(b=>b.q);
+function scoreOf(s){let f=0,t=0,d=0;stepQs(s).forEach(q=>{const st=S.qs[q.id];if(st&&st.tries){t++;if(st.first)f++;}if(st&&st.done)d++;});return {f,t,d,n:stepQs(s).length};}
+function totals(){let f=0,t=0;STEPS.forEach(s=>{const r=scoreOf(s);f+=r.f;t+=r.t;});return {f,t};}
+function pct(f,t){return t?Math.round(100*f/t):0;}
+let curCtx=null;
+if(!S.essay||typeof S.essay!=="object")S.essay={};
+const ESSAYS=[];STEPS.forEach(s=>s.blocks.forEach(b=>{if(b.essay)ESSAYS.push(b.essay);}));
+/* rédaction libre : non notée, auto-évaluée avec une liste de critères, exportée dans le bilan */
+function buildEssay(e,host){const st=S.essay[e.id]||(S.essay[e.id]={t:"",c:[],shown:false});const c=document.createElement("article");c.className="qcard";
+  c.innerHTML='<div class="qhead"><span class="qnum">✍</span><span class="tag doc">Rédaction · non notée</span></div><h3>'+esc(e.title)+'</h3><p class="qtext">'+esc(e.prompt)+'</p>'+
+   '<label class="sr" for="es-'+e.id+'">Ta rédaction</label><textarea id="es-'+e.id+'" rows="6" style="width:100%;min-height:9em;font:inherit;padding:12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)" placeholder="Rédige ici…"></textarea>'+
+   '<p class="ins">Relis ton texte, puis coche ce que tu as bien fait :</p><div class="opts">'+e.crit.map((k,i)=>'<button class="opt" data-i="'+i+'" aria-pressed="'+(!!st.c[i])+'"><span class="ck" aria-hidden="true">'+(st.c[i]?"✓":"")+'</span><span style="flex:1;min-width:0">'+esc(k)+'</span></button>').join("")+'</div>'+
+   '<div class="qbtns"><button class="btn ghost" id="em-'+e.id+'">Voir une réponse possible</button></div><div id="eo-'+e.id+'"></div>';
+  host.appendChild(c);const ta=c.querySelector("textarea");ta.value=st.t||"";ta.addEventListener("input",()=>{st.t=ta.value;save();});
+  c.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;st.c[i]=!st.c[i];b.setAttribute("aria-pressed",String(!!st.c[i]));b.querySelector(".ck").textContent=st.c[i]?"✓":"";save();});
+  const out=c.querySelector("#eo-"+e.id),show=()=>{out.innerHTML='<div class="corr"><span class="ct">✔&#xFE0E; Une réponse possible</span><p>'+esc(e.model)+'</p></div>';};
+  c.querySelector("#em-"+e.id).onclick=()=>{if((st.t||"").trim().length<40){out.innerHTML='<div class="fb bad">Rédige d\'abord ta propre réponse (au moins deux phrases).</div>';return;}st.shown=true;save();show();};
+  if(st.shown)show();}
+
+/* ---------- réglages ---------- */
+function applyFs(){const r=document.documentElement;r.classList.toggle("proj",!!S.proj);r.style.setProperty("--fs",(S.proj?Math.max(S.fs,30):S.fs)+"px");$("proj").setAttribute("aria-pressed",S.proj?"true":"false");}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme");}
+$("fsMinus").onclick=()=>{S.fs=Math.max(20,S.fs-2);applyFs();save();};
+$("fsPlus").onclick=()=>{S.fs=Math.min(34,S.fs+2);applyFs();save();};
+$("proj").onclick=()=>{S.proj=!S.proj;applyFs();save();};
+$("theme").onclick=()=>{const dark=S.theme?S.theme==="dark":(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);S.theme=dark?"light":"dark";applyTheme();save();};
+
+/* ---------- minuteur de séance (45 min, continue d'une étape à l'autre) ---------- */
+const TM={left:TOTAL,run:false,last:0,iv:null};
+function tDraw(){const s=Math.max(0,Math.ceil(TM.left)),c=$("tclock");c.textContent=Math.floor(s/60)+":"+("0"+s%60).slice(-2);c.className="tclock"+(s===0?" end":s<=300?" low":"");$("tPlay").textContent=TM.run?"⏸":"▶";$("tPlay").setAttribute("aria-label",TM.run?"Mettre le minuteur en pause":"Lancer le minuteur");}
+function tStart(){if(TM.left<=0)TM.left=TOTAL;TM.run=true;TM.last=performance.now();clearInterval(TM.iv);TM.iv=setInterval(()=>{const n=performance.now();TM.left-=(n-TM.last)/1000;TM.last=n;if(TM.left<=0){TM.left=0;TM.run=false;clearInterval(TM.iv);}tDraw();},500);tDraw();}
+function tStop(){TM.run=false;clearInterval(TM.iv);tDraw();}
+$("tPlay").onclick=()=>{TM.run?tStop():tStart();};
+$("tReset").onclick=()=>{tStop();TM.left=TOTAL;tDraw();};
+
+/* ---------- routage ---------- */
+function go(h){if(location.hash!=="#"+h)location.hash=h;else route();}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-go]");if(t){e.preventDefault();go(t.dataset.go);}});
+window.addEventListener("hashchange",route);
+function route(){
+  const h=(location.hash||"#home").slice(1);stopLoops();cleanup();curCtx=null;window.scrollTo(0,0);
+  const i=STEPS.findIndex(s=>s.id===h);$("sbar").hidden=i<0;
+  if(i>=0)viewStep(i);else if(h==="bilan")viewBilan();else viewHome();
+}
+function updScore(){const T=totals();$("sbScore").textContent=T.f+" / "+NQ;}
+
+/* ---------- accueil ---------- */
+function viewHome(){
+  const T=totals();let nx=STEPS.findIndex(s=>scoreOf(s).t<scoreOf(s).n);if(nx<0)nx=NST-1;
+  app.innerHTML='<section class="view"><div class="card stack"><div class="kicker">Ta mission</div>'+
+   '<p>'+MISSION+'</p>'+
+   '<p class="muted">Ton score compte la réponse au <b>premier essai</b>. Ensuite, tu peux utiliser les coups de pouce et corriger autant que tu veux.</p>'+
+   '<div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet iPad)</label><input class="name" id="pname" autocomplete="off" maxlength="40" value="'+esc(S.name)+'"></div>'+
+   '<div class="quick"><button class="btn" data-go="'+STEPS[nx].id+'">▶ '+(T.t?"Reprendre à l\'étape ":"Commencer : étape ")+(nx+1)+'</button><button class="btn ghost" data-go="bilan">📄 Mon bilan</button></div></div>'+
+   '<div class="mission"><div class="mhead"><h3>Les '+NST+' étapes</h3><span class="muted small">environ '+DUREE+' minutes</span></div><div class="tiles">'+STEPS.map((s,i)=>{const r=scoreOf(s);
+     return '<button class="tile'+(i===nx?" cur":"")+'" data-go="'+s.id+'"><span class="tn"><span>Étape '+(i+1)+'</span><span class="badge '+(r.t===r.n?(r.f===r.n?"full":"part"):r.t?"part":"")+'">'+(r.t?r.f+"/"+r.n:"à faire")+'</span></span><span class="tt">'+esc(s.t)+' · '+s.min+' min</span></button>';}).join("")+'</div></div></section>';
+  $("pname").addEventListener("input",e=>{S.name=e.target.value;save();});
+}
+
+/* ---------- étape ---------- */
+function viewStep(i){
+  const s=STEPS[i];$("sbTitle").textContent="Étape "+(i+1)+" / "+NST;
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">Étape '+(i+1)+' sur '+NST+' · environ '+s.min+' minutes</div><h2 class="h2">'+esc(s.t)+'</h2></div>'+
+   '<div class="box key"><div class="bt">🎯 Règle clé · Objectif</div><p>'+esc(s.goal)+'</p></div><div class="stack" id="host" style="gap:18px"></div><div id="endSlot"></div>'+
+   '<div class="snav">'+(i>0?'<button class="btn ghost" data-go="'+STEPS[i-1].id+'">← Étape '+i+'</button>':'<button class="btn ghost" data-go="home">← Accueil</button>')+'<button class="btn" data-go="'+(i<NST-1?STEPS[i+1].id:"bilan")+'">'+(i<NST-1?"Étape "+(i+2)+" →":"Mon bilan →")+'</button></div></section>';
+  const host=$("host");
+  const ctx=curCtx={mode:"act",p:"",host,apis:{},st:q=>qst(q.id),save,after:(q,E)=>{if(E.ok)(ctx.apis[q.id]||[]).forEach(a=>a._s.forEach(f=>{try{f();}catch(e){}}));updStep(i);}};
+  s.blocks.forEach(b=>{
+    if(b.html){const d=document.createElement("div");d.className="stack";d.innerHTML=b.html;host.appendChild(d);}
+    else if(b.an){const c=document.createElement("div");c.className="card";const an=document.createElement("div");an.className="anim";c.appendChild(an);host.appendChild(c);
+      const api={solved:()=>b.qid?!!qst(b.qid).done:true,_s:[],onSolve(f){this._s.push(f);}};if(b.qid)(ctx.apis[b.qid]=ctx.apis[b.qid]||[]).push(api);
+      try{ANIMS[b.an](an,api);}catch(e){console.error(e);an.innerHTML='<p class="anote">Animation indisponible.</p>';}}
+    else if(b.essay)buildEssay(b.essay,host);
+    else if(b.q)buildCard(b.q,ctx);});
+  updStep(i);if(!TM.run&&TM.left===TOTAL)tStart();else tDraw();
+}
+function updStep(i){updScore();const s=STEPS[i],r=scoreOf(s),slot=$("endSlot");if(!slot)return;
+  if(r.t<r.n){slot.innerHTML="";return;}
+  slot.innerHTML='<div class="endcard" aria-live="polite"><div class="kicker" style="color:var(--band-muted)">Étape '+(i+1)+' terminée</div><div class="big">'+r.f+' / '+r.n+'</div><p>'+(r.f===r.n?"Tout juste au premier essai !":r.d===r.n?"Tout est corrigé : bien joué.":"Corrige les questions marquées ✗ avant de continuer, si tu as le temps.")+'</p></div>';
+}
+
+/* ---------- bilan ---------- */
+function today(){const d=new Date();return ("0"+d.getDate()).slice(-2)+"/"+("0"+(d.getMonth()+1)).slice(-2)+"/"+d.getFullYear();}
+function attempted(){return QS.filter(q=>S.qs[q.id]&&S.qs[q.id].tries).length;}
+function bilanText(){const T=totals(),L=[];
+  L.push(TITRE_BILAN);L.push("Élève : "+(S.name.trim()||"non renseigné")+"   Date : "+today());L.push("");
+  L.push("RÉSUMÉ DE L'ACTIVITÉ");STEPS.forEach((s,i)=>L.push("  Étape "+(i+1)+" · "+s.t+" — "+s.goal));L.push("");
+  L.push("MON BILAN");L.push("  Score au premier essai : "+T.f+" / "+NQ+" ("+attempted()+" questions traitées sur "+NQ+")");
+  STEPS.forEach((s,i)=>{const r=scoreOf(s);L.push("  Étape "+(i+1)+" : "+(r.t?r.f+" / "+r.n+(r.t<r.n?" (incomplète)":""):"non faite"));});
+  const w=QS.filter(q=>{const st=S.qs[q.id];return st&&st.tries&&!st.first;}).map(q=>"étape "+q.sn+" « "+q.title+" »"+(S.qs[q.id].done?" (corrigée)":""));
+  L.push("  Questions ratées au premier essai : "+(w.length?w.join(" ; "):"aucune"));
+  ESSAYS.forEach(e=>{const v=(S.essay[e.id]||{}).t;if(v&&v.trim()){L.push("");L.push("MA RÉDACTION — "+e.title);L.push(v.trim());}});
+  if(unlocked()){L.push("");L.push(LBL_BILAN.toUpperCase());CAHIER.forEach((c,i)=>L.push("  "+(i+1)+". "+c));}
+  return L.join("\n");}
+function unlocked(){return attempted()>=NQ-2||!!S.unlock;}
+function viewBilan(){
+  const T=totals(),ok=unlocked();
+  app.innerHTML='<section class="view"><div class="shead"><div class="kicker">Fin de l\'activité</div><h2 class="h2">Mon bilan</h2></div>'+
+   '<div class="card stack"><div class="field"><label for="pname">Prénom ou numéro (facultatif, reste sur cet iPad)</label><input class="name" id="pname" autocomplete="off" maxlength="40" value="'+esc(S.name)+'"></div>'+
+   '<div class="stats"><div class="stat"><div class="k">Réussies au 1er essai</div><div class="v">'+T.f+' / '+NQ+'</div></div><div class="stat"><div class="k">Questions traitées</div><div class="v">'+attempted()+' / '+NQ+'</div></div>'+STEPS.map((s,i)=>{const r=scoreOf(s);return '<div class="stat"><div class="k">Étape '+(i+1)+'</div><div class="v">'+(r.t?r.f+" / "+r.n:"—")+'</div></div>';}).join("")+'</div></div>'+
+   (ok?'<div class="box key"><div class="bt">✏️ Règle clé · '+esc(LBL_BILAN)+'</div><p><b>'+esc(TITRE_CAHIER)+'</b></p><ol style="margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px">'+CAHIER.map(c=>'<li>'+esc(c)+'</li>').join("")+'</ol></div>'
+      :'<div class="box warn"><div class="bt">⚠︎ Vigilance · '+esc(LBL_BILAN)+'</div><p>Il s\'affichera quand tu auras traité presque toutes les questions ('+attempted()+' / '+NQ+' pour l\'instant).</p><div><button class="btn ghost sm" id="unl">Mon professeur m\'autorise à l\'afficher</button></div></div>')+
+   '<div class="card stack"><div class="kicker">Exporter</div><div class="bilantext" id="bilanText"></div><div class="row"><button class="btn" id="dlB" hidden>⬇ Exporter mon résumé et mon bilan (.txt)</button><button class="btn ghost" id="cpB">Copier</button><button class="btn ghost" id="bProf">Montrer au professeur</button></div><p class="muted" id="bMsg" aria-live="polite"></p></div>'+
+   '<div class="row"><button class="btn ghost" data-go="home">← Accueil</button><button class="btn ghost" id="rst">Tout recommencer</button></div></section>';
+  $("bilanText").textContent=bilanText();
+  $("pname").addEventListener("input",e=>{S.name=e.target.value;save();$("bilanText").textContent=bilanText();});
+  if($("unl"))$("unl").onclick=()=>{S.unlock=true;save();viewBilan();};
+  $("cpB").onclick=()=>{const t=bilanText(),msg=$("bMsg");const sel=()=>{const r=document.createRange();r.selectNodeContents($("bilanText"));const g=getSelection();g.removeAllRanges();g.addRange(r);msg.textContent="Le texte est sélectionné : copie-le avec ton iPad.";};try{navigator.clipboard.writeText(t).then(()=>{msg.textContent="Bilan copié.";},sel);}catch(e){sel();}};
+  if(DL)$("dlB").hidden=false;
+  $("dlB").onclick=()=>{if(!DL)return;const msg=$("bMsg"),nm=(S.name.trim()||"eleve").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9_-]+/g,"-").slice(0,30)||"eleve";
+    DL.save({filename:FICHIER+nm+".txt",data:bilanText()}).then(()=>{msg.textContent="Fichier téléchargé.";},()=>{msg.textContent="Téléchargement impossible ici : utilise « Copier ».";});};
+  $("bProf").onclick=()=>{$("ovkick").textContent="Bilan à montrer au professeur";$("ovname").textContent=S.name.trim()||"Élève";$("ovsub").textContent=TITRE_COURT+" · score au premier essai";$("ovtot").textContent=T.f+" / "+NQ;
+    $("ovlist").innerHTML=STEPS.map((s,i)=>{const r=scoreOf(s);return '<div class="ovitem">Étape '+(i+1)+'<div style="font-family:var(--f-num)">'+(r.t?r.f+" / "+r.n:"—")+'</div></div>';}).join("");$("overlay").hidden=false;$("ovClose").focus();};
+  let arm=false;$("rst").onclick=()=>{if(!arm){arm=true;$("rst").textContent="Confirmer : effacer mes réponses";return;}S.qs={};S.essay={};S.unlock=false;save();TM.left=TOTAL;tStop();go("home");};
+}
+$("ovClose").onclick=()=>{$("overlay").hidden=true;};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("overlay").hidden=true;});
+let DL=null;try{if(window.claude&&window.claude.use)window.claude.use("downloads").then(d=>{DL=d;const b=$("dlB");if(b&&d)b.hidden=false;}).catch(()=>{});}catch(e){}
+
+applyFs();applyTheme();tDraw();route();
+window.__t={S:()=>S,STEPS,QS,evalQ,QBY,go};
+
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

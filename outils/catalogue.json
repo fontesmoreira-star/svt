@@ -369,6 +369,18 @@
               "titre": "Le métabolisme des cellules",
               "activites": [
                 {
+                  "fichier": "flux-matiere.html",
+                  "tag": "Activité 2 · schéma fonctionnel",
+                  "titre": "Les flux de matière dans l'environnement",
+                  "desc": "Du tilleul à la coccinelle : repérer les flux de matière, construire le schéma fonctionnel, relier matière et énergie."
+                },
+                {
+                  "fichier": "levures-rho.html",
+                  "tag": "Activité 3 · étude de documents · ExAO",
+                  "titre": "L'étude d'un mutant de levure (Rho⁺ / Rho⁻)",
+                  "desc": "Respiration et fermentation chez la levure : microscopie, ExAO et mutant sans mitochondries fonctionnelles."
+                },
+                {
                   "fichier": "tp-elodee.html",
                   "tag": "TP virtuel · ExAO",
                   "titre": "TP Élodée : photosynthèse ou respiration ?",
