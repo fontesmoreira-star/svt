@@ -10,7 +10,7 @@
 /* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
    Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
 :root{
-  --fs:20px;
+  --fs:21px;
   --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
   --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
   --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
@@ -67,26 +67,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .band{background:var(--band);color:var(--band-ink)}
 .band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
 .band .titles{min-width:0;flex:1 1 20rem}
-.eyebrow{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
 .band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
 .band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
 .tools{display:flex;flex-wrap:wrap;gap:.45rem}
-.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:.85rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
 .tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
 .tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
 
 /* ---------- onglets collants ---------- */
 .tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
-.tabs .wrap{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin}
-.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:.85rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
 .tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
-.tab .dot{font-size:.75rem}
+.tab .dot{font-size:0.9rem}
 
 main{padding-block:1.2rem 3rem}
 .view{display:grid;gap:1.1rem}
 .lead{color:var(--muted);max-width:44rem}
 .sec-title{font-size:1.45rem}
-.kicker{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
 
 /* ---------- cartes / panneaux ---------- */
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
@@ -95,15 +95,15 @@ main{padding-block:1.2rem 3rem}
 .card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
 .card-btn:hover{border-color:var(--accent)}
 .card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
-.card-btn .m{color:var(--muted);font-size:.8rem}
-.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
 .chip.ok{background:var(--ok-soft);color:var(--ok)}
 .chip.bad{background:var(--bad-soft);color:var(--bad)}
 .chip.mid{background:var(--warn-soft);color:var(--warn)}
 
 /* ---------- encadrés ---------- */
 .box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
-.box > .lab{font-size:.72rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
 .box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
 .box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
 .box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
@@ -121,23 +121,23 @@ main{padding-block:1.2rem 3rem}
 /* ---------- options QCM / choix ---------- */
 .opts{display:grid;gap:.5rem}
 .opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
-.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:.72rem;font-weight:800;color:var(--muted)}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
 .opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
 .opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
 .opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
-.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:.8rem}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
 .opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
 .opt[disabled]{cursor:default}
 
 .seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
-.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:.85rem;color:var(--ink)}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
 .seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
 .seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
 
 .field{display:grid;gap:.3rem}
-.field label{font-weight:700;font-size:.88rem}
+.field label{font-weight:700;font-size:0.9rem}
 .inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
 .inp.wide{max-width:none}
 textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
@@ -159,24 +159,24 @@ textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
 
 /* ---------- documents ---------- */
 .doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
-.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:.82rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
 .doc > .dh .sim{font-weight:700;color:var(--warn)}
 .doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
 .tablewrap{overflow-x:auto;max-width:100%}
-table.t{border-collapse:collapse;font-size:.85rem;font-variant-numeric:tabular-nums;width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
 table.t td,table.t th{vertical-align:top}
 table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
 table.t th{background:var(--surface-2);font-weight:800}
 table.t td.n{text-align:right}
-details.tbl > summary{cursor:pointer;font-weight:700;font-size:.85rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
 
 /* ---------- graphiques ---------- */
 .chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
 .chart svg{display:block;width:100%;height:auto;overflow:visible}
 .chart svg text{font-family:var(--f-body)}
-.readout{font-size:.85rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
 .readout b{color:var(--accent)}
-.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.82rem}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
 .legend span{display:inline-flex;align-items:center;gap:.35rem}
 .legend svg{flex:none}
 
@@ -192,15 +192,15 @@ details.tbl > summary{cursor:pointer;font-weight:700;font-size:.85rem;min-height
 .overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
 .overlay h2{font-size:2.2rem}
 .overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
-.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
 .toast{font-weight:700;color:var(--ok)}
 
 /* ---------- divers ---------- */
-.foot{color:var(--muted);font-size:.78rem;padding-block:1.5rem}
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
 .eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
 .steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
 .steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
-.steps3 .s{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 @media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
 .chartbox{display:grid;gap:.45rem;min-width:0}
@@ -221,22 +221,55 @@ details.tbl > summary{cursor:pointer;font-weight:700;font-size:.85rem;min-height
 .rows{display:grid;gap:.6rem}
 .rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
 .rowq .rt{font-size:.95rem}
-.pfb{font-size:.88rem;font-weight:700}
+.pfb{font-size:0.9rem;font-weight:700}
 .pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
 .part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
 .part:first-child{border-top:0;padding-top:0}
 .part > .pl{font-weight:700}
 .crit{display:grid;gap:.4rem}
 .crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
-.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:.85rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
 .crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
 .crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
 .lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
-.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.88rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
 .lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
 .sci .inp{max-width:7rem}
 .sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
 
 </style>
 <script>
@@ -264,18 +297,27 @@ details.tbl > summary{cursor:pointer;font-weight:700;font-size:.85rem;min-height
 </script>
 </head>
 <body>
-<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">Terminale · Enseignement scientifique · Thème 1 « Science, climat et société »</p><h1>QCM · Atmosphère et climat</h1><p class="sub">38 questions en 6 parties. Correction immédiate, score compté au premier essai, sans points négatifs.</p></div>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">Terminale · Enseignement scientifique · Thème 1 « Science, climat et société »</p><h1>QCM · Atmosphère et climat</h1><p class="sub">38 questions en 6 parties, du 🟢 au 🔴. Coups de pouce, correction immédiate, bilan par compétence.</p></div>
 <div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
-<nav class="tabs" aria-label="Sections"><div class="wrap" id="tabs"></div></nav>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
 <main class="wrap" id="main"><p>Chargement…</p></main>
-<footer class="wrap foot">Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Données simulées signalées par ⚠. Lycée Français Vauban · Enseignement scientifique.</footer>
+<footer class="wrap foot">Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les données simulées portent la mention ⚠ Valeurs simulées. Lycée Français Vauban · Enseignement scientifique.</footer>
 <noscript><p class="wrap">Cette application a besoin de JavaScript : ouvre le lien dans Safari (pas dans l'aperçu de Teams ou de Fichiers).</p></noscript>
 <script>
 /* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
 "use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-try { document.documentElement.lang = "fr"; } catch (e) {}
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
 
 /* ---------- stockage de confort (l'app marche sans) ---------- */
 const Store = {
@@ -293,7 +335,7 @@ function fmt(x, dec) {
   let neg = s.startsWith("-"); if (neg) s = s.slice(1);
   let [i, d] = s.split(".");
   i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  return (neg ? "−" : "") + i + (d ? "," + d : "");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
 }
 function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
   if (p === 0) return "0";
@@ -318,6 +360,22 @@ function parseNum(str) {
   return NaN;
 }
 const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
 
@@ -326,8 +384,8 @@ const Display = {
   S: null, onChange: null,
   init(S, save) {
     this.S = S; this.save = save; this.apply();
-    $("#fsMinus").onclick = () => { S.fs = Math.max(16, (S.fs || 20) - 2); this.apply(); save(); };
-    $("#fsPlus").onclick = () => { S.fs = Math.min(32, (S.fs || 20) + 2); this.apply(); save(); };
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
     $("#themeBtn").onclick = () => {
       const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
       S.theme = dark ? "light" : "dark"; this.apply(); save();
@@ -337,12 +395,12 @@ const Display = {
   },
   apply() {
     const S = this.S, r = document.documentElement;
-    const base = S.fs || 20; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
     if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
     r.classList.toggle("proj", !!S.proj);
     const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
     const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? "☀ Clair" : "☾ Sombre";
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
     Charts.redrawAll();
     if (this.onChange) this.onChange();
   }
@@ -408,11 +466,11 @@ function mountChart(container, spec) {
   host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
   const legend = document.createElement("div"); legend.className = "legend";
   const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
-  readout.innerHTML = spec.readHint || "Touche le graphique pour lire une valeur.";
+  readout.innerHTML = spec.readHint || CT.readHint;
   container.append(host);
   if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
   container.append(readout);
-  if (spec.table !== false) { const t = buildTable(spec); if (t) container.append(t); }
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
 
   const ch = { host, spec, sel: null, draw: null };
   const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
@@ -428,7 +486,7 @@ function mountChart(container, spec) {
 
   ch.draw = function () {
     const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
-    const F = fsPx(); const tk = Math.max(12, F * 0.72), tt = Math.max(13, F * 0.78);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
     const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
     let svg = "";
     if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
@@ -484,10 +542,16 @@ function mountChart(container, spec) {
     for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
     for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
     (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
     S.forEach((s, si) => {
-      const d = s.pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
       g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
-      if (spec.markers) s.pts.forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
     });
     if (ch.sel !== null) {
       const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
@@ -582,7 +646,7 @@ function mountChart(container, spec) {
     else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
     else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
   }
-  function allX() { const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => s.add(p[0]))); return Array.from(s).sort((a, b) => a - b); }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
   function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
   function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
   function describe() {
@@ -600,6 +664,28 @@ function mountChart(container, spec) {
     if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
     if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
   });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
   ch.draw(); Charts.list.add(ch);
   if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
   return ch;
@@ -624,12 +710,13 @@ function buildTable(spec) {
     body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
   }
   const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
-  d.innerHTML = `<summary>Tableau de valeurs${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
   return d;
 }
 
 /* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
 const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
 let _dlP = null;
 function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
 setTimeout(() => { getDownloads(); }, 0);
@@ -637,52 +724,52 @@ setTimeout(() => { getDownloads(); }, 0);
 async function saveText(filename, text) {
   if (inClaude()) {
     const d = await getDownloads();
-    if (!d) return { ok: false, msg: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur »." };
-    try { await d.save({ filename, data: text }); return { ok: true, msg: "Fichier proposé à l'enregistrement." }; }
-    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: "Enregistrement annulé." }; if (c === "rate_limited") return { ok: false, msg: "Une demande est déjà ouverte : réessaie dans un instant." }; return { ok: false, msg: "Téléchargement impossible ici : utilise « Copier »." }; }
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
   }
   try {
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
     const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
-    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: "Fichier téléchargé." };
-  } catch (e) { return { ok: false, msg: "Téléchargement impossible : utilise « Copier »." }; }
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
 }
 
 function renderBilanTools(container, getText, getShow, appSlug) {
   container.innerHTML = `
-    <div class="field"><label for="eleve">Prénom ou numéro (facultatif, reste sur cet appareil)</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
     <div class="row">
-      <button class="btn" id="bDl" type="button">⬇ Télécharger (.txt)</button>
-      <button class="btn ghost" id="bCp" type="button">⧉ Copier</button>
-      ${inClaude() ? "" : `<button class="btn ghost" id="bMail" type="button">✉ Envoyer par mail</button>`}
-      <button class="btn ghost" id="bShow" type="button">👁 Montrer au professeur</button>
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
     </div>
     <p class="toast" id="bMsg" aria-live="polite"></p>
-    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="Texte du bilan"></textarea>`;
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
   const inp = $("#eleve", container);
-  try { inp.value = localStorage.getItem("es-th1-eleve") || ""; } catch (e) {}
-  inp.addEventListener("input", () => { try { localStorage.setItem("es-th1-eleve", inp.value); } catch (e) {} });
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
   const msg = t => { $("#bMsg", container).textContent = t; };
-  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || "eleve").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
   $("#bCp", container).onclick = () => {
     const txt = getText(inp.value); const ta = $("#bTxt", container);
-    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg("Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu."); };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg("Bilan copié : colle-le où ton professeur l'a demandé."), fallback); else fallback();
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
   };
-  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent("Bilan " + appSlug) + "&body=" + encodeURIComponent(txt); msg("Ta messagerie devrait s'ouvrir avec le bilan."); };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
   $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
 }
 function showOverlay(html) {
   const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
-  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">Fermer</button></div>`;
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
   document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
   const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
   c.onclick = close; document.addEventListener("keydown", k);
 }
-const today = () => new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
 
 /* ===== Données partagées (documents de cours redessinés ou simulés) ===== */
-const SIMUL = "Données simulées pour l'entraînement";
+const SIMUL = "Valeurs simulées";
 const APPROX = "Valeurs approchées lues sur le document du cours";
 
 /* Courbe schématique des écarts de température en Antarctique (°C) sur 450 000 ans — simulée d'après l'allure des enregistrements */
@@ -696,30 +783,30 @@ const PALEO = (() => { const pts = []; for (let t = 450; t >= 0; t -= 2) { const
 function paleoSpec(extra) {
   return Object.assign({ type: "line", series: [{ name: "Écart de température", pts: PALEO, color: "c1", w: 2.4 }], xMin: -450, xMax: 0, xStep: 50, yMin: -9, yMax: 3, yStep: 1, xTickW: 3.2,
     xTitle: "Temps (milliers d'années, 0 = aujourd'hui)", yTitle: "Écart de température (°C)", xFmt: v => fmt(v), xRead: v => (v === 0 ? "Aujourd'hui" : "Il y a " + fmt(-v * 1000) + " ans"), yRead: v => (v > 0 ? "+" : "") + fmt(v, 1) + " °C", yFmt: v => (v > 0 ? "+" : "") + fmt(v),
-    legend: false, alt: "Courbe des écarts de température en Antarctique sur 450 000 ans" }, extra || {});
+    legend: false, anim: true, animDur: 7000, alt: "Courbe des écarts de température en Antarctique sur 450 000 ans" }, extra || {});
 }
 
 /* Température moyenne globale : tendance (écart à la moyenne 1880-1920, °C) — valeurs approchées */
 const TGLOB = [[1880, 0], [1890, -0.05], [1900, -0.05], [1910, -0.1], [1920, 0], [1930, 0.05], [1940, 0.3], [1950, 0.2], [1960, 0.25], [1970, 0.25], [1980, 0.35], [1990, 0.5], [2000, 0.7], [2010, 0.9], [2020, 1.15]];
 function tglobSpec() {
   return { type: "line", series: [{ name: "Tendance globale", pts: TGLOB, color: "c2" }], xMin: 1880, xMax: 2020, xStep: 20, yMin: -0.4, yMax: 1.4, yStep: 0.2, markers: true, legend: false,
-    xTitle: "Année", yTitle: "Écart à 1880-1920 (°C)", xFmt: v => String(v), xRead: v => String(v), yFmt: v => (v > 0 ? "+" : "") + fmt(v, 1), yRead: v => (v > 0 ? "+" : "") + fmt(v, 2) + " °C" };
+    xTitle: "Année", yTitle: "Écart à 1880-1920 (°C)", xFmt: v => String(v), xRead: v => String(v), yFmt: v => (v > 0 ? "+" : "") + fmt(v, 1), yRead: v => (v > 0 ? "+" : "") + fmt(v, 2) + " °C", anim: true };
 }
 
 /* Niveau moyen des océans (cm, référence 1993) — valeurs approchées */
 const SEA = [[1993, 0], [1995, 0.6], [1997, 1.1], [1999, 1.8], [2001, 2.5], [2003, 3.2], [2005, 3.8], [2007, 4.2], [2009, 4.8], [2011, 5.6], [2013, 6.8], [2015, 8]];
 function seaSpec() {
   return { type: "line", series: [{ name: "Niveau moyen", pts: SEA, color: "c1" }], xMin: 1993, xMax: 2015, xStep: 2, yMin: -2, yMax: 10, yStep: 2, markers: true, legend: false, xTickW: 3,
-    xTitle: "Année", yTitle: "Niveau moyen des océans (cm)", xFmt: v => String(v), xRead: v => String(v), yRead: v => fmt(v, 1) + " cm" };
+    xTitle: "Année", yTitle: "Niveau moyen des océans (cm)", xFmt: v => String(v), xRead: v => String(v), yRead: v => fmt(v, 1) + " cm", anim: true };
 }
 
 /* UV : modèle simplifié (deux grandeurs, donc deux graphiques) */
 const UVL = [250, 260, 270, 280, 290, 295, 300, 305, 310, 315, 320, 330, 340, 350, 360];
 const UV_SOL = [0, 0, 0, 0, 0.5, 2, 6, 14, 26, 40, 55, 72, 82, 88, 90];
 const UV_ADN = [85, 100, 95, 75, 30, 20, 12, 7, 3, 1.5, 0.5, 0.1, 0, 0, 0];
-function uvSolSpec() { return { type: "line", series: [{ name: "Part atteignant le sol", pts: UVL.map((l, i) => [l, UV_SOL[i]]), color: "c2" }], xMin: 250, xMax: 360, xStep: 10, yMin: 0, yMax: 100, yStep: 20, markers: true, legend: false, xTickW: 2.6, h: 12,
+function uvSolSpec() { return { type: "line", anim: true, series: [{ name: "Part atteignant le sol", pts: UVL.map((l, i) => [l, UV_SOL[i]]), color: "c2" }], xMin: 250, xMax: 360, xStep: 10, yMin: 0, yMax: 100, yStep: 20, markers: true, legend: false, xTickW: 2.6, h: 12,
   xTitle: "Longueur d'onde (nm)", yTitle: "Atteint le sol (%)", xRead: v => v + " nm", yRead: v => fmt(v) + " % du rayonnement atteint le sol", alt: "Part du rayonnement UV solaire qui atteint le sol selon la longueur d'onde" }; }
-function uvAdnSpec() { return { type: "line", series: [{ name: "Absorption par l'ADN", pts: UVL.map((l, i) => [l, UV_ADN[i]]), color: "c3" }], xMin: 250, xMax: 360, xStep: 10, yMin: 0, yMax: 100, yStep: 20, markers: true, legend: false, xTickW: 2.6, h: 12,
+function uvAdnSpec() { return { type: "line", anim: true, series: [{ name: "Absorption par l'ADN", pts: UVL.map((l, i) => [l, UV_ADN[i]]), color: "c3" }], xMin: 250, xMax: 360, xStep: 10, yMin: 0, yMax: 100, yStep: 20, markers: true, legend: false, xTickW: 2.6, h: 12,
   xTitle: "Longueur d'onde (nm)", yTitle: "Absorption ADN (%)", xRead: v => v + " nm", yRead: v => "absorption par l'ADN : " + fmt(v) + " % du maximum", alt: "Absorption des UV par l'ADN selon la longueur d'onde" }; }
 
 /* Compositions atmosphériques (% en volume) */
@@ -744,11 +831,11 @@ function mountDocs(root) { $$("[data-chart]", root).forEach(el => { if (el.datas
 function phaseSpec(extra) { return Object.assign({ type: "phase", tMin: -150, tMax: 500, lpMin: 1, lpMax: 8, readState: false, alt: "Diagramme d'état de l'eau : pression en fonction de la température", readHint: "Touche le diagramme pour lire la température et la pression d'un point." }, extra || {}); }
 
 /* ===== QCM en parties thématiques ===== */
-Store.key = "es-th1-qcm";
+Store.key = "ds-climat-tle-qcm-v2";
 
 const D_ATM = { title: "Document · Composition de l'atmosphère terrestre (% du volume)", html: tbl(["Gaz", "Atmosphère primitive (≈ 4,6 Ga)", "Atmosphère actuelle"], [["Vapeur d'eau H₂O", "80", "traces"], ["Diazote N₂", "5", "78"], ["Dioxygène O₂", "0", "21"], ["Dioxyde de carbone CO₂", "15", "traces"]]) + `<p class="lead" style="font-size:.85rem">La quantité totale de diazote est restée à peu près stable depuis la formation de la Terre.</p>` };
 const D_PHASE = () => ({ title: "Document · Diagramme d'état de l'eau", chart: phaseSpec() });
-const D_PALEO = () => ({ title: "Document · Écarts de température en Antarctique (par rapport à l'actuel)", sim: "Courbe schématique simulée", chart: paleoSpec() });
+const D_PALEO = () => ({ title: "Document · Écarts de température en Antarctique (par rapport à l'actuel)", sim: "Valeurs simulées (courbe schématique)", chart: paleoSpec() });
 
 const PARTS = [
   { id: "p1", title: "L'atmosphère primitive et l'eau", fiche: "les fiches 1 et 2", qs: [
@@ -792,7 +879,7 @@ const PARTS = [
       why: "Ce sont des dépôts marins : le dioxygène produit dans l'océan oxyde le fer dissous, qui précipite. Il s'en forme de 3,5 à 2,4 Ga environ.",
       no: { 1: "Ce sont les paléosols rouges qui sont continentaux et postérieurs à 2,4 Ga.", 2: "Il ne s'en forme presque plus après 2,4 Ga.", 3: "Une roche ne se forme pas dans l'atmosphère." } },
     { q: "Que peut-on déduire de ce sol fossile ?",
-      docs: [{ title: "Document · Un sol fossile continental", sim: "Exemple fictif", html: `<p>Un sol fossile formé sur un continent, de couleur grise et riche en fer (II), est daté de 2,9 Ga.</p>` }],
+      docs: [{ title: "Document · Un sol fossile continental", sim: "Valeurs simulées (exemple fictif)", html: `<p>Un sol fossile formé sur un continent, de couleur grise et riche en fer (II), est daté de 2,9 Ga.</p>` }],
       o: ["L'atmosphère contenait déjà environ 21 % de dioxygène", "L'atmosphère contenait très peu ou pas de dioxygène à cette date", "La photosynthèse n'existait pas encore", "Les océans ne contenaient pas de fer"], a: 1,
       why: "Sur un continent, le fer (II) n'est conservé que si l'air est pauvre en dioxygène ; sinon il serait oxydé en fer (III), de couleur rouge.",
       no: { 2: "Les stromatolithes montrent une photosynthèse dès 3,5 Ga : le dioxygène produit restait d'abord piégé dans les océans.", 0: "Avec 21 % de dioxygène, le fer du sol aurait été oxydé et le sol serait rouge.", 3: "Le document porte sur un sol continental, pas sur les océans." } },
@@ -807,11 +894,11 @@ const PARTS = [
   ] },
   { id: "p3", title: "Ozone et échanges avec la biosphère", fiche: "les fiches 4 et 5", qs: [
     { q: "Comment se forme l'ozone stratosphérique ?",
-      o: ["Les UV solaires dissocient le dioxygène ; un atome d'oxygène libéré s'associe à une molécule de O₂ pour former O₃", "Les CFC libèrent de l'ozone sous l'effet des UV", "Les cyanobactéries rejettent directement de l'ozone", "Le rayonnement infrarouge transforme la vapeur d'eau en ozone"], a: 0,
+      o: ["Les UV solaires dissocient le dioxygène ; un atome d'oxygène libéré s'associe à une molécule de O₂ pour former O₃", "Les CFC libèrent de l'ozone sous l'effet des UV", "Les cyanobactéries rejettent directement de l'ozone", "Les éruptions volcaniques libèrent directement de l'ozone"], a: 0,
       why: "O₂ + UV → O + O, puis O + O₂ → O₃. Sans dioxygène dans l'atmosphère, pas de couche d'ozone.",
       no: { 1: "Les CFC détruisent l'ozone.", 2: "La photosynthèse produit du dioxygène (O₂), qui sert ensuite à former l'ozone dans la stratosphère.", 3: "L'ozone se forme à partir du dioxygène, sous l'action des UV." } },
     { q: "Pour quelle longueur d'onde le rayonnement qui atteint le sol est-il le plus dangereux pour l'ADN ?",
-      docs: [{ title: "Documents · Rayonnement UV au sol et absorption par l'ADN", sim: "Modèle simplifié, valeurs arrondies", charts: [uvSolSpec(), uvAdnSpec()] }],
+      docs: [{ title: "Documents · Rayonnement UV au sol et absorption par l'ADN", sim: "Valeurs simulées (modèle simplifié)", charts: [uvSolSpec(), uvAdnSpec()] }],
       o: ["260 nm", "305 nm", "340 nm", "Aucune : l'ozone arrête tous les UV"], a: 1,
       why: "À 260 nm, l'ADN absorbe beaucoup mais presque rien n'atteint le sol (absorbé par l'ozone). À 340 nm, le rayonnement atteint le sol mais l'ADN ne l'absorbe presque plus. Vers 305 nm, une partie atteint le sol et l'ADN l'absorbe encore : c'est là que le risque de mutation est le plus fort.",
       no: { 0: "À 260 nm, l'ADN absorbe fortement, mais 0 % du rayonnement atteint le sol.", 2: "À 340 nm, 82 % du rayonnement atteint le sol, mais l'ADN ne l'absorbe plus (0 %).", 3: "Le premier graphique montre qu'au-delà de 290 nm une partie des UV atteint le sol." } },
@@ -820,7 +907,7 @@ const PARTS = [
       why: "Cl + O₃ → ClO + O₂, puis ClO + O → Cl + O₂ : l'atome de chlore est libéré à la fin du cycle et recommence.",
       no: { 2: "Les CFC sont inoffensifs pour les êtres vivants : leur danger est indirect, par la destruction de l'ozone.", 0: "Ce sont les UV qui cassent les CFC et libèrent le chlore.", 3: "Il n'est pas question de pluies acides : le chlore libéré détruit l'ozone." } },
     { q: "Que montrent ces mesures ?",
-      docs: [{ title: "Document · Teneur en dioxygène dans deux enceintes fermées (ExAO)", sim: SIMUL, chart: { type: "line", series: [{ name: "Enceinte avec criquet", pts: [[0, 20.9], [1, 20.6], [2, 20.4], [3, 20.1], [4, 19.9], [5, 19.6], [6, 19.4], [7, 19.1], [8, 18.9], [9, 18.7], [10, 18.5]], color: "c2" }, { name: "Enceinte témoin, sans criquet", pts: [[0, 20.9], [1, 20.9], [2, 20.8], [3, 20.9], [4, 20.9], [5, 20.9], [6, 20.8], [7, 20.9], [8, 20.9], [9, 20.9], [10, 20.9]], color: "c1" }], xMin: 0, xMax: 10, xStep: 1, yMin: 18, yMax: 21.5, yStep: 0.5, markers: true, xTickW: 2.2, h: 13, xTitle: "Temps (min)", yTitle: "Dioxygène (%)", xRead: v => "t = " + v + " min", yRead: v => fmt(v, 1) + " %", yFmt: v => fmt(v, 1) } }],
+      docs: [{ title: "Document · Teneur en dioxygène dans deux enceintes fermées (ExAO)", sim: SIMUL, chart: { type: "line", series: [{ name: "Enceinte avec criquet", pts: [[0, 20.9], [1, 20.6], [2, 20.4], [3, 20.1], [4, 19.9], [5, 19.6], [6, 19.4], [7, 19.1], [8, 18.9], [9, 18.7], [10, 18.5]], color: "c2" }, { name: "Enceinte témoin, sans criquet", pts: [[0, 20.9], [1, 20.9], [2, 20.8], [3, 20.9], [4, 20.9], [5, 20.9], [6, 20.8], [7, 20.9], [8, 20.9], [9, 20.9], [10, 20.9]], color: "c1" }], xMin: 0, xMax: 10, xStep: 1, yMin: 18, yMax: 21.5, yStep: 0.5, markers: true, anim: true, xTickW: 2.2, h: 13, xTitle: "Temps (min)", yTitle: "Dioxygène (%)", xRead: v => "t = " + v + " min", yRead: v => fmt(v, 1) + " %", yFmt: v => fmt(v, 1) } }],
       o: ["Le criquet consomme du dioxygène : la respiration est un puits de O₂", "Le criquet produit du dioxygène", "La baisse est due à l'appareil de mesure", "Le criquet consomme du dioxyde de carbone"], a: 0,
       why: "Seule l'enceinte avec le criquet perd du dioxygène (de 20,9 % à 18,5 % en 10 min) ; le témoin reste stable. La baisse est donc due au criquet, qui respire.",
       no: { 1: "La teneur en dioxygène diminue dans l'enceinte du criquet.", 2: "Le témoin, mesuré avec le même dispositif, reste stable : l'appareil n'est pas en cause.", 3: "Les mesures portent sur le dioxygène ; la respiration rejette du CO₂." } },
@@ -914,24 +1001,73 @@ const PARTS = [
   ] }
 ];
 
+
+/* ---------- palier (e/m/h), compétence, 3 coups de pouce ---------- */
+const COMP = { conn: "Mobiliser ses connaissances", doc: "Extraire des informations d'un document", graph: "Lire un graphique", calc: "Calculer", rais: "Raisonner, argumenter" };
+const LVL = { e: ["🟢", "Facile"], m: ["🟡", "Moyen"], h: ["🔴", "Défi"] };
+const META = {
+  p1q1: ["m", "doc", ["Pour chaque gaz, calcule : valeur actuelle − valeur primitive.", "Une proportion qui passe de 5 % à 78 % gagne combien de points ?", "Le diazote gagne 73 points ; le dioxygène, 21 seulement."]],
+  p1q2: ["m", "rais", ["Plus une planète est loin du Soleil, plus elle reçoit… ?", "Vénus reçoit moins d'énergie solaire que Mercure : la distance n'explique donc pas sa température.", "Regarde la composition : 96,5 % d'un gaz à effet de serre, sous 92 atm."]],
+  p1q3: ["e", "calc", ["1 bar = 1 000 hPa.", "Pour passer des hPa aux bar, on divise par 1 000.", "850 ÷ 1 000 = …"]],
+  p1q4: ["e", "graph", ["Repère la ligne horizontale 10³ Pa.", "Place le point à 20 °C sur cette ligne : au-dessus ou en dessous de la courbe liquide–gaz ?", "Sous la courbe liquide–gaz, on est dans le domaine du gaz."]],
+  p1q5: ["m", "graph", ["Trace mentalement la ligne 10⁶ Pa.", "Où cette ligne coupe-t-elle la courbe liquide–gaz ?", "Vers 180 °C : entre 50 et 150 °C, on reste du même côté de la courbe."]],
+  p1q6: ["m", "doc", ["Compare la part de vapeur d'eau dans les deux colonnes.", "Les deux sources libèrent-elles beaucoup de vapeur d'eau ?", "Une source interne et une source externe sont toutes deux compatibles avec les données."]],
+  p2q1: ["e", "doc", ["Qu'apporte l'eau oxygénée dans le tube B ?", "Le fer (II) est soluble ; le fer (III) est insoluble.", "Le dioxygène transforme le fer (II) dissous en fer (III), qui précipite."]],
+  p2q2: ["m", "calc", ["Commence par le fer : combien d'atomes dans Fe₂O₃ ?", "Il faut donc 2 Fe(OH)₃ : compte les atomes d'hydrogène à gauche.", "6 H à gauche, donc 3 H₂O à droite ; vérifie l'oxygène."]],
+  p2q3: ["e", "conn", ["Les fers rubanés sont-ils des dépôts marins ou continentaux ?", "Ils témoignent du dioxygène dans l'océan, avant son accumulation dans l'air.", "Leur dépôt massif s'arrête vers 2,4 Ga."]],
+  p2q4: ["m", "rais", ["Un sol continental est en contact avec l'atmosphère.", "Le fer (II) n'est conservé qu'en l'absence de dioxygène.", "Un sol gris riche en fer (II) indique une atmosphère sans dioxygène."]],
+  p2q5: ["h", "rais", ["D'où vient le fer dissous dans les océans ?", "Que devient le fer des roches continentales quand l'air contient du dioxygène ?", "Oxydé sur place, insoluble, il n'arrive plus dissous jusqu'à l'océan."]],
+  p2q6: ["e", "conn", ["Distingue l'apparition du dioxygène dans l'air et la teneur actuelle.", "L'accumulation commence vers 2,4 Ga…", "… mais la teneur actuelle n'est atteinte que bien plus tard."]],
+  p3q1: ["e", "conn", ["L'ozone a pour formule O₃.", "Il se forme à partir d'une molécule abondante dans l'air.", "Les UV cassent O₂ en deux atomes O, qui s'associent ensuite à O₂."]],
+  p3q2: ["h", "graph", ["Il faut deux conditions : atteindre le sol ET être absorbé par l'ADN.", "Lis les deux graphiques à la même longueur d'onde.", "À 260 nm, rien n'atteint le sol ; à 340 nm, l'ADN n'absorbe plus rien."]],
+  p3q3: ["m", "conn", ["Les CFC sont-ils toxiques pour les êtres vivants ?", "Les UV libèrent du chlore à partir des CFC.", "Regarde les deux réactions : que devient l'atome de chlore à la fin ?"]],
+  p3q4: ["e", "graph", ["Compare les deux courbes.", "Le témoin reste à 20,9 % : l'appareil fonctionne.", "Seule l'enceinte avec le criquet perd du dioxygène."]],
+  p3q5: ["m", "doc", ["Un puits retire du dioxygène à l'atmosphère.", "Parmi les puits, lequel est lié aux activités humaines ?", "Brûler un combustible consomme du dioxygène."]],
+  p3q6: ["m", "rais", ["Quelle est la teneur en dioxygène au Carbonifère ?", "Que montre l'élevage dans un air enrichi en dioxygène ?", "Les deux données vont dans le même sens."]],
+  p4q1: ["e", "conn", ["Cherche la durée concernée par chaque information.", "Le climat repose sur des moyennes calculées sur une longue période.", "Une moyenne sur 30 ans est une normale climatique."]],
+  p4q2: ["m", "rais", ["Qu'est-ce qui distingue la météo du climat : l'étendue ou la durée ?", "Le document décrit un instant précis.", "Une date précise relève de la météorologie, même à l'échelle du globe."]],
+  p4q3: ["e", "calc", ["Écart = valeur observée − valeur de référence.", "36,4 − 24,9 = …", "N'oublie ni le signe ni l'unité."]],
+  p4q4: ["m", "graph", ["Lis la valeur de 1960, puis celle de 2020.", "Touche la courbe à 1960 et à 2020 pour lire les valeurs.", "≈ +0,25 °C puis ≈ +1,15 °C : fais la différence."]],
+  p4q5: ["m", "calc", ["Vitesse = variation ÷ durée.", "8 cm = 80 mm ; durée = 2015 − 1993.", "80 ÷ 22 = …"]],
+  p4q6: ["m", "conn", ["La glace qui flotte déjà fait-elle monter le niveau quand elle fond ?", "Que fait l'eau de mer quand elle se réchauffe ?", "Dilatation thermique + fonte des glaces posées sur les continents."]],
+  p4q7: ["e", "rais", ["Un hiver est-il un épisode ou une moyenne ?", "Une tendance climatique se lit sur au moins 30 ans, à grande échelle.", "Un épisode régional ne suffit pas à contredire une tendance globale."]],
+  p5q1: ["e", "graph", ["Repère −20 sur l'axe horizontal.", "La courbe est-elle au-dessus ou en dessous de 0 °C ?", "Environ −7 °C par rapport à l'actuel."]],
+  p5q2: ["m", "graph", ["Les périodes chaudes sont les pics au-dessus de 0 °C.", "Compare la largeur d'un pic et celle d'un creux.", "Un pic dure 10 000 à 20 000 ans ; un creux, plusieurs dizaines de milliers d'années."]],
+  p5q3: ["e", "rais", ["Une moraine marque une ancienne position du front du glacier.", "Le glacier descendait donc plus bas qu'aujourd'hui.", "Un glacier plus étendu suppose un climat plus froid."]],
+  p5q4: ["m", "doc", ["Repère les deux plantes les plus abondantes.", "Lis leurs préférences climatiques dans le tableau.", "Sapin + aulne = 80 % des pollens."]],
+  p5q5: ["e", "rais", ["Une floraison plus précoce indique un printemps… ?", "Compare les XVIᵉ–XVIIIᵉ siècles et l'an 2000.", "La floraison avance : les printemps se réchauffent."]],
+  p5q6: ["e", "conn", ["Pense au cycle d'environ 100 000 ans.", "Pense aussi à la dernière déglaciation, il y a 20 000 à 10 000 ans.", "La variabilité naturelle existe à plusieurs échelles de temps."]],
+  p6q1: ["e", "conn", ["C'est un ordre de grandeur, sur environ 150 ans.", "C'est un peu plus de 1 °C aujourd'hui.", "Ni 0,1 °C, ni 5 °C."]],
+  p6q2: ["e", "conn", ["Liste les principaux gaz à effet de serre du programme.", "CO₂, CH₄, N₂O et vapeur d'eau.", "Le gaz majoritaire de l'air n'en fait pas partie."]],
+  p6q3: ["m", "rais", ["Quel est l'effet des gaz libérés par le dégel ?", "Plus de GES → plus de réchauffement → plus de dégel…", "Une boucle qui amplifie la perturbation est positive."]],
+  p6q4: ["m", "rais", ["Que font les végétaux chlorophylliens du CO₂ ?", "Moins de CO₂ dans l'air : l'effet de serre augmente moins vite.", "Une boucle qui freine la perturbation est négative."]],
+  p6q5: ["m", "rais", ["L'océan, sombre, absorbe-t-il plus ou moins d'énergie que la glace ?", "Plus d'énergie absorbée → la température… ?", "Une boucle qui amplifie la perturbation est positive."]],
+  p6q6: ["h", "rais", ["Où est stockée l'essentiel de l'énergie supplémentaire ?", "L'océan restitue cette énergie très lentement.", "Le réchauffement se poursuivra pendant des siècles."]],
+  p6q7: ["e", "conn", ["Compare avec plusieurs centaines de milliers d'années.", "Les variations naturelles passées étaient beaucoup plus lentes.", "La plus rapide jamais enregistrée sur cette période."]]
+};
+const LORD = { e: 0, m: 1, h: 2 };
+PARTS.forEach(p => { p.qs.forEach((q, i) => { const m = META[p.id + "q" + (i + 1)]; q.lvl = m[0]; q.comp = m[1]; q.hints = m[2]; }); p.qs.sort((a, b) => LORD[a.lvl] - LORD[b.lvl]); });
+const ACTIVITY = "QCM Atmosphère et climat · Terminale, Enseignement scientifique · Thème 1 « Science, climat et société » (1.1 L'atmosphère terrestre et la vie ; 1.2 La complexité du système climatique). 38 questions en 6 parties, classées par palier dans chaque partie. Score compté au premier essai, sans points négatifs.";
 /* ---------- état ---------- */
-const DEF = { fs: 20, theme: null, proj: false, ans: {}, seed: (Math.random() * 1e9) | 0, view: "accueil" };
+const DEF = { fs: 21, theme: null, proj: false, ans: {}, seed: (Math.random() * 1e9) | 0, view: "accueil" };
 let S = Store.load(DEF);
 const save = () => Store.save(S);
 const qid = (p, i) => p.id + "q" + (i + 1);
+const ALLQ = []; PARTS.forEach((p, pi) => p.qs.forEach((q, i) => ALLQ.push({ p, pi, q, i, id: qid(p, i) })));
 
 function partScore(p) { let ok = 0, done = 0; p.qs.forEach((q, i) => { const a = S.ans[qid(p, i)]; if (a && a.first !== undefined) { done++; if (a.first) ok++; } }); return { ok, done, n: p.qs.length }; }
-function level(ok, n) { const r = ok / n; return r >= 0.8 ? ["Acquis", "ok"] : r >= 0.5 ? ["En cours d'acquisition", "mid"] : ["À retravailler", "bad"]; }
+function compScore() { const r = {}; Object.keys(COMP).forEach(k => r[k] = { ok: 0, done: 0, n: 0 }); ALLQ.forEach(x => { const c = r[x.q.comp]; c.n++; const a = S.ans[x.id]; if (a && a.first !== undefined) { c.done++; if (a.first) c.ok++; } }); return r; }
+function level(ok, n) { const r = n ? ok / n : 0; return r >= 0.8 ? ["Acquis", "ok"] : r >= 0.5 ? ["En cours d'acquisition", "mid"] : ["À retravailler", "bad"]; }
+const shortQ = q => q.q.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").slice(0, 90) + (q.q.length > 90 ? "…" : "");
 
 /* ---------- navigation ---------- */
 const VIEWS = ["accueil", ...PARTS.map(p => p.id), "bilan"];
 function tabs() {
   $("#tabs").innerHTML = VIEWS.map(v => {
-    if (v === "accueil") return `<button class="tab" data-v="accueil">Accueil</button>`;
-    if (v === "bilan") return `<button class="tab" data-v="bilan">Bilan</button>`;
+    if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Accueil</button>`;
+    if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Bilan</button>`;
     const p = PARTS.find(x => x.id === v); const s = partScore(p);
-    const mark = s.done === s.n ? "✓" : s.done ? "…" : "";
-    return `<button class="tab" data-v="${v}">Partie ${v.slice(1)}<span class="dot" aria-label="${s.done} questions faites sur ${s.n}">${mark}</span></button>`;
+    return `<button class="tab" type="button" data-v="${v}">Partie ${v.slice(1)}<span class="dot" aria-label="${s.done} questions faites sur ${s.n}">${s.done === s.n ? "✓" : s.done ? s.done + "/" + s.n : ""}</span></button>`;
   }).join("");
   $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
 }
@@ -946,35 +1082,37 @@ function go(v, noScroll) {
 }
 
 function renderHome(m) {
-  const tot = PARTS.reduce((a, p) => a + p.qs.length, 0);
+  const tot = ALLQ.length, done = ALLQ.filter(x => S.ans[x.id] && S.ans[x.id].first !== undefined).length;
   m.innerHTML = `<section class="view">
     <div class="panel"><p class="kicker">Mode d'emploi</p><h2 class="sec-title">${tot} questions en 6 parties</h2>
-      <ul style="margin:0;padding-left:1.2rem;display:grid;gap:.3rem">
-        <li>Choisis une réponse puis touche <b>Valider</b> : la correction s'affiche aussitôt.</li>
-        <li>Seul ton <b>premier essai</b> compte. Tu peux ensuite réessayer librement pour comprendre.</li>
-        <li>Pas de points négatifs. Lis bien les documents : ils sont réaffichés dans chaque question.</li>
-        <li>Sur un graphique, touche un point pour lire sa valeur.</li>
+      <ul class="ul">
+        <li>Choisis une réponse, puis touche <b>Valider</b>. Seul ton <b>premier essai</b> compte ; ensuite, réessaie librement.</li>
+        <li>Bloqué ? Touche <b>💡 Coup de pouce</b> : trois indices, du plus général au plus précis.</li>
+        <li>La correction s'affiche dès que tu as juste, ou après ton deuxième essai.</li>
+        <li>Chaque question indique son palier (🟢 Facile, 🟡 Moyen, 🔴 Défi) et la compétence travaillée.</li>
+        <li>Sur un graphique, touche un point pour lire sa valeur ; ▶ Lancer rejoue le tracé.</li>
       </ul></div>
     <div class="box key"><p class="lab">✔ Règle clé</p><p>Lis toute la question avant les propositions, puis élimine celles que le document contredit.</p></div>
-    <div class="grid-cards">${PARTS.map((p, i) => { const s = partScore(p); return `<button class="card-btn" data-go="${p.id}"><span class="kicker">Partie ${i + 1}</span><span class="t">${p.title}</span><span class="m">${p.qs.length} questions · révise avec ${p.fiche}</span><span class="chip ${s.done === s.n ? level(s.ok, s.n)[1] : ""}">${s.done}/${s.n} faites${s.done ? ` · ${s.ok} au premier essai` : ""}</span></button>`; }).join("")}</div>
+    <div class="grid-cards">${PARTS.map((p, i) => { const s = partScore(p); return `<button class="card-btn" type="button" data-go="${p.id}"><span class="kicker">Partie ${i + 1}</span><span class="t">${p.title}</span><span class="m">${p.qs.length} questions · révise avec ${p.fiche}</span><span class="chip ${s.done === s.n ? level(s.ok, s.n)[1] : ""}">${s.done}/${s.n} faites${s.done ? ` · ${s.ok} au premier essai` : ""}</span></button>`; }).join("")}</div>
+    <p class="lead">${done}/${tot} questions faites.</p>
   </section>`;
   $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
 }
 
 function renderPart(m, p) {
   const idx = PARTS.indexOf(p);
-  m.innerHTML = `<section class="view"><div><p class="kicker">Partie ${idx + 1} · ${p.qs.length} questions</p><h2 class="sec-title">${p.title}</h2><p class="lead">En cas de difficulté, révise ${p.fiche} de l'app « Fiches ».</p></div>
+  m.innerHTML = `<section class="view"><div><p class="kicker">Partie ${idx + 1} · ${p.qs.length} questions · du 🟢 au 🔴</p><h2 class="sec-title">${p.title}</h2><p class="lead">En cas de difficulté, révise ${p.fiche} de l'app « Fiches ».</p></div>
     ${p.qs.map((q, i) => `<article class="panel" id="${qid(p, i)}" aria-labelledby="${qid(p, i)}-t"></article>`).join("")}
     <div class="panel" id="partEnd"></div></section>`;
   p.qs.forEach((q, i) => renderQ(p, i));
   renderPartEnd(p);
 }
-
 function order(id, n) { const base = Array.from({ length: n }, (_, i) => i); let h = S.seed; for (const c of id) h = (h * 31 + c.charCodeAt(0)) & 0x7fffffff; return shuffle(base, h || 7); }
 
 function renderQ(p, i) {
-  const q = p.qs[i], id = qid(p, i), el = $("#" + id);
-  el.innerHTML = `<p class="kicker">Question ${i + 1}</p><h3 id="${id}-t" style="font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4">${q.q}</h3>
+  const q = p.qs[i], id = qid(p, i), el = $("#" + id), L = LVL[q.lvl];
+  el.innerHTML = `<div class="qhead"><p class="kicker">Question ${i + 1}</p><span class="chip">${L[0]} ${L[1]}</span><span class="chip">${COMP[q.comp]}</span></div>
+    <h3 id="${id}-t" class="qtext">${q.q}</h3>
     ${(q.docs || []).map(docHTML).join("")}<div class="qdyn" style="display:grid;gap:.7rem"></div>`;
   mountDocs(el); paintQ(p, i);
 }
@@ -982,33 +1120,37 @@ function paintQ(p, i) {
   const q = p.qs[i], id = qid(p, i), el = $("#" + id + " .qdyn"), st = S.ans[id] || {};
   const ord = order(id, q.o.length);
   const locked = st.cur !== undefined && st.cur !== null && st.validated;
+  const good = locked && st.cur === q.a;
   el.innerHTML = `<div class="opts" role="radiogroup" aria-labelledby="${id}-t">${ord.map((k, j) => {
       const chosen = st.cur === k; let cls = "", tag = "";
       if (locked) { if (k === q.a && chosen) { cls = "is-ok"; tag = "✓ Juste"; } else if (chosen) { cls = "is-bad"; tag = "✗ Faux"; } else if (k === q.a && st.showAns) { cls = "is-ok"; tag = "✓ Bonne réponse"; } }
       return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${chosen}" data-k="${k}" ${locked ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${q.o[k]}</span>${tag ? `<span class="tag">${tag}</span>` : ""}</button>`;
     }).join("")}</div>
-    <div class="row qact"></div><div class="qfb" aria-live="polite"></div>`;
-  $$(".opt", el).forEach(b => b.onclick = () => { if (locked) return; st.cur = +b.dataset.k; S.ans[id] = st; save(); paintQ(p, i); const nb = $(`.opt[data-k="${b.dataset.k}"]`, el); if (nb) nb.focus(); });
-  const act = $(".qact", el), fb = $(".qfb", el);
+    <div class="row qact"></div><div class="qfb" aria-live="polite"></div><div class="hints"></div><div class="qcorr"></div>`;
+  const act = $(".qact", el), fb = $(".qfb", el), hz = $(".hints", el), cz = $(".qcorr", el);
+  const nh = st.hints || 0;
+  hz.innerHTML = q.hints.slice(0, nh).map((h, k) => `<p class="hint"><b>Coup de pouce ${k + 1}/3</b> · ${h}</p>`).join("");
+  const hintBtn = nh < 3 && !good ? `<button class="btn ghost" type="button" data-h>💡 Coup de pouce ${nh + 1}/3</button>` : "";
   if (!locked) {
-    act.innerHTML = `<button class="btn" type="button" ${st.cur === undefined || st.cur === null ? "disabled" : ""}>Valider</button>${st.first !== undefined ? `<span class="chip">Premier essai déjà compté : ${st.first ? "✓ juste" : "✗ faux"}</span>` : ""}`;
-    act.querySelector("button").onclick = () => {
-      if (st.cur === undefined || st.cur === null) return;
-      st.validated = true; const good = st.cur === q.a;
-      if (st.first === undefined) st.first = good;
-      st.tries = (st.tries || 0) + 1; if (good) st.showAns = true;
-      S.ans[id] = st; save(); paintQ(p, i); renderPartEnd(p); tabs();
-      const f = $(".qfb", el); if (f && f.scrollIntoView) f.scrollIntoView({ block: "nearest", behavior: "smooth" });
-    };
+    act.innerHTML = `<button class="btn" type="button" data-v ${st.cur === undefined || st.cur === null ? "disabled" : ""}>Valider</button>${hintBtn}${st.first !== undefined ? `<span class="chip">Premier essai compté : ${st.first ? "✓ juste" : "✗ faux"}</span>` : ""}`;
   } else {
-    const good = st.cur === q.a;
     fb.innerHTML = good
-      ? `<div class="fb ok"><p class="h">✓ Juste${st.first ? " du premier coup" : " (après réessai, non compté)"}</p><p>${q.why}</p></div>`
-      : `<div class="fb bad"><p class="h">✗ Pas encore</p><p>${(q.no && q.no[st.cur]) || "Relis le document et les propositions restantes."}</p></div>${st.showAns ? `<div class="corr"><p class="h">Correction</p><p>${q.why}</p></div>` : ""}`;
-    act.innerHTML = good ? `<button class="btn ghost" type="button" data-r>↺ Refaire la question</button>` : `<button class="btn" type="button" data-r>↺ Réessayer (non compté)</button>${st.showAns ? "" : `<button class="btn ghost" type="button" data-s>Voir la correction</button>`}`;
-    act.querySelector("[data-r]").onclick = () => { st.validated = false; st.cur = null; S.ans[id] = st; save(); paintQ(p, i); };
-    const sb = act.querySelector("[data-s]"); if (sb) sb.onclick = () => { st.showAns = true; S.ans[id] = st; save(); paintQ(p, i); };
+      ? `<div class="fb ok"><p class="h">✓ Juste${st.first ? " du premier coup !" : " (après réessai, non compté)."}</p></div>`
+      : `<div class="fb bad"><p class="h">✗ Pas encore.</p><p>${(q.no && q.no[st.cur]) || "Relis le document et élimine les propositions qu'il contredit."}</p></div>`;
+    act.innerHTML = good ? `<button class="btn ghost" type="button" data-r>↺ Refaire la question</button>` : `<button class="btn" type="button" data-r>↺ Réessayer${st.first !== undefined ? " (non compté)" : ""}</button>${hintBtn}`;
   }
+  if (st.showAns) cz.innerHTML = `<div class="corr"><p class="h">Correction</p><p>${q.why}</p></div>`;
+  $$(".opt", el).forEach(b => b.onclick = () => { if (locked) return; st.cur = +b.dataset.k; S.ans[id] = st; save(); paintQ(p, i); const nb = $(`.opt[data-k="${b.dataset.k}"]`, el); if (nb) nb.focus(); });
+  const hb = $("[data-h]", el); if (hb) hb.onclick = () => { st.hints = Math.min(3, (st.hints || 0) + 1); S.ans[id] = st; save(); paintQ(p, i); const h = $$(".hint", el).pop(); if (h) h.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  const vb = $("[data-v]", el); if (vb) vb.onclick = () => {
+    if (st.cur === undefined || st.cur === null) return;
+    st.validated = true; const ok = st.cur === q.a;
+    if (st.first === undefined) { st.first = ok; st.hintsBefore = st.hints || 0; }
+    st.tries = (st.tries || 0) + 1; if (ok || st.tries >= 2) st.showAns = true;
+    S.ans[id] = st; save(); paintQ(p, i); renderPartEnd(p); tabs();
+    const f = $(".qfb", el); if (f && f.scrollIntoView) f.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const rb = $("[data-r]", el); if (rb) rb.onclick = () => { st.validated = false; st.cur = null; S.ans[id] = st; save(); paintQ(p, i); };
 }
 
 function renderPartEnd(p) {
@@ -1022,23 +1164,31 @@ function renderPartEnd(p) {
   el.querySelector("[data-b]").onclick = () => go("bilan");
 }
 
+function missed() { return ALLQ.filter(x => S.ans[x.id] && S.ans[x.id].first === false); }
 function bilanText(name) {
-  let t = `Bilan — QCM Atmosphère et Climat (Terminale, Enseignement scientifique, Thème 1)\nÉlève : ${name || "—"}\nDate : ${today()}\nScore compté au premier essai.\n\n`;
+  let t = `RÉSUMÉ DE L'ACTIVITÉ\n${ACTIVITY}\nParties : ${PARTS.map((p, i) => `${i + 1}. ${p.title}`).join(" · ")}\n\nBILAN\nÉlève : ${name || "—"}\nDate : ${today()}\n\nScore par partie (premier essai)\n`;
   let ok = 0, n = 0, done = 0;
-  PARTS.forEach((p, i) => { const s = partScore(p); ok += s.ok; n += s.n; done += s.done; t += `Partie ${i + 1} · ${p.title} : ${s.ok}/${s.n}${s.done < s.n ? ` (${s.done}/${s.n} faites)` : ` — ${level(s.ok, s.n)[0]}`}\n`; });
-  t += `\nTotal : ${ok}/${n} (${done}/${n} questions faites)\n`;
+  PARTS.forEach((p, i) => { const s = partScore(p); ok += s.ok; n += s.n; done += s.done; t += `- Partie ${i + 1} · ${p.title} : ${s.ok}/${s.n}${s.done < s.n ? ` (${s.done}/${s.n} faites)` : ` — ${level(s.ok, s.n)[0]}`}\n`; });
+  t += `Total : ${ok}/${n} (${done}/${n} questions faites)\n\nScore par compétence\n`;
+  const cs = compScore(); Object.entries(COMP).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.ok}/${c.done} réussies au premier essai (${c.n} questions)\n`; });
+  const ms = missed(); t += `\nQuestions ratées au premier essai (${ms.length})\n` + (ms.length ? ms.map(x => `- Partie ${x.pi + 1}, question ${x.i + 1} [${LVL[x.q.lvl][1]} · ${COMP[x.q.comp]}] : ${shortQ(x.q)}`).join("\n") : "- aucune") + "\n";
+  const nh = ALLQ.reduce((a, x) => a + ((S.ans[x.id] && S.ans[x.id].hints) || 0), 0); t += `\nCoups de pouce utilisés : ${nh}\n`;
   const weak = PARTS.filter(p => { const s = partScore(p); return s.done === s.n && s.ok / s.n < 0.8; });
   if (weak.length) t += `À revoir : ${weak.map(p => p.fiche).join(", ")}\n`;
   return t;
 }
 function renderBilan(m) {
   let ok = 0, n = 0, done = 0; PARTS.forEach(p => { const s = partScore(p); ok += s.ok; n += s.n; done += s.done; });
-  m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan par partie</h2><p class="lead">Score compté au premier essai. ${done}/${n} questions faites.</p></div>
+  const cs = compScore(), ms = missed();
+  m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan</h2><p class="lead">Score compté au premier essai. ${done}/${n} questions faites.</p></div>
     <div class="panel"><p class="score-big">${ok}/${n}</p><div class="bar" aria-hidden="true"><i style="width:${n ? ok / n * 100 : 0}%"></i></div></div>
-    <div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Score</th><th>Niveau</th><th>À réviser</th></tr></thead><tbody>${PARTS.map((p, i) => { const s = partScore(p); const lv = s.done < s.n ? ["Non terminée", ""] : level(s.ok, s.n); return `<tr><td>${i + 1}. ${p.title}</td><td class="n">${s.ok}/${s.n}</td><td><span class="chip ${lv[1]}">${lv[1] === "ok" ? "✓ " : lv[1] === "bad" ? "✗ " : lv[1] === "mid" ? "◐ " : ""}${lv[0]}</span></td><td>${p.fiche}</td></tr>`; }).join("")}</tbody></table></div>
-    <div class="panel"><h3>Transmettre mon bilan</h3><div id="bt"></div></div>
+    <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Score</th><th>Niveau</th><th>À réviser</th></tr></thead><tbody>${PARTS.map((p, i) => { const s = partScore(p); const lv = s.done < s.n ? ["Non terminée", ""] : level(s.ok, s.n); return `<tr><td>${i + 1}. ${p.title}</td><td class="n">${s.ok}/${s.n}</td><td><span class="chip ${lv[1]}">${lv[1] === "ok" ? "✓ " : lv[1] === "bad" ? "✗ " : lv[1] === "mid" ? "◐ " : ""}${lv[0]}</span></td><td>${p.fiche}</td></tr>`; }).join("")}</tbody></table></div></div>
+    <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMP).map(([k, lab]) => { const c = cs[k]; const r = c.done ? c.ok / c.done : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.ok}/${c.done}${c.done < c.n ? ` <span class="muted">(${c.n - c.done} à faire)</span>` : ""}</b></div><div class="bar" aria-hidden="true"><i style="width:${r * 100}%"></i></div></div>`; }).join("")}</div></div>
+    <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li><button class="linkbtn" type="button" data-q="${x.p.id}|${x.id}">Partie ${x.pi + 1}, question ${x.i + 1}</button> · ${LVL[x.q.lvl][0]} ${COMP[x.q.comp]}</li>`).join("")}</ul>` : `<p>Aucune pour l'instant.</p>`}</div>
+    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité, ton score par partie et par compétence, et la liste des questions ratées.</p><div id="bt"></div></div>
     <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses de ce QCM sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
-  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>QCM Atmosphère et Climat · ${today()}</p>${PARTS.map((p, i) => { const s = partScore(p); return `<div class="line"><span>${i + 1}. ${p.title}</span><b class="num">${s.ok}/${s.n}${s.done < s.n ? " *" : ""}</b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${ok}/${n}</b></div>${done < n ? `<p style="font-size:1rem">* partie non terminée</p>` : ""}`, "qcm-atmosphere-climat");
+  $$("[data-q]", m).forEach(b => b.onclick = () => { const [pid, qq] = b.dataset.q.split("|"); go(pid); setTimeout(() => { const e = $("#" + qq); if (e) e.scrollIntoView({ block: "start" }); }, 60); });
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>QCM Atmosphère et climat · ${today()}</p>${PARTS.map((p, i) => { const s = partScore(p); return `<div class="line"><span>${i + 1}. ${p.title}</span><b class="num">${s.ok}/${s.n}${s.done < s.n ? " *" : ""}</b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${ok}/${n}</b></div><p style="font-size:1.1rem">Questions ratées : ${ms.length ? ms.map(x => `P${x.pi + 1}-Q${x.i + 1}`).join(", ") : "aucune"}${done < n ? " · * partie non terminée" : ""}</p>`, "qcm-atmosphere-climat");
   armButton($("#reset"), "Tout effacer", "Confirmer l'effacement ?", () => { S.ans = {}; S.seed = (Math.random() * 1e9) | 0; save(); go("accueil"); });
 }
 

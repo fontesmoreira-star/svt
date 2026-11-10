@@ -473,21 +473,21 @@
           "activites": [
             {
               "fichier": "fiches-atmosphere-climat.html",
-              "tag": "Fiches · rappel espacé",
+              "tag": "Fiches · simulations",
               "titre": "Fiches Atmosphère et climat",
-              "desc": "Dix fiches courtes pour réviser les chapitres 1.1 et 1.2, avec cartes de rappel."
+              "desc": "Dix fiches pour réviser 1.1 et 1.2 : courbe du dioxygène animée, laboratoire des rétroactions, dilatation de l'océan et cartes de rappel espacé."
             },
             {
               "fichier": "entrainement-atmosphere-climat.html",
-              "tag": "Entraînement à paliers",
+              "tag": "Entraînement au DS",
               "titre": "Entraînement Atmosphère et climat",
-              "desc": "Sept exercices sur documents, à trois paliers, avec indices et correction."
+              "desc": "Sept exercices sur documents à trois paliers et trois sujets blancs chronométrés (1 h), avec note estimée et bilan par compétence."
             },
             {
               "fichier": "qcm-atmosphere-climat.html",
               "tag": "QCM",
               "titre": "QCM Atmosphère et climat",
-              "desc": "38 questions en 6 parties, score au premier essai, sans points négatifs."
+              "desc": "38 questions en 6 parties, du 🟢 au 🔴, avec trois coups de pouce par question et un bilan par compétence."
             }
           ],
           "chapitres": [
