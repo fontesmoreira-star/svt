@@ -151,7 +151,7 @@ def page(title, desc, depth, couleur, crumbs, kick, h1, body):
 <main class="wrap">
 <p class="msg" id="msg" role="status" aria-live="polite"></p>
 {body}
-<footer><p>Aucun compte, aucune collecte de données : la progression reste sur l'appareil de l'élève. Les données simulées sont signalées dans chaque activité.</p></footer>
+<footer><p>Aucun compte, aucune collecte de données : la progression reste sur l'appareil de l'élève. Les données simulées sont signalées dans chaque activité.</p><p data-signature><b>Mr Moreira · Vauban Luxembourg</b></p></footer>
 </main>
 <script>{JS}</script>
 </body>

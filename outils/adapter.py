@@ -21,6 +21,9 @@ FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox
            "%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E")
 
 # Mêmes styles de base que le squelette de claude.ai : l'app s'affiche à l'identique.
+SIGNATURE = ('<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;'
+             'padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>')
+
 BASE_CSS = ("<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);"
             "padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}"
             "body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}"
@@ -81,7 +84,7 @@ def adapt(src, lang="fr", cles=()):
         f"<title>{title}</title>", f'<link rel="icon" href="{FAVICON}">',
         BASE_CSS, head_css, SHIM, "</head>", "<body>",
     ])
-    return head + "\n" + rest.strip() + "\n</body>\n</html>\n", title
+    return head + "\n" + rest.strip() + "\n" + SIGNATURE + "\n</body>\n</html>\n", title
 
 
 def main():
