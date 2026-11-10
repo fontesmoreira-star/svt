@@ -256,7 +256,20 @@
         {
           "id": "corps-sante",
           "titre": "Le corps humain et la santé",
-          "chapitres": []
+          "chapitres": [
+            {
+              "id": "puberte-reproduction",
+              "titre": "Puberté et reproduction humaine",
+              "activites": [
+                {
+                  "fichier": "devenir-adulte.html",
+                  "tag": "Séance animée · 45 min",
+                  "titre": "Devenir adulte : la puberté",
+                  "desc": "Cinq étapes : transformations du corps, appareils reproducteurs, cycles, hormones, schéma-bilan. Bilan à recopier."
+                }
+              ]
+            }
+          ]
         }
       ]
     },
