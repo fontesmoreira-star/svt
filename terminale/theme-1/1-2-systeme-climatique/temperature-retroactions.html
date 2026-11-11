@@ -348,7 +348,7 @@ h4{font-size:1rem}
 </script>
 </head>
 <body>
-<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">Terminale · Enseignement scientifique · Thème 1 « Science, climat et société »</p><h1>Évolution de la température et rétroactions</h1><p class="sub">Activité en groupe · océan, surfaces gelées, végétalisation : amplificateurs ou amortisseurs du réchauffement ?</p></div>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">Terminale · Enseignement scientifique · Thème 1 « Science, climat et société »</p><h1>Évolution de la température et rétroactions</h1><p class="sub">Trois ateliers · océan, surfaces gelées, végétalisation : amplificateurs ou amortisseurs du réchauffement ?</p></div>
 <div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
 <nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
 <main class="wrap" id="main"><p>Chargement…</p></main>
@@ -932,7 +932,7 @@ FIGS.banquise = el => liveSVG(el, (W, F) => {
 /* ======================= SIMULATIONS ======================= */
 const WID = {};
 
-/* --- Groupe 1 : dilatation de l'océan (débloquée) --- */
+/* --- Atelier 1 : dilatation de l'océan (débloquée) --- */
 WID.dilat = el => {
   el.innerHTML = nb(`<p class="lead">Fais varier la hausse de température et l'épaisseur de la couche qui se réchauffe (au maximum 1 000 m : la thermocline). Coefficient de dilatation : 2,6 × 10⁻⁴ °C⁻¹.</p>
     <div class="field"><label for="dlT">Hausse de température de la couche : <b class="num" id="dlTv"></b></label><input id="dlT" type="range" min="0" max="4" step="0.5" value="1"></div>
@@ -951,7 +951,7 @@ WID.dilat = el => {
   T.oninput = upd; Hh.oninput = upd; upd();
 };
 
-/* --- Groupe 1 : inertie thermique, air et eau chauffés par la même lampe --- */
+/* --- Atelier 1 : inertie thermique, air et eau chauffés par la même lampe --- */
 const INERT = (() => { const f = (t, tau) => t <= 20 ? 30 - 10 * Math.exp(-t / tau) : 20 + (10 - 10 * Math.exp(-20 / tau)) * Math.exp(-(t - 20) / tau); const air = [], eau = []; for (let t = 0; t <= 60; t += 2) { air.push([t, Math.round(f(t, 5) * 10) / 10]); eau.push([t, Math.round(f(t, 20) * 10) / 10]); } return { air, eau }; })();
 WID.inertie = el => {
   el.innerHTML = nb(`<p class="lead">Une même lampe chauffe 1 kg d'air et 1 kg d'eau, tous deux à 20 °C au départ. Elle s'éteint au bout de 20 min.</p><p class="readout" id="inSt" aria-live="polite"></p><div class="chartbox" id="inCh"></div>`);
@@ -961,7 +961,7 @@ WID.inertie = el => {
     onCut: x => { const s = $("#inSt", el); if (s) s.innerHTML = x <= 0 ? "💡 Lampe prête. Touche « Lancer »." : x < 20 ? `💡 <b>Lampe allumée</b> · t = ${Math.round(x)}${NB}min` : x < 60 ? `○ <b>Lampe éteinte</b> · t = ${Math.round(x)}${NB}min` : "○ Fin de l'expérience : touche le graphique pour lire les valeurs."; } });
 };
 
-/* --- Groupe 2 : remontée de la mer et grotte Cosquer (débloquée) --- */
+/* --- Atelier 2 : remontée de la mer et grotte Cosquer (débloquée) --- */
 WID.cosquer = el => {
   el.innerHTML = nb(`<p class="lead">Remonte 20 000 ans en arrière, puis laisse la mer remonter jusqu'à aujourd'hui. À partir de quand l'entrée de la grotte est-elle sous l'eau ?</p>
     <div class="row animctl" id="cqCtl"></div><div class="field"><label for="cqS">Époque : <b class="num" id="cqV"></b></label><input id="cqS" type="range" min="-20" max="0" step="0.5" value="-20"></div>
@@ -972,7 +972,7 @@ WID.cosquer = el => {
   s.oninput = () => ctl.set((+s.value + 20) / 20);
 };
 
-/* --- Groupe 2 : TP virtuel, banquise ou glaces continentales --- */
+/* --- Atelier 2 : TP virtuel, banquise ou glaces continentales --- */
 function drawTP(W, F, p) {
   const tk = TK(F), H = Math.min(Math.max(W * 0.66, 15 * F), 21 * F), gl = tk * 2.6, bw = Math.min((W - 2 * gl - F * 3.1) / 2, F * 9);
   const off = Math.max(0, (W - (2 * gl + 2 * bw + F * 3.1)) / 2), xs = [off + gl, off + gl + bw + F * 2.2 + gl], top = F * 5, bot = H - F * 2, bh = bot - top, Y = v => bot - v / 400 * bh;
@@ -1003,7 +1003,7 @@ WID.tp = el => {
   animCtl($("#tpCtl", el), 9000, q => { p = q; fig.draw(); $("#tpSt", el).innerHTML = q <= 0 ? "<b>Début</b> : repère les deux niveaux de départ." : q < 1 ? `Fonte en cours… ${Math.round(q * 100)}${NB}%` : "<b>Fin</b> : tous les glaçons ont fondu. Lis les deux niveaux."; });
 };
 
-/* --- Groupe 2 : albédo d'une surface (débloqué) --- */
+/* --- Atelier 2 : albédo d'une surface (débloqué) --- */
 const SURF = [["Glace", 0.6, 0.6, "ice"], ["Océan", 0.05, 0.1, "sea"], ["Forêt", 0.05, 0.2, "c4"], ["Moyenne terrestre", 0.3, 0.3, "c6"]];
 WID.albedo = el => {
   let k = 0, ice = 10;
@@ -1031,7 +1031,7 @@ WID.albedo = el => {
   $("#alS", el).oninput = e => { ice = +e.target.value; upd(); }; upd();
 };
 
-/* --- Groupe 2 : la boucle glaces-albédo en action (débloquée) --- */
+/* --- Atelier 2 : la boucle glaces-albédo en action (débloquée) --- */
 function loopModel(D) {
   const tau = 30, m = 1.5, kf = 0.25, T0 = [], T1 = [], A0 = [], A1 = []; let t1 = 0;
   for (let y = 0; y <= 200; y++) {
@@ -1064,7 +1064,7 @@ WID.loop = el => {
   $("#lpD", el).oninput = e => { D = +e.target.value; ctl.pause(); ctl.p = 0; build(); ctl.set(0); };
 };
 
-/* --- Groupe 3 : une forêt qui grandit --- */
+/* --- Atelier 3 : une forêt qui grandit --- */
 const STOCK = [[0, 10], [25, 50], [50, 130], [75, 180], [100, 196], [125, 200], [150, 200]];
 const stockAt = x => { for (let i = 1; i < STOCK.length; i++) if (x <= STOCK[i][0]) { const [a, b] = [STOCK[i - 1], STOCK[i]]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); } return 200; };
 WID.foret = el => {
@@ -1119,7 +1119,7 @@ const DOC_DEFI = { title: "Trois informations tirées des documents de l'activit
 
 const about = (x, t, r) => Math.abs(x - t) <= Math.abs(t) * (r || 0.03);
 
-/* ---------- groupes et étapes ---------- */
+/* ---------- ateliers et étapes ---------- */
 const GROUPS = [
 { id: "g1", n: 1, icon: "🌊", title: "Rôle de l'océan", sub: "Dilatation thermique et inertie thermique de l'eau (documents 1 et 2).",
   inds: [{ t: "Avoir estimé la hausse du niveau marin pour une augmentation de température donnée (en se plaçant dans une couche superficielle).", items: ["g1b"] }, { t: "Avoir mis en évidence des effets irréversibles à long terme d'un réchauffement climatique.", items: ["g1d"] }, { t: "Avoir montré que l'océan a un rôle amortisseur du réchauffement climatique.", items: ["g1c", "g1d"] }],
@@ -1254,7 +1254,7 @@ const GROUPS = [
     model: "L'activité photosynthétique des végétaux permet de stocker du dioxyde de carbone prélevé dans l'atmosphère sous la forme de matière organique. Les terres cultivées contribuent à libérer du dioxyde de carbone dans l'atmosphère, tandis que les jeunes forêts en croissance, comme celles de France métropolitaine, stockent du carbone chaque année. En revanche, les forêts anciennes, comme la forêt guyanaise, n'ont pas d'influence sur les quantités de carbone atmosphérique. Ainsi, le développement de jeunes arbres et de nouvelles forêts a un effet amortisseur à court terme sur le réchauffement climatique. Cependant, à long terme, les forêts n'agiront plus sur ce réchauffement.",
     crit: ["J'ai expliqué que la photosynthèse stocke le CO₂ de l'atmosphère sous forme de matière organique", "J'ai comparé les trois milieux avec des valeurs du tableau (−1,4 ; 87 ; 0)", "J'ai conclu à un effet amortisseur à court terme", "J'ai précisé qu'à long terme, une forêt à l'équilibre n'agit plus sur le réchauffement"] }] },
 
-{ id: "commun", n: 0, icon: "🤝", title: "Mise en commun", sub: "Croiser les résultats des trois groupes pour répondre à la problématique.",
+{ id: "commun", n: 0, icon: "🤝", title: "Mise en commun", sub: "Croiser les résultats des trois ateliers pour répondre à la problématique.",
   inds: [],
   items: [
   { id: "c1", lvl: "mid", title: "Amplificateur ou amortisseur ?",
@@ -1268,7 +1268,7 @@ const GROUPS = [
     synth: true },
   { id: "c2", lvl: "hard", title: "Répondre à la problématique",
     intro: PROBLEM,
-    parts: [{ t: "text", label: "Rédige une réponse à la problématique en t'appuyant sur les résultats des trois groupes." }],
+    parts: [{ t: "text", label: "Rédige une réponse à la problématique en t'appuyant sur les résultats des trois ateliers." }],
     hints: ["Organise ta réponse en trois temps : l'océan, les surfaces gelées, la végétation.", "Pour chaque phénomène, précise s'il amplifie ou s'il amortit le réchauffement, et à quelle échéance.", "Océan : amortisseur à court terme, effets durables. Glaces et albédo : rétroaction positive. Jeunes forêts : amortisseur à court terme."],
     model: "L'évolution de la température moyenne dépend de phénomènes qui amplifient ou amortissent le réchauffement. L'océan a un rôle amortisseur à court terme : grâce à son inertie thermique, l'eau s'échauffe moins vite que l'air ; mais elle se refroidit aussi très lentement, si bien que les effets du réchauffement se ressentiront encore à long terme. La fonte des glaces diminue l'albédo terrestre : la surface absorbe davantage d'énergie solaire, ce qui amplifie le réchauffement et accélère la fonte ; c'est une rétroaction positive. La végétation en croissance stocke du dioxyde de carbone par photosynthèse : elle a un effet amortisseur à court terme, qui cesse lorsque les forêts sont à l'équilibre. Ces effets amplificateurs et stabilisateurs expliquent les fourchettes données par les modélisations du climat.",
     crit: ["J'ai présenté le rôle amortisseur de l'océan (inertie thermique)", "J'ai présenté la rétroaction positive liée aux glaces et à l'albédo", "J'ai présenté le rôle amortisseur de la végétation en croissance (photosynthèse)", "J'ai distingué le court terme et le long terme", "J'ai utilisé au moins une valeur chiffrée tirée des documents"] }] }
@@ -1280,9 +1280,9 @@ const PRE = { choices: ["Amplifie le réchauffement", "Freine le réchauffement"
 const RESUME = `Problématique : ${PROBLEM}
 
 À retenir
-- Océan (groupe 1). Dilatation thermique : pour une couche de 1 000 m et + 1 °C, le niveau monte de 0,26 m (coefficient 2,6 × 10⁻⁴ °C⁻¹). Inertie thermique : la capacité thermique de l'eau est 4 fois plus élevée que celle de l'air ; l'océan amortit le réchauffement à court terme, mais il se refroidit lentement, d'où des effets à long terme.
-- Surfaces gelées (groupe 2). La fonte des glaces continentales fait monter le niveau marin ; la fonte de la banquise ne le change pas. La glace a un albédo de 0,6, contre 0,05 à 0,1 pour l'océan : moins de glace, c'est plus d'énergie absorbée et un réchauffement amplifié (rétroaction positive).
-- Végétalisation (groupe 3). Par photosynthèse, les forêts en croissance stockent du CO₂ (puits de carbone) : effet amortisseur à court terme. Une forêt à l'équilibre a un puits nul.
+- Océan (atelier 1). Dilatation thermique : pour une couche de 1 000 m et + 1 °C, le niveau monte de 0,26 m (coefficient 2,6 × 10⁻⁴ °C⁻¹). Inertie thermique : la capacité thermique de l'eau est 4 fois plus élevée que celle de l'air ; l'océan amortit le réchauffement à court terme, mais il se refroidit lentement, d'où des effets à long terme.
+- Surfaces gelées (atelier 2). La fonte des glaces continentales fait monter le niveau marin ; la fonte de la banquise ne le change pas. La glace a un albédo de 0,6, contre 0,05 à 0,1 pour l'océan : moins de glace, c'est plus d'énergie absorbée et un réchauffement amplifié (rétroaction positive).
+- Végétalisation (atelier 3). Par photosynthèse, les forêts en croissance stockent du CO₂ (puits de carbone) : effet amortisseur à court terme. Une forêt à l'équilibre a un puits nul.
 - Ces effets amplificateurs et stabilisateurs expliquent les fourchettes données par les modélisations du climat.`;
 
 typo(GROUPS); typo(PRE);
@@ -1292,7 +1292,7 @@ const LV = { easy: ["🟢 Facile", "easy", "🟢"], mid: ["🟡 Moyen", "mid", "
 const COMPS = { lire: "Extraire et exploiter des informations", calc: "Calculer, estimer un ordre de grandeur", mod: "Expérimenter, exploiter une modélisation", rais: "Raisonner, argumenter", redac: "Rédiger une réponse argumentée (auto-évaluation)" };
 const SIGN = "Mr Moreira, Vauban Luxembourg";
 const ITEMS = {};
-GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `${g.n ? "Groupe " + g.n : g.title} · étape ${i + 1} · ${it.title}` }; }));
+GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `${g.n ? "Atelier " + g.n : g.title} · étape ${i + 1} · ${it.title}` }; }));
 
 /* ---------- état ---------- */
 const DEF = { fs: 21, theme: null, proj: false, it: {}, view: "accueil", step: {}, pre: {} };
@@ -1345,7 +1345,7 @@ function tabs() {
     if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Accueil</button>`;
     if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Bilan</button>`;
     const g = grp(v), sc = gScore(g);
-    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n ? "Groupe " + g.n : g.title}<span class="dot" aria-label="${sc.done} étape(s) faite(s) sur ${sc.n}">${sc.done}/${sc.n}</span></button>`;
+    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n ? "Atelier " + g.n : g.title}<span class="dot" aria-label="${sc.done} étape(s) faite(s) sur ${sc.n}">${sc.done}/${sc.n}</span></button>`;
   }).join("");
   $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
 }
@@ -1365,15 +1365,15 @@ function preRows(readonly) {
 }
 function renderHome(m) {
   m.innerHTML = `<section class="view">
-    <div class="panel"><p class="kicker">Chapitre 2 · Activité en groupe</p><h2 class="sec-title">Évolution de la température et rétroactions</h2>
+    <div class="panel"><p class="kicker">Chapitre 2 · Trois ateliers</p><h2 class="sec-title">Évolution de la température et rétroactions</h2>
       <p>${nb("Les modélisations du climat indiquent fréquemment des fourchettes de variations possibles. Ces incertitudes sont liées à la complexité du système climatique, avec des effets amplificateurs ou stabilisateurs.")}</p>
       <div class="box info"><p class="lab">ℹ Problématique</p><p><b>${nb(PROBLEM)}</b></p></div>
       <p class="lead">Ce que j'ai déjà vu : gaz à effet de serre · albédo · indices de variations climatiques · photosynthèse.</p></div>
     <div class="panel"><p class="kicker">Avant de commencer · non noté</p><h3>Ton intuition de départ</h3><p class="lead">${nb("D'après toi, quel est l'effet de chaque phénomène sur le réchauffement climatique ? Tu retrouveras tes réponses à la mise en commun.")}</p>${preRows(false)}</div>
-    <div><p class="kicker">Choisis ton groupe</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn ${g.n ? "" : "feature"}" type="button" data-go="${g.id}"><span class="kicker">${g.n ? "Groupe " + g.n : "Tous les groupes"}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div><p class="kicker">Trois ateliers, puis la mise en commun</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn ${g.n ? "" : "feature"}" type="button" data-go="${g.id}"><span class="kicker">${g.n ? "Atelier " + g.n : "Après les ateliers"}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
     <div class="panel"><p class="kicker">Mode d'emploi</p>
       <ul class="ul">
-        <li>Fais d'abord les étapes de <b>ton groupe</b>, puis la <b>mise en commun</b>. Les autres groupes restent ouverts pour réviser.</li>
+        <li>Fais les <b>trois ateliers</b>, dans l'ordre indiqué par ton professeur, puis la <b>mise en commun</b>.</li>
         <li>Les étapes vont du <span class="lv easy">🟢 Facile</span> au <span class="lv hard">🔴 Défi</span>. Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>
         <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un. Le corrigé apparaît quand tout est juste, ou après ton deuxième essai.</li>
         <li>Certaines simulations se débloquent quand tu as trouvé la réponse : elles servent à vérifier et à aller plus loin.</li>
@@ -1384,11 +1384,11 @@ function renderHome(m) {
   $$("[data-pi]", m).forEach(b => b.onclick = () => { S.pre[+b.dataset.pi] = +b.dataset.pj; save(); $$(`[data-pi="${b.dataset.pi}"]`, m).forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false")); });
 }
 
-/* ---------- vue d'un groupe ---------- */
+/* ---------- vue d'un atelier ---------- */
 function indDone(ind) { return ind.items.every(id => { const st = S.it[id]; return st && st.first && (st.lastOk || !itemMax(ITEMS[id].it)); }); }
 function renderGroup(m, g) {
   const k = Math.max(0, Math.min(g.items.length - 1, S.step[g.id] || 0)), it = g.items[k], gi = GROUPS.indexOf(g);
-  m.innerHTML = `<section class="view"><div><p class="kicker">${g.n ? "Groupe " + g.n : "Tous les groupes"}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
+  m.innerHTML = `<section class="view"><div><p class="kicker">${g.n ? "Atelier " + g.n : "Après les ateliers"}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
     ${g.inds.length ? `<div class="panel"><p class="kicker">Indicateurs de réussite</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
     <div class="stepper" role="group" aria-label="Étapes">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
     <article class="panel itemroot" id="item"></article>
@@ -1396,11 +1396,11 @@ function renderGroup(m, g) {
   $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
   renderItem(it, $("#item"));
   const nx = $("#navx"), nextG = GROUPS[gi + 1];
-  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Étape ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Étape ${k + 2} →</button>` : g.id !== "commun" ? `<button class="btn" type="button" data-c>🤝 Mise en commun →</button>` : `<button class="btn" type="button" data-b>Voir mon bilan →</button>`}`;
+  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Étape ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Étape ${k + 2} →</button>` : nextG ? `<button class="btn" type="button" data-c>${nextG.icon} ${nextG.n ? "Atelier " + nextG.n : nextG.title} →</button>` : `<button class="btn" type="button" data-b>Voir mon bilan →</button>`}`;
   const st = d => { S.step[g.id] = k + d; save(); renderGroup(m, g); window.scrollTo(0, 0); };
   const a = $("[data-p]", nx); if (a) a.onclick = () => st(-1);
   const b = $("[data-n]", nx); if (b) b.onclick = () => st(1);
-  const c = $("[data-c]", nx); if (c) c.onclick = () => go("commun");
+  const c = $("[data-c]", nx); if (c) c.onclick = () => go(nextG.id);
   const d = $("[data-b]", nx); if (d) d.onclick = () => go("bilan");
 }
 function refreshChrome(it) {
@@ -1516,13 +1516,13 @@ function paintActions(it, root) {
 function compStats() { const out = {}; Object.keys(COMPS).forEach(k => out[k] = { ok: 0, n: 0 }); Object.values(ITEMS).forEach(({ it }) => { const st = S.it[it.id]; if (!st || !st.first) return; it.parts.forEach((p, k) => { if (!scorable(p)) return; const c = p.c || "rais"; out[c].n++; if (st.first.parts[k]) out[c].ok++; }); if (it.crit) { out.redac.n += it.crit.length; out.redac.ok += Object.values(st.crit || {}).filter(Boolean).length; } }); return out; }
 function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = S.it[it.id]; if (!st || !st.first) return; st.first.parts.forEach((ok, k) => { if (ok === false) out.push(`${label} · question ${k + 1}`); }); }); return out; }
 function totals() { let pts = 0, max = 0, done = 0, n = 0; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
-const gName = g => g.n ? `Groupe ${g.n} · ${g.title}` : g.title;
+const gName = g => g.n ? `Atelier ${g.n} · ${g.title}` : g.title;
 function bilanText(name) {
   const T = totals(), cs = compStats(), ms = missedParts();
-  let t = `ÉVOLUTION DE LA TEMPÉRATURE ET RÉTROACTIONS\nTerminale · Enseignement scientifique · Thème 1, chapitre 2 · Activité en groupe\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN\nÉlève : ${name || "—"}\nDate : ${today()}\n\nPoints au premier essai\n`;
+  let t = `ÉVOLUTION DE LA TEMPÉRATURE ET RÉTROACTIONS\nTerminale · Enseignement scientifique · Thème 1, chapitre 2 · Trois ateliers et une mise en commun\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN\nÉlève : ${name || "—"}\nDate : ${today()}\n\nPoints au premier essai\n`;
   GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} étapes faites)\n`; g.items.forEach((it, i) => { const st = S.it[it.id]; t += `    étape ${i + 1} ${LV[it.lvl][2]} ${it.title.replace(/ | /g, " ")} : ${st && st.first ? (itemMax(it) ? st.first.pts + "/" + st.first.max : "rédigé") + (st.first.hints ? ` (${st.first.hints} coup(s) de pouce)` : "") : "—"}\n`; }); });
   t += `Total : ${T.pts}/${T.max} (${T.done}/${T.n} étapes faites)\n\nIndicateurs de réussite\n`;
-  GROUPS.forEach(g => g.inds.forEach(d => { t += `- [${indDone(d) ? "x" : " "}] Groupe ${g.n} · ${d.t}\n`; }));
+  GROUPS.forEach(g => g.inds.forEach(d => { t += `- [${indDone(d) ? "x" : " "}] Atelier ${g.n} · ${d.t}\n`; }));
   t += `\nBilan par compétence (premier essai)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? (k === "redac" ? c.ok + "/" + c.n + " critères cochés" : c.ok + "/" + c.n) : "—"}\n`; });
   t += `\nQuestions ratées au premier essai (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- aucune"}\n`;
   const pre = PRE.rows.filter((r, i) => S.pre[i] !== undefined); if (pre.length) t += `\nIntuitions de départ confirmées : ${PRE.rows.filter((r, i) => S.pre[i] === r.a).length}/${PRE.rows.length}\n`;
@@ -1535,7 +1535,7 @@ function renderBilan(m) {
   m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan de l'activité</h2><p class="lead">Points comptés au premier essai. ${T.done}/${T.n} étapes faites.</p></div>
     <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
     <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Étapes faites</th><th>Points (premier essai)</th></tr></thead><tbody>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
-    <div class="panel"><h3>Indicateurs de réussite</h3><ul class="inds">${GROUPS.map(g => g.inds.map(d => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>Groupe ${g.n}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire"}</span></span></li>`; }).join("")).join("")}</ul></div>
+    <div class="panel"><h3>Indicateurs de réussite</h3><ul class="inds">${GROUPS.map(g => g.inds.map(d => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>Atelier ${g.n}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire"}</span></span></li>`; }).join("")).join("")}</ul></div>
     <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const r = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${r * 100}%"></i></div></div>`; }).join("")}</div></div>
     <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>Aucune pour l'instant.</p>"}</div>
     <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité, tes points par partie et par compétence, les indicateurs de réussite, les questions ratées au premier essai et tes réponses rédigées.</p><div id="bt"></div></div>
