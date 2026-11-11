@@ -119,7 +119,15 @@
             },
             {
               "id": "mouvement",
-              "titre": "Physique-chimie · Le mouvement"
+              "titre": "Physique-chimie · Le mouvement",
+              "activites": [
+                {
+                  "fichier": "vitesses-mouvements.html",
+                  "tag": "Activités 2 et 3",
+                  "titre": "Vitesses et mouvements",
+                  "desc": "Relier des vitesses, piloter un rover, lire le vol d'une fusée : accéléré, uniforme ou ralenti ?"
+                }
+              ]
             },
             {
               "id": "soleil-terre-lune",
