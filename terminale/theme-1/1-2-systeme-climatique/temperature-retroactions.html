@@ -1,0 +1,1555 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Température et rétroactions</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
+   Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
+:root{
+  --fs:21px;
+  --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
+  --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
+  --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
+  --ok:#17703d; --ok-soft:#ddf1e4; --bad:#ad2318; --bad-soft:#fbe2de;
+  --info:#1d5bb0; --info-soft:#e1ebf9; --warn:#9c4f05; --warn-soft:#fdead3;
+  --key:#17703d; --key-soft:#ddf1e4; --err:#ad2318; --err-soft:#fbe2de;
+  --easy:#17703d; --mid:#7d5a00; --hard:#ad2318;
+  --c1:#0a6a76; --c2:#c0531a; --c3:#5a48b5; --c4:#2d7a31; --c5:#8a6400; --c6:#6f777c;
+  --grid:#dbe5e7; --shade:rgba(10,106,118,.10);
+  --f-display:"Charter","Iowan Old Style","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0}
+sub,sup{line-height:0;font-size:.72em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html.proj .wrap{max-width:none}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- bandeau ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.band .titles{min-width:0;flex:1 1 20rem}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
+.band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+.tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+
+/* ---------- onglets collants ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.tab .dot{font-size:0.9rem}
+
+main{padding-block:1.2rem 3rem}
+.view{display:grid;gap:1.1rem}
+.lead{color:var(--muted);max-width:44rem}
+.sec-title{font-size:1.45rem}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+
+/* ---------- cartes / panneaux ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.panel h3{font-size:1.15rem}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:.8rem}
+.card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
+.card-btn:hover{border-color:var(--accent)}
+.card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.mid{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- encadrés ---------- */
+.box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
+.box.err{background:var(--err-soft);border-color:var(--err)} .box.err>.lab{color:var(--err)}
+.box ul{margin:0;padding-left:1.2rem;display:grid;gap:.25rem}
+
+/* ---------- boutons ---------- */
+.btn{min-height:48px;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---------- options QCM / choix ---------- */
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
+.opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+
+.field{display:grid;gap:.3rem}
+.field label{font-weight:700;font-size:0.9rem}
+.inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
+.inp.wide{max-width:none}
+textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
+.inp.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.inp.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{color:var(--muted);font-weight:700}
+
+/* ---------- retour d'information ---------- */
+.fb{border-radius:12px;padding:.7rem .9rem;border:1.5px solid;display:grid;gap:.35rem}
+.fb .h{font-weight:800}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.ok .h{color:var(--ok)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)} .fb.bad .h{color:var(--bad)}
+.fb.neutral{background:var(--surface-2);border-color:var(--line)}
+.hints{display:grid;gap:.45rem}
+.hint{background:var(--surface-2);border-radius:10px;padding:.55rem .8rem;border-left:4px solid var(--mid);font-size:.92rem}
+.hint b{color:var(--mid)}
+.corr{background:var(--info-soft);border:1.5px solid var(--info);border-radius:12px;padding:.75rem .95rem;display:grid;gap:.4rem}
+.corr .h{font-weight:800;color:var(--info)}
+
+/* ---------- documents ---------- */
+.doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh .sim{font-weight:700;color:var(--warn)}
+.doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
+.tablewrap{overflow-x:auto;max-width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
+table.t td,table.t th{vertical-align:top}
+table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+table.t th{background:var(--surface-2);font-weight:800}
+table.t td.n{text-align:right}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+
+/* ---------- graphiques ---------- */
+.chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body)}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend svg{flex:none}
+
+/* ---------- niveaux ---------- */
+.lv{display:inline-flex;align-items:center;gap:.35rem;font-weight:800}
+.lv.easy{color:var(--easy)} .lv.mid{color:var(--mid)} .lv.hard{color:var(--hard)}
+
+/* ---------- bilan ---------- */
+.score-big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 1rem) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(16px,env(safe-area-inset-left,0px))}
+.overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
+.overlay h2{font-size:2.2rem}
+.overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
+.toast{font-weight:700;color:var(--ok)}
+
+/* ---------- divers ---------- */
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
+.eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
+.chartbox{display:grid;gap:.45rem;min-width:0}
+/* ---------- exercices : coefficients, ordre, critères ---------- */
+.coefs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:1.05rem}
+.coef{display:inline-flex;align-items:center;gap:.25rem;background:var(--surface-2);border-radius:12px;padding:.25rem}
+.coef button{min-width:48px;min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.coef output{min-width:1.6rem;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.coef .f{padding:0 .4rem;font-weight:700}
+.coef.is-ok{outline:2px solid var(--ok)} .coef.is-bad{outline:2px solid var(--bad)}
+.arrow{font-weight:800;color:var(--muted)}
+.order-list{display:grid;gap:.45rem}
+.order-item{display:flex;gap:.7rem;align-items:center;text-align:left;min-height:52px;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);color:var(--ink);font-size:.95rem}
+.order-item .n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted)}
+.order-item[data-pos]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.order-item[data-pos] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.order-item.is-ok{border-color:var(--ok);background:var(--ok-soft)} .order-item.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:.6rem}
+.rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
+.rowq .rt{font-size:.95rem}
+.pfb{font-size:0.9rem;font-weight:700}
+.pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
+.part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.part:first-child{border-top:0;padding-top:0}
+.part > .pl{font-weight:700}
+.crit{display:grid;gap:.4rem}
+.crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
+.crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.sci .inp{max-width:7rem}
+.sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
+
+/* ---------- Activité « Évolution de la température et rétroactions » ---------- */
+:root{--sand:#ead9c0;--ice:#f8fcff;--sea:#2d6fb6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sand:#5b4a37;--ice:#d7ebf2;--sea:#5a9ee0}}
+:root[data-theme="dark"]{--sand:#5b4a37;--ice:#d7ebf2;--sea:#5a9ee0}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.doc .db p{max-width:46rem}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.inds{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.inds li{display:flex;gap:.6rem;align-items:flex-start}
+.inds .bx{flex:none;width:1.5rem;height:1.5rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:.9rem;margin-top:.1rem}
+.inds li.done .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.inds .st{color:var(--muted);font-size:.9rem;font-weight:700}
+.hypo{border:1.5px dashed var(--accent);border-radius:12px;padding:.75rem .9rem;display:grid;gap:.55rem;background:var(--surface)}
+.hypo .hl{font-weight:800}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+/* schéma en boucle */
+.loopd{position:relative;display:grid;gap:.2rem;padding-left:2.4rem}
+.loopd::before{content:"";position:absolute;left:.75rem;top:1.5rem;bottom:1.5rem;width:1.2rem;border:3px solid var(--accent);border-right:0;border-radius:16px 0 0 16px}
+.loopd .lhead{position:absolute;left:1.5rem;top:.78rem;color:var(--accent);font-size:1rem;line-height:1.45rem;font-weight:800}
+.lslot{min-height:52px;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);padding:.55rem .8rem;display:flex;gap:.6rem;align-items:center;text-align:left;color:var(--ink);font-size:.95rem;width:100%}
+.lslot.fixed{border-style:solid;border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.lslot.filled{border-style:solid;border-color:var(--accent)}
+.lslot.is-ok{border-color:var(--ok);background:var(--ok-soft)} .lslot.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.lslot .n{flex:none;width:1.9rem;height:1.9rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted);font-size:.9rem}
+.lslot .tag{margin-left:auto;font-weight:800;flex:none}
+.larr{text-align:center;font-weight:800;color:var(--accent);line-height:1.1}
+.lret{font-weight:700;color:var(--accent);font-size:.92rem;padding:.2rem 0 0}
+.bank{display:grid;gap:.45rem;margin-top:.5rem}
+.bank .order-item{border-style:solid}
+/* schéma-bilan */
+.synth{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.7rem}
+.synth > div{border-radius:12px;border:1.5px solid var(--line);padding:.7rem .85rem;display:grid;gap:.3rem;align-content:start;background:var(--surface)}
+.synth .sg{font-weight:800;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.synth .ef{font-weight:800}
+.beforeafter{display:grid;gap:.4rem}
+.beforeafter .ba{display:flex;flex-wrap:wrap;gap:.3rem .8rem;justify-content:space-between;border-bottom:1px solid var(--line);padding-block:.35rem}
+.swl{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.9rem;margin-bottom:.35rem;color:var(--ink)}
+.swl span{display:inline-flex;align-items:center;gap:.4rem}
+.swl i{display:inline-block;width:1.5rem;height:.85rem;border-radius:3px;border:1.5px solid var(--muted)}
+.bigres{display:grid;gap:.15rem}
+.mosaic{height:1.6rem;border-radius:8px;overflow:hidden;display:flex;border:1.5px solid var(--muted)}
+.mosaic i{display:block;height:100%}
+.sig{font-weight:700}
+h4{font-size:1rem}
+
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">Terminale · Enseignement scientifique · Thème 1 « Science, climat et société »</p><h1>Évolution de la température et rétroactions</h1><p class="sub">Activité en groupe · océan, surfaces gelées, végétalisation : amplificateurs ou amortisseurs du réchauffement ?</p></div>
+<div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
+<main class="wrap" id="main"><p>Chargement…</p></main>
+<footer class="wrap foot">Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les données simulées portent la mention ⚠ Valeurs simulées. Lycée Français Vauban · Enseignement scientifique.</footer>
+<noscript><p class="wrap">Cette application a besoin de JavaScript : ouvre le lien dans Safari (pas dans l'aperçu de Teams ou de Fichiers).</p></noscript>
+<script>
+/* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
+"use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
+
+/* ---------- stockage de confort (l'app marche sans) ---------- */
+const Store = {
+  key: "es-th1",
+  load(def) { let o = {}; try { o = JSON.parse(localStorage.getItem(this.key) || "{}") || {}; } catch (e) { o = {}; } return Object.assign({}, def, o); },
+  save(obj) { try { localStorage.setItem(this.key, JSON.stringify(obj)); } catch (e) {} }
+};
+
+/* ---------- nombres à la française ---------- */
+const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+const supStr = s => String(s).split("").map(c => SUP[c] || c).join("");
+function fmt(x, dec) {
+  if (x === null || x === undefined || Number.isNaN(x)) return "—";
+  let s = dec === undefined ? String(Math.round(x * 1e6) / 1e6) : Number(x).toFixed(dec);
+  let neg = s.startsWith("-"); if (neg) s = s.slice(1);
+  let [i, d] = s.split(".");
+  i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
+}
+function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
+  if (p === 0) return "0";
+  const e = Math.floor(Math.log10(Math.abs(p))); const m = p / Math.pow(10, e);
+  const mr = Math.round(m * 100) / 100;
+  if (e >= -1 && e <= 3) return fmt(p, p < 10 ? 2 : 0);
+  return (mr === 1 ? "" : fmt(mr) + " × ") + "10" + supStr(e);
+}
+/* lit « 1 020 », « 1,02e5 », « 1,02 × 10^5 », « 1,02x10⁵ », « 10⁵ », « −3 », « +12,4 °C » */
+function parseNum(str) {
+  if (str === null || str === undefined) return NaN;
+  let s = String(str).trim();
+  const SUPR = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-" };
+  s = s.replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m, g) => "10^" + g.split("").map(c => SUPR[c]).join(""));
+  s = s.replace(/[−–]/g, "-").replace(/[\s  ]/g, "").replace(/,/g, ".");
+  s = s.replace(/(°c|°|pa|hpa|bar|mbar|atm|mmhg|cm|mm|m|ans?|%|points?|pts?|\/an|°c\/siècle|°c\/an)+$/i, "");
+  let m = s.match(/^([+-]?\d*\.?\d+)(?:[x×*·]10\^?\(?([+-]?\d+)\)?)$/i);
+  if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+  m = s.match(/^([+-]?)10\^\(?([+-]?\d+)\)?$/);
+  if (m) return (m[1] === "-" ? -1 : 1) * Math.pow(10, parseInt(m[2], 10));
+  if (/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)) return parseFloat(s);
+  return NaN;
+}
+const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+
+/* ---------- affichage : taille, thème, projection ---------- */
+const Display = {
+  S: null, onChange: null,
+  init(S, save) {
+    this.S = S; this.save = save; this.apply();
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
+    $("#themeBtn").onclick = () => {
+      const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; this.apply(); save();
+    };
+    $("#projBtn").onclick = () => { S.proj = !S.proj; this.apply(); save(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => this.apply());
+  },
+  apply() {
+    const S = this.S, r = document.documentElement;
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
+    r.classList.toggle("proj", !!S.proj);
+    const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
+    const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
+    Charts.redrawAll();
+    if (this.onChange) this.onChange();
+  }
+};
+
+/* bouton à confirmation en deux temps (pas de confirm()) */
+function armButton(btn, label, confirmLabel, action) {
+  let t = null;
+  btn.onclick = () => {
+    if (!t) { btn.textContent = confirmLabel; btn.classList.add("warn"); t = setTimeout(() => { btn.textContent = label; btn.classList.remove("warn"); t = null; }, 4000); return; }
+    clearTimeout(t); t = null; btn.textContent = label; btn.classList.remove("warn"); action();
+  };
+}
+
+/* ======================= GRAPHIQUES (SVG redessiné à la largeur réelle) ======================= */
+const Charts = {
+  list: new Set(),
+  redrawAll() { this.list.forEach(c => { if (!document.body.contains(c.host)) this.list.delete(c); else c.draw(); }); }
+};
+let _rsT = null;
+window.addEventListener("resize", () => { clearTimeout(_rsT); _rsT = setTimeout(() => Charts.redrawAll(), 120); });
+
+const PAT = ["none", "dots", "diag", "cross", "horiz", "vert"];
+function patternOne(pid, color, p) {
+  let inner = "";
+  if (p === "dots") inner = `<circle cx="3" cy="3" r="1.3" style="fill:var(--surface)"/>`;
+  if (p === "diag") inner = `<path d="M-1,7 L7,-1" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "cross") inner = `<path d="M-1,7 L7,-1 M-1,-1 L7,7" style="stroke:var(--surface);stroke-width:1.1"/>`;
+  if (p === "horiz") inner = `<path d="M0,3 H6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "vert") inner = `<path d="M3,0 V6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  return `<pattern id="${pid}" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--${color})"/>${inner}</pattern>`;
+}
+function patDefs(id, colors) { return colors.map((c, i) => patternOne(`${id}-p${i}`, c, PAT[i % PAT.length])).join(""); }
+const DASH = i => (i % 4 === 1 ? "7 4" : i % 4 === 2 ? "2 4" : i % 4 === 3 ? "11 4 2 4" : "");
+function swatch(color, i, kind) {
+  if (kind === "line") return `<svg width="34" height="12" aria-hidden="true"><path d="M2 6 H32" style="stroke:var(--${color});stroke-width:3.2;fill:none;stroke-linecap:round" stroke-dasharray="${DASH(i)}"/></svg>`;
+  const pid = "sw" + Math.random().toString(36).slice(2, 8); const p = PAT[i % PAT.length];
+  const fill = p === "none" ? `var(--${color})` : `url(#${pid})`;
+  return `<svg width="20" height="20" aria-hidden="true">${p === "none" ? "" : `<defs>${patternOne(pid, color, p)}</defs>`}<rect x="1" y="1" width="18" height="18" rx="3" style="fill:${fill};stroke:var(--ink);stroke-width:.7"/></svg>`;
+}
+
+/* phase de l'eau */
+const PSAT = [[0.01, 611.657], [10, 1228], [20, 2339], [30, 4247], [40, 7385], [50, 12352], [60, 19946], [70, 31201], [80, 47414], [90, 70182], [100, 101418], [120, 198670], [140, 361540], [160, 618230], [180, 1002800], [200, 1554900], [220, 2319600], [240, 3346900], [260, 4692300], [280, 6416600], [300, 8587900], [320, 11284000], [340, 14594000], [360, 18666000], [374, 22064000]];
+const Water = {
+  Tt: 0.01, Pt: 611.657, Tc: 374, Pc: 2.2064e7,
+  psat(T) { if (T <= 0.01) return this.Pt; if (T >= 374) return this.Pc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (T <= t1) { const f = (T - t0) / (t1 - t0); return Math.pow(10, Math.log10(p0) + f * (Math.log10(p1) - Math.log10(p0))); } } return this.Pc; },
+  tsat(P) { if (P <= this.Pt) return this.Tt; if (P >= this.Pc) return this.Tc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (P <= p1) { const f = (Math.log10(P) - Math.log10(p0)) / (Math.log10(p1) - Math.log10(p0)); return t0 + f * (t1 - t0); } } return this.Tc; },
+  psub(T) { const K = T + 273.15; return Math.exp(9.550426 - 5723.265 / K + 3.53068 * Math.log(K) - 0.00728332 * K); },
+  tmelt(P) { return 0.01 - 7.4e-8 * (P - this.Pt); },
+  state(T, P) {
+    if (P >= this.Pc && T >= this.Tc) return "fluide supercritique";
+    if (P > this.Pt && T < this.tmelt(P)) return "solide (glace)";
+    if (P <= this.Pt && T < 0.01) return P > this.psub(T) ? "solide (glace)" : "gaz (vapeur)";
+    if (T >= this.Tc) return "gaz (vapeur)";
+    return P > this.psat(T) ? "liquide" : "gaz (vapeur)";
+  }
+};
+
+function mountChart(container, spec) {
+  container.innerHTML = "";
+  const id = "ch" + Math.random().toString(36).slice(2, 8);
+  const host = document.createElement("div"); host.className = "chart"; host.tabIndex = 0;
+  host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
+  const legend = document.createElement("div"); legend.className = "legend";
+  const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
+  readout.innerHTML = spec.readHint || CT.readHint;
+  container.append(host);
+  if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
+  container.append(readout);
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
+
+  const ch = { host, spec, sel: null, draw: null };
+  const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+
+  if (spec.type !== "phase" && legend.isConnected) {
+    const names = spec.type === "stack" ? spec.parts : spec.series.map(s => s.name);
+    const colors = spec.type === "stack" ? spec.colors : spec.series.map(s => s.color);
+    if (names.length > 1 || spec.type === "stack") legend.innerHTML = names.map((n, i) => `<span>${swatch(colors[i], i, spec.type === "line" ? "line" : "fill")}${esc(n)}</span>`).join("");
+    else legend.remove();
+  }
+
+  function axisText(x, y, txt, anchor, size, extra) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="fill:var(--ink);font-size:${size}px" ${extra || ""}>${esc(txt)}</text>`; }
+
+  ch.draw = function () {
+    const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
+    const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
+    let svg = "";
+    if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
+    else if (spec.type === "line") svg = drawLine(W, H, F, tk, tt);
+    else if (spec.type === "stack") svg = drawStack(W, F, tk, tt);
+    else if (spec.type === "phase") svg = drawPhase(W, H, F, tk, tt);
+    host.innerHTML = svg;
+  };
+
+  /* --- barres groupées --- */
+  let geo = {};
+  function drawBar(W, H, F, tk, tt) {
+    const S = spec.series, cats = spec.categories;
+    const L = F * 3.3, R = F * 0.8, T = F * 0.9, B = F * 3.2 + (spec.rotate ? F * 1.2 : 0);
+    const pw = W - L - R, ph = H - T - B;
+    const yMax = spec.yMax, yStep = spec.yStep;
+    const y = v => T + ph - (v / yMax) * ph;
+    let g = "";
+    for (let v = 0; v <= yMax + 1e-9; v += yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/>` + axisText(L - 6, y(v) + tk * 0.35, fmt(v), "end", tk); }
+    const gw = pw / cats.length, bw = Math.min(gw * 0.7 / S.length, F * 3.2);
+    geo = { bars: [] };
+    cats.forEach((c, ci) => {
+      const gx = L + gw * ci + (gw - bw * S.length) / 2;
+      S.forEach((s, si) => {
+        const v = s.values[ci]; const x = gx + bw * si; const yy = y(Math.max(v, 0));
+        const sel = ch.sel && ch.sel[0] === ci && ch.sel[1] === si;
+        g += `<rect x="${x + 1}" y="${yy}" width="${bw - 2}" height="${Math.max(T + ph - yy, 0)}" rx="3" style="fill:var(--${s.color});${sel ? "stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v);
+        if (spec.showValues !== false) g += axisText(x + bw / 2, yy - 5, lbl, "middle", tk, `font-weight="700"`);
+        geo.bars.push({ ci, si, x, w: bw });
+      });
+      const cx = L + gw * ci + gw / 2;
+      if (spec.rotate) g += `<text transform="translate(${cx},${T + ph + 8}) rotate(35)" style="fill:var(--ink);font-size:${tk}px">${esc(c)}</text>`;
+      else g += axisText(cx, T + ph + tk * 1.35, c, "middle", tk, `font-weight="700"`);
+    });
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- courbes --- */
+  function drawLine(W, H, F, tk, tt) {
+    const S = spec.series;
+    const L = F * 3.6, R = F * 1.1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const { xMin, xMax, yMin, yMax } = spec;
+    const X = v => L + (v - xMin) / (xMax - xMin) * pw, Y = v => T + ph - (v - yMin) / (yMax - yMin) * ph;
+    let g = "";
+    (spec.bands || []).forEach(b => { g += `<rect x="${X(b.x0)}" y="${T}" width="${X(b.x1) - X(b.x0)}" height="${ph}" style="fill:var(--shade)"/>` + (b.label ? axisText((X(b.x0) + X(b.x1)) / 2, T + tk * 1.1, b.label, "middle", tk * 0.92, `font-weight="700"`) : ""); });
+    const maxXt = Math.max(2, Math.floor(pw / (F * (spec.xTickW || 3.6))));
+    let xs = spec.xStep; while ((xMax - xMin) / xs > maxXt) xs *= 2;
+    for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
+    for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
+    (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
+    S.forEach((s, si) => {
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
+    });
+    if (ch.sel !== null) {
+      const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
+      S.forEach(s => { const p = s.pts.find(q => q[0] === xv); if (p) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--${s.color});stroke-width:3"/>`; });
+    }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    geo = { L, pw, X, xMin, xMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- barres empilées horizontales (cumul à 100 %) --- */
+  function drawStack(W, F, tk, tt) {
+    const rows = spec.rows, P = spec.parts;
+    const L = F * (spec.labelW || 5.6), R = F * 0.9, T = F * 0.5, rowH = F * 2.3, gap = F * 0.9, B = F * 3.1;
+    const pw = W - L - R; const H = T + rows.length * (rowH + gap) - gap + B;
+    const X = v => L + v / 100 * pw;
+    let g = `<defs>${patDefs(id, spec.colors)}</defs>`;
+    for (let v = 0; v <= 100; v += 20) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + rows.length * (rowH + gap) - gap}" style="stroke:var(--grid)"/>` + axisText(X(v), T + rows.length * (rowH + gap) - gap + tk * 1.35, fmt(v), "middle", tk);
+    geo = { segs: [] };
+    rows.forEach((r, ri) => {
+      const y0 = T + ri * (rowH + gap); let acc = 0;
+      g += axisText(L - 8, y0 + rowH / 2 - (r.sub ? tk * 0.2 : -tk * 0.35), r.label, "end", tk, `font-weight="700"`);
+      if (r.sub) g += axisText(L - 8, y0 + rowH / 2 + tk * 0.95, r.sub, "end", tk * 0.88);
+      r.values.forEach((v, pi) => {
+        if (v <= 0) return;
+        const x = X(acc), w = X(acc + v) - X(acc);
+        const sel = ch.sel && ch.sel[0] === ri && ch.sel[1] === pi;
+        const fill = PAT[pi % PAT.length] === "none" ? `var(--${spec.colors[pi]})` : `url(#${id}-p${pi})`;
+        g += `<rect x="${x}" y="${y0}" width="${w}" height="${rowH}" style="fill:${fill};stroke:var(--surface);stroke-width:1.5${sel ? ";stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = fmt(v) + " %";
+        if (w > tk * 3.4) g += `<rect x="${x + w / 2 - tk * 1.55}" y="${y0 + rowH / 2 - tk * 0.75}" width="${tk * 3.1}" height="${tk * 1.5}" rx="4" style="fill:var(--surface);opacity:.92"/>` + axisText(x + w / 2, y0 + rowH / 2 + tk * 0.36, lbl, "middle", tk * 0.92, `font-weight="800"`);
+        geo.segs.push({ ri, pi, x, w, y0, h: rowH });
+        acc += v;
+      });
+    });
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "Proportion (%)", "middle", tt, `font-weight="700"`);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- diagramme d'état de l'eau (pression en échelle logarithmique) --- */
+  function drawPhase(W, H, F, tk, tt) {
+    const L = F * 3.6, R = F * 1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const tMin = spec.tMin ?? -150, tMax = spec.tMax ?? 500, lpMin = spec.lpMin ?? 1, lpMax = spec.lpMax ?? 8;
+    const X = t => L + (t - tMin) / (tMax - tMin) * pw;
+    const Y = p => T + ph - (Math.log10(p) - lpMin) / (lpMax - lpMin) * ph;
+    const clipY = y => Math.min(Math.max(y, T), T + ph);
+    let g = `<defs><clipPath id="${id}-c"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+    // zones colorées
+    let sub = "", sat = "";
+    for (let t = tMin; t <= 0.01; t += 2) sub += (sub ? "L" : "M") + X(t).toFixed(1) + "," + Y(Math.max(Water.psub(t), Math.pow(10, lpMin - 3))).toFixed(1) + " ";
+    sub += "L" + X(0.01) + "," + Y(Water.Pt);
+    for (let t = 0.01; t <= 374; t += 2) sat += (sat ? "L" : "M") + X(t).toFixed(1) + "," + Y(Water.psat(t)).toFixed(1) + " ";
+    sat += "L" + X(374) + "," + Y(Water.Pc);
+    const Ptop = Math.pow(10, lpMax);
+    const meltTop = X(Water.tmelt(Ptop));
+    g += `<g clip-path="url(#${id}-c)">`;
+    g += `<path d="${sub.replace("M", "M" + X(tMin) + "," + Y(Ptop) + " L")} L${meltTop},${Y(Ptop)} Z" style="fill:var(--info-soft)"/>`;
+    g += `<path d="M${X(0.01)},${Y(Water.Pt)} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${meltTop},${Y(Ptop)} Z" style="fill:var(--ok-soft)"/>`;
+    g += `<path d="${sub} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${X(tMax)},${Y(Ptop)} L${X(tMax)},${T + ph + 50} L${X(tMin)},${T + ph + 50} Z" style="fill:var(--warn-soft)"/>`;
+    g += `</g>`;
+    for (let e = lpMin; e <= lpMax; e++) g += `<line x1="${L}" x2="${L + pw}" y1="${Y(Math.pow(10, e))}" y2="${Y(Math.pow(10, e))}" style="stroke:var(--grid)"/>` + axisText(L - 6, Y(Math.pow(10, e)) + tk * 0.35, "10" + supStr(e), "end", tk);
+    let step = [10, 20, 50, 100, 200, 500].find(s => (tMax - tMin) / s <= pw / (F * 2.6)) || 500;
+    for (let t = Math.ceil(tMin / step) * step; t <= tMax; t += step) g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(t), T + ph + tk * 1.35, fmt(t), "middle", tk);
+    g += `<g clip-path="url(#${id}-c)"><path d="${sub}" style="fill:none;stroke:var(--info);stroke-width:2.5"/><path d="${sat}" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><line x1="${X(0.01)}" y1="${Y(Water.Pt)}" x2="${meltTop}" y2="${Y(Ptop)}" style="stroke:var(--info);stroke-width:2.5"/></g>`;
+    g += `<circle cx="${X(0.01)}" cy="${Y(Water.Pt)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(0.01) + F * 0.35, Y(Water.Pt) + tk * 1.25, "point triple", "start", tk * 0.88, `font-weight="700"`);
+    if (Water.Pc <= Ptop) g += `<circle cx="${X(374)}" cy="${Y(Water.Pc)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(374), Y(Water.Pc) - F * 0.45, "point critique", "middle", tk * 0.88, `font-weight="700"`);
+    g += axisText(X(tMin) + F * 0.6, T + F * 1.4, "SOLIDE", "start", tt, `font-weight="800" letter-spacing=".08em"`);
+    const pl = Math.pow(10, lpMax - 0.5), tl = Math.min(Water.tsat(pl), tMax) / 2;
+    g += axisText(X(tl), Y(pl) + F * 0.4, "LIQUIDE", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    g += axisText(X(tMin + 0.86 * (tMax - tMin)), Y(Math.pow(10, lpMin + 0.35)), "GAZ", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    (spec.segments || []).forEach(s => {
+      const y = Y(s.P); g += `<line x1="${X(s.t0)}" x2="${X(s.t1)}" y1="${y}" y2="${y}" style="stroke:var(--${s.color || "c3"});stroke-width:${F * 0.32};stroke-linecap:round;opacity:.9"/>` + axisText(X(s.t0), y - F * 0.5, s.label, "start", tk, `font-weight="800"`);
+    });
+    (spec.points || []).forEach(p => { g += `<circle cx="${X(p.T)}" cy="${Y(p.P)}" r="${F * 0.3}" style="fill:var(--${p.color || "c3"});stroke:var(--surface);stroke-width:2"/>` + axisText(X(p.T) + F * 0.45, Y(p.P) - F * 0.35, p.label, "start", tk, `font-weight="800"`); });
+    if (ch.sel) { const [t, p] = ch.sel; g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><line x1="${L}" x2="${L + pw}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><circle cx="${X(t)}" cy="${Y(p)}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`; }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, "Température (°C)", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">Pression (Pa, échelle logarithmique)</text>`;
+    geo = { L, T, pw, ph, tMin, tMax, lpMin, lpMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- lecture au toucher --- */
+  function pick(evt) {
+    const svg = host.querySelector("svg"); if (!svg) return;
+    const r = svg.getBoundingClientRect(); const sx = (evt.clientX - r.left) * (svg.viewBox.baseVal.width / r.width); const sy = (evt.clientY - r.top) * (svg.viewBox.baseVal.height / r.height);
+    if (spec.type === "bar") { let best = null, bd = 1e9; geo.bars.forEach(b => { const d = Math.abs(sx - (b.x + b.w / 2)); if (d < bd) { bd = d; best = b; } }); if (best) setSel([best.ci, best.si]); }
+    else if (spec.type === "line") { const xv = geo.xMin + (sx - geo.L) / geo.pw * (geo.xMax - geo.xMin); setSel(nearestX(xv)); }
+    else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
+    else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
+  }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
+  function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
+  function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
+  function describe() {
+    if (spec.type === "bar") { const [ci, si] = ch.sel; const s = spec.series[si]; const v = s.values[ci]; return `<b>${esc(spec.categories[ci])}</b>${spec.series.length > 1 ? " · " + esc(s.name) : ""} : ${spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v)}${spec.unit ? " " + spec.unit : ""}`; }
+    if (spec.type === "line") { const xv = ch.sel; return `<b>${spec.xRead ? spec.xRead(xv) : fmt(xv)}</b> → ` + spec.series.map(s => { const p = s.pts.find(q => q[0] === xv); return p ? `${esc(s.name)} : ${spec.yRead ? spec.yRead(p[1]) : fmt(p[1])}` : null; }).filter(Boolean).join(" · "); }
+    if (spec.type === "stack") { const [ri, pi] = ch.sel; return `<b>${esc(spec.rows[ri].label)}</b> · ${esc(spec.parts[pi])} : ${fmt(spec.rows[ri].values[pi])} %`; }
+    if (spec.type === "phase") { const [t, p] = ch.sel; return `Point touché : <b>T ≈ ${fmt(Math.round(t))} °C</b> ; <b>P ≈ ${fmtPow(Number(p.toPrecision(2)))} Pa</b>${spec.readState ? ` → état de l'eau : <b>${Water.state(t, p)}</b>` : ""}`; }
+    return "";
+  }
+  host.addEventListener("pointerdown", e => { pick(e); });
+  host.addEventListener("pointermove", e => { if (e.buttons && e.pointerType === "mouse") pick(e); });
+  host.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault(); const dir = e.key === "ArrowRight" ? 1 : -1;
+    if (spec.type === "line") { const xs = allX(); let i = ch.sel === null ? 0 : xs.indexOf(ch.sel) + dir; i = Math.max(0, Math.min(xs.length - 1, i)); setSel(xs[i]); }
+    if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
+    if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
+  });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
+  ch.draw(); Charts.list.add(ch);
+  if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
+  return ch;
+}
+
+function buildTable(spec) {
+  let head = "", body = "";
+  if (spec.type === "bar") {
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name || spec.yTitle)}</th>`).join("")}</tr>`;
+    body = spec.categories.map((c, ci) => `<tr><td>${esc(c)}</td>${spec.series.map((s, si) => `<td class="n">${spec.valueLabel ? spec.valueLabel(s.values[ci], ci, si) : fmt(s.values[ci])}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "line") {
+    const xs = new Set(); spec.series.forEach(s => s.pts.forEach(p => xs.add(p[0])));
+    const X = Array.from(xs).sort((a, b) => a - b);
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr>`;
+    body = X.map(x => `<tr><td class="n">${spec.xFmt ? spec.xFmt(x) : fmt(x)}</td>${spec.series.map(s => { const p = s.pts.find(q => q[0] === x); return `<td class="n">${p ? (spec.yFmt ? spec.yFmt(p[1]) : fmt(p[1])) : "—"}</td>`; }).join("")}</tr>`).join("");
+  } else if (spec.type === "stack") {
+    head = `<tr><th>Niveau</th>${spec.parts.map(p => `<th>${esc(p)} (%)</th>`).join("")}</tr>`;
+    body = spec.rows.map(r => `<tr><td>${esc(r.label)}${r.sub ? " (" + esc(r.sub) + ")" : ""}</td>${r.values.map(v => `<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "phase") {
+    if (spec.table === "none") return null;
+    head = `<tr><th>Repère</th><th>Température</th><th>Pression</th></tr>`;
+    body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
+  }
+  const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  return d;
+}
+
+/* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
+const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
+let _dlP = null;
+function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
+setTimeout(() => { getDownloads(); }, 0);
+
+async function saveText(filename, text) {
+  if (inClaude()) {
+    const d = await getDownloads();
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
+  }
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
+}
+
+function renderBilanTools(container, getText, getShow, appSlug) {
+  container.innerHTML = `
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="row">
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
+    </div>
+    <p class="toast" id="bMsg" aria-live="polite"></p>
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
+  const inp = $("#eleve", container);
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
+  const msg = t => { $("#bMsg", container).textContent = t; };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bCp", container).onclick = () => {
+    const txt = getText(inp.value); const ta = $("#bTxt", container);
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
+  };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
+  $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
+}
+function showOverlay(html) {
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
+  document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
+  const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
+  c.onclick = close; document.addEventListener("keydown", k);
+}
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
+
+/* ===== Activité « Évolution de la température et rétroactions » : documents, figures et simulations ===== */
+Store.key = "retroactions-climat-tle-v1";
+const SIMUL = "Valeurs simulées";
+const NB = " ", NN = " ";
+const tbl = (head, rows) => `<div class="tablewrap"><table class="t"><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+/* ---------- typographie française appliquée aux contenus ---------- */
+function nb(s) {
+  return String(s).replace(/ ([?!;])/g, NN + "$1").replace(/ :(?=[ <]|$)/g, NB + ":").replace(/« /g, "«" + NB).replace(/ »/g, NB + "»")
+    .replace(/(\d) (\d{3})(?!\d)/g, "$1" + NN + "$2").replace(/(\d) (%|°C|m|cm|mm|mL|L|W|km|km²|km³|Mt|t|kg|ans|min|fois|millions)(?![\wà-ÿ²³])/g, "$1" + NB + "$2");
+}
+function typo(o) { if (typeof o === "string") return nb(o); if (Array.isArray(o)) return o.map(typo); if (o && typeof o === "object") { Object.keys(o).forEach(k => { if (typeof o[k] !== "function") o[k] = typo(o[k]); }); } return o; }
+
+/* ---------- SVG redessiné à la largeur réelle (texte toujours lisible) ---------- */
+const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+function liveSVG(host, draw) {
+  const o = { host, draw() { const W = Math.max(260, host.clientWidth || 320); host.innerHTML = draw(W, fsPx()); } };
+  o.draw(); Charts.list.add(o);
+  if (window.ResizeObserver) { let lw = host.clientWidth; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; o.draw(); } }).observe(host); }
+  return o;
+}
+const sT = (x, y, txt, a, size, extra) => `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${size.toFixed(1)}px" ${extra || ""}>${esc(txt)}</text>`;
+const TK = F => Math.max(15, F * 0.76);
+function arrow(x1, y1, x2, y2, w, color, op) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = Math.max(w * 1.1, 10), hw = Math.max(w * 0.95, 7);
+  const bx = x2 - Math.cos(a) * hl, by = y2 - Math.sin(a) * hl, nx = -Math.sin(a), ny = Math.cos(a);
+  return `<g style="opacity:${op || 1}"><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" style="stroke:var(--${color});stroke-width:${Math.max(w, 1.5).toFixed(1)}"/><polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${(bx + nx * hw).toFixed(1)},${(by + ny * hw).toFixed(1)} ${(bx - nx * hw).toFixed(1)},${(by - ny * hw).toFixed(1)}" style="fill:var(--${color})"/></g>`;
+}
+
+/* ---------- commande d'animation commune : Lancer / Pause / Recommencer ---------- */
+function animCtl(el, dur, onP) {
+  el.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+  const st = { p: 0, playing: false, lt: 0, raf: 0 }, b = el.querySelector('[data-a="run"]');
+  const lab = () => { b.textContent = st.playing ? CT.animPause : (st.p > 0 && st.p < 1) ? CT.animResume : CT.animRun; };
+  const frame = ts => {
+    if (!st.playing) return; if (!document.body.contains(el)) { st.playing = false; return; }
+    const dt = st.lt ? Math.min(100, ts - st.lt) : 0; st.lt = ts; st.p = Math.min(1, st.p + dt / dur);
+    if (st.p >= 1) st.playing = false; onP(st.p); lab(); if (st.playing) st.raf = requestAnimationFrame(frame);
+  };
+  st.play = () => { if (st.p >= 1) st.p = 0; st.playing = true; st.lt = 0; lab(); st.raf = requestAnimationFrame(frame); };
+  st.pause = () => { st.playing = false; cancelAnimationFrame(st.raf); lab(); };
+  st.set = p => { st.pause(); st.p = Math.max(0, Math.min(1, p)); onP(st.p); lab(); };
+  b.onclick = () => st.playing ? st.pause() : st.play();
+  el.querySelector('[data-a="reset"]').onclick = () => st.set(0);
+  lab(); onP(0); return st;
+}
+
+/* ======================= FIGURES DES DOCUMENTS ======================= */
+const FIGS = {};
+
+/* --- Doc. 1 : dilatation thermique (schéma redessiné) --- */
+function oceanPanel(x0, w, y0, h, F, lift, warm, title, frac) {
+  const tk = TK(F), top = y0 + F * 1.5, bot = y0 + h - 2, sea0 = top + (bot - top) * 0.36, thermo = top + (bot - top) * 0.72, sea = sea0 - lift;
+  const wb = sea + (thermo - sea) * (frac === undefined ? 1 : frac);
+  let g = `<rect x="${x0}" y="${top}" width="${w}" height="${bot - top}" rx="8" style="fill:var(--surface-2)"/>`;
+  g += `<rect x="${x0}" y="${thermo}" width="${w}" height="${bot - thermo}" style="fill:var(--sea);opacity:.5"/>`;
+  g += `<rect x="${x0}" y="${sea}" width="${w}" height="${thermo - sea}" style="fill:var(--sea);opacity:.22"/>`;
+  if (warm > 0) g += `<rect x="${x0}" y="${sea}" width="${w}" height="${wb - sea}" style="fill:var(--c2);opacity:${(0.12 + 0.3 * warm).toFixed(2)}"/>`;
+  g += `<path d="M${x0 + w} ${top + (sea0 - top) * 0.3} L${x0 + w * 0.84} ${sea0 - (sea0 - top) * 0.35} L${x0 + w * 0.7} ${thermo} L${x0 + w * 0.6} ${bot} L${x0 + w} ${bot} Z" style="fill:var(--sand);stroke:var(--muted);stroke-width:1.2"/>`;
+  g += `<line x1="${x0}" x2="${x0 + w * 0.7}" y1="${thermo}" y2="${thermo}" style="stroke:var(--ink);stroke-width:1.6" stroke-dasharray="7 5"/>`;
+  g += `<line x1="${x0}" x2="${x0 + w * 0.86}" y1="${sea0}" y2="${sea0}" style="stroke:var(--muted);stroke-width:1.6" stroke-dasharray="3 4"/>`;
+  g += `<line x1="${x0}" x2="${x0 + w * 0.8}" y1="${sea}" y2="${sea}" style="stroke:var(--sea);stroke-width:3.5"/>`;
+  g += sT(x0 + 6, y0 + F * 1.05, title, "start", tk, 'font-weight="800"');
+  g += sT(x0 + 8, thermo + tk * 1.15, "eau profonde", "start", tk * 0.94);
+  g += sT(x0 + 8, thermo - 7, "thermocline", "start", tk * 0.94, 'font-weight="700"');
+  if (lift > 3) g += `<line x1="${x0 + w * 0.3}" x2="${x0 + w * 0.3}" y1="${sea0}" y2="${sea}" style="stroke:var(--ink);stroke-width:2"/>` + sT(x0 + w * 0.3 + 6, sea - 6, "hausse du niveau*", "start", tk * 0.94, 'font-weight="700"');
+  return g;
+}
+FIGS.dilat = el => liveSVG(el, (W, F) => {
+  const two = W >= 540, gap = F * 0.9, w = two ? (W - gap) / 2 : W, h = Math.min(Math.max(w * 0.62, 10 * F), 13 * F), H = two ? h : h * 2 + gap;
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Avant et après réchauffement : la couche d'eau située au-dessus de la thermocline se dilate et le niveau de la mer monte">${oceanPanel(0, w, 0, h, F, 0, 0, "Avant")}${oceanPanel(two ? w + gap : 0, w, two ? 0 : h + gap, h, F, h * 0.09, 0.7, "Après réchauffement")}</svg>`;
+});
+
+/* --- Doc. 3 : coupe de la grotte Cosquer (schéma redessiné) --- */
+const SL = [[-20, -130], [-18, -125], [-16, -115], [-14, -95], [-12, -65], [-10, -40], [-8, -15], [-6, -3], [-4, 0], [0, 0]];
+const seaLevel = ka => { for (let i = 1; i < SL.length; i++) if (ka <= SL[i][0]) { const [a, b] = [SL[i - 1], SL[i]]; return a[1] + (b[1] - a[1]) * (ka - a[0]) / (b[0] - a[0]); } return 0; };
+let _cq = 0;
+function drawCosquer(W, F, lvl, dyn) {
+  const tk = TK(F), H = Math.min(Math.max(W * 0.56, 13 * F), 19 * F), top = F * 0.4, ph = H - top - 2, id = "cq" + (++_cq);
+  const Y = m => top + (55 - m) / 205 * ph, X = f => f * W, pt = a => a.map(([f, m]) => X(f).toFixed(1) + "," + Y(m).toFixed(1)).join(" ");
+  const land = [[0, -146], [0.14, -122], [0.27, -82], [0.35, -46], [0.36, -28], [0.4, -5], [0.47, 22], [0.6, 40], [1, 46], [1, -150], [0, -150]];
+  const cave = [[0.345, -33], [0.5, -22], [0.6, -8], [0.66, 12], [0.76, 18], [0.85, 8], [0.87, -12], [0.76, -14], [0.66, -12], [0.58, -22], [0.48, -32], [0.345, -42]];
+  const yl = Y(lvl), wh = Math.max(0, top + ph - yl);
+  let g = `<defs><clipPath id="${id}"><polygon points="${pt(cave)}"/></clipPath><clipPath id="${id}b"><rect x="0" y="${top}" width="${W}" height="${ph}" rx="8"/></clipPath></defs><g clip-path="url(#${id}b)">`;
+  g += `<rect x="0" y="${top}" width="${W}" height="${ph}" style="fill:var(--surface-2)"/>`;
+  g += `<rect x="0" y="${yl}" width="${W}" height="${wh}" style="fill:var(--sea);opacity:.42"/><line x1="0" x2="${W}" y1="${yl}" y2="${yl}" style="stroke:var(--sea);stroke-width:3.5"/>`;
+  if (dyn && lvl < -1) g += `<line x1="0" x2="${W}" y1="${Y(0)}" y2="${Y(0)}" style="stroke:var(--muted);stroke-width:1.5" stroke-dasharray="4 4"/>`;
+  g += `<polygon points="${pt(land)}" style="fill:var(--sand);stroke:var(--muted);stroke-width:1.2"/>`;
+  g += `<polygon points="${pt(cave)}" style="fill:var(--surface)"/><g clip-path="url(#${id})"><rect x="0" y="${yl}" width="${W}" height="${wh}" style="fill:var(--sea);opacity:.55"/></g><polygon points="${pt(cave)}" style="fill:none;stroke:var(--ink);stroke-width:1.4"/></g>`;
+  g += sT(6, Y(0) - 6, dyn ? "niveau actuel" : "niveau de la mer aujourd'hui", "start", tk * 0.92, dyn ? "" : 'font-weight="700"');
+  g += `<line x1="${X(0.02)}" x2="${X(0.34)}" y1="${Y(-37)}" y2="${Y(-37)}" style="stroke:var(--ink);stroke-width:1.5"/>` + sT(6, Y(-37) - 6, "entrée : −37 m", "start", tk * 0.94, 'font-weight="700"');
+  g += sT(X(0.53), Y(-50), "galerie (175 m)", "middle", tk * 0.94) + `<line x1="${X(0.5)}" x2="${X(0.5)}" y1="${Y(-44)}" y2="${Y(-29)}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+  g += sT(X(0.98), Y(-72), "salle ornée de peintures", "end", tk * 0.94, 'font-weight="700"') + `<line x1="${X(0.78)}" x2="${X(0.78)}" y1="${Y(-64)}" y2="${Y(-15)}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Coupe simplifiée de la grotte Cosquer : entrée à 37 m sous le niveau actuel de la mer, galerie de 175 m qui remonte vers une salle ornée, en partie hors de l'eau">${g}</svg>`;
+}
+FIGS.cosquer = el => liveSVG(el, (W, F) => drawCosquer(W, F, 0, false));
+
+/* --- Doc. 3 : carte de la banquise antarctique (schéma simplifié) --- */
+FIGS.banquise = el => liveSVG(el, (W, F) => {
+  const tk = TK(F), H = Math.min(W * 0.78, 17 * F), cx = W / 2, cy = H / 2, R = Math.min(W, H) * 0.46;
+  const blob = (r0, f) => { let d = ""; for (let i = 0; i <= 72; i++) { const t = i / 72 * 2 * Math.PI, r = R * r0 * f(t); d += (i ? "L" : "M") + (cx + r * Math.cos(t)).toFixed(1) + "," + (cy + r * Math.sin(t)).toFixed(1); } return d + "Z"; };
+  let g = `<rect x="0" y="0" width="${W}" height="${H}" rx="10" style="fill:var(--sea)"/>`;
+  g += `<path d="${blob(0.74, t => 1 + 0.09 * Math.sin(3 * t + 1) + 0.06 * Math.cos(5 * t) - 0.1 * Math.exp(-Math.pow(t - 3.9, 2) * 3))}" style="fill:var(--ice);opacity:.95"/>`;
+  g += `<path d="${blob(0.44, t => 1 + 0.2 * Math.sin(2 * t + 0.6) + 0.1 * Math.cos(3 * t))}" style="fill:var(--c6);stroke:var(--ink);stroke-width:1"/>`;
+  g += `<path d="${blob(0.93, t => 1 + 0.04 * Math.sin(2 * t) + 0.03 * Math.cos(4 * t + 2))}" style="fill:none;stroke:var(--c2);stroke-width:${Math.max(3, F * 0.18)}"/>`;
+  g += `<text x="${cx}" y="${cy - 2}" text-anchor="middle" style="fill:var(--surface);font-size:${tk}px;font-weight:800">Continent</text><text x="${cx}" y="${cy + tk * 1.1}" text-anchor="middle" style="fill:var(--surface);font-size:${tk}px;font-weight:800">antarctique</text>`;
+  g += `<text x="${cx}" y="${cy - R * 0.585}" text-anchor="middle" style="fill:#11282e;font-size:${tk}px;font-weight:800">Banquise</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Carte schématique : autour du continent antarctique, la banquise d'octobre 2023 reste partout en deçà de la ligne orange qui marque son extension moyenne de 1991 à 2020">${g}</svg>`;
+});
+
+/* ======================= SIMULATIONS ======================= */
+const WID = {};
+
+/* --- Groupe 1 : dilatation de l'océan (débloquée) --- */
+WID.dilat = el => {
+  el.innerHTML = nb(`<p class="lead">Fais varier la hausse de température et l'épaisseur de la couche qui se réchauffe (au maximum 1 000 m : la thermocline). Coefficient de dilatation : 2,6 × 10⁻⁴ °C⁻¹.</p>
+    <div class="field"><label for="dlT">Hausse de température de la couche : <b class="num" id="dlTv"></b></label><input id="dlT" type="range" min="0" max="4" step="0.5" value="1"></div>
+    <div class="field"><label for="dlH">Épaisseur de la couche réchauffée : <b class="num" id="dlHv"></b></label><input id="dlH" type="range" min="100" max="1000" step="100" value="1000"></div>
+    <div class="figbox" id="dlFig"></div><p class="cap">Pointillés gris : niveau initial · zone orangée : eau réchauffée. * Hauteur exagérée (échelle non respectée).</p>
+    <div class="bigres"><p>Hausse du niveau marin</p><p class="score-big num" id="dlR" aria-live="polite"></p><p class="lead" id="dlC"></p></div>`);
+  const T = $("#dlT", el), Hh = $("#dlH", el); let cur = 0, tgt = 0, raf = 0;
+  const fig = liveSVG($("#dlFig", el), (W, F) => { const h = Math.min(Math.max(W * 0.42, 9 * F), 12 * F); return `<svg viewBox="0 0 ${W} ${h}" width="${W}" height="${h}" role="img" aria-label="Coupe de l'océan : le niveau monte quand la couche superficielle se dilate">${oceanPanel(0, W, 0, h, F, cur * h * 0.2, +T.value / 4, "Océan", +Hh.value / 1000)}</svg>`; });
+  const step = () => { cur += (tgt - cur) * 0.18; if (Math.abs(tgt - cur) < 0.004) cur = tgt; fig.draw(); if (cur !== tgt && document.body.contains(el)) raf = requestAnimationFrame(step); };
+  const upd = () => {
+    const dT = +T.value, h = +Hh.value, dh = h * 2.6e-4 * dT; tgt = dh / 1.04;
+    $("#dlTv", el).textContent = "+ " + fmt(dT, 1) + NB + "°C"; $("#dlHv", el).textContent = fmt(h) + NB + "m";
+    $("#dlR", el).textContent = fmt(dh * 100, 1) + NB + "cm"; $("#dlC", el).textContent = `${fmt(h)}${NB}m × 2,6 × 10⁻⁴ × ${fmt(dT, 1)} = ${fmt(dh, 3)}${NB}m`;
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(step);
+  };
+  T.oninput = upd; Hh.oninput = upd; upd();
+};
+
+/* --- Groupe 1 : inertie thermique, air et eau chauffés par la même lampe --- */
+const INERT = (() => { const f = (t, tau) => t <= 20 ? 30 - 10 * Math.exp(-t / tau) : 20 + (10 - 10 * Math.exp(-20 / tau)) * Math.exp(-(t - 20) / tau); const air = [], eau = []; for (let t = 0; t <= 60; t += 2) { air.push([t, Math.round(f(t, 5) * 10) / 10]); eau.push([t, Math.round(f(t, 20) * 10) / 10]); } return { air, eau }; })();
+WID.inertie = el => {
+  el.innerHTML = nb(`<p class="lead">Une même lampe chauffe 1 kg d'air et 1 kg d'eau, tous deux à 20 °C au départ. Elle s'éteint au bout de 20 min.</p><p class="readout" id="inSt" aria-live="polite"></p><div class="chartbox" id="inCh"></div>`);
+  mountChart($("#inCh", el), { type: "line", series: [{ name: "Air", pts: INERT.air, color: "c2", w: 3.2 }, { name: "Eau", pts: INERT.eau, color: "c1", w: 3.2 }], xMin: 0, xMax: 60, xStep: 10, yMin: 18, yMax: 32, yStep: 2, anim: true, animStart: "empty", animDur: 9000,
+    bands: [{ x0: 0, x1: 20, label: "lampe allumée" }], xTitle: "Temps (min)", yTitle: "Température (°C)", xRead: v => "t = " + v + NB + "min", yRead: v => fmt(v, 1) + NB + "°C", h: 15,
+    alt: "Température de l'air et de l'eau en fonction du temps",
+    onCut: x => { const s = $("#inSt", el); if (s) s.innerHTML = x <= 0 ? "💡 Lampe prête. Touche « Lancer »." : x < 20 ? `💡 <b>Lampe allumée</b> · t = ${Math.round(x)}${NB}min` : x < 60 ? `○ <b>Lampe éteinte</b> · t = ${Math.round(x)}${NB}min` : "○ Fin de l'expérience : touche le graphique pour lire les valeurs."; } });
+};
+
+/* --- Groupe 2 : remontée de la mer et grotte Cosquer (débloquée) --- */
+WID.cosquer = el => {
+  el.innerHTML = nb(`<p class="lead">Remonte 20 000 ans en arrière, puis laisse la mer remonter jusqu'à aujourd'hui. À partir de quand l'entrée de la grotte est-elle sous l'eau ?</p>
+    <div class="row animctl" id="cqCtl"></div><div class="field"><label for="cqS">Époque : <b class="num" id="cqV"></b></label><input id="cqS" type="range" min="-20" max="0" step="0.5" value="-20"></div>
+    <div class="figbox" id="cqFig"></div><p class="readout" id="cqSt" aria-live="polite"></p>`);
+  let ka = -20; const fig = liveSVG($("#cqFig", el), (W, F) => drawCosquer(W, F, seaLevel(ka), true)), s = $("#cqS", el);
+  const paint = () => { const l = Math.round(seaLevel(ka)); $("#cqV", el).textContent = ka > -0.25 ? "aujourd'hui" : "il y a " + fmt(Math.round(-ka * 1000)) + NB + "ans"; $("#cqSt", el).innerHTML = `Niveau de la mer : <b>${l === 0 ? "0" : "−" + Math.abs(l)}${NB}m</b> · entrée de la grotte : <b>${l < -37 ? "à l'air libre" : "sous l'eau"}</b>`; fig.draw(); };
+  const ctl = animCtl($("#cqCtl", el), 9000, p => { ka = -20 + 20 * p; s.value = ka; paint(); });
+  s.oninput = () => ctl.set((+s.value + 20) / 20);
+};
+
+/* --- Groupe 2 : TP virtuel, banquise ou glaces continentales --- */
+function drawTP(W, F, p) {
+  const tk = TK(F), H = Math.min(Math.max(W * 0.66, 15 * F), 21 * F), gl = tk * 2.6, bw = Math.min((W - 2 * gl - F * 3.1) / 2, F * 9);
+  const off = Math.max(0, (W - (2 * gl + 2 * bw + F * 3.1)) / 2), xs = [off + gl, off + gl + bw + F * 2.2 + gl], top = F * 5, bot = H - F * 2, bh = bot - top, Y = v => bot - v / 400 * bh;
+  let g = `<line x1="0" x2="${W}" y1="${bot + 2}" y2="${bot + 2}" style="stroke:var(--muted);stroke-width:2"/>`;
+  [[300, 300], [200, 250]].forEach(([v0, v1], i) => {
+    const x = xs[i], lv = v0 + (v1 - v0) * p, yl = Y(lv);
+    g += `<rect x="${x + 1.5}" y="${yl}" width="${bw - 3}" height="${bot - yl}" style="fill:var(--sea);opacity:.3"/><line x1="${x + 1.5}" x2="${x + bw - 1.5}" y1="${yl}" y2="${yl}" style="stroke:var(--sea);stroke-width:2.5"/>`;
+    for (let v = 10; v <= 400; v += 10) { const len = v % 100 === 0 ? F * 1 : v % 50 === 0 ? F * 0.65 : F * 0.3; g += `<line x1="${x}" x2="${x + len}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--ink);stroke-width:${v % 50 === 0 ? 1.8 : 1}"/>`; if (v % 100 === 0) g += sT(x - 6, Y(v) + tk * 0.35, v, "end", tk); }
+    g += `<path d="M${x} ${top - F * 0.3} L${x} ${bot} L${x + bw} ${bot} L${x + bw} ${top - F * 0.3}" style="fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round"/>`;
+    g += `<line x1="${x + bw - F * 1.1}" x2="${x + bw + F * 0.55}" y1="${Y(v0)}" y2="${Y(v0)}" style="stroke:var(--bad);stroke-width:3.5"/>`;
+    g += sT(x + bw / 2, H - F * 0.45, "Bécher " + (i + 1), "middle", tk, 'font-weight="800"');
+    const s = bw * 0.27 * Math.cbrt(1 - p);
+    if (i === 0 && s > 1.5) [0.3, 0.7].forEach(f => { g += `<rect x="${x + bw * f - s / 2}" y="${yl - s * 0.1}" width="${s}" height="${s}" rx="3" style="fill:var(--ice);stroke:var(--ink);stroke-width:1.5"/>`; });
+    if (i === 1) {
+      const x1 = x - gl - F * 0.55, y1 = top - F * 3.6, x2 = x + bw * 0.5, y2 = top - F * 1.2, a = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+      g += `<line x1="${x1 + 4}" x2="${x1 + 4}" y1="${y1}" y2="${bot}" style="stroke:var(--c5);stroke-width:${F * 0.22}"/><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:var(--c5);stroke-width:${F * 0.38};stroke-linecap:round"/>`;
+      if (s > 1.5) [0.3, 0.68].forEach(f => { g += `<g transform="translate(${x1 + (x2 - x1) * f},${y1 + (y2 - y1) * f - F * 0.19}) rotate(${a.toFixed(1)})"><rect x="${-s / 2}" y="${-s}" width="${s}" height="${s}" rx="3" style="fill:var(--ice);stroke:var(--ink);stroke-width:1.5"/></g>`; });
+      if (p > 0 && p < 1) [0, 1, 2].forEach(k => { const q = (p * 14 + k / 3) % 1; g += `<circle cx="${x2 + 3}" cy="${y2 + q * (yl - y2)}" r="${F * 0.15}" style="fill:var(--sea)"/>`; });
+    }
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Deux béchers gradués de 0 à 400 mL. Bécher 1 : deux glaçons flottent dans l'eau. Bécher 2 : deux glaçons sont posés sur une planche inclinée au-dessus de l'eau.">${g}</svg>`;
+}
+WID.tp = el => {
+  el.innerHTML = nb(`<p class="lead"><b>Bécher 1</b> : deux glaçons flottent dans l'eau (banquise). <b>Bécher 2</b> : deux glaçons sont posés sur une planche inclinée (glaces continentales). Le trait rouge marque le niveau de départ.</p>
+    <div class="row animctl" id="tpCtl"></div><p class="readout" id="tpSt" aria-live="polite"></p><div class="figbox" id="tpFig"></div>
+    <p class="cap">Graduations en mL : grand trait tous les 100 mL, trait moyen tous les 50 mL, petit trait tous les 10 mL.</p>`);
+  let p = 0; const fig = liveSVG($("#tpFig", el), (W, F) => drawTP(W, F, p));
+  animCtl($("#tpCtl", el), 9000, q => { p = q; fig.draw(); $("#tpSt", el).innerHTML = q <= 0 ? "<b>Début</b> : repère les deux niveaux de départ." : q < 1 ? `Fonte en cours… ${Math.round(q * 100)}${NB}%` : "<b>Fin</b> : tous les glaçons ont fondu. Lis les deux niveaux."; });
+};
+
+/* --- Groupe 2 : albédo d'une surface (débloqué) --- */
+const SURF = [["Glace", 0.6, 0.6, "ice"], ["Océan", 0.05, 0.1, "sea"], ["Forêt", 0.05, 0.2, "c4"], ["Moyenne terrestre", 0.3, 0.3, "c6"]];
+WID.albedo = el => {
+  let k = 0, ice = 10;
+  el.innerHTML = nb(`<p class="lead">Choisis une surface : l'épaisseur des flèches montre la part du rayonnement solaire réfléchie et la part absorbée.</p>
+    <div class="seg" role="group" aria-label="Surface">${SURF.map((s, i) => `<button type="button" data-k="${i}">${s[0]}</button>`).join("")}</div>
+    <div class="figbox" id="alFig"></div><p class="readout" id="alR" aria-live="polite"></p>
+    <h4>Une planète « glace + océan »</h4><div class="field"><label for="alS">Part de la surface couverte de glace : <b class="num" id="alSv"></b></label><input id="alS" type="range" min="0" max="100" step="5" value="10"></div>
+    <div class="mosaic" aria-hidden="true"><i id="alMi" style="background:var(--ice)"></i><i id="alMo" style="background:var(--sea);flex:1"></i></div>
+    <p class="readout" id="alM" aria-live="polite"></p><p class="cap">Calcul fait avec un albédo de 0,6 pour la glace et de 0,075 pour l'océan (milieu de l'intervalle 0,05-0,1).</p>`);
+  const fig = liveSVG($("#alFig", el), (W, F) => {
+    const tk = TK(F), H = Math.min(Math.max(W * 0.5, 11 * F), 14 * F), gy = H - F * 2.6, s = SURF[k], a = (s[1] + s[2]) / 2, base = F * 1.5, cx = W / 2;
+    let g = `<rect x="0" y="0" width="${W}" height="${gy}" rx="8" style="fill:var(--surface-2)"/><rect x="0" y="${gy}" width="${W}" height="${H - gy}" style="fill:var(--${s[3]});opacity:${s[3] === "ice" ? 1 : 0.55};stroke:var(--muted);stroke-width:1.2"/>`;
+    g += arrow(cx - W * 0.3, F * 1.4, cx - 6, gy - 4, base, "c5") + arrow(cx + 6, gy - 4, cx + W * 0.3, F * 1.4, base * a, "c5", 0.85) + arrow(cx, gy + 2, cx, H - 4, base * (1 - a), "c2");
+    g += sT(cx - W * 0.3 + base, F * 1.2, "reçu : 100 %", "start", tk, 'font-weight="700"') + sT(Math.min(W - 4, cx + W * 0.3 + base), F * 1.2, "réfléchi", "end", tk, 'font-weight="700"') + sT(cx + base, H - F * 0.7, "absorbé", "start", tk, 'font-weight="700"') + sT(8, H - F * 0.7, s[0], "start", tk, 'font-weight="800"');
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Rayonnement reçu, réfléchi et absorbé par la surface choisie">${g}</svg>`;
+  });
+  const pc = v => fmt(Math.round(v * 100));
+  const upd = () => {
+    $$(".seg button", el).forEach((b, i) => b.setAttribute("aria-pressed", i === k ? "true" : "false")); fig.draw();
+    const s = SURF[k]; $("#alR", el).innerHTML = s[1] === s[2] ? `<b>${s[0]}</b> · albédo ${fmt(s[1], 2)} → réfléchi : <b>${pc(s[1])}${NB}%</b> · absorbé : <b>${pc(1 - s[1])}${NB}%</b>` : `<b>${s[0]}</b> · albédo ${fmt(s[1], 2)} à ${fmt(s[2], 2)} → réfléchi : <b>${pc(s[1])} à ${pc(s[2])}${NB}%</b> · absorbé : <b>${pc(1 - s[2])} à ${pc(1 - s[1])}${NB}%</b>`;
+    const f = ice / 100, am = f * 0.6 + (1 - f) * 0.075; $("#alSv", el).textContent = ice + NB + "%"; $("#alMi", el).style.width = ice + "%";
+    $("#alM", el).innerHTML = `Albédo moyen : <b>${fmt(am, 2)}</b> → énergie solaire absorbée : <b>${pc(1 - am)}${NB}%</b>`;
+  };
+  $$(".seg button", el).forEach(b => b.onclick = () => { k = +b.dataset.k; upd(); });
+  $("#alS", el).oninput = e => { ice = +e.target.value; upd(); }; upd();
+};
+
+/* --- Groupe 2 : la boucle glaces-albédo en action (débloquée) --- */
+function loopModel(D) {
+  const tau = 30, m = 1.5, kf = 0.25, T0 = [], T1 = [], A0 = [], A1 = []; let t1 = 0;
+  for (let y = 0; y <= 200; y++) {
+    const t0 = D * (1 - Math.exp(-y / tau));
+    if (y % 10 === 0) { T0.push([y, Math.round(t0 * 100) / 100]); T1.push([y, Math.round(t1 * 100) / 100]); A0.push([y, Math.round((15 - m * t0) * 10) / 10]); A1.push([y, Math.round((15 - m * t1) * 10) / 10]); }
+    t1 += (D + kf * m * t1 - t1) / tau;
+  }
+  return { T0, T1, A0, A1 };
+}
+WID.loop = el => {
+  el.innerHTML = nb(`<p class="lead">On impose un réchauffement de départ, puis on compare deux mondes : l'un où la fonte des glaces ne change pas l'albédo (sans rétroaction), l'autre où elle le fait baisser (avec rétroaction). Modèle très simplifié.</p>
+    <div class="field"><label for="lpD">Réchauffement imposé au départ : <b class="num" id="lpDv"></b></label><input id="lpD" type="range" min="1" max="3" step="0.5" value="2"></div>
+    <div class="row animctl" id="lpCtl"></div><div class="fb neutral" id="lpRes" aria-live="polite"></div>
+    <h4>Température</h4><div class="chartbox" id="lpT"></div><h4>Surface des glaces</h4><div class="chartbox" id="lpA"></div>`);
+  let D = 2, M, chT, chA, ctl;
+  const tabs = h => $$("details.tbl", el).forEach(d => { d.hidden = h; });
+  const build = () => {
+    M = loopModel(D); $("#lpDv", el).textContent = "+ " + fmt(D, 1) + NB + "°C";
+    const base = { type: "line", xMin: 0, xMax: 200, xStep: 50, xTitle: "Temps (années)", xRead: v => "Année " + v, h: 13 };
+    chT = mountChart($("#lpT", el), Object.assign({}, base, { series: [{ name: "Avec rétroaction glaces-albédo", pts: M.T1, color: "c2", w: 3.2 }, { name: "Sans rétroaction", pts: M.T0, color: "c6", w: 2.4 }], yMin: 0, yMax: 5, yStep: 1, yTitle: "Réchauffement (°C)", yRead: v => "+ " + fmt(v, 1) + NB + "°C", alt: "Réchauffement en fonction du temps, avec et sans rétroaction" }));
+    chA = mountChart($("#lpA", el), Object.assign({}, base, { series: [{ name: "Avec rétroaction glaces-albédo", pts: M.A1, color: "c2", w: 3.2 }, { name: "Sans rétroaction", pts: M.A0, color: "c6", w: 2.4 }], yMin: 6, yMax: 16, yStep: 2, yTitle: "Surface des glaces (10⁶ km²)", yRead: v => fmt(v, 1) + " × 10⁶" + NB + "km²", alt: "Surface des glaces en fonction du temps, avec et sans rétroaction" }));
+  };
+  const onP = p => {
+    [chT, chA].forEach(c => { c.cut = p >= 1 ? null : p * 200; c.sel = null; c.draw(); }); tabs(p < 1);
+    const r = $("#lpRes", el), a = M.T1[20][1], b = M.T0[20][1];
+    if (p >= 1) { r.className = "box info"; r.innerHTML = `<p class="lab">ℹ Résultat de la simulation</p><p><b>Après 200 ans : + ${fmt(a, 1)}${NB}°C avec la rétroaction, contre + ${fmt(b, 1)}${NB}°C sans (× ${fmt(a / b, 1)}).</b> Il reste ${fmt(M.A1[20][1], 1)} × 10⁶${NB}km² de glaces au lieu de ${fmt(M.A0[20][1], 1)} × 10⁶${NB}km².</p><p>La fonte des glaces renforce le réchauffement qui l'a provoquée.</p>`; }
+    else { r.className = "fb neutral"; r.innerHTML = `<p class="h">${p <= 0 ? "Touche « Lancer » : le résultat s'affiche à la fin du tracé." : "Année " + Math.round(p * 200) + "…"}</p>`; }
+  };
+  build(); ctl = animCtl($("#lpCtl", el), 8000, onP);
+  $("#lpD", el).oninput = e => { D = +e.target.value; ctl.pause(); ctl.p = 0; build(); ctl.set(0); };
+};
+
+/* --- Groupe 3 : une forêt qui grandit --- */
+const STOCK = [[0, 10], [25, 50], [50, 130], [75, 180], [100, 196], [125, 200], [150, 200]];
+const stockAt = x => { for (let i = 1; i < STOCK.length; i++) if (x <= STOCK[i][0]) { const [a, b] = [STOCK[i - 1], STOCK[i]]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); } return 200; };
+WID.foret = el => {
+  el.innerHTML = nb(`<p class="lead">On plante une forêt sur un terrain nu et on suit, pendant 150 ans, le carbone stocké dans ses arbres.</p><div class="figbox" id="foFig"></div><p class="readout" id="foSt" aria-live="polite"></p><div class="chartbox" id="foCh"></div>`);
+  let age = 0;
+  const fig = liveSVG($("#foFig", el), (W, F) => {
+    const H = F * 6, gy = H - F * 0.6, n = Math.max(5, Math.min(11, Math.floor(W / (F * 3.2)))), s = stockAt(age) / 200; let g = `<rect x="0" y="0" width="${W}" height="${gy}" rx="8" style="fill:var(--surface-2)"/><rect x="0" y="${gy}" width="${W}" height="${H - gy}" style="fill:var(--sand)"/>`;
+    for (let i = 0; i < n; i++) { const x = W * (i + 0.5) / n, k = 0.82 + 0.18 * Math.sin(i * 2.3 + 1), h = Math.max(F * 0.35, F * 4.6 * s * k), r = Math.max(F * 0.22, h * 0.36); g += `<rect x="${x - Math.max(1.5, r * 0.14)}" y="${gy - h * 0.55}" width="${Math.max(3, r * 0.28)}" height="${h * 0.55}" style="fill:var(--c5)"/><ellipse cx="${x}" cy="${gy - h * 0.66}" rx="${r}" ry="${h * 0.36}" style="fill:var(--c4)"/>`; }
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Rangée d'arbres dont la taille suit l'âge de la forêt">${g}</svg>`;
+  });
+  mountChart($("#foCh", el), { type: "line", series: [{ name: "Carbone stocké", pts: STOCK, color: "c4", w: 3.4 }], markers: true, xMin: 0, xMax: 150, xStep: 25, yMin: 0, yMax: 220, yStep: 40, anim: true, animStart: "empty", animDur: 9000,
+    xTitle: "Âge de la forêt (années)", yTitle: "Carbone stocké (t par hectare)", xRead: v => v + NB + "ans", yRead: v => fmt(v) + NB + "t de carbone par hectare", h: 14, alt: "Carbone stocké dans la forêt en fonction de son âge",
+    onCut: x => { age = x; if (fig) fig.draw(); const s = $("#foSt", el); if (s) s.innerHTML = x <= 0 ? "🌱 Terrain tout juste planté. Touche « Lancer »." : x < 150 ? `🌳 Âge de la forêt : <b>${Math.round(x)}${NB}ans</b>` : "🌳 Forêt de 150 ans : touche le graphique pour lire les valeurs."; } });
+};
+WID.puits = el => {
+  el.innerHTML = nb(`<p class="lead">Le puits de carbone est ce que la forêt stocke en plus chaque année : c'est la pente de la courbe précédente.</p><div class="chartbox" id="puCh"></div>
+    <div class="box key"><p class="lab">✔ Règle clé</p><p>Forêt jeune : le stock augmente, le puits est fort. Forêt ancienne à l'équilibre : le stock est élevé mais ne varie plus, le puits est nul.</p></div>`);
+  const pts = STOCK.slice(1).map((p, i) => [(p[0] + STOCK[i][0]) / 2, Math.round((p[1] - STOCK[i][1]) / 25 * 100) / 100]);
+  mountChart($("#puCh", el), { type: "line", series: [{ name: "Puits de carbone", pts, color: "c1", w: 3.4 }], markers: true, xMin: 0, xMax: 150, xStep: 25, yMin: 0, yMax: 4, yStep: 1, anim: true, animStart: "empty", animDur: 6000,
+    xTitle: "Âge de la forêt (années)", yTitle: "Puits (t par hectare et par an)", xRead: v => "Vers " + fmt(v, 1) + NB + "ans", yRead: v => fmt(v, 2) + NB + "t par hectare et par an", h: 13, alt: "Puits de carbone de la forêt en fonction de son âge" });
+};
+
+/* ===== Contenus : documents de l'activité et questions (d'après la fiche et le corrigé du professeur) ===== */
+const PROBLEM = "Quels phénomènes contribuent à expliquer l'évolution de la température moyenne à la surface de la Terre ?";
+
+/* ---------- documents de la fiche ---------- */
+const DOC1 = { title: "Doc. 1 · La dilatation thermique de l'eau", fig: "dilat",
+  html: `<p>Il existe dans les océans une profondeur à partir de laquelle la température de l'eau reste à peu près constante. Cette zone nommée thermocline est située aux alentours des 1 000 m de profondeur.</p>
+<p>La dilatation thermique ne concerne donc que l'eau située au-dessus de cette thermocline. De nombreux effets locaux peuvent amplifier le phénomène : la hausse du niveau marin en cas de réchauffement climatique ne sera donc pas la même partout à la surface du globe.</p>
+<p>À pression constante, tous les corps ont un volume qui varie selon la température. Cette variation est fonction de l'espèce chimique ou du mélange considéré. Dans le cas de l'eau pure, le coefficient de dilatation thermique est de 2,6 × 10⁻⁴ °C⁻¹. Cela signifie qu'une augmentation de la température de 1 °C pour 1 litre d'eau augmentera son volume de 0,000 26 L, soit 0,26 mL. Ceci peut paraître faible, mais doit être rapporté au volume des océans qui occupent 70 % de la surface du globe.</p>`,
+  cap: "Mécanisme de dilatation thermique de l'eau (schéma redessiné). Pointillés gris : niveau initial · tirets noirs : thermocline · zone orangée : eau qui se réchauffe et se dilate. * Échelle non respectée." };
+const DOC2 = { title: "Doc. 2 · L'inertie thermique de l'eau",
+  html: `<p>L'eau a une capacité calorifique (ou capacité thermique) quatre fois plus élevée que celle de l'air. Ainsi, lorsque la température de l'eau augmente de 1 °C, cela signifie qu'elle a accumulé quatre fois plus d'énergie thermique que l'air. La température de l'eau augmente et diminue ainsi plus lentement que celle de l'air, ce qui a des effets à plus long terme que des variations de température de l'air.</p>` };
+const DOC3_TXT = `<p>L'entrée de la grotte Cosquer, située dans les calanques de Marseille, est immergée. Ses murs sont couverts de peintures rupestres datant d'il y a 19 000 à 27 000 ans. D'autres éléments montrent que lors de la dernière période glaciaire, le niveau de la mer était 130 mètres plus bas qu'actuellement.</p>
+<p>Aujourd'hui, on estime que l'Antarctique contiendrait à lui seul 26,5 millions de km³ de glace, le volume total des océans étant estimé à 1 322 millions de km³.</p>`;
+const DOC3 = { title: "Doc. 3 · Glaciations et variations du niveau marin", html: DOC3_TXT, fig: "cosquer", cap: "Schéma simplifié de la grotte Cosquer (redessiné)." };
+const DOC3_MAP = { title: "Doc. 3 · Glaciations et variations du niveau marin", html: DOC3_TXT, fig: "banquise",
+  cap: `<span class="swl"><span><i style="background:var(--ice)"></i>banquise (glace de mer) en octobre 2023</span><span><i style="background:var(--c2);height:.3rem;border:0"></i>extension moyenne de la glace sur la période 1991-2020</span><span><i style="background:var(--c6)"></i>continent</span></span>Concentration en glace de mer au niveau de l'Antarctique en octobre 2023 : schéma simplifié d'après la carte de la fiche (source des données : Copernicus).` };
+const DOC_TP = { title: "Travaux pratiques · Fonte des glaces continentales ou de la banquise",
+  html: `<p><b>Matériel :</b> verre d'eau, glaçons, petite surface de bois sur laquelle déposer les glaçons.</p>
+<ul class="ul"><li>Remplir deux béchers d'eau.</li><li>Ajouter un ou plusieurs glaçons dans le premier bécher (modélise la banquise).</li><li>Dans le second bécher, placer les glaçons sur une planche légèrement inclinée vers le bécher, de sorte que l'eau issue de la fonte du glaçon rejoigne le bécher (modélise des glaces en domaine continental).</li><li>Relever la hauteur d'eau au début de la modélisation et à la fin, lorsque le ou les glaçons ont fondu.</li><li>Comparer les résultats et conclure sur l'effet de la fonte des glaces sur les variations du niveau marin.</li></ul>` };
+const ALB_TBL = tbl(["Type de surface", "Glace", "Océan", "Forêt", "Moyenne terrestre"], [["Albédo", "0,6", "0,05-0,1", "0,05-0,2", "0,3"]]);
+const DOC4 = { title: "Doc. 4 · Surface des glaces et albédo terrestre",
+  html: `<p>La surface moyenne terrestre recouverte par les glaces correspond environ à 15 × 10⁶ km², soit un dixième de la surface des continents.</p>${ALB_TBL}<p class="cap">Valeurs de l'albédo pour quelques surfaces terrestres.</p>
+<div class="box info"><p class="lab">ℹ Vocabulaire</p><p><b>Albédo</b> : capacité d'une surface à réfléchir le rayonnement reçu. La réflexion est totale quand l'albédo vaut 1. Le rayonnement non réfléchi est absorbé et contribue à réchauffer la surface.</p></div>` };
+const DOC5 = { title: "Doc. 5 · Photosynthèse et croissance des plantes",
+  html: `<p>La photosynthèse permet la séquestration d'une partie du dioxyde de carbone de l'atmosphère dans la matière organique des végétaux, tant que le végétal est en croissance (forêts en développement). Si la forêt est à l'équilibre, elle ne constitue plus un puits de carbone. Les stocks et flux de carbone relatifs aux forêts et terres cultivées ont été estimés. La sensibilité au changement climatique illustre la différence de séquestration entre deux scénarios du GIEC (voir chapitre 3).</p>
+${tbl(["", "Stock actuel (en Mt éq. CO₂)", "Puits actuel (en Mt éq. CO₂)", "Sensibilité au changement climatique (en Mt éq. CO₂)"], [["Terres cultivées", "5 408", "−1,4", "848"], ["Forêt métropolitaine", "10 263", "87", "1 314"], ["Forêt guyanaise", "9 026", "0", "0"]])}<p class="cap">Données relatives au puits de carbone des végétaux (mars 2019).</p>` };
+const DOC5_PLUS = { title: "Complément · Ressources numériques", html: `<p>Depuis 1982, on observe au niveau mondial une tendance à l'augmentation du nombre de feuilles, donc une croissance des végétaux.</p>` };
+const DOC_DEFI = { title: "Trois informations tirées des documents de l'activité",
+  html: `<ul class="ul"><li><b>Doc. 1</b> : les océans occupent 70 % de la surface du globe (les continents : 30 %).</li><li><b>Doc. 3</b> : l'Antarctique contiendrait à lui seul 26,5 millions de km³ de glace.</li><li><b>Doc. 4</b> : la surface recouverte par les glaces correspond environ à 15 × 10⁶ km² (15 millions de km²), soit un dixième de la surface des continents.</li></ul>` };
+
+const about = (x, t, r) => Math.abs(x - t) <= Math.abs(t) * (r || 0.03);
+
+/* ---------- groupes et étapes ---------- */
+const GROUPS = [
+{ id: "g1", n: 1, icon: "🌊", title: "Rôle de l'océan", sub: "Dilatation thermique et inertie thermique de l'eau (documents 1 et 2).",
+  inds: [{ t: "Avoir estimé la hausse du niveau marin pour une augmentation de température donnée (en se plaçant dans une couche superficielle).", items: ["g1b"] }, { t: "Avoir mis en évidence des effets irréversibles à long terme d'un réchauffement climatique.", items: ["g1d"] }, { t: "Avoir montré que l'océan a un rôle amortisseur du réchauffement climatique.", items: ["g1c", "g1d"] }],
+  items: [
+  { id: "g1a", lvl: "easy", title: "Lire le document 1", docs: [DOC1],
+    parts: [
+      { t: "word", c: "lire", label: "Comment s'appelle la zone de l'océan à partir de laquelle la température de l'eau reste à peu près constante ?", ans: ["thermocline"] },
+      { t: "num", c: "lire", label: "À quelle profondeur se situe-t-elle, environ ?", unit: "m", ans: 1000, err: [[v => v === 1, "1 km, oui : écris-le en mètres."]] },
+      { t: "choice", c: "lire", label: "Quand le climat se réchauffe, quelle eau se dilate ?", o: ["Toute l'eau de l'océan, jusqu'au fond", "Seulement l'eau située au-dessus de la thermocline", "Seulement l'eau située sous la thermocline", "Aucune : l'eau liquide ne se dilate pas"], a: 1,
+        no: { 0: "En profondeur, la température reste à peu près constante : pas de réchauffement, donc pas de dilatation.", 2: "C'est l'inverse : sous la thermocline, la température ne varie presque pas.", 3: "Le document donne un coefficient de dilatation de l'eau : elle se dilate bien." } },
+      { t: "num", c: "lire", label: "1 L d'eau se réchauffe de 1 °C. De combien son volume augmente-t-il ?", unit: "mL", ans: 0.26, tol: 0.001, err: [[v => about(v, 0.00026), "C'est la valeur en litres : convertis-la en mL."]] }],
+    hints: ["Toutes les réponses sont dans le texte du document 1.", "Le nom de la zone et sa profondeur sont dans le premier paragraphe ; la variation de volume est dans le troisième.", "Thermocline, vers 1 000 m. Pour 1 L et 1 °C : 0,000 26 L, soit 0,26 mL."],
+    corr: "La thermocline se situe vers 1 000 m : en dessous, la température reste à peu près constante. Seule l'eau située au-dessus se réchauffe et se dilate. Pour 1 L et 1 °C : + 0,000 26 L, soit 0,26 mL (coefficient de dilatation : 2,6 × 10⁻⁴ °C⁻¹)." },
+  { id: "g1b", lvl: "mid", title: "Estimer la hausse du niveau marin", docs: [DOC1],
+    intro: "On raisonne sur une colonne d'eau : le fond et les côtés ne bougent pas, seule la hauteur peut augmenter.",
+    parts: [
+      { t: "num", c: "calc", label: "La couche située au-dessus de la thermocline (1 000 m d'épaisseur) se réchauffe de 1 °C. De combien le niveau de la mer monte-t-il ?", unit: "m", ans: 0.26, tol: 0.006,
+        err: [[v => about(v, 2.6), "Vérifie la puissance de 10 : 1 000 × 2,6 × 10⁻⁴ = 0,26 et non 2,6."], [v => about(v, 26), "26, c'est la valeur en centimètres. La réponse est demandée en mètres."], [v => about(v, 0.00026), "C'est la hausse pour 1 m d'eau. La couche fait 1 000 m d'épaisseur."], [v => about(v, 260), "260, c'est la valeur en millimètres. La réponse est demandée en mètres."]] },
+      { t: "num", c: "calc", label: "Et si cette même couche se réchauffe de 2 °C ?", unit: "cm", ans: 52, tol: 1, err: [[v => about(v, 0.52), "0,52, c'est la valeur en mètres : convertis-la en centimètres."], [v => about(v, 26), "26 cm, c'est pour 1 °C. Ici la hausse de température est de 2 °C."]] },
+      { t: "multi", c: "rais", label: "Quelles sont les conséquences d'une élévation du niveau de la mer ? (2 réponses)", o: ["Les écosystèmes du littoral sont modifiés", "La vie des populations qui habitent les côtes est perturbée", "La température des océans baisse", "La thermocline disparaît"], a: [0, 1] }],
+    hints: ["Si 1 L gagne 0,000 26 L par degré, toute hauteur d'eau augmente dans la même proportion : × 2,6 × 10⁻⁴ par °C.", "Hausse du niveau = épaisseur de la couche × 2,6 × 10⁻⁴ × hausse de température.", "1 000 m × 2,6 × 10⁻⁴ × 1 = 0,26 m, soit 26 cm. Pour 2 °C : le double."],
+    corr: "1 000 m × 2,6 × 10⁻⁴ °C⁻¹ × 1 °C = 0,26 m, soit 26 cm (52 cm pour 2 °C). Le réchauffement climatique entraîne donc une élévation du niveau de la mer, ce qui modifie les écosystèmes et perturbe la vie des populations qui vivent sur les côtes.",
+    unlock: { title: "🔓 Simulateur débloqué · Dilatation de l'océan", w: "dilat" } },
+  { id: "g1c", lvl: "mid", title: "Expérience virtuelle · Air ou eau : lequel chauffe le plus vite ?",
+    intro: "On chauffe avec la même lampe 1 kg d'air et 1 kg d'eau pendant 20 min, puis on éteint la lampe.",
+    pre: { label: "Ton hypothèse : lequel se réchauffe le plus vite ?", o: ["L'air", "L'eau", "Les deux à la même vitesse"], a: 0 },
+    widget: { title: "Expérience virtuelle · Température de l'air et de l'eau", w: "inertie", sim: SIMUL },
+    parts: [
+      { t: "num", c: "mod", label: "Lance l'expérience, puis lis le graphique. À 20 min (arrêt de la lampe), quelle est la température de l'air ?", unit: "°C", ans: 29.8, tol: 0.6, err: [[v => about(v, 26.3, 0.02), "Tu as lu la courbe de l'eau. Vérifie la légende."]] },
+      { t: "num", c: "mod", label: "À 20 min, quelle est la température de l'eau ?", unit: "°C", ans: 26.3, tol: 0.6, err: [[v => about(v, 29.8, 0.02), "Tu as lu la courbe de l'air. Vérifie la légende."]] },
+      { t: "choice", c: "mod", label: "Une fois la lampe éteinte, lequel met le plus de temps à revenir à 20 °C ?", o: ["L'air", "L'eau", "Ils reviennent à 20 °C en même temps"], a: 1 },
+      { t: "word", c: "rais", label: "L'eau s'échauffe et se refroidit lentement. Complète : on parle de l'… thermique de l'eau.", ans: ["inertie", "inertie thermique"], err: [[["capacite", "capacite thermique", "capacite calorifique"], "La capacité thermique en est la cause. Le mot attendu désigne la lenteur à changer de température."]] }],
+    hints: ["Quand le tracé est terminé, touche le graphique à 20 min : les deux températures s'affichent dessous.", "Compare les pentes : la courbe la plus raide est celle qui change le plus vite.", "À 20 min : air ≈ 29,8 °C, eau ≈ 26,3 °C. À 40 min, l'air est revenu à 20 °C alors que l'eau est encore tiède."],
+    corr: "Avec le même chauffage, l'air atteint presque 30 °C quand l'eau n'est qu'à 26,3 °C : l'eau se réchauffe plus lentement. Lampe éteinte, l'air revient vite à 20 °C alors que l'eau reste tiède longtemps. C'est l'inertie thermique de l'eau." },
+  { id: "g1d", lvl: "hard", title: "L'océan : amortisseur aujourd'hui, effets durables demain", docs: [DOC2],
+    parts: [
+      { t: "num", c: "lire", label: "D'après le document 2, pour une même hausse de 1 °C, l'eau accumule combien de fois plus d'énergie thermique que l'air ?", unit: "fois plus", ans: 4 },
+      { t: "choice", c: "rais", label: "À court terme, quel est le rôle de l'océan dans le réchauffement climatique ?", o: ["Il l'amplifie : l'eau se réchauffe plus vite que l'air", "Il l'amortit : l'eau s'échauffe moins vite que l'air, tout en accumulant beaucoup d'énergie", "Il n'en a aucun : l'océan n'échange pas d'énergie avec l'air"], a: 1, no: { 0: "Le document 2 dit l'inverse : la température de l'eau augmente plus lentement que celle de l'air." } },
+      { t: "choice", c: "rais", label: "Imaginons que l'on parvienne à inverser la tendance. Que se passerait-il ?", o: ["La température de l'océan baisserait aussitôt", "L'océan se refroidirait lentement : les effets du réchauffement se ressentiraient encore longtemps", "L'océan continuerait à se réchauffer indéfiniment"], a: 1, no: { 0: "L'eau se refroidit aussi lentement qu'elle se réchauffe : c'est son inertie thermique." } },
+      { t: "text", label: "Rédige : montre que l'océan amortit le réchauffement climatique, mais que ce réchauffement aura des effets à long terme." }],
+    hints: ["Relis le document 2 : que dit-il de la vitesse à laquelle la température de l'eau augmente, puis diminue ?", "Une eau qui s'échauffe lentement freine la hausse des températures. Une eau qui se refroidit lentement prolonge les effets.", "Court terme : rôle amortisseur. Long terme : même si la tendance s'inversait, l'océan resterait chaud longtemps."],
+    corr: "L'inertie thermique fait que l'eau s'échauffe moins vite que l'air, ce qui a un rôle amortisseur à court terme sur le réchauffement climatique. Mais elle entraîne aussi un refroidissement lent : à long terme, les effets du réchauffement climatique actuel se ressentiront encore, même si nous parvenions à inverser la tendance.",
+    model: "L'eau a une capacité thermique quatre fois plus élevée que celle de l'air : elle accumule beaucoup d'énergie pour une faible hausse de température. L'inertie thermique fait que l'eau s'échauffe moins vite que l'air, ce qui a un rôle amortisseur à court terme sur le réchauffement climatique. Mais cette même inertie entraîne un refroidissement très lent des océans : à long terme, les effets du réchauffement climatique actuel se ressentiront encore, même si nous parvenions à inverser la tendance.",
+    crit: ["J'ai cité la capacité thermique de l'eau, quatre fois plus élevée que celle de l'air", "J'ai expliqué que l'eau s'échauffe moins vite que l'air : rôle amortisseur à court terme", "J'ai expliqué que l'eau se refroidit lentement : effets encore ressentis à long terme, même si la tendance s'inversait", "J'ai utilisé l'expression « inertie thermique »"] }] },
+
+{ id: "g2", n: 2, icon: "🧊", title: "Rôle des surfaces gelées", sub: "Niveau marin, fonte des glaces et albédo (documents 3 et 4, travaux pratiques).",
+  inds: [{ t: "Avoir présenté les conséquences de la fonte des glaces.", items: ["g2c", "g2e"] }, { t: "Avoir représenté par un schéma la rétroaction liée aux glaces et à l'albédo.", items: ["g2e"] }],
+  items: [
+  { id: "g2a", lvl: "easy", title: "Glaciations et niveau marin", docs: [DOC3],
+    parts: [
+      { t: "num", c: "lire", label: "Lors de la dernière période glaciaire, le niveau de la mer était plus bas qu'aujourd'hui. De combien ?", unit: "m", ans: 130, err: [[v => v === 37, "37 m, c'est la profondeur actuelle de l'entrée de la grotte. Cherche la valeur dans le texte."]] },
+      { t: "choice", c: "rais", label: "Les peintures de la grotte Cosquer ont 19 000 à 27 000 ans, et son entrée est aujourd'hui sous la mer. Qu'en déduis-tu ?", o: ["Les artistes plongeaient en apnée pour y entrer", "À cette époque, l'entrée était à l'air libre : le niveau de la mer était plus bas", "La grotte s'est enfoncée dans le sol depuis cette époque"], a: 1 },
+      { t: "choice", c: "rais", label: "Pendant la période glaciaire, où se trouvait l'eau qui « manquait » dans les océans ?", o: ["Dans l'atmosphère, sous forme de vapeur", "Sur les continents, piégée sous forme de glace", "Dans les nappes d'eau souterraines", "Elle avait quitté la Terre"], a: 1 }],
+    hints: ["La valeur demandée est écrite dans le premier paragraphe du document 3.", "Pour peindre dans la grotte, il fallait pouvoir y entrer à pied : où était alors la mer ?", "Niveau marin plus bas de 130 m : l'eau était stockée sous forme de glace sur les continents."],
+    corr: "Lors de la dernière période glaciaire, le niveau de la mer était plus bas qu'actuellement de 130 m environ : l'entrée de la grotte Cosquer, aujourd'hui à 37 m sous la surface, était alors à l'air libre. Une période glaciaire piège de l'eau sous forme de glace, ce qui contribue à une baisse du niveau marin.",
+    unlock: { title: "🔓 Animation débloquée · La mer remonte, la grotte se noie", w: "cosquer", sim: SIMUL + " (allure simplifiée de la remontée de la mer)" } },
+  { id: "g2b", lvl: "mid", title: "Quel volume d'eau dans les glaces ?", docs: [DOC3_MAP],
+    parts: [
+      { t: "num", c: "calc", label: "À quel pourcentage du volume total des océans le volume de glace de l'Antarctique correspond-il ? (arrondis à l'unité)", unit: "%", ans: 2, tol: 0.06, err: [[v => about(v, 0.02, 0.05), "0,02 est le rapport : multiplie-le par 100 pour obtenir un pourcentage."], [v => about(v, 49.9, 0.02), "Tu as divisé dans le mauvais sens : c'est le volume de glace que l'on rapporte au volume des océans."]] },
+      { t: "word", c: "lire", label: "Sur la carte, quel nom porte la glace de mer qui flotte autour du continent antarctique ?", ans: ["banquise", "banquise antarctique"], err: [[["iceberg", "icebergs"], "Un iceberg est un bloc détaché d'un glacier continental. Lis les étiquettes de la carte."], [["glacier", "calotte", "inlandsis", "calotte glaciaire", "glaces continentales"], "Ces glaces-là reposent sur le continent. Ici, la glace flotte sur la mer."]] },
+      { t: "choice", c: "lire", label: "En octobre 2023, par rapport à la moyenne 1991-2020 (ligne orange), la banquise antarctique est…", o: ["plus étendue", "moins étendue", "exactement aussi étendue"], a: 1, no: { 0: "La glace n'atteint nulle part la ligne orange : elle reste en deçà." } }],
+    hints: ["Pourcentage = (volume de glace / volume des océans) × 100.", "26,5 / 1 322 ≈ 0,02. Sur la carte, compare le bord de la glace blanche et la ligne orange.", "Environ 2 %. La banquise de 2023 reste à l'intérieur de la ligne orange : elle est moins étendue que la moyenne."],
+    corr: "26,5 / 1 322 ≈ 0,02 : le volume des glaces de l'Antarctique correspond à environ 2 % du volume total des océans. En octobre 2023, la banquise antarctique n'atteint pas la ligne orange : elle est moins étendue que la moyenne 1991-2020." },
+  { id: "g2c", lvl: "mid", title: "TP virtuel · Banquise ou glaces continentales ?", docs: [DOC_TP],
+    intro: "Ce TP virtuel ne remplace pas la manipulation faite en classe : compare ensuite avec tes propres mesures.",
+    pre: { label: "Ton hypothèse : dans quel bécher le niveau de l'eau va-t-il monter ?", o: ["Dans le bécher 1 seulement (banquise)", "Dans le bécher 2 seulement (glaces continentales)", "Dans les deux béchers", "Dans aucun des deux"], a: 1 },
+    widget: { title: "TP virtuel · Fonte des glaçons", w: "tp", sim: SIMUL },
+    parts: [
+      { t: "num", c: "mod", label: "Lance le TP et attends la fin de la fonte. Bécher 1 (banquise) : quel est le niveau de l'eau à la fin ?", unit: "mL", ans: 300, tol: 6, err: [[v => v > 306 && v <= 400, "Compare avec le trait rouge tracé au début : le niveau a-t-il vraiment bougé ?"]] },
+      { t: "num", c: "mod", label: "Bécher 2 (glaces continentales) : quel est le niveau de l'eau à la fin ?", unit: "mL", ans: 250, tol: 6, err: [[v => about(v, 200, 0.03), "200 mL, c'est le niveau de départ (trait rouge). Lis le niveau une fois les glaçons fondus."]] },
+      { t: "rows", c: "rais", label: "Conclus : quelle fonte fait monter le niveau des mers ?", choices: ["Fait monter le niveau", "Ne change pas le niveau"], rows: [{ txt: "La fonte de la banquise (glace qui flotte déjà sur la mer)", a: 1 }, { txt: "La fonte des glaces continentales (glaciers, calottes de l'Antarctique et du Groenland)", a: 0 }] }],
+    hints: ["Le trait rouge marque le niveau de départ de chaque bécher. Attends la fin de la fonte pour lire.", "Lis la graduation à la surface de l'eau : grand trait tous les 100 mL, trait moyen tous les 50 mL.", "Bécher 1 : toujours 300 mL. Bécher 2 : le niveau passe de 200 à 250 mL."],
+    corr: "La modélisation montre que la fonte d'un glaçon dans l'eau ne modifie pas le volume total (bécher 1 : 300 mL au début comme à la fin), alors qu'un glaçon sur une surface hors de l'eau, qui modélise un glacier continental, entraîne une hausse du niveau (bécher 2 : de 200 à 250 mL). Seule la fonte des glaces continentales fait monter le niveau marin." },
+  { id: "g2d", lvl: "mid", title: "Albédo : la glace face à l'océan", docs: [DOC4],
+    parts: [
+      { t: "num", c: "calc", label: "Une surface de glace reçoit 100 W de rayonnement solaire. Quelle puissance réfléchit-elle ?", unit: "W", ans: 60, tol: 0.5, err: [[v => about(v, 40), "40 W, c'est la part absorbée. On demande la part réfléchie."], [v => about(v, 0.6), "0,6 est l'albédo : applique-le aux 100 W reçus."]] },
+      { t: "num", c: "calc", label: "Quelle puissance cette surface de glace absorbe-t-elle ?", unit: "W", ans: 40, tol: 0.5, err: [[v => about(v, 60), "60 W, c'est la part réfléchie. Ce qui n'est pas réfléchi est absorbé."]] },
+      { t: "num", c: "calc", label: "Une surface d'océan d'albédo 0,05 reçoit les mêmes 100 W. Quelle puissance absorbe-t-elle ?", unit: "W", ans: 95, tol: 0.5, err: [[v => about(v, 5), "5 W, c'est la part réfléchie. On demande la part absorbée."]] },
+      { t: "choice", c: "calc", label: "D'après le tableau, l'albédo de la glace est, par rapport à celui de l'océan…", o: ["2 à 3 fois plus grand", "6 à 12 fois plus grand", "6 à 12 fois plus petit", "identique"], a: 1, no: { 2: "C'est l'inverse : la glace réfléchit beaucoup plus que l'océan." } }],
+    hints: ["L'albédo indique la fraction du rayonnement reçu qui est réfléchie. Le reste est absorbé.", "Puissance réfléchie = albédo × puissance reçue. Puissance absorbée = puissance reçue − puissance réfléchie.", "Glace : 0,6 × 100 = 60 W réfléchis, donc 40 W absorbés. Océan : 5 W réfléchis, 95 W absorbés. 0,6 / 0,1 = 6 et 0,6 / 0,05 = 12."],
+    corr: "La glace (albédo 0,6) réfléchit 60 % du rayonnement reçu et n'en absorbe que 40 %. L'océan (albédo 0,05 à 0,1) en absorbe 90 à 95 %. Les glaces ont un albédo 6 à 12 fois supérieur à celui des océans, ce qui réduit l'échauffement de la surface terrestre.",
+    unlock: { title: "🔓 Simulateur débloqué · Albédo et énergie absorbée", w: "albedo" } },
+  { id: "g2e", lvl: "hard", title: "Représenter la rétroaction liée aux glaces et à l'albédo", docs: [DOC4],
+    parts: [
+      { t: "loop", c: "rais", label: "Construis le schéma : place les quatre étiquettes dans l'ordre, à partir du réchauffement.", start: "Réchauffement climatique : la température moyenne augmente", items: ["Les glaces fondent", "La surface couverte de glace diminue", "L'albédo terrestre diminue", "La surface de la Terre absorbe davantage d'énergie solaire"], back: "… ce qui augmente encore la température moyenne" },
+      { t: "choice", c: "rais", label: "Au bout de la boucle, l'effet agit en retour sur la cause de départ. Cette rétroaction…", o: ["amplifie le réchauffement de départ : c'est une rétroaction positive", "atténue le réchauffement de départ : c'est une rétroaction négative", "n'a aucun effet sur le réchauffement"], a: 0, no: { 1: "Suis les flèches : plus d'énergie absorbée, c'est une température qui monte encore." } },
+      { t: "text", label: "Rédige : présente les conséquences de la fonte des glaces." }],
+    hints: ["Pars de la cause : que devient la glace quand la température augmente ?", "Moins de glace, c'est moins de surface très réfléchissante : que devient l'albédo, puis l'énergie absorbée ?", "Fonte des glaces → surface gelée en baisse → albédo en baisse → davantage d'énergie absorbée → la température augmente encore."],
+    corr: "Le réchauffement climatique entraîne une fonte des glaces. Or, l'eau a un albédo 6 à 12 fois plus faible que celui des glaces, ce qui amplifie l'absorption d'énergie radiative à la surface de la Terre et donc le réchauffement climatique. Ce dernier accélère alors la fonte des glaces. Il y a donc une rétroaction positive entre réchauffement climatique et fonte des glaces.",
+    model: "La fonte des glaces a deux conséquences. D'une part, une hausse du niveau marin : la modélisation montre que la fonte d'un glaçon dans l'eau (banquise) ne modifie pas le volume total, alors qu'un glaçon posé hors de l'eau (glacier continental) entraîne une hausse du niveau. À l'inverse, lors de la dernière période glaciaire, l'eau piégée sous forme de glace avait abaissé le niveau marin de 130 m environ. D'autre part, une diminution de l'albédo : les glaces ont un albédo 6 à 12 fois supérieur à celui des océans. Leur fonte augmente donc l'énergie absorbée par la surface de la Terre, ce qui amplifie le réchauffement climatique.",
+    crit: ["J'ai cité la hausse du niveau marin", "J'ai précisé que seule la fonte des glaces continentales fait monter le niveau (résultat du TP)", "J'ai cité la diminution de l'albédo, avec des valeurs (0,6 pour la glace ; 0,05 à 0,1 pour l'océan)", "J'ai conclu à une amplification du réchauffement (rétroaction positive)"],
+    unlock: { title: "🔓 Simulation débloquée · La boucle en action", w: "loop", sim: SIMUL } },
+  { id: "g2f", lvl: "hard", title: "Défi · Et si toute la glace de l'Antarctique fondait ?", docs: [DOC_DEFI],
+    intro: "Un ordre de grandeur à construire en croisant trois documents de l'activité.",
+    parts: [
+      { t: "num", c: "calc", label: "D'après le document 4, quelle est la surface des continents ?", unit: "millions de km²", ans: 150, tol: 1, err: [[v => about(v, 1.5), "Les 15 millions de km² de glaces sont un dixième des continents : les continents sont 10 fois plus grands, pas 10 fois plus petits."], [v => about(v, 1.5e8), "La valeur est juste, mais écris-la en millions de km²."]] },
+      { t: "num", c: "calc", label: "Les continents occupent 30 % de la surface du globe et les océans 70 %. Quelle est la surface des océans ?", unit: "millions de km²", ans: 350, tol: 3, err: [[v => about(v, 105), "Tu as pris 70 % de la surface des continents. Cherche d'abord la surface du globe entier : 150 / 0,30."], [v => about(v, 500), "500 millions de km², c'est le globe entier. Prends-en 70 %."]] },
+      { t: "num", c: "calc", label: "Si l'eau des 26,5 millions de km³ de glace se répartissait sur cette surface, de quelle hauteur le niveau des mers monterait-il ? (arrondis à l'unité)", unit: "m", ans: 76, tol: 3, err: [[v => about(v, 0.0757, 0.04), "Cette valeur est en kilomètres : convertis-la en mètres."], [v => about(v, 13.2, 0.04), "Tu as divisé la surface par le volume : c'est l'inverse."]] },
+      { t: "choice", c: "rais", label: "Les glaciologues annoncent plutôt une soixantaine de mètres. Pourquoi notre calcul surestime-t-il la hausse ?", o: ["La glace est moins dense que l'eau liquide : en fondant, elle donne un volume d'eau plus petit", "La fonte de la banquise ferait baisser le niveau", "L'eau de fonte s'évaporerait aussitôt"], a: 0 }],
+    hints: ["Étape 1 : si un dixième des continents vaut 15 millions de km², combien vaut la totalité ?", "Continents : 150 millions de km², soit 30 % du globe. Globe : 150 / 0,30 = 500. Océans : 70 % de 500.", "Hauteur = volume / surface = 26,5 / 350 ≈ 0,076 km, soit environ 76 m."],
+    corr: "Continents : 10 × 15 = 150 millions de km². Océans : 150 × 70 / 30 = 350 millions de km². Hauteur = volume / surface = 26,5 / 350 ≈ 0,076 km, soit environ 76 m. C'est un ordre de grandeur : la glace est moins dense que l'eau liquide et une partie repose sous le niveau de la mer, si bien que la hausse serait plutôt d'une soixantaine de mètres." }] },
+
+{ id: "g3", n: 3, icon: "🌳", title: "Rôle de la végétalisation", sub: "Photosynthèse, puits de carbone et croissance des forêts (document 5).",
+  inds: [{ t: "Avoir présenté le rôle du couvert végétal sur le réchauffement climatique.", items: ["g3b", "g3c"] }],
+  items: [
+  { id: "g3a", lvl: "easy", title: "Lire le document 5", docs: [DOC5],
+    parts: [
+      { t: "word", c: "lire", label: "Quel mécanisme permet aux végétaux de prélever le dioxyde de carbone de l'atmosphère ?", ans: ["photosynthèse", "activité photosynthétique"], err: [[["respiration"], "La respiration rejette du dioxyde de carbone. Relis la première phrase du document."]] },
+      { t: "num", c: "lire", label: "Quel est le puits actuel de la forêt métropolitaine ?", unit: "Mt éq. CO₂", ans: 87, err: [[v => v === 10263, "10 263 est le stock, c'est-à-dire ce qui est déjà stocké. Le puits est ce qui s'y ajoute."]] },
+      { t: "rows", c: "lire", label: "Pour chaque milieu, que montre la colonne « Puits actuel » ?", choices: ["Stocke du CO₂", "Libère du CO₂", "Sans effet"], rows: [{ txt: "Terres cultivées (puits : −1,4)", a: 1 }, { txt: "Forêt métropolitaine (puits : 87)", a: 0 }, { txt: "Forêt guyanaise (puits : 0)", a: 2 }] }],
+    hints: ["Un puits positif signifie que le milieu absorbe plus de dioxyde de carbone qu'il n'en rejette.", "Un puits négatif signifie que le milieu libère du dioxyde de carbone ; un puits nul, qu'il est à l'équilibre.", "Terres cultivées : elles en libèrent. Forêt métropolitaine : elle en stocke. Forêt guyanaise : sans effet."],
+    corr: "L'activité photosynthétique des végétaux permet de stocker du dioxyde de carbone prélevé dans l'atmosphère sous la forme de matière organique. Les terres cultivées contribuent à libérer du dioxyde de carbone dans l'atmosphère (puits de −1,4), la forêt métropolitaine en stocke (puits de 87) et la forêt guyanaise n'a pas d'influence (puits nul)." },
+  { id: "g3b", lvl: "mid", title: "Simulation · Une forêt qui grandit", docs: [DOC5],
+    widget: { title: "Simulation · Carbone stocké dans une forêt plantée sur un terrain nu", w: "foret", sim: SIMUL },
+    parts: [
+      { t: "num", c: "mod", label: "Lance la simulation, puis lis le graphique. Entre 25 et 50 ans, de combien le stock de carbone augmente-t-il ?", unit: "t par hectare", ans: 80, tol: 4, err: [[v => about(v, 130), "130, c'est le stock à 50 ans. On demande l'augmentation entre 25 et 50 ans."], [v => about(v, 50), "50, c'est le stock à 25 ans. On demande l'augmentation entre 25 et 50 ans."]] },
+      { t: "num", c: "mod", label: "Et entre 125 et 150 ans ?", unit: "t par hectare", ans: 0, tol: 1, err: [[v => about(v, 200), "200, c'est le stock. A-t-il encore augmenté entre 125 et 150 ans ?"]] },
+      { t: "choice", c: "rais", label: "Une forêt est donc un puits de carbone…", o: ["pendant toute son existence, toujours au même rythme", "tant qu'elle est en croissance", "seulement quand elle est très ancienne"], a: 1 },
+      { t: "choice", c: "rais", label: "Pourquoi la forêt guyanaise, ancienne, a-t-elle un puits nul, alors que la forêt métropolitaine, jeune et en développement, a un puits de 87 Mt éq. CO₂ ?", o: ["Elle ne fait plus de photosynthèse", "Elle est à l'équilibre : elle ne grossit plus, son stock de carbone ne varie plus", "Elle contient moins de carbone que les terres cultivées"], a: 1, no: { 0: "Elle fait toujours de la photosynthèse, mais ce qu'elle fixe est compensé par ce qu'elle rejette.", 2: "Regarde la colonne « Stock actuel » : 9 026 contre 5 408." } }],
+    hints: ["Quand le tracé est terminé, touche le graphique à 25 ans, puis à 50 ans, et fais la différence.", "À 25 ans : 50 t par hectare. À 50 ans : 130. À 125 et à 150 ans : 200.", "+ 80 t par hectare entre 25 et 50 ans, + 0 entre 125 et 150 ans : la forêt ne stocke du carbone en plus que pendant sa croissance."],
+    corr: "Le stock augmente vite quand la forêt est jeune (+ 80 t par hectare entre 25 et 50 ans), puis se stabilise (+ 0 entre 125 et 150 ans). Les jeunes forêts en croissance, comme celles de France métropolitaine, stockent du carbone chaque année. En revanche, les forêts anciennes, comme la forêt guyanaise, n'ont pas d'influence sur les quantités de carbone atmosphérique.",
+    unlock: { title: "🔓 Graphique débloqué · Le puits de carbone au fil des ans", w: "puits", sim: SIMUL } },
+  { id: "g3c", lvl: "hard", title: "La végétation : un amortisseur… provisoire", docs: [DOC5, DOC5_PLUS],
+    parts: [
+      { t: "choice", c: "rais", label: "La végétation mondiale est en croissance depuis 1982. Quel est l'effet sur le dioxyde de carbone de l'atmosphère ?", o: ["Une partie du CO₂ est stockée dans la matière organique : la hausse du CO₂ atmosphérique est réduite", "Le CO₂ atmosphérique augmente plus vite", "Aucun effet"], a: 0 },
+      { t: "choice", c: "rais", label: "Quel est alors l'effet de la végétation en croissance sur le réchauffement climatique ?", o: ["Un effet amplificateur", "Un effet amortisseur", "Aucun effet"], a: 1, no: { 0: "Moins de gaz à effet de serre dans l'atmosphère, c'est un réchauffement freiné." } },
+      { t: "choice", c: "rais", label: "Et à long terme, lorsque les forêts auront atteint l'équilibre ?", o: ["L'effet amortisseur se renforcera", "Les forêts n'agiront plus sur le réchauffement climatique", "Les forêts refroidiront de plus en plus la planète"], a: 1 },
+      { t: "choice", c: "lire", label: "D'après le tableau, pour quel milieu la séquestration dépend-elle le plus du scénario climatique ?", o: ["Les terres cultivées", "La forêt métropolitaine", "La forêt guyanaise"], a: 1, no: { 0: "848 pour les terres cultivées : une autre valeur de la colonne est plus élevée.", 2: "Sa sensibilité au changement climatique vaut 0." } },
+      { t: "text", label: "Rédige : présente le rôle du couvert végétal sur le réchauffement climatique." }],
+    hints: ["Le dioxyde de carbone fixé par photosynthèse ne se retrouve plus dans l'atmosphère.", "Moins de gaz à effet de serre dans l'atmosphère : le réchauffement est-il renforcé ou freiné ?", "Effet amortisseur à court terme. À long terme, une forêt à l'équilibre ne stocke plus de carbone supplémentaire. Sensibilité la plus forte : 1 314 (forêt métropolitaine)."],
+    corr: "Du fait de l'activité photosynthétique, les végétaux en croissance stockent le dioxyde de carbone sous forme de matière organique : il ne se retrouve pas dans l'atmosphère. La végétation en croissance a donc un effet amortisseur sur le réchauffement climatique, en réduisant la hausse de la quantité de gaz à effet de serre dans l'atmosphère. Cependant, à long terme, les forêts n'agiront plus sur ce réchauffement.",
+    model: "L'activité photosynthétique des végétaux permet de stocker du dioxyde de carbone prélevé dans l'atmosphère sous la forme de matière organique. Les terres cultivées contribuent à libérer du dioxyde de carbone dans l'atmosphère, tandis que les jeunes forêts en croissance, comme celles de France métropolitaine, stockent du carbone chaque année. En revanche, les forêts anciennes, comme la forêt guyanaise, n'ont pas d'influence sur les quantités de carbone atmosphérique. Ainsi, le développement de jeunes arbres et de nouvelles forêts a un effet amortisseur à court terme sur le réchauffement climatique. Cependant, à long terme, les forêts n'agiront plus sur ce réchauffement.",
+    crit: ["J'ai expliqué que la photosynthèse stocke le CO₂ de l'atmosphère sous forme de matière organique", "J'ai comparé les trois milieux avec des valeurs du tableau (−1,4 ; 87 ; 0)", "J'ai conclu à un effet amortisseur à court terme", "J'ai précisé qu'à long terme, une forêt à l'équilibre n'agit plus sur le réchauffement"] }] },
+
+{ id: "commun", n: 0, icon: "🤝", title: "Mise en commun", sub: "Croiser les résultats des trois groupes pour répondre à la problématique.",
+  inds: [],
+  items: [
+  { id: "c1", lvl: "mid", title: "Amplificateur ou amortisseur ?",
+    intro: "« Conséquence » : le phénomène résulte du réchauffement, sans agir en retour sur la température.",
+    parts: [
+      { t: "rows", c: "rais", label: "Classe chaque phénomène selon son effet sur le réchauffement climatique.", choices: ["Amplifie", "Amortit", "Conséquence"], rows: [{ txt: "Fonte des glaces et baisse de l'albédo", a: 0 }, { txt: "Inertie thermique de l'océan", a: 1 }, { txt: "Croissance de jeunes forêts (photosynthèse)", a: 1 }, { txt: "Dilatation thermique de l'océan et hausse du niveau marin", a: 2 }, { txt: "Fonte des glaces continentales et hausse du niveau marin", a: 2 }] },
+      { t: "choice", c: "rais", label: "Parmi les amortisseurs, lequel cessera d'agir quand il aura atteint l'équilibre ?", o: ["La croissance des forêts", "La baisse de l'albédo", "La dilatation de l'océan"], a: 0, no: { 1: "La baisse de l'albédo n'amortit pas le réchauffement : elle l'amplifie.", 2: "La dilatation de l'océan est une conséquence du réchauffement, pas un amortisseur." } },
+      { t: "choice", c: "rais", label: "Pourquoi les modélisations du climat donnent-elles des fourchettes de variations possibles ?", o: ["Parce que les mesures de température sont fausses", "Parce que le système climatique est complexe : des effets amplificateurs et stabilisateurs s'y combinent", "Parce que le climat ne change pas réellement"], a: 1 }],
+    hints: ["Demande-toi, pour chaque phénomène : agit-il en retour sur la température ? Si oui, dans quel sens ?", "L'océan et les jeunes forêts freinent le réchauffement. La hausse du niveau marin n'agit pas sur la température.", "Albédo : amplifie. Inertie de l'océan et croissance des forêts : amortissent. Les deux hausses du niveau marin : conséquences."],
+    corr: "La fonte des glaces fait baisser l'albédo, ce qui amplifie le réchauffement (rétroaction positive). L'inertie thermique de l'océan et la croissance de jeunes forêts l'amortissent, au moins à court terme. La hausse du niveau marin (dilatation de l'océan, fonte des glaces continentales) est une conséquence du réchauffement. Ces effets amplificateurs et stabilisateurs expliquent les fourchettes données par les modélisations du climat.",
+    synth: true },
+  { id: "c2", lvl: "hard", title: "Répondre à la problématique",
+    intro: PROBLEM,
+    parts: [{ t: "text", label: "Rédige une réponse à la problématique en t'appuyant sur les résultats des trois groupes." }],
+    hints: ["Organise ta réponse en trois temps : l'océan, les surfaces gelées, la végétation.", "Pour chaque phénomène, précise s'il amplifie ou s'il amortit le réchauffement, et à quelle échéance.", "Océan : amortisseur à court terme, effets durables. Glaces et albédo : rétroaction positive. Jeunes forêts : amortisseur à court terme."],
+    model: "L'évolution de la température moyenne dépend de phénomènes qui amplifient ou amortissent le réchauffement. L'océan a un rôle amortisseur à court terme : grâce à son inertie thermique, l'eau s'échauffe moins vite que l'air ; mais elle se refroidit aussi très lentement, si bien que les effets du réchauffement se ressentiront encore à long terme. La fonte des glaces diminue l'albédo terrestre : la surface absorbe davantage d'énergie solaire, ce qui amplifie le réchauffement et accélère la fonte ; c'est une rétroaction positive. La végétation en croissance stocke du dioxyde de carbone par photosynthèse : elle a un effet amortisseur à court terme, qui cesse lorsque les forêts sont à l'équilibre. Ces effets amplificateurs et stabilisateurs expliquent les fourchettes données par les modélisations du climat.",
+    crit: ["J'ai présenté le rôle amortisseur de l'océan (inertie thermique)", "J'ai présenté la rétroaction positive liée aux glaces et à l'albédo", "J'ai présenté le rôle amortisseur de la végétation en croissance (photosynthèse)", "J'ai distingué le court terme et le long terme", "J'ai utilisé au moins une valeur chiffrée tirée des documents"] }] }
+];
+
+/* idées de départ (non notées) */
+const PRE = { choices: ["Amplifie le réchauffement", "Freine le réchauffement", "Je ne sais pas"], rows: [{ txt: "La fonte des glaces", a: 0 }, { txt: "L'océan, qui se réchauffe lentement", a: 1 }, { txt: "La croissance de jeunes forêts", a: 1 }] };
+
+const RESUME = `Problématique : ${PROBLEM}
+
+À retenir
+- Océan (groupe 1). Dilatation thermique : pour une couche de 1 000 m et + 1 °C, le niveau monte de 0,26 m (coefficient 2,6 × 10⁻⁴ °C⁻¹). Inertie thermique : la capacité thermique de l'eau est 4 fois plus élevée que celle de l'air ; l'océan amortit le réchauffement à court terme, mais il se refroidit lentement, d'où des effets à long terme.
+- Surfaces gelées (groupe 2). La fonte des glaces continentales fait monter le niveau marin ; la fonte de la banquise ne le change pas. La glace a un albédo de 0,6, contre 0,05 à 0,1 pour l'océan : moins de glace, c'est plus d'énergie absorbée et un réchauffement amplifié (rétroaction positive).
+- Végétalisation (groupe 3). Par photosynthèse, les forêts en croissance stockent du CO₂ (puits de carbone) : effet amortisseur à court terme. Une forêt à l'équilibre a un puits nul.
+- Ces effets amplificateurs et stabilisateurs expliquent les fourchettes données par les modélisations du climat.`;
+
+typo(GROUPS); typo(PRE);
+
+/* ===== Moteur de l'activité : navigation, questions, correction, bilan ===== */
+const LV = { easy: ["🟢 Facile", "easy", "🟢"], mid: ["🟡 Moyen", "mid", "🟡"], hard: ["🔴 Défi", "hard", "🔴"] };
+const COMPS = { lire: "Extraire et exploiter des informations", calc: "Calculer, estimer un ordre de grandeur", mod: "Expérimenter, exploiter une modélisation", rais: "Raisonner, argumenter", redac: "Rédiger une réponse argumentée (auto-évaluation)" };
+const SIGN = "Mr Moreira, Vauban Luxembourg";
+const ITEMS = {};
+GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `${g.n ? "Groupe " + g.n : g.title} · étape ${i + 1} · ${it.title}` }; }));
+
+/* ---------- état ---------- */
+const DEF = { fs: 21, theme: null, proj: false, it: {}, view: "accueil", step: {}, pre: {} };
+let S = Store.load(DEF);
+["it", "step", "pre"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+const save = () => Store.save(S);
+const scorable = p => p.t !== "text";
+function itState(id) { if (!S.it[id]) S.it[id] = { v: {}, hints: 0, crit: {} }; return S.it[id]; }
+const itemMax = it => it.parts.filter(scorable).length;
+const corrShown = st => !!(st && st.first && (st.lastOk || (st.tries || 0) >= 2));
+function status(it) { const st = S.it[it.id]; if (!st || !st.first) return ["", "à faire"]; if (!itemMax(it)) return ["✓", "rédigé"]; return st.first.pts === st.first.max ? ["✓", "réussi au premier essai"] : ["◐", st.first.pts + "/" + st.first.max + " au premier essai"]; }
+
+/* ---------- vérification ---------- */
+const stripUnit = s => String(s === undefined || s === null ? "" : s).replace(/[\s  ]*[a-zA-Zéèµ°%²³₂][\sa-zA-Zéèµ°%²³₂.\/  ]*$/, "");
+function checkPart(p, val) {
+  if (p.t === "word") {
+    const r = fuzzy(val, p.ans); if (r.empty) return { ok: false, empty: true, msg: "Réponse manquante." };
+    if (r.ok) return { ok: true, msg: r.typo ? `✓ Juste. Orthographe exacte : « ${p.ans[0]} ».` : "✓ Juste." };
+    for (const [alts, m] of (p.err || [])) if (fuzzy(val, alts).ok) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : relis le document, puis utilise un coup de pouce si besoin." };
+  }
+  if (p.t === "num") {
+    if (val === undefined || String(val).trim() === "") return { ok: false, empty: true, msg: "Réponse manquante." };
+    let v = parseNum(val); if (!Number.isFinite(v)) v = parseNum(stripUnit(val));
+    if (!Number.isFinite(v)) return { ok: false, msg: "✗ Écris un nombre (la virgule est acceptée)." };
+    if (near(v, p.ans, p.tol || 0, 0)) return { ok: true, msg: "✓ Juste." };
+    for (const [f, m] of (p.err || [])) if (f(v)) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : vérifie ta lecture ou ton calcul." };
+  }
+  if (p.t === "choice") { if (val === undefined || val === null) return { ok: false, empty: true, msg: "Choisis une réponse." }; return val === p.a ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Faux. " + ((p.no && p.no[val]) || "Ce n'est pas la bonne proposition.") }; }
+  if (p.t === "multi") { const s = (val || []).slice().sort().join(","); if (!s) return { ok: false, empty: true, msg: "Choisis au moins une réponse." }; return s === p.a.slice().sort().join(",") ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Pas encore : il y a " + p.a.length + " bonnes réponses." }; }
+  if (p.t === "rows") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Réponds à chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} ligne(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les lignes sont justes." }; }
+  if (p.t === "loop") { const v = val || []; if (v.length < p.items.length) return { ok: false, empty: true, msg: "Place toutes les étiquettes." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Boucle juste." }; }
+  return { ok: true, msg: "" };
+}
+function order(key, n) { const base = Array.from({ length: n }, (_, i) => i); let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) & 0x7fffffff; let r = shuffle(base, h); if (r.every((x, i) => x === i)) r = r.reverse(); return r; }
+
+/* ---------- documents ---------- */
+function docHTML(d) {
+  return `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${d.title}</span>${d.sim ? `<span class="sim">⚠ ${d.sim}</span>` : ""}</figcaption><div class="db">${d.html || ""}${d.fig ? `<div class="figbox" data-fig="${d.fig}"></div>` : ""}${d.cap ? `<p class="cap">${d.cap}</p>` : ""}</div></figure>`;
+}
+function mountFigs(root) { $$("[data-fig]", root).forEach(el => { if (el.dataset.mounted) return; el.dataset.mounted = "1"; FIGS[el.dataset.fig](el); }); }
+
+/* ---------- navigation ---------- */
+const VIEWS = ["accueil", ...GROUPS.map(g => g.id), "bilan"];
+const grp = id => GROUPS.find(g => g.id === id);
+function gScore(g) { let pts = 0, max = 0, done = 0; g.items.forEach(it => { const st = S.it[it.id]; max += itemMax(it); if (st && st.first) { pts += st.first.pts; done++; } }); return { pts, max, done, n: g.items.length }; }
+function tabs() {
+  $("#tabs").innerHTML = VIEWS.map(v => {
+    if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Accueil</button>`;
+    if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Bilan</button>`;
+    const g = grp(v), sc = gScore(g);
+    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n ? "Groupe " + g.n : g.title}<span class="dot" aria-label="${sc.done} étape(s) faite(s) sur ${sc.n}">${sc.done}/${sc.n}</span></button>`;
+  }).join("");
+  $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
+}
+function go(v, noScroll) {
+  if (!VIEWS.includes(v)) v = "accueil";
+  S.view = v; save(); tabs();
+  if (location.hash !== "#" + v) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  const m = $("#main");
+  if (v === "accueil") renderHome(m); else if (v === "bilan") renderBilan(m); else renderGroup(m, grp(v));
+  if (!noScroll) window.scrollTo(0, 0);
+  const cur = $("#tabs [aria-current]"); if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+/* ---------- accueil ---------- */
+function preRows(readonly) {
+  return `<div class="rows">${PRE.rows.map((row, i) => { const cur = S.pre[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${PRE.choices.map((c, j) => `<button type="button" aria-pressed="${cur === j}" data-pi="${i}" data-pj="${j}" ${readonly ? "disabled" : ""}>${c}</button>`).join("")}</div></div>`; }).join("")}</div>`;
+}
+function renderHome(m) {
+  m.innerHTML = `<section class="view">
+    <div class="panel"><p class="kicker">Chapitre 2 · Activité en groupe</p><h2 class="sec-title">Évolution de la température et rétroactions</h2>
+      <p>${nb("Les modélisations du climat indiquent fréquemment des fourchettes de variations possibles. Ces incertitudes sont liées à la complexité du système climatique, avec des effets amplificateurs ou stabilisateurs.")}</p>
+      <div class="box info"><p class="lab">ℹ Problématique</p><p><b>${nb(PROBLEM)}</b></p></div>
+      <p class="lead">Ce que j'ai déjà vu : gaz à effet de serre · albédo · indices de variations climatiques · photosynthèse.</p></div>
+    <div class="panel"><p class="kicker">Avant de commencer · non noté</p><h3>Ton intuition de départ</h3><p class="lead">${nb("D'après toi, quel est l'effet de chaque phénomène sur le réchauffement climatique ? Tu retrouveras tes réponses à la mise en commun.")}</p>${preRows(false)}</div>
+    <div><p class="kicker">Choisis ton groupe</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn ${g.n ? "" : "feature"}" type="button" data-go="${g.id}"><span class="kicker">${g.n ? "Groupe " + g.n : "Tous les groupes"}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div class="panel"><p class="kicker">Mode d'emploi</p>
+      <ul class="ul">
+        <li>Fais d'abord les étapes de <b>ton groupe</b>, puis la <b>mise en commun</b>. Les autres groupes restent ouverts pour réviser.</li>
+        <li>Les étapes vont du <span class="lv easy">🟢 Facile</span> au <span class="lv hard">🔴 Défi</span>. Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>
+        <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un. Le corrigé apparaît quand tout est juste, ou après ton deuxième essai.</li>
+        <li>Certaines simulations se débloquent quand tu as trouvé la réponse : elles servent à vérifier et à aller plus loin.</li>
+        <li>À la fin, l'onglet <b>Bilan</b> te permet de télécharger ou de montrer ton résultat.</li>
+      </ul></div>
+  </section>`;
+  $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
+  $$("[data-pi]", m).forEach(b => b.onclick = () => { S.pre[+b.dataset.pi] = +b.dataset.pj; save(); $$(`[data-pi="${b.dataset.pi}"]`, m).forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false")); });
+}
+
+/* ---------- vue d'un groupe ---------- */
+function indDone(ind) { return ind.items.every(id => { const st = S.it[id]; return st && st.first && (st.lastOk || !itemMax(ITEMS[id].it)); }); }
+function renderGroup(m, g) {
+  const k = Math.max(0, Math.min(g.items.length - 1, S.step[g.id] || 0)), it = g.items[k], gi = GROUPS.indexOf(g);
+  m.innerHTML = `<section class="view"><div><p class="kicker">${g.n ? "Groupe " + g.n : "Tous les groupes"}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
+    ${g.inds.length ? `<div class="panel"><p class="kicker">Indicateurs de réussite</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
+    <div class="stepper" role="group" aria-label="Étapes">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
+    <article class="panel itemroot" id="item"></article>
+    <div class="row" id="navx"></div></section>`;
+  $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
+  renderItem(it, $("#item"));
+  const nx = $("#navx"), nextG = GROUPS[gi + 1];
+  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Étape ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Étape ${k + 2} →</button>` : g.id !== "commun" ? `<button class="btn" type="button" data-c>🤝 Mise en commun →</button>` : `<button class="btn" type="button" data-b>Voir mon bilan →</button>`}`;
+  const st = d => { S.step[g.id] = k + d; save(); renderGroup(m, g); window.scrollTo(0, 0); };
+  const a = $("[data-p]", nx); if (a) a.onclick = () => st(-1);
+  const b = $("[data-n]", nx); if (b) b.onclick = () => st(1);
+  const c = $("[data-c]", nx); if (c) c.onclick = () => go("commun");
+  const d = $("[data-b]", nx); if (d) d.onclick = () => go("bilan");
+}
+function refreshChrome(it) {
+  tabs(); const g = ITEMS[it.id].g;
+  $$(".stepper button").forEach((b, i) => { const x = g.items[i], s = status(x); b.innerHTML = `${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}`; b.setAttribute("aria-label", `Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}`); });
+  $$(".inds li").forEach((li, i) => { const d = g.inds[i], ok = indDone(d); li.classList.toggle("done", ok); $(".bx", li).textContent = ok ? "✓" : ""; $(".st", li).textContent = ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et "); });
+}
+
+/* ---------- une étape ---------- */
+function renderItem(it, root) {
+  const id = it.id, st = itState(id), lvl = LV[it.lvl], locked = it.pre && st.pre === undefined;
+  root.innerHTML = `<p class="lv ${lvl[1]}">${lvl[0]}</p><h3 class="item-title">${it.title}</h3>${it.intro ? `<p>${it.intro}</p>` : ""}${(it.docs || []).map(docHTML).join("")}
+    ${it.pre ? `<div class="hypo" id="hypo"></div>` : ""}
+    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Choisis d'abord ton hypothèse : l'expérience se débloque ensuite.</p>` : ""}</div></figure>` : ""}
+    <div class="parts" style="display:grid;gap:.9rem" ${locked ? "hidden" : ""}>${it.parts.map((p, k) => `<div class="part" data-k="${k}"></div>`).join("")}</div>
+    <div class="row acts" ${locked ? "hidden" : ""}></div><div class="gfb" aria-live="polite"></div>
+    <div class="hints hz"></div><div class="after" style="display:grid;gap:.9rem"></div><div class="unl"></div>`;
+  mountFigs(root);
+  if (it.pre) paintPre(it, root);
+  if (it.widget && !locked) WID[it.widget.w]($("#wz", root));
+  it.parts.forEach((p, k) => renderPart(it, k, root));
+  paintActions(it, root);
+}
+function paintPre(it, root) {
+  const st = S.it[it.id], h = $("#hypo", root), fixed = !!st.first, shown = corrShown(st);
+  h.innerHTML = `<p class="hl">🤔 ${it.pre.label} <span class="ctag">non noté</span></p><div class="opts" role="radiogroup">${it.pre.o.map((o, j) => `<button type="button" class="opt" role="radio" aria-checked="${st.pre === j}" data-h="${j}" ${fixed ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div>
+    ${shown && st.pre !== undefined ? `<p class="pfb ${st.pre === it.pre.a ? "ok" : ""}">${st.pre === it.pre.a ? "✓ Ton hypothèse est confirmée par l'expérience." : "↻ L'expérience t'a conduit à réviser ton hypothèse de départ : c'est ainsi que l'on progresse."}</p>` : fixed ? `<p class="lead">Hypothèse enregistrée.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothèse enregistrée : tu peux encore la changer avant de vérifier.</p>`}`;
+  $$("[data-h]", h).forEach(b => b.onclick = () => { const was = st.pre === undefined; st.pre = +b.dataset.h; save(); if (was) { renderItem(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } else { paintPre(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } });
+}
+function renderPart(it, k, root) {
+  const id = it.id, p = it.parts[k], st = S.it[id], box = $(`.part[data-k="${k}"]`, root), v = st.v[k], pid = `${id}-p${k}`;
+  const checked = !!st.checked; const r = checked && scorable(p) ? checkPart(p, v) : null;
+  let h = `<p class="pl" id="${pid}-l"><span class="muted">${k + 1}.</span> ${p.label} <span class="ctag">${COMPS[p.c || "redac"].split(" (")[0]}</span></p>`;
+  const okc = r ? (r.ok ? "is-ok" : "is-bad") : "";
+  if (p.t === "num") h += `<div class="row"><input id="${pid}" class="inp ${okc}" inputmode="decimal" autocomplete="off" aria-labelledby="${pid}-l" value="${esc(v || "")}"><span class="unit">${p.unit || ""}</span></div>`;
+  if (p.t === "word") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="${pid}-l" value="${esc(v || "")}" style="max-width:22rem"></div>`;
+  if (p.t === "choice") h += `<div class="opts" role="radiogroup" aria-labelledby="${pid}-l">${p.o.map((o, j) => { let cls = "", t = ""; if (checked && v === j) { cls = j === p.a ? "is-ok" : "is-bad"; t = j === p.a ? "✓ Juste" : "✗ Faux"; } return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${v === j}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${o}</span>${t ? `<span class="tag">${t}</span>` : ""}</button>`; }).join("")}</div>`;
+  if (p.t === "multi") h += `<div class="opts" role="group" aria-labelledby="${pid}-l">${p.o.map((o, j) => { const on = (v || []).includes(j); return `<button type="button" class="opt" aria-pressed="${on}" aria-checked="${on}" data-j="${j}"><span class="k" style="border-radius:6px">${on ? "✓" : ""}</span><span>${o}</span></button>`; }).join("")}</div>`;
+  if (p.t === "rows") h += `<div class="rows">${p.rows.map((row, i) => { const cur = (v || {})[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${p.choices.map((c, j) => { const cls = checked && cur === j ? (j === row.a ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" aria-pressed="${cur === j}" data-i="${i}" data-j="${j}">${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${c}</button>`; }).join("")}</div></div>`; }).join("")}</div>`;
+  if (p.t === "loop") {
+    const chosen = v || [], ord = order(id + k, p.items.length), solved = checked && r && r.ok;
+    h += `<div class="loopd"><span class="lhead" aria-hidden="true">▶</span><div class="lslot fixed"><span class="n">1</span><span>${p.start}</span></div>${p.items.map((_, i) => { const j = chosen[i], cls = checked && j !== undefined ? (j === i ? "is-ok" : "is-bad") : ""; return `<div class="larr" aria-hidden="true">↓</div><button type="button" class="lslot ${j !== undefined ? "filled" : ""} ${cls}" data-slot="${i}" ${j === undefined ? "disabled" : ""} aria-label="Case ${i + 2} : ${j !== undefined ? esc(p.items[j]) + ". Toucher pour retirer." : "vide"}"><span class="n">${i + 2}</span><span>${j !== undefined ? p.items[j] : `<span class="muted">…</span>`}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}<p class="lret">↺ ${solved ? p.back + " : retour à la case 1." : "puis retour à la case 1 : la boucle est bouclée."}</p></div>
+      <div class="bank">${ord.filter(j => !chosen.includes(j)).map(j => `<button type="button" class="order-item" data-j="${j}"><span class="n">+</span><span>${p.items[j]}</span></button>`).join("")}</div><p class="lead">Touche une étiquette pour la placer dans la première case libre. Touche une case remplie pour la vider.</p>`;
+  }
+  if (p.t === "text") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead">Après validation : réponse modèle et grille d'auto-évaluation.</p>`;
+  h += `<div class="pfbw" aria-live="polite">${r ? `<p class="pfb ${r.ok ? "ok" : "bad"}">${r.msg}</p>` : ""}</div>`;
+  box.innerHTML = h;
+  const setV = (val, rerender) => { st.v[k] = val; save(); if (rerender) renderPart(it, k, root); };
+  const clear = () => { $$(".is-ok,.is-bad", box).forEach(x => x.classList.remove("is-ok", "is-bad")); const f = $(".pfbw", box); if (f) f.innerHTML = ""; };
+  const refocus = sel => { const n = box.querySelector(sel); if (n) n.focus(); };
+  if (["num", "text", "word"].includes(p.t)) { const inp = box.querySelector("input,textarea"); inp.addEventListener("input", () => { setV(inp.value, false); clear(); }); if (p.t !== "text") inp.addEventListener("keydown", ev => { if (ev.key === "Enter") { const b = $(".acts [data-check]", root); if (b) b.click(); } }); }
+  if (p.t === "choice") $$(".opt", box).forEach(b => b.onclick = () => { setV(+b.dataset.j, true); refocus(`.opt[data-j="${b.dataset.j}"]`); });
+  if (p.t === "multi") $$(".opt", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); });
+  if (p.t === "rows") $$(".seg button", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); cur[+b.dataset.i] = +b.dataset.j; setV(cur, true); refocus(`[data-i="${b.dataset.i}"][data-j="${b.dataset.j}"]`); });
+  if (p.t === "loop") {
+    $$(".bank [data-j]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.push(+b.dataset.j); setV(cur, true); refocus(".bank [data-j]") || refocus(`[data-slot="${cur.length - 1}"]`); });
+    $$("[data-slot]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.splice(+b.dataset.slot, 1); setV(cur, true); refocus(".bank [data-j]"); });
+  }
+}
+
+function synthHTML() {
+  const fin = ITEMS.c1.it.parts[0], v = (S.it.c1 && S.it.c1.v[0]) || {};
+  const answered = PRE.rows.filter((r, i) => S.pre[i] !== undefined).length, good = PRE.rows.filter((r, i) => S.pre[i] === r.a).length;
+  return `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Schéma-bilan</p>
+    <div class="synth"><div><span class="sg">🌊 Océan</span><span class="ef">Amortit à court terme</span><span>Inertie thermique : l'eau s'échauffe moins vite que l'air… mais se refroidit lentement, d'où des effets à long terme.</span></div>
+      <div><span class="sg">🧊 Surfaces gelées</span><span class="ef">Amplifie</span><span>Fonte des glaces → albédo en baisse → plus d'énergie absorbée → réchauffement accru : rétroaction positive.</span></div>
+      <div><span class="sg">🌳 Végétalisation</span><span class="ef">Amortit à court terme</span><span>Les forêts en croissance stockent du CO₂ par photosynthèse. À l'équilibre, le puits devient nul.</span></div></div>
+    <div class="box warn"><p class="lab">⚠ Vigilance</p><p>${nb("La hausse du niveau marin (dilatation de l'océan, fonte des glaces continentales) est une conséquence du réchauffement : elle n'agit pas en retour sur la température.")}</p></div>
+    ${answered ? `<p class="kicker">Ton intuition de départ</p><div class="beforeafter">${PRE.rows.map((r, i) => `<div class="ba"><span>${r.txt}</span><span><b>${S.pre[i] === undefined ? "—" : PRE.choices[S.pre[i]]}</b> ${S.pre[i] === undefined ? "" : S.pre[i] === r.a ? "· ✓ confirmée" : S.pre[i] === 2 ? "· → réponse dans le schéma-bilan" : "· ↻ à réviser"}</span></div>`).join("")}</div><p class="lead">${good}/${PRE.rows.length} de tes intuitions de départ sont confirmées par les documents.</p>` : ""}</div>`;
+}
+
+function paintActions(it, root) {
+  const id = it.id, st = S.it[id]; const acts = $(".acts", root), gfb = $(".gfb", root), hints = $(".hz", root), after = $(".after", root);
+  const max = itemMax(it), hasText = it.parts.some(p => p.t === "text"), shown = corrShown(st);
+  acts.innerHTML = `<button class="btn" type="button" data-check>${max ? "Vérifier" : "Valider ma réponse"}</button>
+    ${st.hints < 3 && !(shown && st.lastOk) ? `<button class="btn ghost" type="button" data-hint>💡 Coup de pouce ${st.hints + 1}/3</button>` : ""}
+    <button class="btn ghost" type="button" data-reset>↺ Recommencer</button>`;
+  hints.innerHTML = it.hints.slice(0, st.hints).map((h, i) => `<p class="hint"><b>Coup de pouce ${i + 1}/3</b> · ${h}</p>`).join("");
+  if (st.first) {
+    const f = st.first;
+    gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ Tout est juste${f.pts === f.max ? (st.tries === 1 ? " du premier coup !" : ".") : " (après correction)."}</p><p>Score retenu (premier essai) : ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} coup(s) de pouce avant le premier essai` : ""}.</p></div>`
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} réponse(s) juste(s).</p><p>${shown ? "Le corrigé est affiché ci-dessous : corrige les réponses marquées ✗, puis vérifie à nouveau." : "Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé s'affichera au deuxième essai."} (Score retenu : ${f.pts}/${f.max}, premier essai.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Réponse enregistrée.</p><p>Compare-la à la réponse modèle, puis coche la grille.</p></div>`;
+  } else gfb.innerHTML = "";
+  let a = "";
+  if (shown && it.corr) a += `<div class="corr"><p class="h">Corrigé</p><p>${it.corr}</p></div>`;
+  if (hasText && st.first) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Réponse rédigée · auto-évaluation</p><div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${it.model}</p></div><p><b>Coche ce que ta réponse contient :</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
+  if (shown && it.synth) a += synthHTML();
+  after.innerHTML = a;
+  const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
+  if (unl.dataset.state !== ustate) {
+    unl.dataset.state = ustate;
+    unl.innerHTML = ustate === "open" ? `<figure class="doc unlock" style="margin:0"><figcaption class="dh"><span>${it.unlock.title}</span>${it.unlock.sim ? `<span class="sim">⚠ ${it.unlock.sim}</span>` : ""}</figcaption><div class="db unlockz"></div></figure>` : ustate === "locked" ? `<p class="locked">🔒 Une simulation se débloque quand toutes les réponses sont justes.</p>` : "";
+    if (ustate === "open") WID[it.unlock.w]($(".unlockz", unl));
+  }
+  $("[data-check]", acts).onclick = () => {
+    const res = it.parts.map((p, k) => scorable(p) ? checkPart(p, st.v[k]) : null);
+    const empty = res.some(r => r && r.empty);
+    const textEmpty = it.parts.some((p, k) => p.t === "text" && !String(st.v[k] || "").trim());
+    const pts = res.filter(r => r && r.ok).length;
+    if ((empty || textEmpty) && !st.first) { gfb.innerHTML = `<div class="fb neutral"><p class="h">Complète toutes les questions avant de vérifier.</p><p>Le premier essai n'est compté que lorsque tout est rempli.</p></div>`; gfb.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    st.checked = true; st.lastPts = pts; st.lastOk = pts === max; st.tries = (st.tries || 0) + 1;
+    if (!st.first) st.first = { pts, max, hints: st.hints, parts: res.map(r => r ? !!r.ok : null) };
+    save();
+    it.parts.forEach((p, k) => renderPart(it, k, root)); if (it.pre) paintPre(it, root); paintActions(it, root); refreshChrome(it);
+    const g = $(".gfb", root); if (g && g.scrollIntoView) g.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const hb = $("[data-hint]", acts); if (hb) hb.onclick = () => { st.hints = Math.min(3, st.hints + 1); save(); paintActions(it, root); const hs = $$(".hz .hint", root); const last = hs[hs.length - 1]; if (last) last.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  armButton($("[data-reset]", acts), "↺ Recommencer", "Effacer mes réponses ?", () => { const keep = st.first; S.it[id] = { v: {}, hints: 0, crit: {}, pre: st.pre, first: keep, tries: keep ? st.tries : 0, lastOk: false }; save(); renderItem(it, root); refreshChrome(it); });
+  $$(".crit button", after).forEach(b => b.onclick = () => { const i = +b.dataset.ci; st.crit[i] = !st.crit[i]; save(); paintActions(it, root); const nb2 = $(`.after [data-ci="${i}"]`, root); if (nb2) nb2.focus(); });
+}
+
+/* ---------- bilan ---------- */
+function compStats() { const out = {}; Object.keys(COMPS).forEach(k => out[k] = { ok: 0, n: 0 }); Object.values(ITEMS).forEach(({ it }) => { const st = S.it[it.id]; if (!st || !st.first) return; it.parts.forEach((p, k) => { if (!scorable(p)) return; const c = p.c || "rais"; out[c].n++; if (st.first.parts[k]) out[c].ok++; }); if (it.crit) { out.redac.n += it.crit.length; out.redac.ok += Object.values(st.crit || {}).filter(Boolean).length; } }); return out; }
+function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = S.it[it.id]; if (!st || !st.first) return; st.first.parts.forEach((ok, k) => { if (ok === false) out.push(`${label} · question ${k + 1}`); }); }); return out; }
+function totals() { let pts = 0, max = 0, done = 0, n = 0; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
+const gName = g => g.n ? `Groupe ${g.n} · ${g.title}` : g.title;
+function bilanText(name) {
+  const T = totals(), cs = compStats(), ms = missedParts();
+  let t = `ÉVOLUTION DE LA TEMPÉRATURE ET RÉTROACTIONS\nTerminale · Enseignement scientifique · Thème 1, chapitre 2 · Activité en groupe\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN\nÉlève : ${name || "—"}\nDate : ${today()}\n\nPoints au premier essai\n`;
+  GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} étapes faites)\n`; g.items.forEach((it, i) => { const st = S.it[it.id]; t += `    étape ${i + 1} ${LV[it.lvl][2]} ${it.title.replace(/ | /g, " ")} : ${st && st.first ? (itemMax(it) ? st.first.pts + "/" + st.first.max : "rédigé") + (st.first.hints ? ` (${st.first.hints} coup(s) de pouce)` : "") : "—"}\n`; }); });
+  t += `Total : ${T.pts}/${T.max} (${T.done}/${T.n} étapes faites)\n\nIndicateurs de réussite\n`;
+  GROUPS.forEach(g => g.inds.forEach(d => { t += `- [${indDone(d) ? "x" : " "}] Groupe ${g.n} · ${d.t}\n`; }));
+  t += `\nBilan par compétence (premier essai)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? (k === "redac" ? c.ok + "/" + c.n + " critères cochés" : c.ok + "/" + c.n) : "—"}\n`; });
+  t += `\nQuestions ratées au premier essai (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- aucune"}\n`;
+  const pre = PRE.rows.filter((r, i) => S.pre[i] !== undefined); if (pre.length) t += `\nIntuitions de départ confirmées : ${PRE.rows.filter((r, i) => S.pre[i] === r.a).length}/${PRE.rows.length}\n`;
+  const txt = Object.values(ITEMS).filter(({ it }) => it.parts.some(p => p.t === "text") && S.it[it.id] && S.it[it.id].first);
+  if (txt.length) { t += `\nRéponses rédigées\n`; txt.forEach(({ it, label }) => { const k = it.parts.findIndex(p => p.t === "text"); t += `- ${label}\n  ${String(S.it[it.id].v[k] || "").trim().replace(/\s*\n\s*/g, "\n  ")}\n`; }); }
+  return (t + `\n${SIGN}\n`).replace(/ | /g, " ");
+}
+function renderBilan(m) {
+  const T = totals(), cs = compStats(), ms = missedParts();
+  m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan de l'activité</h2><p class="lead">Points comptés au premier essai. ${T.done}/${T.n} étapes faites.</p></div>
+    <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
+    <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Étapes faites</th><th>Points (premier essai)</th></tr></thead><tbody>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
+    <div class="panel"><h3>Indicateurs de réussite</h3><ul class="inds">${GROUPS.map(g => g.inds.map(d => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>Groupe ${g.n}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire"}</span></span></li>`; }).join("")).join("")}</ul></div>
+    <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const r = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${r * 100}%"></i></div></div>`; }).join("")}</div></div>
+    <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>Aucune pour l'instant.</p>"}</div>
+    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité, tes points par partie et par compétence, les indicateurs de réussite, les questions ratées au premier essai et tes réponses rédigées.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses de cette activité sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>Température et rétroactions · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} étapes)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Rédaction (critères cochés)</span><b class="num">${cs.redac.n ? cs.redac.ok + "/" + cs.redac.n : "—"}</b></div><div class="line"><span>Questions ratées au premier essai</span><b class="num">${ms.length}</b></div>`, "temperature-retroactions");
+  armButton($("#reset"), "Tout effacer", "Confirmer l'effacement ?", () => { S.it = {}; S.step = {}; S.pre = {}; save(); go("accueil"); });
+}
+
+/* ---------- démarrage ---------- */
+Display.init(S, save);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h && h !== S.view && VIEWS.includes(h)) go(h); });
+go(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (S.view || "accueil"), true);
+
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>
