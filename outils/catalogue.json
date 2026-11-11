@@ -316,6 +316,12 @@
                   "tag": "Enquête · dossier 8",
                   "titre": "L'arbre de Jean",
                   "desc": "Construire l'arbre généalogique de la famille de Jean : la transmission des allèles."
+                },
+                {
+                  "fichier": "multiplication-cellulaire.html",
+                  "tag": "Activité 9",
+                  "titre": "La multiplication cellulaire",
+                  "desc": "Reconstituer les étapes de la mitose : cellule animée à photographier, graphique de la quantité d'ADN, schéma bilan."
                 }
               ]
             },
