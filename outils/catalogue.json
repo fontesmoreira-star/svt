@@ -313,7 +313,15 @@
           "chapitres": [
             {
               "id": "ch1-information-genetique",
-              "titre": "Chapitre 1 · L'information génétique"
+              "titre": "Chapitre 1 · L'information génétique",
+              "activites": [
+                {
+                  "fichier": "revision-chapitre-1.html",
+                  "tag": "Révision · activités 1 à 6",
+                  "titre": "Je révise le chapitre 1",
+                  "desc": "Caractères, hérédité, transfert de noyau, ADN et caryotypes, puis un exercice type brevet et les bilans à savoir."
+                }
+              ]
             },
             {
               "id": "ch2-transmission",
