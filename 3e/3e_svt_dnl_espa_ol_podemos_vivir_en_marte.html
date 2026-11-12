@@ -1,0 +1,2812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>3e SVT · DNL Español (LV2) — ¿Podemos vivir en Marte?</title>
+  <style>
+    :root {
+      --petrol-dark: #083b4a;
+      --petrol-main: #0d4f60;
+      --petrol-light: #136f8a;
+      --petrol-pale: #e6f4f7;
+      --mars-accent: #c2410c;
+      --mars-pale: #ffedd5;
+      --bg-body: #f4f7f9;
+      --bg-card: #ffffff;
+      --text-main: #182428;
+      --text-muted: #475960;
+      --border-color: #cbd5e1;
+      --focus-ring: #f59e0b;
+
+      /* Encadrés charte SVT / Enseignement Scientifique */
+      --box-blue-bg: #e8f4f8;
+      --box-blue-border: #0077b6;
+      --box-blue-text: #023e8a;
+
+      --box-orange-bg: #fff3cd;
+      --box-orange-border: #e85d04;
+      --box-orange-text: #7f3200;
+
+      --box-green-bg: #e8f8f0;
+      --box-green-border: #2a9d8f;
+      --box-green-text: #14532d;
+
+      --box-red-bg: #fde8e8;
+      --box-red-border: #d62828;
+      --box-red-text: #7f1d1d;
+
+      --base-font-size: 20px;
+      --radius: 12px;
+      --shadow: 0 4px 12px rgba(8, 59, 74, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --petrol-dark: #041f28;
+        --petrol-main: #0d4f60;
+        --petrol-light: #2ec4b6;
+        --petrol-pale: #0f2c36;
+        --mars-accent: #fb923c;
+        --mars-pale: #331a08;
+        --bg-body: #0b1417;
+        --bg-card: #132227;
+        --text-main: #f1f5f9;
+        --text-muted: #94a3b8;
+        --border-color: #2c444d;
+
+        --box-blue-bg: #0c2636;
+        --box-blue-border: #38bdf8;
+        --box-blue-text: #e0f2fe;
+
+        --box-orange-bg: #2e1d09;
+        --box-orange-border: #fb923c;
+        --box-orange-text: #ffedd5;
+
+        --box-green-bg: #092922;
+        --box-green-border: #34d399;
+        --box-green-text: #d1fae5;
+
+        --box-red-bg: #311014;
+        --box-red-border: #f87171;
+        --box-red-text: #fee2e2;
+      }
+    }
+
+    [data-theme="dark"] {
+      --petrol-dark: #041f28;
+      --petrol-main: #0d4f60;
+      --petrol-light: #2ec4b6;
+      --petrol-pale: #0f2c36;
+      --mars-accent: #fb923c;
+      --mars-pale: #331a08;
+      --bg-body: #0b1417;
+      --bg-card: #132227;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: #2c444d;
+
+      --box-blue-bg: #0c2636;
+      --box-blue-border: #38bdf8;
+      --box-blue-text: #e0f2fe;
+
+      --box-orange-bg: #2e1d09;
+      --box-orange-border: #fb923c;
+      --box-orange-text: #ffedd5;
+
+      --box-green-bg: #092922;
+      --box-green-border: #34d399;
+      --box-green-text: #d1fae5;
+
+      --box-red-bg: #311014;
+      --box-red-border: #f87171;
+      --box-red-text: #fee2e2;
+    }
+
+    [data-contrast="high"] {
+      --bg-body: #000000 !important;
+      --bg-card: #0a0a0a !important;
+      --text-main: #ffffff !important;
+      --text-muted: #ffff00 !important;
+      --border-color: #ffffff !important;
+      --petrol-main: #003b46 !important;
+      --petrol-light: #00ffff !important;
+      --box-blue-bg: #001d3d !important;
+      --box-blue-border: #00ffff !important;
+      --box-blue-text: #ffffff !important;
+      --box-orange-bg: #331a00 !important;
+      --box-orange-border: #ffcc00 !important;
+      --box-orange-text: #ffffff !important;
+      --box-green-bg: #002b11 !important;
+      --box-green-border: #00ff66 !important;
+      --box-green-text: #ffffff !important;
+      --box-red-bg: #330000 !important;
+      --box-red-border: #ff4d4d !important;
+      --box-red-text: #ffffff !important;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(19, 111, 138, 0.25);
+    }
+
+    html {
+      font-size: var(--base-font-size);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.55;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.projection-mode {
+      --base-font-size: 25px;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 4px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* Bandeau supérieur Bleu Pétrole + Touche Mars */
+    header.app-header {
+      background: linear-gradient(135deg, var(--petrol-dark), var(--petrol-main), #8f2d0c);
+      color: #ffffff;
+      padding: 0.9rem 1.2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-badge {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.2rem;
+      font-weight: 700;
+    }
+
+    .brand-title h1 {
+      font-size: 1.25rem;
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .a11y-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    /* Cibles tactiles >= 48px */
+    .btn, .a11y-btn, .tab-btn, .vocab-chip {
+      min-height: 48px;
+      min-width: 48px;
+      padding: 0.45rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: transform 0.1s ease, background-color 0.15s ease;
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .btn:active, .a11y-btn:active, .tab-btn:active, .vocab-chip:active {
+      transform: scale(0.97);
+    }
+
+    .a11y-btn {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .a11y-btn[aria-pressed="true"] {
+      background: #ffffff;
+      color: var(--petrol-dark);
+      border-color: #ffffff;
+    }
+
+    /* Tiroir bilingue LV2 (Vocabulario ES / FR) */
+    .lexicon-drawer {
+      display: none;
+      background: var(--box-blue-bg);
+      border-bottom: 3px solid var(--box-blue-border);
+      color: var(--box-blue-text);
+      padding: 0.85rem 1.25rem;
+    }
+
+    .lexicon-drawer.visible {
+      display: block;
+    }
+
+    .lexicon-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .lexicon-item {
+      background: var(--bg-card);
+      color: var(--text-main);
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Barre élève */
+    .student-bar {
+      background: var(--bg-card);
+      border-bottom: 2px solid var(--border-color);
+      padding: 0.6rem 1.2rem;
+    }
+
+    .student-bar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .student-input-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .student-input-group label {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .student-input-group input {
+      min-height: 48px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.95rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-body);
+      color: var(--text-main);
+      width: 210px;
+    }
+
+    .score-pill {
+      font-weight: 800;
+      background: var(--petrol-main);
+      color: #ffffff;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+    }
+
+    /* Onglets de la séance (60 min) */
+    nav.tabs-nav {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0.9rem auto 0;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+      gap: 0.55rem;
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 2px solid var(--border-color);
+      justify-content: flex-start;
+      text-align: left;
+      padding: 0.6rem 0.85rem;
+      box-shadow: var(--shadow);
+    }
+
+    .tab-btn[aria-selected="true"] {
+      background: var(--petrol-main);
+      color: #ffffff;
+      border-color: var(--petrol-light);
+    }
+
+    .tab-status-dot {
+      margin-left: auto;
+      font-size: 0.8rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.18);
+      white-space: nowrap;
+    }
+
+    main.app-main {
+      max-width: 1400px;
+      width: 100%;
+      margin: 1rem auto 3rem;
+      padding: 0 1rem;
+      flex: 1;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cartes & Grilles */
+    .card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.35rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: var(--petrol-light);
+      font-size: 1.28rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.45rem;
+    }
+
+    .card h3 {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 980px) {
+      .grid-2 {
+        grid-template-columns: 1.06fr 0.94fr;
+        align-items: start;
+      }
+    }
+
+    /* Encadrés charte */
+    .callout {
+      border-left: 6px solid;
+      border-radius: 10px;
+      padding: 0.85rem 1.05rem;
+      margin: 0.9rem 0;
+    }
+
+    .callout-header {
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.98rem;
+    }
+
+    .callout-blue {
+      background: var(--box-blue-bg);
+      border-color: var(--box-blue-border);
+      color: var(--box-blue-text);
+    }
+
+    .callout-orange {
+      background: var(--box-orange-bg);
+      border-color: var(--box-orange-border);
+      color: var(--box-orange-text);
+    }
+
+    .callout-green {
+      background: var(--box-green-bg);
+      border-color: var(--box-green-border);
+      color: var(--box-green-text);
+    }
+
+    .callout-red {
+      background: var(--box-red-bg);
+      border-color: var(--box-red-border);
+      color: var(--box-red-text);
+    }
+
+    /* Badges de difficulté */
+    .diff-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+    .diff-easy { background: #d1fae5; color: #065f46; }
+    .diff-med { background: #fef3c7; color: #92400e; }
+    .diff-hard { background: #fee2e2; color: #991b1b; }
+
+    /* Tableaux */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 0.8rem 0;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    table.data-table th,
+    table.data-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: var(--petrol-pale);
+      font-weight: 800;
+    }
+
+    /* Canvas et simulateurs */
+    .canvas-container {
+      background: var(--bg-body);
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.8rem;
+      margin: 0.8rem 0;
+    }
+
+    canvas.interactive-canvas {
+      width: 100%;
+      height: 280px;
+      display: block;
+      background: var(--bg-card);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+
+    .canvas-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 0.6rem;
+    }
+
+    .touch-readout {
+      margin-top: 0.5rem;
+      padding: 0.55rem 0.8rem;
+      background: var(--petrol-pale);
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .sim-warning {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--box-orange-text);
+      background: var(--box-orange-bg);
+      border: 1px solid var(--box-orange-border);
+      padding: 0.15rem 0.55rem;
+      border-radius: 6px;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Questions */
+    .question-box {
+      border: 2px solid var(--petrol-light);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      background: var(--bg-card);
+      margin-bottom: 1.35rem;
+    }
+
+    .question-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .qcm-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      width: 100%;
+      min-height: 52px;
+      padding: 0.7rem 0.95rem;
+      margin-bottom: 0.55rem;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--bg-body);
+      color: var(--text-main);
+      font-size: 0.98rem;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    .qcm-option.selected {
+      border-color: var(--petrol-light);
+      background: var(--petrol-pale);
+    }
+
+    .vf-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-bottom: 0.55rem;
+      background: var(--bg-body);
+    }
+
+    .vf-btns {
+      display: flex;
+      gap: 0.45rem;
+    }
+
+    .vf-btn {
+      min-height: 48px;
+      min-width: 110px;
+      border-radius: 8px;
+      border: 2px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .vf-btn.selected-v {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #10b981;
+    }
+
+    .vf-btn.selected-f {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #ef4444;
+    }
+
+    .btn-primary {
+      background: var(--petrol-main);
+      color: #ffffff;
+      border-color: var(--petrol-dark);
+    }
+
+    .btn-secondary {
+      background: var(--bg-body);
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    .btn-hint {
+      background: var(--box-orange-bg);
+      color: var(--box-orange-text);
+      border-color: var(--box-orange-border);
+    }
+
+    .hints-container {
+      margin: 0.75rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .hint-item {
+      display: none;
+      padding: 0.7rem 0.95rem;
+      border-radius: 8px;
+      background: var(--box-orange-bg);
+      color: var(--box-orange-text);
+      border-left: 4px solid var(--box-orange-border);
+      font-size: 0.92rem;
+    }
+
+    .hint-item.visible {
+      display: block;
+    }
+
+    .feedback-box {
+      display: none;
+      margin-top: 0.85rem;
+      padding: 0.9rem;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .feedback-box.visible {
+      display: block;
+    }
+
+    .solution-box {
+      display: none;
+      margin-top: 0.85rem;
+      padding: 0.95rem;
+      border-radius: 10px;
+      background: var(--box-green-bg);
+      border: 2px solid var(--box-green-border);
+      color: var(--box-green-text);
+    }
+
+    .solution-box.visible {
+      display: block;
+    }
+
+    .slot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin: 0.8rem 0;
+    }
+
+    .slot-item {
+      border: 2px dashed var(--petrol-light);
+      border-radius: 10px;
+      padding: 0.7rem;
+      background: var(--bg-body);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .slot-item select {
+      min-height: 48px;
+      font-size: 0.92rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+      border: 2px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    .calc-input-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      margin: 0.7rem 0;
+    }
+
+    .calc-input-row input {
+      min-height: 50px;
+      width: 150px;
+      padding: 0.45rem 0.7rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-body);
+      color: var(--text-main);
+    }
+
+    textarea.essay-area {
+      width: 100%;
+      min-height: 160px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      font-family: inherit;
+      line-height: 1.5;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--bg-body);
+      color: var(--text-main);
+      resize: vertical;
+    }
+
+    .vocab-chip {
+      background: var(--petrol-pale);
+      border: 1px solid var(--petrol-light);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      padding: 0.35rem 0.7rem;
+    }
+
+    .criteria-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.8rem 0;
+    }
+
+    .criteria-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    .criteria-label {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.65rem;
+      background: var(--bg-body);
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      min-height: 50px;
+      font-weight: 600;
+    }
+
+    .criteria-label input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      accent-color: var(--petrol-main);
+      flex-shrink: 0;
+    }
+
+    /* Chronomètre oral 1 min */
+    .oral-timer-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      background: var(--mars-pale);
+      border: 2px solid var(--mars-accent);
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      margin: 0.8rem 0;
+    }
+
+    .oral-time-digits {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--mars-accent);
+    }
+
+    /* Écran Professeur plein écran */
+    .prof-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #041f28;
+      color: #ffffff;
+      z-index: 9999;
+      padding: 1.8rem;
+      overflow-y: auto;
+    }
+
+    .prof-modal.visible {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .prof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin: 1.2rem 0;
+    }
+
+    .prof-stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 3px solid #2ec4b6;
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .prof-big-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #ff9f1c;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BANDEAU SUPÉRIEUR BLEU PÉTROLE & MARS -->
+  <header class="app-header" role="banner">
+    <div class="header-top">
+      <div class="brand-title">
+        <span class="brand-badge">VAUBAN SCIENCES | 3e SVT | DNL ESPAÑOL (LV2)</span>
+        <h1>🚀 ¿PODEMOS VIVIR EN MARTE? — Misión Base Marciana</h1>
+      </div>
+      <div class="a11y-toolbar" role="toolbar" aria-label="Herramientas de accesibilidad y vocabulario">
+        <button type="button" class="a11y-btn" id="btnLexicon" aria-pressed="true">🇪🇸/🇫🇷 Vocabulario</button>
+        <button type="button" class="a11y-btn" id="btnFontDown" aria-label="Reducir texto">A−</button>
+        <button type="button" class="a11y-btn" id="btnFontUp" aria-label="Aumentar texto">A+</button>
+        <button type="button" class="a11y-btn" id="btnTheme" aria-pressed="false">🌓 Sombre</button>
+        <button type="button" class="a11y-btn" id="btnContrast" aria-pressed="false">👁️ Contraste</button>
+        <button type="button" class="a11y-btn" id="btnProjection" aria-pressed="false">📽️ Projection</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- TIROIR BILINGUE LV2 (AFFICHÉ PAR DÉFAUT POUR AIDER LES ÉLÈVES DE 3e LV2) -->
+  <aside class="lexicon-drawer visible" id="lexiconDrawer" aria-label="Léxico científico Español - Francés">
+    <div style="max-width:1400px; margin:0 auto 0.45rem; display:flex; justify-content:space-between; align-items:center;">
+      <strong>📚 Vocabulario clave DNL (Español = Français) — Toca « 🇪🇸/🇫🇷 Vocabulario » arriba para ocultar/mostrar :</strong>
+    </div>
+    <div class="lexicon-grid">
+      <div class="lexicon-item">💧 <strong>agua</strong> = eau | <strong>hielo</strong> = glace</div>
+      <div class="lexicon-item">🫁 <strong>oxígeno (O₂)</strong> = dioxygène</div>
+      <div class="lexicon-item">🍎 <strong>alimentos</strong> = nourriture / aliments</div>
+      <div class="lexicon-item">☢️ <strong>radiación</strong> = rayonnement (UV/cosmique)</div>
+      <div class="lexicon-item">🌱 <strong>invernadero</strong> = serre agricole</div>
+      <div class="lexicon-item">⚡ <strong>energía</strong> = énergie</div>
+      <div class="lexicon-item">🛡️ <strong>protección / casco</strong> = protection / casque</div>
+      <div class="lexicon-item">🏠 <strong>hábitat presurizado</strong> = habitat pressurisé</div>
+      <div class="lexicon-item">🔬 <strong>fotosíntesis</strong> = photosynthèse</div>
+      <div class="lexicon-item">🧬 <strong>respiración celular / ADN</strong> = respiration cellulaire / ADN</div>
+    </div>
+  </aside>
+
+  <!-- BARRE ÉLÈVE / ÉQUIPE -->
+  <section class="student-bar" aria-label="Identificación del equipo y puntuación">
+    <div class="student-bar-inner">
+      <div class="student-input-group">
+        <label for="studentName">Nombre / Equipo (opcional) :</label>
+        <input type="text" id="studentName" placeholder="Ej: Sofía y Lucas" autocomplete="off">
+      </div>
+      <div class="student-input-group">
+        <label for="baseNameTop">Nombre de nuestra base :</label>
+        <input type="text" id="baseNameTop" placeholder="Ej: Estación Ares IV" autocomplete="off">
+      </div>
+      <div class="score-pill" id="globalScorePill" aria-live="polite">
+        Nota (1er intento) : 0 / 8
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION DES 5 ÉTAPES DE LA SÉANCE (60 MIN) -->
+  <nav class="tabs-nav" role="tablist" aria-label="Etapas de la misión en Marte">
+    <button type="button" class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1" data-tab="1">
+      <span>1. ¡Bienvenidos! (0-10m)</span>
+      <span class="tab-status-dot" id="status-tab-1">0/2</span>
+    </button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2" data-tab="2">
+      <span>2. Los 5 desafíos (10-20m)</span>
+      <span class="tab-status-dot" id="status-tab-2">0/2</span>
+    </button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3" data-tab="3">
+      <span>3. Diseña tu base (20-42m)</span>
+      <span class="tab-status-dot" id="status-tab-3">0/2</span>
+    </button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-4" id="tab-4" data-tab="4">
+      <span>4. Presentación (42-60m)</span>
+      <span class="tab-status-dot" id="status-tab-4">0/2</span>
+    </button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-5" id="tab-5" data-tab="5">
+      <span>5. Balance Profesor</span>
+      <span class="tab-status-dot">📊</span>
+    </button>
+  </nav>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="app-main">
+
+    <!-- =====================================================================
+         ONGLET 1 : ¡BIENVENIDOS A MARTE! (0 - 10 MIN)
+         ===================================================================== -->
+    <section class="tab-panel active" id="panel-1" role="tabpanel" aria-labelledby="tab-1">
+      <div class="callout callout-blue">
+        <div class="callout-header">📘 MISIÓN Y OBJETIVOS (0 – 10 min)</div>
+        <div>
+          <strong>MISIÓN :</strong> Diseñar una base para que <strong>cuatro astronautas</strong> puedan vivir en Marte.<br>
+          <strong>Objetivos :</strong> Identificar las dificultades de Marte, proponer soluciones científicas (nivel 3e SVT) y explicar decisiones sencillas en español.
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- COLONNE GAUCHE : SIMULATEUR COMPARATIF TERRE VS MARS -->
+        <div>
+          <div class="card">
+            <h2>🌍 vs 🔴 Comparador planetario : Tierra y Marte</h2>
+            <p>Observa los datos científicos comparados entre la Tierra y Marte. <strong>Toca cada parámetro</strong> para visualizar un gráfico por magnitud :</p>
+
+            <div class="canvas-container">
+              <span class="sim-warning">⚠ Simulación científica interactiva (SVT 3e)</span>
+              <div class="canvas-controls" style="margin-bottom:0.5rem;">
+                <button type="button" class="btn btn-primary planet-metric-btn" data-metric="temp">🌡️ Temperatura (°C)</button>
+                <button type="button" class="btn btn-secondary planet-metric-btn" data-metric="pres">🎈 Presión (hPa)</button>
+                <button type="button" class="btn btn-secondary planet-metric-btn" data-metric="o2">🫁 Oxígeno O₂ (%)</button>
+              </div>
+              <canvas id="canvasPlanets" class="interactive-canvas" aria-label="Gráfico comparativo entre la Tierra y Marte"></canvas>
+              <div class="touch-readout" id="planetGraphReadout">
+                👆 Toca una barra del gráfico para leer el valor exacto y su consecuencia biológica.
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Parámetro físico-químico</th>
+                    <th>Tierra 🌍</th>
+                    <th>Marte 🔴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Temperatura media</strong></td>
+                    <td><strong>+15 °C</strong></td>
+                    <td><strong>−63 °C</strong> (muy frío)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Presión atmosférica</strong></td>
+                    <td><strong>1 013 hPa</strong> (densa)</td>
+                    <td><strong>6 hPa</strong> (atmósfera 170 veces más fina)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Oxígeno respirable (O₂)</strong></td>
+                    <td><strong>21 %</strong></td>
+                    <td><strong>0,13 %</strong> (95 % es CO₂)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Estado del agua (H₂O)</strong></td>
+                    <td>Líquida, hielo y vapor</td>
+                    <td><strong>Hielo</strong> en los polos y subsuelo (escasez de agua líquida)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Radiación en superficie</strong></td>
+                    <td>Baja (escudo magnético + ozono)</td>
+                    <td><strong>Muy alta y peligrosa</strong> (daña el ADN celular)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLONNE DROITE : QUESTION INITIALE Q1 & VRAI/FAUX Q2 -->
+        <div>
+          <!-- QUESTION 1 -->
+          <div class="question-box" id="qbox-q1">
+            <div class="question-header">
+              <strong>Pregunta 1 — Pregunta inicial (0-10 min)</strong>
+              <span class="diff-badge diff-easy">🟢 Fácil · Hipótesis</span>
+            </div>
+            <p><strong>¿Podemos vivir en Marte sin protección (sin casco ni traje presurizado)?</strong> Responde « sí » o « no » y explica por qué :</p>
+
+            <div role="radiogroup" aria-label="Opciones para la pregunta 1">
+              <button type="button" class="qcm-option" data-q="q1" data-val="a">
+                A. Sí, porque en Marte hay mucho oxígeno (21 %) y una temperatura suave de +15 °C.
+              </button>
+              <button type="button" class="qcm-option" data-q="q1" data-val="b">
+                B. No, porque en Marte la atmósfera es muy fina (6 hPa), casi no hay oxígeno para la respiración celular (0,13 %), hace mucho frío (−63 °C) y la radiación es peligrosa.
+              </button>
+              <button type="button" class="qcm-option" data-q="q1" data-val="c">
+                C. Sí, porque hay ríos de agua líquida caliente y plantas en toda la superficie.
+              </button>
+            </div>
+
+            <div class="canvas-controls">
+              <button type="button" class="btn btn-primary" onclick="validateQ1()">✓ Comprobar respuesta</button>
+              <button type="button" class="btn btn-hint" onclick="showNextHint('q1')">💡 Pista (<span id="hint-count-q1">0</span>/3)</button>
+            </div>
+
+            <div class="hints-container">
+              <div class="hint-item" id="hint-q1-1">💡 <strong>Pista 1 (FR/ES) :</strong> Mira la tabla comparativa : en Marte solo hay 0,13 % de oxígeno (<em>oxígeno = dioxygène</em>) y la temperatura media es de −63 °C.</div>
+              <div class="hint-item" id="hint-q1-2">💡 <strong>Pista 2 :</strong> Nuestras células necesitan oxígeno (O₂) para realizar la <strong>respiración celular</strong>. Sin casco, es imposible respirar.</div>
+              <div class="hint-item" id="hint-q1-3">💡 <strong>Pista 3 :</strong> La respuesta correcta empieza por « No, porque... » y cita la falta de oxígeno, el frío y la radiación.</div>
+            </div>
+
+            <div class="feedback-box" id="feedback-q1" aria-live="polite"></div>
+            <div class="solution-box" id="solution-q1">
+              <strong>📘 Solución explicada (Q1) :</strong><br>
+              <strong>No, no podemos vivir en Marte sin protección</strong> porque la atmósfera es muy fina (baja presión), casi no contiene oxígeno respirable (0,13 % de O₂), las temperaturas son extremadamente bajas (−63 °C de media) y la radiación solar/cósmica destruye el ADN de las células.
+            </div>
+          </div>
+
+          <!-- QUESTION 2 : VERDADERO O FALSO -->
+          <div class="question-box" id="qbox-q2">
+            <div class="question-header">
+              <strong>Pregunta 2 — Verdadero o Falso</strong>
+              <span class="diff-badge diff-easy">🟢 Fácil · Diagnóstico</span>
+            </div>
+            <p>Indica si cada afirmación sobre Marte es <strong>Verdadera (V)</strong> o <strong>Falsa (F)</strong> :</p>
+
+            <div class="vf-row">
+              <span>1. En Marte podemos respirar sin casco.</span>
+              <div class="vf-btns">
+                <button type="button" class="vf-btn" data-vf="1" data-choice="V" onclick="selectVF(1, 'V', this)">Verdadero</button>
+                <button type="button" class="vf-btn" data-vf="1" data-choice="F" onclick="selectVF(1, 'F', this)">Falso</button>
+              </div>
+            </div>
+
+            <div class="vf-row">
+              <span>2. En Marte hay agua en forma de hielo (<em>glace</em>).</span>
+              <div class="vf-btns">
+                <button type="button" class="vf-btn" data-vf="2" data-choice="V" onclick="selectVF(2, 'V', this)">Verdadero</button>
+                <button type="button" class="vf-btn" data-vf="2" data-choice="F" onclick="selectVF(2, 'F', this)">Falso</button>
+              </div>
+            </div>
+
+            <div class="vf-row">
+              <span>3. Marte es, en promedio, más frío que la Tierra.</span>
+              <div class="vf-btns">
+                <button type="button" class="vf-btn" data-vf="3" data-choice="V" onclick="selectVF(3, 'V', this)">Verdadero</button>
+                <button type="button" class="vf-btn" data-vf="3" data-choice="F" onclick="selectVF(3, 'F', this)">Falso</button>
+              </div>
+            </div>
+
+            <div class="vf-row">
+              <span>4. La atmósfera de Marte es muy densa.</span>
+              <div class="vf-btns">
+                <button type="button" class="vf-btn" data-vf="4" data-choice="V" onclick="selectVF(4, 'V', this)">Verdadero</button>
+                <button type="button" class="vf-btn" data-vf="4" data-choice="F" onclick="selectVF(4, 'F', this)">Falso</button>
+              </div>
+            </div>
+
+            <div class="vf-row">
+              <span>5. <em>(Nivel 3e)</em> La radiación en Marte es peligrosa para el ADN de nuestras células.</span>
+              <div class="vf-btns">
+                <button type="button" class="vf-btn" data-vf="5" data-choice="V" onclick="selectVF(5, 'V', this)">Verdadero</button>
+                <button type="button" class="vf-btn" data-vf="5" data-choice="F" onclick="selectVF(5, 'F', this)">Falso</button>
+              </div>
+            </div>
+
+            <div class="canvas-controls">
+              <button type="button" class="btn btn-primary" onclick="validateQ2()">✓ Comprobar Verdadero / Falso</button>
+              <button type="button" class="btn btn-hint" onclick="showNextHint('q2')">💡 Pista (<span id="hint-count-q2">0</span>/3)</button>
+            </div>
+
+            <div class="hints-container">
+              <div class="hint-item" id="hint-q2-1">💡 <strong>Pista 1 :</strong> <em>Casco = casque</em> ; <em>hielo = glace</em> ; <em>densa = dense/épaisse</em>.</div>
+              <div class="hint-item" id="hint-q2-2">💡 <strong>Pista 2 :</strong> La presión en Marte es de solo 6 hPa (frente a 1 013 hPa en la Tierra) : su atmósfera es muy fina (tenue), ¡no es densa!</div>
+              <div class="hint-item" id="hint-q2-3">💡 <strong>Pista 3 :</strong> Orden correcto : 1 = Falso | 2 = Verdadero | 3 = Verdadero | 4 = Falso | 5 = Verdadero.</div>
+            </div>
+
+            <div class="feedback-box" id="feedback-q2" aria-live="polite"></div>
+            <div class="solution-box" id="solution-q2">
+              <strong>📘 Solución explicada (Q2) :</strong><br>
+              1. <strong>Falso :</strong> Sin casco moriríamos por asfixia y descompresión.<br>
+              2. <strong>Verdadero :</strong> Hay grandes reservas de agua congelada (hielo) en los casquetes polares y bajo el suelo.<br>
+              3. <strong>Verdadero :</strong> La media es de −63 °C (frente a +15 °C en la Tierra).<br>
+              4. <strong>Falso :</strong> La atmósfera marciana es muy fina (poco densa, 6 hPa).<br>
+              5. <strong>Verdadero :</strong> Al no tener campo magnético global ni capa de ozono, las radiaciones provocan mutaciones en el ADN.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         ONGLET 2 : LOS CINCO DESAFÍOS (10 - 20 MIN)
+         ===================================================================== -->
+    <section class="tab-panel" id="panel-2" role="tabpanel" aria-labelledby="tab-2">
+      <div class="callout callout-blue">
+        <div class="callout-header">📘 Parte 2 — Los cinco desafíos de Marte (10 – 20 min)</div>
+        <div>En equipos, relacionad cada problema ambiental de Marte con una necesidad humana y fisiológica para los cuatro astronautas.</div>
+      </div>
+
+      <div class="grid-2">
+        <!-- QUESTION 3 : TABLEAU D'ASSOCIATION DES 5 DÉFIS -->
+        <div>
+          <div class="question-box" id="qbox-q3">
+            <div class="question-header">
+              <strong>Pregunta 3 — Relacionar cada problema con una necesidad humana</strong>
+              <span class="diff-badge diff-med">🟡 Medio · Tabla de los 5 desafíos</span>
+            </div>
+            <p>Para cada <strong>Problema en Marte</strong> de tu ficha, selecciona qué <strong>Necesitamos...</strong> para sobrevivir :</p>
+
+            <div class="slot-grid">
+              <div class="slot-item">
+                <label for="q3-d1"><strong>1. Problema : Atmósfera muy fina, casi sin oxígeno respirable</strong></label>
+                <select id="q3-d1">
+                  <option value="">— Selecciona « Necesitamos... » —</option>
+                  <option value="oxigeno">Necesitamos producir/almacenar oxígeno (O₂) y un hábitat presurizado (para la respiración celular).</option>
+                  <option value="comida">Necesitamos cultivar verduras sin aire.</option>
+                  <option value="escudo">Necesitamos únicamente paneles solares.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q3-d2"><strong>2. Problema : Temperaturas muy bajas (−63 °C)</strong></label>
+                <select id="q3-d2">
+                  <option value="">— Selecciona « Necesitamos... » —</option>
+                  <option value="calor">Necesitamos aislamiento térmico y una fuente de energía para mantener la temperatura (calefacción).</option>
+                  <option value="agua">Necesitamos beber hielo sin calentar la base.</option>
+                  <option value="adn">Necesitamos apagar la calefacción.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q3-d3"><strong>3. Problema : Radiación peligrosa en la superficie</strong></label>
+                <select id="q3-d3">
+                  <option value="">— Selecciona « Necesitamos... » —</option>
+                  <option value="proteccion">Necesitamos una protección contra la radiación (muros gruesos de regolito o cuevas) para proteger el ADN.</option>
+                  <option value="oxigeno">Necesitamos abrir las ventanas al Sol.</option>
+                  <option value="alimentos">Necesitamos comer más azúcar.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q3-d4"><strong>4. Problema : Agua líquida escasa en la superficie</strong></label>
+                <select id="q3-d4">
+                  <option value="">— Selecciona « Necesitamos... » —</option>
+                  <option value="agua">Necesitamos extraer hielo subterráneo y un sistema de reciclaje del agua.</option>
+                  <option value="radiacion">Necesitamos paneles solares sin agua.</option>
+                  <option value="casco">Necesitamos tirar el agua usada al exterior.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q3-d5"><strong>5. Problema : Sin alimentos disponibles para los astronautas</strong></label>
+                <select id="q3-d5">
+                  <option value="">— Selecciona « Necesitamos... » —</option>
+                  <option value="alimentos">Necesitamos un invernadero (serre) para cultivar plantas por fotosíntesis y producir alimentos.</option>
+                  <option value="rocas">Necesitamos comer piedras marcianas (minerales puros).</option>
+                  <option value="frio">Necesitamos congelar la base.</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="canvas-controls">
+              <button type="button" class="btn btn-primary" onclick="validateQ3()">✓ Validar la tabla de los 5 desafíos</button>
+              <button type="button" class="btn btn-hint" onclick="showNextHint('q3')">💡 Pista (<span id="hint-count-q3">0</span>/3)</button>
+            </div>
+
+            <div class="hints-container">
+              <div class="hint-item" id="hint-q3-1">💡 <strong>Pista 1 :</strong> Relaciona las palabras clave : <em>sin oxígeno ➔ producir oxígeno</em> | <em>temperaturas bajas ➔ mantener la temperatura con energía</em>.</div>
+              <div class="hint-item" id="hint-q3-2">💡 <strong>Pista 2 :</strong> <em>Radiación peligrosa ➔ protección contra la radiación</em> | <em>Agua escasa ➔ reciclaje del agua</em>.</div>
+              <div class="hint-item" id="hint-q3-3">💡 <strong>Pista 3 :</strong> <em>Sin alimentos ➔ invernadero (serre) para producir alimentos gracias a la fotosíntesis</em>.</div>
+            </div>
+
+            <div class="feedback-box" id="feedback-q3" aria-live="polite"></div>
+            <div class="solution-box" id="solution-q3">
+              <strong>📘 Tabla corregida (Los 5 desafíos) :</strong><br>
+              1. <strong>Atmósfera fina sin O₂ :</strong> Necesitamos producir/almacenar oxígeno y un hábitat presurizado.<br>
+              2. <strong>Temperaturas muy bajas :</strong> Necesitamos mantener la temperatura con aislamiento y una fuente de energía.<br>
+              3. <strong>Radiación peligrosa :</strong> Necesitamos protección contra la radiación para garantizar la seguridad celular (ADN).<br>
+              4. <strong>Agua líquida escasa :</strong> Necesitamos extraer hielo y un sistema de reciclaje del agua.<br>
+              5. <strong>Sin alimentos :</strong> Necesitamos un invernadero para cultivar plantas y producir alimentos.
+            </div>
+          </div>
+        </div>
+
+        <!-- QUESTION 4 : CALCUL BESOINS EN EAU & RECYCLAGE POUR 4 ASTRONAUTES -->
+        <div>
+          <div class="card">
+            <h2>💧 Datos fisiológicos : Agua y Oxígeno para 4 astronautas</h2>
+            <p>En una misión espacial, cada astronauta necesita para su metabolismo diario :</p>
+            <ul>
+              <li><strong>Agua (bebida e comida hidratada) :</strong> <strong>2,5 litros por día</strong> y por astronauta.</li>
+              <li><strong>Oxígeno (respiración celular) :</strong> <strong>0,84 kg de O₂ por día</strong> y por astronauta.</li>
+            </ul>
+            <div class="callout callout-orange">
+              <div class="callout-header">⚠️ Vigilancia — ¡Son 4 astronautas!</div>
+              <div>La misión de tu ficha está diseñada para <strong>cuatro (4) astronautas</strong>. No olvides multiplicar las necesidades de 1 persona por 4.</div>
+            </div>
+          </div>
+
+          <div class="question-box" id="qbox-q4">
+            <div class="question-header">
+              <strong>Pregunta 4 — Cálculo del reciclaje del agua (4 astronautas)</strong>
+              <span class="diff-badge diff-med">🟡 Medio · Cálculo y Porcentajes</span>
+            </div>
+            <p>1. ¿Cuántos <strong>litros de agua en total</strong> necesitan los <strong>4 astronautas</strong> en <strong>1 día</strong> (a razón de 2,5 L por astronauta)?</p>
+            <div class="calc-input-row">
+              <label for="q4-total"><strong>Agua total para 4 astronautas :</strong></label>
+              <input type="text" id="q4-total" inputmode="decimal" placeholder="Ej: 10">
+              <span>litros / día</span>
+            </div>
+
+            <p>2. El sistema de reciclaje de la base recupera el <strong>80 %</strong> del agua (orina, transpiración, humedad del aire). ¿Cuántos <strong>litros de agua se reciclan (ahorran)</strong> cada día?</p>
+            <div class="calc-input-row">
+              <label for="q4-recycled"><strong>Agua reciclada (80 %) :</strong></label>
+              <input type="text" id="q4-recycled" inputmode="decimal" placeholder="Ej: 8">
+              <span>litros / día</span>
+            </div>
+
+            <div class="canvas-controls">
+              <button type="button" class="btn btn-primary" onclick="validateQ4()">✓ Validar mis cálculos</button>
+              <button type="button" class="btn btn-hint" onclick="showNextHint('q4')">💡 Pista (<span id="hint-count-q4">0</span>/3)</button>
+            </div>
+
+            <div class="hints-container">
+              <div class="hint-item" id="hint-q4-1">💡 <strong>Pista 1 :</strong> Para 4 astronautas : multiplica 2,5 L × 4.</div>
+              <div class="hint-item" id="hint-q4-2">💡 <strong>Pista 2 :</strong> 2,5 × 4 = <strong>10 litros por día</strong> en total.</div>
+              <div class="hint-item" id="hint-q4-3">💡 <strong>Pista 3 :</strong> Para calcular el 80 % de 10 litros : (80 / 100) × 10 = <strong>8 litros</strong> reciclados cada día.</div>
+            </div>
+
+            <div class="feedback-box" id="feedback-q4" aria-live="polite"></div>
+            <div class="solution-box" id="solution-q4">
+              <strong>📘 Solución explicada (Q4) :</strong><br>
+              • <strong>Consumo diario para 4 astronautas :</strong> 4 × 2,5 L = <strong>10 L / día</strong>.<br>
+              • <strong>Agua reciclada al 80 % :</strong> 10 L × (80 / 100) = <strong>8 L / día</strong>. Así, la base solo necesita extraer 2 L de hielo marciano al día en lugar de 10 L.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         ONGLET 3 : ¡DISEÑA TU BASE MARCIANA! (20 - 42 MIN)
+         ===================================================================== -->
+    <section class="tab-panel" id="panel-3" role="tabpanel" aria-labelledby="tab-3">
+      <div class="callout callout-blue">
+        <div class="callout-header">📘 Parte 3 — ¡Diseña tu base marciana! (20 – 42 min)</div>
+        <div>
+          <strong>Consigna :</strong> Construye y señala los <strong>5 elementos obligatorios</strong> para cuatro astronautas : <em>un hábitat presurizado, un sistema de reciclaje del agua, un invernadero, una fuente de energía y protección contra la radiación</em>. Para cada elemento, explica qué problema resuelve.
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- CONSTRUCTEUR VISUEL INTERACTIF DE LA BASE MARTIENNE + COURBE O2/CO2 -->
+        <div>
+          <div class="card">
+            <h2>🏗️ Simulador interactivo : Plano de nuestra Base en Marte</h2>
+            <p><strong>Toca los 5 botones</strong> para instalar cada módulo en el cráter marciano y observar cómo funciona el ecosistema :</p>
+
+            <div class="canvas-container">
+              <span class="sim-warning">⚠ Simulador de Base Marciana (Toca para activar/desactivar cada módulo)</span>
+              <div class="canvas-controls" style="margin-bottom:0.55rem;">
+                <button type="button" class="btn btn-secondary mod-toggle-btn" data-mod="habitat">🏠 1. Hábitat presurizado</button>
+                <button type="button" class="btn btn-secondary mod-toggle-btn" data-mod="agua">💧 2. Reciclaje del agua</button>
+                <button type="button" class="btn btn-secondary mod-toggle-btn" data-mod="invernadero">🌱 3. Invernadero</button>
+                <button type="button" class="btn btn-secondary mod-toggle-btn" data-mod="energia">⚡ 4. Fuente de energía</button>
+                <button type="button" class="btn btn-secondary mod-toggle-btn" data-mod="proteccion">🛡️ 5. Protección radiación</button>
+              </div>
+              <canvas id="canvasMarsBase" class="interactive-canvas" style="height:310px;" aria-label="Plano interactivo de la base marciana con sus 5 módulos"></canvas>
+              <div class="touch-readout" id="marsBaseReadout">
+                ⚠️ Módulos instalados : 0 / 5. Toca cada botón arriba para construir la base de los 4 astronautas.
+              </div>
+            </div>
+
+            <h3>🌱 Simulación del invernadero : Fotosíntesis y Oxígeno (O₂)</h3>
+            <p style="font-size:0.92rem;">Las plantas del <strong>invernadero</strong> realizan la <strong>fotosíntesis</strong> cuando reciben luz : absorben el CO₂ expirado por los astronautas y producen <strong>oxígeno (O₂)</strong> y <strong>alimentos</strong> (materia orgánica).</p>
+
+            <div class="canvas-container">
+              <span class="sim-warning">⚠ Evolución de O₂ (%) en la base durante 24 h (Valores simulados)</span>
+              <div class="canvas-controls">
+                <button type="button" class="btn btn-primary" id="btnGreenhousePlay">▶️ Lanzar</button>
+                <button type="button" class="btn btn-secondary" id="btnGreenhousePause">⏸️ Pausa</button>
+                <button type="button" class="btn btn-secondary" id="btnGreenhouseReset">🔄 Reiniciar</button>
+              </div>
+              <canvas id="canvasGreenhouseO2" class="interactive-canvas" style="height:240px;" aria-label="Gráfico animado de la concentración de oxígeno con y sin invernadero"></canvas>
+              <div class="touch-readout" id="greenhouseO2Readout">
+                👆 Toca la curva para leer el porcentaje de oxígeno (O₂) según las horas.
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Tiempo (Horas)</th>
+                    <th>0 h</th>
+                    <th>6 h</th>
+                    <th>12 h</th>
+                    <th>18 h</th>
+                    <th>24 h</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Con invernadero activo (Fotosíntesis)</strong></td>
+                    <td>21,0 %</td>
+                    <td>20,9 %</td>
+                    <td>21,0 %</td>
+                    <td>21,1 %</td>
+                    <td><strong>21,0 % (Estable)</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sin invernadero (Solo respiración)</strong></td>
+                    <td>21,0 %</td>
+                    <td>19,5 %</td>
+                    <td>18,0 %</td>
+                    <td>16,5 %</td>
+                    <td><strong>15,0 % (Peligro hipoxia)</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUESTIONS Q5 (FONCTION DES 5 MODULES) & Q6 (FOTOSÍNTESIS / RESPIRACIÓN) -->
+        <div>
+          <!-- QUESTION 5 -->
+          <div class="question-box" id="qbox-q5">
+            <div class="question-header">
+              <strong>Pregunta 5 — ¿Qué problema resuelve cada elemento de la base?</strong>
+              <span class="diff-badge diff-med">🟡 Medio · Justificar decisiones</span>
+            </div>
+            <p>Asegúrate de haber activado los <strong>5 módulos en el simulador</strong> y explica para qué sirve cada elemento en español :</p>
+
+            <div class="slot-grid">
+              <div class="slot-item">
+                <label for="q5-m1"><strong>1. El hábitat presurizado sirve para...</strong></label>
+                <select id="q5-m1">
+                  <option value="">— Elegir función —</option>
+                  <option value="ok">mantener una presión atmosférica normal y almacenar aire con oxígeno para respirar sin traje.</option>
+                  <option value="no">cultivar patatas en el exterior a −63 °C.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q5-m2"><strong>2. El sistema de reciclaje del agua sirve para...</strong></label>
+                <select id="q5-m2">
+                  <option value="">— Elegir función —</option>
+                  <option value="ok">recuperar y purificar el agua usada porque el agua líquida es muy escasa en Marte.</option>
+                  <option value="no">bloquear los rayos cósmicos.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q5-m3"><strong>3. La fuente de energía (paneles solares / reactor) sirve para...</strong></label>
+                <select id="q5-m3">
+                  <option value="">— Elegir función —</option>
+                  <option value="ok">calentar la base contra el frío (−63 °C), iluminar el invernadero y hacer funcionar los equipos.</option>
+                  <option value="no">fabricar rocas marcianas.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q5-m4"><strong>4. La protección antirradiación (capa de suelo marciano / regolito) sirve para...</strong></label>
+                <select id="q5-m4">
+                  <option value="">— Elegir función —</option>
+                  <option value="ok">proteger las células y el ADN de los astronautas contra la radiación peligrosa.</option>
+                  <option value="no">producir verduras verdes.</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="canvas-controls">
+              <button type="button" class="btn btn-primary" onclick="validateQ5()">✓ Validar las funciones de mi base</button>
+              <button type="button" class="btn btn-hint" onclick="showNextHint('q5')">💡 Pista (<span id="hint-count-q5">0</span>/3)</button>
+            </div>
+
+            <div class="hints-container">
+              <div class="hint-item" id="hint-q5-1">💡 <strong>Pista 1 :</strong> <em>Presurizado = pressurisé</em> (mantiene la presión y el oxígeno).</div>
+              <div class="hint-item" id="hint-q5-2">💡 <strong>Pista 2 :</strong> <em>Fuente de energía = source d'énergie</em> (da electricidad y calefacción contra las bajas temperaturas).</div>
+              <div class="hint-item" id="hint-q5-3">💡 <strong>Pista 3 :</strong> No olvides tocar los 5 botones del plano de la base a la izquierda para instalar todos los módulos.</div>
+            </div>
+
+            <div class="feedback-box" id="feedback-q5" aria-live="polite"></div>
+            <div class="solution-box" id="solution-q5">
+              <strong>📘 Solución explicada (Q5) :</strong><br>
+              • <strong>Hábitat presurizado :</strong> mantiene la presión y el oxígeno.<br>
+              • <strong>Reciclaje del agua :</strong> reutiliza el agua porque no hay agua líquida en la superficie.<br>
+              • <strong>Fuente de energía :</strong> mantiene la temperatura y alimenta toda la base.<br>
+              • <strong>Protección contra la radiación :</strong> protege la salud y el ADN de los astronautas.
+            </div>
+          </div>
+
+          <!-- QUESTION 6 : CYCLE O2 / CO2 DANS LA SERRE (SVT 3e) -->
+          <div class="question-box" id="qbox-q6">
+            <div class="question-header">
+              <strong>Pregunta 6 — El doble papel biológico del invernadero (SVT 3e)</strong>
+              <span class="diff-badge diff-hard">🔴 Desafío · Fotosíntesis y Respiración</span>
+            </div>
+            <p>Observa el gráfico del invernadero y completa el ciclo entre las <strong>plantas</strong> y los <strong>astronautas</strong> :</p>
+
+            <div class="slot-grid">
+              <div class="slot-item">
+                <label for="q6-plantas"><strong>1. Gracias a la FOTOSÍNTESIS, las plantas del invernadero...</strong></label>
+                <select id="q6-plantas">
+                  <option value="">— Elegir el intercambio de las plantas —</option>
+                  <option value="foto_ok">absorben dióxido de carbono (CO₂) y agua, y producen alimentos (materia orgánica) y oxígeno (O₂).</option>
+                  <option value="foto_no">absorben oxígeno (O₂) y destruyen los alimentos.</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q6-astro"><strong>2. Gracias a la RESPIRACIÓN CELULAR, los cuatro astronautas...</strong></label>
+                <select id="q6-astro">
+                  <option value="">— Elegir el intercambio de los astronautas —</option>
+                  <option value="resp_ok">consumen el oxígeno (O₂) y los alimentos del invernadero para obtener energía, y liberan CO₂.</option>
+                  <option value="resp_no">realizan la fotosíntesis con la luz solar.</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="canvas-controls">
+              <button type="button" class="btn btn-primary" onclick="validateQ6()">✓ Validar el ciclo del invernadero</button>
+              <button type="button" class="btn btn-hint" onclick="showNextHint('q6')">💡 Pista (<span id="hint-count-q6">0</span>/3)</button>
+            </div>
+
+            <div class="hints-container">
+              <div class="hint-item" id="hint-q6-1">💡 <strong>Pista 1 :</strong> En el gráfico de la izquierda, cuando el invernadero está activo, el nivel de oxígeno (O₂) se mantiene estable al 21 % porque las plantas producen O₂.</div>
+              <div class="hint-item" id="hint-q6-2">💡 <strong>Pista 2 :</strong> Ecuación de la fotosíntesis : CO₂ + Agua + Luz ➔ Materia orgánica (Alimentos) + Oxígeno (O₂).</div>
+              <div class="hint-item" id="hint-q6-3">💡 <strong>Pista 3 :</strong> Por eso el invernadero resuelve <strong>dos problemas a la vez</strong> : produce <strong>alimentos</strong> y renueva el <strong>oxígeno</strong>.</div>
+            </div>
+
+            <div class="feedback-box" id="feedback-q6" aria-live="polite"></div>
+            <div class="solution-box" id="solution-q6">
+              <strong>📘 Solución explicada (Q6 - Nivel 3e) :</strong><br>
+              El <strong>invernadero</strong> crea un ciclo biológico complementario : las plantas utilizan el <strong>CO₂</strong> expirado por los astronautas para realizar la <strong>fotosíntesis</strong> y fabricar <strong>alimentos</strong> y <strong>oxígeno (O₂)</strong>. A su vez, los astronautas utilizan ese O₂ y esos alimentos para su <strong>respiración celular</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         ONGLET 4 : PRESENTACIÓN DE LAS BASES Y SÍNTESIS (42 - 60 MIN)
+         ===================================================================== -->
+    <section class="tab-panel" id="panel-4" role="tabpanel" aria-labelledby="tab-4">
+      <div class="callout callout-blue">
+        <div class="callout-header">📘 Parte 4 y Parte 5 — Presentación oral (1 min) y ¿Misión cumplida? (42 – 60 min)</div>
+        <div>Prepara la presentación oral de tu equipo en español (1 minuto) y completa la síntesis final de la misión.</div>
+      </div>
+
+      <div class="grid-2">
+        <!-- PARTIE 4 : ASSISTANT ORAL & CHRONOMÈTRE 1 MINUTE -->
+        <div>
+          <div class="card">
+            <h2>🎤 Parte 4 (42-53 min) — Presentación de las bases (1 minuto)</h2>
+            <p>Cada equipo presenta su proyecto durante aproximadamente <strong>un minuto</strong> utilizando las estructuras en español de la ficha :</p>
+
+            <div class="callout callout-green">
+              <div class="callout-header">✅ Estructuras obligatorias para hablar en español</div>
+              <ul style="margin:0.2rem 0 0; padding-left:1.2rem;">
+                <li><strong>« Nuestra base se llama... »</strong> (<em>Notre base s'appelle...</em>)</li>
+                <li><strong>« Tiene... »</strong> (<em>Elle a / possède...</em>)</li>
+                <li><strong>« Necesitamos... porque... »</strong> (<em>Nous avons besoin de... parce que...</em>)</li>
+                <li><strong>« Para proteger a los astronautas, utilizamos... »</strong> (<em>Pour protéger les astronautes, nous utilisons...</em>)</li>
+              </ul>
+            </div>
+
+            <div class="oral-timer-card" role="region" aria-label="Cronómetro de 1 minuto para la presentación oral">
+              <div>
+                <strong>⏱️ Entrenamiento oral (1 min) :</strong>
+                <div style="font-size:0.85rem; color:var(--text-muted);">Ensaya tu presentación en voz alta con tu equipo</div>
+              </div>
+              <div class="oral-time-digits" id="oralTimerDisplay">01:00</div>
+              <div style="display:flex; gap:0.4rem;">
+                <button type="button" class="btn btn-primary" id="btnOralStart">▶️ Hablar</button>
+                <button type="button" class="btn btn-secondary" id="btnOralReset">↺ 1:00</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- QUESTION 7 : FRASE DE SÍNTESIS PARTE 5 -->
+          <div class="question-box" id="qbox-q7">
+            <div class="question-header">
+              <strong>Pregunta 7 — Parte 5 : ¿Misión cumplida? (53-60 min)</strong>
+              <span class="diff-badge diff-med">🟡 Medio · Completar en español</span>
+            </div>
+            <p>Completa la frase final de la ficha : <strong>« Para vivir en Marte, necesitamos __________ porque __________. »</strong></p>
+
+            <div class="slot-grid">
+              <div class="slot-item">
+                <label for="q7-part1"><strong>1. « Para vivir en Marte, necesitamos... »</strong></label>
+                <select id="q7-part1">
+                  <option value="">— Elegir la primera parte —</option>
+                  <option value="ok1">un hábitat presurizado con oxígeno, agua reciclada, un invernadero para los alimentos, energía y protección</option>
+                  <option value="no1">vivir al aire libre sin casco ni comida</option>
+                </select>
+              </div>
+
+              <div class="slot-item">
+                <label for="q7-part2"><strong>2. « ... porque... »</strong></label>
+                <select id="q7-part2">
+                  <option value="">— Elegir la justificación científica —</option>
+                  <option value="ok2">en Marte la atmósfera es muy fina sin oxígeno, hace mucho frío (−63 °C), el agua está congelada y la radiación es peligrosa.</option>
+                  <option value="no2">la atmósfera de Marte es muy densa y caliente como una selva tropical.</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="canvas-controls">
+              <button type="button" class="btn btn-primary" onclick="validateQ7()">✓ Validar la frase de síntesis</button>
+              <button type="button" class="btn btn-hint" onclick="showNextHint('q7')">💡 Pista (<span id="hint-count-q7">0</span>/3)</button>
+            </div>
+
+            <div class="hints-container">
+              <div class="hint-item" id="hint-q7-1">💡 <strong>Pista 1 :</strong> Después de « necesitamos » (<em>nous avons besoin de</em>), enumera los sistemas vitales de la base.</div>
+              <div class="hint-item" id="hint-q7-2">💡 <strong>Pista 2 :</strong> Después de « porque » (<em>parce que</em>), recuerda las dificultades del planeta Marte vistas en las partes 1 y 2.</div>
+              <div class="hint-item" id="hint-q7-3">💡 <strong>Pista 3 :</strong> Verifica que la frase tenga sentido biológico y utilice el vocabulario de la ficha.</div>
+            </div>
+
+            <div class="feedback-box" id="feedback-q7" aria-live="polite"></div>
+            <div class="solution-box" id="solution-q7">
+              <strong>📘 Frase modelo (Parte 5) :</strong><br>
+              « Para vivir en Marte, necesitamos <strong>oxígeno, agua reciclada, alimentos cultivados en un invernadero, energía y protección</strong> porque <strong>en Marte no podemos respirar sin casco, hace mucho frío y la radiación es peligrosa</strong>. »
+            </div>
+          </div>
+        </div>
+
+        <!-- QUESTION 8 : RÉDACTION COMPLÈTE DU DISCOURS EN ESPAGNOL -->
+        <div>
+          <div class="question-box" id="qbox-q8">
+            <div class="question-header">
+              <strong>Pregunta 8 — Redacción de vuestra presentación en español</strong>
+              <span class="diff-badge diff-hard">🔴 Desafío · Expresión escrita DNL</span>
+            </div>
+            <p>Escribe el texto completo de presentación de vuestra base marciana en español. <strong>Toca los botones de abajo</strong> para insertar las frases y el vocabulario fácilmente :</p>
+
+            <div class="canvas-controls" style="margin-bottom:0.45rem;">
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('Nuestra base se llama ')">+ Nuestra base se llama...</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('Tiene un hábitat presurizado, ')">+ Tiene...</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('Necesitamos un invernadero porque ')">+ Necesitamos... porque...</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('Para proteger a los astronautas contra la radiación, utilizamos ')">+ Para proteger a los astronautas...</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('oxígeno ')">+ oxígeno</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('agua ')">+ agua</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('alimentos ')">+ alimentos</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('energía ')">+ energía</button>
+              <button type="button" class="vocab-chip" onclick="insertSpanishPhrase('fotosíntesis ')">+ fotosíntesis</button>
+            </div>
+
+            <textarea id="spanishEssayInput" class="essay-area" placeholder="Escribe aquí el discurso de tu equipo en español..."></textarea>
+
+            <div class="canvas-controls" style="justify-content:space-between;">
+              <span id="spanishVocabCounter" style="font-size:0.9rem; font-weight:700; color:var(--text-muted);">Palabras del vocabulario utilizadas : 0 / 6</span>
+              <button type="button" class="btn btn-primary" onclick="validateQ8()">✓ Validar mi texto y abrir la autoevaluación</button>
+            </div>
+
+            <div class="feedback-box" id="feedback-q8" aria-live="polite"></div>
+
+            <!-- GRILLE D'AUTO-ÉVALUATION BILINGUE -->
+            <div id="essayEvalBlock" style="display:none; margin-top:1rem;">
+              <div class="callout callout-green">
+                <div class="callout-header">✅ Autoevaluación de la presentación (Marca los criterios cumplidos)</div>
+                <ul class="criteria-list">
+                  <li>
+                    <label class="criteria-label">
+                      <input type="checkbox" class="es-crit" onchange="updateEssaySelfScore()">
+                      <span>1. Hemos dado un nombre a nuestra base (<em>« Nuestra base se llama... »</em>).</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="criteria-label">
+                      <input type="checkbox" class="es-crit" onchange="updateEssaySelfScore()">
+                      <span>2. Hemos citado los <strong>5 elementos</strong> : hábitat presurizado, reciclaje del agua, invernadero, energía y protección.</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="criteria-label">
+                      <input type="checkbox" class="es-crit" onchange="updateEssaySelfScore()">
+                      <span>3. Hemos utilizado el conector <strong>« porque »</strong> y <strong>« para + infinitivo »</strong> para justificar nuestras decisiones.</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="criteria-label">
+                      <input type="checkbox" class="es-crit" onchange="updateEssaySelfScore()">
+                      <span>4. Hemos explicado el papel del invernadero (producir <strong>alimentos</strong> y <strong>oxígeno</strong> por <strong>fotosíntesis</strong>).</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="criteria-label">
+                      <input type="checkbox" class="es-crit" onchange="updateEssaySelfScore()">
+                      <span>5. Hemos usado al menos 5 palabras del vocabulario de la ficha (<em>agua, oxígeno, alimentos, radiación, invernadero, energía, protección</em>).</span>
+                    </label>
+                  </li>
+                </ul>
+                <div id="essaySelfScoreText" style="font-weight:800;">Criterios validados : 0 / 5</div>
+              </div>
+
+              <div class="solution-box visible">
+                <strong>📝 Ejemplo de presentación completa (Nivel 3e DNL Español) :</strong><br>
+                « ¡Hola a todos! <strong>Nuestra base se llama</strong> <em>Biosfera Roja</em> y está diseñada para cuatro astronautas. <strong>Tiene</strong> cinco módulos esenciales : un hábitat presurizado, un sistema de reciclaje del <strong>agua</strong>, un <strong>invernadero</strong>, paneles solares para la <strong>energía</strong> y un escudo de regolito.<br>
+                <strong>Necesitamos</strong> un hábitat presurizado y un invernadero <strong>porque</strong> en Marte la atmósfera es muy fina y no hay <strong>oxígeno</strong> ni <strong>alimentos</strong>. Gracias a la <strong>fotosíntesis</strong>, las plantas del invernadero producen alimentos y renuevan el oxígeno para nuestra respiración celular. Además, reciclamos el agua porque solo existe en forma de hielo. Finalmente, <strong>para proteger a los astronautas</strong> y su ADN contra la <strong>radiación</strong> peligrosa y el frío (−63 °C), <strong>utilizamos</strong> una gruesa capa de tierra marciana y calefacción solar. ¡Misión cumplida! »
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         ONGLET 5 : BALANCE Y EXPORTACIÓN (FIN D'ACTIVITÉ OBLIGATOIRE)
+         ===================================================================== -->
+    <section class="tab-panel" id="panel-5" role="tabpanel" aria-labelledby="tab-5">
+      <div class="card">
+        <h2>📊 Balance de la Misión — ¿Podemos vivir en Marte? (3e DNL Español)</h2>
+        <p>Aquí tienes el resumen de tu actividad y tu puntuación calculada en el <strong>primer intento (1er essai)</strong> sin puntos negativos.</p>
+
+        <div class="grid-2">
+          <div>
+            <h3>Resultados por competencia (3e SVT / DNL)</h3>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Competencia evaluada</th>
+                    <th>Preguntas</th>
+                    <th>Nota (1er intento)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>🪐 1. Identificar las dificultades de Marte</strong></td>
+                    <td>Q1, Q2 (V/F)</td>
+                    <td id="comp-1">0 / 2</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🔄 2. Relacionar desafíos y calcular necesidades</strong></td>
+                    <td>Q3 (5 desafíos), Q4 (Agua)</td>
+                    <td id="comp-2">0 / 2</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🌱 3. Diseñar la base y comprender el invernadero</strong></td>
+                    <td>Q5 (Módulos), Q6 (Fotosíntesis)</td>
+                    <td id="comp-3">0 / 2</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🇪🇸 4. Explicar decisiones en español (LV2)</strong></td>
+                    <td>Q7 (Síntesis), Q8 (Texto escrito)</td>
+                    <td id="comp-4">0 / 2</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h3>Detalle por pregunta</h3>
+            <div id="bilanQuestionsList" class="callout callout-blue" style="margin-top:0;">
+              Responde a las preguntas de las pestañas 1 a 4 para ver tu balance detallado.
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-controls" style="margin-top:1.2rem; gap:0.75rem;">
+          <button type="button" class="btn btn-primary" onclick="downloadReportTxt()">💾 Descargar balance (.txt)</button>
+          <button type="button" class="btn btn-secondary" onclick="copyReportClipboard()">📋 Copiar el balance</button>
+          <button type="button" class="btn btn-secondary" onclick="sendReportMailto()">✉️ Enviar por correo (mailto)</button>
+          <button type="button" class="btn btn-hint" onclick="openProfModal()">👨‍🏫 Pantalla « Balance para mostrar al profesor »</button>
+          <button type="button" class="btn btn-secondary" onclick="resetAllProgress()">🗑️ Reiniciar misión</button>
+        </div>
+        <div id="exportConfirmMsg" class="touch-readout" style="display:none; margin-top:0.75rem;" aria-live="polite"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ÉCRAN PLEIN FORMAT "BILAN À MONTRER AU PROFESSEUR" (LISIBLE DE LOIN) -->
+  <div class="prof-modal" id="profModal" role="dialog" aria-modal="true" aria-labelledby="profModalTitle">
+    <div>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-bottom:3px solid #2ec4b6; padding-bottom:1rem;">
+        <div>
+          <div style="font-size:1rem; text-transform:uppercase; letter-spacing:0.08em; color:#2ec4b6; font-weight:800;">Lycée Français Vauban — 3e SVT · DNL Español (LV2)</div>
+          <h2 id="profModalTitle" style="margin:0.2rem 0 0; font-size:2rem; color:#ffffff;">
+            Equipo : <span id="profStudentName">Anónimo</span> — Base : <span id="profBaseName">Marte I</span>
+          </h2>
+        </div>
+        <button type="button" class="btn btn-primary" style="font-size:1.15rem; padding:0.7rem 1.4rem; background:#e63946; border-color:#ffffff;" onclick="closeProfModal()">✕ Cerrar pantalla</button>
+      </div>
+
+      <div class="prof-grid">
+        <div class="prof-stat-card">
+          <div style="font-size:1.05rem; font-weight:700; margin-bottom:0.35rem;">NOTA AL 1er INTENTO</div>
+          <div class="prof-big-number" id="profBigScore">0 / 8</div>
+          <div id="profScorePct" style="font-size:1.15rem; margin-top:0.3rem; color:#a8dadc;">0 % de acierto directo</div>
+        </div>
+
+        <div class="prof-stat-card">
+          <div style="font-size:1.05rem; font-weight:700; margin-bottom:0.35rem;">BASE MARCIANA &amp; ORAL</div>
+          <div class="prof-big-number" id="profModulesInstalled">0 / 5</div>
+          <div id="profEssayCriteria" style="font-size:1.15rem; margin-top:0.3rem; color:#a8dadc;">Autoevaluación escrita : 0 / 5</div>
+        </div>
+
+        <div class="prof-stat-card">
+          <div style="font-size:1.05rem; font-weight:700; margin-bottom:0.35rem;">POR ETAPA</div>
+          <div id="profCompSummary" style="font-size:1.1rem; text-align:left; line-height:1.55; margin-top:0.4rem;"></div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.08); border-radius:12px; padding:1.2rem; font-size:1.15rem;">
+        <strong>Preguntas falladas en el primer intento (a repasar) :</strong>
+        <div id="profMissedList" style="margin-top:0.45rem; color:#ffccd5; font-weight:700;">Ninguna pregunta respondida todavía.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; font-size:0.9rem; color:#94a3b8; margin-top:1.25rem;">
+      ¿Podemos vivir en Marte? — Aplicación DNL Español 100 % local (RGPD)
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       LOGIQUE JAVASCRIPT AUTONOME (ZÉRO DÉPENDANCE EXTERNE)
+       ======================================================================= -->
+  <script>
+    const STORAGE_KEY = "svt-3e-dnl-es-marte-v1";
+
+    const state = {
+      studentName: "",
+      baseName: "",
+      fontSize: 20,
+      highContrast: false,
+      projection: false,
+      lexiconOpen: true,
+      questions: {
+        q1: { title: "P1 — Pregunta inicial (Vivir sin protección)", comp: 1, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 },
+        q2: { title: "P2 — Verdadero o Falso (Datos de Marte)", comp: 1, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 },
+        q3: { title: "P3 — Tabla de los 5 desafíos", comp: 2, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 },
+        q4: { title: "P4 — Cálculo de agua reciclada (4 astronautas)", comp: 2, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 },
+        q5: { title: "P5 — Funciones de los 5 módulos de la base", comp: 3, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 },
+        q6: { title: "P6 — Ciclo Fotosíntesis / Respiración en el invernadero", comp: 3, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 },
+        q7: { title: "P7 — Frase síntesis (¿Misión cumplida?)", comp: 4, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 },
+        q8: { title: "P8 — Texto de presentación en español", comp: 4, firstTried: false, firstSuccess: false, solved: false, attempts: 0, hints: 0 }
+      },
+      q1Selection: null,
+      vfSelections: { 1: null, 2: null, 3: null, 4: null, 5: null },
+      planetMetric: "temp",
+      modules: {
+        habitat: false,
+        agua: false,
+        invernadero: false,
+        energia: false,
+        proteccion: false
+      },
+      greenhouseAnimProgress: 1,
+      spanishEssay: "",
+      essaySelfScore: 0,
+      oralTimerSec: 60,
+      oralTimerRunning: false
+    };
+
+    function saveState() {
+      try {
+        const payload = {
+          studentName: state.studentName,
+          baseName: state.baseName,
+          fontSize: state.fontSize,
+          questions: state.questions,
+          modules: state.modules,
+          spanishEssay: state.spanishEssay,
+          essaySelfScore: state.essaySelfScore
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch (e) {}
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data.studentName) {
+          state.studentName = data.studentName;
+          document.getElementById("studentName").value = state.studentName;
+        }
+        if (data.baseName) {
+          state.baseName = data.baseName;
+          document.getElementById("baseNameTop").value = state.baseName;
+        }
+        if (data.fontSize && data.fontSize >= 18 && data.fontSize <= 28) {
+          state.fontSize = data.fontSize;
+          document.documentElement.style.setProperty("--base-font-size", state.fontSize + "px");
+        }
+        if (data.questions) {
+          Object.keys(state.questions).forEach(k => {
+            if (data.questions[k]) {
+              state.questions[k] = Object.assign(state.questions[k], data.questions[k]);
+            }
+          });
+        }
+        if (data.modules) {
+          state.modules = Object.assign(state.modules, data.modules);
+          syncModuleButtonsUI();
+        }
+        if (data.spanishEssay) {
+          state.spanishEssay = data.spanishEssay;
+          document.getElementById("spanishEssayInput").value = state.spanishEssay;
+          countSpanishVocabUsed();
+        }
+        if (data.essaySelfScore) {
+          state.essaySelfScore = data.essaySelfScore;
+        }
+      } catch (e) {}
+    }
+
+    // =========================================================================
+    // BARRE D'OUTILS ACCESSIBILITÉ & TIROIR BILINGUE LV2
+    // =========================================================================
+    document.getElementById("btnLexicon").addEventListener("click", function() {
+      state.lexiconOpen = !state.lexiconOpen;
+      document.getElementById("lexiconDrawer").classList.toggle("visible", state.lexiconOpen);
+      this.setAttribute("aria-pressed", state.lexiconOpen ? "true" : "false");
+    });
+
+    document.getElementById("btnFontUp").addEventListener("click", () => {
+      if (state.fontSize < 28) {
+        state.fontSize += 2;
+        document.documentElement.style.setProperty("--base-font-size", state.fontSize + "px");
+        saveState();
+        redrawAllCanvases();
+      }
+    });
+
+    document.getElementById("btnFontDown").addEventListener("click", () => {
+      if (state.fontSize > 18) {
+        state.fontSize -= 2;
+        document.documentElement.style.setProperty("--base-font-size", state.fontSize + "px");
+        saveState();
+        redrawAllCanvases();
+      }
+    });
+
+    document.getElementById("btnTheme").addEventListener("click", function() {
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      this.setAttribute("aria-pressed", next === "dark" ? "true" : "false");
+      redrawAllCanvases();
+    });
+
+    document.getElementById("btnContrast").addEventListener("click", function() {
+      state.highContrast = !state.highContrast;
+      if (state.highContrast) document.documentElement.setAttribute("data-contrast", "high");
+      else document.documentElement.removeAttribute("data-contrast");
+      this.setAttribute("aria-pressed", state.highContrast ? "true" : "false");
+      redrawAllCanvases();
+    });
+
+    document.getElementById("btnProjection").addEventListener("click", function() {
+      state.projection = !state.projection;
+      document.body.classList.toggle("projection-mode", state.projection);
+      this.setAttribute("aria-pressed", state.projection ? "true" : "false");
+      redrawAllCanvases();
+    });
+
+    document.getElementById("studentName").addEventListener("input", function() {
+      state.studentName = this.value.trim();
+      saveState();
+    });
+
+    document.getElementById("baseNameTop").addEventListener("input", function() {
+      state.baseName = this.value.trim();
+      saveState();
+      drawMarsBaseCanvas();
+    });
+
+    // Navigation par onglets
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const num = btn.getAttribute("data-tab");
+        document.querySelectorAll(".tab-btn").forEach(b => b.setAttribute("aria-selected", "false"));
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        btn.setAttribute("aria-selected", "true");
+        document.getElementById("panel-" + num).classList.add("active");
+        redrawAllCanvases();
+        updateAllScoresUI();
+      });
+    });
+
+    // Coups de pouce (1 à 3)
+    function showNextHint(qId) {
+      const q = state.questions[qId];
+      if (q.hints < 3) q.hints++;
+      for (let i = 1; i <= q.hints; i++) {
+        const el = document.getElementById(`hint-${qId}-${i}`);
+        if (el) el.classList.add("visible");
+      }
+      const cnt = document.getElementById(`hint-count-${qId}`);
+      if (cnt) cnt.textContent = q.hints;
+      saveState();
+    }
+
+    function recordAttempt(qId, isCorrect, feedbackHtml) {
+      const q = state.questions[qId];
+      q.attempts++;
+      if (!q.firstTried) {
+        q.firstTried = true;
+        q.firstSuccess = isCorrect;
+      }
+      if (isCorrect) q.solved = true;
+
+      const fb = document.getElementById(`feedback-${qId}`);
+      const sol = document.getElementById(`solution-${qId}`);
+      fb.className = "feedback-box visible " + (isCorrect ? "callout-green" : "callout-red");
+      fb.innerHTML = feedbackHtml;
+
+      if (isCorrect || q.attempts >= 2) {
+        if (sol) sol.classList.add("visible");
+      }
+
+      saveState();
+      updateAllScoresUI();
+      redrawAllCanvases();
+    }
+
+    // =========================================================================
+    // VALIDATION DES QUESTIONS Q1 À Q8
+    // =========================================================================
+
+    // Q1 : Pregunta inicial
+    document.querySelectorAll('.qcm-option[data-q="q1"]').forEach(opt => {
+      opt.addEventListener("click", () => {
+        state.q1Selection = opt.getAttribute("data-val");
+        document.querySelectorAll('.qcm-option[data-q="q1"]').forEach(el => {
+          el.classList.toggle("selected", el === opt);
+        });
+      });
+    });
+
+    function validateQ1() {
+      if (!state.q1Selection) {
+        const fb = document.getElementById("feedback-q1");
+        fb.className = "feedback-box visible callout-orange";
+        fb.innerHTML = "⚠️ Toca primero una de las opciones A, B o C.";
+        return;
+      }
+      if (state.q1Selection === "b") {
+        recordAttempt("q1", true, "✓ <strong>¡Correcto! / Exact !</strong> No podemos vivir en Marte sin protección porque casi no hay oxígeno (0,13 %), la presión es muy baja (6 hPa), hace mucho frío (−63 °C) y la radiación es peligrosa.");
+      } else {
+        recordAttempt("q1", false, "✗ <strong>Incorrecto / À revoir :</strong> Observa la tabla : en Marte la temperatura es de −63 °C y solo hay 0,13 % de oxígeno. ¡Es imposible vivir sin protección!");
+      }
+    }
+
+    // Q2 : Verdadero o Falso
+    function selectVF(rowNum, choice, btnEl) {
+      state.vfSelections[rowNum] = choice;
+      document.querySelectorAll(`.vf-btn[data-vf="${rowNum}"]`).forEach(b => {
+        b.classList.remove("selected-v", "selected-f");
+      });
+      btnEl.classList.add(choice === "V" ? "selected-v" : "selected-f");
+    }
+
+    function validateQ2() {
+      const s = state.vfSelections;
+      if (!s[1] || !s[2] || !s[3] || !s[4] || !s[5]) {
+        const fb = document.getElementById("feedback-q2");
+        fb.className = "feedback-box visible callout-orange";
+        fb.innerHTML = "⚠️ Responde Verdadero o Falso a las 5 frases antes de validar.";
+        return;
+      }
+      const expected = { 1: "F", 2: "V", 3: "V", 4: "F", 5: "V" };
+      let errors = [];
+      for (let i = 1; i <= 5; i++) {
+        if (s[i] !== expected[i]) errors.push(i);
+      }
+      if (errors.length === 0) {
+        recordAttempt("q2", true, "✓ <strong>¡Perfecto! / Tout est juste !</strong> Has identificado correctamente todas las características de Marte.");
+      } else {
+        recordAttempt("q2", false, `✗ <strong>Incorrecto en la(s) frase(s) n° ${errors.join(", ")} :</strong> Recuerda que en Marte NO podemos respirar sin casco (1 = Falso) y su atmósfera NO es densa sino muy fina (4 = Falso).`);
+      }
+    }
+
+    // Q3 : Tableau des 5 défis
+    function validateQ3() {
+      const d1 = document.getElementById("q3-d1").value;
+      const d2 = document.getElementById("q3-d2").value;
+      const d3 = document.getElementById("q3-d3").value;
+      const d4 = document.getElementById("q3-d4").value;
+      const d5 = document.getElementById("q3-d5").value;
+
+      if (!d1 || !d2 || !d3 || !d4 || !d5) {
+        const fb = document.getElementById("feedback-q3");
+        fb.className = "feedback-box visible callout-orange";
+        fb.innerHTML = "⚠️ Completa las 5 líneas de la tabla antes de validar.";
+        return;
+      }
+
+      const ok = (d1 === "oxigeno" && d2 === "calor" && d3 === "proteccion" && d4 === "agua" && d5 === "alimentos");
+      if (ok) {
+        recordAttempt("q3", true, "✓ <strong>¡Excelente! / Bravo !</strong> Has relacionado correctamente los cinco problemas de Marte con las necesidades vitales de los astronautas.");
+      } else {
+        let msg = "✗ <strong>Algunas asociaciones son incorrectas :</strong><ul style='margin:0.3rem 0 0;'>";
+        if (d1 !== "oxigeno") msg += "<li>1. Sin oxígeno ➔ Necesitamos producir/almacenar oxígeno y un hábitat presurizado.</li>";
+        if (d2 !== "calor") msg += "<li>2. Temperaturas bajas ➔ Necesitamos mantener la temperatura con una fuente de energía.</li>";
+        if (d3 !== "proteccion") msg += "<li>3. Radiación peligrosa ➔ Necesitamos protección contra la radiación.</li>";
+        if (d4 !== "agua") msg += "<li>4. Agua escasa ➔ Necesitamos extraer hielo y un sistema de reciclaje del agua.</li>";
+        if (d5 !== "alimentos") msg += "<li>5. Sin alimentos ➔ Necesitamos un invernadero para cultivar plantas.</li>";
+        msg += "</ul>";
+        recordAttempt("q3", false, msg);
+      }
+    }
+
+    // Q4 : Calcul eau pour 4 astronautes
+    function parseNum(str) {
+      if (!str) return NaN;
+      return parseFloat(str.toString().replace(",", ".").replace(/\s+/g, ""));
+    }
+
+    function validateQ4() {
+      const tot = parseNum(document.getElementById("q4-total").value);
+      const rec = parseNum(document.getElementById("q4-recycled").value);
+
+      if (isNaN(tot) || isNaN(rec)) {
+        const fb = document.getElementById("feedback-q4");
+        fb.className = "feedback-box visible callout-orange";
+        fb.innerHTML = "⚠️ Escribe un número en cada campo.";
+        return;
+      }
+
+      if (Math.abs(tot - 10) <= 0.1 && Math.abs(rec - 8) <= 0.1) {
+        recordAttempt("q4", true, "✓ <strong>¡Cálculo exacto! / Calcul exact !</strong> 4 astronautas necesitan <strong>10 L/día</strong> (4 × 2,5 L) y el reciclaje al 80 % recupera <strong>8 L/día</strong>.");
+      } else {
+        let msg = "✗ <strong>Revisa tu cálculo :</strong><br>";
+        if (Math.abs(tot - 2.5) <= 0.1) {
+          msg += "• <em>Error frecuente :</em> 2,5 L es para <strong>1 solo astronauta</strong>. ¡Multiplica por <strong>4 astronautas</strong> (4 × 2,5 = 10 L)!<br>";
+        } else if (Math.abs(tot - 10) > 0.1) {
+          msg += "• Consumo total para 4 astronautas : 4 × 2,5 L = 10 L/día.<br>";
+        }
+        if (Math.abs(rec - 2) <= 0.1) {
+          msg += "• <em>Atención :</em> 2 L es el agua que falta (20 %). El agua reciclada (80 % de 10 L) es 8 L.";
+        } else if (Math.abs(rec - 8) > 0.1) {
+          msg += "• 80 % de 10 litros = (80 / 100) × 10 = 8 L/día.";
+        }
+        recordAttempt("q4", false, msg);
+      }
+    }
+
+    // Q5 : Modules de la base
+    function validateQ5() {
+      const m1 = document.getElementById("q5-m1").value;
+      const m2 = document.getElementById("q5-m2").value;
+      const m3 = document.getElementById("q5-m3").value;
+      const m4 = document.getElementById("q5-m4").value;
+
+      if (!m1 || !m2 || !m3 || !m4) {
+        const fb = document.getElementById("feedback-q5");
+        fb.className = "feedback-box visible callout-orange";
+        fb.innerHTML = "⚠️ Selecciona la función de cada uno de los 4 módulos.";
+        return;
+      }
+
+      // Activer automatiquement les 5 modules sur le plan si la réponse est juste
+      if (m1 === "ok" && m2 === "ok" && m3 === "ok" && m4 === "ok") {
+        Object.keys(state.modules).forEach(k => state.modules[k] = true);
+        syncModuleButtonsUI();
+        drawMarsBaseCanvas();
+        recordAttempt("q5", true, "✓ <strong>¡Módulos validados! / Modules validés !</strong> Tu base marciana cuenta ahora con los 5 sistemas vitales operativos al 100 %.");
+      } else {
+        recordAttempt("q5", false, "✗ <strong>Incorrecto :</strong> Verifica qué problema resuelve cada módulo (presión/oxígeno, agua, energía/temperatura, radiación).");
+      }
+    }
+
+    // Q6 : Cycle biologique serre (Photosynthèse / Respiration)
+    function validateQ6() {
+      const p = document.getElementById("q6-plantas").value;
+      const a = document.getElementById("q6-astro").value;
+      if (!p || !a) {
+        const fb = document.getElementById("feedback-q6");
+        fb.className = "feedback-box visible callout-orange";
+        fb.innerHTML = "⚠️ Completa las dos frases sobre las plantas y los astronautas.";
+        return;
+      }
+      if (p === "foto_ok" && a === "resp_ok") {
+        recordAttempt("q6", true, "✓ <strong>¡Excelente (Nivel 3e)!</strong> Las plantas realizan la fotosíntesis (absorben CO₂ y producen O₂ y alimentos) y los astronautas realizan la respiración celular (consumen O₂ y alimentos, liberan CO₂).");
+      } else {
+        recordAttempt("q6", false, "✗ <strong>Confusión entre fotosíntesis y respiración :</strong> Las plantas absorben CO₂ para producir oxígeno (O₂) y alimentos; los astronautas respiran ese oxígeno.");
+      }
+    }
+
+    // Q7 : Phrase de synthèse Partie 5
+    function validateQ7() {
+      const p1 = document.getElementById("q7-part1").value;
+      const p2 = document.getElementById("q7-part2").value;
+      if (!p1 || !p2) {
+        const fb = document.getElementById("feedback-q7");
+        fb.className = "feedback-box visible callout-orange";
+        fb.innerHTML = "⚠️ Completa las dos partes de la frase (« necesitamos... » y « porque... »).";
+        return;
+      }
+      if (p1 === "ok1" && p2 === "ok2") {
+        recordAttempt("q7", true, "✓ <strong>¡Misión cumplida! / Mission accomplie !</strong> Tu frase de síntesis en español es científicamente exacta.");
+      } else {
+        recordAttempt("q7", false, "✗ <strong>Incorrecto :</strong> Revisa las condiciones reales de Marte (atmósfera fina, frío, sin oxígeno ni alimentos).");
+      }
+    }
+
+    // Q8 : Rédaction en espagnol
+    function normalizeText(str) {
+      return (str || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function countSpanishVocabUsed() {
+      const norm = normalizeText(document.getElementById("spanishEssayInput").value);
+      const keywords = ["oxigeno", "agua", "alimento", "radiacion", "invernadero", "energia", "proteccion", "fotosintesis", "presurizado"];
+      let count = 0;
+      keywords.forEach(kw => {
+        if (norm.includes(kw)) count++;
+      });
+      document.getElementById("spanishVocabCounter").textContent = `Palabras del vocabulario científico detectadas : ${count} (mínimo recomendado : 4)`;
+      return count;
+    }
+
+    function insertSpanishPhrase(phrase) {
+      const ta = document.getElementById("spanishEssayInput");
+      const start = ta.selectionStart || ta.value.length;
+      ta.value = ta.value.substring(0, start) + phrase + ta.value.substring(start);
+      ta.focus();
+      state.spanishEssay = ta.value;
+      countSpanishVocabUsed();
+      saveState();
+    }
+
+    document.getElementById("spanishEssayInput").addEventListener("input", function() {
+      state.spanishEssay = this.value;
+      countSpanishVocabUsed();
+      saveState();
+    });
+
+    function validateQ8() {
+      const txt = document.getElementById("spanishEssayInput").value.trim();
+      const kwCount = countSpanishVocabUsed();
+      document.getElementById("essayEvalBlock").style.display = "block";
+
+      if (txt.length >= 40 && kwCount >= 3) {
+        recordAttempt("q8", true, `✓ <strong>¡Texto validado! (${kwCount} palabras clave utilizadas).</strong> Marca ahora la parrilla de autoevaluación de abajo y compara tu texto con el modelo.`);
+      } else {
+        recordAttempt("q8", false, `✗ <strong>Texto demasiado corto (${kwCount} palabras clave) :</strong> Utiliza los botones de ayuda para incluir al menos 3 palabras del vocabulario (<em>oxígeno, agua, alimentos, invernadero, energía, protección</em>) y vuelve a validar.`);
+      }
+    }
+
+    function updateEssaySelfScore() {
+      let c = 0;
+      document.querySelectorAll(".es-crit").forEach(cb => { if (cb.checked) c++; });
+      state.essaySelfScore = c;
+      document.getElementById("essaySelfScoreText").textContent = `Criterios validados : ${c} / 5`;
+      saveState();
+      updateAllScoresUI();
+    }
+
+    // Chronomètre 1 minute (Présentation orale)
+    let oralInterval = null;
+    document.getElementById("btnOralStart").addEventListener("click", function() {
+      state.oralTimerRunning = !state.oralTimerRunning;
+      if (state.oralTimerRunning) {
+        this.textContent = "⏸️ Pausa";
+        oralInterval = setInterval(() => {
+          if (state.oralTimerSec > 0) {
+            state.oralTimerSec--;
+            const m = Math.floor(state.oralTimerSec / 60);
+            const s = state.oralTimerSec % 60;
+            document.getElementById("oralTimerDisplay").textContent =
+              String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+          } else {
+            clearInterval(oralInterval);
+            state.oralTimerRunning = false;
+            this.textContent = "▶️ Hablar";
+          }
+        }, 1000);
+      } else {
+        clearInterval(oralInterval);
+        this.textContent = "▶️ Hablar";
+      }
+    });
+
+    document.getElementById("btnOralReset").addEventListener("click", () => {
+      clearInterval(oralInterval);
+      state.oralTimerRunning = false;
+      state.oralTimerSec = 60;
+      document.getElementById("oralTimerDisplay").textContent = "01:00";
+      document.getElementById("btnOralStart").textContent = "▶️ Hablar";
+    });
+
+    // =========================================================================
+    // MISE À JOUR DES SCORES & ONGLET 5
+    // =========================================================================
+    function updateAllScoresUI() {
+      const keys = Object.keys(state.questions);
+      const totalFirst = keys.filter(k => state.questions[k].firstSuccess).length;
+      document.getElementById("globalScorePill").textContent = `Nota (1er intento) : ${totalFirst} / 8`;
+
+      const s1 = ["q1", "q2"].filter(k => state.questions[k].solved).length;
+      const s2 = ["q3", "q4"].filter(k => state.questions[k].solved).length;
+      const s3 = ["q5", "q6"].filter(k => state.questions[k].solved).length;
+      const s4 = ["q7", "q8"].filter(k => state.questions[k].solved).length;
+
+      document.getElementById("status-tab-1").textContent = `${s1}/2`;
+      document.getElementById("status-tab-2").textContent = `${s2}/2`;
+      document.getElementById("status-tab-3").textContent = `${s3}/2`;
+      document.getElementById("status-tab-4").textContent = `${s4}/2`;
+
+      const c1 = ["q1", "q2"].filter(k => state.questions[k].firstSuccess).length;
+      const c2 = ["q3", "q4"].filter(k => state.questions[k].firstSuccess).length;
+      const c3 = ["q5", "q6"].filter(k => state.questions[k].firstSuccess).length;
+      const c4 = ["q7", "q8"].filter(k => state.questions[k].firstSuccess).length;
+
+      document.getElementById("comp-1").textContent = `${c1} / 2`;
+      document.getElementById("comp-2").textContent = `${c2} / 2`;
+      document.getElementById("comp-3").textContent = `${c3} / 2`;
+      document.getElementById("comp-4").textContent = `${c4} / 2 (Autoeval: ${state.essaySelfScore}/5)`;
+
+      let html = "<ul style='margin:0; padding-left:1.2rem;'>";
+      keys.forEach(k => {
+        const q = state.questions[k];
+        let st = "⏳ Pendiente";
+        if (q.firstTried) {
+          if (q.firstSuccess) st = "✓ Acertada al 1er intento";
+          else if (q.solved) st = `⚠️ Resuelta en ${q.attempts} intentos (fallada al 1er intento)`;
+          else st = `✗ En curso (${q.attempts} intento(s))`;
+        }
+        html += `<li><strong>${q.title} :</strong> ${st} <em>(Pistas : ${q.hints}/3)</em></li>`;
+      });
+      html += "</ul>";
+      document.getElementById("bilanQuestionsList").innerHTML = html;
+    }
+
+    // =========================================================================
+    // GRAPHIQUES & SIMULATEURS CANVAS (SANS DÉPENDANCE)
+    // =========================================================================
+    function setupHiDPICanvas(canvas) {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(rect.width, 300);
+      const h = Math.max(rect.height, 220);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      const ctx = canvas.getContext("2d");
+      ctx.scale(dpr, dpr);
+      return { ctx, w, h };
+    }
+
+    function getCanvasColors() {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark" ||
+        (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches && document.documentElement.getAttribute("data-theme") !== "light");
+      const isHC = document.documentElement.getAttribute("data-contrast") === "high";
+      if (isHC) {
+        return { bg: "#000000", text: "#ffffff", grid: "#555555", earth: "#00ffff", mars: "#ffcc00", green: "#00ff66" };
+      }
+      return isDark
+        ? { bg: "#132227", text: "#f1f5f9", grid: "#2c444d", earth: "#38bdf8", mars: "#fb923c", green: "#34d399" }
+        : { bg: "#ffffff", text: "#182428", grid: "#cbd5e1", earth: "#0284c7", mars: "#c2410c", green: "#16a34a" };
+    }
+
+    // --- 1. COMPARATEUR PLANÉTAIRE (TERRE VS MARS - 1 GRANDEUR PAR GRAPHIQUE) ---
+    let planetBarsScreen = [];
+    function drawPlanetsCanvas() {
+      const canvas = document.getElementById("canvasPlanets");
+      if (!canvas || canvas.offsetParent === null) return;
+      const { ctx, w, h } = setupHiDPICanvas(canvas);
+      const c = getCanvasColors();
+      ctx.clearRect(0, 0, w, h);
+
+      const padL = 70, padR = 30, padT = 38, padB = 45;
+      const pw = w - padL - padR;
+      const ph = h - padT - padB;
+
+      const metric = state.planetMetric;
+      planetBarsScreen = [];
+
+      if (metric === "temp") {
+        // Axe de -80°C à +40°C
+        const zeroY = padT + (40 / 120) * ph;
+        ctx.strokeStyle = c.grid;
+        ctx.beginPath();
+        ctx.moveTo(padL, zeroY);
+        ctx.lineTo(padL + pw, zeroY);
+        ctx.stroke();
+
+        ctx.fillStyle = c.text;
+        ctx.font = "bold 14px sans-serif";
+        ctx.fillText("Temperatura media en superficie (°C)", 15, 22);
+        ctx.font = "13px sans-serif";
+        ctx.fillText("+40 °C", 12, padT + 6);
+        ctx.fillText("0 °C", 24, zeroY + 4);
+        ctx.fillText("−80 °C", 12, padT + ph);
+
+        const barW = Math.min(90, pw * 0.25);
+        // Terre +15°C
+        const xE = padL + pw * 0.22;
+        const hE = (15 / 120) * ph;
+        ctx.fillStyle = c.earth;
+        ctx.fillRect(xE, zeroY - hE, barW, hE);
+        ctx.fillStyle = c.text;
+        ctx.font = "bold 14px sans-serif";
+        ctx.fillText("+15 °C", xE + 15, zeroY - hE - 8);
+        ctx.fillText("Tierra 🌍", xE + 10, padT + ph + 24);
+
+        // Mars -63°C
+        const xM = padL + pw * 0.60;
+        const hM = (63 / 120) * ph;
+        ctx.fillStyle = c.mars;
+        ctx.fillRect(xM, zeroY, barW, hM);
+        ctx.fillStyle = c.text;
+        ctx.fillText("−63 °C", xM + 15, zeroY + hM + 18);
+        ctx.fillText("Marte 🔴", xM + 12, padT + ph + 24);
+
+        planetBarsScreen.push(
+          { x: xE + barW / 2, label: "Tierra 🌍 : Temperatura media = +15 °C (Permite tener agua líquida)." },
+          { x: xM + barW / 2, label: "Marte 🔴 : Temperatura media = −63 °C (Más frío que la Tierra; el agua está congelada en forma de hielo)." }
+        );
+      } else if (metric === "pres") {
+        ctx.fillStyle = c.text;
+        ctx.font = "bold 14px sans-serif";
+        ctx.fillText("Presión atmosférica en superficie (hPa)", 15, 22);
+        const barW = Math.min(90, pw * 0.25);
+        const xE = padL + pw * 0.22;
+        const hE = (1013 / 1100) * ph;
+        ctx.fillStyle = c.earth;
+        ctx.fillRect(xE, padT + ph - hE, barW, hE);
+        ctx.fillStyle = c.text;
+        ctx.fillText("1 013 hPa", xE + 6, padT + ph - hE - 8);
+        ctx.fillText("Tierra 🌍", xE + 10, padT + ph + 24);
+
+        const xM = padL + pw * 0.60;
+        const hM = Math.max(6, (6 / 1100) * ph);
+        ctx.fillStyle = c.mars;
+        ctx.fillRect(xM, padT + ph - hM, barW, hM);
+        ctx.fillStyle = c.text;
+        ctx.fillText("6 hPa (Muy fina)", xM - 5, padT + ph - hM - 10);
+        ctx.fillText("Marte 🔴", xM + 12, padT + ph + 24);
+
+        planetBarsScreen.push(
+          { x: xE + barW / 2, label: "Tierra 🌍 : Presión = 1 013 hPa (Atmósfera densa protectora)." },
+          { x: xM + barW / 2, label: "Marte 🔴 : Presión = 6 hPa (Atmósfera muy fina, 170 veces menos densa que la Tierra : necesitamos hábitat presurizado)." }
+        );
+      } else {
+        ctx.fillStyle = c.text;
+        ctx.font = "bold 14px sans-serif";
+        ctx.fillText("Proporción de Oxígeno respirable O₂ en el aire (%)", 15, 22);
+        const barW = Math.min(90, pw * 0.25);
+        const xE = padL + pw * 0.22;
+        const hE = (21 / 25) * ph;
+        ctx.fillStyle = c.earth;
+        ctx.fillRect(xE, padT + ph - hE, barW, hE);
+        ctx.fillStyle = c.text;
+        ctx.fillText("21 % O₂", xE + 14, padT + ph - hE - 8);
+        ctx.fillText("Tierra 🌍", xE + 10, padT + ph + 24);
+
+        const xM = padL + pw * 0.60;
+        const hM = Math.max(5, (0.13 / 25) * ph);
+        ctx.fillStyle = c.mars;
+        ctx.fillRect(xM, padT + ph - hM, barW, hM);
+        ctx.fillStyle = c.text;
+        ctx.fillText("0,13 % O₂", xM + 8, padT + ph - hM - 10);
+        ctx.fillText("Marte 🔴", xM + 12, padT + ph + 24);
+
+        planetBarsScreen.push(
+          { x: xE + barW / 2, label: "Tierra 🌍 : 21 % de oxígeno (O₂), ideal para la respiración celular." },
+          { x: xM + barW / 2, label: "Marte 🔴 : Solo 0,13 % de O₂ (y 95 % de CO₂). Imposible respirar sin casco." }
+        );
+      }
+
+      // Axe base
+      ctx.strokeStyle = c.text;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(padL, padT);
+      ctx.lineTo(padL, padT + ph);
+      ctx.lineTo(padL + pw, padT + ph);
+      ctx.stroke();
+    }
+
+    document.querySelectorAll(".planet-metric-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.planetMetric = btn.getAttribute("data-metric");
+        document.querySelectorAll(".planet-metric-btn").forEach(b => {
+          b.className = "btn " + (b === btn ? "btn-primary" : "btn-secondary") + " planet-metric-btn";
+        });
+        drawPlanetsCanvas();
+      });
+    });
+
+    document.getElementById("canvasPlanets").addEventListener("click", function(e) {
+      const rect = this.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      let best = null, minD = 999;
+      planetBarsScreen.forEach(b => {
+        const d = Math.abs(b.x - cx);
+        if (d < minD) { minD = d; best = b; }
+      });
+      if (best && minD < 80) {
+        document.getElementById("planetGraphReadout").textContent = "📌 " + best.label;
+      }
+    });
+
+    // --- 2. SIMULATEUR DE CONSTRUCTION DE LA BASE MARTIENNE (ONGLET 3) ---
+    function syncModuleButtonsUI() {
+      document.querySelectorAll(".mod-toggle-btn").forEach(btn => {
+        const key = btn.getAttribute("data-mod");
+        const active = state.modules[key];
+        btn.className = "btn " + (active ? "btn-primary" : "btn-secondary") + " mod-toggle-btn";
+      });
+    }
+
+    document.querySelectorAll(".mod-toggle-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-mod");
+        state.modules[key] = !state.modules[key];
+        syncModuleButtonsUI();
+        saveState();
+        drawMarsBaseCanvas();
+      });
+    });
+
+    function drawMarsBaseCanvas() {
+      const canvas = document.getElementById("canvasMarsBase");
+      if (!canvas || canvas.offsetParent === null) return;
+      const { ctx, w, h } = setupHiDPICanvas(canvas);
+      const c = getCanvasColors();
+      ctx.clearRect(0, 0, w, h);
+
+      // Ciel et sol martien
+      ctx.fillStyle = "rgba(194, 65, 12, 0.14)";
+      ctx.fillRect(0, 0, w, h * 0.72);
+      ctx.fillStyle = "#9a3412";
+      ctx.fillRect(0, h * 0.72, w, h * 0.28);
+
+      const bName = state.baseName || "Base Vauban Marte";
+      ctx.fillStyle = c.text;
+      ctx.font = "bold 15px sans-serif";
+      ctx.fillText(`🚀 Proyecto : ${bName} (Capacidad : 4 astronautas)`, 16, 24);
+
+      const m = state.modules;
+      const installedCount = Object.values(m).filter(Boolean).length;
+
+      // 5. Bouclier anti-radiation (dôme de régolithe au-dessus de l'habitat)
+      if (m.proteccion) {
+        ctx.fillStyle = "rgba(120, 113, 108, 0.65)";
+        ctx.beginPath();
+        ctx.arc(w * 0.36, h * 0.72, 92, Math.PI, 0);
+        ctx.fill();
+        ctx.strokeStyle = "#f59e0b";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.fillStyle = c.text;
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText("🛡️ Protección radiación (Regolito)", w * 0.22, h * 0.36);
+      }
+
+      // 1. Habitat pressurisé
+      if (m.habitat) {
+        ctx.fillStyle = "#0284c7";
+        ctx.beginPath();
+        ctx.arc(w * 0.36, h * 0.72, 68, Math.PI, 0);
+        ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 13px sans-serif";
+        ctx.fillText("🏠 Hábitat", w * 0.30, h * 0.62);
+        ctx.fillText("presurizado", w * 0.29, h * 0.68);
+      }
+
+      // 3. Serre (Invernadero)
+      if (m.invernadero) {
+        ctx.fillStyle = "rgba(22, 163, 74, 0.82)";
+        ctx.beginPath();
+        ctx.arc(w * 0.68, h * 0.72, 60, Math.PI, 0);
+        ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 13px sans-serif";
+        ctx.fillText("🌱 Invernadero", w * 0.60, h * 0.63);
+        ctx.fillText("(O₂ + Alimentos)", w * 0.59, h * 0.69);
+      }
+
+      // 2. Recyclage de l'eau
+      if (m.agua) {
+        ctx.fillStyle = "#0ea5e9";
+        ctx.fillRect(w * 0.08, h * 0.54, 85, h * 0.18);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText("💧 Reciclaje", w * 0.09, h * 0.62);
+        ctx.fillText("del Agua", w * 0.10, h * 0.68);
+      }
+
+      // 4. Énergie (Panneaux solaires)
+      if (m.energia) {
+        ctx.fillStyle = "#1d4ed8";
+        ctx.fillRect(w * 0.82, h * 0.48, 80, 26);
+        ctx.strokeStyle = "#facc15";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(w * 0.82, h * 0.48, 80, 26);
+        ctx.fillStyle = c.text;
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText("⚡ Energía", w * 0.83, h * 0.44);
+      }
+
+      const readout = document.getElementById("marsBaseReadout");
+      if (installedCount === 5) {
+        readout.innerHTML = "✅ <strong>¡Base completa (5 / 5 módulos instalados)!</strong> Los 4 astronautas tienen oxígeno, presión, temperatura, agua reciclada, alimentos y protección contra la radiación.";
+      } else {
+        readout.innerHTML = `🔧 <strong>Módulos instalados : ${installedCount} / 5.</strong> Activa los 5 botones para garantizar la supervivencia de los 4 astronautas.`;
+      }
+    }
+
+    // --- 3. COURBE ANIMÉE O2 DANS LA SERRE (ONGLET 3) ---
+    const dataO2 = [
+      { h: 0,  withG: 21.0, noG: 21.0 },
+      { h: 6,  withG: 20.9, noG: 19.5 },
+      { h: 12, withG: 21.0, noG: 18.0 },
+      { h: 18, withG: 21.1, noG: 16.5 },
+      { h: 24, withG: 21.0, noG: 15.0 }
+    ];
+    let o2ScreenPts = [];
+
+    function drawGreenhouseO2Canvas() {
+      const canvas = document.getElementById("canvasGreenhouseO2");
+      if (!canvas || canvas.offsetParent === null) return;
+      const { ctx, w, h } = setupHiDPICanvas(canvas);
+      const c = getCanvasColors();
+      ctx.clearRect(0, 0, w, h);
+
+      const padL = 58, padR = 25, padT = 32, padB = 42;
+      const pw = w - padL - padR;
+      const ph = h - padT - padB;
+      const minY = 14, maxY = 23;
+
+      for (let i = 0; i <= 3; i++) {
+        const y = padT + (ph * i) / 3;
+        const val = (maxY - ((maxY - minY) * i) / 3).toFixed(0);
+        ctx.strokeStyle = c.grid;
+        ctx.beginPath();
+        ctx.moveTo(padL, y);
+        ctx.lineTo(padL + pw, y);
+        ctx.stroke();
+        ctx.fillStyle = c.text;
+        ctx.font = "12px sans-serif";
+        ctx.fillText(val + " %", 12, y + 4);
+      }
+
+      ctx.fillStyle = c.text;
+      ctx.font = "bold 13px sans-serif";
+      ctx.fillText("Oxígeno O₂ en la base (%) : Verde = Con invernadero | Naranja = Sin invernadero", 12, 18);
+
+      dataO2.forEach(d => {
+        const x = padL + (d.h / 24) * pw;
+        ctx.fillStyle = c.text;
+        ctx.fillText(d.h + " h", x - 10, padT + ph + 20);
+      });
+
+      const maxIdx = Math.max(1, Math.floor(state.greenhouseAnimProgress * (dataO2.length - 1)));
+      o2ScreenPts = [];
+
+      // Courbe Avec serre
+      ctx.strokeStyle = c.green;
+      ctx.lineWidth = 3.5;
+      ctx.beginPath();
+      for (let i = 0; i <= maxIdx; i++) {
+        const d = dataO2[i];
+        const x = padL + (d.h / 24) * pw;
+        const y = padT + ph - ((d.withG - minY) / (maxY - minY)) * ph;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+        o2ScreenPts.push({ x, y, label: `Hora ${d.h} h : Con invernadero = ${d.withG} % O₂ (Fotosíntesis activa) | Sin invernadero = ${d.noG} % O₂` });
+      }
+      ctx.stroke();
+
+      // Courbe Sans serre
+      ctx.strokeStyle = c.mars;
+      ctx.lineWidth = 3;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      for (let i = 0; i <= maxIdx; i++) {
+        const d = dataO2[i];
+        const x = padL + (d.h / 24) * pw;
+        const y = padT + ph - ((d.noG - minY) / (maxY - minY)) * ph;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      o2ScreenPts.forEach(pt => {
+        ctx.fillStyle = c.green;
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 5.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    document.getElementById("canvasGreenhouseO2").addEventListener("click", function(e) {
+      const rect = this.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      let best = null, minD = 999;
+      o2ScreenPts.forEach(p => {
+        const d = Math.abs(p.x - cx);
+        if (d < minD) { minD = d; best = p; }
+      });
+      if (best && minD < 50) {
+        document.getElementById("greenhouseO2Readout").textContent = "📌 " + best.label;
+      }
+    });
+
+    let ghAnimId = null;
+    document.getElementById("btnGreenhousePlay").addEventListener("click", () => {
+      state.greenhouseAnimProgress = 0;
+      clearInterval(ghAnimId);
+      ghAnimId = setInterval(() => {
+        state.greenhouseAnimProgress += 0.25;
+        if (state.greenhouseAnimProgress >= 1) {
+          state.greenhouseAnimProgress = 1;
+          clearInterval(ghAnimId);
+        }
+        drawGreenhouseO2Canvas();
+      }, 220);
+    });
+    document.getElementById("btnGreenhousePause").addEventListener("click", () => clearInterval(ghAnimId));
+    document.getElementById("btnGreenhouseReset").addEventListener("click", () => {
+      clearInterval(ghAnimId);
+      state.greenhouseAnimProgress = 1;
+      drawGreenhouseO2Canvas();
+    });
+
+    function redrawAllCanvases() {
+      drawPlanetsCanvas();
+      drawMarsBaseCanvas();
+      drawGreenhouseO2Canvas();
+    }
+
+    window.addEventListener("resize", redrawAllCanvases);
+
+    // =========================================================================
+    // EXPORT .TXT (window.claude.use("downloads") + BLOB), COPIE, MAILTO & PROF
+    // =========================================================================
+    function generateReportText() {
+      const name = state.studentName || "Equipo no especificado";
+      const bName = state.baseName || "Base Marte I";
+      const keys = Object.keys(state.questions);
+      const totalFirst = keys.filter(k => state.questions[k].firstSuccess).length;
+      const missed = keys.filter(k => !state.questions[k].firstSuccess).map(k => state.questions[k].title);
+
+      return [
+        "======================================================================",
+        "VAUBAN SCIENCES | 3e SVT | DNL ESPAÑOL (LV2) — ¿PODEMOS VIVIR EN MARTE?",
+        "======================================================================",
+        `Alumno / Equipo : ${name}`,
+        `Nombre de la base : ${bName}`,
+        `Fecha : ${new Date().toLocaleDateString("fr-FR")} a las ${new Date().toLocaleTimeString("fr-FR")}`,
+        "",
+        `NOTA GLOBAL AL PRIMER INTENTO : ${totalFirst} / 8 (${Math.round((totalFirst / 8) * 100)} %)`,
+        `Autoevaluación de la presentación en español : ${state.essaySelfScore} / 5 criterios`,
+        "",
+        "--- PREGUNTAS FALLADAS AL PRIMER INTENTO ---",
+        missed.length === 0 ? "¡Ninguna! Todas las preguntas fueron acertadas en el primer intento." : missed.join(" | "),
+        "",
+        "--- TEXTO DE PRESENTACIÓN DE LA BASE EN ESPAÑOL ---",
+        state.spanishEssay || "(Sin texto escrito)",
+        "",
+        "--- RESUMEN DE VOCABULARIO Y CIENCIAS (SVT 3e DNL) ---",
+        "• Condiciones en Marte : atmósfera muy fina (6 hPa), 0,13 % O2, −63 °C, agua en forma de hielo, radiación peligrosa.",
+        "• Los 5 módulos necesarios : hábitat presurizado, reciclaje del agua, invernadero (fotosíntesis -> alimentos + O2),",
+        "  fuente de energía (calefacción/electricidad) y protección contra la radiación (ADN).",
+        "• Vocabulario : agua = eau | oxígeno = dioxygène | alimentos = nourriture | radiación = rayonnement |",
+        "  invernadero = serre | energía = énergie | protección = protection.",
+        "======================================================================"
+      ].join("\n");
+    }
+
+    function downloadReportTxt() {
+      const content = generateReportText();
+      const filename = "bilan-marte-dnl-3e.txt";
+
+      try {
+        if (window.claude && typeof window.claude.use === "function") {
+          const dl = window.claude.use("downloads");
+          if (dl && typeof dl.download === "function") dl.download(filename, content);
+        }
+      } catch (e) {}
+
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      const msg = document.getElementById("exportConfirmMsg");
+      msg.style.display = "block";
+      msg.textContent = "✓ Archivo « bilan-marte-dnl-3e.txt » descargado.";
+    }
+
+    function copyReportClipboard() {
+      const content = generateReportText();
+      const ta = document.createElement("textarea");
+      ta.value = content;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        const msg = document.getElementById("exportConfirmMsg");
+        msg.style.display = "block";
+        msg.textContent = "✓ ¡Balance copiado en el portapapeles!";
+      } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    function sendReportMailto() {
+      const subject = encodeURIComponent("Misión Marte DNL 3e - " + (state.studentName || "Equipo"));
+      const body = encodeURIComponent(generateReportText());
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+
+    function openProfModal() {
+      const keys = Object.keys(state.questions);
+      const totalFirst = keys.filter(k => state.questions[k].firstSuccess).length;
+      const missed = keys.filter(k => !state.questions[k].firstSuccess).map(k => state.questions[k].title);
+      const modCount = Object.values(state.modules).filter(Boolean).length;
+
+      const c1 = ["q1", "q2"].filter(k => state.questions[k].firstSuccess).length;
+      const c2 = ["q3", "q4"].filter(k => state.questions[k].firstSuccess).length;
+      const c3 = ["q5", "q6"].filter(k => state.questions[k].firstSuccess).length;
+      const c4 = ["q7", "q8"].filter(k => state.questions[k].firstSuccess).length;
+
+      document.getElementById("profStudentName").textContent = state.studentName || "Anónimo";
+      document.getElementById("profBaseName").textContent = state.baseName || "Marte I";
+      document.getElementById("profBigScore").textContent = `${totalFirst} / 8`;
+      document.getElementById("profScorePct").textContent = `${Math.round((totalFirst / 8) * 100)} % al 1er intento`;
+      document.getElementById("profModulesInstalled").textContent = `${modCount} / 5 módulos`;
+      document.getElementById("profEssayCriteria").textContent = `Autoevaluación escrita : ${state.essaySelfScore} / 5`;
+
+      document.getElementById("profCompSummary").innerHTML =
+        `• 1. Diagnóstico Marte : <strong>${c1}/2</strong><br>` +
+        `• 2. Los 5 desafíos y Agua : <strong>${c2}/2</strong><br>` +
+        `• 3. Base e Invernadero : <strong>${c3}/2</strong><br>` +
+        `• 4. Expresión en español : <strong>${c4}/2</strong>`;
+
+      document.getElementById("profMissedList").textContent =
+        missed.length === 0 ? "✓ ¡Ninguna! 100 % de éxito en el primer intento." : missed.join("  •  ");
+
+      document.getElementById("profModal").classList.add("visible");
+    }
+
+    function closeProfModal() {
+      document.getElementById("profModal").classList.remove("visible");
+    }
+
+    function resetAllProgress() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      window.location.reload();
+    }
+
+    window.addEventListener("load", () => {
+      loadState();
+      updateAllScoresUI();
+      redrawAllCanvases();
+    });
+  </script>
+</body>
+</html>
