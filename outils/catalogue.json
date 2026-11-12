@@ -126,6 +126,12 @@
                   "tag": "Activités 2 et 3",
                   "titre": "Vitesses et mouvements",
                   "desc": "Relier des vitesses, piloter un rover, lire le vol d'une fusée : accéléré, uniforme ou ralenti ?"
+                },
+                {
+                  "fichier": "construire-une-fusee.html",
+                  "tag": "Activité 4 · Technologie",
+                  "titre": "Construire une fusée",
+                  "desc": "Légender une fusée, relier fonctions et solutions techniques, puis tester ses fusées à l'atelier de lancement."
                 }
               ]
             },
