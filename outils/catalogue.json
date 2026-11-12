@@ -63,6 +63,14 @@
         {
           "id": "mission-4",
           "titre": "Mission 4 · Charger la fusée",
+          "activites": [
+            {
+              "fichier": "revision-mission-4.html",
+              "tag": "Révision",
+              "titre": "Mission 4 : je révise avant le contrôle",
+              "desc": "Changements d'état, graphique à construire, courbes et paliers, micro-organismes et conservation des aliments."
+            }
+          ],
           "chapitres": [
             {
               "id": "micro-organismes",
