@@ -1,0 +1,1307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Potato and cell metabolism</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
+   Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
+:root{
+  --fs:21px;
+  --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
+  --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
+  --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
+  --ok:#17703d; --ok-soft:#ddf1e4; --bad:#ad2318; --bad-soft:#fbe2de;
+  --info:#1d5bb0; --info-soft:#e1ebf9; --warn:#9c4f05; --warn-soft:#fdead3;
+  --key:#17703d; --key-soft:#ddf1e4; --err:#ad2318; --err-soft:#fbe2de;
+  --easy:#17703d; --mid:#7d5a00; --hard:#ad2318;
+  --c1:#0a6a76; --c2:#c0531a; --c3:#5a48b5; --c4:#2d7a31; --c5:#8a6400; --c6:#6f777c;
+  --grid:#dbe5e7; --shade:rgba(10,106,118,.10);
+  --f-display:"Charter","Iowan Old Style","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0}
+sub,sup{line-height:0;font-size:.72em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html.proj .wrap{max-width:none}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- bandeau ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.band .titles{min-width:0;flex:1 1 20rem}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
+.band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+.tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+
+/* ---------- onglets collants ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.tab .dot{font-size:0.9rem}
+
+main{padding-block:1.2rem 3rem}
+.view{display:grid;gap:1.1rem}
+.lead{color:var(--muted);max-width:44rem}
+.sec-title{font-size:1.45rem}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+
+/* ---------- cartes / panneaux ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.panel h3{font-size:1.15rem}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:.8rem}
+.card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
+.card-btn:hover{border-color:var(--accent)}
+.card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.mid{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- encadrés ---------- */
+.box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
+.box.err{background:var(--err-soft);border-color:var(--err)} .box.err>.lab{color:var(--err)}
+.box ul{margin:0;padding-left:1.2rem;display:grid;gap:.25rem}
+
+/* ---------- boutons ---------- */
+.btn{min-height:48px;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---------- options QCM / choix ---------- */
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
+.opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+
+.field{display:grid;gap:.3rem}
+.field label{font-weight:700;font-size:0.9rem}
+.inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
+.inp.wide{max-width:none}
+textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
+.inp.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.inp.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{color:var(--muted);font-weight:700}
+
+/* ---------- retour d'information ---------- */
+.fb{border-radius:12px;padding:.7rem .9rem;border:1.5px solid;display:grid;gap:.35rem}
+.fb .h{font-weight:800}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.ok .h{color:var(--ok)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)} .fb.bad .h{color:var(--bad)}
+.fb.neutral{background:var(--surface-2);border-color:var(--line)}
+.hints{display:grid;gap:.45rem}
+.hint{background:var(--surface-2);border-radius:10px;padding:.55rem .8rem;border-left:4px solid var(--mid);font-size:.92rem}
+.hint b{color:var(--mid)}
+.corr{background:var(--info-soft);border:1.5px solid var(--info);border-radius:12px;padding:.75rem .95rem;display:grid;gap:.4rem}
+.corr .h{font-weight:800;color:var(--info)}
+
+/* ---------- documents ---------- */
+.doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh .sim{font-weight:700;color:var(--warn)}
+.doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
+.tablewrap{overflow-x:auto;max-width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
+table.t td,table.t th{vertical-align:top}
+table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+table.t th{background:var(--surface-2);font-weight:800}
+table.t td.n{text-align:right}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+
+/* ---------- graphiques ---------- */
+.chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body)}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend svg{flex:none}
+
+/* ---------- niveaux ---------- */
+.lv{display:inline-flex;align-items:center;gap:.35rem;font-weight:800}
+.lv.easy{color:var(--easy)} .lv.mid{color:var(--mid)} .lv.hard{color:var(--hard)}
+
+/* ---------- bilan ---------- */
+.score-big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 1rem) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(16px,env(safe-area-inset-left,0px))}
+.overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
+.overlay h2{font-size:2.2rem}
+.overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
+.toast{font-weight:700;color:var(--ok)}
+
+/* ---------- divers ---------- */
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
+.eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
+.chartbox{display:grid;gap:.45rem;min-width:0}
+/* ---------- exercices : coefficients, ordre, critères ---------- */
+.coefs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:1.05rem}
+.coef{display:inline-flex;align-items:center;gap:.25rem;background:var(--surface-2);border-radius:12px;padding:.25rem}
+.coef button{min-width:48px;min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.coef output{min-width:1.6rem;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.coef .f{padding:0 .4rem;font-weight:700}
+.coef.is-ok{outline:2px solid var(--ok)} .coef.is-bad{outline:2px solid var(--bad)}
+.arrow{font-weight:800;color:var(--muted)}
+.order-list{display:grid;gap:.45rem}
+.order-item{display:flex;gap:.7rem;align-items:center;text-align:left;min-height:52px;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);color:var(--ink);font-size:.95rem}
+.order-item .n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted)}
+.order-item[data-pos]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.order-item[data-pos] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.order-item.is-ok{border-color:var(--ok);background:var(--ok-soft)} .order-item.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:.6rem}
+.rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
+.rowq .rt{font-size:.95rem}
+.pfb{font-size:0.9rem;font-weight:700}
+.pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
+.part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.part:first-child{border-top:0;padding-top:0}
+.part > .pl{font-weight:700}
+.crit{display:grid;gap:.4rem}
+.crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
+.crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.sci .inp{max-width:7rem}
+.sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
+
+/* Identité SVT : bandeau vert foncé ; neutres teintés vert ; bandes « lumière » jaune pâle sur les courbes */
+:root{
+  --bg:#f3f6f2; --surface:#ffffff; --surface-2:#e8f0e7; --ink:#14251a; --muted:#46604d; --line:#c6d6c6;
+  --band:#1b4a2c; --band-ink:#eef7f0; --band-muted:#b3d3bc; --band-line:#3b6c4a;
+  --accent:#21703a; --accent-ink:#ffffff; --accent-soft:#d9eedf;
+  --shade:rgba(232,176,20,.20); --day:#fbe6a2; --day-ink:#3a2b00; --night:#1c2b21; --night-ink:#e7f1ea;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}
+
+/* ---------- 5e EIST · Vitesses et mouvements ---------- */
+:root{--trk:#dfe9ea;--dot:#11282e;--rov:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}}
+:root[data-theme="dark"]{--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+.gap{display:inline-block;min-width:4.5rem;border-bottom:3px dotted var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.recop{border:2px solid var(--key);border-radius:14px;background:var(--key-soft);padding:1rem 1.1rem;display:grid;gap:.6rem}
+.recop .lab{font-size:.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--key)}
+.recop p{font-size:1.05rem;line-height:1.6}
+.recop u{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800}
+h4{font-size:1rem}
+.match{display:grid;gap:.45rem}
+.mrow{display:flex;gap:.6rem;align-items:center;text-align:left;min-height:54px;padding:.45rem .7rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;width:100%}
+.mrow[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.mrow .me{font-size:1.5rem;flex:none;width:2rem;text-align:center}
+.mrow .mn{flex:1 1 auto;min-width:0}
+.mrow .mv{flex:none;min-width:5.2rem;text-align:center;border-radius:10px;padding:.25rem .5rem;border:2px dashed var(--muted);color:var(--muted);font-weight:800;font-variant-numeric:tabular-nums}
+.mrow .mv.has{border-style:solid;border-color:var(--accent);color:var(--ink);background:var(--surface)}
+.mrow.is-ok{border-color:var(--ok);background:var(--ok-soft)} .mrow.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.mrow .tag{flex:none;font-weight:800;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chipb{min-height:48px;padding:0 .9rem;border-radius:999px;border:2px solid var(--accent);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tabs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.7rem}
+.tabs3 > div{display:grid;gap:.3rem}
+.tabs3 .tn{font-weight:800}
+.gauge{height:1.2rem;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1.5px solid var(--line)}
+.gauge i{display:block;height:100%;background:var(--rov);transition:width .15s linear}
+.pilot{display:flex;flex-wrap:wrap;gap:.5rem}
+.pilot .btn{min-width:8.5rem}
+
+:root{--well:#f4f6f1;--io0:#1d2140;--io1:#4a2f52;--io2:#8a5a2c;--io3:#c99a2e;--io4:#e9c84a;--gneg:#e6d25a;--gpos:#2f8a4a}
+.mrow .mv{max-width:56%;min-width:6rem;white-space:normal;line-height:1.25}
+.recop table.t td:last-child{text-align:left}
+.swl{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.9rem;margin-bottom:.35rem;color:var(--ink)}
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.opt3 .lab3{font-weight:800;font-size:.9rem}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}.chipb{white-space:normal;text-align:left;padding:.35rem .9rem}
+
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">Year 11 (2nde) · DNL Biology · Theme 1 · Chapter 2 · Cell metabolism</p><h1>Potato and cellular respiration</h1><p class="sub">Virtual amylase lab, glucose in the blood, storage and metabolic pathways: how a food provides matter and energy.</p></div>
+<div class="tools" role="toolbar" aria-label="Display"><button class="tbtn" id="fsMinus" type="button" aria-label="Smaller text">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Larger text">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Dark</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projector</button></div></div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
+<main class="wrap" id="main"><p>Loading…</p></main>
+<footer class="wrap foot">No data is sent: your answers stay on this device. Simulated data are flagged with ⚠. Lycée Français Vauban · DNL Biology.</footer>
+<noscript><p class="wrap">This app needs JavaScript: open the link in Safari (not in the Teams or Files preview).</p></noscript>
+<script>
+window.TP_LANG="en";window.CORE_T={"locale": "en-GB", "dec": ".", "readHint": "Tap the graph to read a value.", "table": "Table of values", "light": "☀ Light", "dark": "☾ Dark", "dlNo": "Download is not available here: use “Copy” or “Show the teacher”.", "dlOk": "File offered for saving.", "dlDeclined": "Saving cancelled.", "dlBusy": "A request is already open: try again in a moment.", "dlFail": "Download not possible here: use “Copy”.", "dlDone": "File downloaded.", "name": "First name or number (optional, stays on this device)", "bDl": "⬇ Download (.txt)", "bCp": "⧉ Copy", "bMail": "✉ Send by email", "bShow": "👁 Show the teacher", "cpSel": "Text selected: copy it with ⌘C / Ctrl+C or the Copy menu.", "cpOk": "Report copied: paste it where your teacher asked.", "mailOk": "Your mail app should open with your report.", "bilanTxt": "Report text", "close": "Close", "student": "student", "subject": "Report ", "animRun": "▶ Start", "animPause": "⏸ Pause", "animResume": "▶ Resume", "animReset": "↺ Restart"};
+/* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
+"use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
+
+/* ---------- stockage de confort (l'app marche sans) ---------- */
+const Store = {
+  key: "es-th1",
+  load(def) { let o = {}; try { o = JSON.parse(localStorage.getItem(this.key) || "{}") || {}; } catch (e) { o = {}; } return Object.assign({}, def, o); },
+  save(obj) { try { localStorage.setItem(this.key, JSON.stringify(obj)); } catch (e) {} }
+};
+
+/* ---------- nombres à la française ---------- */
+const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+const supStr = s => String(s).split("").map(c => SUP[c] || c).join("");
+function fmt(x, dec) {
+  if (x === null || x === undefined || Number.isNaN(x)) return "—";
+  let s = dec === undefined ? String(Math.round(x * 1e6) / 1e6) : Number(x).toFixed(dec);
+  let neg = s.startsWith("-"); if (neg) s = s.slice(1);
+  let [i, d] = s.split(".");
+  i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
+}
+function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
+  if (p === 0) return "0";
+  const e = Math.floor(Math.log10(Math.abs(p))); const m = p / Math.pow(10, e);
+  const mr = Math.round(m * 100) / 100;
+  if (e >= -1 && e <= 3) return fmt(p, p < 10 ? 2 : 0);
+  return (mr === 1 ? "" : fmt(mr) + " × ") + "10" + supStr(e);
+}
+/* lit « 1 020 », « 1,02e5 », « 1,02 × 10^5 », « 1,02x10⁵ », « 10⁵ », « −3 », « +12,4 °C » */
+function parseNum(str) {
+  if (str === null || str === undefined) return NaN;
+  let s = String(str).trim();
+  const SUPR = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-" };
+  s = s.replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m, g) => "10^" + g.split("").map(c => SUPR[c]).join(""));
+  s = s.replace(/[−–]/g, "-").replace(/[\s  ]/g, "").replace(/,/g, ".");
+  s = s.replace(/(°c|°|pa|hpa|bar|mbar|atm|mmhg|cm|mm|m|ans?|%|points?|pts?|\/an|°c\/siècle|°c\/an)+$/i, "");
+  let m = s.match(/^([+-]?\d*\.?\d+)(?:[x×*·]10\^?\(?([+-]?\d+)\)?)$/i);
+  if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+  m = s.match(/^([+-]?)10\^\(?([+-]?\d+)\)?$/);
+  if (m) return (m[1] === "-" ? -1 : 1) * Math.pow(10, parseInt(m[2], 10));
+  if (/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)) return parseFloat(s);
+  return NaN;
+}
+const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+
+/* ---------- affichage : taille, thème, projection ---------- */
+const Display = {
+  S: null, onChange: null,
+  init(S, save) {
+    this.S = S; this.save = save; this.apply();
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
+    $("#themeBtn").onclick = () => {
+      const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; this.apply(); save();
+    };
+    $("#projBtn").onclick = () => { S.proj = !S.proj; this.apply(); save(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => this.apply());
+  },
+  apply() {
+    const S = this.S, r = document.documentElement;
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
+    r.classList.toggle("proj", !!S.proj);
+    const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
+    const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
+    Charts.redrawAll();
+    if (this.onChange) this.onChange();
+  }
+};
+
+/* bouton à confirmation en deux temps (pas de confirm()) */
+function armButton(btn, label, confirmLabel, action) {
+  let t = null;
+  btn.onclick = () => {
+    if (!t) { btn.textContent = confirmLabel; btn.classList.add("warn"); t = setTimeout(() => { btn.textContent = label; btn.classList.remove("warn"); t = null; }, 4000); return; }
+    clearTimeout(t); t = null; btn.textContent = label; btn.classList.remove("warn"); action();
+  };
+}
+
+/* ======================= GRAPHIQUES (SVG redessiné à la largeur réelle) ======================= */
+const Charts = {
+  list: new Set(),
+  redrawAll() { this.list.forEach(c => { if (!document.body.contains(c.host)) this.list.delete(c); else c.draw(); }); }
+};
+let _rsT = null;
+window.addEventListener("resize", () => { clearTimeout(_rsT); _rsT = setTimeout(() => Charts.redrawAll(), 120); });
+
+const PAT = ["none", "dots", "diag", "cross", "horiz", "vert"];
+function patternOne(pid, color, p) {
+  let inner = "";
+  if (p === "dots") inner = `<circle cx="3" cy="3" r="1.3" style="fill:var(--surface)"/>`;
+  if (p === "diag") inner = `<path d="M-1,7 L7,-1" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "cross") inner = `<path d="M-1,7 L7,-1 M-1,-1 L7,7" style="stroke:var(--surface);stroke-width:1.1"/>`;
+  if (p === "horiz") inner = `<path d="M0,3 H6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "vert") inner = `<path d="M3,0 V6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  return `<pattern id="${pid}" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--${color})"/>${inner}</pattern>`;
+}
+function patDefs(id, colors) { return colors.map((c, i) => patternOne(`${id}-p${i}`, c, PAT[i % PAT.length])).join(""); }
+const DASH = i => (i % 4 === 1 ? "7 4" : i % 4 === 2 ? "2 4" : i % 4 === 3 ? "11 4 2 4" : "");
+function swatch(color, i, kind) {
+  if (kind === "line") return `<svg width="34" height="12" aria-hidden="true"><path d="M2 6 H32" style="stroke:var(--${color});stroke-width:3.2;fill:none;stroke-linecap:round" stroke-dasharray="${DASH(i)}"/></svg>`;
+  const pid = "sw" + Math.random().toString(36).slice(2, 8); const p = PAT[i % PAT.length];
+  const fill = p === "none" ? `var(--${color})` : `url(#${pid})`;
+  return `<svg width="20" height="20" aria-hidden="true">${p === "none" ? "" : `<defs>${patternOne(pid, color, p)}</defs>`}<rect x="1" y="1" width="18" height="18" rx="3" style="fill:${fill};stroke:var(--ink);stroke-width:.7"/></svg>`;
+}
+
+/* phase de l'eau */
+const PSAT = [[0.01, 611.657], [10, 1228], [20, 2339], [30, 4247], [40, 7385], [50, 12352], [60, 19946], [70, 31201], [80, 47414], [90, 70182], [100, 101418], [120, 198670], [140, 361540], [160, 618230], [180, 1002800], [200, 1554900], [220, 2319600], [240, 3346900], [260, 4692300], [280, 6416600], [300, 8587900], [320, 11284000], [340, 14594000], [360, 18666000], [374, 22064000]];
+const Water = {
+  Tt: 0.01, Pt: 611.657, Tc: 374, Pc: 2.2064e7,
+  psat(T) { if (T <= 0.01) return this.Pt; if (T >= 374) return this.Pc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (T <= t1) { const f = (T - t0) / (t1 - t0); return Math.pow(10, Math.log10(p0) + f * (Math.log10(p1) - Math.log10(p0))); } } return this.Pc; },
+  tsat(P) { if (P <= this.Pt) return this.Tt; if (P >= this.Pc) return this.Tc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (P <= p1) { const f = (Math.log10(P) - Math.log10(p0)) / (Math.log10(p1) - Math.log10(p0)); return t0 + f * (t1 - t0); } } return this.Tc; },
+  psub(T) { const K = T + 273.15; return Math.exp(9.550426 - 5723.265 / K + 3.53068 * Math.log(K) - 0.00728332 * K); },
+  tmelt(P) { return 0.01 - 7.4e-8 * (P - this.Pt); },
+  state(T, P) {
+    if (P >= this.Pc && T >= this.Tc) return "fluide supercritique";
+    if (P > this.Pt && T < this.tmelt(P)) return "solide (glace)";
+    if (P <= this.Pt && T < 0.01) return P > this.psub(T) ? "solide (glace)" : "gaz (vapeur)";
+    if (T >= this.Tc) return "gaz (vapeur)";
+    return P > this.psat(T) ? "liquide" : "gaz (vapeur)";
+  }
+};
+
+function mountChart(container, spec) {
+  container.innerHTML = "";
+  const id = "ch" + Math.random().toString(36).slice(2, 8);
+  const host = document.createElement("div"); host.className = "chart"; host.tabIndex = 0;
+  host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
+  const legend = document.createElement("div"); legend.className = "legend";
+  const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
+  readout.innerHTML = spec.readHint || CT.readHint;
+  container.append(host);
+  if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
+  container.append(readout);
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
+
+  const ch = { host, spec, sel: null, draw: null };
+  const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+
+  if (spec.type !== "phase" && legend.isConnected) {
+    const names = spec.type === "stack" ? spec.parts : spec.series.map(s => s.name);
+    const colors = spec.type === "stack" ? spec.colors : spec.series.map(s => s.color);
+    if (names.length > 1 || spec.type === "stack") legend.innerHTML = names.map((n, i) => `<span>${swatch(colors[i], i, spec.type === "line" ? "line" : "fill")}${esc(n)}</span>`).join("");
+    else legend.remove();
+  }
+
+  function axisText(x, y, txt, anchor, size, extra) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="fill:var(--ink);font-size:${size}px" ${extra || ""}>${esc(txt)}</text>`; }
+
+  ch.draw = function () {
+    const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
+    const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
+    let svg = "";
+    if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
+    else if (spec.type === "line") svg = drawLine(W, H, F, tk, tt);
+    else if (spec.type === "stack") svg = drawStack(W, F, tk, tt);
+    else if (spec.type === "phase") svg = drawPhase(W, H, F, tk, tt);
+    host.innerHTML = svg;
+  };
+
+  /* --- barres groupées --- */
+  let geo = {};
+  function drawBar(W, H, F, tk, tt) {
+    const S = spec.series, cats = spec.categories;
+    const L = F * 3.3, R = F * 0.8, T = F * 0.9, B = F * 3.2 + (spec.rotate ? F * 1.2 : 0);
+    const pw = W - L - R, ph = H - T - B;
+    const yMax = spec.yMax, yStep = spec.yStep;
+    const y = v => T + ph - (v / yMax) * ph;
+    let g = "";
+    for (let v = 0; v <= yMax + 1e-9; v += yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/>` + axisText(L - 6, y(v) + tk * 0.35, fmt(v), "end", tk); }
+    const gw = pw / cats.length, bw = Math.min(gw * 0.7 / S.length, F * 3.2);
+    geo = { bars: [] };
+    cats.forEach((c, ci) => {
+      const gx = L + gw * ci + (gw - bw * S.length) / 2;
+      S.forEach((s, si) => {
+        const v = s.values[ci]; const x = gx + bw * si; const yy = y(Math.max(v, 0));
+        const sel = ch.sel && ch.sel[0] === ci && ch.sel[1] === si;
+        g += `<rect x="${x + 1}" y="${yy}" width="${bw - 2}" height="${Math.max(T + ph - yy, 0)}" rx="3" style="fill:var(--${s.color});${sel ? "stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v);
+        if (spec.showValues !== false) g += axisText(x + bw / 2, yy - 5, lbl, "middle", tk, `font-weight="700"`);
+        geo.bars.push({ ci, si, x, w: bw });
+      });
+      const cx = L + gw * ci + gw / 2;
+      if (spec.rotate) g += `<text transform="translate(${cx},${T + ph + 8}) rotate(35)" style="fill:var(--ink);font-size:${tk}px">${esc(c)}</text>`;
+      else g += axisText(cx, T + ph + tk * 1.35, c, "middle", tk, `font-weight="700"`);
+    });
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- courbes --- */
+  function drawLine(W, H, F, tk, tt) {
+    const S = spec.series;
+    const L = F * 3.6, R = F * 1.1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const { xMin, xMax, yMin, yMax } = spec;
+    const X = v => L + (v - xMin) / (xMax - xMin) * pw, Y = v => T + ph - (v - yMin) / (yMax - yMin) * ph;
+    let g = "";
+    (spec.bands || []).forEach(b => { g += `<rect x="${X(b.x0)}" y="${T}" width="${X(b.x1) - X(b.x0)}" height="${ph}" style="fill:var(--shade)"/>` + (b.label ? axisText((X(b.x0) + X(b.x1)) / 2, T + tk * 1.1, b.label, "middle", tk * 0.92, `font-weight="700"`) : ""); });
+    const maxXt = Math.max(2, Math.floor(pw / (F * (spec.xTickW || 3.6))));
+    let xs = spec.xStep; while ((xMax - xMin) / xs > maxXt) xs *= 2;
+    for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
+    for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
+    (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
+    S.forEach((s, si) => {
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
+    });
+    if (ch.sel !== null) {
+      const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
+      S.forEach(s => { const p = s.pts.find(q => q[0] === xv); if (p) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--${s.color});stroke-width:3"/>`; });
+    }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    geo = { L, pw, X, xMin, xMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- barres empilées horizontales (cumul à 100 %) --- */
+  function drawStack(W, F, tk, tt) {
+    const rows = spec.rows, P = spec.parts;
+    const L = F * (spec.labelW || 5.6), R = F * 0.9, T = F * 0.5, rowH = F * 2.3, gap = F * 0.9, B = F * 3.1;
+    const pw = W - L - R; const H = T + rows.length * (rowH + gap) - gap + B;
+    const X = v => L + v / 100 * pw;
+    let g = `<defs>${patDefs(id, spec.colors)}</defs>`;
+    for (let v = 0; v <= 100; v += 20) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + rows.length * (rowH + gap) - gap}" style="stroke:var(--grid)"/>` + axisText(X(v), T + rows.length * (rowH + gap) - gap + tk * 1.35, fmt(v), "middle", tk);
+    geo = { segs: [] };
+    rows.forEach((r, ri) => {
+      const y0 = T + ri * (rowH + gap); let acc = 0;
+      g += axisText(L - 8, y0 + rowH / 2 - (r.sub ? tk * 0.2 : -tk * 0.35), r.label, "end", tk, `font-weight="700"`);
+      if (r.sub) g += axisText(L - 8, y0 + rowH / 2 + tk * 0.95, r.sub, "end", tk * 0.88);
+      r.values.forEach((v, pi) => {
+        if (v <= 0) return;
+        const x = X(acc), w = X(acc + v) - X(acc);
+        const sel = ch.sel && ch.sel[0] === ri && ch.sel[1] === pi;
+        const fill = PAT[pi % PAT.length] === "none" ? `var(--${spec.colors[pi]})` : `url(#${id}-p${pi})`;
+        g += `<rect x="${x}" y="${y0}" width="${w}" height="${rowH}" style="fill:${fill};stroke:var(--surface);stroke-width:1.5${sel ? ";stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = fmt(v) + " %";
+        if (w > tk * 3.4) g += `<rect x="${x + w / 2 - tk * 1.55}" y="${y0 + rowH / 2 - tk * 0.75}" width="${tk * 3.1}" height="${tk * 1.5}" rx="4" style="fill:var(--surface);opacity:.92"/>` + axisText(x + w / 2, y0 + rowH / 2 + tk * 0.36, lbl, "middle", tk * 0.92, `font-weight="800"`);
+        geo.segs.push({ ri, pi, x, w, y0, h: rowH });
+        acc += v;
+      });
+    });
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "Proportion (%)", "middle", tt, `font-weight="700"`);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- diagramme d'état de l'eau (pression en échelle logarithmique) --- */
+  function drawPhase(W, H, F, tk, tt) {
+    const L = F * 3.6, R = F * 1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const tMin = spec.tMin ?? -150, tMax = spec.tMax ?? 500, lpMin = spec.lpMin ?? 1, lpMax = spec.lpMax ?? 8;
+    const X = t => L + (t - tMin) / (tMax - tMin) * pw;
+    const Y = p => T + ph - (Math.log10(p) - lpMin) / (lpMax - lpMin) * ph;
+    const clipY = y => Math.min(Math.max(y, T), T + ph);
+    let g = `<defs><clipPath id="${id}-c"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+    // zones colorées
+    let sub = "", sat = "";
+    for (let t = tMin; t <= 0.01; t += 2) sub += (sub ? "L" : "M") + X(t).toFixed(1) + "," + Y(Math.max(Water.psub(t), Math.pow(10, lpMin - 3))).toFixed(1) + " ";
+    sub += "L" + X(0.01) + "," + Y(Water.Pt);
+    for (let t = 0.01; t <= 374; t += 2) sat += (sat ? "L" : "M") + X(t).toFixed(1) + "," + Y(Water.psat(t)).toFixed(1) + " ";
+    sat += "L" + X(374) + "," + Y(Water.Pc);
+    const Ptop = Math.pow(10, lpMax);
+    const meltTop = X(Water.tmelt(Ptop));
+    g += `<g clip-path="url(#${id}-c)">`;
+    g += `<path d="${sub.replace("M", "M" + X(tMin) + "," + Y(Ptop) + " L")} L${meltTop},${Y(Ptop)} Z" style="fill:var(--info-soft)"/>`;
+    g += `<path d="M${X(0.01)},${Y(Water.Pt)} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${meltTop},${Y(Ptop)} Z" style="fill:var(--ok-soft)"/>`;
+    g += `<path d="${sub} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${X(tMax)},${Y(Ptop)} L${X(tMax)},${T + ph + 50} L${X(tMin)},${T + ph + 50} Z" style="fill:var(--warn-soft)"/>`;
+    g += `</g>`;
+    for (let e = lpMin; e <= lpMax; e++) g += `<line x1="${L}" x2="${L + pw}" y1="${Y(Math.pow(10, e))}" y2="${Y(Math.pow(10, e))}" style="stroke:var(--grid)"/>` + axisText(L - 6, Y(Math.pow(10, e)) + tk * 0.35, "10" + supStr(e), "end", tk);
+    let step = [10, 20, 50, 100, 200, 500].find(s => (tMax - tMin) / s <= pw / (F * 2.6)) || 500;
+    for (let t = Math.ceil(tMin / step) * step; t <= tMax; t += step) g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(t), T + ph + tk * 1.35, fmt(t), "middle", tk);
+    g += `<g clip-path="url(#${id}-c)"><path d="${sub}" style="fill:none;stroke:var(--info);stroke-width:2.5"/><path d="${sat}" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><line x1="${X(0.01)}" y1="${Y(Water.Pt)}" x2="${meltTop}" y2="${Y(Ptop)}" style="stroke:var(--info);stroke-width:2.5"/></g>`;
+    g += `<circle cx="${X(0.01)}" cy="${Y(Water.Pt)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(0.01) + F * 0.35, Y(Water.Pt) + tk * 1.25, "point triple", "start", tk * 0.88, `font-weight="700"`);
+    if (Water.Pc <= Ptop) g += `<circle cx="${X(374)}" cy="${Y(Water.Pc)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(374), Y(Water.Pc) - F * 0.45, "point critique", "middle", tk * 0.88, `font-weight="700"`);
+    g += axisText(X(tMin) + F * 0.6, T + F * 1.4, "SOLIDE", "start", tt, `font-weight="800" letter-spacing=".08em"`);
+    const pl = Math.pow(10, lpMax - 0.5), tl = Math.min(Water.tsat(pl), tMax) / 2;
+    g += axisText(X(tl), Y(pl) + F * 0.4, "LIQUIDE", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    g += axisText(X(tMin + 0.86 * (tMax - tMin)), Y(Math.pow(10, lpMin + 0.35)), "GAZ", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    (spec.segments || []).forEach(s => {
+      const y = Y(s.P); g += `<line x1="${X(s.t0)}" x2="${X(s.t1)}" y1="${y}" y2="${y}" style="stroke:var(--${s.color || "c3"});stroke-width:${F * 0.32};stroke-linecap:round;opacity:.9"/>` + axisText(X(s.t0), y - F * 0.5, s.label, "start", tk, `font-weight="800"`);
+    });
+    (spec.points || []).forEach(p => { g += `<circle cx="${X(p.T)}" cy="${Y(p.P)}" r="${F * 0.3}" style="fill:var(--${p.color || "c3"});stroke:var(--surface);stroke-width:2"/>` + axisText(X(p.T) + F * 0.45, Y(p.P) - F * 0.35, p.label, "start", tk, `font-weight="800"`); });
+    if (ch.sel) { const [t, p] = ch.sel; g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><line x1="${L}" x2="${L + pw}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><circle cx="${X(t)}" cy="${Y(p)}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`; }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, "Température (°C)", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">Pression (Pa, échelle logarithmique)</text>`;
+    geo = { L, T, pw, ph, tMin, tMax, lpMin, lpMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- lecture au toucher --- */
+  function pick(evt) {
+    const svg = host.querySelector("svg"); if (!svg) return;
+    const r = svg.getBoundingClientRect(); const sx = (evt.clientX - r.left) * (svg.viewBox.baseVal.width / r.width); const sy = (evt.clientY - r.top) * (svg.viewBox.baseVal.height / r.height);
+    if (spec.type === "bar") { let best = null, bd = 1e9; geo.bars.forEach(b => { const d = Math.abs(sx - (b.x + b.w / 2)); if (d < bd) { bd = d; best = b; } }); if (best) setSel([best.ci, best.si]); }
+    else if (spec.type === "line") { const xv = geo.xMin + (sx - geo.L) / geo.pw * (geo.xMax - geo.xMin); setSel(nearestX(xv)); }
+    else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
+    else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
+  }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
+  function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
+  function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
+  function describe() {
+    if (spec.type === "bar") { const [ci, si] = ch.sel; const s = spec.series[si]; const v = s.values[ci]; return `<b>${esc(spec.categories[ci])}</b>${spec.series.length > 1 ? " · " + esc(s.name) : ""} : ${spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v)}${spec.unit ? " " + spec.unit : ""}`; }
+    if (spec.type === "line") { const xv = ch.sel; return `<b>${spec.xRead ? spec.xRead(xv) : fmt(xv)}</b> → ` + spec.series.map(s => { const p = s.pts.find(q => q[0] === xv); return p ? `${esc(s.name)} : ${spec.yRead ? spec.yRead(p[1]) : fmt(p[1])}` : null; }).filter(Boolean).join(" · "); }
+    if (spec.type === "stack") { const [ri, pi] = ch.sel; return `<b>${esc(spec.rows[ri].label)}</b> · ${esc(spec.parts[pi])} : ${fmt(spec.rows[ri].values[pi])} %`; }
+    if (spec.type === "phase") { const [t, p] = ch.sel; return `Point touché : <b>T ≈ ${fmt(Math.round(t))} °C</b> ; <b>P ≈ ${fmtPow(Number(p.toPrecision(2)))} Pa</b>${spec.readState ? ` → état de l'eau : <b>${Water.state(t, p)}</b>` : ""}`; }
+    return "";
+  }
+  host.addEventListener("pointerdown", e => { pick(e); });
+  host.addEventListener("pointermove", e => { if (e.buttons && e.pointerType === "mouse") pick(e); });
+  host.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault(); const dir = e.key === "ArrowRight" ? 1 : -1;
+    if (spec.type === "line") { const xs = allX(); let i = ch.sel === null ? 0 : xs.indexOf(ch.sel) + dir; i = Math.max(0, Math.min(xs.length - 1, i)); setSel(xs[i]); }
+    if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
+    if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
+  });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
+  ch.draw(); Charts.list.add(ch);
+  if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
+  return ch;
+}
+
+function buildTable(spec) {
+  let head = "", body = "";
+  if (spec.type === "bar") {
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name || spec.yTitle)}</th>`).join("")}</tr>`;
+    body = spec.categories.map((c, ci) => `<tr><td>${esc(c)}</td>${spec.series.map((s, si) => `<td class="n">${spec.valueLabel ? spec.valueLabel(s.values[ci], ci, si) : fmt(s.values[ci])}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "line") {
+    const xs = new Set(); spec.series.forEach(s => s.pts.forEach(p => xs.add(p[0])));
+    const X = Array.from(xs).sort((a, b) => a - b);
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr>`;
+    body = X.map(x => `<tr><td class="n">${spec.xFmt ? spec.xFmt(x) : fmt(x)}</td>${spec.series.map(s => { const p = s.pts.find(q => q[0] === x); return `<td class="n">${p ? (spec.yFmt ? spec.yFmt(p[1]) : fmt(p[1])) : "—"}</td>`; }).join("")}</tr>`).join("");
+  } else if (spec.type === "stack") {
+    head = `<tr><th>Niveau</th>${spec.parts.map(p => `<th>${esc(p)} (%)</th>`).join("")}</tr>`;
+    body = spec.rows.map(r => `<tr><td>${esc(r.label)}${r.sub ? " (" + esc(r.sub) + ")" : ""}</td>${r.values.map(v => `<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "phase") {
+    if (spec.table === "none") return null;
+    head = `<tr><th>Repère</th><th>Température</th><th>Pression</th></tr>`;
+    body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
+  }
+  const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  return d;
+}
+
+/* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
+const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
+let _dlP = null;
+function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
+setTimeout(() => { getDownloads(); }, 0);
+
+async function saveText(filename, text) {
+  if (inClaude()) {
+    const d = await getDownloads();
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
+  }
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
+}
+
+function renderBilanTools(container, getText, getShow, appSlug) {
+  container.innerHTML = `
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="row">
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
+    </div>
+    <p class="toast" id="bMsg" aria-live="polite"></p>
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
+  const inp = $("#eleve", container);
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
+  const msg = t => { $("#bMsg", container).textContent = t; };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bCp", container).onclick = () => {
+    const txt = getText(inp.value); const ta = $("#bTxt", container);
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
+  };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
+  $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
+}
+function showOverlay(html) {
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
+  document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
+  const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
+  c.onclick = close; document.addEventListener("keydown", k);
+}
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
+
+/* ===== Boîte à outils commune : typographie, SVG à la largeur réelle, commande d'animation ===== */
+const SIMUL = "Valeurs simulées";
+const NB = " ", NN = " ";
+const tbl = (head, rows) => `<div class="tablewrap"><table class="t"><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+/* ---------- typographie française appliquée aux contenus ---------- */
+function nb(s) {
+  return String(s).replace(/ ([?!;])/g, NN + "$1").replace(/ :(?=[ <]|$)/g, NB + ":").replace(/« /g, "«" + NB).replace(/ »/g, NB + "»")
+    .replace(/(\d) (\d{3})(?!\d)/g, "$1" + NN + "$2").replace(/(\d) (%|°C|m|cm|mm|mL|L|W|km|km²|km³|Mt|t|kg|ans|min|fois|millions)(?![\wà-ÿ²³])/g, "$1" + NB + "$2");
+}
+function typo(o) { if (typeof o === "string") return nb(o); if (Array.isArray(o)) return o.map(typo); if (o && typeof o === "object") { Object.keys(o).forEach(k => { if (typeof o[k] !== "function") o[k] = typo(o[k]); }); } return o; }
+
+/* ---------- SVG redessiné à la largeur réelle (texte toujours lisible) ---------- */
+const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+function liveSVG(host, draw) {
+  const o = { host, draw() { const W = Math.max(260, host.clientWidth || 320); host.innerHTML = draw(W, fsPx()); } };
+  o.draw(); Charts.list.add(o);
+  if (window.ResizeObserver) { let lw = host.clientWidth; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; o.draw(); } }).observe(host); }
+  return o;
+}
+const sT = (x, y, txt, a, size, extra) => `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${size.toFixed(1)}px" ${extra || ""}>${esc(txt)}</text>`;
+const TK = F => Math.max(15, F * 0.76);
+function arrow(x1, y1, x2, y2, w, color, op) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = Math.max(w * 1.1, 10), hw = Math.max(w * 0.95, 7);
+  const bx = x2 - Math.cos(a) * hl, by = y2 - Math.sin(a) * hl, nx = -Math.sin(a), ny = Math.cos(a);
+  return `<g style="opacity:${op || 1}"><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" style="stroke:var(--${color});stroke-width:${Math.max(w, 1.5).toFixed(1)}"/><polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${(bx + nx * hw).toFixed(1)},${(by + ny * hw).toFixed(1)} ${(bx - nx * hw).toFixed(1)},${(by - ny * hw).toFixed(1)}" style="fill:var(--${color})"/></g>`;
+}
+
+/* ---------- commande d'animation commune : Lancer / Pause / Recommencer ---------- */
+function animCtl(el, dur, onP) {
+  el.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+  const st = { p: 0, playing: false, lt: 0, raf: 0 }, b = el.querySelector('[data-a="run"]');
+  const lab = () => { b.textContent = st.playing ? CT.animPause : (st.p > 0 && st.p < 1) ? CT.animResume : CT.animRun; };
+  const frame = ts => {
+    if (!st.playing) return; if (!document.body.contains(el)) { st.playing = false; return; }
+    const dt = st.lt ? Math.min(100, ts - st.lt) : 0; st.lt = ts; st.p = Math.min(1, st.p + dt / dur);
+    if (st.p >= 1) st.playing = false; onP(st.p); lab(); if (st.playing) st.raf = requestAnimationFrame(frame);
+  };
+  st.play = () => { if (st.p >= 1) st.p = 0; st.playing = true; st.lt = 0; lab(); st.raf = requestAnimationFrame(frame); };
+  st.pause = () => { st.playing = false; cancelAnimationFrame(st.raf); lab(); };
+  st.set = p => { st.pause(); st.p = Math.max(0, Math.min(1, p)); onP(st.p); lab(); };
+  b.onclick = () => st.playing ? st.pause() : st.play();
+  el.querySelector('[data-a="reset"]').onclick = () => st.set(0);
+  lab(); onP(0); return st;
+}
+
+
+/* ===== 2nde SVT · Pomme de terre et métabolisme (FR / DNL EN) : simulations ===== */
+const EN = window.TP_LANG === "en", t = (f, e) => EN ? e : f;
+Store.key = EN ? "svt2-potato-metabolism-en-v1" : "svt2-pomme-metabolisme-v1";
+const WID = {};
+
+/* --- TP virtuel : amidon + amylase, tests à l'eau iodée puis Glucotest --- */
+const IO = [["io0", t("bleu-noir", "blue-black")], ["io1", t("violet", "purple")], ["io2", t("brun", "brown")], ["io3", t("jaune-brun", "yellow-brown")], ["io4", t("jaune", "yellow")]];
+WID.plaque = el => {
+  el.innerHTML = `<p class="lead">${t("Tube 1 : empois d'amidon seul. Tube 2 : empois d'amidon + amylase. Les deux tubes sont à 37 °C. Toutes les 3 minutes, on teste quelques gouttes à l'eau iodée.", "Tube 1: starch solution only. Tube 2: starch solution + amylase. Both tubes are kept at 37 °C. Every 3 minutes, a few drops are tested with iodine solution.")}</p><div class="row animctl"></div><p class="readout" aria-live="polite"></p><div class="figbox" style="max-width:30rem;margin:0 auto"></div>`;
+  let p = 0; const fig = liveSVG($(".figbox", el), (W, F) => {
+    const tk = TK(F), rh = F * 3.4, top = F * 2, H = top + rh * 5 + F * 4.6, x1 = W * 0.4, x2 = W * 0.76, r = F * 0.95, n = Math.min(5, Math.floor(p * 5.001 / 0.83) + (p > 0 ? 1 : 0));
+    let g = sT(x1, F * 1.2, t("Tube 1", "Tube 1"), "middle", tk, 'font-weight="800"') + sT(x2, F * 1.2, t("Tube 2", "Tube 2"), "middle", tk, 'font-weight="800"');
+    for (let i = 0; i < 5; i++) { const y = top + rh * i + r + 4; g += sT(4, y + tk * 0.35, i * 3 + " min", "start", tk, 'font-weight="700"');
+      [[x1, 0], [x2, i]].forEach(([x, k]) => { const on = i < n; g += `<circle cx="${x}" cy="${y}" r="${r}" style="fill:var(--${on ? IO[k][0] : "well"});stroke:var(--ink);stroke-width:2"/>` + (on ? sT(x, y + r + tk * 1.05, IO[k][1], "middle", tk * 0.92) : ""); }); }
+    const gy = top + rh * 5 + F * 0.6, done = p >= 1;
+    g += sT(4, gy + F * 1.4, "Glucotest", "start", tk, 'font-weight="700"') + sT(4, gy + F * 1.4 + tk * 1.15, "12 min", "start", tk * 0.92);
+    [[x1, 0], [x2, 1]].forEach(([x, pos]) => { g += `<rect x="${x - F * 0.5}" y="${gy}" width="${F}" height="${F * 2.2}" rx="4" style="fill:var(--${done ? (pos ? "gpos" : "gneg") : "well"});stroke:var(--ink);stroke-width:2"/>` + (done ? sT(x, gy + F * 2.2 + tk * 1.1, pos ? t("vert : positif", "green: positive") : t("jaune : négatif", "yellow: negative"), "middle", tk * 0.92, 'font-weight="700"') : ""); });
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${t("Plaque à godets : résultats du test à l'eau iodée pour les deux tubes de 0 à 12 minutes, puis bandelettes Glucotest", "Well plate: iodine test results for both tubes from 0 to 12 minutes, then Glucotest strips")}">${g}</svg>`; });
+  animCtl($(".animctl", el), 9000, q => { p = q; fig.draw(); $(".readout", el).innerHTML = q <= 0 ? t("Bain-marie à 37 °C prêt.", "Water bath at 37 °C ready.") : q < 1 ? `${t("Prélèvements en cours…", "Sampling in progress…")} <b>${Math.min(12, Math.floor(q * 14.5))}${NB}min</b>` : t("<b>12 min</b> : derniers tests à l'eau iodée, puis bandelettes Glucotest.", "<b>12 min</b>: last iodine tests, then Glucotest strips."); });
+};
+
+/* --- document : activité de la voie de dégradation du glycogène --- */
+WID.glyco = el => { el.innerHTML = `<div class="chartbox"></div>`; mountChart($(".chartbox", el), { type: "bar", categories: [t("Repos", "At rest"), t("Exercice", "During exercise")], series: [{ name: t("Activité", "Activity"), values: [108, 1512], color: "c1" }], yMax: 1600, yStep: 400, xTitle: t("Cellule musculaire", "Muscle cell"), yTitle: t("Activité (unités arbitraires)", "Activity (arbitrary units)"), h: 13, alt: t("Activité de la voie de dégradation du glycogène au repos et à l'exercice", "Activity of the glycogen breakdown pathway at rest and during exercise") }); };
+
+/* --- document manipulable : quelques voies métaboliques du glucose --- */
+const NODES = { glu: [0.16, 0.34, ["GLUCOSE"]], g6p: [0.5, 0.34, ["GLU-6-P"]], pyr: [0.84, 0.34, [t("PYRUVATE", "PYRUVATE")]], gly: [0.5, 0.09, [t("GLYCOGÈNE", "GLYCOGEN")]], lac: [0.84, 0.09, ["LACTATE"]], aco: [0.84, 0.6, [t("Acétyl-CoA", "Acetyl-CoA")]], tri: [0.42, 0.6, [t("Triglycérides", "Triglycerides")]], chn: [0.84, 0.86, t(["Chaîne", "respiratoire"], ["Respiratory", "chain"])], ene: [0.36, 0.86, ["CO₂ + H₂O", t("+ ÉNERGIE", "+ ENERGY")]] };
+const EDGES = [["glu", "g6p", "EA", "EA"], ["g6p", "pyr", "EB…EE", "EB"], ["g6p", "gly", "EJ EK EL", "EJ"], ["pyr", "lac", "EG", "EG"], ["pyr", "aco", "EF", "EF"], ["aco", "tri", "EH / EI", "EH"], ["aco", "chn", "", "CH"], ["chn", "ene", "+ O₂", "CH"]];
+WID.voies = el => {
+  let blk = "";
+  const B = [["", t("Aucune", "None")], ["EA", "EA"], ["EF", "EF"], ["EG", "EG"], ["EH", "EH"], ["EJ", "EJ"]];
+  el.innerHTML = `<p class="lead">${t("Chaque flèche est une réaction rendue possible par une enzyme (E). E<sub>A</sub> est l'hexokinase. Choisis une enzyme absente de la cellule : les molécules qu'elle ne peut plus fabriquer à partir du glucose sont barrées.", "Each arrow is a reaction made possible by an enzyme (E). E<sub>A</sub> is hexokinase. Choose an enzyme missing from the cell: the molecules it can no longer make from glucose are crossed out.")}</p><div class="opt3"><div><span class="lab3">${t("Enzyme absente", "Missing enzyme")}</span><div class="seg" role="group">${B.map(([k, l]) => `<button type="button" data-b="${k}">${l}</button>`).join("")}</div></div></div><div class="figbox"></div><p class="readout" aria-live="polite"></p>`;
+  const reach = () => { const ok = new Set(["glu"]); let ch = true; while (ch) { ch = false; EDGES.forEach(([a, b, , e]) => { if (e !== blk && ok.has(a) && !ok.has(b)) { ok.add(b); ch = true; } }); } return ok; };
+  const fig = liveSVG($(".figbox", el), (W, F) => { const tk = TK(F) * (W < 420 ? 0.9 : 1), H = Math.max(F * 17, W * 0.62), ok = reach(), P = k => [NODES[k][0] * W, NODES[k][1] * H + F], bw = k => Math.max(...NODES[k][2].map(s => s.length)) * tk * 0.62 + tk, bh = k => NODES[k][2].length * tk * 1.2 + tk * 0.6; let g = "";
+    EDGES.forEach(([a, b, lab, e]) => { const [x1, y1] = P(a), [x2, y2] = P(b), off = e === blk, dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L, s1 = Math.abs(ux) > Math.abs(uy) ? bw(a) / 2 : bh(a) / 2, s2 = Math.abs(ux) > Math.abs(uy) ? bw(b) / 2 : bh(b) / 2;
+      g += arrow(x1 + ux * (s1 + 3), y1 + uy * (s1 + 3), x2 - ux * (s2 + 4), y2 - uy * (s2 + 4), 2.5, off ? "bad" : "ink", off ? 0.9 : 1) + (lab ? sT((x1 + x2) / 2 + (Math.abs(uy) > 0.5 ? tk * 0.5 : 0), (y1 + y2) / 2 - (Math.abs(uy) > 0.5 ? 0 : (W < 520 ? bh(a) / 2 + 6 : tk * 0.55)), lab + (off ? " ✗" : ""), Math.abs(uy) > 0.5 ? "start" : "middle", tk * 0.9, `font-weight="800"${off ? ' style="fill:var(--bad)"' : ""}`) : ""); });
+    Object.keys(NODES).forEach(k => { const [x, y] = P(k), w = bw(k), h = bh(k), o = ok.has(k); g += `<rect x="${x - w / 2}" y="${y - h / 2}" width="${w}" height="${h}" rx="6" style="fill:var(--${o ? "surface" : "bad-soft"});stroke:var(--${o ? "ink" : "bad"});stroke-width:2" ${o ? "" : 'stroke-dasharray="5 4"'}/>` + NODES[k][2].map((s, i) => sT(x, y - h / 2 + tk * (1.15 + i * 1.2), s, "middle", tk, `font-weight="700"${o ? "" : ' text-decoration="line-through"'}`)).join(""); });
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${t("Carte de quelques voies métaboliques du glucose", "Map of some metabolic pathways of glucose")}">${g}</svg>`; });
+  const upd = () => { $$("[data-b]", el).forEach(b => b.setAttribute("aria-pressed", b.dataset.b === blk ? "true" : "false")); fig.draw(); const lost = Object.keys(NODES).filter(k => !reach().has(k)).map(k => NODES[k][2].join(" ")); $(".readout", el).innerHTML = !blk ? t("Toutes les enzymes sont présentes.", "All enzymes are present.") : lost.length ? `${t("Sans", "Without")} <b>${blk}</b>, ${t("la cellule ne peut plus fabriquer", "the cell can no longer make")} : <b>${lost.join(" · ")}</b>.` : ""; };
+  $$("[data-b]", el).forEach(b => b.onclick = () => { blk = b.dataset.b; upd(); }); upd();
+};
+
+/* ===== 2nde SVT · Thème 1, chapitre 2 · Activité « pomme de terre », d'après les fiches du professeur (FR et DNL EN) ===== */
+const PROBLEM = t("Comment la pomme de terre permet-elle le fonctionnement de l'organisme humain ?", "How does the potato enable the human organism to function?");
+const gap = `<span class="gap">………</span>`;
+const HOME = { slug: t("pomme-de-terre-metabolisme", "potato-metabolism"), short: t("Pomme de terre et métabolisme", "Potato and metabolism"),
+  kicker: t("Thème 1 · Chapitre 2 · Le métabolisme des cellules", "Theme 1 · Chapter 2 · Cell metabolism"), title: t("La respiration cellulaire, le métabolisme principal du corps humain", "Cellular respiration, the body's main metabolism"),
+  intro: t("La pomme de terre est un tubercule riche en amidon, une molécule organique composée de plusieurs molécules de glucose. Le corps humain est fait de nombreuses cellules spécialisées qui ont besoin de matière et d'énergie pour fonctionner.", "The potato is a tuber rich in starch, an organic molecule composed of multiple glucose molecules. The human body is made up of numerous specialized cells that require matter and energy to function."),
+  lab: t("Problème", "Problem"), parts: t("Les trois parties de l'activité", "The three parts of the activity"), recop: t("Schéma bilan de l'activité", "Summary of the activity"),
+  txt: t("POMME DE TERRE ET MÉTABOLISME DES CELLULES\\n2nde SVT · Thème 1, chapitre 2", "POTATO AND CELL METABOLISM\\nYear 11 (2nde) · DNL Biology · Theme 1, chapter 2").replace(/\\n/g, "\n"),
+  comps: EN ? { conn: "Use prior knowledge", lire: "Extract useful information", mod: "Carry out and analyse an experiment", calc: "Calculate", rais: "Build an explanation" } : { conn: "Mobiliser ses connaissances", lire: "Extraire des informations utiles", mod: "Réaliser et analyser une expérience", calc: "Calculer", rais: "Adopter une démarche explicative" } };
+const DOC_TRAJET = { title: t("Document 1 · Le trajet des aliments dans le tube digestif", "Document 1 · The path of food through the digestive tract"), html: `<ul class="ul">${(EN ? ["<b>Mouth</b>: food is acted on by the teeth and by saliva.", "<b>Oesophagus</b>, then <b>stomach</b>: food is churned and acted on by gastric juice.", "<b>Small intestine</b>: pancreatic juice (from the pancreas) and bile (from the liver) break food down into nutrients. Nutrients pass into the blood: they are absorbed.", "<b>Large intestine</b>: what has not been absorbed forms the stools, expelled through the anus."] : ["<b>Bouche</b> : les aliments subissent l'action des dents et de la salive.", "<b>Œsophage</b>, puis <b>estomac</b> : ils sont malaxés et subissent l'action du suc gastrique.", "<b>Intestin grêle</b> : le suc pancréatique (produit par le pancréas) et la bile (produite par le foie) décomposent les aliments en nutriments. Les nutriments passent dans le sang : ils sont absorbés.", "<b>Gros intestin</b> : ce qui n'a pas été absorbé forme les selles, rejetées par l'anus."]).map(x => `<li>${x}</li>`).join("")}</ul>` };
+const DOC_SANG = { title: t("Document 2 · Quantité de glucose dans le sang entrant et sortant de quelques organes", "Document 2 · Glucose quantity in blood entering and leaving digestive organs"), html: tbl([t("Organe", "Organ"), t("Glucose (mg) dans 100 mL de sang entrant", "Glucose (mg) per 100 mL of entering blood"), t("Glucose (mg) dans 100 mL de sang sortant", "Glucose (mg) per 100 mL of exiting blood")], [[t("Estomac", "Stomach"), "90", "90"], [t("Intestin grêle", "Small intestine"), "90", "180"], [t("Gros intestin", "Large intestine"), "90", "90"]]) };
+const DOC_STOCK = { title: t("Document 1 · Des organes spécialisés dans le stockage de nutriments", "Document 1 · Organs specialized in storing nutrients"), html: EN ? `<p>Once digested, our food passes into the blood as nutrients (carbohydrates, lipids, proteins…). Most of these nutrients are used by our muscles and cells to produce the energy they need through <b>cellular respiration</b>, a reaction that uses oxygen and nutrients to produce energy.</p><p>When energy intake exceeds our needs, unused nutrients are stored, either as glycogen in our muscles and liver (limited storage), or, mostly, as triglycerides (lipids) in adipose tissue (unlimited storage), which is responsible for weight gain. If this excess is constantly repeated, it slowly leads to obesity.</p>` : `<p>Une fois digérés, nos aliments passent dans le sang sous forme de nutriments (glucides, lipides, protéines…). La grande majorité de ces nutriments seront utilisés par nos muscles et nos cellules pour produire l'énergie dont ils ont besoin grâce à la <b>respiration cellulaire</b> ; réaction qui utilise le dioxygène et les nutriments pour produire de l'énergie.</p><p>Lorsque les apports énergétiques sont supérieurs à nos besoins, les nutriments non utilisés sont stockés, soit sous forme de glycogène dans nos muscles et foie (stockage limité), ou bien, majoritairement, sous forme de triglycérides (lipides) dans le tissu adipeux (stockage illimité), responsable de la prise de poids. Si cet excès est constamment répété, il mène lentement à l'obésité.</p>` };
+const DOC_GLYCO = { title: t("Document 2 · Activité de la voie de dégradation du glycogène dans une cellule musculaire", "Document 2 · Activity of the glycogen breakdown pathway in a muscle cell"), w: "glyco" };
+const BIL = EN ? ["In the small intestine, <u>amylase</u>, an <u>enzyme</u>, transforms the <u>starch</u> of the potato into <u>glucose</u>.", "Glucose passes into the <u>blood</u> through the wall of the small intestine and is carried to all the organs.", "In cells, glucose is used in the mitochondria for <u>cellular respiration</u>, which uses oxygen and produces <u>energy</u>.", "Excess glucose is stored as <u>glycogen</u> in the liver and muscles, or as <u>triglycerides</u> in adipose tissue.", "Each step of a metabolic pathway is made possible by a specific <u>enzyme</u>. Specialized cells do not express the same genes, so they do not have the same enzymes."] : ["Dans l'intestin grêle, l'<u>amylase</u>, une <u>enzyme</u>, transforme l'<u>amidon</u> de la pomme de terre en <u>glucose</u>.", "Le glucose passe dans le <u>sang</u> au niveau de la paroi de l'intestin grêle et est distribué à tous les organes.", "Dans les cellules, le glucose est utilisé dans les mitochondries par la <u>respiration cellulaire</u>, qui consomme du dioxygène et produit de l'<u>énergie</u>.", "Le glucose en excès est stocké sous forme de <u>glycogène</u> dans le foie et les muscles, ou de <u>triglycérides</u> dans le tissu adipeux.", "Chaque étape d'une voie métabolique est rendue possible par une <u>enzyme</u> spécifique. Les cellules spécialisées n'expriment pas les mêmes gènes : elles n'ont donc pas les mêmes enzymes."];
+const bilanHTML = () => BIL.map(x => `<p>${EN ? x : nb(x)}</p>`).join("");
+const PA = [t("Amidon présent", "Starch present"), t("Amidon absent", "Starch absent")], GL = [t("Positif : glucose présent", "Positive: glucose present"), t("Négatif : pas de glucose", "Negative: no glucose")];
+
+const GROUPS = [
+{ id: "p1", n: 1, icon: "🥔", tab: t("Digestion", "Digestion"), title: t("La digestion de la pomme de terre", "Potato digestion"), sub: t("Expérience avec l'amylase, puis passage du glucose dans le sang.", "Experiment with amylase, then how glucose reaches the blood."),
+  items: [
+  { id: "a1", lvl: "easy", title: t("TP virtuel · L'action de l'amylase", "Virtual lab · The action of amylase"),
+    intro: t("Rappels : l'eau iodée teste la présence d'amidon (elle devient bleu-noir). Les bandelettes « Glucotest » détectent la présence de glucose. Ce TP virtuel ne remplace pas ta manipulation : compare avec tes propres résultats.", "Reminders: iodine solution tests for starch (it turns blue-black). Glucotest strips detect glucose. This virtual lab does not replace your own experiment: compare with your own results."),
+    pre: { label: t("Ton hypothèse : dans quel tube l'amidon va-t-il disparaître ?", "Your hypothesis: in which tube will the starch disappear?"), o: [t("Dans le tube 1 (sans amylase)", "In tube 1 (no amylase)"), t("Dans le tube 2 (avec amylase)", "In tube 2 (with amylase)"), t("Dans les deux tubes", "In both tubes"), t("Dans aucun des deux", "In neither tube")], a: 1 },
+    widget: { title: t("TP virtuel · Plaque à godets et bandelettes", "Virtual lab · Well plate and test strips"), w: "plaque", sim: t("Valeurs simulées", "Simulated results") },
+    parts: [
+      { t: "rows", c: "mod", label: t("À 12 minutes, que montre le test à l'eau iodée ?", "At 12 minutes, what does the iodine test show?"), choices: PA, rows: [{ txt: t("Tube 1", "Tube 1"), a: 0 }, { txt: t("Tube 2", "Tube 2"), a: 1 }] },
+      { t: "rows", c: "mod", label: t("À 12 minutes, que montre la bandelette Glucotest ?", "At 12 minutes, what does the Glucotest strip show?"), choices: GL, rows: [{ txt: t("Tube 1", "Tube 1"), a: 1 }, { txt: t("Tube 2", "Tube 2"), a: 0 }] },
+      { t: "choice", c: "rais", label: t("À quoi sert le tube 1 ?", "What is tube 1 for?"), o: [t("C'est le témoin : il montre que, sans amylase, l'amidon ne disparaît pas tout seul", "It is the control: it shows that, without amylase, starch does not disappear by itself"), t("Il sert à gagner du temps", "It saves time"), t("Il contient plus d'amidon", "It contains more starch")], a: 0 },
+      { t: "choice", c: "conn", label: t("Pourquoi place-t-on les tubes à 37 °C ?", "Why are the tubes kept at 37 °C?"), o: [t("C'est la température du corps humain", "It is human body temperature"), t("Pour faire bouillir l'amidon", "To boil the starch"), t("Pour colorer l'eau iodée", "To colour the iodine solution")], a: 0 }],
+    hints: [t("Regarde la dernière ligne de la plaque : de quelle couleur est chaque godet ?", "Look at the last row of the plate: what colour is each well?"), t("Bleu-noir : il reste de l'amidon. Jaune : il n'y en a plus.", "Blue-black: starch is still there. Yellow: no starch left."), t("Tube 1 : amidon présent, Glucotest négatif. Tube 2 : amidon absent, Glucotest positif.", "Tube 1: starch present, Glucotest negative. Tube 2: starch absent, Glucotest positive.")],
+    corr: t("Dans le tube 1 (témoin), l'eau iodée reste bleu-noir et le Glucotest est négatif : l'amidon est toujours là. Dans le tube 2, la coloration bleu-noir disparaît peu à peu et le Glucotest devient positif : l'amidon a disparu et du glucose est apparu.", "In tube 1 (control), iodine stays blue-black and Glucotest is negative: the starch is still there. In tube 2, the blue-black colour gradually disappears and Glucotest becomes positive: starch has disappeared and glucose has appeared.") },
+  { id: "a2", lvl: "mid", title: t("Je vois, je sais, j'en déduis", "I see, I know, I conclude"),
+    parts: [
+      { t: "choice", c: "mod", label: t("Je vois que, dans le tube 2…", "I see that, in tube 2…"), o: [t("l'amidon disparaît et du glucose apparaît", "starch disappears and glucose appears"), t("l'amidon et le glucose disparaissent", "starch and glucose both disappear"), t("rien ne change", "nothing changes")], a: 0 },
+      { t: "choice", c: "conn", label: t("Je sais que…", "I know that…"), o: [t("l'amidon est une molécule composée de plusieurs molécules de glucose", "starch is a molecule composed of multiple glucose molecules"), t("l'amidon est composé de molécules d'eau iodée", "starch is made of iodine molecules"), t("le glucose est composé de plusieurs molécules d'amidon", "glucose is made of several starch molecules")], a: 0 },
+      { t: "choice", c: "rais", label: t("J'en déduis que…", "I conclude that…"), o: [t("l'amylase transforme l'amidon en glucose", "amylase transforms starch into glucose"), t("l'amylase transforme le glucose en amidon", "amylase transforms glucose into starch"), t("la chaleur détruit l'amidon", "heat destroys starch")], a: 0, no: { 2: t("Le tube 1 est aussi à 37 °C, et l'amidon y reste intact.", "Tube 1 is also at 37 °C, and its starch stays intact.") } },
+      { t: "word", c: "conn", label: t(`L'amylase est une molécule qui rend possible une transformation chimique : c'est une ${gap}.`, `Amylase is a molecule that makes a chemical transformation possible: it is an ${gap}.`), ans: EN ? ["enzyme", "enzymes"] : ["enzyme", "une enzyme"] }],
+    hints: [t("Reprends les résultats du tube 2 : amidon, puis glucose.", "Go back to the results of tube 2: starch, then glucose."), t("Le tube 1 prouve que ni le temps ni la température ne suffisent.", "Tube 1 proves that neither time nor temperature is enough."), t("L'amylase, une enzyme, transforme l'amidon en glucose.", "Amylase, an enzyme, transforms starch into glucose.")],
+    corr: t("Je vois que, dans le tube 2, l'amidon disparaît et du glucose apparaît, alors que rien ne change dans le tube 1. Je sais que l'amidon est composé de plusieurs molécules de glucose. J'en déduis que l'amylase, une enzyme présente dans la salive et le suc pancréatique, transforme l'amidon en glucose.", "I see that, in tube 2, starch disappears and glucose appears, whereas nothing changes in tube 1. I know that starch is composed of multiple glucose molecules. I conclude that amylase, an enzyme found in saliva and pancreatic juice, transforms starch into glucose.") },
+  { id: "a3", lvl: "mid", title: t("Du tube digestif au sang", "From the digestive tract to the blood"), docs: [DOC_TRAJET, DOC_SANG],
+    parts: [
+      { t: "num", c: "calc", label: t("De combien la quantité de glucose augmente-t-elle dans le sang qui traverse l'intestin grêle ?", "By how much does the glucose quantity increase in blood passing through the small intestine?"), unit: t("mg pour 100 mL", "mg per 100 mL"), ans: 90, err: [[v => v === 180, t("180 est la quantité à la sortie. On demande l'augmentation.", "180 is the exiting quantity. The question asks for the increase.")], [v => v === 2, t("Le sang en contient 2 fois plus, mais on demande l'augmentation en mg.", "There is twice as much, but the question asks for the increase in mg.")]] },
+      { t: "choice", c: "lire", label: t("Dans quel organe le glucose passe-t-il dans le sang ?", "In which organ does glucose pass into the blood?"), o: [t("L'estomac", "The stomach"), t("L'intestin grêle", "The small intestine"), t("Le gros intestin", "The large intestine")], a: 1 },
+      { t: "choice", c: "rais", label: t("Que devient l'amidon de la pomme de terre que tu manges ?", "What happens to the starch in the potato you eat?"), o: [t("Il est transformé en glucose par l'amylase (salive, suc pancréatique), puis le glucose passe dans le sang au niveau de l'intestin grêle", "It is transformed into glucose by amylase (saliva, pancreatic juice), then glucose passes into the blood in the small intestine"), t("Il passe directement dans le sang au niveau de l'estomac", "It passes directly into the blood in the stomach"), t("Il est rejeté entièrement par le gros intestin", "It is entirely expelled by the large intestine")], a: 0 }],
+    hints: [t("Compare le sang entrant et le sang sortant de chaque organe.", "Compare entering and exiting blood for each organ."), t("Un seul organe enrichit le sang en glucose : 90 → 180.", "Only one organ enriches the blood in glucose: 90 → 180."), t("+ 90 mg pour 100 mL dans l'intestin grêle : c'est là que le glucose est absorbé.", "+ 90 mg per 100 mL in the small intestine: that is where glucose is absorbed.")],
+    corr: t("Le sang qui sort de l'intestin grêle contient 180 mg de glucose pour 100 mL, contre 90 à l'entrée : il s'est enrichi de 90 mg. L'amidon est donc digéré en glucose par l'amylase, puis le glucose est absorbé : il passe dans le sang au niveau de l'intestin grêle.", "Blood leaving the small intestine contains 180 mg of glucose per 100 mL, against 90 on entering: it has gained 90 mg. Starch is therefore digested into glucose by amylase, then glucose is absorbed: it passes into the blood in the small intestine.") }] },
+
+{ id: "p2", n: 2, icon: "💪", tab: t("Utilisation", "Use"), title: t("L'utilisation du glucose par différents organes", "How different organs use glucose"), sub: t("Stockage, respiration cellulaire et voies métaboliques.", "Storage, cellular respiration and metabolic pathways."),
+  items: [
+  { id: "b1", lvl: "easy", title: t("Utiliser ou stocker", "Use or store"), docs: [DOC_STOCK],
+    parts: [
+      { t: "rows", c: "lire", label: t("Sous quelle forme cet organe stocke-t-il les nutriments ?", "In which form does this organ store nutrients?"), choices: [t("Glycogène", "Glycogen"), t("Triglycérides", "Triglycerides")], rows: [{ txt: t("Le foie", "The liver"), a: 0 }, { txt: t("Le tissu adipeux", "Adipose tissue"), a: 1 }, { txt: t("Les muscles", "The muscles"), a: 0 }] },
+      { t: "choice", c: "lire", label: t("La respiration cellulaire est une réaction qui…", "Cellular respiration is a reaction that…"), o: [t("utilise le dioxygène et les nutriments pour produire de l'énergie", "uses oxygen and nutrients to produce energy"), t("utilise l'énergie pour produire du dioxygène", "uses energy to produce oxygen"), t("stocke les nutriments dans le tissu adipeux", "stores nutrients in adipose tissue")], a: 0 },
+      { t: "choice", c: "lire", label: t("Quand les nutriments sont-ils stockés ?", "When are nutrients stored?"), o: [t("Quand les apports énergétiques sont supérieurs aux besoins", "When energy intake exceeds needs"), t("Pendant un exercice physique intense", "During intense physical exercise"), t("Jamais : tout est utilisé", "Never: everything is used")], a: 0 }],
+    hints: [t("Les réponses sont dans le texte du document 1.", "The answers are in the text of document 1."), t("Glycogène : muscles et foie. Triglycérides : tissu adipeux.", "Glycogen: muscles and liver. Triglycerides: adipose tissue."), t("La respiration cellulaire utilise dioxygène et nutriments pour produire de l'énergie.", "Cellular respiration uses oxygen and nutrients to produce energy.")],
+    corr: t("La majorité des nutriments est utilisée par les cellules pour produire de l'énergie grâce à la respiration cellulaire, qui utilise le dioxygène. Les nutriments en excès sont stockés sous forme de glycogène (foie, muscles) ou de triglycérides (tissu adipeux).", "Most nutrients are used by cells to produce energy through cellular respiration, which uses oxygen. Excess nutrients are stored as glycogen (liver, muscles) or as triglycerides (adipose tissue).") },
+  { id: "b2", lvl: "mid", title: t("Le muscle à l'exercice", "Muscle during exercise"), docs: [DOC_GLYCO],
+    parts: [
+      { t: "num", c: "calc", label: t("Par combien l'activité de la voie de dégradation du glycogène est-elle multipliée à l'exercice ?", "By what factor is the activity of the glycogen breakdown pathway multiplied during exercise?"), unit: t("fois", "times"), ans: 14, tol: 0.1, err: [[v => v === 1404, t("1 404 est la différence. On demande par combien l'activité est multipliée.", "1,404 is the difference. The question asks for the multiplying factor.")]] },
+      { t: "choice", c: "rais", label: t("Comment l'expliquer ?", "How can this be explained?"), o: [t("À l'exercice, le muscle a besoin de plus d'énergie : il dégrade son glycogène pour libérer du glucose", "During exercise, muscle needs more energy: it breaks down its glycogen to release glucose"), t("À l'exercice, le muscle stocke davantage de glycogène", "During exercise, muscle stores more glycogen"), t("Le glycogène est détruit par la chaleur", "Glycogen is destroyed by heat")], a: 0 }],
+    hints: [t("Touche les barres du graphique pour lire les valeurs.", "Tap the bars to read the values."), t("Divise la valeur à l'exercice par la valeur au repos.", "Divide the exercise value by the resting value."), t("1 512 ÷ 108 = 14.", "1,512 ÷ 108 = 14.")],
+    corr: t("L'activité de la voie de dégradation du glycogène passe de 108 à 1 512 unités : elle est multipliée par 14. À l'exercice, la cellule musculaire dégrade son glycogène pour disposer de glucose, qu'elle utilise pour produire l'énergie dont elle a besoin.", "The activity of the glycogen breakdown pathway rises from 108 to 1,512 units: it is multiplied by 14. During exercise, the muscle cell breaks down its glycogen to obtain glucose, which it uses to produce the energy it needs.") },
+  { id: "b3", lvl: "hard", title: t("Les voies métaboliques du glucose", "The metabolic pathways of glucose"),
+    intro: t("Comme sur un plan de métro : une voie métabolique est une succession de réactions, et chaque étape est rendue possible par une enzyme spécifique. Une même molécule peut être utilisée dans plusieurs voies.", "Like a metro map: a metabolic pathway is a succession of reactions, and each step is made possible by a specific enzyme. The same molecule can be involved in several pathways."),
+    widget: { title: t("Document 3 · Quelques voies métaboliques du glucose", "Document 3 · Some metabolic pathways of glucose"), w: "voies", sim: t("Schéma à manipuler", "Interactive diagram") },
+    parts: [
+      { t: "word", c: "lire", label: t("Quel est le nom de l'enzyme qui transforme le glucose en GLU-6-P ?", "What is the name of the enzyme that transforms glucose into GLU-6-P?"), ans: ["hexokinase", "EA"] },
+      { t: "num", c: "lire", label: t("Combien d'enzymes faut-il en tout pour passer du glucose au pyruvate ?", "How many enzymes are needed in total to go from glucose to pyruvate?"), unit: t("enzymes", "enzymes"), ans: 5, err: [[v => v === 4, t("N'oublie pas la première étape, du glucose au GLU-6-P.", "Do not forget the first step, from glucose to GLU-6-P.")]] },
+      { t: "multi", c: "rais", label: t("Une cellule ne possède pas l'enzyme EF. Que ne peut-elle plus produire à partir du glucose ? (3 réponses)", "A cell lacks enzyme EF. What can it no longer produce from glucose? (3 answers)"), o: ["Lactate", t("Glycogène", "Glycogen"), t("Acétyl-CoA", "Acetyl-CoA"), t("Triglycérides", "Triglycerides"), t("CO₂ + H₂O + énergie par la chaîne respiratoire", "CO₂ + H₂O + energy through the respiratory chain")], a: [2, 3, 4] },
+      { t: "choice", c: "rais", label: t("Pourquoi une cellule du tissu adipeux fabrique-t-elle beaucoup de triglycérides, contrairement à une cellule musculaire ?", "Why does an adipose tissue cell make many triglycerides, unlike a muscle cell?"), o: [t("Les deux cellules n'expriment pas les mêmes gènes : elles ne possèdent pas les mêmes enzymes", "The two cells do not express the same genes: they do not have the same enzymes"), t("Elles ne reçoivent pas le même sang", "They do not receive the same blood"), t("La cellule musculaire n'a pas de noyau", "The muscle cell has no nucleus")], a: 0 }],
+    hints: [t("Sur le schéma, compte les enzymes de EA à EE.", "On the diagram, count the enzymes from EA to EE."), t("Choisis « EF » dans le schéma : les molécules barrées ne sont plus fabriquées.", "Choose “EF” on the diagram: crossed-out molecules are no longer made."), t("Hexokinase · 5 enzymes · sans EF : plus d'acétyl-CoA, donc plus de triglycérides ni de chaîne respiratoire.", "Hexokinase · 5 enzymes · without EF: no acetyl-CoA, so no triglycerides and no respiratory chain.")],
+    corr: t("L'hexokinase (EA) transforme le glucose en GLU-6-P ; il faut 5 enzymes (EA à EE) pour arriver au pyruvate. Sans EF, la cellule ne produit plus d'acétyl-CoA : ni triglycérides, ni CO₂ + H₂O + énergie par la chaîne respiratoire. Chaque cellule spécialisée exprime certains gènes, donc possède certaines enzymes, et réalise certaines voies métaboliques.", "Hexokinase (EA) transforms glucose into GLU-6-P; 5 enzymes (EA to EE) are needed to reach pyruvate. Without EF, the cell no longer produces acetyl-CoA: no triglycerides and no CO₂ + H₂O + energy through the respiratory chain. Each specialized cell expresses certain genes, so it has certain enzymes and carries out certain metabolic pathways.") }] },
+
+{ id: "p3", n: 3, icon: "🧩", tab: t("Synthèse", "Summary"), title: t("Synthétiser sur le schéma du corps humain", "Summarise on the human body diagram"), sub: t("Replace chaque événement au bon endroit.", "Put each event in the right place."),
+  items: [
+  { id: "d2", lvl: "hard", title: t("Le schéma bilan", "The summary diagram"), recop: true,
+    parts: [
+      { t: "match", c: "rais", label: t("Que se passe-t-il à chaque endroit ?", "What happens in each place?"), ask: t("Choisis ce qui se passe dans", "Choose what happens in"), rows: [
+        { e: "①", txt: t("L'intérieur de l'intestin grêle", "The inside of the small intestine"), v: t("L'amylase transforme l'amidon en glucose", "Amylase transforms starch into glucose") },
+        { e: "②", txt: t("Le vaisseau sanguin de l'intestin grêle", "The blood vessel of the small intestine"), v: t("Le glucose passe dans le sang", "Glucose passes into the blood") },
+        { e: "③", txt: t("La mitochondrie d'une cellule de muscle", "The mitochondrion of a muscle cell"), v: t("Respiration cellulaire : production d'énergie", "Cellular respiration: energy production") },
+        { e: "④", txt: t("Une cellule du tissu adipeux", "An adipose tissue cell"), v: t("Stockage sous forme de triglycérides", "Storage as triglycerides") }] },
+      { t: "choice", c: "rais", label: PROBLEM, o: [t("Son amidon est digéré en glucose, qui passe dans le sang et fournit aux cellules de la matière (stockage) et de l'énergie (respiration cellulaire)", "Its starch is digested into glucose, which passes into the blood and provides cells with matter (storage) and energy (cellular respiration)"), t("Son amidon passe tel quel dans les muscles", "Its starch passes unchanged into the muscles"), t("Elle apporte directement du dioxygène aux cellules", "It directly brings oxygen to the cells")], a: 0 }],
+    hints: [t("Suis le trajet : tube digestif, sang, puis cellules.", "Follow the path: digestive tract, blood, then cells."), t("L'énergie est produite dans les mitochondries.", "Energy is produced in the mitochondria."), t("① amylase · ② passage dans le sang · ③ respiration cellulaire · ④ triglycérides.", "① amylase · ② passage into the blood · ③ cellular respiration · ④ triglycerides.")],
+    corr: t("L'amidon de la pomme de terre est digéré en glucose par l'amylase dans l'intestin grêle. Le glucose passe dans le sang, qui le distribue aux organes. Les cellules l'utilisent pour produire de l'énergie par la respiration cellulaire, dans les mitochondries, ou le stockent : glycogène dans le foie et les muscles, triglycérides dans le tissu adipeux.", "Potato starch is digested into glucose by amylase in the small intestine. Glucose passes into the blood, which carries it to the organs. Cells use it to produce energy through cellular respiration, in the mitochondria, or store it: glycogen in the liver and muscles, triglycerides in adipose tissue.") }] }
+];
+const RAPPEL = { id: "r0", lvl: "easy", title: t("Échauffement", "Warm-up"),
+  parts: [
+    { t: "choice", c: "conn", label: t("L'amidon est une molécule…", "Starch is a molecule…"), o: [t("composée de plusieurs molécules de glucose", "composed of multiple glucose molecules"), t("composée d'une seule molécule de glucose", "made of a single glucose molecule"), t("composée de dioxygène", "made of oxygen")], a: 0 },
+    { t: "choice", c: "conn", label: t("Quel réactif permet de tester la présence d'amidon ?", "Which reagent tests for the presence of starch?"), o: [t("L'eau iodée", "Iodine solution"), t("La bandelette Glucotest", "The Glucotest strip"), t("L'eau distillée", "Distilled water")], a: 0 }],
+  hints: [t("Relis l'introduction.", "Read the introduction again."), t("Avec l'amidon, ce réactif devient bleu-noir.", "With starch, this reagent turns blue-black."), t("Plusieurs glucoses · l'eau iodée.", "Multiple glucose molecules · iodine solution.")],
+  corr: t("L'amidon est une molécule organique composée de plusieurs molécules de glucose. L'eau iodée le met en évidence : elle devient bleu-noir.", "Starch is an organic molecule composed of multiple glucose molecules. Iodine solution reveals it: it turns blue-black.") };
+const RESUME = `${t("Problème", "Problem")} : ${PROBLEM}\n\n${t("À retenir", "Key points")}\n${BIL.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}`;
+if (!EN) { typo(GROUPS); typo(RAPPEL); }
+
+/* ===== Pomme de terre et métabolisme (2nde) · moteur : navigation, questions, correction, bilan ===== */
+const LV = { easy: ["🟢 Easy", "easy", "🟢"], mid: ["🟡 Medium", "mid", "🟡"], hard: ["🔴 Challenge", "hard", "🔴"] };
+const COMPS = HOME.comps;
+const SIGN = "Mr Moreira, Vauban Luxembourg";
+const ITEMS = {};
+GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `Part ${g.n} (${g.tab}) · step ${i + 1} · ${it.title}` }; }));
+ITEMS.r0 = { it: RAPPEL, g: null, i: 0, label: "Home · " + RAPPEL.title };
+
+/* ---------- état ---------- */
+const DEF = { fs: 21, theme: null, proj: false, it: {}, view: "accueil", step: {} };
+let S = Store.load(DEF);
+["it", "step"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+const save = () => Store.save(S);
+const scorable = p => p.t !== "text";
+function itState(id) { if (!S.it[id]) S.it[id] = { v: {}, hints: 0, crit: {} }; return S.it[id]; }
+const itemMax = it => it.parts.filter(scorable).length;
+const corrShown = st => !!(st && st.first && (st.lastOk || (st.tries || 0) >= 2));
+function status(it) { const st = S.it[it.id]; if (!st || !st.first) return ["", "to do"]; if (!itemMax(it)) return ["✓", "written"]; return st.first.pts === st.first.max ? ["✓", "correct on the first try"] : ["◐", st.first.pts + "/" + st.first.max + " on the first try"]; }
+
+/* ---------- vérification ---------- */
+const stripUnit = s => String(s === undefined || s === null ? "" : s).replace(/[\s  ]*[a-zA-Zéèµ°%²³₂][\sa-zA-Zéèµ°%²³₂.\/  ]*$/, "");
+function checkPart(p, val) {
+  if (p.t === "word") {
+    const r = fuzzy(val, p.ans); if (r.empty) return { ok: false, empty: true, msg: "Missing answer." };
+    if (r.ok) return { ok: true, msg: (r.typo || (p.spell && normTxt(val) !== normTxt(p.ans[0]))) ? `✓ Correct. Exact spelling: “${p.ans[0]}”.` : "✓ Juste." };
+    for (const [alts, m] of (p.err || [])) if (fuzzy(val, alts).ok) return { ok: false, msg: "✗ Wrong. " + m };
+    return { ok: false, msg: "✗ Not yet: think again, then use a hint if needed." };
+  }
+  if (p.t === "num") {
+    if (val === undefined || String(val).trim() === "") return { ok: false, empty: true, msg: "Missing answer." };
+    let v = parseNum(val); if (!Number.isFinite(v)) v = parseNum(stripUnit(val));
+    if (!Number.isFinite(v)) { const wv = ({ deux: 2, quatre: 4, huit: 8 })[normTxt(val)]; if (wv !== undefined) v = wv; }
+    if (!Number.isFinite(v)) return { ok: false, msg: "✗ Type a number." };
+    if (near(v, p.ans, p.tol || 0, 0)) return { ok: true, msg: "✓ Correct." };
+    for (const [f, m] of (p.err || [])) if (f(v)) return { ok: false, msg: "✗ Wrong. " + m };
+    return { ok: false, msg: "✗ Not yet: check your reading or your calculation." };
+  }
+  if (p.t === "choice") { if (val === undefined || val === null) return { ok: false, empty: true, msg: "Choose an answer." }; return val === p.a ? { ok: true, msg: "✓ Correct." } : { ok: false, msg: "✗ Wrong. " + ((p.no && p.no[val]) || "That is not the right option.") }; }
+  if (p.t === "multi") { const s = (val || []).slice().sort().join(","); if (!s) return { ok: false, empty: true, msg: "Choose at least one answer." }; return s === p.a.slice().sort().join(",") ? { ok: true, msg: "✓ Correct." } : { ok: false, msg: "✗ Not yet: there are " + p.a.length + " correct answers." }; }
+  if (p.t === "match") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Complete every row." }; const bad = p.rows.filter((r, i) => v[i] !== i).length; return bad ? { ok: false, msg: `✗ ${bad} label(s) misplaced (marked ✗).` } : { ok: true, msg: "✓ Everything is matched correctly." }; }
+  if (p.t === "rows") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Answer every row." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} row(s) to fix (marked ✗).` } : { ok: true, msg: "✓ All rows are correct." }; }
+  if (p.t === "order") { const v = val || []; if (v.length < p.keys.length) return { ok: false, empty: true, msg: "Place toutes les images." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} image(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Ordre juste." }; }
+  if (p.t === "shot") {
+    if (val === undefined || val === null) return { ok: false, empty: true, msg: "Photo manquante." };
+    const w = SHOTWIN[p.ph]; if (val >= w[0] && val <= w[1]) return { ok: true, msg: "✓ Bonne photo." };
+    const other = Object.entries(SHOTWIN).find(([k, x]) => k !== p.ph && val >= x[0] && val <= x[1]);
+    const NM = { pro: "la prophase : les chromosomes sont visibles, mais pas encore alignés", meta: "la métaphase : les chromosomes sont alignés au milieu", ana: "l'anaphase : les bâtonnets sont en train de s'écarter", telo: "la télophase : les bâtonnets sont déjà arrivés aux pôles" };
+    if (other) return { ok: false, msg: "✗ Faux. Ta photo montre " + NM[other[0]] + "." };
+    return { ok: false, msg: val < 0.3 ? "✗ Trop tôt : les chromosomes ne sont pas encore bien visibles." : val > 0.8 ? "✗ Trop tard : la cellule est déjà en train de se couper en deux." : "✗ Presque : ta photo est prise entre deux étapes. Avance ou recule un peu." };
+  }
+  if (p.t === "loop") { const v = val || []; if (v.length < p.items.length) return { ok: false, empty: true, msg: "Place toutes les étiquettes." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} label(s) misplaced (marked ✗).` } : { ok: true, msg: "✓ Boucle juste." }; }
+  return { ok: true, msg: "" };
+}
+function order(key, n) { const base = Array.from({ length: n }, (_, i) => i); let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) & 0x7fffffff; let r = shuffle(base, h); if (r.every((x, i) => x === i)) r = r.reverse(); return r; }
+
+/* ---------- documents ---------- */
+function docHTML(d) {
+  return `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${d.title}</span>${d.sim ? `<span class="sim">⚠ ${d.sim}</span>` : ""}</figcaption><div class="db">${d.html || ""}${d.w ? `<div data-w="${d.w}"></div>` : ""}${d.fig ? `<div class="figbox" data-fig="${d.fig}"></div>` : ""}${d.cap ? `<p class="cap">${d.cap}</p>` : ""}</div></figure>`;
+}
+function mountFigs(root) { $$("[data-w]", root).forEach(el => { if (el.dataset.mounted) return; el.dataset.mounted = "1"; WID[el.dataset.w](el); }); }
+
+/* ---------- navigation ---------- */
+const VIEWS = ["accueil", ...GROUPS.map(g => g.id), "bilan"];
+const grp = id => GROUPS.find(g => g.id === id);
+function gScore(g) { let pts = 0, max = 0, done = 0; g.items.forEach(it => { const st = S.it[it.id]; max += itemMax(it); if (st && st.first) { pts += st.first.pts; done++; } }); return { pts, max, done, n: g.items.length }; }
+function tabs() {
+  $("#tabs").innerHTML = VIEWS.map(v => {
+    if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Home</button>`;
+    if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Report</button>`;
+    const g = grp(v), sc = gScore(g);
+    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n} · ${g.tab}<span class="dot" aria-label="${sc.done} étape(s) faite(s) sur ${sc.n}">${sc.done}/${sc.n}</span></button>`;
+  }).join("");
+  $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
+}
+function go(v, noScroll) {
+  if (!VIEWS.includes(v)) v = "accueil";
+  S.view = v; save(); tabs();
+  if (location.hash !== "#" + v) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  const m = $("#main");
+  if (v === "accueil") renderHome(m); else if (v === "bilan") renderBilan(m); else renderGroup(m, grp(v));
+  if (!noScroll) window.scrollTo(0, 0);
+  const cur = $("#tabs [aria-current]"); if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+/* ---------- accueil ---------- */
+function renderHome(m) {
+  m.innerHTML = `<section class="view">
+    <div class="panel"><p class="kicker">${HOME.kicker}</p><h2 class="sec-title">${HOME.title}</h2>
+      <p>${nb(HOME.intro)}</p>
+      <div class="box info"><p class="lab">ℹ ${HOME.lab}</p><p><b>${nb(PROBLEM)}</b></p></div></div>
+    <article class="panel itemroot" id="item"></article>
+    <div><p class="kicker">${HOME.parts}</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Part ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} steps</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div class="panel"><p class="kicker">How it works</p>
+      <ul class="ul">
+        <li>Do the parts <b>in order</b>, from 1 to 3. </li>
+        <li>Tap <b>Check</b>: feedback is immediate. Only your first try counts; then you can correct freely.</li>
+        <li>Stuck? Three <b>hints</b> appear one by one.</li>
+        <li>At the end, the <b>Report</b> tab shows the summary and lets you download your result.</li>
+      </ul></div>
+  </section>`;
+  $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
+  renderItem(RAPPEL, $("#item"));
+}
+
+/* ---------- vue d'un atelier ---------- */
+function indDone(ind) { return ind.items.every(id => { const st = S.it[id]; return st && st.first && (st.lastOk || !itemMax(ITEMS[id].it)); }); }
+function renderGroup(m, g) {
+  const k = Math.max(0, Math.min(g.items.length - 1, S.step[g.id] || 0)), it = g.items[k], gi = GROUPS.indexOf(g);
+  m.innerHTML = `<section class="view"><div><p class="kicker">Part ${g.n}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
+    ${(g.inds || []).length ? `<div class="panel"><p class="kicker">Indicateurs de réussite</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
+    <div class="stepper" role="group" aria-label="Steps">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Step ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
+    <article class="panel itemroot" id="item"></article>
+    <div class="row" id="navx"></div></section>`;
+  $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
+  renderItem(it, $("#item"));
+  const nx = $("#navx"), nextG = GROUPS[gi + 1];
+  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Step ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Step ${k + 2} →</button>` : nextG ? `<button class="btn" type="button" data-c>${nextG.icon} Part ${nextG.n} →</button>` : `<button class="btn" type="button" data-b>See my report →</button>`}`;
+  const st = d => { S.step[g.id] = k + d; save(); renderGroup(m, g); window.scrollTo(0, 0); };
+  const a = $("[data-p]", nx); if (a) a.onclick = () => st(-1);
+  const b = $("[data-n]", nx); if (b) b.onclick = () => st(1);
+  const c = $("[data-c]", nx); if (c) c.onclick = () => go(nextG.id);
+  const d = $("[data-b]", nx); if (d) d.onclick = () => go("bilan");
+}
+function refreshChrome(it) {
+  tabs(); const g = ITEMS[it.id].g; if (!g) return;
+  $$(".stepper button").forEach((b, i) => { const x = g.items[i], s = status(x); b.innerHTML = `${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}`; b.setAttribute("aria-label", `Step ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}`); });
+  if (0) $$(".inds li").forEach((li, i) => { const d = g.inds[i], ok = indDone(d); li.classList.toggle("done", ok); $(".bx", li).textContent = ok ? "✓" : ""; $(".st", li).textContent = ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et "); });
+}
+
+/* ---------- une étape ---------- */
+function renderItem(it, root) {
+  const id = it.id, st = itState(id), lvl = LV[it.lvl], locked = it.pre && st.pre === undefined;
+  root.innerHTML = `<p class="lv ${lvl[1]}">${lvl[0]}</p><h3 class="item-title">${it.title}</h3>${it.intro ? `<p>${it.intro}</p>` : ""}${(it.docs || []).map(docHTML).join("")}
+    ${it.pre ? `<div class="hypo" id="hypo"></div>` : ""}
+    ${it.live ? `<div class="figbox" id="livefig"></div>` : ""}
+    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Choose your hypothesis first: the experiment then unlocks.</p>` : ""}</div></figure>` : ""}
+    <div class="parts ${it.parts.every(p => p.t === "shot") ? "grid4" : ""}" style="display:grid;gap:.9rem" ${locked ? "hidden" : ""}>${it.parts.map((p, k) => `<div class="part" data-k="${k}"></div>`).join("")}</div>
+    <div class="row acts" ${locked ? "hidden" : ""}></div><div class="gfb" aria-live="polite"></div>
+    <div class="hints hz"></div><div class="after" style="display:grid;gap:.9rem"></div><div class="unl"></div>`;
+  mountFigs(root);
+  if (it.pre) paintPre(it, root);
+  if (it.widget && !locked) WID[it.widget.w]($("#wz", root));
+  if (it.live) root._live = liveSVG($("#livefig", root), (W, F) => schemaSVG(W, F, [(S.it[id].v[0] || {})[1], (S.it[id].v[0] || {})[3]]));
+  it.parts.forEach((p, k) => renderPart(it, k, root));
+  paintActions(it, root);
+}
+function paintPre(it, root) {
+  const st = S.it[it.id], h = $("#hypo", root), fixed = !!st.first, shown = corrShown(st);
+  h.innerHTML = `<p class="hl">🤔 ${it.pre.label} <span class="ctag">not graded</span></p><div class="opts" role="radiogroup">${it.pre.o.map((o, j) => `<button type="button" class="opt" role="radio" aria-checked="${st.pre === j}" data-h="${j}" ${fixed ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div>
+    ${shown && st.pre !== undefined ? `<p class="pfb ${st.pre === it.pre.a ? "ok" : ""}">${st.pre === it.pre.a ? "✓ Your hypothesis is confirmed by the experiment." : "↻ The experiment led you to revise your hypothesis: that is how science moves forward."}</p>` : fixed ? `<p class="lead">Hypothesis saved.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothesis saved: you can still change it before checking.</p>`}`;
+  $$("[data-h]", h).forEach(b => b.onclick = () => { const was = st.pre === undefined; st.pre = +b.dataset.h; save(); if (was) { renderItem(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } else { paintPre(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } });
+}
+function renderPart(it, k, root) {
+  const id = it.id, p = it.parts[k], st = S.it[id], box = $(`.part[data-k="${k}"]`, root), v = st.v[k], pid = `${id}-p${k}`;
+  const checked = !!st.checked; const r = checked && scorable(p) ? checkPart(p, v) : null;
+  let h = `<p class="pl" id="${pid}-l"><span class="muted">${k + 1}.</span> ${p.label} <span class="ctag">${COMPS[p.c || "conn"]}</span></p>${p.th ? `<div class="th" style="max-width:12rem;border-radius:10px;overflow:hidden;background:var(--surface-2)">${thumb(TAUREF[p.th])}</div>` : ""}`;
+  const okc = r ? (r.ok ? "is-ok" : "is-bad") : "";
+  if (p.t === "num") h += `<div class="row"><input id="${pid}" class="inp ${okc}" inputmode="decimal" autocomplete="off" aria-labelledby="${pid}-l" value="${esc(v || "")}"><span class="unit">${p.unit || ""}</span></div>`;
+  if (p.t === "word") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="${pid}-l" value="${esc(v || "")}" style="max-width:22rem"></div>`;
+  if (p.t === "choice") h += `<div class="opts" role="radiogroup" aria-labelledby="${pid}-l">${p.o.map((o, j) => { let cls = "", t = ""; if (checked && v === j) { cls = j === p.a ? "is-ok" : "is-bad"; t = j === p.a ? "✓ Correct" : "✗ Wrong"; } return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${v === j}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${o}</span>${t ? `<span class="tag">${t}</span>` : ""}</button>`; }).join("")}</div>`;
+  if (p.t === "multi") h += `<div class="opts" role="group" aria-labelledby="${pid}-l">${p.o.map((o, j) => { const on = (v || []).includes(j); return `<button type="button" class="opt" aria-pressed="${on}" aria-checked="${on}" data-j="${j}"><span class="k" style="border-radius:6px">${on ? "✓" : ""}</span><span>${o}</span></button>`; }).join("")}</div>`;
+  if (p.t === "match") {
+    const cur = v || {}, used = Object.values(cur), ord = order(id + k, p.rows.length); let sel = box._sel; if (sel === undefined || cur[sel] !== undefined) sel = p.rows.findIndex((r, i) => cur[i] === undefined);
+    box._sel = sel;
+    h += `<div class="match">${p.rows.map((r, i) => { const has = cur[i] !== undefined, cls = checked && has ? (cur[i] === i ? "is-ok" : "is-bad") : ""; return `<button type="button" class="mrow ${cls}" data-mi="${i}" aria-pressed="${sel === i}"><span class="me" aria-hidden="true">${r.e}</span><span class="mn">${r.txt}</span><span class="mv ${has ? "has" : ""}">${has ? p.rows[cur[i]].v : "?"}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Correct" : "✗ Wrong"}</span>` : ""}</button>`; }).join("")}</div>
+      <p class="lead">${sel >= 0 ? `${p.ask || "Choose the label for"} : <b>${p.rows[sel].txt}</b>` : "Tap a row to change its label."}</p><div class="chips">${ord.filter(j => !used.includes(j)).map(j => `<button type="button" class="chipb" data-mj="${j}">${p.rows[j].v}</button>`).join("")}</div>`;
+  }
+  if (p.t === "rows") h += `<div class="rows">${p.rows.map((row, i) => { const cur = (v || {})[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${(row.o || p.choices).map((c, j) => { const cls = checked && cur === j ? (j === row.a ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" aria-pressed="${cur === j}" data-i="${i}" data-j="${j}">${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${c}</button>`; }).join("")}</div></div>`; }).join("")}</div>`;
+  if (p.t === "order") {
+    const ord = order(id + k, p.keys.length), chosen = v || [];
+    h += `<div class="order-list pics">${ord.map(j => { const pos = chosen.indexOf(j); const cls = checked && pos >= 0 ? (pos === j ? "is-ok" : "is-bad") : ""; return `<button type="button" class="order-item ${cls}" data-j="${j}" ${pos >= 0 ? `data-pos="${pos + 1}"` : ""} aria-label="${esc(p.alts[j])}${pos >= 0 ? ", placée en position " + (pos + 1) : ""}"><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span class="th">${thumb(TAUREF[p.keys[j]])}</span>${cls ? `<span class="tag" style="margin-left:auto;font-weight:800">${cls === "is-ok" ? "✓ Correct" : "✗ Wrong"}</span>` : ""}</button>`; }).join("")}</div><div class="row"><button type="button" class="btn ghost" data-clear>Effacer l'ordre</button><span class="lead">Touche une image placée pour la retirer.</span></div>`;
+  }
+  if (p.t === "shot") {
+    const has = v !== undefined && v !== null;
+    h += `<div class="shot"><div class="frame ${has ? "has" : ""} ${okc}">${has ? thumb(v) : "Pas encore de photo"}</div><div class="row"><button type="button" class="btn" data-shot aria-label="${has ? "Refaire la photo" : "Prendre la photo"}">📸 ${has ? "Refaire" : "Photo"}</button></div></div>`;
+  }
+  if (p.t === "loop") {
+    const chosen = v || [], ord = order(id + k, p.items.length), solved = checked && r && r.ok;
+    h += `<div class="loopd"><span class="lhead" aria-hidden="true">▶</span><div class="lslot fixed"><span class="n">1</span><span>${p.start}</span></div>${p.items.map((_, i) => { const j = chosen[i], cls = checked && j !== undefined ? (j === i ? "is-ok" : "is-bad") : ""; return `<div class="larr" aria-hidden="true">↓</div><button type="button" class="lslot ${j !== undefined ? "filled" : ""} ${cls}" data-slot="${i}" ${j === undefined ? "disabled" : ""} aria-label="Case ${i + 2} : ${j !== undefined ? esc(p.items[j]) + ". Toucher pour retirer." : "vide"}"><span class="n">${i + 2}</span><span>${j !== undefined ? p.items[j] : `<span class="muted">…</span>`}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Correct" : "✗ Wrong"}</span>` : ""}</button>`; }).join("")}<p class="lret">↺ ${solved ? p.back + " : retour à la case 1." : "puis retour à la case 1 : la boucle est bouclée."}</p></div>
+      <div class="bank">${ord.filter(j => !chosen.includes(j)).map(j => `<button type="button" class="order-item" data-j="${j}"><span class="n">+</span><span>${p.items[j]}</span></button>`).join("")}</div><p class="lead">Touche une étiquette pour la placer dans la première case libre. Touche une case remplie pour la vider.</p>`;
+  }
+  if (p.t === "text") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead">Après validation : réponse modèle et grille d'auto-évaluation.</p>`;
+  h += `<div class="pfbw" aria-live="polite">${r ? `<p class="pfb ${r.ok ? "ok" : "bad"}">${r.msg}</p>` : ""}</div>`;
+  box.innerHTML = h;
+  const setV = (val, rerender) => { st.v[k] = val; save(); if (rerender) renderPart(it, k, root); if (root._live) root._live.draw(); };
+  const clear = () => { $$(".is-ok,.is-bad", box).forEach(x => x.classList.remove("is-ok", "is-bad")); const f = $(".pfbw", box); if (f) f.innerHTML = ""; };
+  const refocus = sel => { const n = box.querySelector(sel); if (n) n.focus(); };
+  if (["num", "text", "word"].includes(p.t)) { const inp = box.querySelector("input,textarea"); inp.addEventListener("input", () => { setV(inp.value, false); clear(); }); if (p.t !== "text") inp.addEventListener("keydown", ev => { if (ev.key === "Enter") { const b = $(".acts [data-check]", root); if (b) b.click(); } }); }
+  if (p.t === "choice") $$(".opt", box).forEach(b => b.onclick = () => { setV(+b.dataset.j, true); refocus(`.opt[data-j="${b.dataset.j}"]`); });
+  if (p.t === "multi") $$(".opt", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); });
+  if (p.t === "match") {
+    $$("[data-mi]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = +b.dataset.mi; delete cur[i]; box._sel = i; setV(cur, true); refocus(`[data-mi="${i}"]`); });
+    $$("[data-mj]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = box._sel; if (i === undefined || i < 0) return; cur[i] = +b.dataset.mj; box._sel = undefined; setV(cur, true); refocus(".chipb") || refocus(".mrow"); });
+  }
+  if (p.t === "rows") $$(".seg button", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); cur[+b.dataset.i] = +b.dataset.j; setV(cur, true); refocus(`[data-i="${b.dataset.i}"][data-j="${b.dataset.j}"]`); });
+  if (p.t === "order") { $$(".order-item", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); }); box.querySelector("[data-clear]").onclick = () => setV([], true); }
+  if (p.t === "shot") box.querySelector("[data-shot]").onclick = () => { setV(CELL.tau, true); refocus("[data-shot]"); };
+  if (p.t === "loop") {
+    $$(".bank [data-j]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.push(+b.dataset.j); setV(cur, true); refocus(".bank [data-j]") || refocus(`[data-slot="${cur.length - 1}"]`); });
+    $$("[data-slot]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.splice(+b.dataset.slot, 1); setV(cur, true); refocus(".bank [data-j]"); });
+  }
+}
+
+function recopHTML() { return `<div class="recop"><p class="lab">✔ ${HOME.recop}</p>${bilanHTML()}</div>`; }
+
+function paintActions(it, root) {
+  const id = it.id, st = S.it[id]; const acts = $(".acts", root), gfb = $(".gfb", root), hints = $(".hz", root), after = $(".after", root);
+  const max = itemMax(it), hasText = it.parts.some(p => p.t === "text"), shown = corrShown(st);
+  acts.innerHTML = `<button class="btn" type="button" data-check>${max ? "Check" : "Submit my answer"}</button>
+    ${st.hints < 3 && !(shown && st.lastOk) ? `<button class="btn ghost" type="button" data-hint>💡 Hint ${st.hints + 1}/3</button>` : ""}
+    <button class="btn ghost" type="button" data-reset>↺ Start again</button>`;
+  hints.innerHTML = it.hints.slice(0, st.hints).map((h, i) => `<p class="hint"><b>Hint ${i + 1}/3</b> · ${h}</p>`).join("");
+  if (st.first) {
+    const f = st.first;
+    gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ All correct${f.pts === f.max ? (st.tries === 1 ? " on the first try!" : ".") : " (after correction)."}</p><p>Score kept (first try): ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} hint(s) used before the first try` : ""}.</p></div>`
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} correct answer(s).</p><p>${shown ? "The answer key is shown below: fix the answers marked ✗, then check again." : "Fix the answers marked ✗, then check again. The answer key appears on the second try."} (Score kept: ${f.pts}/${f.max}, first try.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Answer saved.</p><p>Compare it with the model answer, then tick the grid.</p></div>`;
+  } else gfb.innerHTML = "";
+  let a = "";
+  if (shown && it.corr) a += `<div class="corr"><p class="h">Answer key</p><p>${it.corr}</p></div>`;
+  if (0) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Réponse rédigée · auto-évaluation</p><div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${it.model}</p></div><p><b>Coche ce que ta réponse contient :</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
+  if (shown && it.recop) a += recopHTML();
+  after.innerHTML = a;
+  const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
+  if (unl.dataset.state !== ustate) {
+    unl.dataset.state = ustate;
+    unl.innerHTML = ustate === "open" ? `<figure class="doc unlock" style="margin:0"><figcaption class="dh"><span>${it.unlock.title}</span>${it.unlock.sim ? `<span class="sim">⚠ ${it.unlock.sim}</span>` : ""}</figcaption><div class="db unlockz"></div></figure>` : ustate === "locked" ? `<p class="locked">🔒 A simulation unlocks when all answers are correct.</p>` : "";
+    if (ustate === "open") WID[it.unlock.w]($(".unlockz", unl));
+  }
+  $("[data-check]", acts).onclick = () => {
+    const res = it.parts.map((p, k) => scorable(p) ? checkPart(p, st.v[k]) : null);
+    const empty = res.some(r => r && r.empty);
+    const textEmpty = it.parts.some((p, k) => p.t === "text" && !String(st.v[k] || "").trim());
+    const pts = res.filter(r => r && r.ok).length;
+    if ((empty || textEmpty) && !st.first) { gfb.innerHTML = `<div class="fb neutral"><p class="h">Answer every question before checking.</p><p>Your first try only counts once everything is filled in.</p></div>`; gfb.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    st.checked = true; st.lastPts = pts; st.lastOk = pts === max; st.tries = (st.tries || 0) + 1;
+    if (!st.first) st.first = { pts, max, hints: st.hints, parts: res.map(r => r ? !!r.ok : null) };
+    save();
+    it.parts.forEach((p, k) => renderPart(it, k, root)); if (it.pre) paintPre(it, root); paintActions(it, root); refreshChrome(it);
+    const g = $(".gfb", root); if (g && g.scrollIntoView) g.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const hb = $("[data-hint]", acts); if (hb) hb.onclick = () => { st.hints = Math.min(3, st.hints + 1); save(); paintActions(it, root); const hs = $$(".hz .hint", root); const last = hs[hs.length - 1]; if (last) last.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  armButton($("[data-reset]", acts), "↺ Start again", "Erase my answers?", () => { const keep = st.first; S.it[id] = { v: {}, hints: 0, crit: {}, pre: st.pre, first: keep, tries: keep ? st.tries : 0, lastOk: false }; save(); renderItem(it, root); refreshChrome(it); });
+  $$(".crit button", after).forEach(b => b.onclick = () => { const i = +b.dataset.ci; st.crit[i] = !st.crit[i]; save(); paintActions(it, root); const nb2 = $(`.after [data-ci="${i}"]`, root); if (nb2) nb2.focus(); });
+}
+
+/* ---------- bilan ---------- */
+function compStats() { const out = {}; Object.keys(COMPS).forEach(k => out[k] = { ok: 0, n: 0 }); Object.values(ITEMS).forEach(({ it }) => { const st = S.it[it.id]; if (!st || !st.first) return; it.parts.forEach((p, k) => { const c = p.c || "conn"; out[c].n++; if (st.first.parts[k]) out[c].ok++; }); }); return out; }
+function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = S.it[it.id]; if (!st || !st.first) return; st.first.parts.forEach((ok, k) => { if (ok === false) out.push(`${label} · question ${k + 1}`); }); }); return out; }
+function rScore() { const st = S.it.r0; return { pts: st && st.first ? st.first.pts : 0, max: itemMax(RAPPEL), done: st && st.first ? 1 : 0, n: 1 }; }
+function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
+const gName = g => `Part ${g.n} · ${g.title}`;
+const recopReady = () => corrShown(S.it.d2);
+function bilanText(name) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
+  let t = `${HOME.txt}\n\nACTIVITY SUMMARY\n${RESUME}\n\nSTUDENT REPORT\nStudent: ${name || "—"}\nDate: ${today()}\n\nPoints on the first try\n- Home · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
+  GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} steps done)\n`; g.items.forEach((it, i) => { const st = S.it[it.id]; t += `    step ${i + 1} ${LV[it.lvl][2]} ${it.title} : ${st && st.first ? st.first.pts + "/" + st.first.max + (st.first.hints ? ` (${st.first.hints} hint(s))` : "") : "—"}\n`; }); });
+  t += `Total: ${T.pts}/${T.max} (${T.done}/${T.n} steps done)\n\nReport per skill (first try)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? c.ok + "/" + c.n : "—"}\n`; });
+  t += `\nQuestions missed on the first try (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- none"}\n`;
+  return clean(t + `\n${SIGN}\n`);
+}
+function renderBilan(m) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
+  m.innerHTML = `<section class="view"><div><p class="kicker">Report</p><h2 class="sec-title">My activity report</h2><p class="lead">Points counted on the first try. ${T.done}/${T.n} steps done.</p></div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 The summary diagram appears once you have finished part 3.</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Go to part 3</button></div>`}</div>
+    <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
+    <div class="panel"><h3>Per part</h3><div class="tablewrap"><table class="t"><thead><tr><th>Part</th><th>Steps done</th><th>Points (first try)</th></tr></thead><tbody><tr><td>Home · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
+    <div class="panel"><h3>Per skill</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const q = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${q * 100}%"></i></div></div>`; }).join("")}</div></div>
+    <div class="panel"><h3>Questions missed on the first try</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>None so far.</p>"}</div>
+    <div class="panel"><h3>Share my report</h3><p class="lead">The file contains the activity summary, your points per part and per skill, and the questions missed on the first try.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Start over</h3><p class="lead">Erase all answers for this activity on this device.</p><div class="row"><button class="btn ghost" type="button" id="reset">Erase everything</button></div></div></section>`;
+  const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step.p3 = 0; save(); go("p3"); };
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Report to show the teacher</p><h2>${esc(name || "Student")}</h2><p>${HOME.short} · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} steps)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (first try)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Questions missed on the first try</span><b class="num">${ms.length}</b></div><div class="line"><span>Summary diagram</span><b>${recopReady() ? "✓ débloqué" : "pas encore"}</b></div>`, HOME.slug);
+  armButton($("#reset"), "Erase everything", "Confirm erasing?", () => { S.it = {}; S.step = {}; save(); go("accueil"); });
+}
+
+/* ---------- démarrage ---------- */
+Display.init(S, save);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h && h !== S.view && VIEWS.includes(h)) go(h); });
+go(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (S.view || "accueil"), true);
+
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

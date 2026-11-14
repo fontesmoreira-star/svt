@@ -434,6 +434,19 @@
                   "tag": "English · DNL",
                   "titre": "Elodea Lab: photosynthesis or respiration?",
                   "desc": "Version anglaise du TP Élodée."
+                },
+                {
+                  "fichier": "pomme-de-terre-metabolisme.html",
+                  "tag": "Activité · enzymes et respiration",
+                  "titre": "Pomme de terre et respiration cellulaire",
+                  "desc": "TP virtuel sur l'amylase, glucose dans le sang, stockage et voies métaboliques du glucose."
+                },
+                {
+                  "fichier": "potato-metabolism-dnl.html",
+                  "lang": "en",
+                  "tag": "English · DNL",
+                  "titre": "Potato and cellular respiration",
+                  "desc": "Version anglaise de l'activité pomme de terre : amylase, glucose, voies métaboliques."
                 }
               ]
             },
