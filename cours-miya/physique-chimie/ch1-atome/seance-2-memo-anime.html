@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Séance 2 Mémo animé</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout : une colonne de lecture large, une question par écran, outils d'accessibilité en tête. Identité PC = bleu foncé. */
+:root{
+  --fs:24px;
+  --paper:#f6f8fc; --surface:#ffffff; --ink:#0f1d33; --muted:#3c4a63;
+  --pc:#163a7a; --pc-band:#163a7a; --pc-tint:#e4ecf9;
+  --line:#8796b2; --ok:#17602f; --ok-bg:#e1f2e6; --ko:#9e2418; --ko-bg:#fbe4df;
+  --focus:#c05a00; --data-bg:#eef3fb;
+  --font:Verdana,"Atkinson Hyperlegible",Arial,sans-serif;
+  --bw:2px;
+}
+:root[data-contrast="high"]{
+  --paper:#ffffff; --surface:#ffffff; --ink:#000000; --muted:#000000;
+  --pc:#002a80; --pc-band:#002a80; --pc-tint:#ffffff; --line:#000000;
+  --ok:#004d1a; --ok-bg:#ffffff; --ko:#8a0000; --ko-bg:#ffffff; --data-bg:#ffffff; --bw:3px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+    --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+    --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+  --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+  --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"])[data-contrast="high"]{
+    --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+    --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+    --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+  }
+}
+:root[data-theme="dark"][data-contrast="high"]{
+  --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+  --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+  --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+}
+
+html{font-size:var(--fs)}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.5;margin:0;overflow-wrap:break-word}
+*,*::before,*::after{box-sizing:border-box}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* En-tête matière */
+.band{height:12px;background:var(--pc-band)}
+header.top{background:var(--pc-tint);border-bottom:var(--bw) solid var(--pc)}
+header.top .wrap{padding-block:.6rem .7rem;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between}
+.subject{min-width:0}
+.subject b{display:block;color:var(--pc);font-size:1.15rem;letter-spacing:.06em;line-height:1.2}
+.subject span{display:block;font-size:.8rem;color:var(--muted);line-height:1.35}
+.tools{display:flex;flex-wrap:wrap;gap:.4rem}
+.tool{min-height:48px;min-width:48px;padding:.2rem .6rem;font:inherit;font-size:.75rem;font-weight:bold;color:var(--pc);background:var(--surface);border:var(--bw) solid var(--pc);border-radius:10px;cursor:pointer}
+.tool[aria-pressed="true"]{outline:3px solid var(--pc);outline-offset:1px}
+
+main .wrap{padding-block:1.2rem 3rem;display:flex;flex-direction:column;gap:1rem}
+h1,h2{line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:1.4rem}
+h2{font-size:1.2rem}
+p{margin:0}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+h1:focus,h2:focus{outline:none}
+
+.card{background:var(--surface);border:var(--bw) solid var(--line);border-radius:14px;padding:1rem}
+.kicker{font-size:.8rem;font-weight:bold;color:var(--pc);letter-spacing:.05em;text-transform:uppercase}
+.list{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:.3rem}
+
+.btn{min-height:56px;font:inherit;font-weight:bold;padding:.4rem 1.1rem;border-radius:12px;cursor:pointer;border:4px solid var(--pc);background:var(--pc-tint);color:var(--ink);text-align:center}
+.btn.ghost{background:var(--surface);color:var(--pc);border-width:var(--bw)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.7rem}
+.row .btn{flex:1 1 12rem}
+
+/* Progression */
+.progress{display:flex;flex-direction:column;gap:.35rem}
+.progress .lab{font-size:.8rem;font-weight:bold;color:var(--muted)}
+.bar{height:14px;border:2px solid var(--pc);border-radius:8px;overflow:hidden;background:var(--surface)}
+.bar i{display:block;height:100%;background:var(--pc-band)}
+
+/* Question */
+.stem{font-size:1.05rem}
+.data{background:var(--data-bg);border:var(--bw) dashed var(--pc);border-radius:12px;padding:.7rem .9rem}
+.data .t{font-weight:bold;color:var(--pc);font-size:.85rem}
+.opts{display:flex;flex-direction:column;gap:.6rem;margin:0;padding:0;list-style:none}
+.opt{width:100%;min-height:64px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.2rem .7rem;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:var(--bw) solid var(--line);border-radius:12px;padding:.5rem .8rem;cursor:pointer}
+.opt .L{grid-row:1 / span 2;width:2em;height:2em;display:grid;place-items:center;border:var(--bw) solid var(--pc);border-radius:8px;font-weight:bold;color:var(--pc)}
+.opt .txt{min-width:0;overflow-wrap:normal}
+.opt .mark{grid-column:2;font-size:.85rem;font-weight:bold}
+.opt[aria-pressed="true"]{border-width:4px;border-color:var(--pc);background:var(--pc-tint)}
+.opt[aria-pressed="true"] .L{border-width:4px;text-decoration:underline}
+.opt.good{border:4px solid var(--ok);background:var(--ok-bg)}
+.opt.bad{border:4px solid var(--ko);background:var(--ko-bg)}
+.opt.good .mark{color:var(--ok)} .opt.bad .mark{color:var(--ko)}
+.opt:disabled{cursor:default;opacity:1}
+.idk{align-self:flex-start;min-height:48px;font:inherit;font-size:.85rem;padding:.3rem .8rem;border-radius:10px;border:2px dashed var(--line);background:transparent;color:var(--muted);cursor:pointer}
+
+.fb{border-radius:12px;padding:.8rem 1rem;border:var(--bw) solid}
+.fb.ok{border-color:var(--ok);background:var(--ok-bg)}
+.fb.ko{border-color:var(--ko);background:var(--ko-bg)}
+.fb .v{font-weight:bold;font-size:1.1rem}
+.fb.ok .v{color:var(--ok)} .fb.ko .v{color:var(--ko)}
+.fb .why{margin-top:.4rem}
+.step{display:block;margin-top:.25rem}
+
+/* Notation du noyau A en haut, Z en bas */
+.nuc{display:inline-flex;align-items:center;vertical-align:middle;white-space:nowrap}
+.nuc .s{display:inline-flex;flex-direction:column;align-items:flex-end;font-size:.7em;line-height:1.05;margin-right:.06em}
+sub,sup{font-size:.68em;line-height:0}
+
+/* Bilan */
+.total{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.total b{font-size:2.2rem;color:var(--pc);font-variant-numeric:tabular-nums}
+.parts{display:grid;gap:.7rem}
+.prt{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;align-items:center;border:var(--bw) solid var(--line);border-radius:12px;padding:.6rem .8rem;background:var(--surface)}
+.prt .n{min-width:0;font-weight:bold}
+.prt .sc{font-weight:bold;font-variant-numeric:tabular-nums;color:var(--pc)}
+.prt .st{grid-column:1 / -1;font-size:.85rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.dots{letter-spacing:.12em;font-size:.95rem}
+.report{white-space:pre-wrap;font-family:var(--font);font-size:.8rem;line-height:1.45;background:var(--data-bg);border:2px solid var(--line);border-radius:12px;padding:.8rem;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere;margin:0}
+.mail{overflow-wrap:anywhere;word-break:break-all;font-weight:bold;user-select:all;-webkit-user-select:all}
+.status{min-height:1.5em;font-weight:bold}
+details{border:var(--bw) solid var(--line);border-radius:12px;background:var(--surface)}
+summary{min-height:56px;padding:.7rem 1rem;cursor:pointer;font-weight:bold;color:var(--pc)}
+details .inner{padding:0 1rem 1rem;display:flex;flex-direction:column;gap:.9rem}
+.rev{border-top:2px solid var(--line);padding-top:.7rem}
+.rev .h{font-weight:bold}
+.small{font-size:.85rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<style>
+/* Mémo animé : une scène SVG par réflexe, pilotée étape par étape ; légende en HTML (suit A+/A−) */
+:root{--nuc:#b3261e;--el:#1f5fbf;--hl:#b85400;--plus-bg:#fde2d6;--plus-bd:#b3261e;--minus-bg:#dbe8fb;--minus-bd:#1f5fbf;--shaft:#eef3fb;--atomc:#e4ecf9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--nuc:#c2412f;--el:#8fb8ff;--hl:#ffb066;--plus-bg:#4a2416;--plus-bd:#ff9a85;--minus-bg:#1c3358;--minus-bd:#8fb8ff;--shaft:#1a2742;--atomc:#1b2a46}}
+:root[data-theme="dark"]{--nuc:#c2412f;--el:#8fb8ff;--hl:#ffb066;--plus-bg:#4a2416;--plus-bd:#ff9a85;--minus-bg:#1c3358;--minus-bd:#8fb8ff;--shaft:#1a2742;--atomc:#1b2a46}
+.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+@media (min-width:700px){.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tab{min-height:52px;font:inherit;font-size:.72rem;font-weight:bold;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:.3rem .5rem;text-align:left}
+.tab[aria-current="true"]{border:4px solid var(--pc);background:var(--pc-tint)}
+.stage{background:var(--surface);border:var(--bw) solid var(--line);border-radius:16px;padding:.3rem;overflow:hidden}
+.stage svg{display:block;width:100%;height:auto;max-width:620px;margin:0 auto;font-family:var(--font)}
+.cap{border-left:8px solid var(--pc);background:var(--data-bg);border-radius:0 12px 12px 0;padding:.7rem .9rem;min-height:5.5em;font-size:1.05rem}
+.stepinfo{display:flex;justify-content:space-between;align-items:center;gap:.5rem;font-size:.8rem;font-weight:bold;color:var(--muted)}
+.pips{display:flex;gap:.3rem;flex-wrap:wrap}
+.pips i{width:14px;height:14px;border-radius:50%;border:2px solid var(--pc);display:block}
+.pips i.on{background:var(--pc)}
+.ctrls{display:grid;grid-template-columns:1fr 2fr;gap:.6rem}
+.ctrls .btn{min-height:60px}
+.replay{justify-self:start;min-height:48px;font:inherit;font-size:.8rem;font-weight:bold;padding:.2rem .8rem;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--pc);cursor:pointer}
+.qcard{border:4px solid var(--pc);border-radius:14px;padding:1rem;background:var(--surface);display:flex;flex-direction:column;gap:.8rem}
+/* SVG */
+.t-ink{fill:var(--ink)} .t-muted{fill:var(--muted)} .t-pc{fill:var(--pc)} .t-hl{fill:var(--hl)} .t-ok{fill:var(--ok)} .t-ko{fill:var(--ko)} .t-white{fill:#ffffff}
+.orbit{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:6 6}
+.nuc{fill:var(--nuc)}
+.el{fill:var(--el)}
+.spot{fill:none;stroke:var(--hl);stroke-width:5}
+.post{stroke:var(--muted);stroke-width:8;stroke-linecap:round}
+.base{fill:var(--muted)}
+.beam{stroke:var(--ink);stroke-width:8;stroke-linecap:round}
+.pivot{fill:var(--ink)}
+.str{stroke:var(--muted);stroke-width:2}
+.plate{stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.tk-plus rect{fill:var(--plus-bg);stroke:var(--plus-bd);stroke-width:3}
+.tk-minus rect{fill:var(--minus-bg);stroke:var(--minus-bd);stroke-width:3}
+.strike{stroke:var(--hl);stroke-width:6;stroke-linecap:round;stroke-dasharray:46;stroke-dashoffset:46}
+.strike.on{stroke-dashoffset:0}
+.shaft{fill:var(--shaft);stroke:var(--line);stroke-width:2}
+.floor{stroke:var(--line);stroke-width:1}
+.floor0{stroke:var(--ink);stroke-width:2}
+.cabin{fill:var(--pc);stroke:var(--ink);stroke-width:2}
+.atomc{fill:var(--atomc);stroke:var(--pc);stroke-width:3}
+.radius{stroke:var(--hl);stroke-width:5;stroke-dasharray:140;stroke-dashoffset:140}
+.radius.on{stroke-dashoffset:0}
+.box{fill:var(--surface);stroke:var(--ink);stroke-width:3}
+.ghost{fill:none;stroke:var(--hl);stroke-width:3;stroke-dasharray:7 5}
+.ghost.bad{stroke:var(--ko)}
+.hlr{fill:none;stroke:var(--hl);stroke-width:4}
+.okr{fill:none;stroke:var(--ok);stroke-width:4}
+.pcr{fill:none;stroke:var(--pc);stroke-width:4;stroke-dasharray:8 5}
+.cell{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.cell.mg{fill:var(--pc-tint)}
+.mv{transition:transform .9s cubic-bezier(.3,1.25,.5,1),opacity .55s ease,stroke-dashoffset .9s ease}
+.instant .mv,.instant .strike,.instant .radius{transition:none!important}
+.strike,.radius{transition:stroke-dashoffset .8s ease}
+@media (prefers-reduced-motion:reduce){.mv,.strike,.radius{transition:none!important}}
+</style>
+
+<div class="band" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <div class="subject"><b>PHYSIQUE-CHIMIE</b><span>2nde · Séance 2 · Mémo animé des 4 réflexes</span></div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tool" id="fsMinus" type="button" aria-label="Texte plus petit">A−</button>
+      <button class="tool" id="fsPlus" type="button" aria-label="Texte plus grand">A+</button>
+      <button class="tool" id="hc" type="button" aria-pressed="false">Contraste +</button>
+      <button class="tool" id="theme" type="button">Thème : auto</button>
+    </div>
+  </div>
+</header>
+<main><div class="wrap" id="app"></div></main>
+
+<script>
+(function(){
+"use strict";
+const MAIL="", STORE="memo-s2-atome-v1";
+const NS="http://www.w3.org/2000/svg";
+let RM=false;try{RM=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+let instant=false,pending=[];
+function clearPending(){const p=pending;pending=[];p.forEach(f=>{try{f();}catch(e){}});}
+function later(fn,ms){if(instant){fn();return;}const id=setTimeout(()=>{fn();},ms);pending.push(()=>{clearTimeout(id);fn();});}
+function E(tag,a,p){const e=document.createElementNS(NS,tag);if(a)for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function TX(p,x,y,txt,o){o=o||{};const t=E("text",{x:x,y:y,"font-size":o.s||24,"text-anchor":o.a||"middle","font-weight":o.b?"bold":"normal",class:(o.c||"t-ink")+(o.mv?" mv":"")},p);t.textContent=txt;if(o.hide)t.style.opacity="0";return t;}
+function to(el,x,y,o,d){el.style.transitionDelay=instant?"0ms":(d||0)+"ms";el.style.transform="translate("+x+"px,"+y+"px)";if(o!==undefined)el.style.opacity=String(o);}
+function snap(el,x,y){el.style.transition="none";el.style.transform="translate("+x+"px,"+y+"px)";el.getBoundingClientRect();el.style.transition="";}
+function op(el,v,d){el.style.transitionDelay=instant?"0ms":(d||0)+"ms";el.style.opacity=String(v);}
+function tween(a,b,dur,fn){if(instant){fn(b);return;}const t0=performance.now();let id,done=false;const f=t=>{const p=Math.min(1,(t-t0)/dur);const e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;fn(a+(b-a)*e);if(p<1)id=requestAnimationFrame(f);else done=true;};id=requestAnimationFrame(f);pending.push(()=>{cancelAnimationFrame(id);if(!done)fn(b);});}
+const sp=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ");
+
+/* ================= SCÈNES ================= */
+const SC=[];
+
+/* ---------- Réflexe 1 : la charge ---------- */
+SC.push({title:"Réflexe 1 · Je lis la charge",vb:"0 0 420 372",
+ caps:["Voici une formule : <b>O<sup>2−</sup></b>. Avant de répondre, où faut-il regarder en premier&nbsp;?",
+  "<b>En haut à droite !</b> On y voit une charge : 2−. Une charge, c'est un <b>ion</b>, pas un atome.",
+  "L'atome d'oxygène neutre : <b>8 protons</b> dans le noyau (Z = 8) et <b>8 électrons</b> autour.",
+  "Le signe <b>−</b> veut dire : <b>2 électrons gagnés</b>. 8 + 2 = 10 électrons. O<sup>2−</sup> est un <b>anion</b>.",
+  "Autre exemple : <b>Fe<sup>3+</sup></b>, avec Z = 26. En haut à droite : 3+.",
+  "Le signe <b>+</b> veut dire : <b>3 électrons perdus</b>. 26 − 3 = 23 électrons. Le noyau garde ses 26 protons : Fe<sup>3+</sup> est un <b>cation</b>."],
+ q:{stem:"Combien d'électrons a l'ion Li<sup>+</sup> (Z = 3)&nbsp;?",opts:["2","3","4"],a:0,why:"Signe + : 1 électron perdu. 3 − 1 = <b>2 électrons</b>."},
+ build(svg){const g={};this.g=g;
+  g.sym=TX(svg,214,86,"O",{s:66,a:"end",b:1});
+  g.chg=TX(svg,220,48,"2−",{s:36,a:"start",b:1});
+  g.spot=E("circle",{cx:246,cy:36,r:34,class:"spot mv"},svg);g.spot.style.opacity="0";
+  g.lab=TX(svg,335,100,"en haut à droite !",{s:20,b:1,c:"t-hl",mv:1,hide:1});
+  g.atom=E("g",{transform:"translate(210 232)",class:"mv"},svg);g.atom.style.opacity="0";
+  E("circle",{cx:0,cy:0,r:100,class:"orbit"},g.atom);
+  g.spin=E("g",{},g.atom);
+  g.el=[];for(let i=0;i<28;i++){const c=E("circle",{cx:0,cy:0,r:7.5,class:"el mv"},g.spin);c.style.opacity="0";c.style.transform="translate(-330px,0px)";g.el.push(c);}
+  E("circle",{cx:0,cy:0,r:34,class:"nuc"},g.atom);
+  g.nt=TX(g.atom,0,9,"8+",{s:26,b:1,c:"t-white"});
+  g.bot=TX(svg,210,362,"",{s:21,b:1});
+  this.g=g;this.ang=0;},
+ render(k){const g=this.g,fe=k>=4;
+  g.sym.textContent=fe?"Fe":"O";g.chg.textContent=fe?"3+":"2−";g.chg.setAttribute("class",k>=1?"t-hl":"t-ink");
+  op(g.spot,k>=1?1:0);op(g.lab,(k===1||k===4)?1:0);op(g.atom,k>=2?1:0);
+  g.nt.textContent=(fe?26:8)+"+";
+  const n=[0,0,8,10,26,23][k];
+  g.el.forEach((c,i)=>{
+   if(i<n){const a=(-90+360*i/n)*Math.PI/180,x=100*Math.cos(a),y=100*Math.sin(a);
+     const flyIn=(k===3&&i>=8);
+     if(c.style.opacity==="0"&&!flyIn)snap(c,x,y);
+     to(c,x,y,1,flyIn?(i-8)*450+200:0);}
+   else if(k===5&&i<26){to(c,330,(i-24)*50,0,(i-23)*450+200);}
+   else{c.style.opacity="0";snap(c,-330,0);}
+  });
+  g.bot.textContent=["","","8 protons · 8 électrons : atome neutre","8 protons · 10 électrons : anion","26 protons · 26 électrons","26 protons · 23 électrons : cation"][k];
+  g.bot.setAttribute("class",k===3||k===5?"t-pc":"t-ink");},
+ tick(dt){if(!this.g)return;this.ang=(this.ang+dt*0.018)%360;this.g.spin.setAttribute("transform","rotate("+this.ang.toFixed(2)+")");}
+});
+
+/* ---------- Réflexe 2 : la balance des charges ---------- */
+SC.push({title:"Réflexe 2 · La somme des charges vaut 0",vb:"0 0 420 360",
+ caps:["Une <b>balance des charges</b> : à gauche les charges +, à droite les charges −. Une formule ionique est juste seulement si la balance est <b>à l'équilibre</b>.",
+  "On pose un ion <b>Al<sup>3+</sup></b> : il apporte 3 charges +. La balance penche.",
+  "Lina propose <b>AlCl<sub>2</sub></b> : 2 ions Cl<sup>−</sup>, soit 2 charges −. (+3) + 2 × (−1) = <b>+1</b>. Ça penche encore : AlCl<sub>2</sub> est faux.",
+  "Avec un 3<sup>e</sup> ion Cl<sup>−</sup> : (+3) + 3 × (−1) = <b>0</b>. Équilibre : la formule est <b>AlCl<sub>3</sub></b>.",
+  "Autre exemple : 2 ions <b>Na<sup>+</sup></b>, soit 2 charges +.",
+  "SO<sub>4</sub><sup>2−</sup> est <b>un seul ion</b> qui porte 2 charges − (le 4 compte les atomes O). 2 × (+1) + (−2) = 0. Équilibre : <b>Na<sub>2</sub>SO<sub>4</sub></b>.",
+  "Et Na<sub>2</sub>(SO<sub>4</sub>)<sub>2</sub>&nbsp;? 2 × (+1) + 2 × (−2) = <b>−2</b>. Ça penche de l'autre côté : c'est faux."],
+ q:{stem:"Des ions Zn<sup>2+</sup> et Cl<sup>−</sup> forment le composé :",opts:["ZnCl","ZnCl<sub>2</sub>","Zn<sub>2</sub>Cl"],a:1,why:"(+2) + 2 × (−1) = 0 → <b>ZnCl<sub>2</sub></b>."},
+ build(svg){const g={};this.g=g;this.prevVis=[];
+  g.f=TX(svg,210,44,"",{s:30,b:1});g.sum=TX(svg,210,82,"",{s:22});g.ver=TX(svg,210,116,"",{s:22,b:1});
+  E("line",{x1:210,y1:186,x2:210,y2:336,class:"post"},svg);E("rect",{x:150,y:336,width:120,height:14,rx:5,class:"base"},svg);
+  g.beam=E("line",{x1:-125,y1:0,x2:125,y2:0,class:"beam",transform:"translate(210 180)"},svg);
+  const pan=(lab)=>{const p=E("g",{},svg);E("line",{x1:0,y1:0,x2:-70,y2:90,class:"str"},p);E("line",{x1:0,y1:0,x2:70,y2:90,class:"str"},p);
+    E("line",{x1:-72,y1:90,x2:72,y2:90,class:"plate"},p);TX(p,0,116,lab,{s:18,b:1,c:"t-muted"});return p;};
+  g.L=pan("charges +");g.R=pan("charges −");
+  E("circle",{cx:210,cy:180,r:10,class:"pivot"},svg);
+  const defs={A1:["L","Al³⁺",72,0,68,"plus"],N1:["L","Na⁺",62,-34,68,"plus"],N2:["L","Na⁺",62,34,68,"plus"],
+   C1:["R","Cl⁻",62,-34,68,"minus"],C2:["R","Cl⁻",62,34,68,"minus"],C3:["R","Cl⁻",62,0,28,"minus"],
+   S1:["R","SO₄²⁻",104,0,68,"minus"],S2:["R","SO₄²⁻",104,0,28,"minus"]};
+  g.tk={};for(const id in defs){const d=defs[id];const t=E("g",{class:"tk-"+d[5]+" mv"},g[d[0]]);
+   E("rect",{x:-d[2]/2,y:-18,width:d[2],height:38,rx:9},t);TX(t,0,9,d[1],{s:21,b:1});t.style.opacity="0";t.style.transform="translate("+d[3]+"px,-360px)";g.tk[id]={el:t,dx:d[3],dy:d[4]};}
+  this.g=g;this.a=0;this.setA(0);},
+ setA(a){const g=this.g,r=a*Math.PI/180,c=Math.cos(r)*125,s=Math.sin(r)*125;
+  g.beam.setAttribute("transform","translate(210 180) rotate("+a.toFixed(2)+")");
+  g.L.setAttribute("transform","translate("+(210-c).toFixed(1)+" "+(180-s).toFixed(1)+")");
+  g.R.setAttribute("transform","translate("+(210+c).toFixed(1)+" "+(180+s).toFixed(1)+")");},
+ render(k){const g=this.g;
+  const vis=[[],["A1"],["A1","C1","C2"],["A1","C1","C2","C3"],["N1","N2"],["N1","N2","S1"],["N1","N2","S1","S2"]][k];
+  const prev=this.prevVis||[];let d=0;
+  for(const id in g.tk){const t=g.tk[id];
+   if(vis.includes(id)){const isNew=!prev.includes(id);to(t.el,t.dx,t.dy,1,isNew?(d++)*380:0);}
+   else to(t.el,t.dx,-360,0,0);}
+  this.prevVis=vis;
+  const sum=[0,3,1,0,2,0,-2][k],target=Math.max(-15,Math.min(15,-5*sum));
+  const from=this.a;later(()=>tween(from,target,1100,v=>{this.a=v;this.setA(v);}),instant?0:350+d*380);
+  if(instant){this.a=target;this.setA(target);}
+  g.f.textContent=["","Al³⁺","AlCl₂ ?","AlCl₃","Na⁺ et SO₄²⁻","Na₂SO₄","Na₂(SO₄)₂ ?"][k];
+  g.sum.textContent=["à gauche : + · à droite : −","+3","(+3) + 2 × (−1) = +1","(+3) + 3 × (−1) = 0","2 × (+1) = +2","2 × (+1) + (−2) = 0","2 × (+1) + 2 × (−2) = −2"][k];
+  g.ver.textContent=["","ça penche…","≠ 0 → faux ✗","= 0 → équilibre ✓","ça penche…","= 0 → équilibre ✓","≠ 0 → faux ✗"][k];
+  g.ver.setAttribute("class",["t-muted","t-muted","t-ko","t-ok","t-muted","t-ok","t-ko"][k]);}
+});
+
+/* ---------- Réflexe 3 : diviser des puissances de 10 ---------- */
+SC.push({title:"Réflexe 3 · Diviser des puissances de 10",vb:"0 0 420 370",
+ caps:["Pourquoi diviser, c'est <b>soustraire</b> les exposants&nbsp;? Calculons d'abord <b>100 000 ÷ 100</b>.",
+  "Diviser par 100, c'est enlever 2 zéros : <b>100 000 ÷ 100 = 1 000</b>.",
+  "En puissances de 10 : 10<sup>5</sup> ÷ 10<sup>2</sup> = 10<sup>3</sup>. On a fait <b>5 − 2 = 3</b>. Diviser, c'est soustraire les exposants.",
+  "Avec des signes moins : 10<sup>−10</sup> ÷ 10<sup>−15</sup> donne <b>−10 − (−15)</b>. Imagine un ascenseur au sous-sol −10.",
+  "Enlever −15, c'est <b>monter de 15 étages</b> : −10 + 15 = 5. Donc 10<sup>−10</sup> ÷ 10<sup>−15</sup> = <b>10<sup>5</sup></b>.",
+  "« Combien de <b>fois</b> l'atome est-il plus grand que son noyau ? » Le mot « fois » ne veut pas dire multiplier : on divise <b>le grand par le petit</b>.",
+  "Il faudrait aligner environ <b>100 000 noyaux</b> pour faire le rayon de l'atome. Grand ÷ petit donne un nombre <b>plus grand que 1</b> : l'exposant est positif.",
+  "Dernier piège : 0,5 × 10<sup>5</sup>. Le nombre de devant est multiplié par 10, donc l'exposant <b>baisse de 1</b> : <b>5 × 10<sup>4</sup></b>."],
+ q:{stem:"10<sup>−3</sup> ÷ 10<sup>−7</sup> = ?",opts:["10<sup>−10</sup>","10<sup>4</sup>","10<sup>−4</sup>"],a:1,why:"Exposants : −3 − (−7) = −3 + 7 = 4 → <b>10<sup>4</sup></b>. 10<sup>−3</sup> est plus grand que 10<sup>−7</sup> : le résultat est plus grand que 1."},
+ build(svg){const g={};this.g=g;const grp=()=>{const x=E("g",{class:"mv"},svg);x.style.opacity="0";return x;};
+  /* G1 zéros */
+  g.G1=grp();const ch=[["1",30],["0",56],["0",82],["0",124],["0",150],["0",176],["÷",216],["1",258],["0",284],["0",310]];
+  g.dig=ch.map(c=>{const t=TX(g.G1,c[1],140,c[0],{s:42,b:1,mv:1});return t;});
+  g.str=[4,5,8,9].map(i=>E("line",{x1:ch[i][1]-14,y1:150,x2:ch[i][1]+14,y2:110,class:"strike"},g.G1));
+  g.r1=TX(g.G1,210,225,"= 1 000",{s:46,b:1,c:"t-pc",mv:1,hide:1});
+  g.r1b=TX(g.G1,210,290,"÷ 100 → on enlève 2 zéros",{s:22,c:"t-muted",mv:1,hide:1});
+  /* G2 puissances */
+  g.G2=grp();
+  const pw=(x,y,ex,cls)=>{TX(g.G2,x,y,"10",{s:46,b:1});return TX(g.G2,x+36,y-28,ex,{s:30,b:1,c:cls||"t-hl"});};
+  g.e5=pw(60,130,"5");TX(g.G2,150,130,"÷",{s:44,b:1});g.e2=pw(200,130,"2");TX(g.G2,290,130,"=",{s:44,b:1});
+  g.res=E("g",{class:"mv"},g.G2);g.res.style.opacity="0";TX(g.res,345,130,"10",{s:46,b:1,c:"t-pc"});TX(g.res,381,102,"3",{s:30,b:1,c:"t-pc"});
+  g.m5=TX(g.G2,0,0,"5",{s:42,b:1,c:"t-hl",mv:1});g.m2=TX(g.G2,0,0,"2",{s:42,b:1,c:"t-hl",mv:1});
+  g.minus=TX(g.G2,205,250,"−",{s:42,b:1,mv:1,hide:1});g.eq3=TX(g.G2,320,250,"= 3",{s:42,b:1,c:"t-pc",mv:1,hide:1});
+  g.rule=TX(g.G2,210,320,"diviser → soustraire les exposants",{s:21,b:1,c:"t-muted",mv:1,hide:1});
+  /* G3 ascenseur */
+  g.G3=grp();const fy=f=>40+(5-f)*14;
+  E("rect",{x:38,y:28,width:74,height:304,rx:8,class:"shaft"},g.G3);
+  for(let f=5;f>=-15;f--)E("line",{x1:38,y1:fy(f),x2:112,y2:fy(f),class:f===0?"floor0":"floor"},g.G3);
+  [5,0,-5,-10,-15].forEach(f=>TX(g.G3,122,fy(f)+7,(f>0?"+":"")+String(f).replace("-","−"),{s:20,a:"start",b:f===0}));
+  g.cab=E("rect",{x:44,y:-12,width:62,height:24,rx:5,class:"cabin"},g.G3);
+  g.floor=TX(g.G3,300,58,"",{s:26,b:1,c:"t-pc"});
+  g.x1=TX(g.G3,290,140,"−10 − (−15)",{s:30,b:1});
+  g.x2=TX(g.G3,290,192,"= −10 + 15",{s:30,b:1,c:"t-hl",mv:1,hide:1});
+  g.x3=TX(g.G3,290,246,"= 5",{s:36,b:1,c:"t-ok",mv:1,hide:1});
+  g.x4=TX(g.G3,285,312,"10⁻¹⁰ ÷ 10⁻¹⁵ = 10⁵",{s:22,b:1,c:"t-pc",mv:1,hide:1});
+  this.fy=fy;this.setCab(-10);
+  /* G4 atome */
+  g.G4=grp();E("circle",{cx:210,cy:192,r:125,class:"atomc"},g.G4);TX(g.G4,210,42,"atome",{s:22,b:1,c:"t-pc"});
+  E("line",{x1:213,y1:189,x2:296,y2:100,class:"str"},g.G4);TX(g.G4,300,80,"le noyau",{s:18,b:1,a:"start"});TX(g.G4,300,102,"(minuscule)",{s:18,b:1,a:"start"});
+  g.rad=E("line",{x1:210,y1:192,x2:335,y2:192,class:"radius"},g.G4);
+  E("circle",{cx:210,cy:192,r:3.5,class:"nuc"},g.G4);
+  g.cnt=TX(g.G4,280,234,"",{s:26,b:1,c:"t-hl",mv:1,hide:1});
+  g.r4=TX(g.G4,210,360,"grand ÷ petit = 10⁵ > 1 ✓",{s:21,b:1,c:"t-ok",mv:1,hide:1});
+  /* G5 écriture scientifique */
+  g.G5=grp();
+  g.a1=TX(g.G5,105,160,"0,5",{s:50,b:1,mv:1});g.a2=TX(g.G5,105,160,"5",{s:50,b:1,c:"t-pc",mv:1,hide:1});
+  TX(g.G5,222,160,"× 10",{s:50,b:1});
+  g.b1=TX(g.G5,288,124,"5",{s:32,b:1,c:"t-hl",mv:1});g.b2=TX(g.G5,288,124,"4",{s:32,b:1,c:"t-pc",mv:1,hide:1});
+  g.l1=TX(g.G5,105,222,"× 10",{s:24,b:1,c:"t-ok",mv:1,hide:1});g.l2=TX(g.G5,288,222,"− 1",{s:24,b:1,c:"t-ok",mv:1,hide:1});
+  g.r5=TX(g.G5,210,288,"= 5 × 10⁴",{s:42,b:1,c:"t-pc",mv:1,hide:1});
+  g.c5=TX(g.G5,210,342,"0,5 × 100 000 = 50 000 = 5 × 10⁴",{s:19,c:"t-muted",mv:1,hide:1});
+  this.g=g;},
+ setCab(f){const g=this.g,y=this.fy(f);g.cab.setAttribute("y",(y-12).toFixed(1));g.floor.textContent="étage : "+(f>0?"+":"")+String(Math.round(f)).replace("-","−");},
+ render(k){const g=this.g;const G=[1,1,2,3,3,4,4,5][k];
+  ["G1","G2","G3","G4","G5"].forEach((n,i)=>op(g[n],i+1===G?1:0));
+  /* G1 */
+  const z=k>=1;g.str.forEach((s,i)=>{if(instant||!z){s.classList.toggle("on",z);}else{later(()=>s.classList.add("on"),250+i*300);}});
+  [4,5,8,9].forEach(i=>op(g.dig[i],z?0.3:1,z?400:0));op(g.r1,z?1:0,z?1450:0);op(g.r1b,z?1:0,z?1800:0);
+  /* G2 */
+  if(k===2&&!instant){snap(g.m5,96,102);snap(g.m2,236,102);g.m5.style.opacity="1";g.m2.style.opacity="1";
+    [g.minus,g.eq3,g.res,g.rule].forEach(x=>x.style.opacity="0");
+    later(()=>{to(g.m5,150,250,1);to(g.m2,260,250,1,150);},400);
+    later(()=>{op(g.minus,1);op(g.eq3,1,250);},1300);later(()=>{op(g.res,1);op(g.rule,1,300);},2000);}
+  else{to(g.m5,150,250,1);to(g.m2,260,250,1);[g.minus,g.eq3,g.res,g.rule].forEach(x=>op(x,k>=2?1:0));}
+  /* G3 */
+  if(k===3){this.setCab(-10);[g.x2,g.x3,g.x4].forEach(x=>op(x,0));}
+  else if(k===4){op(g.x2,1,instant?0:200);
+    if(instant){this.setCab(5);[g.x3,g.x4].forEach(x=>op(x,1));}
+    else{this.setCab(-10);later(()=>tween(-10,5,2400,v=>this.setCab(v)),700);later(()=>{op(g.x3,1);op(g.x4,1,400);},3200);}}
+  else if(k>4){this.setCab(5);[g.x2,g.x3,g.x4].forEach(x=>op(x,1));}
+  /* G4 */
+  if(k===6&&!instant){g.rad.classList.remove("on");g.cnt.textContent="× 1";op(g.cnt,0);op(g.r4,0);
+    later(()=>g.rad.classList.add("on"),300);
+    later(()=>{op(g.cnt,1);tween(0,1,2300,p=>{const v=Math.round(Math.pow(10,5*p));g.cnt.textContent="× "+sp(v);});},700);
+    later(()=>op(g.r4,1),3200);}
+  else{const on=k>=6;g.rad.classList.toggle("on",on);g.cnt.textContent="× 100 000";op(g.cnt,on?1:0);op(g.r4,on?1:0);}
+  /* G5 */
+  if(k===7&&!instant){[g.a2,g.b2,g.l1,g.l2,g.r5,g.c5].forEach(x=>x.style.opacity="0");g.a1.style.opacity="1";g.b1.style.opacity="1";
+    later(()=>{op(g.l1,1);op(g.a1,0,300);op(g.a2,1,500);},600);
+    later(()=>{op(g.l2,1);op(g.b1,0,300);op(g.b2,1,500);},1700);
+    later(()=>op(g.r5,1),2800);later(()=>op(g.c5,1),3500);}
+  else{const on=k>=7;op(g.a1,on?0:1);op(g.a2,on?1:0);op(g.b1,on?0:1);op(g.b2,on?1:0);[g.l1,g.l2,g.r5,g.c5].forEach(x=>op(x,on?1:0));}
+ }
+});
+
+/* ---------- Réflexe 4 : remplir les sous-couches ---------- */
+SC.push({title:"Réflexe 4 · Je remplis les sous-couches dans l'ordre",vb:"0 0 420 380",
+ caps:["Les sous-couches sont des <b>cases</b> : s a 1 case, p a 3 cases. Chaque case contient 2 électrons au maximum : <b>s = 2</b> électrons, <b>p = 6</b>. Remplissons le magnésium : 12 électrons.",
+  "On remplit <b>dans l'ordre</b> : d'abord 1s, puis 2s. 4 électrons placés, il en reste 8.",
+  "Ensuite 2p : ses 3 cases prennent <b>6 électrons, pas un de plus</b>. Il en reste 2.",
+  "2p est plein ! Il n'y a pas de 4<sup>e</sup> case : <b>2p<sup>8</sup> est impossible</b>. Les 2 derniers électrons vont en <b>3s</b>.",
+  "Configuration : <b>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup></b>. Vérification 1 : 2 + 2 + 6 + 2 = 12 = Z. Vérification 2 : aucune sous-couche ne déborde. Dernière couche n = 3 : <b>3<sup>e</sup> période</b>.",
+  "Dans le tableau, une <b>période est une ligne</b>. Le magnésium est sur la 3<sup>e</sup> ligne, car sa dernière couche est n = 3.",
+  "Une <b>famille est une colonne</b> : N et P ont chacun 5 électrons de valence. He, Ne et Ar (les gaz nobles) ont leur couche externe pleine : périodes différentes, <b>même colonne</b>."],
+ q:{stem:"Configuration du néon (Z = 10) :",opts:["1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>4</sup> 3s<sup>2</sup>","1s<sup>2</sup> 2s<sup>8</sup>"],a:0,why:"2 + 2 + 6 = 10, sans débordement : <b>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup></b>. 2s<sup>8</sup> déborde (s = 2 max), et 3s ne se remplit qu'après 2p plein."},
+ build(svg){const g={};this.g=g;
+  g.B=E("g",{class:"mv"},svg);
+  g.cnt=TX(g.B,20,36,"",{s:22,b:1,a:"start"});
+  const rows={1:80,2:165,3:250};const S=62,Px=[186,236,286];
+  const boxes={s1:[S,rows[1]],s2:[S,rows[2]],pa:[Px[0],rows[2]],pb:[Px[1],rows[2]],pc:[Px[2],rows[2]],s3:[S,rows[3]],qa:[Px[0],rows[3]],qb:[Px[1],rows[3]],qc:[Px[2],rows[3]]};
+  [["1s",36,rows[1]],["2s",36,rows[2]],["2p",160,rows[2]],["3s",36,rows[3]],["3p",160,rows[3]]].forEach(l=>TX(g.B,l[1],l[2]+9,l[0],{s:26,b:1,c:"t-pc"}));
+  for(const id in boxes){const b=boxes[id];E("rect",{x:b[0],y:b[1]-26,width:44,height:52,rx:4,class:"box"},g.B);}
+  g.gh=E("rect",{x:336,y:rows[2]-26,width:44,height:52,rx:4,class:"ghost mv"},g.B);g.gh.style.opacity="0";
+  g.ghl=TX(g.B,358,rows[2]-36,"✗ plein",{s:18,b:1,c:"t-ko",mv:1,hide:1});
+  g.badge=TX(g.B,236,rows[2]+48,"2p plein : 6 max",{s:18,b:1,c:"t-ok",mv:1,hide:1});
+  const order=["s1","s1","s2","s2","pa","pa","pb","pb","pc","pc","s3","s3"];
+  g.slots=order.map((id,i)=>{const b=boxes[id];return [b[0]+(i%2?30:14),b[1]+11];});
+  g.ghostSlot=[350,rows[2]+11];
+  g.e=order.map((id,i)=>{const t=TX(g.B,0,0,i%2?"↓":"↑",{s:32,b:1,c:"el",mv:1});t.setAttribute("class","el mv");t.style.opacity="0";t.style.transform="translate(390px,30px)";return t;});
+  g.row3=E("rect",{x:12,y:rows[3]-36,width:322,height:72,rx:10,class:"hlr mv"},g.B);g.row3.style.opacity="0";
+  g.row3l=TX(g.B,210,rows[3]+56,"dernière couche n = 3 → 3ᵉ période",{s:19,b:1,c:"t-hl",mv:1,hide:1});
+  g.conf=TX(g.B,210,345,"1s² 2s² 2p⁶ 3s²",{s:28,b:1,c:"t-pc",mv:1,hide:1});
+  g.sum=TX(g.B,210,374,"2 + 2 + 6 + 2 = 12 = Z ✓",{s:19,b:1,c:"t-ok",mv:1,hide:1});
+  /* tableau */
+  g.T=E("g",{class:"mv"},svg);g.T.style.opacity="0";
+  const els=[["H","","","","","","","He"],["Li","Be","B","C","N","O","F","Ne"],["Na","Mg","Al","Si","P","S","Cl","Ar"]];
+  ["1","2","13","14","15","16","17","18"].forEach((c,i)=>TX(g.T,45+46*i,60,c,{s:15,c:"t-muted"}));
+  els.forEach((r,ri)=>r.forEach((e,ci)=>{if(!e)return;const x=22+46*ci,y=72+50*ri;E("rect",{x:x,y:y,width:46,height:46,class:"cell"+(e==="Mg"?" mg":"")},g.T);TX(g.T,x+23,y+30,e,{s:20,b:1});}));
+  g.hRow=E("rect",{x:16,y:166,width:380,height:58,rx:8,class:"hlr mv"},g.T);g.hRow.style.opacity="0";
+  g.hN=E("rect",{x:202,y:116,width:54,height:108,rx:8,class:"okr mv"},g.T);g.hN.style.opacity="0";
+  g.hG=E("rect",{x:340,y:66,width:54,height:158,rx:8,class:"pcr mv"},g.T);g.hG.style.opacity="0";
+  g.t1=TX(g.T,210,272,"",{s:22,b:1,c:"t-hl"});
+  g.t2=TX(g.T,210,310,"N, P : 5 électrons de valence",{s:20,b:1,c:"t-ok",mv:1,hide:1});
+  g.t3=TX(g.T,210,344,"He, Ne, Ar : gaz nobles",{s:20,b:1,c:"t-pc",mv:1,hide:1});
+  this.g=g;},
+ render(k){const g=this.g;
+  op(g.B,k<=4?1:0);op(g.T,k>=5?1:0);
+  const n=[0,4,10,12,12,12,12][k];
+  const start=[0,0,4,10,12,12,12][k];
+  g.e.forEach((t,i)=>{const s=g.slots[i];
+   if(i<start||instant){if(i<n)to(t,s[0],s[1],1);else{t.style.opacity="0";snap(t,390,30);}}
+   else if(i<n&&k!==3){if(t.style.opacity==="0")snap(t,390,30);to(t,s[0],s[1],1,(i-start)*380+200);}
+   else if(i>=n){t.style.opacity="0";snap(t,390,30);}
+  });
+  const rest=12-n;
+  if(k===3&&!instant){g.cnt.textContent="Mg · Z = 12 · à placer : 2";
+    const a=g.e[10],b=g.e[11];snap(a,390,30);snap(b,390,30);
+    g.gh.classList.remove("bad");
+    later(()=>{op(g.gh,1);to(a,g.ghostSlot[0],g.ghostSlot[1],1);},200);
+    later(()=>{g.gh.classList.add("bad");op(g.ghl,1);},1200);
+    later(()=>{to(a,g.slots[10][0],g.slots[10][1],1);op(g.gh,0,400);op(g.ghl,0,400);},2300);
+    later(()=>{to(b,g.slots[11][0],g.slots[11][1],1);},2900);
+    later(()=>{g.cnt.textContent="Mg · Z = 12 · à placer : 0";},3600);}
+  else{op(g.gh,0);op(g.ghl,0);g.cnt.textContent="Mg · Z = 12 · à placer : "+rest;}
+  op(g.badge,k>=2&&k<=3?1:0,k===2&&!instant?2800:0);
+  op(g.row3,k===4?1:0);op(g.row3l,k===4?1:0,k===4&&!instant?400:0);
+  op(g.conf,k===4?1:0,k===4&&!instant?900:0);op(g.sum,k===4?1:0,k===4&&!instant?1600:0);
+  g.t1.textContent=k===5?"une ligne = une période":(k===6?"une colonne = une famille":"");
+  op(g.hRow,k===5?1:0);op(g.hN,k===6?1:0);op(g.hG,k===6?1:0,k===6&&!instant?700:0);
+  op(g.t2,k===6?1:0);op(g.t3,k===6?1:0,k===6&&!instant?700:0);}
+});
+
+/* ================= ÉTAT ET AFFICHAGE ================= */
+const fresh=()=>({started:false,s:0,k:0,ans:{},t0:null,t1:null,end:false});
+let st=fresh(),ui={fs:24,hc:false,theme:"auto"};
+try{const r=localStorage.getItem(STORE);if(r){const o=JSON.parse(r);if(o.st)st=Object.assign(fresh(),o.st);if(o.ui)ui=Object.assign(ui,o.ui);}}catch(e){}
+function save(){try{localStorage.setItem(STORE,JSON.stringify({st,ui}));}catch(e){}}
+const root=document.documentElement,hostTheme=root.getAttribute("data-theme");
+function applyUI(){root.style.setProperty("--fs",ui.fs+"px");
+ if(ui.hc)root.setAttribute("data-contrast","high");else root.removeAttribute("data-contrast");
+ if(ui.theme==="light"||ui.theme==="dark")root.setAttribute("data-theme",ui.theme);else{if(hostTheme)root.setAttribute("data-theme",hostTheme);else root.removeAttribute("data-theme");}
+ document.getElementById("hc").setAttribute("aria-pressed",ui.hc?"true":"false");
+ document.getElementById("theme").textContent="Thème : "+({auto:"auto",light:"clair",dark:"sombre"})[ui.theme];}
+document.getElementById("fsMinus").onclick=()=>{ui.fs=Math.max(18,ui.fs-2);applyUI();save();};
+document.getElementById("fsPlus").onclick=()=>{ui.fs=Math.min(40,ui.fs+2);applyUI();save();};
+document.getElementById("hc").onclick=()=>{ui.hc=!ui.hc;applyUI();save();};
+document.getElementById("theme").onclick=()=>{ui.theme=({auto:"light",light:"dark",dark:"auto"})[ui.theme];applyUI();save();};
+
+const app=document.getElementById("app");
+const LET=["A","B","C"];
+let svgEl=null,cur=null;
+function setView(html){clearPending();app.innerHTML=html;window.scrollTo(0,0);const h=app.querySelector("h1,h2");if(h){h.setAttribute("tabindex","-1");h.focus({preventScroll:true});}}
+function tabsHtml(){return `<nav class="tabs" aria-label="Les 4 réflexes">${SC.map((s,i)=>`<button class="tab" type="button" data-go="${i}" aria-current="${!st.end&&st.s===i?"true":"false"}">${st.ans[i]?(st.ans[i].ok?"✓ ":"✗ "):""}${s.title.replace(" · ","<br>")}</button>`).join("")}</nav>`;}
+
+function renderStart(){
+ const resume=st.started&&!st.end;
+ setView(`<h1>Mémo animé : les 4 réflexes pour le contrôle</h1>
+ <div class="card"><div style="display:flex;flex-direction:column;gap:.6rem">
+  <p>Chaque réflexe est une <b>petite animation</b>. Tu avances <b>à ton rythme</b> avec le bouton « Étape suivante ».</p>
+  <ul class="list"><li>Tu peux revenir en arrière ou rejouer une étape.</li><li>À la fin de chaque réflexe : une question « À toi ! ».</li><li>Durée : 10 minutes environ.</li></ul>
+ </div></div>
+ <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem"><span class="kicker">Les 4 réflexes</span>
+  <ol class="list">${SC.map(s=>`<li><b>${s.title.split(" · ")[1]}</b></li>`).join("")}</ol></div></div>
+ <div class="row"><button class="btn" id="go" type="button">${resume?"Reprendre":"Commencer"}</button></div>`);
+ document.getElementById("go").onclick=()=>{if(!st.started){st.started=true;st.t0=Date.now();}save();route();};
+}
+
+function renderScene(animate){
+ const i=st.s,S=SC[i],K=S.caps.length,k=Math.min(st.k,K-1),last=k===K-1,a=st.ans[i];
+ setView(`${tabsHtml()}
+ <span class="kicker">Réflexe ${i+1} sur 4</span>
+ <h1>${S.title.split(" · ")[1]}</h1>
+ <div class="stage"><svg id="svg" viewBox="${S.vb}" role="img" aria-label="${S.title}"></svg></div>
+ <div class="stepinfo"><span>Étape ${k+1} sur ${K}</span><span class="pips" aria-hidden="true">${S.caps.map((c,j)=>`<i class="${j<=k?"on":""}"></i>`).join("")}</span></div>
+ <div class="cap" id="cap" aria-live="polite">${S.caps[k]}</div>
+ <div class="ctrls">
+  <button class="btn ghost" id="prev" type="button" ${k===0?"disabled":""}>◀ Retour</button>
+  ${last?`<button class="btn" id="toq" type="button">${a?"Voir la question":"À toi ! ▼"}</button>`:`<button class="btn" id="next" type="button">Étape suivante ▶</button>`}
+ </div>
+ <button class="replay" id="replay" type="button">↺ Rejouer l'étape</button>
+ ${last?qHtml(i):""}`);
+ svgEl=document.getElementById("svg");cur=S;S.build(svgEl);
+ instant=true;svgEl.classList.add("instant");
+ if(animate&&k>0){S.render(k-1);}else S.render(k);
+ svgEl.getBoundingClientRect();svgEl.classList.remove("instant");instant=false;
+ if(animate&&!RM){requestAnimationFrame(()=>requestAnimationFrame(()=>{S.render(k);}));}
+ else if(animate&&RM){instant=true;S.render(k);instant=false;}
+ const nx=document.getElementById("next");if(nx)nx.onclick=()=>{st.k=k+1;save();renderScene(true);};
+ document.getElementById("prev").onclick=()=>{st.k=Math.max(0,k-1);save();renderScene(false);};
+ document.getElementById("replay").onclick=()=>renderScene(true);
+ const tq=document.getElementById("toq");if(tq)tq.onclick=()=>{const q=document.getElementById("qcard");if(q)q.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});};
+ app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{st.s=+b.dataset.go;st.k=0;st.end=false;save();renderScene(false);});
+ bindQ(i);
+}
+function qHtml(i){const q=SC[i].q,a=st.ans[i];
+ const opts=q.opts.map((o,j)=>{let cls="opt",mark="";if(a){if(j===q.a){cls+=" good";mark="✓ Bonne réponse";}else if(j===a.c){cls+=" bad";mark="✗ Ta réponse";}}
+  return `<li><button class="${cls}" type="button" data-q="${j}" ${a?"disabled":""}><span class="L" aria-hidden="true">${LET[j]}</span><span class="txt">${o}</span>${mark?`<span class="mark">${mark}</span>`:""}</button></li>`;}).join("");
+ const fb=a?`<div class="fb ${a.ok?"ok":"ko"}" role="status"><div class="v">${a.ok?"✓ Bravo, réflexe en place !":"✗ Pas tout à fait. La bonne réponse est "+LET[q.a]+"."}</div><div class="why">${q.why}</div></div>`:"";
+ const nextLbl=i<SC.length-1?"Réflexe suivant →":"Voir mon bilan";
+ return `<section class="qcard" id="qcard"><span class="kicker">À toi !</span><p class="stem">${q.stem}</p><ul class="opts">${opts}</ul>${fb}
+  ${a?`<div class="row"><button class="btn" id="nextS" type="button">${nextLbl}</button></div>`:""}</section>`;}
+function bindQ(i){
+ app.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const c=+b.dataset.q;st.ans[i]={c:c,ok:c===SC[i].q.a};save();
+  const qc=document.getElementById("qcard");qc.outerHTML=qHtml(i);bindQ(i);
+  const t=app.querySelector(`.tab[data-go="${i}"]`);if(t)t.innerHTML=(st.ans[i].ok?"✓ ":"✗ ")+SC[i].title.replace(" · ","<br>");
+  const f=document.querySelector("#qcard .fb");if(f)f.scrollIntoView({block:"nearest"});});
+ const n=document.getElementById("nextS");
+ if(n)n.onclick=()=>{if(i<SC.length-1){st.s=i+1;st.k=0;save();renderScene(false);}else{st.end=true;st.t1=st.t1||Date.now();save();route();}};
+}
+
+/* ---------- bilan ---------- */
+function fmtDate(t){const d=new Date(t),z=n=>String(n).padStart(2,"0");return `${z(d.getDate())}/${z(d.getMonth()+1)}/${d.getFullYear()} à ${z(d.getHours())}h${z(d.getMinutes())}`;}
+function plain(h){const d=document.createElement("div");d.innerHTML=h.replace(/<sup>(.*?)<\/sup>/g,(m,x)=>x.split("").map(c=>({"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","+":"⁺","−":"⁻"}[c]||c)).join("")).replace(/<sub>(.*?)<\/sub>/g,(m,x)=>x.split("").map(c=>({"0":"₀","1":"₁","2":"₂","3":"₃","4":"₄","5":"₅","6":"₆","7":"₇","8":"₈","9":"₉"}[c]||c)).join(""));return d.textContent.replace(/\s+/g," ").trim();}
+function bilan(){const ok=SC.filter((s,i)=>st.ans[i]&&st.ans[i].ok).length;
+ const L=["MÉMO ANIMÉ — SÉANCE 2 — PHYSIQUE-CHIMIE 2nde","L'atome : les 4 réflexes pour le contrôle","Élève : (écris ton prénom)","Fait le "+fmtDate(st.t1||Date.now())+(st.t0&&st.t1?" · durée : "+Math.max(1,Math.round((st.t1-st.t0)/60000))+" min":""),"","QUESTIONS « À TOI » : "+ok+"/4"];
+ SC.forEach((s,i)=>{const a=st.ans[i];L.push(s.title+" : "+(!a?"pas de réponse":(a.ok?"✓ "+LET[a.c]:"✗ "+LET[a.c]+" (attendu "+LET[s.q.a]+" : "+plain(s.q.opts[s.q.a])+")")));});
+ const miss=SC.filter((s,i)=>!(st.ans[i]&&st.ans[i].ok));
+ L.push("","À REVOIR");if(!miss.length)L.push("- Rien : les 4 réflexes sont en place !");miss.forEach(s=>L.push("- "+s.title+" : rejoue l'animation"));
+ L.push("","CONSEIL",miss.length?"Rejoue l'animation du réflexe raté, puis refais les exercices de ce réflexe dans l'app de la séance 2.":"Passe maintenant au devoir maison, puis au contrôle blanc.");
+ return {txt:L.join("\n"),ok};}
+let dl=null;
+function renderEnd(){const b=bilan(),txt=b.txt,esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+ const wa="https://wa.me/?text="+encodeURIComponent(txt);
+ const gm="https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(MAIL)+"&su="+encodeURIComponent("Bilan mémo animé PC – séance 2")+"&body="+encodeURIComponent(txt);
+ setView(`${tabsHtml()}<span class="kicker">Bilan</span><h1>Bravo, tu as vu les 4 réflexes !</h1>
+ <div class="card"><div class="total"><b>${b.ok}/4</b><span>réflexes vérifiés</span></div></div>
+ <div class="parts">${SC.map((s,i)=>{const a=st.ans[i];return `<div class="prt"><span class="n">${s.title}</span><span class="sc">${!a?"—":(a.ok?"✓":"✗")}</span><span class="st"><b>${!a?"pas encore fait":(a.ok?"en place":"à rejouer")}</b></span></div>`;}).join("")}</div>
+ <h2>Envoie ton bilan à Mr Moreira</h2>
+ <div class="row"><button class="btn" id="dl" type="button" hidden>Télécharger mon bilan</button><button class="btn" id="cp" type="button">Copier mon bilan</button>
+  <a class="btn ghost" href="${wa}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par WhatsApp</a>
+  <a class="btn ghost" href="${gm}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par Gmail</a></div>
+ <p class="status" id="msg" role="status" aria-live="polite"></p>
+ <p>Tu peux aussi montrer cet écran à ton professeur.</p>
+ <pre class="report" id="rep">${esc(txt)}</pre>
+ <details><summary>Tout recommencer</summary><div class="inner"><p>Tes réponses seront effacées.</p><div class="row"><button class="btn ghost" id="rs" type="button">Oui, recommencer</button></div></div></details>`);
+ const msg=document.getElementById("msg");
+ document.getElementById("cp").onclick=()=>{const fb=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("rep"));const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : appuie sur « Copier ».";};
+  try{navigator.clipboard.writeText(txt).then(()=>msg.textContent="✓ Bilan copié. Colle-le dans un message.",fb);}catch(e){fb();}};
+ const d=document.getElementById("dl");if(dl)d.hidden=false;
+ d.onclick=async()=>{if(!dl)return;try{await dl.save({filename:"bilan-memo-seance2.txt",data:txt});msg.textContent="✓ Bilan téléchargé.";}catch(e){const c=e&&e.code;msg.textContent=c==="declined"?"Téléchargement annulé.":"Le téléchargement ne marche pas ici : utilise « Copier » ou WhatsApp.";}};
+ app.querySelectorAll("[data-go]").forEach(x=>x.onclick=()=>{st.s=+x.dataset.go;st.k=0;st.end=false;save();renderScene(false);});
+ document.getElementById("rs").onclick=()=>{st=fresh();save();route();};
+}
+function route(){if(!st.started)return renderStart();if(st.end)return renderEnd();renderScene(false);}
+
+/* rotation des électrons (réflexe 1) */
+let lastT=null;
+function loop(t){if(lastT!==null&&cur&&cur.tick&&!RM&&document.visibilityState!=="hidden"&&svgEl&&svgEl.isConnected)cur.tick(Math.min(60,t-lastT));lastT=t;requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+
+applyUI();route();
+try{if(window.claude&&window.claude.use)window.claude.use("downloads").then(d=>{dl=d;const b=document.getElementById("dl");if(b&&dl)b.hidden=false;}).catch(()=>{});}catch(e){}
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

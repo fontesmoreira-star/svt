@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QCM diagnostic Atome</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout : une colonne de lecture large, une question par écran, outils d'accessibilité en tête. Identité PC = bleu foncé. */
+:root{
+  --fs:24px;
+  --paper:#f6f8fc; --surface:#ffffff; --ink:#0f1d33; --muted:#3c4a63;
+  --pc:#163a7a; --pc-band:#163a7a; --pc-tint:#e4ecf9;
+  --line:#8796b2; --ok:#17602f; --ok-bg:#e1f2e6; --ko:#9e2418; --ko-bg:#fbe4df;
+  --focus:#c05a00; --data-bg:#eef3fb;
+  --font:Verdana,"Atkinson Hyperlegible",Arial,sans-serif;
+  --bw:2px;
+}
+:root[data-contrast="high"]{
+  --paper:#ffffff; --surface:#ffffff; --ink:#000000; --muted:#000000;
+  --pc:#002a80; --pc-band:#002a80; --pc-tint:#ffffff; --line:#000000;
+  --ok:#004d1a; --ok-bg:#ffffff; --ko:#8a0000; --ko-bg:#ffffff; --data-bg:#ffffff; --bw:3px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+    --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+    --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+  --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+  --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"])[data-contrast="high"]{
+    --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+    --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+    --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+  }
+}
+:root[data-theme="dark"][data-contrast="high"]{
+  --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+  --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+  --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+}
+
+html{font-size:var(--fs)}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.5;margin:0;overflow-wrap:break-word}
+*,*::before,*::after{box-sizing:border-box}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* En-tête matière */
+.band{height:12px;background:var(--pc-band)}
+header.top{background:var(--pc-tint);border-bottom:var(--bw) solid var(--pc)}
+header.top .wrap{padding-block:.6rem .7rem;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between}
+.subject{min-width:0}
+.subject b{display:block;color:var(--pc);font-size:1.15rem;letter-spacing:.06em;line-height:1.2}
+.subject span{display:block;font-size:.8rem;color:var(--muted);line-height:1.35}
+.tools{display:flex;flex-wrap:wrap;gap:.4rem}
+.tool{min-height:48px;min-width:48px;padding:.2rem .6rem;font:inherit;font-size:.75rem;font-weight:bold;color:var(--pc);background:var(--surface);border:var(--bw) solid var(--pc);border-radius:10px;cursor:pointer}
+.tool[aria-pressed="true"]{outline:3px solid var(--pc);outline-offset:1px}
+
+main .wrap{padding-block:1.2rem 3rem;display:flex;flex-direction:column;gap:1rem}
+h1,h2{line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:1.4rem}
+h2{font-size:1.2rem}
+p{margin:0}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+h1:focus,h2:focus{outline:none}
+
+.card{background:var(--surface);border:var(--bw) solid var(--line);border-radius:14px;padding:1rem}
+.kicker{font-size:.8rem;font-weight:bold;color:var(--pc);letter-spacing:.05em;text-transform:uppercase}
+.list{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:.3rem}
+
+.btn{min-height:56px;font:inherit;font-weight:bold;padding:.4rem 1.1rem;border-radius:12px;cursor:pointer;border:4px solid var(--pc);background:var(--pc-tint);color:var(--ink);text-align:center}
+.btn.ghost{background:var(--surface);color:var(--pc);border-width:var(--bw)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.7rem}
+.row .btn{flex:1 1 12rem}
+
+/* Progression */
+.progress{display:flex;flex-direction:column;gap:.35rem}
+.progress .lab{font-size:.8rem;font-weight:bold;color:var(--muted)}
+.bar{height:14px;border:2px solid var(--pc);border-radius:8px;overflow:hidden;background:var(--surface)}
+.bar i{display:block;height:100%;background:var(--pc-band)}
+
+/* Question */
+.stem{font-size:1.05rem}
+.data{background:var(--data-bg);border:var(--bw) dashed var(--pc);border-radius:12px;padding:.7rem .9rem}
+.data .t{font-weight:bold;color:var(--pc);font-size:.85rem}
+.opts{display:flex;flex-direction:column;gap:.6rem;margin:0;padding:0;list-style:none}
+.opt{width:100%;min-height:64px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.2rem .7rem;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:var(--bw) solid var(--line);border-radius:12px;padding:.5rem .8rem;cursor:pointer}
+.opt .L{grid-row:1 / span 2;width:2em;height:2em;display:grid;place-items:center;border:var(--bw) solid var(--pc);border-radius:8px;font-weight:bold;color:var(--pc)}
+.opt .txt{min-width:0;overflow-wrap:normal}
+.opt .mark{grid-column:2;font-size:.85rem;font-weight:bold}
+.opt[aria-pressed="true"]{border-width:4px;border-color:var(--pc);background:var(--pc-tint)}
+.opt[aria-pressed="true"] .L{border-width:4px;text-decoration:underline}
+.opt.good{border:4px solid var(--ok);background:var(--ok-bg)}
+.opt.bad{border:4px solid var(--ko);background:var(--ko-bg)}
+.opt.good .mark{color:var(--ok)} .opt.bad .mark{color:var(--ko)}
+.opt:disabled{cursor:default;opacity:1}
+.idk{align-self:flex-start;min-height:48px;font:inherit;font-size:.85rem;padding:.3rem .8rem;border-radius:10px;border:2px dashed var(--line);background:transparent;color:var(--muted);cursor:pointer}
+
+.fb{border-radius:12px;padding:.8rem 1rem;border:var(--bw) solid}
+.fb.ok{border-color:var(--ok);background:var(--ok-bg)}
+.fb.ko{border-color:var(--ko);background:var(--ko-bg)}
+.fb .v{font-weight:bold;font-size:1.1rem}
+.fb.ok .v{color:var(--ok)} .fb.ko .v{color:var(--ko)}
+.fb .why{margin-top:.4rem}
+.step{display:block;margin-top:.25rem}
+
+/* Notation du noyau A en haut, Z en bas */
+.nuc{display:inline-flex;align-items:center;vertical-align:middle;white-space:nowrap}
+.nuc .s{display:inline-flex;flex-direction:column;align-items:flex-end;font-size:.7em;line-height:1.05;margin-right:.06em}
+sub,sup{font-size:.68em;line-height:0}
+
+/* Bilan */
+.total{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.total b{font-size:2.2rem;color:var(--pc);font-variant-numeric:tabular-nums}
+.parts{display:grid;gap:.7rem}
+.prt{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;align-items:center;border:var(--bw) solid var(--line);border-radius:12px;padding:.6rem .8rem;background:var(--surface)}
+.prt .n{min-width:0;font-weight:bold}
+.prt .sc{font-weight:bold;font-variant-numeric:tabular-nums;color:var(--pc)}
+.prt .st{grid-column:1 / -1;font-size:.85rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.dots{letter-spacing:.12em;font-size:.95rem}
+.report{white-space:pre-wrap;font-family:var(--font);font-size:.8rem;line-height:1.45;background:var(--data-bg);border:2px solid var(--line);border-radius:12px;padding:.8rem;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere;margin:0}
+.mail{overflow-wrap:anywhere;word-break:break-all;font-weight:bold;user-select:all;-webkit-user-select:all}
+.status{min-height:1.5em;font-weight:bold}
+details{border:var(--bw) solid var(--line);border-radius:12px;background:var(--surface)}
+summary{min-height:56px;padding:.7rem 1rem;cursor:pointer;font-weight:bold;color:var(--pc)}
+details .inner{padding:0 1rem 1rem;display:flex;flex-direction:column;gap:.9rem}
+.rev{border-top:2px solid var(--line);padding-top:.7rem}
+.rev .h{font-weight:bold}
+.small{font-size:.85rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<div class="band" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <div class="subject"><b>PHYSIQUE-CHIMIE</b><span>2nde · QCM diagnostic · L'atome et les entités chimiques</span></div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tool" id="fsMinus" type="button" aria-label="Texte plus petit">A−</button>
+      <button class="tool" id="fsPlus" type="button" aria-label="Texte plus grand">A+</button>
+      <button class="tool" id="hc" type="button" aria-pressed="false">Contraste +</button>
+      <button class="tool" id="theme" type="button">Thème : auto</button>
+    </div>
+  </div>
+</header>
+<main><div class="wrap" id="app"></div></main>
+
+<script>
+(function(){
+"use strict";
+const MAIL="";
+const STORE="qcm-atome-diag-v1";
+const nuc=(A,Z,X)=>`<span class="nuc" role="img" aria-label="${X}, A = ${A}, Z = ${Z}"><span class="s" aria-hidden="true"><span>${A}</span><span>${Z}</span></span><span aria-hidden="true">${X}</span></span>`;
+const S=(n)=>`<span class="step">${n}</span>`;
+
+const PARTS=[
+ {n:1,title:"Les entités chimiques",cover:"Atome, molécule, cation, anion, formule d'un composé ionique.",
+  advice:"Revois le tableau atome / molécule / cation / anion. Retiens : signe + = des électrons en moins ; signe − = des électrons en plus. Le noyau ne change jamais."},
+ {n:2,title:"Le noyau et les particules",cover:"Numéro atomique Z, nombre de masse A, écriture du noyau, élément chimique, proton, neutron, électron.",
+  advice:"Entraîne-toi à lire la notation du noyau : A en haut (nucléons), Z en bas (protons), et N = A − Z pour les neutrons."},
+ {n:3,title:"Calculs : puissances de 10, tailles, masses",cover:"Écriture scientifique, quotient de puissances de 10, conversion de cm en m, masse d'un noyau, résultat plausible. Calculatrice autorisée. Les données utiles sont rappelées dans la question.",
+  advice:"Refais les calculs avec la règle 10ᵃ ÷ 10ᵇ = 10ᵃ⁻ᵇ, écris l'unité à chaque ligne, et vérifie toujours si ton résultat est plausible (un atome ≈ 10⁻¹⁰ m)."},
+ {n:4,title:"Cortège électronique et tableau périodique",cover:"Configuration électronique, électrons de valence, période et bloc, famille des gaz nobles.",
+  advice:"Recopie l'ordre 1s 2s 2p 3s 3p (s : 2 électrons maximum, p : 6 maximum) et entraîne-toi sur les éléments de Z = 1 à 18."}
+];
+
+const Q=[
+ {p:1,stem:"La formule H<sub>2</sub>O représente :",opts:["un atome","un cation","une molécule","un anion"],a:2,
+  notion:"Reconnaître une molécule",
+  why:"H<sub>2</sub>O contient 3 atomes liés (2 H et 1 O) et ne porte aucune charge : c'est une <b>molécule</b>. Un ion aurait un signe + ou − en exposant."},
+ {p:1,stem:"L'ion chlorure Cl<sup>−</sup> est :",opts:["un anion : l'atome a gagné 1 électron","un anion : l'atome a perdu 1 électron","un cation : l'atome a perdu 1 électron","un cation : l'atome a gagné 1 proton"],a:0,
+  notion:"Anion : un atome qui a gagné des électrons",
+  why:"Le signe − signifie <b>un électron en plus</b> : l'atome de chlore a <b>gagné</b> 1 électron. Un ion négatif est un <b>anion</b>. Les protons ne changent jamais."},
+ {p:1,stem:"L'entité NH<sub>4</sub><sup>+</sup> est :",opts:["une molécule, car elle contient plusieurs atomes","un anion","un atome","un cation"],a:3,
+  notion:"Un ion peut contenir plusieurs atomes (NH₄⁺)",
+  why:"NH<sub>4</sub><sup>+</sup> contient 5 atomes, mais il porte une charge <b>+</b> : c'est un ion positif, donc un <b>cation</b>. C'est la charge qui décide, pas le nombre d'atomes."},
+ {p:1,stem:"Le chlorure de calcium contient des ions Ca<sup>2+</sup> et Cl<sup>−</sup>. Sa formule est :",opts:["CaCl","CaCl<sub>2</sub>","Ca<sub>2</sub>Cl","CaCl<sub>3</sub>"],a:1,
+  notion:"Formule d'un composé ionique (électroneutralité)",
+  why:"La matière est électriquement neutre : les charges doivent s'annuler. Ca<sup>2+</sup> apporte +2, chaque Cl<sup>−</sup> apporte −1."+S("Il faut 2 ions Cl<sup>−</sup> : (+2) + 2 × (−1) = 0 → <b>CaCl<sub>2</sub></b>.")},
+ {p:1,stem:"L'atome de magnésium (Z = 12) est neutre. L'ion Mg<sup>2+</sup> possède :",opts:["12 protons et 14 électrons","10 protons et 12 électrons","12 protons et 12 électrons","12 protons et 10 électrons"],a:3,
+  notion:"Compter les électrons d'un ion",
+  why:S("Étape 1 : l'atome Mg neutre a 12 protons et 12 électrons.")+S("Étape 2 : 2+ signifie 2 électrons <b>en moins</b> : 12 − 2 = <b>10 électrons</b>.")+S("Le noyau ne change pas : toujours <b>12 protons</b>.")},
+
+ {p:2,stem:`Dans l'écriture ${nuc(23,11,"Na")}, le nombre 11 est :`,opts:["le nombre de masse","le numéro atomique (nombre de protons)","le nombre de neutrons","le nombre de nucléons"],a:1,
+  notion:"Le numéro atomique Z",
+  why:"Le nombre <b>en bas</b> est le numéro atomique <b>Z</b> = nombre de protons. Le nombre <b>en haut</b> est A, le nombre de nucléons (protons + neutrons)."},
+ {p:2,stem:`Le noyau ${nuc(27,13,"Al")} contient :`,opts:["13 protons et 27 neutrons","27 protons et 13 neutrons","13 protons et 14 neutrons","14 protons et 13 neutrons"],a:2,
+  notion:"Composition d'un noyau (N = A − Z)",
+  why:S("Z = 13 → 13 protons.")+S("A = 27 nucléons.")+S("Neutrons : N = A − Z = 27 − 13 = <b>14</b>.")},
+ {p:2,stem:"Un noyau d'oxygène contient 8 protons et 9 neutrons. Son écriture conventionnelle est :",opts:[nuc(17,8,"O"),nuc(8,17,"O"),nuc(9,8,"O"),nuc(17,9,"O")],a:0,
+  notion:"Écrire la notation d'un noyau",
+  why:S("A = protons + neutrons = 8 + 9 = 17 → <b>en haut</b>.")+S("Z = 8 protons → <b>en bas</b>.")+S("Écriture : "+nuc(17,8,"O"))},
+ {p:2,stem:"Quelle affirmation est exacte ?",opts:["Le neutron porte la charge −e","L'électron a à peu près la même masse que le proton","La masse d'un atome est surtout due à ses électrons","Le proton porte la charge +e, avec e = 1,6 × 10<sup>−19</sup> C"],a:3,
+  notion:"Charge et masse du proton, du neutron, de l'électron",
+  why:"Proton : +e ; électron : −e ; neutron : 0 (neutre). L'électron est environ <b>2 000 fois plus léger</b> que le proton : la masse de l'atome est presque entièrement dans le noyau."},
+ {p:2,stem:`${nuc(12,6,"C")} et ${nuc(14,6,"C")} appartiennent au même élément chimique, car ils ont :`,opts:["le même numéro atomique Z","le même nombre de masse A","le même nombre de neutrons","la même masse"],a:0,
+  notion:"Élément chimique = même Z",
+  why:"Un élément chimique est défini par son <b>numéro atomique Z</b> (ici Z = 6 : carbone). Ces deux noyaux ont 6 et 8 neutrons : ils sont différents, mais c'est le même élément."},
+
+ {p:3,stem:"En écriture scientifique, 0,000 000 000 12 m s'écrit :",opts:["12 × 10<sup>−11</sup> m","1,2 × 10<sup>−9</sup> m","1,2 × 10<sup>−10</sup> m","1,2 × 10<sup>10</sup> m"],a:2,
+  notion:"Écriture scientifique",
+  why:"Écriture scientifique : a × 10<sup>n</sup> avec 1 ≤ a &lt; 10."+S("On déplace la virgule de <b>10 rangs</b> vers la droite pour obtenir 1,2 : donc <b>1,2 × 10<sup>−10</sup> m</b>.")+S("12 × 10<sup>−11</sup> m a la bonne valeur, mais 12 n'est pas compris entre 1 et 10.")},
+ {p:3,stem:"Combien de fois le rayon de l'atome est-il plus grand que celui de son noyau ?",
+  data:"Rayon d'un atome ≈ 10<sup>−10</sup> m<br>Rayon d'un noyau ≈ 10<sup>−15</sup> m",
+  opts:["10<sup>−5</sup>","10<sup>5</sup>","10<sup>−25</sup>","10<sup>25</sup>"],a:1,
+  notion:"Diviser des puissances de 10 pour comparer",
+  why:S("Étape 1 : rapport = rayon de l'atome ÷ rayon du noyau = 10<sup>−10</sup> m ÷ 10<sup>−15</sup> m")+S("Étape 2 : 10<sup>a</sup> ÷ 10<sup>b</sup> = 10<sup>a−b</sup> → 10<sup>−10−(−15)</sup> = 10<sup>−10+15</sup> = <b>10<sup>5</sup></b>")+S("Les mètres s'annulent : le résultat n'a pas d'unité. L'atome est 100 000 fois plus grand que son noyau.")},
+ {p:3,stem:"Le rayon de l'atome d'hydrogène vaut 5,3 × 10<sup>−9</sup> <b>cm</b>. En mètres :",
+  data:"1 m = 100 cm",
+  opts:["5,3 × 10<sup>−11</sup> m","5,3 × 10<sup>−7</sup> m","5,3 × 10<sup>−10</sup> m","5,3 × 10<sup>−8</sup> m"],a:0,
+  notion:"Convertir des cm en m avec les puissances de 10",
+  why:S("Étape 1 : 1 cm = 1 ÷ 100 m = 10<sup>−2</sup> m")+S("Étape 2 : 5,3 × 10<sup>−9</sup> cm = 5,3 × 10<sup>−9</sup> × 10<sup>−2</sup> m = <b>5,3 × 10<sup>−11</sup> m</b>")+S("Vérification : le mètre est plus grand que le centimètre, donc le nombre en mètres doit être <b>plus petit</b>.")},
+ {p:3,stem:`La masse du noyau ${nuc(27,13,"Al")} vaut environ :`,
+  data:"Masse d'un nucléon (proton ou neutron) = 1,67 × 10<sup>−27</sup> kg",
+  opts:["2,2 × 10<sup>−26</sup> kg","4,5 × 10<sup>−26</sup> kg","4,5 × 10<sup>−28</sup> kg","1,67 × 10<sup>−27</sup> kg"],a:1,
+  notion:"Masse d'un noyau = A × masse d'un nucléon",
+  why:S("Étape 1 : le noyau contient A = 27 nucléons.")+S("Étape 2 : m = 27 × 1,67 × 10<sup>−27</sup> kg = 45,09 × 10<sup>−27</sup> kg")+S("Étape 3 : en écriture scientifique : <b>4,5 × 10<sup>−26</sup> kg</b>")+S("Piège : prendre Z = 13 au lieu de A = 27 (on oublierait les neutrons).")},
+ {p:3,stem:"Léo trouve qu'un atome a un rayon de 2 × 10<sup>−3</sup> m. Son résultat est-il plausible ?",
+  opts:["Oui : un atome est minuscule","Oui : 10<sup>−3</sup> est un très petit nombre","Non : un atome mesure environ 10<sup>−15</sup> m","Non : 2 × 10<sup>−3</sup> m = 2 mm, alors qu'un atome mesure environ 10<sup>−10</sup> m"],a:3,
+  notion:"Ordre de grandeur de la taille d'un atome (résultat plausible ?)",
+  why:"2 × 10<sup>−3</sup> m = <b>2 mm</b> : on le verrait à l'œil nu ! Un atome mesure environ <b>10<sup>−10</sup> m</b> (0,1 nm). Le résultat n'est pas plausible : il faut refaire le calcul. 10<sup>−15</sup> m, c'est la taille du <b>noyau</b>."},
+
+ {p:4,stem:"La configuration électronique du sodium (Z = 11) est :",opts:["1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>7</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>1</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3p<sup>1</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup>"],a:1,
+  notion:"Écrire une configuration électronique",
+  why:"On remplit dans l'ordre <b>1s, 2s, 2p, 3s, 3p</b>. Une sous-couche s contient 2 électrons au maximum, une sous-couche p en contient 6."+S("Sodium : 11 électrons → 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>1</sup> (2 + 2 + 6 + 1 = 11).")},
+ {p:4,stem:"Le soufre a pour configuration 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>4</sup>. Il possède :",opts:["4 électrons de valence","16 électrons de valence","6 électrons de valence","2 électrons de valence"],a:2,
+  notion:"Électrons de valence",
+  why:"Les électrons de valence sont <b>tous</b> ceux de la dernière couche (n le plus grand, ici n = 3)."+S("3s<sup>2</sup> 3p<sup>4</sup> → 2 + 4 = <b>6</b>.")+S("Piège : ne pas prendre seulement le dernier exposant.")},
+ {p:4,stem:"Le soufre a pour configuration 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>4</sup>. Il se trouve :",opts:["dans la 3<sup>e</sup> période, bloc p","dans la 3<sup>e</sup> période, bloc s","dans la 4<sup>e</sup> période, bloc p","dans la 2<sup>e</sup> période, bloc p"],a:0,
+  notion:"Position dans le tableau : période et bloc",
+  why:S("Période = numéro de la dernière couche : n = 3 → <b>3<sup>e</sup> période</b> (3<sup>e</sup> ligne).")+S("Bloc = dernière sous-couche remplie : 3p → <b>bloc p</b>.")},
+ {p:4,stem:"Le lithium est le premier élément de la 2<sup>e</sup> période (colonne 1). Sa configuration est :",opts:["1s<sup>1</sup>","2s<sup>1</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>1</sup>","1s<sup>2</sup> 2s<sup>1</sup>"],a:3,
+  notion:"Configuration à partir de la position dans le tableau",
+  why:S("2<sup>e</sup> période → la couche 2 commence ; colonne 1 → 1 électron sur cette couche.")+S("Mais il faut d'abord remplir 1s : <b>1s<sup>2</sup> 2s<sup>1</sup></b> (3 électrons, Z = 3).")},
+ {p:4,stem:"Une famille chimique regroupe les éléments d'une même colonne, qui ont des propriétés communes. Les gaz nobles (He, Ne, Ar) :",opts:["sont dans la colonne 1 et très réactifs","ont tous 8 électrons de valence, hélium compris","sont dans la dernière colonne ; leur couche externe est saturée, ils sont très peu réactifs","forment facilement des ions"],a:2,
+  notion:"La famille des gaz nobles",
+  why:"Les gaz nobles sont dans la <b>dernière colonne</b> (18). Leur couche externe est saturée : ils sont très stables et très peu réactifs. Exception : l'hélium a 2 électrons de valence (1s<sup>2</sup>), les autres en ont 8."}
+];
+const LET=["A","B","C","D"];
+const N=Q.length;
+
+/* ---------- état ---------- */
+const fresh=()=>({i:0,intro:true,started:false,done:false,ans:{},t0:null,t1:null,sel:null});
+let st=fresh();
+let ui={fs:24,hc:false,theme:"auto"};
+function load(){try{const r=localStorage.getItem(STORE);if(r){const o=JSON.parse(r);if(o&&o.st)st=Object.assign(fresh(),o.st);if(o&&o.ui)ui=Object.assign(ui,o.ui);}}catch(e){}}
+function save(){try{localStorage.setItem(STORE,JSON.stringify({st,ui}));}catch(e){}}
+
+/* ---------- affichage ---------- */
+const root=document.documentElement;
+const hostTheme=root.getAttribute("data-theme");
+function applyUI(){
+  root.style.setProperty("--fs",ui.fs+"px");
+  if(ui.hc)root.setAttribute("data-contrast","high");else root.removeAttribute("data-contrast");
+  if(ui.theme==="light"||ui.theme==="dark")root.setAttribute("data-theme",ui.theme);
+  else{ if(hostTheme)root.setAttribute("data-theme",hostTheme);else root.removeAttribute("data-theme"); }
+  const hc=document.getElementById("hc");hc.setAttribute("aria-pressed",ui.hc?"true":"false");
+  document.getElementById("theme").textContent="Thème : "+({auto:"auto",light:"clair",dark:"sombre"})[ui.theme];
+}
+document.getElementById("fsMinus").onclick=()=>{ui.fs=Math.max(18,ui.fs-2);applyUI();save();};
+document.getElementById("fsPlus").onclick=()=>{ui.fs=Math.min(40,ui.fs+2);applyUI();save();};
+document.getElementById("hc").onclick=()=>{ui.hc=!ui.hc;applyUI();save();};
+document.getElementById("theme").onclick=()=>{ui.theme=({auto:"light",light:"dark",dark:"auto"})[ui.theme];applyUI();save();};
+
+const app=document.getElementById("app");
+function show(html){app.innerHTML=html;window.scrollTo(0,0);const h=app.querySelector("h1,h2");if(h){h.setAttribute("tabindex","-1");h.focus({preventScroll:true});}}
+function progress(){
+  const n=Object.keys(st.ans).length;
+  return `<div class="progress"><span class="lab">${n} question${n>1?"s":""} sur ${N} terminée${n>1?"s":""}</span><div class="bar" aria-hidden="true"><i style="width:${Math.round(n/N*100)}%"></i></div></div>`;
+}
+
+function renderStart(){
+  const resume=st.started&&!st.done;
+  show(`
+  <h1>QCM diagnostic : l'atome et les entités chimiques</h1>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.6rem">
+    <p><b>20 questions</b> en <b>4 parties</b>. Durée conseillée : <b>25 minutes</b>.</p>
+    <ul class="list">
+      <li>Une seule bonne réponse par question.</li>
+      <li>Pas de points négatifs : réponds à tout.</li>
+      <li>Tu as le droit à la calculatrice.</li>
+      <li>Si tu ne sais vraiment pas, appuie sur « Je ne sais pas encore » : ça m'aide à savoir quoi travailler.</li>
+    </ul>
+  </div></div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem">
+    <span class="kicker">Les 4 parties</span>
+    <ol class="list">${PARTS.map(p=>`<li><b>${p.title}</b></li>`).join("")}</ol>
+  </div></div>
+  <p class="small">Ce test sert à repérer ce que tu sais déjà et ce qu'on va travailler ensemble. Ce n'est pas une note de classe.</p>
+  <div class="row">
+    ${resume?`<button class="btn" id="go" type="button">Reprendre (question ${Math.min(st.i+1,N)})</button>`:`<button class="btn" id="go" type="button">Commencer</button>`}
+  </div>`);
+  document.getElementById("go").onclick=()=>{
+    if(!st.started){st.started=true;st.t0=Date.now();}
+    save();route();
+  };
+}
+
+function renderIntro(){
+  const p=PARTS[Q[st.i].p-1];
+  show(`${progress()}
+  <span class="kicker">Partie ${p.n} sur 4</span>
+  <h1>${p.title}</h1>
+  <div class="card"><p>${p.cover}</p></div>
+  <p>5 questions.</p>
+  <div class="row"><button class="btn" id="go" type="button">C'est parti</button></div>`);
+  document.getElementById("go").onclick=()=>{st.intro=false;save();route();};
+}
+
+function renderQ(){
+  const i=st.i,q=Q[i],p=PARTS[q.p-1],done=st.ans[i];
+  const sel=done?done.c:st.sel;
+  const optsHtml=q.opts.map((o,k)=>{
+    let cls="opt",mark="",pressed=(sel===k)?"true":"false";
+    if(done){
+      if(k===q.a){cls+=" good";mark="✓ Bonne réponse";}
+      else if(k===done.c){cls+=" bad";mark="✗ Ta réponse";}
+    }else if(sel===k){mark="◉ Choisie";}
+    return `<li><button class="${cls}" type="button" data-k="${k}" aria-pressed="${pressed}" ${done?"disabled":""}><span class="L" aria-hidden="true">${LET[k]}</span><span class="txt"><span class="sr" style="position:absolute;left:-9999px">${LET[k]}. </span>${o}</span>${mark?`<span class="mark">${mark}</span>`:""}</button></li>`;
+  }).join("");
+  let fb="";
+  if(done){
+    if(done.ok)fb=`<div class="fb ok" role="status"><div class="v">✓ Bonne réponse !</div><div class="why">${q.why}</div></div>`;
+    else if(done.c===-1)fb=`<div class="fb ko" role="status"><div class="v">✗ Pas encore su. La bonne réponse est ${LET[q.a]}.</div><div class="why">${q.why}</div></div>`;
+    else fb=`<div class="fb ko" role="status"><div class="v">✗ Pas tout à fait. La bonne réponse est ${LET[q.a]}.</div><div class="why">${q.why}</div></div>`;
+  }
+  const last=i===N-1;
+  show(`${progress()}
+  <span class="kicker">Partie ${p.n} · ${p.title}</span>
+  <h2>Question ${i+1} sur ${N}</h2>
+  <p class="stem">${q.stem}</p>
+  ${q.data?`<div class="data"><div class="t">Données</div><div>${q.data}</div></div>`:""}
+  <ul class="opts">${optsHtml}</ul>
+  ${done?fb:`<button class="idk" id="idk" type="button">Je ne sais pas encore</button>`}
+  <div class="row">
+    ${done?`<button class="btn" id="next" type="button">${last?"Voir mon bilan":"Question suivante →"}</button>`
+         :`<button class="btn" id="val" type="button" ${sel===null||sel===undefined?"disabled":""}>Valider ma réponse</button>`}
+  </div>`);
+  if(!done){
+    app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{st.sel=+b.dataset.k;save();renderQKeep(+b.dataset.k);});
+    document.getElementById("val").onclick=()=>answer(st.sel);
+    document.getElementById("idk").onclick=()=>answer(-1);
+  }else{
+    document.getElementById("next").onclick=next;
+  }
+}
+/* sélection sans perdre la position de lecture */
+function renderQKeep(k){
+  app.querySelectorAll(".opt").forEach(b=>{
+    const on=+b.dataset.k===k;b.setAttribute("aria-pressed",on?"true":"false");
+    let m=b.querySelector(".mark");
+    if(on){if(!m){m=document.createElement("span");m.className="mark";b.appendChild(m);}m.textContent="◉ Choisie";}
+    else if(m)m.remove();
+  });
+  const v=document.getElementById("val");if(v)v.disabled=false;
+}
+function answer(c){
+  if(c===null||c===undefined)return;
+  const q=Q[st.i];
+  st.ans[st.i]={c:c,ok:c===q.a};
+  st.sel=null;save();renderQ();
+  const fb=app.querySelector(".fb");if(fb)fb.scrollIntoView({block:"nearest"});
+}
+function next(){
+  if(st.i>=N-1){st.done=true;st.t1=st.t1||Date.now();save();route();return;}
+  const prev=Q[st.i].p;st.i++;st.sel=null;
+  st.intro=Q[st.i].p!==prev;save();route();
+}
+
+/* ---------- bilan ---------- */
+function stats(){
+  return PARTS.map(p=>{
+    const idx=Q.map((q,i)=>i).filter(i=>Q[i].p===p.n);
+    const sc=idx.filter(i=>st.ans[i]&&st.ans[i].ok).length;
+    return {p,idx,sc,tot:idx.length};
+  });
+}
+const level=s=>s===5?"Acquis":(s>=3?"Fragile":"À revoir");
+const dots=s=>"●".repeat(s)+"○".repeat(5-s);
+function fmtDate(t){const d=new Date(t);const z=n=>String(n).padStart(2,"0");return `${z(d.getDate())}/${z(d.getMonth()+1)}/${d.getFullYear()} à ${z(d.getHours())}h${z(d.getMinutes())}`;}
+function bilanText(){
+  const S2=stats(),tot=S2.reduce((a,b)=>a+b.sc,0);
+  const dur=st.t0&&st.t1?Math.max(1,Math.round((st.t1-st.t0)/60000)):null;
+  const L=[];
+  L.push("QCM DIAGNOSTIC — PHYSIQUE-CHIMIE 2nde");
+  L.push("L'atome et les entités chimiques");
+  L.push("Élève : (écris ton prénom)");
+  L.push("Fait le "+fmtDate(st.t1||Date.now())+(dur?" · durée : "+dur+" min":""));
+  L.push("");
+  L.push("SCORE TOTAL : "+tot+"/20");
+  S2.forEach(s=>L.push("Partie "+s.p.n+" – "+s.p.title+" : "+s.sc+"/5 ("+level(s.sc)+")"));
+  L.push("");
+  L.push("DÉTAIL (réponse donnée / bonne réponse)");
+  Q.forEach((q,i)=>{
+    const a=st.ans[i];
+    if(!a)L.push("Q"+(i+1)+" — pas de réponse (attendu "+LET[q.a]+")");
+    else if(a.ok)L.push("Q"+(i+1)+" ✓ "+LET[a.c]);
+    else if(a.c===-1)L.push("Q"+(i+1)+" ✗ je ne sais pas encore (attendu "+LET[q.a]+")");
+    else L.push("Q"+(i+1)+" ✗ "+LET[a.c]+" (attendu "+LET[q.a]+")");
+  });
+  const wrong=Q.map((q,i)=>i).filter(i=>!(st.ans[i]&&st.ans[i].ok));
+  L.push("");
+  L.push("NOTIONS À REVOIR");
+  if(!wrong.length)L.push("- Aucune : tout est juste !");
+  wrong.forEach(i=>L.push("- Q"+(i+1)+" : "+Q[i].notion));
+  L.push("");
+  L.push("CONSEIL");
+  L.push(advice(S2));
+  return L.join("\n");
+}
+function advice(S2){
+  const tot=S2.reduce((a,b)=>a+b.sc,0);
+  const weak=S2.slice().sort((a,b)=>a.sc-b.sc)[0];
+  if(weak.sc>=4)return "Très bon départ ("+tot+"/20). On consolidera les quelques erreurs, puis on avancera dans le chapitre.";
+  return "Priorité à la partie "+weak.p.n+" ("+weak.p.title+"). "+weak.p.advice;
+}
+
+let dl=null;
+function renderEnd(){
+  const S2=stats(),tot=S2.reduce((a,b)=>a+b.sc,0);
+  const txt=bilanText();
+  const wrong=Q.map((q,i)=>i).filter(i=>!(st.ans[i]&&st.ans[i].ok));
+  const subj="Bilan QCM diagnostic PC – L'atome";
+  const wa="https://wa.me/?text="+encodeURIComponent(txt);
+  const gm="https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(MAIL)+"&su="+encodeURIComponent(subj)+"&body="+encodeURIComponent(txt);
+  const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  show(`
+  <span class="kicker">Bilan</span>
+  <h1>Bravo, tu as terminé le QCM !</h1>
+  <div class="card"><div class="total"><b>${tot}/20</b><span>bonnes réponses</span></div></div>
+  <div class="parts">${S2.map(s=>`
+    <div class="prt"><span class="n">Partie ${s.p.n} · ${s.p.title}</span><span class="sc">${s.sc}/5</span>
+    <span class="st"><span class="dots" aria-hidden="true">${dots(s.sc)}</span><b>${level(s.sc)}</b></span></div>`).join("")}
+  </div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem">
+    <span class="kicker">Notions à revoir</span>
+    ${wrong.length?`<ul class="list">${wrong.map(i=>`<li>Q${i+1} : ${esc(Q[i].notion)}</li>`).join("")}</ul>`:"<p>Aucune : tout est juste !</p>"}
+  </div></div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem">
+    <span class="kicker">Conseil</span><p>${esc(advice(S2))}</p>
+  </div></div>
+
+  <h2>Envoie ton bilan à Mr Moreira</h2>
+  <div class="row">
+    <button class="btn" id="dl" type="button" hidden>Télécharger mon bilan</button>
+    <button class="btn" id="cp" type="button">Copier mon bilan</button>
+    <a class="btn ghost" href="${wa}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par WhatsApp</a>
+    <a class="btn ghost" href="${gm}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par Gmail</a>
+  </div>
+  <p class="status" id="msg" role="status" aria-live="polite"></p>
+  <p>Tu peux aussi montrer cet écran à ton professeur.</p>
+  <p class="small">Tu peux aussi sélectionner le texte ci-dessous et le copier.</p>
+  <pre class="report" id="rep">${esc(txt)}</pre>
+
+  <details><summary>Revoir les corrections des 20 questions</summary><div class="inner">
+    ${Q.map((q,i)=>{const a=st.ans[i];const ok=a&&a.ok;
+      const yours=!a?"pas de réponse":(a.c===-1?"je ne sais pas encore":LET[a.c]);
+      return `<div class="rev"><div class="h">Q${i+1} ${ok?"✓ juste":"✗ à revoir"}</div><p>${q.stem}</p>${q.data?`<div class="data"><div class="t">Données</div><div>${q.data}</div></div>`:""}<p>Ta réponse : <b>${yours}</b> · Bonne réponse : <b>${LET[q.a]}</b> (${q.opts[q.a]})</p><p>${q.why}</p></div>`;}).join("")}
+  </div></details>
+
+  <details id="resetBox"><summary>Recommencer le QCM</summary><div class="inner">
+    <p>Attention : tes réponses seront effacées. Envoie ton bilan avant.</p>
+    <div class="row"><button class="btn ghost" id="rs" type="button">Oui, tout effacer et recommencer</button></div>
+  </div></details>`);
+
+  const msg=document.getElementById("msg");
+  document.getElementById("cp").onclick=()=>{
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("rep"));const s=window.getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : appuie sur « Copier ».";};
+    try{navigator.clipboard.writeText(txt).then(()=>{msg.textContent="✓ Bilan copié. Colle-le dans un message.";},fallback);}catch(e){fallback();}
+  };
+  const dbtn=document.getElementById("dl");
+  if(dl)dbtn.hidden=false;
+  dbtn.onclick=async()=>{
+    if(!dl)return;
+    try{await dl.save({filename:"bilan-QCM-atome.txt",data:txt});msg.textContent="✓ Bilan téléchargé.";}
+    catch(e){const c=e&&e.code;msg.textContent=c==="declined"?"Téléchargement annulé.":(c==="rate_limited"?"Patiente un instant puis réessaie.":"Le téléchargement ne marche pas ici : utilise « Copier » ou WhatsApp.");}
+  };
+  document.getElementById("rs").onclick=()=>{st=fresh();save();route();};
+}
+
+function route(){
+  if(!st.started)return renderStart();
+  if(st.done)return renderEnd();
+  if(st.intro)return renderIntro();
+  return renderQ();
+}
+
+load();applyUI();route();
+try{
+  if(window.claude&&window.claude.use){
+    window.claude.use("downloads").then(d=>{dl=d;const b=document.getElementById("dl");if(b&&dl)b.hidden=false;}).catch(()=>{});
+  }
+}catch(e){}
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

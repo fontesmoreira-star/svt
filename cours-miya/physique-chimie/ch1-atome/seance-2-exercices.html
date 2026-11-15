@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Séance 2 Exercices</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout : une colonne de lecture large, une question par écran, outils d'accessibilité en tête. Identité PC = bleu foncé. */
+:root{
+  --fs:24px;
+  --paper:#f6f8fc; --surface:#ffffff; --ink:#0f1d33; --muted:#3c4a63;
+  --pc:#163a7a; --pc-band:#163a7a; --pc-tint:#e4ecf9;
+  --line:#8796b2; --ok:#17602f; --ok-bg:#e1f2e6; --ko:#9e2418; --ko-bg:#fbe4df;
+  --focus:#c05a00; --data-bg:#eef3fb;
+  --font:Verdana,"Atkinson Hyperlegible",Arial,sans-serif;
+  --bw:2px;
+}
+:root[data-contrast="high"]{
+  --paper:#ffffff; --surface:#ffffff; --ink:#000000; --muted:#000000;
+  --pc:#002a80; --pc-band:#002a80; --pc-tint:#ffffff; --line:#000000;
+  --ok:#004d1a; --ok-bg:#ffffff; --ko:#8a0000; --ko-bg:#ffffff; --data-bg:#ffffff; --bw:3px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+    --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+    --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+  --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+  --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"])[data-contrast="high"]{
+    --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+    --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+    --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+  }
+}
+:root[data-theme="dark"][data-contrast="high"]{
+  --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+  --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+  --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+}
+
+html{font-size:var(--fs)}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.5;margin:0;overflow-wrap:break-word}
+*,*::before,*::after{box-sizing:border-box}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* En-tête matière */
+.band{height:12px;background:var(--pc-band)}
+header.top{background:var(--pc-tint);border-bottom:var(--bw) solid var(--pc)}
+header.top .wrap{padding-block:.6rem .7rem;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between}
+.subject{min-width:0}
+.subject b{display:block;color:var(--pc);font-size:1.15rem;letter-spacing:.06em;line-height:1.2}
+.subject span{display:block;font-size:.8rem;color:var(--muted);line-height:1.35}
+.tools{display:flex;flex-wrap:wrap;gap:.4rem}
+.tool{min-height:48px;min-width:48px;padding:.2rem .6rem;font:inherit;font-size:.75rem;font-weight:bold;color:var(--pc);background:var(--surface);border:var(--bw) solid var(--pc);border-radius:10px;cursor:pointer}
+.tool[aria-pressed="true"]{outline:3px solid var(--pc);outline-offset:1px}
+
+main .wrap{padding-block:1.2rem 3rem;display:flex;flex-direction:column;gap:1rem}
+h1,h2{line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:1.4rem}
+h2{font-size:1.2rem}
+p{margin:0}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+h1:focus,h2:focus{outline:none}
+
+.card{background:var(--surface);border:var(--bw) solid var(--line);border-radius:14px;padding:1rem}
+.kicker{font-size:.8rem;font-weight:bold;color:var(--pc);letter-spacing:.05em;text-transform:uppercase}
+.list{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:.3rem}
+
+.btn{min-height:56px;font:inherit;font-weight:bold;padding:.4rem 1.1rem;border-radius:12px;cursor:pointer;border:4px solid var(--pc);background:var(--pc-tint);color:var(--ink);text-align:center}
+.btn.ghost{background:var(--surface);color:var(--pc);border-width:var(--bw)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.7rem}
+.row .btn{flex:1 1 12rem}
+
+/* Progression */
+.progress{display:flex;flex-direction:column;gap:.35rem}
+.progress .lab{font-size:.8rem;font-weight:bold;color:var(--muted)}
+.bar{height:14px;border:2px solid var(--pc);border-radius:8px;overflow:hidden;background:var(--surface)}
+.bar i{display:block;height:100%;background:var(--pc-band)}
+
+/* Question */
+.stem{font-size:1.05rem}
+.data{background:var(--data-bg);border:var(--bw) dashed var(--pc);border-radius:12px;padding:.7rem .9rem}
+.data .t{font-weight:bold;color:var(--pc);font-size:.85rem}
+.opts{display:flex;flex-direction:column;gap:.6rem;margin:0;padding:0;list-style:none}
+.opt{width:100%;min-height:64px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.2rem .7rem;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:var(--bw) solid var(--line);border-radius:12px;padding:.5rem .8rem;cursor:pointer}
+.opt .L{grid-row:1 / span 2;width:2em;height:2em;display:grid;place-items:center;border:var(--bw) solid var(--pc);border-radius:8px;font-weight:bold;color:var(--pc)}
+.opt .txt{min-width:0;overflow-wrap:normal}
+.opt .mark{grid-column:2;font-size:.85rem;font-weight:bold}
+.opt[aria-pressed="true"]{border-width:4px;border-color:var(--pc);background:var(--pc-tint)}
+.opt[aria-pressed="true"] .L{border-width:4px;text-decoration:underline}
+.opt.good{border:4px solid var(--ok);background:var(--ok-bg)}
+.opt.bad{border:4px solid var(--ko);background:var(--ko-bg)}
+.opt.good .mark{color:var(--ok)} .opt.bad .mark{color:var(--ko)}
+.opt:disabled{cursor:default;opacity:1}
+.idk{align-self:flex-start;min-height:48px;font:inherit;font-size:.85rem;padding:.3rem .8rem;border-radius:10px;border:2px dashed var(--line);background:transparent;color:var(--muted);cursor:pointer}
+
+.fb{border-radius:12px;padding:.8rem 1rem;border:var(--bw) solid}
+.fb.ok{border-color:var(--ok);background:var(--ok-bg)}
+.fb.ko{border-color:var(--ko);background:var(--ko-bg)}
+.fb .v{font-weight:bold;font-size:1.1rem}
+.fb.ok .v{color:var(--ok)} .fb.ko .v{color:var(--ko)}
+.fb .why{margin-top:.4rem}
+.step{display:block;margin-top:.25rem}
+
+/* Notation du noyau A en haut, Z en bas */
+.nuc{display:inline-flex;align-items:center;vertical-align:middle;white-space:nowrap}
+.nuc .s{display:inline-flex;flex-direction:column;align-items:flex-end;font-size:.7em;line-height:1.05;margin-right:.06em}
+sub,sup{font-size:.68em;line-height:0}
+
+/* Bilan */
+.total{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.total b{font-size:2.2rem;color:var(--pc);font-variant-numeric:tabular-nums}
+.parts{display:grid;gap:.7rem}
+.prt{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;align-items:center;border:var(--bw) solid var(--line);border-radius:12px;padding:.6rem .8rem;background:var(--surface)}
+.prt .n{min-width:0;font-weight:bold}
+.prt .sc{font-weight:bold;font-variant-numeric:tabular-nums;color:var(--pc)}
+.prt .st{grid-column:1 / -1;font-size:.85rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.dots{letter-spacing:.12em;font-size:.95rem}
+.report{white-space:pre-wrap;font-family:var(--font);font-size:.8rem;line-height:1.45;background:var(--data-bg);border:2px solid var(--line);border-radius:12px;padding:.8rem;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere;margin:0}
+.mail{overflow-wrap:anywhere;word-break:break-all;font-weight:bold;user-select:all;-webkit-user-select:all}
+.status{min-height:1.5em;font-weight:bold}
+details{border:var(--bw) solid var(--line);border-radius:12px;background:var(--surface)}
+summary{min-height:56px;padding:.7rem 1rem;cursor:pointer;font-weight:bold;color:var(--pc)}
+details .inner{padding:0 1rem 1rem;display:flex;flex-direction:column;gap:.9rem}
+.rev{border-top:2px solid var(--line);padding-top:.7rem}
+.rev .h{font-weight:bold}
+.small{font-size:.85rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<style>
+/* Entraînement : une carte par étape, la suivante apparaît quand la précédente est réglée */
+.lvl{display:inline-flex;align-items:center;gap:.35rem;font-weight:bold;font-size:.85rem;border:2px solid var(--line);border-radius:999px;padding:.15rem .7rem;background:var(--surface)}
+.stepcard{background:var(--surface);border:var(--bw) solid var(--line);border-radius:14px;padding:1rem;display:flex;flex-direction:column;gap:.8rem}
+.stepcard.cur{border:4px solid var(--pc)}
+.stepcard .sl{font-size:.8rem;font-weight:bold;color:var(--pc);text-transform:uppercase;letter-spacing:.05em}
+.field{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.field input{font:inherit;font-size:1.05rem;min-height:56px;width:5em;max-width:100%;padding:.2rem .5rem;border:3px solid var(--pc);border-radius:10px;background:var(--paper);color:var(--ink)}
+.field input.e{width:3.6em}
+.field input:disabled{border-style:dashed;opacity:.9}
+.field .pw{display:inline-flex;align-items:flex-start;gap:.25rem}
+.field .pw .ten{font-size:1.05rem;padding-top:.7rem}
+.field .unit{font-weight:bold}
+.sign{min-width:48px;min-height:48px;font:inherit;font-weight:bold;border:2px solid var(--pc);border-radius:10px;background:var(--surface);color:var(--pc);cursor:pointer}
+.cls{display:flex;flex-direction:column;gap:.7rem}
+.clsrow{border:2px solid var(--line);border-radius:12px;padding:.6rem .7rem;display:flex;flex-direction:column;gap:.45rem}
+.clsrow .it{font-weight:bold;font-size:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:baseline}
+.clsrow .res{font-size:.85rem;font-weight:bold}
+.clsrow .res.ok{color:var(--ok)} .clsrow .res.ko{color:var(--ko)}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{min-height:48px;font:inherit;font-size:.9rem;padding:.2rem .8rem;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{border:4px solid var(--pc);background:var(--pc-tint);font-weight:bold}
+.chip:disabled{cursor:default}
+.hints{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.hints li{border-left:6px solid var(--pc);background:var(--data-bg);padding:.45rem .7rem;border-radius:0 10px 10px 0}
+.hints b{color:var(--pc)}
+.acts{display:flex;flex-wrap:wrap;gap:.6rem}
+.acts .btn{flex:1 1 9rem;min-height:52px;font-size:.9rem}
+.err{color:var(--ko);font-weight:bold;font-size:.9rem}
+.fix{border-radius:12px;padding:.8rem 1rem;border:var(--bw) solid var(--pc);background:var(--data-bg)}
+.fix .v{font-weight:bold}
+table.mini{border-collapse:collapse;font-size:.85rem}
+table.mini td,table.mini th{border:1px solid var(--line);padding:.25rem .5rem;text-align:left}
+</style>
+
+<div class="band" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <div class="subject"><b>PHYSIQUE-CHIMIE</b><span>2nde · Séance 2 · Les 4 réflexes pour le contrôle</span></div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tool" id="fsMinus" type="button" aria-label="Texte plus petit">A−</button>
+      <button class="tool" id="fsPlus" type="button" aria-label="Texte plus grand">A+</button>
+      <button class="tool" id="hc" type="button" aria-pressed="false">Contraste +</button>
+      <button class="tool" id="theme" type="button">Thème : auto</button>
+    </div>
+  </div>
+</header>
+<main><div class="wrap" id="app"></div></main>
+
+<script>
+(function(){
+"use strict";
+const MAIL="";
+const STORE="s2-atome-v1";
+const nuc=(A,Z,X)=>`<span class="nuc" role="img" aria-label="${X}, A = ${A}, Z = ${Z}"><span class="s" aria-hidden="true"><span>${A}</span><span>${Z}</span></span><span aria-hidden="true">${X}</span></span>`;
+const L=t=>`<span class="step">${t}</span>`;
+const LET=["A","B","C","D","E"];
+const LV={F:"🟢 Facile",M:"🟡 Moyen",D:"🔴 Défi"};
+
+const PARTS=[
+ {n:1,title:"Réflexe 1 · Je lis la charge",cover:"Avant tout, je regarde en haut à droite de la formule : y a-t-il une charge (+ ou −) ? C'est elle qui dit si c'est un ion, et combien d'électrons il a.",
+  advice:"Avant de répondre, regarde toujours en haut à droite : s'il y a une charge, c'est un ion. Signe + = électrons perdus, signe − = électrons gagnés. Le nombre de protons ne change jamais."},
+ {n:2,title:"Réflexe 2 · La somme des charges vaut 0",cover:"Pour écrire la formule d'un composé ionique, je compte les charges et je vérifie toujours que leur somme vaut 0.",
+  advice:"Après avoir écrit une formule ionique, vérifie toujours : (charges +) + (charges −) = 0. Si ce n'est pas 0, la formule est fausse."},
+ {n:3,title:"Réflexe 3 · Diviser des puissances de 10",cover:"Diviser, c'est soustraire les exposants : 10ᵃ ÷ 10ᵇ = 10ᵃ⁻ᵇ. Attention aux signes moins. Et « combien de fois plus grand », c'est une division du grand par le petit : le résultat est plus grand que 1. Calculatrice autorisée.",
+  advice:"Division = soustraction des exposants, et a − (−b) = a + b. Pour « combien de fois plus grand », divise le grand par le petit : le résultat doit être plus grand que 1, donc l'exposant est positif."},
+ {n:4,title:"Réflexe 4 · Je remplis les sous-couches dans l'ordre",cover:"Ordre : 1s → 2s → 2p → 3s → 3p. Au maximum 2 électrons dans une sous-couche s, 6 dans une sous-couche p. La période, c'est la ligne ; la famille, c'est la colonne.",
+  advice:"Vérifie deux choses : la somme des exposants vaut Z, et aucune sous-couche ne déborde (s ≤ 2, p ≤ 6). Période = numéro de la dernière couche ; même colonne = même famille."}
+];
+
+const EX=[
+/* ===== RÉFLEXE 1 ===== */
+{p:1,lvl:"F",title:"Atome, ion ou molécule&nbsp;?",notion:"Lire la charge pour nommer une entité",
+ doc:"Méthode : 1) je regarde en haut à droite : une charge ? → c'est un ion (+ cation, − anion). 2) Pas de charge : un seul atome → atome ; plusieurs atomes liés → molécule.",
+ steps:[{kind:"classify",q:"Pour chaque formule, choisis le bon mot. Attention aux formules qui se ressemblent !",opts:["atome","molécule","cation","anion"],
+  items:[{t:"O",a:0},{t:"O<sup>2−</sup>",a:3},{t:"O<sub>2</sub>",a:1},{t:"Na",a:0},{t:"Na<sup>+</sup>",a:2},{t:"Cl<sup>−</sup>",a:3},{t:"Cl<sub>2</sub>",a:1}],
+  hints:["Commence par regarder en haut à droite : y a-t-il un + ou un −&nbsp;?","Un petit chiffre en bas (O<sub>2</sub>) compte des atomes : ce n'est pas une charge.","O<sup>2−</sup> porte une charge − : même avec un seul atome, c'est un ion négatif, donc un anion."],
+  fix:"O et Na : atomes. O<sub>2</sub> et Cl<sub>2</sub> : molécules (2 atomes liés, pas de charge). Na<sup>+</sup> : cation. O<sup>2−</sup> et Cl<sup>−</sup> : anions. <b>Un seul atome avec une charge, c'est un ion, pas un atome.</b>"}]},
+{p:1,lvl:"M",title:"L'ion calcium (guidé)",notion:"Compter les électrons d'un ion à partir de sa charge",
+ doc:"Ion calcium : Ca<sup>2+</sup>. Calcium : Z = 20.",
+ steps:[
+ {kind:"choice",q:"Étape 1 : je regarde en haut à droite. La charge de Ca<sup>2+</sup> est&nbsp;:",opts:["aucune charge","2+","2−","20"],a:1,
+  hints:["Regarde le petit nombre et le signe en haut à droite.","20, c'est Z : il ne s'écrit pas dans la formule de l'ion.","On lit « 2+ »."],fix:"La charge est <b>2+</b> : c'est un cation."},
+ {kind:"choice",q:"Étape 2 : la charge 2+ signifie que l'atome a&nbsp;:",opts:["gagné 2 électrons","perdu 2 électrons","perdu 2 protons","gagné 2 protons"],a:1,
+  hints:["Les protons ne changent jamais.","Un électron est négatif.","Perdre des charges − rend l'ion positif."],fix:"2+ : il a <b>perdu 2 électrons</b>."},
+ {kind:"int",q:"Étape 3 : combien d'électrons a l'ion Ca<sup>2+</sup>&nbsp;?",a:18,unit:"électrons",
+  hints:["L'atome neutre a autant d'électrons que de protons : 20.","Il en a perdu 2.","20 − 2 =&nbsp;?"],fix:L("Atome neutre : 20 électrons.")+L("Ion Ca<sup>2+</sup> : 20 − 2 = <b>18 électrons</b>.")},
+ {kind:"int",q:"Étape 4 : combien de protons a l'ion Ca<sup>2+</sup>&nbsp;?",a:20,unit:"protons",
+  hints:["Quand un ion se forme, qu'est-ce qui change : le noyau ou les électrons&nbsp;?","Seuls les électrons changent.","Protons = Z."],fix:"Le noyau ne change pas : <b>20 protons</b>."}]},
+{p:1,lvl:"D",title:"Toute seule, puis : est-ce plausible&nbsp;?",notion:"Électrons d'un ion sans étapes et contrôle du résultat",
+ doc:"Aluminium : Z = 13 · Soufre : Z = 16 · Fer : Z = 26",
+ steps:[
+ {kind:"int",q:"Combien d'électrons a l'ion Al<sup>3+</sup>&nbsp;?",a:10,unit:"électrons",
+  hints:["Regarde la charge : 3+.","3+ = 3 électrons perdus.","13 − 3 =&nbsp;?"],fix:"13 − 3 = <b>10 électrons</b>."},
+ {kind:"int",q:"Combien d'électrons a l'ion S<sup>2−</sup>&nbsp;?",a:18,unit:"électrons",
+  hints:["Regarde la charge : 2−.","2− = 2 électrons gagnés.","16 + 2 =&nbsp;?"],fix:"16 + 2 = <b>18 électrons</b>."},
+ {kind:"choice",q:"Léo écrit : « l'ion Fe<sup>3+</sup> a 29 électrons ». Est-ce plausible&nbsp;?",opts:["Oui : 26 + 3 = 29","Oui : un ion a toujours plus d'électrons que l'atome","Non : un ion positif a perdu des électrons, il en a donc moins que 26","Non : un ion a toujours 26 électrons, comme l'atome"],a:2,
+  hints:["Que veut dire le signe +&nbsp;?","Signe + = électrons perdus.","Il doit en avoir moins que l'atome neutre : 26 − 3."],fix:"Signe + = électrons <b>perdus</b> : Fe<sup>3+</sup> a 26 − 3 = <b>23 électrons</b>. 29 n'est pas plausible, et 26 non plus : ce serait l'atome neutre."}]},
+
+/* ===== RÉFLEXE 2 ===== */
+{p:2,lvl:"F",title:"Je vérifie une formule (guidé)",notion:"Vérifier qu'une formule ionique est neutre",
+ doc:"Méthode : 1) je note la charge de chaque ion ; 2) je calcule la somme de toutes les charges ; 3) la formule est juste seulement si la somme vaut 0.<br>Ions : Al<sup>3+</sup> et Cl<sup>−</sup>",
+ steps:[
+ {kind:"rel",q:"Lina propose la formule AlCl<sub>2</sub>. Calcule la somme des charges : (+3) + 2 × (−1) =&nbsp;?",a:1,
+  hints:["2 × (−1) = −2.","(+3) + (−2) =&nbsp;?","3 − 2 = 1."],fix:"(+3) + 2 × (−1) = 3 − 2 = <b>+1</b>."},
+ {kind:"choice",q:"La formule AlCl<sub>2</sub> est-elle juste&nbsp;?",opts:["Oui, car elle contient Al et Cl","Non, car la somme des charges ne vaut pas 0","Oui, car 2 est un petit nombre","On ne peut pas savoir"],a:1,
+  hints:["Relis l'étape 3 de la méthode.","La somme doit valoir 0.","Elle vaut +1."],fix:"Somme = +1 ≠ 0 : <b>AlCl<sub>2</sub> est fausse</b>."},
+ {kind:"int",q:"Combien d'ions Cl<sup>−</sup> faut-il pour compenser un ion Al<sup>3+</sup>&nbsp;?",a:3,unit:"ions Cl<sup>−</sup>",
+  hints:["Al<sup>3+</sup> apporte 3 charges +.","Chaque Cl<sup>−</sup> apporte 1 charge −.","Il faut 3 charges −."],fix:"(+3) + 3 × (−1) = 0 → <b>AlCl<sub>3</sub></b>."}]},
+{p:2,lvl:"M",title:"Avec un ion à plusieurs atomes (guidé)",notion:"Formule ionique avec un ion polyatomique",
+ doc:"Ions : Na<sup>+</sup> et SO<sub>4</sub><sup>2−</sup> (ion sulfate)",
+ steps:[
+ {kind:"choice",q:"Étape 1 : dans SO<sub>4</sub><sup>2−</sup>, la charge 2− appartient&nbsp;:",opts:["à chaque atome d'oxygène","à l'ion SO<sub>4</sub><sup>2−</sup> tout entier","seulement à l'atome S","au chiffre 4"],a:1,
+  hints:["Le 4 (en bas) compte les atomes O dans l'ion.","La charge (en haut) est écrite une seule fois, pour tout le groupe.","SO<sub>4</sub><sup>2−</sup> est UN ion qui porte 2 charges −."],fix:"SO<sub>4</sub><sup>2−</sup> est <b>un seul ion</b> qui porte 2 charges −. Le 4 compte les atomes O à l'intérieur."},
+ {kind:"int",q:"Étape 2 : combien d'ions Na<sup>+</sup> faut-il pour compenser un ion SO<sub>4</sub><sup>2−</sup>&nbsp;?",a:2,unit:"ions Na<sup>+</sup>",
+  hints:["SO<sub>4</sub><sup>2−</sup> apporte 2 charges −.","Chaque Na<sup>+</sup> apporte 1 charge +.","Il faut 2 charges +."],fix:"Il faut <b>2 ions Na<sup>+</sup></b> pour 1 ion SO<sub>4</sub><sup>2−</sup>."},
+ {kind:"rel",q:"Étape 3 : vérifie la formule Na<sub>2</sub>(SO<sub>4</sub>)<sub>2</sub>. Somme des charges : 2 × (+1) + 2 × (−2) =&nbsp;?",a:-2,
+  hints:["2 × (+1) = +2.","2 × (−2) = −4.","(+2) + (−4) =&nbsp;?"],fix:"2 − 4 = <b>−2</b> ≠ 0 : Na<sub>2</sub>(SO<sub>4</sub>)<sub>2</sub> est fausse, il y a un ion sulfate en trop."},
+ {kind:"choice",q:"Étape 4 : la bonne formule du sulfate de sodium est&nbsp;:",opts:["NaSO<sub>4</sub>","Na(SO<sub>4</sub>)<sub>2</sub>","Na<sub>2</sub>(SO<sub>4</sub>)<sub>2</sub>","Na<sub>2</sub>SO<sub>4</sub>"],a:3,
+  hints:["2 ions Na<sup>+</sup> et 1 ion SO<sub>4</sub><sup>2−</sup>.","Un seul ion sulfate : pas besoin de parenthèses.","2 × (+1) + 1 × (−2) = 0."],fix:"2 × (+1) + (−2) = 0 → <b>Na<sub>2</sub>SO<sub>4</sub></b>."}]},
+{p:2,lvl:"D",title:"Défi : le nitrate de calcium",notion:"Formule ionique avec parenthèses",
+ doc:"Quand il faut plusieurs ions faits de plusieurs atomes, on les met entre parenthèses.<br>Exemple : Mg(OH)<sub>2</sub> = 1 ion Mg<sup>2+</sup> et 2 ions OH<sup>−</sup>.<br>Ions : Ca<sup>2+</sup> et NO<sub>3</sub><sup>−</sup> (ion nitrate)",
+ steps:[{kind:"choice",q:"La formule du nitrate de calcium est&nbsp;:",opts:["CaNO<sub>3</sub>","Ca(NO<sub>3</sub>)<sub>2</sub>","Ca<sub>2</sub>NO<sub>3</sub>","Ca(NO<sub>3</sub>)<sub>3</sub>"],a:1,
+  hints:["Ca<sup>2+</sup> apporte 2 charges +.","Chaque NO<sub>3</sub><sup>−</sup> apporte 1 charge − : il en faut 2.","2 ions nitrate → parenthèses, comme Mg(OH)<sub>2</sub>."],
+  fix:"(+2) + 2 × (−1) = 0 → 1 Ca<sup>2+</sup> et 2 NO<sub>3</sub><sup>−</sup> : <b>Ca(NO<sub>3</sub>)<sub>2</sub></b>."}]},
+
+/* ===== RÉFLEXE 3 ===== */
+{p:3,lvl:"F",title:"D'où vient la règle de la division&nbsp;?",notion:"Comprendre la règle 10ᵃ ÷ 10ᵇ = 10ᵃ⁻ᵇ",
+ steps:[
+ {kind:"int",q:"Calcule (sans puissance de 10) : 100 000 ÷ 100 =&nbsp;?",a:1000,unit:"",
+  hints:["Utilise la calculatrice si besoin.","On enlève autant de zéros qu'il y en a dans 100.","100 000 ÷ 100 = 1 000."],fix:"100 000 ÷ 100 = <b>1 000</b>."},
+ {kind:"exp",q:"Écris 1 000 sous forme de puissance de 10.",e:3,
+  hints:["Compte les zéros de 1 000.","Il y en a 3.","1 000 = 10<sup>3</sup>."],fix:"1 000 = <b>10<sup>3</sup></b>."},
+ {kind:"choice",q:"On vient de voir que 10<sup>5</sup> ÷ 10<sup>2</sup> = 10<sup>3</sup>. Pour diviser, on a&nbsp;:",opts:["additionné les exposants : 5 + 2","multiplié les exposants : 5 × 2","soustrait les exposants : 5 − 2","divisé les exposants : 5 ÷ 2"],a:2,
+  hints:["Quel calcul avec 5 et 2 donne 3&nbsp;?","5 + 2 = 7 ; 5 × 2 = 10 ; 5 − 2 = 3.","C'est une soustraction."],fix:"5 − 2 = 3 : <b>pour diviser, on soustrait les exposants</b> (exposant du haut − exposant du bas). Pour multiplier, on les additionne."}]},
+{p:3,lvl:"F",title:"Soustraire un nombre négatif",notion:"Calculer avec les nombres relatifs : a − (−b) = a + b",
+ doc:"Soustraire un nombre négatif, c'est ajouter son opposé : a − (−b) = a + b.<br>Exemple : 4 − (−3) = 4 + 3 = 7.",
+ steps:[
+ {kind:"rel",q:"8 − (−2) =&nbsp;?",a:10,hints:["− (−2) devient + 2.","8 + 2.","= 10."],fix:"8 − (−2) = 8 + 2 = <b>10</b>."},
+ {kind:"rel",q:"−10 − (−15) =&nbsp;?",a:5,hints:["− (−15) devient + 15.","−10 + 15.","Tu pars de −10 et tu avances de 15 : tu arrives à 5."],fix:"−10 − (−15) = −10 + 15 = <b>5</b>."},
+ {kind:"rel",q:"−15 − (−10) =&nbsp;?",a:-5,hints:["− (−10) devient + 10.","−15 + 10.","Tu pars de −15 et tu avances de 10."],fix:"−15 − (−10) = −15 + 10 = <b>−5</b>. Attention : l'ordre compte !"}]},
+{p:3,lvl:"M",title:"10⁻¹⁰ ÷ 10⁻¹⁵ pas à pas (guidé)",notion:"Diviser des puissances de 10 à exposants négatifs",
+ doc:"Règle : 10<sup>a</sup> ÷ 10<sup>b</sup> = 10<sup>a − b</sup> (exposant du haut − exposant du bas)",
+ steps:[
+ {kind:"choice",q:"Étape 1 : pour calculer 10<sup>−10</sup> ÷ 10<sup>−15</sup>, je calcule sur les exposants&nbsp;:",opts:["(−10) + (−15)","(−10) × (−15)","(−10) − (−15)","(−15) − (−10)"],a:2,
+  hints:["C'est une division : on soustrait.","On prend l'exposant du haut (−10) moins l'exposant du bas (−15).","(−10) − (−15)."],fix:"Division → <b>(−10) − (−15)</b>, dans cet ordre."},
+ {kind:"rel",q:"Étape 2 : calcule (−10) − (−15).",a:5,
+  hints:["− (−15) devient + 15.","−10 + 15.","= 5."],fix:"(−10) − (−15) = −10 + 15 = <b>5</b>."},
+ {kind:"exp",q:"Étape 3 : donc 10<sup>−10</sup> ÷ 10<sup>−15</sup> =&nbsp;?",e:5,
+  hints:["Utilise le résultat de l'étape 2.","L'exposant vaut 5.","10<sup>5</sup>."],fix:"10<sup>−10</sup> ÷ 10<sup>−15</sup> = <b>10<sup>5</sup></b>."},
+ {kind:"choice",q:"Étape 4 : 10<sup>5</sup> = 100 000 est plus grand que 1. Est-ce normal&nbsp;?",opts:["Non : avec des exposants négatifs, le résultat doit être négatif","Oui : 10<sup>−10</sup> est plus grand que 10<sup>−15</sup>, donc le quotient est plus grand que 1","Non : le résultat doit être plus petit que 10<sup>−10</sup>","Oui : une division donne toujours un résultat plus grand que 1"],a:1,
+  hints:["Lequel est le plus grand : 10<sup>−10</sup> = 0,000 000 000 1 ou 10<sup>−15</sup> = 0,000 000 000 000 001&nbsp;?","10<sup>−10</sup> est le plus grand.","Grand ÷ petit = un nombre plus grand que 1."],fix:"10<sup>−10</sup> est plus grand que 10<sup>−15</sup> : <b>grand ÷ petit &gt; 1</b>, donc l'exposant est positif. Une puissance de 10 n'est jamais un nombre négatif : 10<sup>−5</sup> = 0,000 01."}]},
+{p:3,lvl:"M",title:"Toute seule : trois divisions",notion:"Diviser des puissances de 10 sans aide",
+ doc:"Règle : 10<sup>a</sup> ÷ 10<sup>b</sup> = 10<sup>a − b</sup>",
+ steps:[
+ {kind:"exp",q:"10<sup>8</sup> ÷ 10<sup>−2</sup> =&nbsp;?",e:10,hints:["Exposants : 8 − (−2).","8 + 2.","= 10."],fix:"10<sup>8 − (−2)</sup> = 10<sup>8 + 2</sup> = <b>10<sup>10</sup></b>."},
+ {kind:"exp",q:"10<sup>−6</sup> ÷ 10<sup>−9</sup> =&nbsp;?",e:3,hints:["Exposants : (−6) − (−9).","−6 + 9.","= 3."],fix:"10<sup>−6 − (−9)</sup> = 10<sup>−6 + 9</sup> = <b>10<sup>3</sup></b>."},
+ {kind:"exp",q:"10<sup>−9</sup> ÷ 10<sup>−6</sup> =&nbsp;?",e:-3,hints:["Exposants : (−9) − (−6).","−9 + 6.","= −3 (cette fois, petit ÷ grand : le résultat est plus petit que 1)."],fix:"10<sup>−9 − (−6)</sup> = 10<sup>−9 + 6</sup> = <b>10<sup>−3</sup></b>. Petit ÷ grand → résultat plus petit que 1."}]},
+{p:3,lvl:"F",title:"« Combien de fois plus grand ? »",notion:"« Combien de fois plus grand » = division du grand par le petit",
+ doc:"La salle de danse mesure 20 m de long. Le tapis de sol mesure 5 m de long.",
+ steps:[
+ {kind:"choice",q:"Combien de fois la salle est-elle plus longue que le tapis ? Je calcule&nbsp;:",opts:["20 × 5","20 ÷ 5","5 ÷ 20","20 − 5"],a:1,
+  hints:["Le mot « fois » ne veut pas dire qu'on multiplie.","Combien de tapis de 5 m peut-on poser dans 20 m&nbsp;?","On divise le grand par le petit."],fix:"« Combien de fois plus grand » → <b>grand ÷ petit = 20 ÷ 5</b>. 20 × 5 = 100 m n'a aucun sens ici."},
+ {kind:"int",q:"Calcule : combien de fois la salle est-elle plus longue que le tapis&nbsp;?",a:4,unit:"fois",
+  hints:["20 ÷ 5.","Les mètres s'annulent : pas d'unité.","= 4."],fix:"20 m ÷ 5 m = <b>4</b> : la salle est 4 fois plus longue (pas d'unité)."}]},
+{p:3,lvl:"M",title:"Remettre en écriture scientifique",notion:"Ajuster l'exposant quand on corrige le nombre de devant",
+ doc:"Le nombre de devant doit être entre 1 et 10.<br>0,5 = 5 × 10<sup>−1</sup>, donc 0,5 × 10<sup>n</sup> = 5 × 10<sup>n − 1</sup> : quand le nombre de devant devient 10 fois plus grand, l'exposant baisse de 1.",
+ steps:[
+ {kind:"sci",q:"Écris 0,2 × 10<sup>5</sup> en écriture scientifique.",m:2,e:4,tol:0.001,unit:"",
+  hints:["0,2 = 2 × 10<sup>−1</sup>.","2 × 10<sup>−1</sup> × 10<sup>5</sup> : on additionne −1 et 5.","= 2 × 10<sup>4</sup>."],fix:L("0,2 × 10<sup>5</sup> = 2 × 10<sup>−1</sup> × 10<sup>5</sup>")+L("= <b>2 × 10<sup>4</sup></b>")+L("Vérification : 0,2 × 100 000 = 20 000 = 2 × 10<sup>4</sup>.")},
+ {kind:"sci",q:"Écris 0,4 × 10<sup>−7</sup> en écriture scientifique.",m:4,e:-8,tol:0.001,unit:"",
+  hints:["0,4 = 4 × 10<sup>−1</sup>.","On additionne −1 et −7.","= 4 × 10<sup>−8</sup>."],fix:"0,4 × 10<sup>−7</sup> = 4 × 10<sup>−1</sup> × 10<sup>−7</sup> = <b>4 × 10<sup>−8</sup></b>."},
+ {kind:"sci",q:"Écris 35 × 10<sup>−4</sup> en écriture scientifique.",m:3.5,e:-3,tol:0.001,unit:"",
+  hints:["35 = 3,5 × 10<sup>1</sup> (cette fois le nombre de devant devient plus petit).","On additionne 1 et −4.","= 3,5 × 10<sup>−3</sup>."],fix:"35 × 10<sup>−4</sup> = 3,5 × 10<sup>1</sup> × 10<sup>−4</sup> = <b>3,5 × 10<sup>−3</sup></b> : le nombre de devant devient 10 fois plus petit, l'exposant monte de 1."}]},
+{p:3,lvl:"M",title:"Comparer un atome et son noyau (guidé)",notion:"Comparer deux tailles par un quotient",
+ doc:"Rayon de l'atome : r<sub>atome</sub> = 1,5 × 10<sup>−10</sup> m<br>Rayon du noyau : r<sub>noyau</sub> = 3,0 × 10<sup>−15</sup> m",
+ steps:[
+ {kind:"choice",q:"Étape 1 : combien de fois l'atome est-il plus grand que son noyau ? Je calcule&nbsp;:",opts:["r<sub>atome</sub> × r<sub>noyau</sub>","r<sub>atome</sub> ÷ r<sub>noyau</sub>","r<sub>noyau</sub> ÷ r<sub>atome</sub>","r<sub>atome</sub> − r<sub>noyau</sub>"],a:1,
+  hints:["« Combien de fois plus grand » : multiplication ou division&nbsp;?","Grand ÷ petit.","Le plus grand, c'est l'atome."],fix:"<b>r<sub>atome</sub> ÷ r<sub>noyau</sub></b> (grand ÷ petit)."},
+ {kind:"num",q:"Étape 2 : calcule les nombres de devant : 1,5 ÷ 3,0 =&nbsp;?",a:0.5,tol:0.001,unit:"",
+  hints:["Utilise la calculatrice.","Le résultat est plus petit que 1.","= 0,5."],fix:"1,5 ÷ 3,0 = <b>0,5</b>."},
+ {kind:"exp",q:"Étape 3 : calcule les puissances de 10 : 10<sup>−10</sup> ÷ 10<sup>−15</sup> =&nbsp;?",e:5,
+  hints:["(−10) − (−15).","−10 + 15.","= 5."],fix:"10<sup>−10</sup> ÷ 10<sup>−15</sup> = <b>10<sup>5</sup></b>."},
+ {kind:"sci",q:"Étape 4 : regroupe 0,5 × 10<sup>5</sup> en écriture scientifique.",m:5,e:4,tol:0.001,unit:"",
+  hints:["0,5 n'est pas entre 1 et 10.","0,5 = 5 × 10<sup>−1</sup>.","5 × 10<sup>−1</sup> × 10<sup>5</sup> = 5 × 10<sup>4</sup>."],fix:"0,5 × 10<sup>5</sup> = <b>5 × 10<sup>4</sup></b>. Pas d'unité : les mètres s'annulent."},
+ {kind:"choice",q:"Étape 5 : ton résultat, 5 × 10<sup>4</sup> = 50 000, est-il plausible&nbsp;?",opts:["Non : il devrait être plus petit que 1","Oui : l'atome est plus grand que son noyau, le rapport doit être plus grand que 1","Non : il devrait avoir une unité","Non : il devrait être négatif"],a:1,
+  hints:["On a divisé le grand par le petit.","Le résultat doit donc être plus grand que 1.","Ordre de grandeur attendu : environ 10<sup>5</sup>."],fix:"Oui : grand ÷ petit &gt; 1, et on retrouve l'ordre de grandeur connu (un atome est environ 10<sup>5</sup> fois plus grand que son noyau)."}]},
+{p:3,lvl:"D",title:"Toute seule : l'atome et l'électron",notion:"Quotient de deux masses sans aide et contrôle du résultat",
+ doc:"Masse d'un atome de carbone : 2,0 × 10<sup>−26</sup> kg<br>Masse d'un électron : 9,1 × 10<sup>−31</sup> kg",
+ steps:[
+ {kind:"sci",q:"Combien de fois l'atome de carbone est-il plus lourd qu'un électron ? Donne le résultat en écriture scientifique avec 2 chiffres significatifs.",m:2.2,e:4,tol:0.03,unit:"",
+  hints:["Grand ÷ petit : (2,0 × 10<sup>−26</sup>) ÷ (9,1 × 10<sup>−31</sup>).","2,0 ÷ 9,1 ≈ 0,22 et 10<sup>−26</sup> ÷ 10<sup>−31</sup> = 10<sup>5</sup>.","0,22 × 10<sup>5</sup> = 2,2 × 10<sup>4</sup>."],
+  fix:L("2,0 ÷ 9,1 ≈ 0,22")+L("10<sup>−26</sup> ÷ 10<sup>−31</sup> = 10<sup>−26 + 31</sup> = 10<sup>5</sup>")+L("0,22 × 10<sup>5</sup> = <b>2,2 × 10<sup>4</sup></b> : l'atome est environ 22 000 fois plus lourd qu'un électron.")},
+ {kind:"choice",q:"Tom trouve 2,2 × 10<sup>−6</sup>. Son résultat est-il plausible&nbsp;?",opts:["Oui : les masses sont très petites, le résultat aussi","Non : on divise le grand par le petit, le résultat doit être plus grand que 1","Oui : il a juste oublié l'unité","Non : le résultat devrait être négatif"],a:1,
+  hints:["Qui est le plus lourd : l'atome ou l'électron&nbsp;?","On a divisé la grande masse par la petite.","Le résultat doit être plus grand que 1."],fix:"Non : grand ÷ petit &gt; 1. 2,2 × 10<sup>−6</sup> = 0,000 002 2 voudrait dire que l'atome est plus léger que l'électron !"}]},
+{p:3,lvl:"M",title:"Arrondir avec des chiffres significatifs",notion:"Arrondir un résultat à 3 chiffres significatifs",
+ doc:"On compte les chiffres à partir du premier chiffre non nul.<br>Pour arrondir à 3 chiffres significatifs, je garde 3 chiffres et je regarde le 4<sup>e</sup> : s'il vaut 5 ou plus, j'augmente le 3<sup>e</sup> de 1.",
+ steps:[
+ {kind:"choice",q:"Arrondis 4,509 à 3 chiffres significatifs.",opts:["5","4,5","4,51","4,509"],a:2,
+  hints:["On garde 3 chiffres : 4, 5 et 0.","Le 4<sup>e</sup> chiffre est 9 : on augmente le 0 de 1.","4,51."],fix:"4,50|9 → 9 ≥ 5, on arrondit au-dessus : <b>4,51</b>. « 5 » n'a qu'un chiffre significatif."},
+ {kind:"choice",q:"Arrondis 2,672 × 10<sup>−26</sup> kg à 3 chiffres significatifs.",opts:["3 × 10<sup>−26</sup> kg","2,7 × 10<sup>−26</sup> kg","2,67 × 10<sup>−26</sup> kg","2,672 × 10<sup>−26</sup> kg"],a:2,
+  hints:["La puissance de 10 ne change pas.","On garde 2, 6 et 7.","Le 4<sup>e</sup> chiffre est 2 : on ne change rien."],fix:"2,67|2 → 2 &lt; 5 : <b>2,67 × 10<sup>−26</sup> kg</b>."}]},
+
+/* ===== RÉFLEXE 4 ===== */
+{p:4,lvl:"F",title:"Repérer l'erreur dans une configuration",notion:"Respecter s ≤ 2, p ≤ 6 et l'ordre de remplissage",
+ doc:"Ordre : 1s → 2s → 2p → 3s → 3p<br>Maximum : s = 2 électrons, p = 6 électrons",
+ steps:[{kind:"classify",q:"Chaque configuration est-elle correcte ? Sinon, quel est le problème&nbsp;?",opts:["correcte","une sous-couche déborde","une sous-couche est sautée"],
+  items:[{t:"1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>8</sup>",a:1},{t:"1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup>",a:0},{t:"1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3p<sup>2</sup>",a:2},{t:"1s<sup>2</sup> 2s<sup>3</sup> 2p<sup>1</sup>",a:1},{t:"1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>5</sup>",a:0}],
+  hints:["Vérifie chaque exposant : s jamais plus de 2, p jamais plus de 6.","Vérifie l'ordre : après 2p vient 3s, puis 3p.","2p<sup>8</sup> et 2s<sup>3</sup> débordent ; « 2p<sup>6</sup> 3p<sup>2</sup> » saute 3s."],
+  fix:"2p<sup>8</sup> et 2s<sup>3</sup> : <b>débordent</b>. 2p<sup>6</sup> 3p<sup>2</sup> : <b>3s est sauté</b> (il faut 3s<sup>2</sup> 3p<sup>…</sup>). Les deux autres sont correctes. Bien compter jusqu'à Z ne suffit pas : il faut aussi respecter les maximums et l'ordre."}]},
+{p:4,lvl:"M",title:"Le silicium (Z = 14) pas à pas (guidé)",notion:"Écrire une configuration en remplissant dans l'ordre",
+ doc:"Ordre : 1s → 2s → 2p → 3s → 3p · s : 2 max · p : 6 max",
+ steps:[
+ {kind:"int",q:"Étape 1 : 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> contient combien d'électrons au total&nbsp;?",a:10,unit:"électrons",hints:["Additionne les exposants.","2 + 2 + 6.","= 10."],fix:"2 + 2 + 6 = <b>10 électrons</b> : les couches 1 et 2 sont pleines."},
+ {kind:"int",q:"Étape 2 : le silicium a 14 électrons. Combien en reste-t-il pour la couche 3&nbsp;?",a:4,unit:"électrons",hints:["14 − 10.","= 4.","Ces 4 électrons vont dans la couche n = 3."],fix:"14 − 10 = <b>4 électrons</b> pour la couche 3."},
+ {kind:"int",q:"Étape 3 : combien de ces 4 électrons vont dans la sous-couche 3s&nbsp;?",a:2,unit:"électrons",hints:["On remplit d'abord 3s.","3s contient 2 électrons au maximum.","Il en reste ensuite 2 pour 3p."],fix:"3s se remplit : <b>3s<sup>2</sup></b>, puis les 2 derniers vont en 3p."},
+ {kind:"choice",q:"Étape 4 : la configuration du silicium est&nbsp;:",opts:["1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>10</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3p<sup>4</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>2</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>4</sup>"],a:2,
+  hints:["p ne dépasse jamais 6, s ne dépasse jamais 2.","On n'oublie pas 3s.","3s<sup>2</sup> puis 3p<sup>2</sup>."],fix:"<b>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>2</sup></b> (2 + 2 + 6 + 2 + 2 = 14)."}]},
+{p:4,lvl:"M",title:"La ligne et la colonne",notion:"Période (ligne) et famille (colonne) dans le tableau",
+ doc:"Période = ligne du tableau = numéro n de la dernière couche.<br>Famille = colonne = même nombre d'électrons de valence.<br>L'azote (N) est dans la 2<sup>e</sup> période, 3<sup>e</sup> élément du bloc p. Le phosphore (P) est juste en dessous, dans la 3<sup>e</sup> période.",
+ steps:[
+ {kind:"int",q:"Étape 1 : l'azote est dans la 2<sup>e</sup> période. Quel est le numéro n de sa dernière couche&nbsp;?",a:2,unit:"",hints:["Période = numéro de la dernière couche.","2<sup>e</sup> période → n = 2.","Pas de couche 3 pour l'azote."],fix:"2<sup>e</sup> période → dernière couche <b>n = 2</b>."},
+ {kind:"choice",q:"Étape 2 : la configuration de l'azote est&nbsp;:",opts:["1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>3</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>3</sup>","1s<sup>2</sup> 2p<sup>3</sup>","2s<sup>2</sup> 2p<sup>3</sup>"],a:0,
+  hints:["La dernière couche est n = 2 : pas de 3s ni de 3p.","On remplit 1s et 2s avant 2p.","3<sup>e</sup> élément du bloc p → 2p<sup>3</sup>."],fix:"<b>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>3</sup></b> (Z = 7). La configuration en 3p<sup>3</sup>, c'est celle du phosphore, une ligne plus bas."},
+ {kind:"choice",q:"Étape 3 : la configuration du phosphore (3<sup>e</sup> période, juste sous l'azote) est&nbsp;:",opts:["1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>3</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3p<sup>5</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>3</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>9</sup>"],a:2,
+  hints:["3<sup>e</sup> période : la dernière couche est n = 3, les couches 1 et 2 sont pleines.","Même colonne que l'azote : 3<sup>e</sup> élément du bloc p.","… 3s<sup>2</sup> 3p<sup>3</sup>."],fix:"<b>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>3</sup></b> (Z = 15)."},
+ {kind:"choice",q:"Étape 4 : l'azote et le phosphore appartiennent à la même famille, car&nbsp;:",opts:["ils sont dans la même période","ils ont le même nombre total d'électrons","ils sont dans la même colonne : 5 électrons de valence chacun","ils ont la même dernière couche n"],a:2,
+  hints:["Sont-ils sur la même ligne&nbsp;?","Non : N est en période 2, P en période 3.","Compte les électrons de valence : 2s<sup>2</sup> 2p<sup>3</sup> et 3s<sup>2</sup> 3p<sup>3</sup>."],fix:"Même <b>colonne</b> = même nombre d'électrons de valence (2 + 3 = 5) = même famille. Une famille, c'est une colonne, pas une ligne : c'est pareil pour les gaz nobles (He, Ne, Ar), qui sont dans des périodes différentes."}]},
+{p:4,lvl:"D",title:"Toute seule : l'oxygène (Z = 8)",notion:"Configuration, période, bloc et valence sans aide",
+ doc:"Oxygène : Z = 8 · Ordre : 1s → 2s → 2p → 3s → 3p · s : 2 max · p : 6 max",
+ steps:[
+ {kind:"choice",q:"Configuration électronique de l'oxygène&nbsp;:",opts:["1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>4</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup>","1s<sup>2</sup> 2p<sup>6</sup>","1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>2</sup> 3s<sup>2</sup>"],a:0,
+  hints:["8 électrons à placer.","1s<sup>2</sup> 2s<sup>2</sup> : il en reste 4.","Les 4 derniers vont en 2p."],fix:"<b>1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>4</sup></b> (2 + 2 + 4 = 8)."},
+ {kind:"int",q:"Dans quelle période se trouve l'oxygène&nbsp;?",a:2,unit:"",hints:["Regarde le plus grand n.","La dernière couche est n = 2.","Période = n."],fix:"Dernière couche n = 2 → <b>2<sup>e</sup> période</b>."},
+ {kind:"choice",q:"Dans quel bloc&nbsp;?",opts:["bloc s","bloc p"],a:1,hints:["Regarde la dernière sous-couche écrite.","C'est 2p.","Bloc p."],fix:"Dernière sous-couche 2p → <b>bloc p</b>."},
+ {kind:"int",q:"Combien d'électrons de valence&nbsp;?",a:6,unit:"électrons",hints:["Tous les électrons de la dernière couche (n = 2).","2s<sup>2</sup> 2p<sup>4</sup>.","2 + 4 =&nbsp;?"],fix:"2s<sup>2</sup> 2p<sup>4</sup> → <b>6 électrons de valence</b>."}]}
+];
+
+/* ---------- outils texte ---------- */
+const SUPM={"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","+":"⁺","−":"⁻","-":"⁻","e":"ᵉ"};
+const SUBM={"0":"₀","1":"₁","2":"₂","3":"₃","4":"₄","5":"₅","6":"₆","7":"₇","8":"₈","9":"₉","+":"₊","−":"₋"};
+const sup=t=>String(t).split("").map(c=>SUPM[c]||c).join("");
+const sub=t=>String(t).split("").map(c=>SUBM[c]||c).join("");
+function uni(h){
+  h=String(h).replace(/<span class="nuc"[^>]*aria-label="([A-Za-z]+), A = (\d+), Z = (\d+)">.*?<span aria-hidden="true">[A-Za-z]+<\/span><\/span>/g,(m,X,A,Z)=>sup(A)+sub(Z)+X);
+  h=h.replace(/<sup>(.*?)<\/sup>/g,(m,t)=>sup(t)).replace(/<sub>(.*?)<\/sub>/g,(m,t)=>sub(t));
+  const d=document.createElement("div");d.innerHTML=h;return d.textContent.replace(/\s+/g," ").trim();
+}
+const fmt=x=>String(+x.toPrecision(6)).replace(".",",").replace("-","−");
+function parseNum(s){
+  if(s===undefined||s===null)return NaN;
+  s=String(s).replace(/\s/g,"").replace(/,/g,".").replace(/[−–]/g,"-");
+  if(s===""||!/^[-+]?\d*\.?\d+$/.test(s))return NaN;
+  return Number(s);
+}
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+
+/* ---------- état ---------- */
+const fresh=()=>({started:false,done:false,e:0,intro:true,t0:null,t1:null,R:{}});
+let st=fresh();
+let ui={fs:24,hc:false,theme:"auto"};
+function load(){try{const r=localStorage.getItem(STORE);if(r){const o=JSON.parse(r);if(o&&o.st)st=Object.assign(fresh(),o.st);if(o&&o.ui)ui=Object.assign(ui,o.ui);}}catch(e){}}
+function save(){if(review!==null)return;try{localStorage.setItem(STORE,JSON.stringify({st,ui}));}catch(e){}}
+const key=(e,s)=>e+"-"+s;
+function R(e,s){const k=key(e,s);if(!st.R[k])st.R[k]={done:false,tries:0,hints:0,pts:null,first:null,shown:false,val:null,last:null,msg:""};return st.R[k];}
+const ptsOf=s=>s.kind==="classify"?s.items.length:1;
+
+/* ---------- affichage ---------- */
+const root=document.documentElement;
+const hostTheme=root.getAttribute("data-theme");
+function applyUI(){
+  root.style.setProperty("--fs",ui.fs+"px");
+  if(ui.hc)root.setAttribute("data-contrast","high");else root.removeAttribute("data-contrast");
+  if(ui.theme==="light"||ui.theme==="dark")root.setAttribute("data-theme",ui.theme);
+  else{if(hostTheme)root.setAttribute("data-theme",hostTheme);else root.removeAttribute("data-theme");}
+  document.getElementById("hc").setAttribute("aria-pressed",ui.hc?"true":"false");
+  document.getElementById("theme").textContent="Thème : "+({auto:"auto",light:"clair",dark:"sombre"})[ui.theme];
+}
+document.getElementById("fsMinus").onclick=()=>{ui.fs=Math.max(18,ui.fs-2);applyUI();save();};
+document.getElementById("fsPlus").onclick=()=>{ui.fs=Math.min(40,ui.fs+2);applyUI();save();};
+document.getElementById("hc").onclick=()=>{ui.hc=!ui.hc;applyUI();save();};
+document.getElementById("theme").onclick=()=>{ui.theme=({auto:"light",light:"dark",dark:"auto"})[ui.theme];applyUI();save();};
+
+const app=document.getElementById("app");
+function show(html,keep){
+  const y=window.scrollY;app.innerHTML=html;
+  if(keep){window.scrollTo(0,y);return;}
+  window.scrollTo(0,0);const h=app.querySelector("h1,h2");if(h){h.setAttribute("tabindex","-1");h.focus({preventScroll:true});}
+}
+function progress(){
+  const n=st.e,T=EX.length;
+  return `<div class="progress"><span class="lab">Exercice ${Math.min(n+1,T)} sur ${T}</span><div class="bar" aria-hidden="true"><i style="width:${Math.round(n/T*100)}%"></i></div></div>`;
+}
+
+function renderStart(){
+  const resume=st.started&&!st.done;
+  show(`<h1>Séance 2 : les 4 réflexes pour le contrôle</h1>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.6rem">
+   <p><b>${EX.length} exercices</b> en <b>4 parties</b>. Durée : <b>35 minutes environ</b>. Ce que tu ne finis pas pendant la séance, tu le termines à la maison : ta progression est gardée sur cet appareil.</p>
+   <ul class="list">
+    <li>Chaque exercice a un niveau : 🟢 Facile, 🟡 Moyen ou 🔴 Défi.</li>
+    <li>Ton score compte ta <b>première</b> réponse. Ensuite, tu peux réessayer autant que tu veux.</li>
+    <li>Bloquée ? Prends un indice (3 par question), puis regarde la correction.</li>
+    <li>Calculatrice autorisée. Écris les nombres avec une virgule : 2,5.</li>
+   </ul></div></div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem"><span class="kicker">Les 4 réflexes</span>
+   <ol class="list">${PARTS.map(p=>`<li><b>${p.title}</b></li>`).join("")}</ol></div></div>
+  <div class="row"><button class="btn" id="go" type="button">${resume?"Reprendre (exercice "+(st.e+1)+")":"Commencer"}</button></div>`);
+  document.getElementById("go").onclick=()=>{if(!st.started){st.started=true;st.t0=Date.now();}save();route();};
+}
+function renderIntro(){
+  const p=PARTS[EX[st.e].p-1];const n=EX.filter(x=>x.p===p.n).length;
+  show(`${progress()}<span class="kicker">Partie ${p.n} sur 4</span><h1>${p.title}</h1>
+  <div class="card"><p>${p.cover}</p></div><p>${n} exercices.</p>
+  <div class="row"><button class="btn" id="go" type="button">C'est parti</button></div>`);
+  document.getElementById("go").onclick=()=>{st.intro=false;save();route();};
+}
+
+function inputHtml(x,ei,si,s,r){
+  const dis=r.done?"disabled":"";
+  const v=r.val||{};
+  const id=`i${ei}-${si}`;
+  if(s.kind==="choice"){
+    return `<ul class="opts">${s.opts.map((o,k)=>{
+      let cls="opt",mark="";
+      const sel=v.c===k;
+      if(r.done){if(k===s.a){cls+=" good";mark="✓ Bonne réponse";}else if(r.last&&r.last.c===k&&!r.last.ok){cls+=" bad";mark="✗ Ta réponse";}}
+      else if(r.last&&r.last.c===k&&!r.last.ok){cls+=" bad";mark="✗ Pas cette réponse";}
+      else if(sel)mark="◉ Choisie";
+      return `<li><button class="${cls}" type="button" data-act="pick" data-k="${k}" aria-pressed="${sel?"true":"false"}" ${dis}><span class="L" aria-hidden="true">${LET[k]}</span><span class="txt">${o}</span>${mark?`<span class="mark">${mark}</span>`:""}</button></li>`;}).join("")}</ul>`;
+  }
+  if(s.kind==="classify"){
+    const picks=v.p||[];const lc=r.last&&r.last.items;
+    return `<div class="cls">${s.items.map((it,j)=>{
+      let res="";
+      if(r.done)res=`<span class="res ok">✓ ${esc(s.opts[it.a])}</span>`;
+      else if(lc&&lc[j]!==undefined)res=lc[j]?`<span class="res ok">✓ juste</span>`:`<span class="res ko">✗ à changer</span>`;
+      return `<div class="clsrow"><div class="it"><span>${it.t}</span>${res}</div><div class="chips" role="group" aria-label="${esc(uni(it.t))}">${s.opts.map((o,k)=>`<button class="chip" type="button" data-act="cls" data-j="${j}" data-k="${k}" aria-pressed="${picks[j]===k?"true":"false"}" ${dis}>${o}</button>`).join("")}</div></div>`;}).join("")}</div>`;
+  }
+  if(s.kind==="int"||s.kind==="num"){
+    return `<div class="field"><input id="${id}" data-f="v" type="text" inputmode="decimal" autocomplete="off" value="${esc(v.v||"")}" ${dis} aria-label="Ta réponse">${s.unit?`<span class="unit">${s.unit}</span>`:""}</div>`;
+  }
+  if(s.kind==="sci"){
+    return `<div class="field"><input id="${id}m" data-f="m" type="text" inputmode="decimal" autocomplete="off" value="${esc(v.m||"")}" ${dis} aria-label="Nombre devant la puissance de 10"><span class="pw"><span class="ten">× 10</span><input id="${id}e" class="e" data-f="e" type="text" inputmode="text" autocomplete="off" value="${esc(v.e||"")}" ${dis} aria-label="Exposant de 10" style="margin-top:-.3rem"><button class="sign" type="button" data-act="sign" ${dis} aria-label="Changer le signe de l'exposant">±</button></span>${s.unit?`<span class="unit">${s.unit}</span>`:""}</div><p class="small">Le nombre de gauche entre 1 et 10, puis l'exposant (le bouton ± ajoute ou enlève le signe −).</p>`;
+  }
+  if(s.kind==="rel"){
+    return `<div class="field"><span class="pw"><span class="ten">=</span><input id="${id}e" class="e" data-f="e" type="text" inputmode="text" autocomplete="off" value="${esc(v.e||"")}" ${dis} aria-label="Ta réponse (nombre entier, positif ou négatif)" style="margin-top:-.3rem;width:4.2em"><button class="sign" type="button" data-act="sign" ${dis} aria-label="Changer le signe">±</button></span></div><p class="small">Le bouton ± ajoute ou enlève le signe −.</p>`;
+  }
+  if(s.kind==="exp"){
+    return `<div class="field"><span class="pw"><span class="ten">= 10</span><input id="${id}e" class="e" data-f="e" type="text" inputmode="text" autocomplete="off" value="${esc(v.e||"")}" ${dis} aria-label="Exposant de 10" style="margin-top:-.3rem"><button class="sign" type="button" data-act="sign" ${dis} aria-label="Changer le signe de l'exposant">±</button></span></div>`;
+  }
+  return "";
+}
+function expected(s){
+  if(s.kind==="choice")return LET[s.a]+" ("+uni(s.opts[s.a])+")";
+  if(s.kind==="classify")return s.items.map(it=>uni(it.t)+" → "+s.opts[it.a]).join(" ; ");
+  if(s.kind==="int"||s.kind==="num")return fmt(s.a)+(s.unit?" "+s.unit:"");
+  if(s.kind==="sci")return fmt(s.m)+" × 10"+sup(String(s.e).replace("-","−"))+(s.unit?" "+s.unit:"");
+  if(s.kind==="exp")return "10"+sup(String(s.e).replace("-","−"));
+  if(s.kind==="rel")return fmt(s.a);
+  return "";
+}
+function stepHtml(x,ei,si,isCur){
+  const s=x.steps[si],r=R(ei,si),n=x.steps.length;
+  const hintsHtml=r.hints?`<ul class="hints">${s.hints.slice(0,r.hints).map((h,k)=>`<li><b>Indice ${k+1} :</b> ${h}</li>`).join("")}</ul>`:"";
+  let fb="";
+  if(r.done){
+    if(r.first===true)fb=`<div class="fb ok" role="status"><div class="v">✓ Juste du premier coup !</div><div class="why">${s.fix}</div></div>`;
+    else if(r.shown)fb=`<div class="fix" role="status"><div class="v">Correction</div><div class="why">${s.fix}</div></div>`;
+    else fb=`<div class="fb ok" role="status"><div class="v">✓ Juste ! (après un nouvel essai)</div><div class="why">${s.fix}</div></div>`;
+  }else if(r.msg){
+    fb=`<div class="${r.msgType==="err"?"err":"fb ko"}" role="status">${r.msgType==="err"?r.msg:`<div class="v">${r.msg}</div>`}</div>`;
+  }
+  const acts=r.done?"":`<div class="acts">
+    <button class="btn" type="button" data-act="check">Vérifier</button>
+    <button class="btn ghost" type="button" data-act="hint" ${r.hints>=3?"disabled":""}>${r.hints>=3?"Plus d'indice":"Indice "+(r.hints+1)+" sur 3"}</button>
+    ${r.tries>0?`<button class="btn ghost" type="button" data-act="showfix">Voir la correction</button>`:""}
+  </div>`;
+  return `<section class="stepcard${isCur&&!r.done?" cur":""}" data-e="${ei}" data-s="${si}" id="sc${si}">
+    ${n>1?`<span class="sl">Question ${si+1} sur ${n}</span>`:""}
+    <p class="stem">${s.q}</p>
+    ${inputHtml(x,ei,si,s,r)}
+    ${hintsHtml}${fb}${acts}</section>`;
+}
+function curStep(ei){const x=EX[ei];for(let i=0;i<x.steps.length;i++){if(!R(ei,i).done)return i;}return x.steps.length;}
+function renderEx(keep){
+  const ei=st.e,x=EX[ei],p=PARTS[x.p-1],cs=curStep(ei),all=cs>=x.steps.length;
+  let steps="";for(let i=0;i<=Math.min(cs,x.steps.length-1);i++)steps+=stepHtml(x,ei,i,i===cs);
+  const last=ei===EX.length-1;
+  show(`${progress()}
+   <span class="kicker">${p.title}</span>
+   <div><span class="lvl">${LV[x.lvl]}</span></div>
+   <h2>Ex. ${ei+1} · ${x.title}</h2>
+   ${x.doc?`<div class="data"><div class="t">Données</div><div>${x.doc}</div></div>`:""}
+   ${steps}
+   ${all?`<div class="row"><button class="btn" type="button" data-act="nextex">${last?"Voir mon bilan":"Exercice suivant →"}</button></div>`:""}`,keep);
+}
+
+/* ---------- interactions ---------- */
+app.addEventListener("input",ev=>{
+  const t=ev.target;if(!t.dataset||!t.dataset.f)return;
+  const card=t.closest(".stepcard");if(!card)return;
+  const r=R(+card.dataset.e,+card.dataset.s);r.val=r.val||{};r.val[t.dataset.f]=t.value;
+  if(r.msgType==="err"){r.msg="";r.msgType="";}
+  save();
+});
+app.addEventListener("click",ev=>{
+  const b=ev.target.closest("[data-act]");if(!b)return;
+  const act=b.dataset.act;
+  if(act==="nextex")return nextEx();
+  const card=b.closest(".stepcard");if(!card)return;
+  const ei=+card.dataset.e,si=+card.dataset.s,s=EX[ei].steps[si],r=R(ei,si);
+  r.val=r.val||{};
+  if(act==="pick"){r.val.c=+b.dataset.k;r.msg="";save();renderEx(true);return;}
+  if(act==="cls"){r.val.p=r.val.p||[];r.val.p[+b.dataset.j]=+b.dataset.k;r.msg="";save();renderEx(true);return;}
+  if(act==="sign"){let e=String(r.val.e||"").trim().replace(/[−–]/g,"-");e=e.startsWith("-")?e.slice(1):"-"+e;r.val.e=e.replace("-","−");save();renderEx(true);focusIn(si,"e");return;}
+  if(act==="hint"){if(r.hints<3)r.hints++;save();renderEx(true);return;}
+  if(act==="showfix"){r.done=true;r.shown=true;save();renderEx(true);scrollToStep(si+1);return;}
+  if(act==="check"){check(ei,si,s,r);save();renderEx(true);if(r.done)scrollToStep(si+1);else scrollToStep(si);return;}
+});
+function focusIn(si,f){const c=document.getElementById("sc"+si);if(!c)return;const i=c.querySelector(`[data-f="${f}"]`);if(i)i.focus();}
+function scrollToStep(si){const c=document.getElementById("sc"+si)||app.querySelector(".stepcard.cur")||app.querySelector("[data-act=nextex]");if(c)c.scrollIntoView({block:"nearest"});else{const n=app.querySelector("[data-act=nextex]");if(n)n.scrollIntoView({block:"nearest"});}}
+
+function check(ei,si,s,r){
+  const v=r.val||{};let ok=false,pts=0,ans="";
+  r.msgType="";
+  if(s.kind==="choice"){
+    if(v.c===undefined||v.c===null){r.msg="Choisis d'abord une réponse.";r.msgType="err";return;}
+    ok=v.c===s.a;pts=ok?1:0;ans=LET[v.c]+" ("+uni(s.opts[v.c])+")";r.last={c:v.c,ok};
+  }else if(s.kind==="classify"){
+    const pk=v.p||[];
+    if(s.items.some((it,j)=>pk[j]===undefined||pk[j]===null)){r.msg="Choisis une réponse pour chaque ligne.";r.msgType="err";return;}
+    const res=s.items.map((it,j)=>pk[j]===it.a);pts=res.filter(Boolean).length;ok=pts===s.items.length;
+    ans=s.items.map((it,j)=>res[j]?null:uni(it.t)+" → "+s.opts[pk[j]]).filter(Boolean).join(" ; ");
+    r.last={items:res};
+    if(r.first===null)r.firstExp=s.items.map((it,j)=>res[j]?null:uni(it.t)+" → "+s.opts[it.a]).filter(Boolean).join(" ; ");
+  }else if(s.kind==="int"||s.kind==="num"){
+    const x=parseNum(v.v);
+    if(isNaN(x)){r.msg="Écris un nombre (avec une virgule si besoin, par exemple 2,5).";r.msgType="err";return;}
+    ok=s.kind==="int"?x===s.a:Math.abs(x-s.a)<=Math.max(1e-9,Math.abs(s.a)*(s.tol||0.02));pts=ok?1:0;ans=fmt(x)+(s.unit?" "+s.unit:"");
+  }else if(s.kind==="sci"){
+    const m=parseNum(v.m),e=parseNum(v.e);
+    if(isNaN(m)||isNaN(e)||!Number.isInteger(e)){r.msg="Remplis les deux cases : le nombre (ex. 2,5) et l'exposant (ex. −10).";r.msgType="err";return;}
+    ans=fmt(m)+" × 10"+sup(String(e).replace("-","−"))+(s.unit?" "+s.unit:"");
+    const val=m*Math.pow(10,e),target=s.m*Math.pow(10,s.e);
+    const valueOk=Math.abs(val-target)<=Math.abs(target)*(s.tol||0.02);
+    const sciOk=Math.abs(m)>=1&&Math.abs(m)<10;
+    ok=valueOk&&sciOk;pts=ok?1:0;
+    if(valueOk&&!sciOk){r.tries++;if(r.first===null){r.first=false;r.pts=0;r.firstAns=ans+" (bonne valeur, pas en écriture scientifique)";}
+      r.msg="✗ La valeur est juste, mais ce n'est pas l'écriture scientifique : le premier nombre doit être entre 1 et 10.";return;}
+  }else if(s.kind==="rel"){
+    const e=parseNum(v.e);
+    if(isNaN(e)||!Number.isInteger(e)){r.msg="Écris un nombre entier (par exemple −5 ou 7).";r.msgType="err";return;}
+    ok=e===s.a;pts=ok?1:0;ans=fmt(e);
+  }else if(s.kind==="exp"){
+    const e=parseNum(v.e);
+    if(isNaN(e)||!Number.isInteger(e)){r.msg="Écris l'exposant (un nombre entier, par exemple −4).";r.msgType="err";return;}
+    ok=e===s.e;pts=ok?1:0;ans="10"+sup(String(e).replace("-","−"));
+  }
+  r.tries++;
+  if(r.first===null){r.first=ok;r.pts=pts;r.firstAns=ans;r.hintsBefore=r.hints;}
+  if(ok){r.done=true;r.msg="";}
+  else r.msg=s.kind==="classify"?"✗ Pas encore tout juste. Change les lignes marquées « à changer », ou prends un indice.":"✗ Pas encore. Relis la question, prends un indice ou réessaie.";
+}
+function nextEx(){
+  if(st.e>=EX.length-1){st.done=true;st.t1=st.t1||Date.now();save();route();return;}
+  const prev=EX[st.e].p;st.e++;st.intro=EX[st.e].p!==prev;save();route();
+}
+
+/* ---------- bilan ---------- */
+function stats(){
+  return PARTS.map(p=>{let got=0,tot=0;EX.forEach((x,ei)=>{if(x.p!==p.n)return;x.steps.forEach((s,si)=>{tot+=ptsOf(s);const r=st.R[key(ei,si)];if(r&&r.pts)got+=r.pts;});});return {p,got,tot};});
+}
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const level=(a,b)=>{const q=pct(a,b);return q>=80?"Acquis":(q>=50?"Fragile":"À revoir");};
+function fmtDate(t){const d=new Date(t);const z=n=>String(n).padStart(2,"0");return `${z(d.getDate())}/${z(d.getMonth()+1)}/${d.getFullYear()} à ${z(d.getHours())}h${z(d.getMinutes())}`;}
+function misses(){
+  const out=[];
+  EX.forEach((x,ei)=>x.steps.forEach((s,si)=>{const r=st.R[key(ei,si)];if(!r||r.first!==true)out.push({ei,si,x,s,r});}));
+  return out;
+}
+function advice(S){
+  const w=S.slice().sort((a,b)=>pct(a.got,a.tot)-pct(b.got,b.tot))[0];
+  if(pct(w.got,w.tot)>=80)return "Excellent travail : les 4 réflexes sont en place. Tu es prête pour le contrôle blanc.";
+  return "Priorité au "+w.p.title+". "+w.p.advice;
+}
+function bilanText(){
+  const S=stats(),got=S.reduce((a,b)=>a+b.got,0),tot=S.reduce((a,b)=>a+b.tot,0);
+  const dur=st.t0&&st.t1?Math.max(1,Math.round((st.t1-st.t0)/60000)):null;
+  const hints=Object.values(st.R).reduce((a,r)=>a+(r.hints||0),0);
+  const L2=[];
+  L2.push("SÉANCE 2 — PHYSIQUE-CHIMIE 2nde");
+  L2.push("L'atome : les 4 réflexes pour le contrôle");
+  L2.push("Élève : (écris ton prénom)");
+  L2.push("Fait le "+fmtDate(st.t1||Date.now())+(dur?" · durée : "+dur+" min":""));
+  L2.push("");
+  L2.push("SCORE AU PREMIER ESSAI : "+got+"/"+tot+" ("+pct(got,tot)+" %)");
+  S.forEach(s=>L2.push(s.p.title+" : "+s.got+"/"+s.tot+" ("+pct(s.got,s.tot)+" %, "+level(s.got,s.tot)+")"));
+  L2.push("Indices utilisés : "+hints);
+  L2.push("");
+  L2.push("PAR EXERCICE");
+  EX.forEach((x,ei)=>{
+    let g=0,t=0,h=0;x.steps.forEach((s,si)=>{t+=ptsOf(s);const r=st.R[key(ei,si)];if(r){g+=r.pts||0;h+=r.hints||0;}});
+    L2.push("Ex "+(ei+1)+" ["+({F:"Facile",M:"Moyen",D:"Défi"})[x.lvl]+"] "+uni(x.title)+" : "+g+"/"+t+(h?" · "+h+" indice"+(h>1?"s":""):""));
+  });
+  const m=misses();
+  L2.push("");
+  L2.push("ERREURS AU PREMIER ESSAI (1re réponse / attendu)");
+  if(!m.length)L2.push("- Aucune !");
+  m.forEach(o=>{
+    const lab="Ex "+(o.ei+1)+(o.x.steps.length>1?" q"+(o.si+1):"");
+    if(!o.r||o.r.first===null)L2.push("- "+lab+" : pas de réponse (attendu "+expected(o.s)+")");
+    else L2.push("- "+lab+" : "+o.r.firstAns+" / attendu "+(o.r.firstExp||expected(o.s))+(o.r.hintsBefore?" ("+o.r.hintsBefore+" indice"+(o.r.hintsBefore>1?"s":"")+" avant)":""));
+  });
+  const notions=[...new Set(m.map(o=>o.x.notion))];
+  L2.push("");
+  L2.push("NOTIONS À REVOIR");
+  if(!notions.length)L2.push("- Aucune !");
+  notions.forEach(n=>L2.push("- "+n));
+  L2.push("");
+  L2.push("CONSEIL");
+  L2.push(advice(S));
+  return L2.join("\n");
+}
+let dl=null;
+function renderEnd(){
+  const S=stats(),got=S.reduce((a,b)=>a+b.got,0),tot=S.reduce((a,b)=>a+b.tot,0);
+  const txt=bilanText();const m=misses();const notions=[...new Set(m.map(o=>o.x.notion))];
+  const subj="Bilan séance 2 PC – L'atome";
+  const wa="https://wa.me/?text="+encodeURIComponent(txt);
+  const gm="https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(MAIL)+"&su="+encodeURIComponent(subj)+"&body="+encodeURIComponent(txt);
+  const bar=(a,b)=>{const k=Math.round(pct(a,b)/20);return "●".repeat(k)+"○".repeat(5-k);};
+  show(`<span class="kicker">Bilan</span><h1>Bravo, tu as terminé la séance 2 !</h1>
+  <div class="card"><div class="total"><b>${got}/${tot}</b><span>au premier essai (${pct(got,tot)} %)</span></div></div>
+  <div class="parts">${S.map(s=>`<div class="prt"><span class="n">${s.p.title}</span><span class="sc">${s.got}/${s.tot}</span>
+   <span class="st"><span class="dots" aria-hidden="true">${bar(s.got,s.tot)}</span><b>${level(s.got,s.tot)}</b> (${pct(s.got,s.tot)} %)</span></div>`).join("")}</div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem"><span class="kicker">Notions à revoir</span>
+   ${notions.length?`<ul class="list">${notions.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:"<p>Aucune : tout était juste du premier coup !</p>"}</div></div>
+  <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem"><span class="kicker">Conseil</span><p>${esc(advice(S))}</p></div></div>
+  <h2>Envoie ton bilan à Mr Moreira</h2>
+  <div class="row">
+   <button class="btn" id="dl" type="button" hidden>Télécharger mon bilan</button>
+   <button class="btn" id="cp" type="button">Copier mon bilan</button>
+   <a class="btn ghost" href="${wa}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par WhatsApp</a>
+   <a class="btn ghost" href="${gm}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par Gmail</a>
+  </div>
+  <p class="status" id="msg" role="status" aria-live="polite"></p>
+  <p>Tu peux aussi montrer cet écran à ton professeur.</p>
+  <p class="small">Tu peux aussi sélectionner le texte ci-dessous et le copier.</p>
+  <pre class="report" id="rep">${esc(txt)}</pre>
+  <details><summary>Refaire un exercice</summary><div class="inner">
+   <p class="small">Ton score de premier essai ne change pas. Choisis l'exercice à revoir.</p>
+   <div class="row">${EX.map((x,i)=>`<button class="btn ghost" type="button" data-go="${i}" style="flex:1 1 100%">Ex. ${i+1} · ${x.title}</button>`).join("")}</div>
+  </div></details>
+  <details><summary>Tout recommencer</summary><div class="inner"><p>Attention : tes réponses seront effacées. Envoie ton bilan avant.</p>
+   <div class="row"><button class="btn ghost" id="rs" type="button">Oui, tout effacer et recommencer</button></div></div></details>`);
+  const msg=document.getElementById("msg");
+  document.getElementById("cp").onclick=()=>{
+    const fallback=()=>{const rg=document.createRange();rg.selectNodeContents(document.getElementById("rep"));const sel=window.getSelection();sel.removeAllRanges();sel.addRange(rg);msg.textContent="Le texte est sélectionné : appuie sur « Copier ».";};
+    try{navigator.clipboard.writeText(txt).then(()=>{msg.textContent="✓ Bilan copié. Colle-le dans un message.";},fallback);}catch(e){fallback();}
+  };
+  const db=document.getElementById("dl");if(dl)db.hidden=false;
+  db.onclick=async()=>{if(!dl)return;try{await dl.save({filename:"bilan-seance2-atome.txt",data:txt});msg.textContent="✓ Bilan téléchargé.";}
+   catch(e){const c=e&&e.code;msg.textContent=c==="declined"?"Téléchargement annulé.":(c==="rate_limited"?"Patiente un instant puis réessaie.":"Le téléchargement ne marche pas ici : utilise « Copier » ou WhatsApp.");}};
+  app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{review=+b.dataset.go;renderReview();});
+  document.getElementById("rs").onclick=()=>{st=fresh();save();route();};
+}
+/* revoir un exercice après le bilan : les réponses sont remises à zéro pour l'affichage, le score reste */
+let review=null;
+function renderReview(){
+  const ei=review;const saved={};
+  EX[ei].steps.forEach((s,si)=>{const k=key(ei,si);saved[k]=st.R[k];});
+  const tmp=fresh();tmp.started=true;tmp.e=ei;tmp.intro=false;
+  const backup=st;st=tmp;
+  renderEx(false);
+  const back=document.createElement("div");back.className="row";
+  back.innerHTML=`<button class="btn ghost" type="button" id="backb">← Retour au bilan</button>`;
+  app.appendChild(back);
+  const nx=app.querySelector("[data-act=nextex]");
+  const restore=()=>{st=backup;review=null;save();route();};
+  document.getElementById("backb").onclick=restore;
+  reviewRestore=restore;
+}
+let reviewRestore=null;
+const _nextEx=nextEx;
+function route(){
+  if(review!==null)return;
+  if(!st.started)return renderStart();
+  if(st.done)return renderEnd();
+  if(st.intro)return renderIntro();
+  return renderEx(false);
+}
+/* en mode révision, « exercice suivant » ramène au bilan et rien n'est enregistré */
+nextEx=function(){if(review!==null&&reviewRestore){reviewRestore();return;}_nextEx();};
+
+load();applyUI();route();
+try{if(window.claude&&window.claude.use){window.claude.use("downloads").then(d=>{dl=d;const b=document.getElementById("dl");if(b&&dl)b.hidden=false;}).catch(()=>{});}}catch(e){}
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

@@ -721,7 +721,56 @@
      "id": "physique-chimie",
      "titre": "Physique-Chimie",
      "couleur": "pc",
-     "chapitres": []
+     "chapitres": [
+      {
+       "id": "ch1-atome",
+       "titre": "Chapitre 1 · L'atome et les entités chimiques",
+       "activites": [
+        {
+         "fichier": "qcm-diagnostic.html",
+         "tag": "QCM diagnostic",
+         "titre": "QCM diagnostic · 20 questions",
+         "desc": "Entités chimiques, noyau et particules, calculs avec puissances de 10, cortège électronique."
+        },
+        {
+         "fichier": "entrainement.html",
+         "tag": "Entraînement",
+         "titre": "Entraînement guidé, puis en autonomie",
+         "desc": "Ions, écriture du noyau, écriture scientifique, conversions, masses, configurations électroniques."
+        },
+        {
+         "fichier": "seance-2-memo-anime.html",
+         "tag": "Séance 2 · Mémo",
+         "titre": "Mémo animé des 4 réflexes",
+         "desc": "Je lis la charge, la somme des charges vaut 0, diviser des puissances de 10, remplir les sous-couches."
+        },
+        {
+         "fichier": "seance-2-exercices.html",
+         "tag": "Séance 2 · Exercices",
+         "titre": "Les 4 réflexes pour le contrôle",
+         "desc": "Un exercice par réflexe, avec correction immédiate et indices."
+        },
+        {
+         "fichier": "seance-2-qcm.html",
+         "tag": "Séance 2 · QCM",
+         "titre": "QCM de fin de séance 2",
+         "desc": "Vérifier les 4 réflexes avant le contrôle."
+        },
+        {
+         "fichier": "seance-2-devoir.html",
+         "tag": "Devoir maison",
+         "titre": "Devoir de la séance 2",
+         "desc": "Nommer des entités, électrons de deux ions, deux formules à écrire et vérifier, l'argon."
+        },
+        {
+         "fichier": "qcm-final.html",
+         "tag": "QCM final",
+         "titre": "QCM final · L'atome",
+         "desc": "Questions inédites, même structure que le diagnostic pour mesurer les progrès."
+        }
+       ]
+      }
+     ]
     }
    ]
   }
