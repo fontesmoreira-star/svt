@@ -354,6 +354,12 @@
          "desc": "TP : analyser le sang retrouvé sur les vêtements de la victime."
         },
         {
+         "fichier": "labo-agglutination-tp-note.html",
+         "tag": "TP noté sur 10 · dossier 7",
+         "titre": "TP noté : le test d'agglutination",
+         "desc": "Même enquête en version évaluée : manipulation virtuelle, fiche de résultats, conclusion argumentée, copie notée sur 10 (2 + 3 + 5 points) à montrer au professeur."
+        },
+        {
          "fichier": "arbre-jean.html",
          "tag": "Enquête · dossier 8",
          "titre": "L'arbre de Jean",

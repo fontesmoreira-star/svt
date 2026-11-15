@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TP noté · Agglutination</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
+   Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
+:root{
+  --fs:21px;
+  --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
+  --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
+  --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
+  --ok:#17703d; --ok-soft:#ddf1e4; --bad:#ad2318; --bad-soft:#fbe2de;
+  --info:#1d5bb0; --info-soft:#e1ebf9; --warn:#9c4f05; --warn-soft:#fdead3;
+  --key:#17703d; --key-soft:#ddf1e4; --err:#ad2318; --err-soft:#fbe2de;
+  --easy:#17703d; --mid:#7d5a00; --hard:#ad2318;
+  --c1:#0a6a76; --c2:#c0531a; --c3:#5a48b5; --c4:#2d7a31; --c5:#8a6400; --c6:#6f777c;
+  --grid:#dbe5e7; --shade:rgba(10,106,118,.10);
+  --f-display:"Charter","Iowan Old Style","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0}
+sub,sup{line-height:0;font-size:.72em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html.proj .wrap{max-width:none}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- bandeau ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.band .titles{min-width:0;flex:1 1 20rem}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
+.band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+.tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+
+/* ---------- onglets collants ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.tab .dot{font-size:0.9rem}
+
+main{padding-block:1.2rem 3rem}
+.view{display:grid;gap:1.1rem}
+.lead{color:var(--muted);max-width:44rem}
+.sec-title{font-size:1.45rem}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+
+/* ---------- cartes / panneaux ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.panel h3{font-size:1.15rem}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:.8rem}
+.card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
+.card-btn:hover{border-color:var(--accent)}
+.card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.mid{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- encadrés ---------- */
+.box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
+.box.err{background:var(--err-soft);border-color:var(--err)} .box.err>.lab{color:var(--err)}
+.box ul{margin:0;padding-left:1.2rem;display:grid;gap:.25rem}
+
+/* ---------- boutons ---------- */
+.btn{min-height:48px;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---------- options QCM / choix ---------- */
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
+.opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+
+.field{display:grid;gap:.3rem}
+.field label{font-weight:700;font-size:0.9rem}
+.inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
+.inp.wide{max-width:none}
+textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
+.inp.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.inp.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{color:var(--muted);font-weight:700}
+
+/* ---------- retour d'information ---------- */
+.fb{border-radius:12px;padding:.7rem .9rem;border:1.5px solid;display:grid;gap:.35rem}
+.fb .h{font-weight:800}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.ok .h{color:var(--ok)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)} .fb.bad .h{color:var(--bad)}
+.fb.neutral{background:var(--surface-2);border-color:var(--line)}
+.hints{display:grid;gap:.45rem}
+.hint{background:var(--surface-2);border-radius:10px;padding:.55rem .8rem;border-left:4px solid var(--mid);font-size:.92rem}
+.hint b{color:var(--mid)}
+.corr{background:var(--info-soft);border:1.5px solid var(--info);border-radius:12px;padding:.75rem .95rem;display:grid;gap:.4rem}
+.corr .h{font-weight:800;color:var(--info)}
+
+/* ---------- documents ---------- */
+.doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh .sim{font-weight:700;color:var(--warn)}
+.doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
+.tablewrap{overflow-x:auto;max-width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
+table.t td,table.t th{vertical-align:top}
+table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+table.t th{background:var(--surface-2);font-weight:800}
+table.t td.n{text-align:right}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+
+/* ---------- graphiques ---------- */
+.chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body)}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend svg{flex:none}
+
+/* ---------- niveaux ---------- */
+.lv{display:inline-flex;align-items:center;gap:.35rem;font-weight:800}
+.lv.easy{color:var(--easy)} .lv.mid{color:var(--mid)} .lv.hard{color:var(--hard)}
+
+/* ---------- bilan ---------- */
+.score-big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 1rem) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(16px,env(safe-area-inset-left,0px))}
+.overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
+.overlay h2{font-size:2.2rem}
+.overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
+.toast{font-weight:700;color:var(--ok)}
+
+/* ---------- divers ---------- */
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
+.eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
+.chartbox{display:grid;gap:.45rem;min-width:0}
+/* ---------- exercices : coefficients, ordre, critères ---------- */
+.coefs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:1.05rem}
+.coef{display:inline-flex;align-items:center;gap:.25rem;background:var(--surface-2);border-radius:12px;padding:.25rem}
+.coef button{min-width:48px;min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.coef output{min-width:1.6rem;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.coef .f{padding:0 .4rem;font-weight:700}
+.coef.is-ok{outline:2px solid var(--ok)} .coef.is-bad{outline:2px solid var(--bad)}
+.arrow{font-weight:800;color:var(--muted)}
+.order-list{display:grid;gap:.45rem}
+.order-item{display:flex;gap:.7rem;align-items:center;text-align:left;min-height:52px;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);color:var(--ink);font-size:.95rem}
+.order-item .n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted)}
+.order-item[data-pos]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.order-item[data-pos] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.order-item.is-ok{border-color:var(--ok);background:var(--ok-soft)} .order-item.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:.6rem}
+.rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
+.rowq .rt{font-size:.95rem}
+.pfb{font-size:0.9rem;font-weight:700}
+.pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
+.part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.part:first-child{border-top:0;padding-top:0}
+.part > .pl{font-weight:700}
+.crit{display:grid;gap:.4rem}
+.crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
+.crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.sci .inp{max-width:7rem}
+.sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
+
+/* Identité SVT : bandeau vert foncé ; neutres teintés vert ; bandes « lumière » jaune pâle sur les courbes */
+:root{
+  --bg:#f3f6f2; --surface:#ffffff; --surface-2:#e8f0e7; --ink:#14251a; --muted:#46604d; --line:#c6d6c6;
+  --band:#1b4a2c; --band-ink:#eef7f0; --band-muted:#b3d3bc; --band-line:#3b6c4a;
+  --accent:#21703a; --accent-ink:#ffffff; --accent-soft:#d9eedf;
+  --shade:rgba(232,176,20,.20); --day:#fbe6a2; --day-ink:#3a2b00; --night:#1c2b21; --night-ink:#e7f1ea;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}
+
+/* ---------- 5e EIST · Vitesses et mouvements ---------- */
+:root{--trk:#dfe9ea;--dot:#11282e;--rov:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}}
+:root[data-theme="dark"]{--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+.gap{display:inline-block;min-width:4.5rem;border-bottom:3px dotted var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.recop{border:2px solid var(--key);border-radius:14px;background:var(--key-soft);padding:1rem 1.1rem;display:grid;gap:.6rem}
+.recop .lab{font-size:.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--key)}
+.recop p{font-size:1.05rem;line-height:1.6}
+.recop u{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800}
+h4{font-size:1rem}
+.match{display:grid;gap:.45rem}
+.mrow{display:flex;gap:.6rem;align-items:center;text-align:left;min-height:54px;padding:.45rem .7rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;width:100%}
+.mrow[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.mrow .me{font-size:1.5rem;flex:none;width:2rem;text-align:center}
+.mrow .mn{flex:1 1 auto;min-width:0}
+.mrow .mv{flex:none;min-width:5.2rem;text-align:center;border-radius:10px;padding:.25rem .5rem;border:2px dashed var(--muted);color:var(--muted);font-weight:800;font-variant-numeric:tabular-nums}
+.mrow .mv.has{border-style:solid;border-color:var(--accent);color:var(--ink);background:var(--surface)}
+.mrow.is-ok{border-color:var(--ok);background:var(--ok-soft)} .mrow.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.mrow .tag{flex:none;font-weight:800;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chipb{min-height:48px;padding:0 .9rem;border-radius:999px;border:2px solid var(--accent);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tabs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.7rem}
+.tabs3 > div{display:grid;gap:.3rem}
+.tabs3 .tn{font-weight:800}
+.gauge{height:1.2rem;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1.5px solid var(--line)}
+.gauge i{display:block;height:100%;background:var(--rov);transition:width .15s linear}
+.pilot{display:flex;flex-wrap:wrap;gap:.5rem}
+.pilot .btn{min-width:8.5rem}
+
+/* ---------- 3e · TP noté : test d'agglutination ---------- */
+:root{--rbc:#c62828;--rbc-in:#e85a4f;--plasma:#f6d3cf;--well:#f7f9f8;--well-rim:#b9c7c0;--agA:#2f74c8;--agB:#e3b21b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--rbc:#e0463c;--rbc-in:#ff7d70;--plasma:#5a2622;--well:#1f2f27;--well-rim:#4a6355;--agA:#6ea8f0;--agB:#f2cc4a}}
+:root[data-theme="dark"]{--rbc:#e0463c;--rbc-in:#ff7d70;--plasma:#5a2622;--well:#1f2f27;--well-rim:#4a6355;--agA:#6ea8f0;--agB:#f2cc4a}
+.wcell{transition:transform 1.4s ease}
+@media (prefers-reduced-motion: reduce){.wcell{transition:none}}
+.bench{display:grid;gap:.8rem}
+.guide{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.guide li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.guide li .ck{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:800}
+.guide li.ok .ck{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.guide li.ok{color:var(--muted)}
+.guide li.now{font-weight:800}
+.guide li.now .ck{border-color:var(--accent);color:var(--accent)}
+.toolsbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
+@media (max-width:620px){.toolsbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tool{min-height:64px;border:2px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px;text-align:center;line-height:1.2;font-size:.9rem}
+.tool .tic{font-size:1.4rem;line-height:1}
+.tool[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+.tool small{font-weight:400;color:var(--muted);font-size:.85rem}
+.tool[disabled]{opacity:.5}
+.tray{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;background:var(--surface-2);border-radius:18px;padding:.8rem;border:1px solid var(--line)}
+.wellbtn{border:3px solid var(--well-rim);border-radius:18px;background:var(--surface);color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:4px;padding:.5rem .3rem;min-width:0}
+.wellbtn.target{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.wellbtn.contam{border-color:var(--bad)}
+.wellbtn svg{width:100%;max-width:170px;height:auto}
+.wellbtn .wn{font-weight:800}
+.wellbtn .ws{font-size:.9rem;color:var(--muted);min-height:2.4em;text-align:center}
+.log{font-weight:700;min-height:1.6em}
+.reftable{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr);gap:.4rem .6rem;align-items:center}
+.reftable .h{font-weight:800;font-size:.9rem;color:var(--muted)}
+.reftable .h.c{text-align:center}
+.reftable .g{font-weight:800;font-size:1.2rem;text-align:center}
+.reftable svg{width:100%;max-width:90px;height:auto;display:block;margin:0 auto}
+.reftable .t{font-size:.9rem}
+details.ref{border:1.5px solid var(--info);border-radius:12px;background:var(--info-soft);padding:.2rem .9rem}
+details.ref summary{min-height:48px;display:flex;align-items:center;font-weight:800;color:var(--info);cursor:pointer}
+details.ref[open]{padding-bottom:.8rem}
+.rows{display:grid;gap:.6rem}
+.rowq .ctag{margin-left:.4rem}
+.conc{display:grid;gap:.9rem}
+.cstep{display:grid;gap:.45rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.cstep:first-child{border-top:0;padding-top:0}
+.cn{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.9rem}
+.inds{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.inds li{display:flex;gap:.6rem;align-items:flex-start}
+.inds .bx{flex:none;width:1.5rem;height:1.5rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:.9rem;margin-top:.1rem}
+.inds li.done .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.inds .st{color:var(--muted);font-size:.9rem;font-weight:700}
+.quote{font-style:italic;white-space:pre-wrap;background:var(--surface-2);border-radius:12px;padding:.7rem .9rem}
+.btn.warn{white-space:normal}
+
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">3e SVT · Génétique · Activité 7 · TP évalué sur 10</p><h1>TP noté : analyse du sang retrouvé sur les vêtements de la victime</h1><p class="sub">Réalise le test d'agglutination, note tes résultats, rédige ta conclusion, puis rends ta copie : barème sur 10 points.</p></div>
+<div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
+<main class="wrap" id="main"><p>Chargement…</p></main>
+<footer class="wrap foot">Aucune donnée n'est envoyée : la copie reste sur cet appareil jusqu'à ce que l'élève la transmette. Labo virtuel : résultats simulés. Lycée Français Vauban · SVT 3e.</footer>
+<noscript><p class="wrap">Cette application a besoin de JavaScript : ouvre le lien dans Safari (pas dans l'aperçu de Teams ou de Fichiers).</p></noscript>
+<script>
+/* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
+"use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
+
+/* ---------- stockage de confort (l'app marche sans) ---------- */
+const Store = {
+  key: "es-th1",
+  load(def) { let o = {}; try { o = JSON.parse(localStorage.getItem(this.key) || "{}") || {}; } catch (e) { o = {}; } return Object.assign({}, def, o); },
+  save(obj) { try { localStorage.setItem(this.key, JSON.stringify(obj)); } catch (e) {} }
+};
+
+/* ---------- nombres à la française ---------- */
+const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+const supStr = s => String(s).split("").map(c => SUP[c] || c).join("");
+function fmt(x, dec) {
+  if (x === null || x === undefined || Number.isNaN(x)) return "—";
+  let s = dec === undefined ? String(Math.round(x * 1e6) / 1e6) : Number(x).toFixed(dec);
+  let neg = s.startsWith("-"); if (neg) s = s.slice(1);
+  let [i, d] = s.split(".");
+  i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
+}
+function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
+  if (p === 0) return "0";
+  const e = Math.floor(Math.log10(Math.abs(p))); const m = p / Math.pow(10, e);
+  const mr = Math.round(m * 100) / 100;
+  if (e >= -1 && e <= 3) return fmt(p, p < 10 ? 2 : 0);
+  return (mr === 1 ? "" : fmt(mr) + " × ") + "10" + supStr(e);
+}
+/* lit « 1 020 », « 1,02e5 », « 1,02 × 10^5 », « 1,02x10⁵ », « 10⁵ », « −3 », « +12,4 °C » */
+function parseNum(str) {
+  if (str === null || str === undefined) return NaN;
+  let s = String(str).trim();
+  const SUPR = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-" };
+  s = s.replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m, g) => "10^" + g.split("").map(c => SUPR[c]).join(""));
+  s = s.replace(/[−–]/g, "-").replace(/[\s  ]/g, "").replace(/,/g, ".");
+  s = s.replace(/(°c|°|pa|hpa|bar|mbar|atm|mmhg|cm|mm|m|ans?|%|points?|pts?|\/an|°c\/siècle|°c\/an)+$/i, "");
+  let m = s.match(/^([+-]?\d*\.?\d+)(?:[x×*·]10\^?\(?([+-]?\d+)\)?)$/i);
+  if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+  m = s.match(/^([+-]?)10\^\(?([+-]?\d+)\)?$/);
+  if (m) return (m[1] === "-" ? -1 : 1) * Math.pow(10, parseInt(m[2], 10));
+  if (/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)) return parseFloat(s);
+  return NaN;
+}
+const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+
+/* ---------- affichage : taille, thème, projection ---------- */
+const Display = {
+  S: null, onChange: null,
+  init(S, save) {
+    this.S = S; this.save = save; this.apply();
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
+    $("#themeBtn").onclick = () => {
+      const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; this.apply(); save();
+    };
+    $("#projBtn").onclick = () => { S.proj = !S.proj; this.apply(); save(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => this.apply());
+  },
+  apply() {
+    const S = this.S, r = document.documentElement;
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
+    r.classList.toggle("proj", !!S.proj);
+    const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
+    const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
+    Charts.redrawAll();
+    if (this.onChange) this.onChange();
+  }
+};
+
+/* bouton à confirmation en deux temps (pas de confirm()) */
+function armButton(btn, label, confirmLabel, action) {
+  let t = null;
+  btn.onclick = () => {
+    if (!t) { btn.textContent = confirmLabel; btn.classList.add("warn"); t = setTimeout(() => { btn.textContent = label; btn.classList.remove("warn"); t = null; }, 4000); return; }
+    clearTimeout(t); t = null; btn.textContent = label; btn.classList.remove("warn"); action();
+  };
+}
+
+/* ======================= GRAPHIQUES (SVG redessiné à la largeur réelle) ======================= */
+const Charts = {
+  list: new Set(),
+  redrawAll() { this.list.forEach(c => { if (!document.body.contains(c.host)) this.list.delete(c); else c.draw(); }); }
+};
+let _rsT = null;
+window.addEventListener("resize", () => { clearTimeout(_rsT); _rsT = setTimeout(() => Charts.redrawAll(), 120); });
+
+const PAT = ["none", "dots", "diag", "cross", "horiz", "vert"];
+function patternOne(pid, color, p) {
+  let inner = "";
+  if (p === "dots") inner = `<circle cx="3" cy="3" r="1.3" style="fill:var(--surface)"/>`;
+  if (p === "diag") inner = `<path d="M-1,7 L7,-1" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "cross") inner = `<path d="M-1,7 L7,-1 M-1,-1 L7,7" style="stroke:var(--surface);stroke-width:1.1"/>`;
+  if (p === "horiz") inner = `<path d="M0,3 H6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "vert") inner = `<path d="M3,0 V6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  return `<pattern id="${pid}" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--${color})"/>${inner}</pattern>`;
+}
+function patDefs(id, colors) { return colors.map((c, i) => patternOne(`${id}-p${i}`, c, PAT[i % PAT.length])).join(""); }
+const DASH = i => (i % 4 === 1 ? "7 4" : i % 4 === 2 ? "2 4" : i % 4 === 3 ? "11 4 2 4" : "");
+function swatch(color, i, kind) {
+  if (kind === "line") return `<svg width="34" height="12" aria-hidden="true"><path d="M2 6 H32" style="stroke:var(--${color});stroke-width:3.2;fill:none;stroke-linecap:round" stroke-dasharray="${DASH(i)}"/></svg>`;
+  const pid = "sw" + Math.random().toString(36).slice(2, 8); const p = PAT[i % PAT.length];
+  const fill = p === "none" ? `var(--${color})` : `url(#${pid})`;
+  return `<svg width="20" height="20" aria-hidden="true">${p === "none" ? "" : `<defs>${patternOne(pid, color, p)}</defs>`}<rect x="1" y="1" width="18" height="18" rx="3" style="fill:${fill};stroke:var(--ink);stroke-width:.7"/></svg>`;
+}
+
+/* phase de l'eau */
+const PSAT = [[0.01, 611.657], [10, 1228], [20, 2339], [30, 4247], [40, 7385], [50, 12352], [60, 19946], [70, 31201], [80, 47414], [90, 70182], [100, 101418], [120, 198670], [140, 361540], [160, 618230], [180, 1002800], [200, 1554900], [220, 2319600], [240, 3346900], [260, 4692300], [280, 6416600], [300, 8587900], [320, 11284000], [340, 14594000], [360, 18666000], [374, 22064000]];
+const Water = {
+  Tt: 0.01, Pt: 611.657, Tc: 374, Pc: 2.2064e7,
+  psat(T) { if (T <= 0.01) return this.Pt; if (T >= 374) return this.Pc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (T <= t1) { const f = (T - t0) / (t1 - t0); return Math.pow(10, Math.log10(p0) + f * (Math.log10(p1) - Math.log10(p0))); } } return this.Pc; },
+  tsat(P) { if (P <= this.Pt) return this.Tt; if (P >= this.Pc) return this.Tc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (P <= p1) { const f = (Math.log10(P) - Math.log10(p0)) / (Math.log10(p1) - Math.log10(p0)); return t0 + f * (t1 - t0); } } return this.Tc; },
+  psub(T) { const K = T + 273.15; return Math.exp(9.550426 - 5723.265 / K + 3.53068 * Math.log(K) - 0.00728332 * K); },
+  tmelt(P) { return 0.01 - 7.4e-8 * (P - this.Pt); },
+  state(T, P) {
+    if (P >= this.Pc && T >= this.Tc) return "fluide supercritique";
+    if (P > this.Pt && T < this.tmelt(P)) return "solide (glace)";
+    if (P <= this.Pt && T < 0.01) return P > this.psub(T) ? "solide (glace)" : "gaz (vapeur)";
+    if (T >= this.Tc) return "gaz (vapeur)";
+    return P > this.psat(T) ? "liquide" : "gaz (vapeur)";
+  }
+};
+
+function mountChart(container, spec) {
+  container.innerHTML = "";
+  const id = "ch" + Math.random().toString(36).slice(2, 8);
+  const host = document.createElement("div"); host.className = "chart"; host.tabIndex = 0;
+  host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
+  const legend = document.createElement("div"); legend.className = "legend";
+  const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
+  readout.innerHTML = spec.readHint || CT.readHint;
+  container.append(host);
+  if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
+  container.append(readout);
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
+
+  const ch = { host, spec, sel: null, draw: null };
+  const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+
+  if (spec.type !== "phase" && legend.isConnected) {
+    const names = spec.type === "stack" ? spec.parts : spec.series.map(s => s.name);
+    const colors = spec.type === "stack" ? spec.colors : spec.series.map(s => s.color);
+    if (names.length > 1 || spec.type === "stack") legend.innerHTML = names.map((n, i) => `<span>${swatch(colors[i], i, spec.type === "line" ? "line" : "fill")}${esc(n)}</span>`).join("");
+    else legend.remove();
+  }
+
+  function axisText(x, y, txt, anchor, size, extra) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="fill:var(--ink);font-size:${size}px" ${extra || ""}>${esc(txt)}</text>`; }
+
+  ch.draw = function () {
+    const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
+    const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
+    let svg = "";
+    if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
+    else if (spec.type === "line") svg = drawLine(W, H, F, tk, tt);
+    else if (spec.type === "stack") svg = drawStack(W, F, tk, tt);
+    else if (spec.type === "phase") svg = drawPhase(W, H, F, tk, tt);
+    host.innerHTML = svg;
+  };
+
+  /* --- barres groupées --- */
+  let geo = {};
+  function drawBar(W, H, F, tk, tt) {
+    const S = spec.series, cats = spec.categories;
+    const L = F * 3.3, R = F * 0.8, T = F * 0.9, B = F * 3.2 + (spec.rotate ? F * 1.2 : 0);
+    const pw = W - L - R, ph = H - T - B;
+    const yMax = spec.yMax, yStep = spec.yStep;
+    const y = v => T + ph - (v / yMax) * ph;
+    let g = "";
+    for (let v = 0; v <= yMax + 1e-9; v += yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/>` + axisText(L - 6, y(v) + tk * 0.35, fmt(v), "end", tk); }
+    const gw = pw / cats.length, bw = Math.min(gw * 0.7 / S.length, F * 3.2);
+    geo = { bars: [] };
+    cats.forEach((c, ci) => {
+      const gx = L + gw * ci + (gw - bw * S.length) / 2;
+      S.forEach((s, si) => {
+        const v = s.values[ci]; const x = gx + bw * si; const yy = y(Math.max(v, 0));
+        const sel = ch.sel && ch.sel[0] === ci && ch.sel[1] === si;
+        g += `<rect x="${x + 1}" y="${yy}" width="${bw - 2}" height="${Math.max(T + ph - yy, 0)}" rx="3" style="fill:var(--${s.color});${sel ? "stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v);
+        if (spec.showValues !== false) g += axisText(x + bw / 2, yy - 5, lbl, "middle", tk, `font-weight="700"`);
+        geo.bars.push({ ci, si, x, w: bw });
+      });
+      const cx = L + gw * ci + gw / 2;
+      if (spec.rotate) g += `<text transform="translate(${cx},${T + ph + 8}) rotate(35)" style="fill:var(--ink);font-size:${tk}px">${esc(c)}</text>`;
+      else g += axisText(cx, T + ph + tk * 1.35, c, "middle", tk, `font-weight="700"`);
+    });
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- courbes --- */
+  function drawLine(W, H, F, tk, tt) {
+    const S = spec.series;
+    const L = F * 3.6, R = F * 1.1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const { xMin, xMax, yMin, yMax } = spec;
+    const X = v => L + (v - xMin) / (xMax - xMin) * pw, Y = v => T + ph - (v - yMin) / (yMax - yMin) * ph;
+    let g = "";
+    (spec.bands || []).forEach(b => { g += `<rect x="${X(b.x0)}" y="${T}" width="${X(b.x1) - X(b.x0)}" height="${ph}" style="fill:var(--shade)"/>` + (b.label ? axisText((X(b.x0) + X(b.x1)) / 2, T + tk * 1.1, b.label, "middle", tk * 0.92, `font-weight="700"`) : ""); });
+    const maxXt = Math.max(2, Math.floor(pw / (F * (spec.xTickW || 3.6))));
+    let xs = spec.xStep; while ((xMax - xMin) / xs > maxXt) xs *= 2;
+    for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
+    for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
+    (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
+    S.forEach((s, si) => {
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
+    });
+    if (ch.sel !== null) {
+      const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
+      S.forEach(s => { const p = s.pts.find(q => q[0] === xv); if (p) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--${s.color});stroke-width:3"/>`; });
+    }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    geo = { L, pw, X, xMin, xMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- barres empilées horizontales (cumul à 100 %) --- */
+  function drawStack(W, F, tk, tt) {
+    const rows = spec.rows, P = spec.parts;
+    const L = F * (spec.labelW || 5.6), R = F * 0.9, T = F * 0.5, rowH = F * 2.3, gap = F * 0.9, B = F * 3.1;
+    const pw = W - L - R; const H = T + rows.length * (rowH + gap) - gap + B;
+    const X = v => L + v / 100 * pw;
+    let g = `<defs>${patDefs(id, spec.colors)}</defs>`;
+    for (let v = 0; v <= 100; v += 20) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + rows.length * (rowH + gap) - gap}" style="stroke:var(--grid)"/>` + axisText(X(v), T + rows.length * (rowH + gap) - gap + tk * 1.35, fmt(v), "middle", tk);
+    geo = { segs: [] };
+    rows.forEach((r, ri) => {
+      const y0 = T + ri * (rowH + gap); let acc = 0;
+      g += axisText(L - 8, y0 + rowH / 2 - (r.sub ? tk * 0.2 : -tk * 0.35), r.label, "end", tk, `font-weight="700"`);
+      if (r.sub) g += axisText(L - 8, y0 + rowH / 2 + tk * 0.95, r.sub, "end", tk * 0.88);
+      r.values.forEach((v, pi) => {
+        if (v <= 0) return;
+        const x = X(acc), w = X(acc + v) - X(acc);
+        const sel = ch.sel && ch.sel[0] === ri && ch.sel[1] === pi;
+        const fill = PAT[pi % PAT.length] === "none" ? `var(--${spec.colors[pi]})` : `url(#${id}-p${pi})`;
+        g += `<rect x="${x}" y="${y0}" width="${w}" height="${rowH}" style="fill:${fill};stroke:var(--surface);stroke-width:1.5${sel ? ";stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = fmt(v) + " %";
+        if (w > tk * 3.4) g += `<rect x="${x + w / 2 - tk * 1.55}" y="${y0 + rowH / 2 - tk * 0.75}" width="${tk * 3.1}" height="${tk * 1.5}" rx="4" style="fill:var(--surface);opacity:.92"/>` + axisText(x + w / 2, y0 + rowH / 2 + tk * 0.36, lbl, "middle", tk * 0.92, `font-weight="800"`);
+        geo.segs.push({ ri, pi, x, w, y0, h: rowH });
+        acc += v;
+      });
+    });
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "Proportion (%)", "middle", tt, `font-weight="700"`);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- diagramme d'état de l'eau (pression en échelle logarithmique) --- */
+  function drawPhase(W, H, F, tk, tt) {
+    const L = F * 3.6, R = F * 1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const tMin = spec.tMin ?? -150, tMax = spec.tMax ?? 500, lpMin = spec.lpMin ?? 1, lpMax = spec.lpMax ?? 8;
+    const X = t => L + (t - tMin) / (tMax - tMin) * pw;
+    const Y = p => T + ph - (Math.log10(p) - lpMin) / (lpMax - lpMin) * ph;
+    const clipY = y => Math.min(Math.max(y, T), T + ph);
+    let g = `<defs><clipPath id="${id}-c"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+    // zones colorées
+    let sub = "", sat = "";
+    for (let t = tMin; t <= 0.01; t += 2) sub += (sub ? "L" : "M") + X(t).toFixed(1) + "," + Y(Math.max(Water.psub(t), Math.pow(10, lpMin - 3))).toFixed(1) + " ";
+    sub += "L" + X(0.01) + "," + Y(Water.Pt);
+    for (let t = 0.01; t <= 374; t += 2) sat += (sat ? "L" : "M") + X(t).toFixed(1) + "," + Y(Water.psat(t)).toFixed(1) + " ";
+    sat += "L" + X(374) + "," + Y(Water.Pc);
+    const Ptop = Math.pow(10, lpMax);
+    const meltTop = X(Water.tmelt(Ptop));
+    g += `<g clip-path="url(#${id}-c)">`;
+    g += `<path d="${sub.replace("M", "M" + X(tMin) + "," + Y(Ptop) + " L")} L${meltTop},${Y(Ptop)} Z" style="fill:var(--info-soft)"/>`;
+    g += `<path d="M${X(0.01)},${Y(Water.Pt)} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${meltTop},${Y(Ptop)} Z" style="fill:var(--ok-soft)"/>`;
+    g += `<path d="${sub} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${X(tMax)},${Y(Ptop)} L${X(tMax)},${T + ph + 50} L${X(tMin)},${T + ph + 50} Z" style="fill:var(--warn-soft)"/>`;
+    g += `</g>`;
+    for (let e = lpMin; e <= lpMax; e++) g += `<line x1="${L}" x2="${L + pw}" y1="${Y(Math.pow(10, e))}" y2="${Y(Math.pow(10, e))}" style="stroke:var(--grid)"/>` + axisText(L - 6, Y(Math.pow(10, e)) + tk * 0.35, "10" + supStr(e), "end", tk);
+    let step = [10, 20, 50, 100, 200, 500].find(s => (tMax - tMin) / s <= pw / (F * 2.6)) || 500;
+    for (let t = Math.ceil(tMin / step) * step; t <= tMax; t += step) g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(t), T + ph + tk * 1.35, fmt(t), "middle", tk);
+    g += `<g clip-path="url(#${id}-c)"><path d="${sub}" style="fill:none;stroke:var(--info);stroke-width:2.5"/><path d="${sat}" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><line x1="${X(0.01)}" y1="${Y(Water.Pt)}" x2="${meltTop}" y2="${Y(Ptop)}" style="stroke:var(--info);stroke-width:2.5"/></g>`;
+    g += `<circle cx="${X(0.01)}" cy="${Y(Water.Pt)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(0.01) + F * 0.35, Y(Water.Pt) + tk * 1.25, "point triple", "start", tk * 0.88, `font-weight="700"`);
+    if (Water.Pc <= Ptop) g += `<circle cx="${X(374)}" cy="${Y(Water.Pc)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(374), Y(Water.Pc) - F * 0.45, "point critique", "middle", tk * 0.88, `font-weight="700"`);
+    g += axisText(X(tMin) + F * 0.6, T + F * 1.4, "SOLIDE", "start", tt, `font-weight="800" letter-spacing=".08em"`);
+    const pl = Math.pow(10, lpMax - 0.5), tl = Math.min(Water.tsat(pl), tMax) / 2;
+    g += axisText(X(tl), Y(pl) + F * 0.4, "LIQUIDE", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    g += axisText(X(tMin + 0.86 * (tMax - tMin)), Y(Math.pow(10, lpMin + 0.35)), "GAZ", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    (spec.segments || []).forEach(s => {
+      const y = Y(s.P); g += `<line x1="${X(s.t0)}" x2="${X(s.t1)}" y1="${y}" y2="${y}" style="stroke:var(--${s.color || "c3"});stroke-width:${F * 0.32};stroke-linecap:round;opacity:.9"/>` + axisText(X(s.t0), y - F * 0.5, s.label, "start", tk, `font-weight="800"`);
+    });
+    (spec.points || []).forEach(p => { g += `<circle cx="${X(p.T)}" cy="${Y(p.P)}" r="${F * 0.3}" style="fill:var(--${p.color || "c3"});stroke:var(--surface);stroke-width:2"/>` + axisText(X(p.T) + F * 0.45, Y(p.P) - F * 0.35, p.label, "start", tk, `font-weight="800"`); });
+    if (ch.sel) { const [t, p] = ch.sel; g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><line x1="${L}" x2="${L + pw}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><circle cx="${X(t)}" cy="${Y(p)}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`; }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, "Température (°C)", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">Pression (Pa, échelle logarithmique)</text>`;
+    geo = { L, T, pw, ph, tMin, tMax, lpMin, lpMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- lecture au toucher --- */
+  function pick(evt) {
+    const svg = host.querySelector("svg"); if (!svg) return;
+    const r = svg.getBoundingClientRect(); const sx = (evt.clientX - r.left) * (svg.viewBox.baseVal.width / r.width); const sy = (evt.clientY - r.top) * (svg.viewBox.baseVal.height / r.height);
+    if (spec.type === "bar") { let best = null, bd = 1e9; geo.bars.forEach(b => { const d = Math.abs(sx - (b.x + b.w / 2)); if (d < bd) { bd = d; best = b; } }); if (best) setSel([best.ci, best.si]); }
+    else if (spec.type === "line") { const xv = geo.xMin + (sx - geo.L) / geo.pw * (geo.xMax - geo.xMin); setSel(nearestX(xv)); }
+    else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
+    else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
+  }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
+  function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
+  function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
+  function describe() {
+    if (spec.type === "bar") { const [ci, si] = ch.sel; const s = spec.series[si]; const v = s.values[ci]; return `<b>${esc(spec.categories[ci])}</b>${spec.series.length > 1 ? " · " + esc(s.name) : ""} : ${spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v)}${spec.unit ? " " + spec.unit : ""}`; }
+    if (spec.type === "line") { const xv = ch.sel; return `<b>${spec.xRead ? spec.xRead(xv) : fmt(xv)}</b> → ` + spec.series.map(s => { const p = s.pts.find(q => q[0] === xv); return p ? `${esc(s.name)} : ${spec.yRead ? spec.yRead(p[1]) : fmt(p[1])}` : null; }).filter(Boolean).join(" · "); }
+    if (spec.type === "stack") { const [ri, pi] = ch.sel; return `<b>${esc(spec.rows[ri].label)}</b> · ${esc(spec.parts[pi])} : ${fmt(spec.rows[ri].values[pi])} %`; }
+    if (spec.type === "phase") { const [t, p] = ch.sel; return `Point touché : <b>T ≈ ${fmt(Math.round(t))} °C</b> ; <b>P ≈ ${fmtPow(Number(p.toPrecision(2)))} Pa</b>${spec.readState ? ` → état de l'eau : <b>${Water.state(t, p)}</b>` : ""}`; }
+    return "";
+  }
+  host.addEventListener("pointerdown", e => { pick(e); });
+  host.addEventListener("pointermove", e => { if (e.buttons && e.pointerType === "mouse") pick(e); });
+  host.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault(); const dir = e.key === "ArrowRight" ? 1 : -1;
+    if (spec.type === "line") { const xs = allX(); let i = ch.sel === null ? 0 : xs.indexOf(ch.sel) + dir; i = Math.max(0, Math.min(xs.length - 1, i)); setSel(xs[i]); }
+    if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
+    if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
+  });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
+  ch.draw(); Charts.list.add(ch);
+  if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
+  return ch;
+}
+
+function buildTable(spec) {
+  let head = "", body = "";
+  if (spec.type === "bar") {
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name || spec.yTitle)}</th>`).join("")}</tr>`;
+    body = spec.categories.map((c, ci) => `<tr><td>${esc(c)}</td>${spec.series.map((s, si) => `<td class="n">${spec.valueLabel ? spec.valueLabel(s.values[ci], ci, si) : fmt(s.values[ci])}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "line") {
+    const xs = new Set(); spec.series.forEach(s => s.pts.forEach(p => xs.add(p[0])));
+    const X = Array.from(xs).sort((a, b) => a - b);
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr>`;
+    body = X.map(x => `<tr><td class="n">${spec.xFmt ? spec.xFmt(x) : fmt(x)}</td>${spec.series.map(s => { const p = s.pts.find(q => q[0] === x); return `<td class="n">${p ? (spec.yFmt ? spec.yFmt(p[1]) : fmt(p[1])) : "—"}</td>`; }).join("")}</tr>`).join("");
+  } else if (spec.type === "stack") {
+    head = `<tr><th>Niveau</th>${spec.parts.map(p => `<th>${esc(p)} (%)</th>`).join("")}</tr>`;
+    body = spec.rows.map(r => `<tr><td>${esc(r.label)}${r.sub ? " (" + esc(r.sub) + ")" : ""}</td>${r.values.map(v => `<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "phase") {
+    if (spec.table === "none") return null;
+    head = `<tr><th>Repère</th><th>Température</th><th>Pression</th></tr>`;
+    body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
+  }
+  const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  return d;
+}
+
+/* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
+const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
+let _dlP = null;
+function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
+setTimeout(() => { getDownloads(); }, 0);
+
+async function saveText(filename, text) {
+  if (inClaude()) {
+    const d = await getDownloads();
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
+  }
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
+}
+
+function renderBilanTools(container, getText, getShow, appSlug) {
+  container.innerHTML = `
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="row">
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
+    </div>
+    <p class="toast" id="bMsg" aria-live="polite"></p>
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
+  const inp = $("#eleve", container);
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
+  const msg = t => { $("#bMsg", container).textContent = t; };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bCp", container).onclick = () => {
+    const txt = getText(inp.value); const ta = $("#bTxt", container);
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
+  };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
+  $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
+}
+function showOverlay(html) {
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
+  document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
+  const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
+  c.onclick = close; document.addEventListener("keydown", k);
+}
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
+
+/* ===== Boîte à outils commune : typographie, SVG à la largeur réelle, commande d'animation ===== */
+const SIMUL = "Valeurs simulées";
+const NB = " ", NN = " ";
+const tbl = (head, rows) => `<div class="tablewrap"><table class="t"><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+/* ---------- typographie française appliquée aux contenus ---------- */
+function nb(s) {
+  return String(s).replace(/ ([?!;])/g, NN + "$1").replace(/ :(?=[ <]|$)/g, NB + ":").replace(/« /g, "«" + NB).replace(/ »/g, NB + "»")
+    .replace(/(\d) (\d{3})(?!\d)/g, "$1" + NN + "$2").replace(/(\d) (%|°C|m|cm|mm|mL|L|W|km|km²|km³|Mt|t|kg|ans|min|fois|millions)(?![\wà-ÿ²³])/g, "$1" + NB + "$2");
+}
+function typo(o) { if (typeof o === "string") return nb(o); if (Array.isArray(o)) return o.map(typo); if (o && typeof o === "object") { Object.keys(o).forEach(k => { if (typeof o[k] !== "function") o[k] = typo(o[k]); }); } return o; }
+
+/* ---------- SVG redessiné à la largeur réelle (texte toujours lisible) ---------- */
+const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+function liveSVG(host, draw) {
+  const o = { host, draw() { const W = Math.max(260, host.clientWidth || 320); host.innerHTML = draw(W, fsPx()); } };
+  o.draw(); Charts.list.add(o);
+  if (window.ResizeObserver) { let lw = host.clientWidth; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; o.draw(); } }).observe(host); }
+  return o;
+}
+const sT = (x, y, txt, a, size, extra) => `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${size.toFixed(1)}px" ${extra || ""}>${esc(txt)}</text>`;
+const TK = F => Math.max(15, F * 0.76);
+function arrow(x1, y1, x2, y2, w, color, op) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = Math.max(w * 1.1, 10), hw = Math.max(w * 0.95, 7);
+  const bx = x2 - Math.cos(a) * hl, by = y2 - Math.sin(a) * hl, nx = -Math.sin(a), ny = Math.cos(a);
+  return `<g style="opacity:${op || 1}"><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" style="stroke:var(--${color});stroke-width:${Math.max(w, 1.5).toFixed(1)}"/><polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${(bx + nx * hw).toFixed(1)},${(by + ny * hw).toFixed(1)} ${(bx - nx * hw).toFixed(1)},${(by - ny * hw).toFixed(1)}" style="fill:var(--${color})"/></g>`;
+}
+
+/* ---------- commande d'animation commune : Lancer / Pause / Recommencer ---------- */
+function animCtl(el, dur, onP) {
+  el.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+  const st = { p: 0, playing: false, lt: 0, raf: 0 }, b = el.querySelector('[data-a="run"]');
+  const lab = () => { b.textContent = st.playing ? CT.animPause : (st.p > 0 && st.p < 1) ? CT.animResume : CT.animRun; };
+  const frame = ts => {
+    if (!st.playing) return; if (!document.body.contains(el)) { st.playing = false; return; }
+    const dt = st.lt ? Math.min(100, ts - st.lt) : 0; st.lt = ts; st.p = Math.min(1, st.p + dt / dur);
+    if (st.p >= 1) st.playing = false; onP(st.p); lab(); if (st.playing) st.raf = requestAnimationFrame(frame);
+  };
+  st.play = () => { if (st.p >= 1) st.p = 0; st.playing = true; st.lt = 0; lab(); st.raf = requestAnimationFrame(frame); };
+  st.pause = () => { st.playing = false; cancelAnimationFrame(st.raf); lab(); };
+  st.set = p => { st.pause(); st.p = Math.max(0, Math.min(1, p)); onP(st.p); lab(); };
+  b.onclick = () => st.playing ? st.pause() : st.play();
+  el.querySelector('[data-a="reset"]').onclick = () => st.set(0);
+  lab(); onP(0); return st;
+}
+
+
+/* ===== 3e SVT · Activité 7 · TP noté sur 10 : analyse du sang retrouvé sur les vêtements de la victime ===== */
+Store.key = "svt3-tp-agglutination-note-v1";
+const META_KEY = "svt3-tp-agglutination-note-meta";
+const SIGN = "Mr Moreira, Vauban Luxembourg";
+const DEF = { fs: 21, theme: null, proj: false, view: "consignes", bench: {}, ans: { p1: {}, p2: {}, c: {} }, val: {}, rendu: null };
+let S = Store.load(DEF);
+["bench", "val"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+if (!S.ans || typeof S.ans !== "object") S.ans = {}; ["p1", "p2", "c"].forEach(k => { if (!S.ans[k] || typeof S.ans[k] !== "object") S.ans[k] = {}; });
+const save = () => Store.save(S);
+const meta = () => { try { return JSON.parse(localStorage.getItem(META_KEY) || "{}") || {}; } catch (e) { return {}; } };
+const setMeta = m => { try { localStorage.setItem(META_KEY, JSON.stringify(m)); } catch (e) {} };
+const pts = v => String(v).replace(".", ",");
+
+/* ---------- données ---------- */
+const GROUPS = { A: ["A"], B: ["B"], AB: ["A", "B"], O: [] };
+const agglu = (g, s) => GROUPS[g].includes(s);
+const SAMPLES = { lucie: { g: "A", nm: "Lucie DITÉE" }, coupable: { g: "O", nm: "le sang du coupable" } };
+const RES = ["Agglutination", "Pas d'agglutination"], GR = ["A", "B", "AB", "O"];
+const PARTS = [
+  { id: "p1", bench: "lucie", n: 1, max: 2, tab: "Partie 1 · Lucie", title: "Partie 1 · Vérification du groupe sanguin de Lucie DITÉE",
+    proto: ["Placer une goutte de l'échantillon de « Lucie DITÉE » (= antigène) dans deux puits sur une plaque.", "Dans chaque puits, rajouter un sérum (= anticorps = AC) : anti-A dans le premier, anti-B dans le second. Les anticorps anti-A reconnaissent et se fixent spécifiquement sur les marqueurs A ; les anti-B, sur les marqueurs B.", "Mélanger avec un cure-dent différent pour chaque puits, puis observer le résultat et confirmer son groupe sanguin."],
+    items: [{ k: "a", lab: "Résultat avec anti-A", o: RES, ans: 0, p: 0.5 }, { k: "b", lab: "Résultat avec anti-B", o: RES, ans: 1, p: 0.5 }, { k: "g", lab: "Groupe sanguin de Lucie", o: GR, ans: 0, p: 1 }] },
+  { id: "p2", bench: "coupable", n: 2, max: 3, tab: "Partie 2 · Coupable", title: "Partie 2 · Analyse du sang du coupable",
+    proto: ["Placer une goutte de l'échantillon « sang du coupable » (= antigène) dans deux puits sur une plaque.", "Dans chaque puits, rajouter un sérum (= anticorps = AC) : anti-A dans le premier, anti-B dans le second.", "Mélanger avec un cure-dent différent pour chaque puits, puis observer le résultat."],
+    items: [{ k: "a", lab: "Résultat avec anti-A", o: RES, ans: 1, p: 1 }, { k: "b", lab: "Résultat avec anti-B", o: RES, ans: 1, p: 1 }, { k: "g", lab: "Groupe sanguin du coupable", o: GR, ans: 3, p: 1 }] }];
+const CONC = [
+  { k: "c1", lab: "Je vois que…", sub: "le résultat du test", o: ["le sang du coupable n'agglutine ni avec le sérum anti-A, ni avec le sérum anti-B", "le sang du coupable agglutine avec les sérums anti-A et anti-B", "le sang de Lucie DITÉE agglutine avec le sérum anti-A"], ord: [1, 0, 2] },
+  { k: "c2", lab: "Je sais que…", sub: "ce que signifie ce résultat", o: ["sans agglutination, les globules rouges ne portent ni antigène A ni antigène B : le sang est du groupe O", "sans agglutination, le test n'a pas fonctionné", "sans agglutination, les globules rouges portent les antigènes A et B : le sang est du groupe AB"], ord: [2, 0, 1] },
+  { k: "c3", lab: "Or…", sub: "ce que dit le document", o: ["Jean NEYMAR est du groupe O, Djamal ALATETE du groupe A et Max HYMOME du groupe AB", "les trois suspects sont des hommes", "Lucie DITÉE est du groupe A"], ord: [1, 2, 0] },
+  { k: "c4", lab: "Donc…", sub: "qui peut être le coupable ?", o: ["seul Jean NEYMAR a un groupe sanguin compatible avec le sang retrouvé : Djamal ALATETE et Max HYMOME sont innocentés", "Max HYMOME est le coupable, car le groupe AB contient tous les antigènes", "Djamal ALATETE est le coupable, car il est du même groupe que Lucie DITÉE"], ord: [2, 0, 1] },
+  { k: "c5", lab: "Mais…", sub: "esprit critique", o: ["beaucoup de personnes sont du groupe O : c'est un indice, pas une preuve ; une analyse de l'ADN permettrait de le confirmer", "le test d'agglutination prouve à lui seul que Jean NEYMAR est coupable", "le témoin Lucie DITÉE montre que le test ne fonctionne pas"], ord: [1, 2, 0] }];
+const MINTXT = 40;
+
+/* ---------- dessins : globules, puits, références ---------- */
+const hash = k => { const x = Math.sin(k * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
+const WN = 30, DISP = [], CLMP = [];
+for (let i = 0; i < WN; i++) { const a = i * 2.399963, r = 6 + 31 * Math.sqrt((i + 0.5) / WN); DISP.push([50 + r * Math.cos(a) + (hash(i) - 0.5) * 4, 50 + r * Math.sin(a) + (hash(i + 50) - 0.5) * 4]); }
+{ const C = [[34, 38], [64, 34], [60, 64], [36, 66], [50, 50]]; for (let j = 0; j < WN; j++) { const c = C[j % 5], k = Math.floor(j / 5), aa = k * 2.4 + j, rr = k === 0 ? 0 : 3.2 * Math.sqrt(k) + 1; CLMP.push([c[0] + rr * Math.cos(aa), c[1] + rr * Math.sin(aa)]); } }
+function wellSVG(st, id) {
+  st = st || {}; let h = `<svg viewBox="0 0 100 100" aria-hidden="true"${id ? ` id="${id}"` : ""}><circle cx="50" cy="50" r="46" fill="var(--well)" stroke="var(--well-rim)" stroke-width="4"/>`;
+  if (st.blood) { const cl = st.mixed && st.agg; h += `<circle class="wbg" cx="50" cy="50" r="42" fill="var(--plasma)" fill-opacity="${cl ? 0.25 : 0.95}"/>`; for (let i = 0; i < WN; i++) { const p = cl ? CLMP[i] : DISP[i]; h += `<circle class="wcell" cx="0" cy="0" r="${cl ? 5.2 : 3.4}" fill="var(--rbc)" style="transform:translate(${p[0].toFixed(1)}px,${p[1].toFixed(1)}px)"/>`; } }
+  if (st.serum && !st.mixed) h += `<circle cx="50" cy="50" r="12" fill="${st.serum === "A" ? "var(--agA)" : "var(--agB)"}" opacity=".85"/>`;
+  if (st.contam) h += `<text x="50" y="58" text-anchor="middle" font-size="26" font-weight="700" fill="var(--bad)">✖</text>`;
+  return h + "</svg>";
+}
+function refHTML() {
+  let h = `<div class="reftable"><span class="h">Groupe</span><span class="h c">Anti-A</span><span class="h c">Anti-B</span><span class="h">Résultat</span>`;
+  [["A", "Agglutination avec anti-A seulement"], ["B", "Agglutination avec anti-B seulement"], ["AB", "Agglutination avec anti-A et anti-B"], ["O", "Pas d'agglutination"]].forEach(([g, t]) => { h += `<span class="g">${g}</span>${wellSVG({ blood: 1, mixed: 1, agg: agglu(g, "A") })}${wellSVG({ blood: 1, mixed: 1, agg: agglu(g, "B") })}<span class="t">${nb(t)}</span>`; });
+  return h + `</div><p class="cap">${nb("Puits schématisés : des grumeaux sur fond clair = agglutination ; une suspension rouge homogène = pas d'agglutination.")}</p>`;
+}
+const REF = () => `<details class="ref"><summary>${nb("Aide pour interpréter le résultat")}</summary>${refHTML()}</details>`;
+
+/* ---------- paillasse virtuelle (reprise du labo d'agglutination) ---------- */
+const TOOLS = [["blood", "🩸", "Goutte de sang"], ["sA", "🔵", "Sérum anti-A"], ["sB", "🟡", "Sérum anti-B"], ["pick", "🥢", "Cure-dent neuf"]];
+const STEPS = ["Dépose une goutte de sang dans chaque puits.", "Ajoute le sérum anti-A dans le puits anti-A.", "Ajoute le sérum anti-B dans le puits anti-B.", "Mélange chaque puits avec un cure-dent neuf.", "Observe le résultat."];
+function bst(k) { let b = S.bench[k]; if (!b || !b.w) b = S.bench[k] = { w: { A: {}, B: {} }, tool: null, pick: null, pid: 0, err: 0, contam: 0, msg: "", done: false }; return b; }
+function prog(b) { const A = b.w.A, B = b.w.B; return [!!(A.blood && B.blood), !!A.serum, !!B.serum, !!(A.mixed && B.mixed), !!b.done]; }
+function renderBench(k, el) {
+  const b = bst(k), pr = prog(b), now = pr.indexOf(false), lock = b.done || !!S.rendu;
+  const wb = s => { const w = b.w[s], sub = w.contam ? "Contaminé !" : w.mixed ? (w.agg ? "Agglutination" : "Pas d'agglutination") : [w.blood ? "sang" : "", w.serum ? "sérum anti-" + w.serum : ""].filter(Boolean).join(" + ") || "vide";
+    return `<button type="button" class="wellbtn${b.tool && !lock ? " target" : ""}${w.contam ? " contam" : ""}" data-well="${s}" aria-label="Puits anti-${s} : ${sub}">${wellSVG(w, "w-" + k + "-" + s)}<span class="wn">Puits anti-${s}</span><span class="ws">${sub}</span></button>`; };
+  el.innerHTML = `<div class="row" style="justify-content:space-between"><b>Échantillon : ${SAMPLES[k].nm}</b><span class="chip ${b.err ? "mid" : ""}">Erreurs de manipulation : ${b.err}</span></div>
+    <ol class="guide">${STEPS.map((s, i) => { const ok = pr[i]; return `<li class="${ok ? "ok" : i === now ? "now" : ""}"><span class="ck">${ok ? "✓" : i + 1}</span><span>${s}</span></li>`; }).join("")}</ol>
+    <div class="toolsbar" role="group" aria-label="Matériel">${TOOLS.map(([t, ic, nm]) => `<button type="button" class="tool" data-tool="${t}" aria-pressed="${b.tool === t}" ${lock ? "disabled" : ""}><span class="tic" aria-hidden="true">${ic}</span>${nm}${t === "pick" && b.pick ? `<small>en main${b.pick.dirty ? " (déjà utilisé)" : ""}</small>` : ""}</button>`).join("")}</div>
+    <div class="tray">${wb("A")}${wb("B")}</div>
+    <p class="log" aria-live="polite">${nb(b.msg || "Touche un matériel, puis le puits où l'utiliser.")}</p>
+    ${b.contamMsg && !b.done ? `<div class="box err"><p class="lab">✖ Erreur critique</p><p>${nb("Tu as utilisé le même cure-dent dans les deux puits : des anticorps sont passés d'un puits à l'autre. Le résultat n'est plus fiable : nettoie la plaque et recommence.")}</p></div>` : ""}
+    ${lock ? "" : `<div class="row"><button type="button" class="btn ghost" data-clean>↺ Nettoyer la plaque et recommencer</button></div>`}
+    ${b.done ? `<div class="fb ok"><p class="h">✓ Manipulation terminée${b.err ? "" : " sans erreur"}.</p><p>${nb("Observe les deux puits, puis complète ta fiche de résultats.")}</p></div>` : ""}`;
+}
+function benchClick(k, e, el, after) {
+  const b = bst(k); if (S.rendu) return;
+  const t = e.target.closest("[data-tool],[data-well],[data-clean]"); if (!t) return;
+  const err = m => { b.err++; b.msg = "✗ " + m; };
+  if (t.dataset.clean !== undefined && !b.done) { S.bench[k] = { w: { A: {}, B: {} }, tool: null, pick: null, pid: 0, err: b.err, contam: b.contam, msg: "Plaque nettoyée : recommence le protocole.", done: false }; save(); renderBench(k, el); return; }
+  if (b.done) return;
+  if (t.dataset.tool) { const tk = t.dataset.tool; if (tk === "pick") { b.pid++; b.pick = { id: b.pid, dirty: null }; b.tool = "pick"; b.msg = "Tu as un cure-dent neuf en main : touche le puits à mélanger."; } else { b.tool = b.tool === tk ? null : tk; b.msg = b.tool ? "Touche le puits où l'utiliser." : ""; } save(); renderBench(k, el); return; }
+  if (t.dataset.well) {
+    const s = t.dataset.well, w = b.w[s], tool = b.tool;
+    if (!tool) { b.msg = "Choisis d'abord un matériel."; renderBench(k, el); return; }
+    if (w.contam) { b.msg = "Ce puits est contaminé : nettoie la plaque."; renderBench(k, el); return; }
+    if (tool === "blood") { if (w.blood) b.msg = "Il y a déjà du sang dans ce puits."; else { w.blood = true; b.msg = "✓ Goutte de sang déposée dans le puits anti-" + s + "."; } }
+    else if (tool === "sA" || tool === "sB") { const sr = tool === "sA" ? "A" : "B"; if (sr !== s) err("Ce puits est marqué anti-" + s + " : mets-y le sérum anti-" + s + "."); else if (w.serum) b.msg = "Il y a déjà du sérum dans ce puits."; else { w.serum = sr; b.msg = "✓ Sérum anti-" + sr + " ajouté."; } }
+    else if (tool === "pick") {
+      if (!b.pick) b.msg = "Prends un cure-dent neuf.";
+      else if (!w.blood || !w.serum) err("Il faut d'abord la goutte de sang ET le sérum dans ce puits.");
+      else if (w.mixed) b.msg = "Ce puits est déjà mélangé.";
+      else if (b.pick.dirty && b.pick.dirty !== s) { w.contam = true; b.contamMsg = true; b.contam++; err("Contamination ! Ce cure-dent a déjà servi dans l'autre puits."); }
+      else {
+        w.mixed = true; w.agg = agglu(SAMPLES[k].g, s); b.pick.dirty = s; b.msg = "✓ Puits anti-" + s + " mélangé. Observe…";
+        const A = b.w.A, B = b.w.B; if (A.mixed && B.mixed && !A.contam && !B.contam) { b.done = true; b.tool = null; b.contamMsg = false; b.msg = "✓ Les deux puits sont prêts. Observe le résultat !"; }
+        save();
+        const fin = JSON.parse(JSON.stringify(w)), pre = JSON.parse(JSON.stringify(w)); pre.mixed = false; pre.serum = null; b.w[s] = pre; renderBench(k, el); b.w[s] = fin;
+        const svg = document.getElementById("w-" + k + "-" + s);
+        setTimeout(() => { if (svg) { svg.querySelectorAll(".wcell").forEach((c, i) => { const p = fin.agg ? CLMP[i] : DISP[i]; c.style.transform = `translate(${p[0].toFixed(1)}px,${p[1].toFixed(1)}px)`; c.setAttribute("r", fin.agg ? 5.2 : 3.4); }); const bg = svg.querySelector(".wbg"); if (bg) bg.setAttribute("fill-opacity", fin.agg ? 0.25 : 0.95); }
+          setTimeout(() => { renderBench(k, el); if (after) after(); }, 1500); }, 60);
+        return;
+      }
+    }
+    save(); renderBench(k, el);
+  }
+}
+
+/* ---------- notation ---------- */
+const partScore = P => P.items.reduce((s, it) => s + (S.ans[P.id][it.k] === it.ans ? it.p : 0), 0);
+const concScore = () => CONC.reduce((s, c) => s + (S.ans.c[c.k] === 0 ? 1 : 0), 0);
+const total = () => PARTS.reduce((s, P) => s + partScore(P), 0) + concScore();
+const allVal = () => S.val.p1 && S.val.p2 && S.val.c;
+
+/* ---------- navigation ---------- */
+const VIEWS = ["consignes", "p1", "p2", "conc", "copie"];
+const TABN = { consignes: "Consignes", p1: "1 · Lucie (/2)", p2: "2 · Coupable (/3)", conc: "Conclusion (/5)", copie: "Ma copie" };
+function tabs() {
+  $("#tabs").innerHTML = VIEWS.map(v => { const done = v === "conc" ? S.val.c : S.val[v], st = v === "copie" ? (S.rendu ? "✓ rendue" : "") : done ? "✓" : ""; return `<button class="tab" type="button" data-v="${v}" ${S.view === v ? 'aria-current="page"' : ""}>${TABN[v]}${st ? `<span class="dot" aria-label="${v === "copie" ? "copie rendue" : "partie validée"}">${st}</span>` : ""}</button>`; }).join("");
+  $$("#tabs .tab").forEach(b => b.onclick = () => go(b.dataset.v));
+}
+function go(v, noScroll) {
+  if (!VIEWS.includes(v)) v = "consignes"; S.view = v; save(); tabs();
+  if (location.hash !== "#" + v) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  const m = $("#main");
+  if (v === "consignes") renderConsignes(m); else if (v === "conc") renderConc(m); else if (v === "copie") renderCopie(m); else renderPart(m, PARTS.find(P => P.id === v));
+  if (!noScroll) window.scrollTo(0, 0);
+  const c = $("#tabs [aria-current]"); if (c && c.scrollIntoView) c.scrollIntoView({ block: "nearest", inline: "center" });
+}
+const nextBtn = (v, t) => `<div class="row"><button type="button" class="btn" data-next="${v}">${t}</button></div>`;
+const wireNext = m => $$("[data-next]", m).forEach(b => b.onclick = () => go(b.dataset.next));
+
+/* ---------- consignes ---------- */
+function renderConsignes(m) {
+  m.innerHTML = `<section class="view">
+    <div class="panel"><p class="kicker">Activité 7 · TP évalué</p><h2 class="sec-title">${nb("Analyse du sang récupéré sur les vêtements de la victime")}</h2>
+      <div class="box info"><p class="lab">ℹ Objectif</p><p>${nb("Déterminer le groupe sanguin de l'échantillon retrouvé sur les vêtements afin de définir le coupable.")}</p><p><b>Méthode :</b> test d'agglutination.</p></div></div>
+    <div class="panel"><h3>Barème</h3>${tbl(["Partie", "Points"], [["Partie 1 · Vérification du groupe sanguin de Lucie DITÉE", "2"], ["Partie 2 · Analyse du sang du coupable", "3"], ["Conclusion · Qui est le coupable et pour quelle raison ?", "5"], ["<b>Total</b>", "<b>10</b>"]])}</div>
+    <div class="box warn"><p class="lab">⚠ Règles du TP noté</p><ul class="ul">
+      <li>${nb("Chaque partie se valide <b>une seule fois</b> : relis-toi avant de valider.")}</li>
+      <li>${nb("Aucune correction n'est affichée avant la remise de ta copie.")}</li>
+      <li>${nb("Les erreurs de manipulation ne retirent pas de points, mais elles figurent dans ta copie.")}</li>
+      <li>${nb("Quand les trois parties sont validées, rends ta copie dans l'onglet « Ma copie », puis montre-la au professeur.")}</li></ul></div>
+    <div class="box err"><p class="lab">✖ Attention</p><p>${nb("On mélange avec des cure-dents différents pour chaque puits.")}</p></div>
+    <div class="panel"><h3>${nb("Aide pour interpréter le résultat")}</h3>${refHTML()}</div>
+    ${nextBtn("p1", "Commencer la partie 1 →")}</section>`;
+  wireNext(m);
+}
+
+/* ---------- parties 1 et 2 ---------- */
+function rowsHTML(P) {
+  const A = S.ans[P.id], val = !!S.val[P.id], done = bst(P.bench).done, shown = !!S.rendu;
+  return P.items.map(it => `<div class="rowq"><span class="rt">${it.lab} <span class="ctag">${pts(it.p)} pt</span></span><div class="seg" role="group" aria-label="${esc(it.lab)}">${it.o.map((o, j) => { const sel = A[it.k] === j, cls = shown && sel ? (j === it.ans ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" data-k="${it.k}" data-j="${j}" aria-pressed="${sel}" ${val || !done ? "disabled" : ""}>${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${o}</button>`; }).join("")}</div>${shown && A[it.k] !== it.ans ? `<p class="pfb bad">Réponse attendue : <b>${it.o[it.ans]}</b></p>` : ""}</div>`).join("");
+}
+function renderPart(m, P) {
+  const nextV = P.id === "p1" ? "p2" : "conc";
+  m.innerHTML = `<section class="view"><div><p class="kicker">Partie ${P.n} · ${P.max} points</p><h2 class="sec-title">${nb(P.title)}</h2></div>
+    <div class="panel"><h3>Protocole</h3><ol class="ul">${P.proto.map(x => `<li>${nb(x)}</li>`).join("")}</ol></div>
+    <div class="panel bench" id="bench"></div>
+    ${REF()}
+    <div class="panel"><h3>Ma fiche de résultats <span class="chip">/ ${P.max} points</span></h3><div class="rows" id="rows"></div><div class="row acts" id="acts"></div><div id="vmsg" aria-live="polite"></div></div>
+    ${nextBtn(nextV, P.id === "p1" ? "Partie 2 →" : "Conclusion →")}</section>`;
+  const bel = $("#bench", m);
+  const paintRows = () => {
+    $("#rows", m).innerHTML = (bst(P.bench).done ? "" : `<p class="locked">🔒 ${nb("Termine d'abord la manipulation : ta fiche de résultats se déverrouille ensuite.")}</p>`) + rowsHTML(P);
+    $$("#rows [data-k]", m).forEach(b => b.onclick = () => { S.ans[P.id][b.dataset.k] = +b.dataset.j; save(); paintRows(); const n = $(`#rows [data-k="${b.dataset.k}"][data-j="${b.dataset.j}"]`, m); if (n) n.focus(); });
+    const acts = $("#acts", m), msg = $("#vmsg", m);
+    if (S.val[P.id]) { acts.innerHTML = ""; msg.innerHTML = S.rendu ? `<div class="fb ${partScore(P) === P.max ? "ok" : "bad"}"><p class="h">Partie ${P.n} : ${pts(partScore(P))} / ${P.max}</p></div>` : `<div class="fb neutral"><p class="h">✓ Partie ${P.n} validée.</p><p>${nb("Tu ne peux plus la modifier. La correction s'affichera à la remise de ta copie.")}</p></div>`; return; }
+    acts.innerHTML = `<button type="button" class="btn" id="valBtn">Valider la partie ${P.n}</button>`; msg.innerHTML = "";
+    armButton($("#valBtn", m), `Valider la partie ${P.n}`, "Confirmer : je ne pourrai plus modifier", () => {
+      if (!bst(P.bench).done) { msg.innerHTML = `<div class="fb neutral"><p class="h">${nb("Termine d'abord la manipulation.")}</p></div>`; return; }
+      if (P.items.some(it => S.ans[P.id][it.k] === undefined)) { msg.innerHTML = `<div class="fb neutral"><p class="h">${nb("Complète toutes les lignes de ta fiche avant de valider.")}</p></div>`; return; }
+      S.val[P.id] = Date.now(); save(); tabs(); paintRows();
+    });
+  };
+  renderBench(P.bench, bel);
+  bel.addEventListener("click", e => benchClick(P.bench, e, bel, paintRows));
+  paintRows(); wireNext(m);
+}
+
+/* ---------- conclusion ---------- */
+function renderConc(m) {
+  const A = S.ans.c, val = !!S.val.c, shown = !!S.rendu, p2 = S.ans.p2;
+  m.innerHTML = `<section class="view"><div><p class="kicker">Conclusion · 5 points</p><h2 class="sec-title">${nb("Qui est le coupable et pour quelle raison ?")}</h2><p class="lead">${nb("Explique ton raisonnement en t'appuyant sur les résultats du test d'agglutination.")}</p></div>
+    <div class="box info"><p class="lab">ℹ Document · Groupes sanguins des suspects (données fictives)</p>${tbl(["Suspect", "Sexe (activité 6)", "Groupe sanguin"], [["Jean NEYMAR", "homme (XY)", "O"], ["Djamal ALATETE", "homme (XY)", "A"], ["Max HYMOME", "homme (XY)", "AB"]])}</div>
+    <div class="panel"><h3>Mes résultats de la partie 2</h3>${S.val.p2 ? `<p>${nb(`Anti-A : <b>${p2.a === undefined ? "—" : RES[p2.a]}</b> · Anti-B : <b>${p2.b === undefined ? "—" : RES[p2.b]}</b> · Groupe : <b>${p2.g === undefined ? "—" : GR[p2.g]}</b>`)}</p>` : `<p class="locked">${nb("Valide d'abord la partie 2.")}</p>`}</div>
+    <div class="panel"><h3>Mon raisonnement <span class="chip">5 × 1 point</span></h3><p class="lead">${nb("Pour chaque étape, choisis le morceau de phrase qui convient.")}</p><div class="conc">${CONC.map((c, ci) => `<div class="cstep"><p class="pl"><span class="cn">${ci + 1}</span> <b>${c.lab}</b> <span class="muted">(${c.sub})</span></p><div class="opts" role="radiogroup" aria-label="${esc(c.lab)}">${c.ord.map(j => { const sel = A[c.k] === j, cls = shown && sel ? (j === 0 ? "is-ok" : "is-bad") : ""; return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${sel}" data-c="${c.k}" data-j="${j}" ${val ? "disabled" : ""}><span class="k">${"ABC"[c.ord.indexOf(j)]}</span><span>${nb(c.o[j])}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div>${shown && A[c.k] !== 0 ? `<p class="pfb bad">Attendu : ${nb(c.o[0])}</p>` : ""}</div>`).join("")}</div></div>
+    <div class="panel"><h3>Ma conclusion rédigée</h3><p class="lead">${nb("Rédige ta conclusion avec tes propres mots, en une ou plusieurs phrases. Elle figurera dans ta copie et sera lue par le professeur.")}</p><textarea class="inp" id="ctxt" ${val ? "readonly" : ""} placeholder="Je vois que… Je sais que… Or… Donc… Mais…">${esc(A.txt || "")}</textarea><p class="lead" id="ccount"></p></div>
+    <div class="row acts" id="acts"></div><div id="vmsg" aria-live="polite"></div>${nextBtn("copie", "Ma copie →")}</section>`;
+  const ta = $("#ctxt", m), cnt = () => { $("#ccount", m).textContent = `${(A.txt || "").trim().length} caractères${(A.txt || "").trim().length < MINTXT ? ` (au moins ${MINTXT})` : ""}`; };
+  ta.addEventListener("input", () => { A.txt = ta.value; save(); cnt(); }); cnt();
+  $$("[data-c]", m).forEach(b => b.onclick = () => { A[b.dataset.c] = +b.dataset.j; save(); renderConc(m); const n = $(`[data-c="${b.dataset.c}"][data-j="${b.dataset.j}"]`, m); if (n) n.focus(); });
+  const acts = $("#acts", m), msg = $("#vmsg", m);
+  if (val) { msg.innerHTML = S.rendu ? `<div class="fb ${concScore() === 5 ? "ok" : "bad"}"><p class="h">Conclusion : ${concScore()} / 5</p></div>` : `<div class="fb neutral"><p class="h">✓ Conclusion validée.</p><p>${nb("La correction s'affichera à la remise de ta copie.")}</p></div>`; }
+  else { acts.innerHTML = `<button type="button" class="btn" id="valBtn">Valider la conclusion</button>`;
+    armButton($("#valBtn", m), "Valider la conclusion", "Confirmer : je ne pourrai plus modifier", () => {
+      if (CONC.some(c => A[c.k] === undefined)) { msg.innerHTML = `<div class="fb neutral"><p class="h">${nb("Choisis un morceau de phrase pour chacune des 5 étapes.")}</p></div>`; return; }
+      if ((A.txt || "").trim().length < MINTXT) { msg.innerHTML = `<div class="fb neutral"><p class="h">${nb(`Rédige ta conclusion (au moins ${MINTXT} caractères).`)}</p></div>`; return; }
+      S.val.c = Date.now(); save(); tabs(); renderConc(m); }); }
+  wireNext(m);
+}
+
+/* ---------- la copie ---------- */
+const hm = d => new Date(d).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+const dmy = d => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+function copyText(name) {
+  const R = S.rendu, clean = x => String(x).replace(/ | /g, " ").replace(/<[^>]+>/g, "");
+  let t = `TP NOTÉ · ACTIVITÉ 7 · ANALYSE DU SANG RETROUVÉ SUR LES VÊTEMENTS DE LA VICTIME\n3e SVT · Génétique\n\nÉlève : ${name || "—"}\n`;
+  t += R ? `Copie rendue le ${dmy(R.t)} à ${hm(R.t)}\nCopies rendues sur cet appareil : ${R.n}\n\nNOTE : ${pts(R.note)} / 10\n` : "Copie pas encore rendue.\n";
+  PARTS.forEach(P => { t += `\n${P.title} : ${R ? pts(partScore(P)) : "—"} / ${P.max}\n`; P.items.forEach(it => { const a = S.ans[P.id][it.k]; t += `- ${it.lab} : ${a === undefined ? "—" : it.o[a]}${R ? ` (attendu : ${it.o[it.ans]}) → ${pts(a === it.ans ? it.p : 0)} / ${pts(it.p)}` : ""}\n`; }); { const b = bst(P.bench), c = b.contam || 0; t += `- Erreurs de manipulation : ${b.err}${c ? ` (dont ${c} contamination${c > 1 ? "s" : ""})` : ""}\n`; } });
+  t += `\nConclusion : ${R ? concScore() : "—"} / 5\n`; CONC.forEach(c => { const a = S.ans.c[c.k]; t += `- ${c.lab} ${a === undefined ? "—" : c.o[a]}${R ? ` → ${a === 0 ? 1 : 0} / 1` : ""}\n`; });
+  t += `\nConclusion rédigée par l'élève :\n« ${(S.ans.c.txt || "").trim() || "—"} »\n`;
+  if (R) t += `\nRaisonnement attendu : ${CONC.map(c => c.lab.replace(/…$/, "") + " " + c.o[0] + ".").join(" ")}\n`;
+  return clean(t + `\n${SIGN}\n`);
+}
+function renderCopie(m) {
+  const R = S.rendu, st = [["Partie 1 · Lucie DITÉE", S.val.p1], ["Partie 2 · Sang du coupable", S.val.p2], ["Conclusion", S.val.c]];
+  m.innerHTML = `<section class="view"><div><p class="kicker">Ma copie</p><h2 class="sec-title">${R ? "Ma copie corrigée" : "Rendre ma copie"}</h2></div>
+    ${R ? `<div class="panel"><p class="score-big">${pts(R.note)} / 10</p><div class="bar" aria-hidden="true"><i style="width:${R.note * 10}%"></i></div><p class="lead">${nb(`Copie rendue le ${dmy(R.t)} à ${hm(R.t)} · copies rendues sur cet appareil : ${R.n}`)}</p></div>
+      <div class="panel"><h3>Détail de la note</h3>${tbl(["Partie", "Points"], [...PARTS.map(P => [P.title, `${pts(partScore(P))} / ${P.max}`]), ["Conclusion", `${concScore()} / 5`], ["<b>Total</b>", `<b>${pts(R.note)} / 10</b>`]])}
+        <p class="lead">${nb(`Erreurs de manipulation (sans retrait de points) : partie 1 : ${bst("lucie").err} ; partie 2 : ${bst("coupable").err}.`)}</p>
+        <p class="lead">${nb("La correction détaillée s'affiche dans chaque onglet : ✓ juste, ✗ faux, avec la réponse attendue.")}</p></div>
+      <div class="box key"><p class="lab">✔ Ce qu'il fallait conclure</p><p>${nb("Le sang retrouvé n'agglutine ni avec le sérum anti-A, ni avec le sérum anti-B : ses globules rouges ne portent ni antigène A ni antigène B, il est du groupe O. Or Jean NEYMAR est du groupe O, Djamal ALATETE du groupe A et Max HYMOME du groupe AB. Seul Jean NEYMAR a un groupe compatible : il peut être l'auteur du sang. Mais beaucoup de personnes sont du groupe O : c'est un indice, pas une preuve à lui seul.")}</p></div>
+      <div class="panel"><h3>Ma conclusion rédigée</h3><p class="quote">« ${esc((S.ans.c.txt || "").trim())} »</p></div>
+      <div class="panel"><h3>Transmettre ma copie</h3><div id="bt"></div></div>`
+    : `<div class="panel"><h3>Où en es-tu ?</h3><ul class="inds">${st.map(([n, v]) => `<li class="${v ? "done" : ""}"><span class="bx" aria-hidden="true">${v ? "✓" : ""}</span><span>${n} <span class="st">${v ? "✓ validée" : "à valider"}</span></span></li>`).join("")}</ul>
+      ${allVal() ? `<p class="lead">${nb("Tout est validé. Quand tu rends ta copie, ta note s'affiche avec la correction.")}</p><div class="row"><button type="button" class="btn" id="rendre">📝 Rendre ma copie</button></div>` : `<p class="locked">🔒 ${nb("Valide les trois parties pour pouvoir rendre ta copie.")}</p>`}</div>`}
+    <div class="panel"><h3>Recommencer</h3><p class="lead">${nb("Efface ta copie et tes manipulations sur cet appareil. Le nombre de copies rendues reste enregistré.")}</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
+  const r = $("#rendre", m); if (r) armButton(r, "📝 Rendre ma copie", "Confirmer la remise de ma copie", () => { const M = meta(); M.n = (M.n || 0) + 1; setMeta(M); S.rendu = { t: Date.now(), note: total(), n: M.n }; save(); tabs(); renderCopie(m); window.scrollTo(0, 0); });
+  if (R) renderBilanTools($("#bt", m), copyText, name => `<p class="kicker">TP noté · Activité 7 · copie à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>${nb(`Copie rendue le ${dmy(R.t)} à ${hm(R.t)}`)}</p><p class="score-big">${pts(R.note)} / 10</p>${PARTS.map(P => `<div class="line"><span>${P.title}</span><b class="num">${pts(partScore(P))} / ${P.max}</b></div>`).join("")}<div class="line"><span>Conclusion</span><b class="num">${concScore()} / 5</b></div><div class="line"><span>Erreurs de manipulation</span><b class="num">${bst("lucie").err + bst("coupable").err}</b></div><div class="line"><span>Copies rendues sur cet appareil</span><b class="num">${R.n}</b></div>`, "tp-agglutination");
+  armButton($("#reset", m), "Tout effacer", "Confirmer l'effacement ?", () => { S.bench = {}; S.ans = { p1: {}, p2: {}, c: {} }; S.val = {}; S.rendu = null; save(); go("consignes"); });
+}
+
+/* ---------- démarrage ---------- */
+Display.init(S, save);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h && h !== S.view && VIEWS.includes(h)) go(h); });
+go(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (S.view || "consignes"), true);
+
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>
