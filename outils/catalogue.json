@@ -328,6 +328,12 @@
          "tag": "Révision · activités 1 à 6",
          "titre": "Je révise le chapitre 1",
          "desc": "Caractères, hérédité, transfert de noyau, ADN et caryotypes, puis un exercice type brevet et les bilans à savoir."
+        },
+        {
+         "chemin": "3e/vivant-evolution/ch2-transmission/revision-genetique-activites-1-10.html",
+         "tag": "Révision · activités 1 à 10",
+         "titre": "Je révise toute la génétique",
+         "desc": "Jumeaux, clonage, TP de l'ADN, caryotypes, agglutination, allèles, mitose et méiose : des simulations à manipuler, puis une fiche de révision à recopier."
         }
        ]
       },
@@ -364,6 +370,12 @@
          "tag": "Activité 10",
          "titre": "Reconstituer les étapes de la méiose",
          "desc": "Méiose animée et photographiée, schéma de 1 cellule à 4 cellules, loterie des chromosomes, tableau de croisement et bilan à recopier."
+        },
+        {
+         "fichier": "revision-genetique-activites-1-10.html",
+         "tag": "Révision · activités 1 à 10",
+         "titre": "Je révise toute la génétique",
+         "desc": "Jumeaux, clonage, TP de l'ADN, caryotypes, agglutination, allèles, mitose et méiose : des simulations à manipuler, puis une fiche de révision à recopier."
         }
        ]
       },
