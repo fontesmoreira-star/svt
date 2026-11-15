@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tailles et calculs SVT</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+:root{
+  --fs:24px; color-scheme:light;
+  --bg:#fbfaf6; --text:#141414; --card:#ffffff; --line:#4a554a;
+  --svt:#1b5e20; --svt-soft:#e7f3e8;
+  --ok:#1b5e20; --ok-bg:#e7f3e8;
+  --ko:#a31515; --ko-bg:#fdeceb;
+  --info:#0b4a8b; --info-bg:#e6f0fb;
+  --warn:#8a4500; --warn-bg:#fff1e0;
+  --btn-bg:#1b5e20; --btn-text:#ffffff;
+  --btn2-bg:#ffffff; --btn2-text:#1b5e20;
+  --focus:#d35400;
+}
+html[data-contrast="high"]{
+  --bg:#ffffff; --text:#000000; --card:#ffffff; --line:#000000;
+  --svt-soft:#ffffff; --ok:#0a3d0f; --ko:#7a0000; --info:#002f6c; --warn:#5c2d00;
+  --ok-bg:#ffffff; --ko-bg:#ffffff; --info-bg:#ffffff; --warn-bg:#ffffff;
+  --btn2-text:#000000; --btn-bg:#0a3d0f;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#111111; --text:#f2f2f2; --card:#1c1c1c; --line:#a8b3a8;
+  --svt-soft:#1d2e1f; --ok:#8fd694; --ok-bg:#16301a; --ko:#ff9c9c; --ko-bg:#3a1414;
+  --info:#9cc8ff; --info-bg:#12253d; --warn:#ffc078; --warn-bg:#3a2610;
+  --btn-bg:#8fd694; --btn-text:#000000; --btn2-bg:#1c1c1c; --btn2-text:#8fd694; --focus:#ffb74d; color-scheme:dark; } }
+html[data-theme="dark"]{
+  --bg:#111111; --text:#f2f2f2; --card:#1c1c1c; --line:#a8b3a8;
+  --svt-soft:#1d2e1f; --ok:#8fd694; --ok-bg:#16301a; --ko:#ff9c9c; --ko-bg:#3a1414;
+  --info:#9cc8ff; --info-bg:#12253d; --warn:#ffc078; --warn-bg:#3a2610;
+  --btn-bg:#8fd694; --btn-text:#000000; --btn2-bg:#1c1c1c; --btn2-text:#8fd694; --focus:#ffb74d; color-scheme:dark;
+}
+html[data-theme="dark"][data-contrast="high"]{
+  --bg:#000000; --text:#ffffff; --card:#000000; --line:#ffffff; --svt-soft:#000000;
+  --ok:#b6ffb9; --ko:#ffb3b3; --info:#cfe3ff; --warn:#ffd9a8;
+  --ok-bg:#000000; --ko-bg:#000000; --info-bg:#000000; --warn-bg:#000000;
+  --btn-bg:#b6ffb9; --btn2-bg:#000000; --btn2-text:#ffffff;
+}
+html{font-size:var(--fs);}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Luciole,Verdana,Arial,sans-serif;line-height:1.5;font-size:1rem;}
+.banner{background:#1b5e20;color:#ffffff;border-bottom:8px solid #0d3b12;}
+.banner-inner{max-width:900px;margin:0 auto;padding:.5rem 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem 1rem;}
+.subject{font-size:2rem;font-weight:800;letter-spacing:.06em;}
+.banner-title{font-size:1.05rem;font-weight:700;}
+.toolbar{max-width:900px;margin:.7rem auto 0;padding:0 16px;display:flex;flex-wrap:wrap;gap:.5rem;}
+.progress{max-width:900px;margin:.7rem auto 0;padding:0 16px;}
+.progress-text{font-weight:700;}
+.bar{height:16px;border:3px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);}
+.bar-fill{height:100%;width:0;background:var(--btn-bg);transition:width .3s;}
+main{max-width:900px;margin:0 auto;padding:0 16px 2rem;}
+h1{font-size:1.5rem;line-height:1.3;margin:1rem 0 .5rem;}
+h2{font-size:1.3rem;line-height:1.3;margin:1rem 0 .5rem;}
+h2:focus{outline:none;}
+p{margin:.5rem 0;}
+button,select,input{font:inherit;}
+.btn{min-height:48px;min-width:48px;padding:.35rem .9rem;border:3px solid var(--btn-bg);background:var(--btn2-bg);color:var(--btn2-text);border-radius:12px;cursor:pointer;font-weight:700;line-height:1.2;}
+.btn.primary{background:var(--btn-bg);color:var(--btn-text);}
+.btn[disabled]{opacity:.55;cursor:not-allowed;}
+.btn:focus-visible,select:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px;}
+.level{display:inline-block;border:3px solid var(--line);border-radius:10px;padding:0 .4rem;margin-right:.3rem;font-size:1rem;}
+.consigne{font-weight:700;}
+.box{border:3px solid var(--line);border-left-width:12px;border-radius:12px;padding:.6rem .9rem;margin:1rem 0;background:var(--card);}
+.box.info{border-color:var(--info);background:var(--info-bg);}
+.box.rule{border-color:var(--ok);background:var(--ok-bg);}
+.box.warn{border-color:var(--warn);background:var(--warn-bg);}
+.box.ok{border-color:var(--ok);background:var(--ok-bg);}
+.box.ko{border-color:var(--ko);background:var(--ko-bg);}
+.box-label{font-weight:800;display:block;}
+.item{padding:.7rem 0;border-bottom:3px dotted var(--line);}
+.item:last-child{border-bottom:none;}
+.item label{display:block;font-weight:700;margin-bottom:.3rem;}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
+select,input[type=text]{min-height:48px;border:3px solid var(--line);border-radius:10px;padding:.2rem .5rem;background:var(--card);color:var(--text);font-size:1rem;max-width:100%;}
+input.num{width:7.5em;}
+input.dna{width:12em;font-family:"Courier New",Courier,monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:700;}
+.mark{font-weight:800;}
+.mark.ok{color:var(--ok);}
+.mark.ko{color:var(--ko);}
+.dna-show{font-family:"Courier New",Courier,monospace;font-size:1.4rem;font-weight:800;letter-spacing:.25em;}
+.actions,.nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0;}
+.nav{justify-content:space-between;border-top:3px solid var(--line);padding-top:1rem;}
+.pool{display:flex;flex-wrap:wrap;gap:.6rem;margin:.5rem 0 1rem;}
+ol.chosen{padding-left:1.6em;margin:.5rem 0;}
+ol.chosen li{margin:.4rem 0;}
+ol.chosen li .btn{text-align:left;}
+.empty{border:3px dashed var(--line);border-radius:12px;padding:.5rem .8rem;}
+.table-wrap{overflow-x:auto;}
+table{border-collapse:collapse;width:100%;margin:.5rem 0;}
+th,td{border:3px solid var(--line);padding:.4rem .5rem;text-align:left;vertical-align:top;}
+th{background:var(--svt-soft);}
+.hints p{margin:.4rem 0;}
+.solution{margin-top:.5rem;}
+.big{font-size:1.4rem;font-weight:800;}
+fieldset{border:3px solid var(--line);border-radius:12px;padding:.5rem .8rem;margin:1rem 0;}
+legend{font-weight:800;padding:0 .3rem;}
+.radio{display:flex;align-items:flex-start;gap:.6rem;min-height:48px;padding:.3rem 0;cursor:pointer;}
+.radio input{width:28px;height:28px;margin-top:.25rem;flex:0 0 auto;}
+footer{max-width:900px;margin:0 auto;padding:1rem 16px 2rem;border-top:3px solid var(--line);}
+.sr{position:absolute;left:-9999px;}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<style>.linkbtn{display:inline-flex;align-items:center;text-decoration:none;}#bilanRaw{width:100%;min-height:8em;font:inherit;font-size:.85rem;padding:.5rem;border:3px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);}</style>
+
+<style>.row + label{margin-top:.8rem;}</style>
+<header class="banner">
+  <div class="banner-inner">
+    <span class="subject">SVT</span>
+    <span class="banner-title">2nde · Chapitre 1 · Consolidation : tailles et calculs</span>
+  </div>
+</header>
+
+<div class="toolbar" role="toolbar" aria-label="Réglages d'affichage">
+  <button class="btn" id="aMinus" aria-label="Diminuer la taille du texte">A–</button>
+  <button class="btn" id="aPlus" aria-label="Augmenter la taille du texte">A+</button>
+  <button class="btn" id="contrastBtn" aria-pressed="false">◐ Contraste élevé</button>
+  <button class="btn" id="darkBtn" aria-pressed="false">☾ Mode sombre</button>
+</div>
+
+<div class="progress" aria-live="polite">
+  <div class="progress-text" id="progressText">Accueil</div>
+  <div class="bar" aria-hidden="true"><div class="bar-fill" id="barFill"></div></div>
+</div>
+
+<main>
+
+<section class="screen" id="s-intro">
+  <h1 tabindex="-1">Tailles et calculs : je consolide 💪</h1>
+  <div class="box warn">
+    <span class="box-label">🎯 Ce qu'on travaille aujourd'hui</span>
+    <p>Cette série cible <strong>les tailles et les calculs</strong> :</p>
+    <p>1. convertir entre cm, mm, µm et nm ;</p>
+    <p>2. savoir quel instrument permet de voir un objet ;</p>
+    <p>3. calculer une taille réelle (grossissement, barre d'échelle).</p>
+  </div>
+  <div class="box info">
+    <span class="box-label">ℹ️ Comment ça marche</span>
+    <p>⏱ 7 exercices, environ <strong>25 minutes</strong>.</p>
+    <p>💡 Bloquée ? Demande un <strong>indice</strong>.</p>
+    <p>🔁 Ton score compte au <strong>premier essai</strong>. Ensuite, tu peux réessayer.</p>
+  </div>
+  <div class="nav"><span></span><button class="btn primary" data-next>Commencer →</button></div>
+</section>
+
+<!-- EX 1 -->
+<section class="screen" id="ex1" data-n="1" hidden>
+  <h2 tabindex="-1"><span class="level">🟢 Facile</span> Exercice 1 – L'escalier des unités</h2>
+  <p class="consigne">Pour passer d'une unité à la suivante (plus petite), par combien multiplie-t-on ?</p>
+  <div class="item">
+    <label for="e1a">1 m = ? cm : on multiplie par…</label>
+    <div class="row"><select id="e1a" data-answer="100"><option value="">— choisir —</option><option value="10">× 10</option><option value="100">× 100</option><option value="1000">× 1 000</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="e1b">1 cm = ? mm : on multiplie par…</label>
+    <div class="row"><select id="e1b" data-answer="10"><option value="">— choisir —</option><option value="10">× 10</option><option value="100">× 100</option><option value="1000">× 1 000</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="e1c">1 mm = ? µm : on multiplie par…</label>
+    <div class="row"><select id="e1c" data-answer="1000"><option value="">— choisir —</option><option value="10">× 10</option><option value="100">× 100</option><option value="1000">× 1 000</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="e1d">1 µm = ? nm : on multiplie par…</label>
+    <div class="row"><select id="e1d" data-answer="1000"><option value="">— choisir —</option><option value="10">× 10</option><option value="100">× 100</option><option value="1000">× 1 000</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="1">Vérifier</button>
+    <button class="btn" data-hint="1">💡 Indice</button>
+    <button class="btn" data-solution="1" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints1" aria-live="polite"></div>
+  <div id="fb1" aria-live="polite"></div>
+  <div class="solution box rule" id="sol1" hidden>
+    <span class="box-label">📖 Correction : l'escalier à recopier dans ton cahier</span>
+    <div class="table-wrap"><table>
+      <tbody>
+        <tr><th>m</th><td>× 100 →</td><th>cm</th><td>× 10 →</td><th>mm</th><td>× 1 000 →</td><th>µm</th><td>× 1 000 →</td><th>nm</th></tr>
+      </tbody>
+    </table></div>
+    <p>⚠️ Piège : entre <strong>cm et mm</strong>, c'est seulement × 10. Donc <strong>1 cm = 10 mm = 10 000 µm</strong>.</p>
+    <p>Pour remonter l'escalier (vers une unité plus grande), on <strong>divise</strong>.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 2 -->
+<section class="screen" id="ex2" data-n="2" hidden>
+  <h2 tabindex="-1"><span class="level">🟢 Facile</span> Exercice 2 – Conversions</h2>
+  <p class="consigne">Complète avec un nombre. Utilise l'escalier de l'exercice 1.</p>
+  <div class="item"><label for="e2a">a) 1 cm = ? mm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e2a" data-answer="10" autocomplete="off"> <span>mm</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2b">b) 1 cm = ? µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e2b" data-answer="10000" autocomplete="off"> <span>µm</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2c">c) 0,5 mm = ? µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e2c" data-answer="500" autocomplete="off"> <span>µm</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2d">d) 0,002 cm = ? µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e2d" data-answer="20" autocomplete="off"> <span>µm</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2e">e) 80 µm = ? mm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e2e" data-answer="0.08" autocomplete="off"> <span>mm</span> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="2">Vérifier</button>
+    <button class="btn" data-hint="2">💡 Indice</button>
+    <button class="btn" data-solution="2" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints2" aria-live="polite"></div>
+  <div id="fb2" aria-live="polite"></div>
+  <div class="solution box rule" id="sol2" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) 1 cm = <strong>10 mm</strong></p>
+    <p>b) 1 cm = 10 mm = 10 × 1 000 = <strong>10 000 µm</strong></p>
+    <p>c) 0,5 mm = 0,5 × 1 000 = <strong>500 µm</strong></p>
+    <p>d) 0,002 cm = 0,02 mm = 0,02 × 1 000 = <strong>20 µm</strong></p>
+    <p>e) 80 µm = 80 ÷ 1 000 = <strong>0,08 mm</strong></p>
+    <p>Pour passer des <strong>cm aux µm</strong> d'un coup : × 10 000.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 3 -->
+<section class="screen" id="ex3" data-n="3" hidden>
+  <h2 tabindex="-1"><span class="level">🟢 Facile</span> Exercice 3 – Avec quoi peut-on le voir ?</h2>
+  <div class="box info">
+    <span class="box-label">ℹ️ À savoir</span>
+    <p>👁 <strong>Œil nu</strong> : objets de plus de <strong>0,1 mm</strong> (= 100 µm).</p>
+    <p>🔬 <strong>Microscope optique</strong> : jusqu'à environ <strong>0,2 µm</strong>.</p>
+    <p>⚡ <strong>Microscope électronique</strong> : plus petit que 0,2 µm.</p>
+  </div>
+  <p class="consigne">Pour chaque objet, choisis l'instrument le plus simple qui permet de le voir.</p>
+  <div class="item"><label for="e3a">a) Une fourmi (5 mm)</label>
+    <div class="row"><select id="e3a" data-answer="oeil"><option value="">— choisir —</option><option value="oeil">Œil nu</option><option value="optique">Microscope optique</option><option value="elec">Microscope électronique</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e3b">b) Une cellule de l'intérieur de la joue (50 µm)</label>
+    <div class="row"><select id="e3b" data-answer="optique"><option value="">— choisir —</option><option value="oeil">Œil nu</option><option value="optique">Microscope optique</option><option value="elec">Microscope électronique</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e3c">c) Un ovocyte humain (0,12 mm)</label>
+    <div class="row"><select id="e3c" data-answer="oeil"><option value="">— choisir —</option><option value="oeil">Œil nu</option><option value="optique">Microscope optique</option><option value="elec">Microscope électronique</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e3d">d) Une bactérie (2 µm)</label>
+    <div class="row"><select id="e3d" data-answer="optique"><option value="">— choisir —</option><option value="oeil">Œil nu</option><option value="optique">Microscope optique</option><option value="elec">Microscope électronique</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e3e">e) La double hélice d'ADN (2 nm de large)</label>
+    <div class="row"><select id="e3e" data-answer="elec"><option value="">— choisir —</option><option value="oeil">Œil nu</option><option value="optique">Microscope optique</option><option value="elec">Microscope électronique</option></select> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="3">Vérifier</button>
+    <button class="btn" data-hint="3">💡 Indice</button>
+    <button class="btn" data-solution="3" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints3" aria-live="polite"></div>
+  <div id="fb3" aria-live="polite"></div>
+  <div class="solution box rule" id="sol3" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) 5 mm &gt; 0,1 mm : <strong>œil nu</strong>.</p>
+    <p>b) 50 µm &lt; 100 µm, mais &gt; 0,2 µm : <strong>microscope optique</strong>.</p>
+    <p>c) 0,12 mm &gt; 0,1 mm : <strong>œil nu</strong> (tout juste : un petit point).</p>
+    <p>d) 2 µm &gt; 0,2 µm : <strong>microscope optique</strong>.</p>
+    <p>e) 2 nm = 0,002 µm &lt; 0,2 µm : <strong>microscope électronique</strong>.</p>
+    <p>Méthode : <strong>mets tout en µm</strong>, puis compare à 100 µm et à 0,2 µm.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 4 -->
+<section class="screen" id="ex4" data-n="4" hidden>
+  <h2 tabindex="-1"><span class="level">🟡 Moyen</span> Exercice 4 – Grossissement, étape par étape</h2>
+  <div class="box rule">
+    <span class="box-label">✅ La méthode en 2 étapes</span>
+    <p><strong>Étape 1</strong> : taille réelle = taille mesurée ÷ grossissement (on reste en cm).</p>
+    <p><strong>Étape 2</strong> : on convertit en µm (× 10 000).</p>
+  </div>
+  <div class="item">
+    <p><strong>a)</strong> Une fibre musculaire de danseuse est photographiée au microscope, au grossissement <strong>× 200</strong>. Sur la photo, sa largeur mesure <strong>1,6 cm</strong>.</p>
+    <label for="e4a1">Étape 1 : taille réelle en cm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e4a1" data-answer="0.008" autocomplete="off"> <span>cm</span> <span class="mark"></span></div>
+    <label for="e4a2">Étape 2 : taille réelle en µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e4a2" data-answer="80" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <p><strong>b)</strong> Une cellule de la joue, photographiée au grossissement <strong>× 1 000</strong>, mesure <strong>5 cm</strong> sur la photo.</p>
+    <label for="e4b1">Étape 1 : taille réelle en cm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e4b1" data-answer="0.005" autocomplete="off"> <span>cm</span> <span class="mark"></span></div>
+    <label for="e4b2">Étape 2 : taille réelle en µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e4b2" data-answer="50" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="4">Vérifier</button>
+    <button class="btn" data-hint="4">💡 Indice</button>
+    <button class="btn" data-solution="4" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints4" aria-live="polite"></div>
+  <div id="fb4" aria-live="polite"></div>
+  <div class="solution box rule" id="sol4" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p><strong>a)</strong> 1,6 cm ÷ 200 = <strong>0,008 cm</strong></p>
+    <p>0,008 cm × 10 000 = <strong>80 µm</strong></p>
+    <p><strong>b)</strong> 5 cm ÷ 1 000 = <strong>0,005 cm</strong></p>
+    <p>0,005 cm × 10 000 = <strong>50 µm</strong></p>
+    <p>Vérification : 80 µm et 50 µm sont bien des tailles de cellules ✓</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 5 -->
+<section class="screen" id="ex5" data-n="5" hidden>
+  <h2 tabindex="-1"><span class="level">🟡 Moyen</span> Exercice 5 – Barre d'échelle, étape par étape</h2>
+  <div class="box rule">
+    <span class="box-label">✅ La méthode en 2 étapes</span>
+    <p><strong>Étape 1</strong> : combien de fois la barre « rentre » dans l'objet ? (objet ÷ barre, les deux en cm)</p>
+    <p><strong>Étape 2</strong> : on multiplie par la valeur de la barre (en µm).</p>
+  </div>
+  <div class="item">
+    <p><strong>a)</strong> La barre d'échelle mesure <strong>1,5 cm</strong> et représente <strong>20 µm</strong>. Une cellule mesure <strong>6 cm</strong> sur l'image.</p>
+    <label for="e5a1">Étape 1 : combien de barres ?</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e5a1" data-answer="4" autocomplete="off"> <span>fois</span> <span class="mark"></span></div>
+    <label for="e5a2">Étape 2 : taille réelle</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e5a2" data-answer="80" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <p><strong>b)</strong> La barre d'échelle mesure <strong>2 cm</strong> et représente <strong>5 µm</strong>. Un noyau mesure <strong>3 cm</strong> sur l'image.</p>
+    <label for="e5b1">Étape 1 : combien de barres ?</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e5b1" data-answer="1.5" autocomplete="off"> <span>fois</span> <span class="mark"></span></div>
+    <label for="e5b2">Étape 2 : taille réelle</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e5b2" data-answer="7.5" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="5">Vérifier</button>
+    <button class="btn" data-hint="5">💡 Indice</button>
+    <button class="btn" data-solution="5" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints5" aria-live="polite"></div>
+  <div id="fb5" aria-live="polite"></div>
+  <div class="solution box rule" id="sol5" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p><strong>a)</strong> 6 ÷ 1,5 = <strong>4</strong> barres</p>
+    <p>4 × 20 µm = <strong>80 µm</strong></p>
+    <p><strong>b)</strong> 3 ÷ 2 = <strong>1,5</strong> barre</p>
+    <p>1,5 × 5 µm = <strong>7,5 µm</strong></p>
+    <p>⚠️ Ne t'arrête pas à l'étape 1 : « 4 » n'est pas une taille, c'est un <strong>nombre de barres</strong>.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 6 -->
+<section class="screen" id="ex6" data-n="6" hidden>
+  <h2 tabindex="-1"><span class="level">🔴 Défi</span> Exercice 6 – Est-ce que mon résultat est possible ?</h2>
+  <p class="consigne">Un élève a fait des calculs. Ses résultats sont-ils plausibles ?</p>
+  <div class="item"><label for="e6a">a) « Le noyau mesure 6 µm. »</label>
+    <div class="row"><select id="e6a" data-answer="oui"><option value="">— choisir —</option><option value="oui">Plausible</option><option value="non">Pas plausible</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e6b">b) « Cette cellule de joue mesure 3 mm. »</label>
+    <div class="row"><select id="e6b" data-answer="non"><option value="">— choisir —</option><option value="oui">Plausible</option><option value="non">Pas plausible</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e6c">c) « La molécule d'ADN mesure 2 µm de large. »</label>
+    <div class="row"><select id="e6c" data-answer="non"><option value="">— choisir —</option><option value="oui">Plausible</option><option value="non">Pas plausible</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e6d">d) « Cette cellule musculaire mesure 60 µm de large. »</label>
+    <div class="row"><select id="e6d" data-answer="oui"><option value="">— choisir —</option><option value="oui">Plausible</option><option value="non">Pas plausible</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e6e">e) « Ce globule rouge mesure 7 nm. »</label>
+    <div class="row"><select id="e6e" data-answer="non"><option value="">— choisir —</option><option value="oui">Plausible</option><option value="non">Pas plausible</option></select> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="6">Vérifier</button>
+    <button class="btn" data-hint="6">💡 Indice</button>
+    <button class="btn" data-solution="6" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints6" aria-live="polite"></div>
+  <div id="fb6" aria-live="polite"></div>
+  <div class="solution box rule" id="sol6" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) <strong>Plausible</strong> : un noyau mesure quelques µm.</p>
+    <p>b) <strong>Pas plausible</strong> : 3 mm, ce serait visible à l'œil nu. Une cellule de joue mesure environ 50 µm.</p>
+    <p>c) <strong>Pas plausible</strong> : une molécule se mesure en nm (≈ 2 nm).</p>
+    <p>d) <strong>Plausible</strong> : 10 à 100 µm, c'est la taille d'une cellule.</p>
+    <p>e) <strong>Pas plausible</strong> : un globule rouge est une cellule (≈ 7 µm), pas une molécule.</p>
+    <p>✅ Réflexe : après chaque calcul, je compare mon résultat à mes 3 repères : <strong>cellule ≈ 10 à 100 µm · noyau ≈ 5 µm · ADN ≈ 2 nm</strong>.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 7 -->
+<section class="screen" id="ex7" data-n="7" hidden>
+  <h2 tabindex="-1"><span class="level">🔴 Défi</span> Exercice 7 – Toute seule !</h2>
+  <p class="consigne">Plus d'étapes guidées. Écris tes calculs dans ton cahier, puis donne le résultat.</p>
+  <div class="item">
+    <p><strong>a)</strong> Photo au grossissement <strong>× 800</strong> : une cellule mesure <strong>4 cm</strong>.</p>
+    <label for="e7a">Taille réelle :</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e7a" data-answer="50" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="e7b">b) Cette cellule de la question a) est-elle visible…</label>
+    <div class="row"><select id="e7b" data-answer="optique"><option value="">— choisir —</option><option value="oeil">à l'œil nu</option><option value="optique">au microscope optique</option><option value="elec">seulement au microscope électronique</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <p><strong>c)</strong> Une barre d'échelle de <strong>2,5 cm</strong> représente <strong>10 µm</strong>. Un objet mesure <strong>7,5 cm</strong> sur l'image.</p>
+    <label for="e7c">Taille réelle :</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e7c" data-answer="30" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="7">Vérifier</button>
+    <button class="btn" data-hint="7">💡 Indice</button>
+    <button class="btn" data-solution="7" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints7" aria-live="polite"></div>
+  <div id="fb7" aria-live="polite"></div>
+  <div class="solution box rule" id="sol7" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p><strong>a)</strong> 4 cm ÷ 800 = 0,005 cm ; 0,005 × 10 000 = <strong>50 µm</strong></p>
+    <p><strong>b)</strong> 50 µm &lt; 100 µm : <strong>microscope optique</strong></p>
+    <p><strong>c)</strong> 7,5 ÷ 2,5 = 3 barres ; 3 × 10 µm = <strong>30 µm</strong></p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Voir mon bilan →</button></div>
+</section>
+
+<section class="screen" id="s-bilan" hidden>
+  <h1 tabindex="-1">🏁 Mon bilan</h1>
+  <div class="item">
+    <label for="pname">Mon prénom</label>
+    <input type="text" id="pname" value="" placeholder="Ton prénom (facultatif)" autocomplete="off">
+  </div>
+  <div id="bilanContent" aria-live="polite"></div>
+  <div class="actions">
+    <button class="btn primary" id="copyBtn">📋 Copier mon bilan</button>
+    <a class="btn primary linkbtn" id="waLink" href="https://wa.me/" target="_blank" rel="noopener">💬 Envoyer par WhatsApp</a>
+    <a class="btn primary linkbtn" id="gmLink" href="https://mail.google.com/" target="_blank" rel="noopener">✉️ Envoyer par Gmail</a>
+  </div>
+  <p id="copyMsg" class="mark" aria-live="polite"></p>
+  <div class="box info"><span class="box-label">ℹ️ Si aucun bouton ne marche</span>Appuie sur « Copier mon bilan », puis colle-le dans un message à ton professeur, ou montre-lui cet écran.<p>Ton bilan (tu peux aussi le sélectionner ici) :</p><label for="bilanRaw" class="sr">Texte du bilan</label><textarea id="bilanRaw" readonly></textarea></div>
+  <div class="nav"><button class="btn" data-prev>← Revenir aux exercices</button><span></span></div>
+</section>
+
+</main>
+
+<footer>
+  <p>SVT 2nde · Consolidation chapitre 1 · Fonctionne hors ligne · Aucune donnée n'est enregistrée ni envoyée automatiquement.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var nj=document.getElementById('noJs'); if(nj) nj.parentNode.removeChild(nj);
+  function $(id) { return document.getElementById(id); }
+  var root = document.documentElement;
+
+  var fs = 24;
+  function setFs(v) { fs = Math.max(20, Math.min(40, v)); root.style.setProperty('--fs', fs + 'px'); }
+  $('aMinus').addEventListener('click', function () { setFs(fs - 2); });
+  $('aPlus').addEventListener('click', function () { setFs(fs + 2); });
+  $('contrastBtn').addEventListener('click', function () {
+    var on = root.getAttribute('data-contrast') !== 'high';
+    if (on) root.setAttribute('data-contrast', 'high'); else root.removeAttribute('data-contrast');
+    this.setAttribute('aria-pressed', String(on));
+    this.textContent = on ? '◐ Contraste élevé : activé' : '◐ Contraste élevé';
+  });
+  function sysDark(){ try { return window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) { return false; } }
+  if (!root.getAttribute('data-theme')) root.setAttribute('data-theme', sysDark() ? 'dark' : 'light');
+  (function(){ var d = root.getAttribute('data-theme') === 'dark', b = $('darkBtn');
+    b.setAttribute('aria-pressed', String(d)); b.textContent = d ? '☀ Mode clair' : '☾ Mode sombre'; })();
+  $('darkBtn').addEventListener('click', function () {
+    var on = root.getAttribute('data-theme') !== 'dark';
+    root.setAttribute('data-theme', on ? 'dark' : 'light');
+    this.setAttribute('aria-pressed', String(on));
+    this.textContent = on ? '☀ Mode clair' : '☾ Mode sombre';
+  });
+
+  var NB_EX = 7;
+  var MAX = {};
+  for (var k = 1; k <= NB_EX; k++) MAX[k] = $('ex' + k).querySelectorAll('[data-answer]').length;
+  var NOTIONS = [
+    { label: 'Conversions cm / mm / µm / nm', ex: [1, 2],
+      conseil: 'Recopie l\'escalier m ×100 cm ×10 mm ×1000 µm ×1000 nm en haut de chaque exercice de calcul. Retiens : 1 cm = 10 000 µm.' },
+    { label: 'Repères de taille et instruments', ex: [3, 6],
+      conseil: 'Mets tout en µm, puis compare : œil nu au-dessus de 100 µm, microscope optique jusqu\'à 0,2 µm. Après un calcul, vérifie avec tes 3 repères (cellule, noyau, ADN).' },
+    { label: 'Calcul avec un grossissement', ex: [4],
+      conseil: 'Deux étapes : 1) taille mesurée ÷ grossissement (en cm) ; 2) × 10 000 pour avoir des µm.' },
+    { label: 'Calcul avec une barre d\'échelle', ex: [5],
+      conseil: 'Deux étapes : 1) objet ÷ barre = nombre de barres ; 2) × valeur de la barre. Ne t\'arrête pas à l\'étape 1.' },
+    { label: 'Défi : tout seule', ex: [7],
+      conseil: 'Refais l\'exercice 7 demain sans regarder la correction, en écrivant chaque étape avec son unité.' }
+  ];
+  var HINTS = {
+    1: ['1 m = 100 cm (pense à une règle d\'un mètre).',
+        'Sur une règle, 1 cm contient 10 petits traits : ce sont des mm.',
+        'Entre mm, µm et nm, on change à chaque fois de × 1 000.'],
+    2: ['b) Fais-le en deux marches : cm → mm (× 10), puis mm → µm (× 1 000).',
+        'd) 0,002 cm × 10 = 0,02 mm. Puis 0,02 mm × 1 000 = ?',
+        'e) On remonte l\'escalier (µm → mm) : on divise par 1 000.'],
+    3: ['Commence par tout convertir en µm.',
+        '0,1 mm = 100 µm. Au-dessus de 100 µm : œil nu.',
+        'L\'ADN : 2 nm = 0,002 µm. C\'est beaucoup plus petit que 0,2 µm.'],
+    4: ['Étape 1 : on DIVISE par le grossissement. La vraie cellule est plus petite que la photo !',
+        'a) 1,6 ÷ 200 = 0,008. b) 5 ÷ 1 000 = 0,005.',
+        'Étape 2 : cm → µm, c\'est × 10 000.'],
+    5: ['Étape 1 : objet ÷ barre (les deux mesurés en cm).',
+        'a) 6 ÷ 1,5 = 4 : la barre rentre 4 fois dans la cellule.',
+        'Étape 2 : 4 barres × 20 µm = ?'],
+    6: ['Rappel : cellule ≈ 10 à 100 µm ; noyau ≈ 5 µm ; ADN ≈ 2 nm.',
+        'Un objet de plusieurs mm se voit à l\'œil nu : est-ce le cas d\'une cellule de joue ?',
+        'Un globule rouge est une cellule entière, pas une molécule.'],
+    7: ['a) Même méthode que l\'exercice 4 : ÷ 800, puis × 10 000.',
+        'b) Compare ton résultat de a) à 100 µm.',
+        'c) Même méthode que l\'exercice 5 : 7,5 ÷ 2,5, puis × 10.']
+  };
+  var scores = {}, hintsUsed = {};
+
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
+  var cur = 0;
+  function show(i) {
+    if (i < 0 || i >= screens.length) return;
+    screens[cur].hidden = true; cur = i;
+    var s = screens[cur]; s.hidden = false;
+    var n = s.getAttribute('data-n');
+    if (n) { $('progressText').textContent = 'Exercice ' + n + ' / ' + NB_EX; $('barFill').style.width = (Number(n) / NB_EX * 100) + '%'; }
+    else if (s.id === 's-bilan') { $('progressText').textContent = 'Bilan'; $('barFill').style.width = '100%'; buildBilan(); }
+    else { $('progressText').textContent = 'Accueil'; $('barFill').style.width = '0%'; }
+    window.scrollTo(0, 0);
+    var h = s.querySelector('h1, h2');
+    if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    if (b.hasAttribute('data-next')) { show(cur + 1); return; }
+    if (b.hasAttribute('data-prev')) { show(cur - 1); return; }
+    if (b.hasAttribute('data-check')) { check(b.getAttribute('data-check')); return; }
+    if (b.hasAttribute('data-hint')) { giveHint(b.getAttribute('data-hint'), b); return; }
+    if (b.hasAttribute('data-solution')) {
+      var sol = $('sol' + b.getAttribute('data-solution'));
+      sol.hidden = !sol.hidden;
+      b.textContent = sol.hidden ? '📖 Voir la correction' : '📖 Cacher la correction';
+    }
+  });
+
+  function giveHint(n, btn) {
+    var used = hintsUsed[n] || 0, list = HINTS[n];
+    if (used >= list.length) return;
+    var p = document.createElement('p');
+    p.className = 'box warn';
+    p.innerHTML = '<span class="box-label">💡 Indice ' + (used + 1) + ' / ' + list.length + '</span>';
+    p.appendChild(document.createTextNode(list[used]));
+    $('hints' + n).appendChild(p);
+    hintsUsed[n] = used + 1;
+    if (hintsUsed[n] >= list.length) { btn.disabled = true; btn.textContent = '💡 Plus d\'indice'; }
+  }
+  function setMark(span, ok) { if (!span) return; span.className = 'mark ' + (ok ? 'ok' : 'ko'); span.textContent = ok ? '✓ Juste' : '✗ Faux'; }
+  function parseNum(v) { v = String(v || '').trim().replace(/\s/g, '').replace(',', '.'); return v === '' ? NaN : Number(v); }
+  function same(a, b) { return Math.abs(a - b) <= 1e-9 + Math.abs(b) * 1e-6; }
+  function markAfter(el) {
+    var n = el.nextElementSibling;
+    while (n && !(n.classList && n.classList.contains('mark'))) n = n.nextElementSibling;
+    return n;
+  }
+
+  function check(n) {
+    var els = $('ex' + n).querySelectorAll('[data-answer]');
+    var complete = true, pts = 0;
+    Array.prototype.forEach.call(els, function (el) { if (String(el.value).trim() === '') complete = false; });
+    var fb = $('fb' + n);
+    if (!complete) {
+      fb.className = 'box warn';
+      fb.innerHTML = '<span class="box-label">⚠️ Attention</span>Réponds à toutes les questions avant de vérifier.';
+      return;
+    }
+    Array.prototype.forEach.call(els, function (el) {
+      var ans = el.getAttribute('data-answer'), ok;
+      if (el.tagName === 'SELECT') ok = el.value === ans;
+      else { var v = parseNum(el.value); ok = !isNaN(v) && same(v, Number(ans)); }
+      if (ok) pts++;
+      setMark(markAfter(el), ok);
+    });
+    var first = !(n in scores);
+    if (first) scores[n] = pts;
+    var max = MAX[n], html;
+    if (pts === max) { fb.className = 'box ok'; html = '<span class="box-label">✓ Bravo !</span>Tout est juste : ' + pts + ' / ' + max + '.'; }
+    else { fb.className = 'box ko'; html = '<span class="box-label">✗ Pas encore</span>' + pts + ' / ' + max + ' juste(s). Corrige les réponses marquées ✗ et vérifie à nouveau, ou demande un indice 💡.'; }
+    if (!first) html += '<br>Score enregistré (premier essai) : ' + scores[n] + ' / ' + max + '.';
+    fb.innerHTML = html;
+    var sb = document.querySelector('[data-solution="' + n + '"]');
+    if (sb) sb.hidden = false;
+  }
+
+  var bilanText = '';
+  function status(p) { return p >= 75 ? '✓ Acquis' : (p >= 50 ? '≈ En cours' : '✗ À revoir'); }
+  function buildBilan() {
+    var total = 0, totalMax = 0, done = 0, hints = 0, k;
+    for (k = 1; k <= NB_EX; k++) { totalMax += MAX[k]; if (k in scores) { total += scores[k]; done++; } hints += hintsUsed[k] || 0; }
+    var pct = Math.round(total / totalMax * 100);
+    var rows = [], weak = [], lines = [];
+    NOTIONS.forEach(function (no) {
+      var s = 0, m = 0, d = 0;
+      no.ex.forEach(function (e) { m += MAX[e]; if (e in scores) { s += scores[e]; d++; } });
+      var st, p = Math.round(s / m * 100);
+      if (d === 0) { st = '— Non fait'; weak.push({ no: no, p: -1 }); }
+      else { st = status(p); if (p < 75) weak.push({ no: no, p: p }); }
+      rows.push('<tr><td>' + no.label + '</td><td>' + s + ' / ' + m + '</td><td><strong>' + st + '</strong></td></tr>');
+      lines.push('- ' + no.label + ' : ' + s + '/' + m + ' – ' + st);
+    });
+    weak.sort(function (a, b) { return a.p - b.p; });
+    var msg = pct >= 80 ? 'Excellent ! Tu as corrigé tes points faibles du diagnostic. 🌟'
+      : (pct >= 60 ? 'Beau progrès ! Encore un peu d\'entraînement et ce sera solide. 💪'
+      : 'Merci pour ton travail ! On sait exactement quoi reprendre ensemble. 🌱');
+    var conseil = weak.length ? weak[0].no.conseil : 'Garde tes 3 repères et ton escalier des unités en tête pour le contrôle.';
+    var aRevoir = weak.length ? weak.map(function (w) { return w.no.label; }).join(' ; ') : 'Aucune 🎉';
+    var html = '<div class="box info"><span class="box-label">ℹ️ Score</span><p class="big">' + total + ' / ' + totalMax + ' (' + pct + ' %)</p>';
+    html += '<p>' + msg + '</p><p>Exercices faits : ' + done + ' / ' + NB_EX + ' · Indices utilisés : ' + hints + '</p>';
+    html += '</div>';
+    if (done < NB_EX) html += '<div class="box warn"><span class="box-label">⚠️ Attention</span>Il reste des exercices non vérifiés. Tu peux revenir en arrière pour les faire.</div>';
+    html += '<div class="table-wrap"><table><thead><tr><th>Notion</th><th>Score</th><th>État</th></tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
+    html += '<div class="box warn"><span class="box-label">🔁 Notions à revoir</span>' + aRevoir + '</div>';
+    html += '<div class="box rule"><span class="box-label">✅ Mon conseil</span>' + conseil + '</div>';
+    $('bilanContent').innerHTML = html;
+    var name = ($('pname').value || 'Élève').trim();
+    bilanText = 'Bilan – Consolidation SVT 2nde (chapitre 1 : tailles et calculs)\nÉlève : ' + name +
+      '\nDate : ' + new Date().toLocaleDateString('fr-FR') +
+      '\nScore : ' + total + ' / ' + totalMax + ' (' + pct + ' %)' +
+      '\nExercices faits : ' + done + ' / ' + NB_EX + ' – Indices utilisés : ' + hints +
+      '\nDétail par notion :\n' + lines.join('\n') +
+      '\nNotions à revoir : ' + aRevoir + '\nConseil : ' + conseil;
+    syncShare();
+  }
+  $('pname').addEventListener('input', buildBilan);
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta); return ok;
+  }
+  function copyMsg(ok) {
+    $('copyMsg').className = 'mark ' + (ok ? 'ok' : 'ko');
+    $('copyMsg').textContent = ok ? '✓ Bilan copié ! Tu peux le coller dans un message.' : '✗ La copie n\'a pas marché. Utilise plutôt le bouton « Envoyer ».';
+  }
+  $('copyBtn').addEventListener('click', function () {
+    buildBilan();
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(bilanText).then(function () { copyMsg(true); }, function () { copyMsg(fallbackCopy(bilanText)); });
+    } else copyMsg(fallbackCopy(bilanText));
+  });
+  function syncShare() {
+    var nm = (document.getElementById('pname').value || 'Élève').trim();
+    var subj = 'Bilan – ' + document.title + ' – ' + nm;
+    document.getElementById('waLink').href = 'https://wa.me/?text=' + encodeURIComponent(bilanText);
+    document.getElementById('gmLink').href = 'https://mail.google.com/mail/?view=cm&fs=1&su=' +
+      encodeURIComponent(subj) + '&body=' + encodeURIComponent(bilanText);
+    var ta = document.getElementById('bilanRaw'); if (ta) ta.value = bilanText;
+  }
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

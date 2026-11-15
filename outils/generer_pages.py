@@ -30,6 +30,7 @@ CSS = """
   --svt:#1f6b45; --svt-soft:#dbeee2; --svt-band:#123d2a;
   --eist:#0b6170; --eist-soft:#d7ecee; --eist-band:#0a3a45;
   --es:#0a6a76; --es-soft:#d9eef0; --es-band:#0c3c48;
+  --pc:#1d4f9c; --pc-soft:#e1eafa; --pc-band:#0f2a5c;
   --band-ink:#eef6f2; --band-muted:#b5d3c6;
   --info:#1d5fa8; --info-soft:#e4eefb; --focus:#f2b705;
   --f-display:"Avenir Next","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
@@ -41,6 +42,7 @@ CSS = """
   --svt:#6fcf97; --svt-soft:#173a28; --svt-band:#0b2a1c;
   --eist:#5cc6d3; --eist-soft:#123840; --eist-band:#06262e;
   --es:#55c1cc; --es-soft:#123a40; --es-band:#072a33;
+  --pc:#8ab4f5; --pc-soft:#14284a; --pc-band:#0a1b3a;
   --band-ink:#e4f2ea; --band-muted:#93c2a6;
   --info:#8ab8f2; --info-soft:#15263b; color-scheme:dark;
 }}
@@ -54,6 +56,7 @@ a{color:inherit}
 .c-svt{--c:var(--svt);--cs:var(--svt-soft);--band:var(--svt-band)}
 .c-eist{--c:var(--eist);--cs:var(--eist-soft);--band:var(--eist-band)}
 .c-es{--c:var(--es);--cs:var(--es-soft);--band:var(--es-band)}
+.c-pc{--c:var(--pc);--cs:var(--pc-soft);--band:var(--pc-band)}
 header.top{background:var(--band);color:var(--band-ink);padding-top:env(safe-area-inset-top,0px)}
 header.top .wrap{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 20px;padding-top:18px;padding-bottom:22px}
 .brand{flex:1 1 320px;min-width:0}
@@ -115,7 +118,7 @@ JS = """
 """
 
 
-def page(title, desc, depth, couleur, crumbs, kick, h1, body):
+def page(title, desc, depth, couleur, crumbs, kick, h1, body, cache=False):
     up = "../" * depth
     crumb_html = ""
     if crumbs:
@@ -129,7 +132,7 @@ def page(title, desc, depth, couleur, crumbs, kick, h1, body):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{E(title)}</title>
-<meta name="description" content="{E(desc)}">
+<meta name="description" content="{E(desc)}">{ROBOTS if cache else ""}
 <link rel="icon" href="{FAVICON}">
 <style>{CSS}</style>
 </head>
@@ -157,6 +160,9 @@ def page(title, desc, depth, couleur, crumbs, kick, h1, body):
 </body>
 </html>
 """
+
+
+ROBOTS = '\n<meta name="robots" content="noindex, nofollow">'
 
 
 def card(a, href):
@@ -195,7 +201,8 @@ def theme_block(n, t, rel_theme, link_theme=True):
     """rel_theme : chemin relatif depuis la page courante vers le dossier du thème ('' si on y est)."""
     out = []
     head_link = f'<a href="{rel_theme}">Page du thème →</a>' if link_theme else ""
-    out.append(f'<section class="theme" id="{t["id"]}"><div class="thead"><h2>{E(t["titre"])}</h2>{head_link}</div>')
+    tc = f' c-{t["couleur"]}' if t.get("couleur") else ""
+    out.append(f'<section class="theme{tc}" id="{t["id"]}"><div class="thead"><h2>{E(t["titre"])}</h2>{head_link}</div>')
     if t.get("activites"):
         out.append('<div class="chap"><h3>Pour tout le thème</h3><div class="grid">')
         out += [card(a, f'{rel_theme}{a["fichier"]}') for a in t["activites"]]
@@ -222,8 +229,9 @@ def main():
     home = "Accueil"
 
     # ---------- accueil ----------
-    prim = [n for n in niveaux if not n.get("secondaire")]
-    sec = [n for n in niveaux if n.get("secondaire")]
+    visibles = [n for n in niveaux if not n.get("cache")]
+    prim = [n for n in visibles if not n.get("secondaire")]
+    sec = [n for n in visibles if n.get("secondaire")]
     cards = []
     for n in prim:
         k = level_count(n)
@@ -264,23 +272,24 @@ def main():
                         + "".join(f"<li>{E(t['titre'])}</li>" for t in vides) + "</ul></div></div>")
         if not pleins and not n.get("transversal"):
             body.insert(0, '<div class="box soon"><span class="ic" aria-hidden="true">🗓️</span><div><b>Les activités arrivent bientôt.</b></div></div>')
+        cache = bool(n.get("cache"))
         written.append(write(f"{lid}/index.html", page(n["titre"], n["sous"], 1, col, [(home, "../")],
-                                                        n["sous"], n["titre"], "\n".join(body))))
+                                                        n["sous"], n["titre"], "\n".join(body), cache)))
 
         # ---------- thèmes et chapitres ----------
         for t in pleins:
             tdir = f'{lid}/{t["id"]}'
-            written.append(write(f"{tdir}/index.html", page(f'{t["titre"]} · {n.get("court", n["titre"])}', n["sous"], 2, col,
+            written.append(write(f"{tdir}/index.html", page(f'{t["titre"]} · {n.get("court", n["titre"])}', n["sous"], 2, t.get("couleur", col),
                                                              [(home, "../../"), (n.get("court", n["titre"]), "../")],
-                                                             n["titre"], t["titre"], theme_block(n, t, "", link_theme=False))))
+                                                             n["titre"], t["titre"], theme_block(n, t, "", link_theme=False), cache)))
             for c in t["chapitres"]:
                 if not chap_count(c):
                     continue
                 cdir = f'{tdir}/{c["id"]}'
                 body = '<div class="grid">' + "".join(card(a, a["fichier"]) for a in c["activites"]) + "</div>"
-                written.append(write(f"{cdir}/index.html", page(f'{c["titre"]} · {n.get("court", n["titre"])}', t["titre"], 3, col,
+                written.append(write(f"{cdir}/index.html", page(f'{c["titre"]} · {n.get("court", n["titre"])}', t["titre"], 3, t.get("couleur", col),
                                                                  [(home, "../../../"), (n.get("court", n["titre"]), "../../"), (t["titre"], "../")],
-                                                                 f'{n.get("court", n["titre"])} · {t["titre"]}', c["titre"], body)))
+                                                                 f'{n.get("court", n["titre"])} · {t["titre"]}', c["titre"], body, cache)))
 
     # ---------- redirections ----------
     for old, new in CAT.get("redirections", {}).items():

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QCM final SVT chapitre 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+:root{--fs:24px;color-scheme:light;--bg:#fbfaf6;--text:#141414;--card:#fff;--line:#4a554a;--svt-soft:#e7f3e8;
+--ok:#1b5e20;--ok-bg:#e7f3e8;--ko:#a31515;--ko-bg:#fdeceb;--info:#0b4a8b;--info-bg:#e6f0fb;--warn:#8a4500;--warn-bg:#fff1e0;
+--btn-bg:#1b5e20;--btn-text:#fff;--btn2-bg:#fff;--btn2-text:#1b5e20;--sel:#0b4a8b;--focus:#d35400;}
+html[data-contrast="high"]{--bg:#fff;--text:#000;--card:#fff;--line:#000;--svt-soft:#fff;--ok:#0a3d0f;--ko:#7a0000;--info:#002f6c;--warn:#5c2d00;
+--ok-bg:#fff;--ko-bg:#fff;--info-bg:#fff;--warn-bg:#fff;--btn2-text:#000;--btn-bg:#0a3d0f;--sel:#000;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111;--text:#f2f2f2;--card:#1c1c1c;--line:#a8b3a8;--svt-soft:#1d2e1f;--ok:#8fd694;--ok-bg:#16301a;--ko:#ff9c9c;--ko-bg:#3a1414;
+--info:#9cc8ff;--info-bg:#12253d;--warn:#ffc078;--warn-bg:#3a2610;--btn-bg:#8fd694;--btn-text:#000;--btn2-bg:#1c1c1c;--btn2-text:#8fd694;--sel:#9cc8ff;--focus:#ffb74d;color-scheme:dark;}}
+html[data-theme="dark"]{--bg:#111;--text:#f2f2f2;--card:#1c1c1c;--line:#a8b3a8;--svt-soft:#1d2e1f;--ok:#8fd694;--ok-bg:#16301a;--ko:#ff9c9c;--ko-bg:#3a1414;
+--info:#9cc8ff;--info-bg:#12253d;--warn:#ffc078;--warn-bg:#3a2610;--btn-bg:#8fd694;--btn-text:#000;--btn2-bg:#1c1c1c;--btn2-text:#8fd694;--sel:#9cc8ff;--focus:#ffb74d;color-scheme:dark;}
+html[data-theme="dark"][data-contrast="high"]{--bg:#000;--text:#fff;--card:#000;--line:#fff;--svt-soft:#000;--ok:#b6ffb9;--ko:#ffb3b3;--info:#cfe3ff;--warn:#ffd9a8;
+--ok-bg:#000;--ko-bg:#000;--info-bg:#000;--warn-bg:#000;--btn-bg:#b6ffb9;--btn2-bg:#000;--btn2-text:#fff;--sel:#fff;}
+html{font-size:var(--fs);}*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Luciole,Verdana,"DejaVu Sans",Arial,sans-serif;line-height:1.5;}
+.banner{background:#1b5e20;color:#fff;border-bottom:8px solid #0d3b12;}
+.banner-inner{max-width:900px;margin:0 auto;padding:.5rem 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem 1rem;}
+.subject{font-size:2rem;font-weight:800;letter-spacing:.06em;}.banner-title{font-size:1.05rem;font-weight:700;}
+.toolbar,.progress{max-width:900px;margin:.7rem auto 0;padding:0 16px;}
+.toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+.progress-text{font-weight:700;}
+.bar{height:16px;border:3px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);}
+.bar-fill{height:100%;width:0;background:var(--btn-bg);transition:width .3s;}
+main{max-width:900px;margin:0 auto;padding:0 16px 2rem;}
+h1{font-size:1.5rem;line-height:1.3;margin:1rem 0 .5rem;}h2{font-size:1.3rem;line-height:1.35;margin:.6rem 0;}
+h1:focus,h2:focus{outline:none;}p{margin:.5rem 0;}
+button,input{font:inherit;}
+.btn{min-height:48px;min-width:48px;padding:.35rem .9rem;border:3px solid var(--btn-bg);background:var(--btn2-bg);color:var(--btn2-text);border-radius:12px;cursor:pointer;font-weight:700;line-height:1.2;}
+.btn.primary{background:var(--btn-bg);color:var(--btn-text);}
+.btn[disabled]{opacity:.5;cursor:not-allowed;}
+.btn:focus-visible,input:focus-visible,.opt:focus-visible{outline:4px solid var(--focus);outline-offset:3px;}
+.part{display:inline-block;border:3px solid var(--line);border-radius:10px;padding:0 .5rem;font-weight:700;font-size:.9rem;}
+.opts{display:flex;flex-direction:column;gap:.6rem;margin:1rem 0;}
+.opt{display:flex;gap:.7rem;align-items:flex-start;width:100%;text-align:left;min-height:56px;padding:.5rem .8rem;border:3px solid var(--line);border-radius:12px;background:var(--card);color:var(--text);cursor:pointer;font-weight:400;}
+.opt .letter{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:2em;height:2em;border:3px solid var(--line);border-radius:50%;font-weight:800;}
+.opt .txt{flex:1;padding-top:.15em;}
+.opt[aria-pressed="true"]{border-color:var(--sel);border-width:5px;}
+.opt[aria-pressed="true"] .letter{background:var(--sel);color:var(--bg);border-color:var(--sel);}
+.opt .tag{display:block;font-weight:800;}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-bg);}
+.opt.is-ko{border-color:var(--ko);background:var(--ko-bg);}
+.opt.is-ok .tag{color:var(--ok);}.opt.is-ko .tag{color:var(--ko);}
+.opt[disabled]{cursor:default;}
+.box{border:3px solid var(--line);border-left-width:12px;border-radius:12px;padding:.6rem .9rem;margin:1rem 0;background:var(--card);}
+.box.info{border-color:var(--info);background:var(--info-bg);}.box.rule{border-color:var(--ok);background:var(--ok-bg);}
+.box.warn{border-color:var(--warn);background:var(--warn-bg);}.box.ok{border-color:var(--ok);background:var(--ok-bg);}.box.ko{border-color:var(--ko);background:var(--ko-bg);}
+.box-label{font-weight:800;display:block;}
+.actions,.nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0;}
+.nav{justify-content:space-between;border-top:3px solid var(--line);padding-top:1rem;}
+.big{font-size:1.5rem;font-weight:800;}
+.table-wrap{overflow-x:auto;}table{border-collapse:collapse;width:100%;margin:.5rem 0;}
+th,td{border:3px solid var(--line);padding:.4rem .5rem;text-align:left;vertical-align:top;}th{background:var(--svt-soft);}
+input[type=text]{min-height:48px;border:3px solid var(--line);border-radius:10px;padding:.2rem .5rem;background:var(--card);color:var(--text);max-width:100%;}
+label.lbl{display:block;font-weight:700;}
+.mark.ok{color:var(--ok);font-weight:800;}.mark.ko{color:var(--ko);font-weight:800;}
+footer{max-width:900px;margin:0 auto;padding:1rem 16px 2rem;border-top:3px solid var(--line);}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<style>.linkbtn{display:inline-flex;align-items:center;text-decoration:none;}#bilanRaw{width:100%;min-height:8em;font:inherit;font-size:.85rem;padding:.5rem;border:3px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);}.sr{position:absolute;left:-9999px;}</style>
+
+
+<header class="banner"><div class="banner-inner"><span class="subject">SVT</span><span class="banner-title">2nde · QCM final – Chapitre 1 · Cellules, ADN et échelles du vivant</span></div></header>
+<div class="toolbar" role="toolbar" aria-label="Réglages d'affichage">
+  <button class="btn" id="aMinus" aria-label="Diminuer la taille du texte">A–</button>
+  <button class="btn" id="aPlus" aria-label="Augmenter la taille du texte">A+</button>
+  <button class="btn" id="contrastBtn" aria-pressed="false">◐ Contraste élevé</button>
+  <button class="btn" id="darkBtn" aria-pressed="false">☾ Mode sombre</button>
+</div>
+<div class="progress" aria-live="polite"><div class="progress-text" id="progressText">Accueil</div><div class="bar" aria-hidden="true"><div class="bar-fill" id="barFill"></div></div></div>
+<main>
+<section id="intro">
+  <h1 tabindex="-1">QCM final – Chapitre 1 ✍️</h1>
+  <p>Ce QCM montre tes <strong>progrès</strong> depuis le diagnostic.</p>
+  <div class="box info"><span class="box-label">ℹ️ Les règles</span>
+    <p>📝 <strong>20 questions</strong>, en 4 parties.</p>
+    <p>⏱ Durée conseillée : <strong>15 minutes</strong>.</p>
+    <p>✓ 1 point par bonne réponse. <strong>Aucun point en moins</strong> si tu te trompes.</p>
+    <p>🔒 Une seule réponse par question. Quand tu as validé, tu ne peux plus changer.</p>
+  </div>
+  <div class="box rule"><span class="box-label">✅ Méthode</span>
+    <p>Lis la question en entier. Lis les 4 réponses. Élimine celles qui sont fausses. Puis choisis.</p>
+  </div>
+  <div class="nav"><span></span><button class="btn primary" id="startBtn">Commencer →</button></div>
+</section>
+<section id="quiz" hidden>
+  <p><span class="part" id="qPart"></span></p>
+  <h2 tabindex="-1" id="qTitle"></h2>
+  <p id="qPrompt" class="big" style="font-size:1.15rem"></p>
+  <div class="opts" id="qOpts" role="group" aria-label="Réponses proposées"></div>
+  <div class="actions"><button class="btn primary" id="validateBtn" disabled>Valider ma réponse</button></div>
+  <div id="qFb" aria-live="polite"></div>
+  <div class="nav"><span></span><button class="btn primary" id="nextBtn" hidden>Question suivante →</button></div>
+</section>
+<section id="bilan" hidden>
+  <h1 tabindex="-1">🏁 Mon bilan</h1>
+  <label class="lbl" for="pname">Mon prénom</label>
+  <input type="text" id="pname" value="" placeholder="Ton prénom (facultatif)" autocomplete="off">
+  <div id="bilanContent" aria-live="polite"></div>
+  <div class="actions">
+    <button class="btn primary" id="copyBtn">📋 Copier mon bilan</button>
+    <a class="btn primary linkbtn" id="waLink" href="https://wa.me/" target="_blank" rel="noopener">💬 Envoyer par WhatsApp</a>
+    <a class="btn primary linkbtn" id="gmLink" href="https://mail.google.com/" target="_blank" rel="noopener">✉️ Envoyer par Gmail</a>
+  </div>
+  <p id="copyMsg" aria-live="polite"></p>
+  <div class="box info"><span class="box-label">ℹ️ Si aucun bouton ne marche</span>Appuie sur « Copier mon bilan », puis colle-le dans un message à ton professeur, ou montre-lui cet écran.<p>Ton bilan (tu peux aussi le sélectionner ici) :</p><label for="bilanRaw" class="sr">Texte du bilan</label><textarea id="bilanRaw" readonly></textarea></div>
+  <div class="nav"><button class="btn" id="reviewBtn">📖 Revoir mes erreurs</button><button class="btn" id="restartBtn">🔁 Recommencer</button></div>
+  <div id="review"></div>
+</section>
+</main>
+<footer><p>SVT 2nde · QCM final chapitre 1 · Fonctionne hors ligne · Aucune donnée n'est enregistrée ni envoyée automatiquement.</p></footer>
+<script>
+(function(){
+'use strict';
+  var nj=document.getElementById('noJs'); if(nj) nj.parentNode.removeChild(nj);
+var Q = [{"n": 1, "p": "Quel ordre va du plus PETIT au plus GRAND ?", "o": ["ADN < cellule < noyau < tissu", "cellule < noyau < tissu < organe", "ADN < noyau < cellule < tissu", "noyau < ADN < cellule < organe"], "a": "C", "e": "La molécule d'ADN est dans le noyau, le noyau est dans la cellule, et les cellules forment les tissus."}, {"n": 2, "p": "Quel est l'ordre de grandeur de la taille d'un noyau ?", "o": ["5 µm", "5 nm", "5 mm", "50 mm"], "a": "A", "e": "Le noyau mesure quelques micromètres : il est plus petit que la cellule (10 à 100 µm)."}, {"n": 3, "p": "1 µm = ?", "o": ["10 nm", "100 nm", "0,001 nm", "1 000 nm"], "a": "D", "e": "Chaque unité est 1 000 fois plus petite que la précédente : 1 mm = 1 000 µm et 1 µm = 1 000 nm."}, {"n": 4, "p": "Lequel de ces objets est le plus petit ?", "o": ["Une bactérie (≈ 2 µm)", "La largeur de la molécule d'ADN", "Un noyau (≈ 5 µm)", "Un globule rouge (≈ 7 µm)"], "a": "B", "e": "L'ADN mesure environ 2 nm de large : c'est une molécule, 1 000 fois plus petite qu'une bactérie."}, {"n": 5, "p": "Pour observer en détail l'intérieur d'une mitochondrie (≈ 1 µm), on utilise :", "o": ["une loupe", "l'œil nu", "le microscope électronique", "le microscope optique à faible grossissement"], "a": "C", "e": "Les détails de moins de 0,2 µm ne sont visibles qu'au microscope électronique."}, {"n": 6, "p": "Un organe est formé :", "o": ["d'un seul type de cellule", "de plusieurs tissus", "uniquement de matrice extracellulaire", "uniquement de molécules d'ADN"], "a": "B", "e": "Un organe (le cœur, un muscle…) associe plusieurs tissus, donc plusieurs types de cellules."}, {"n": 7, "p": "Chez un organisme unicellulaire :", "o": ["une seule cellule assure toutes les fonctions", "chaque fonction est assurée par un organe", "les cellules spécialisées forment des tissus", "il n'y a pas d'ADN"], "a": "A", "e": "Un unicellulaire n'a qu'une cellule : elle réalise toutes les fonctions (nutrition, reproduction…)."}, {"n": 8, "p": "Seules les cellules du pancréas fabriquent l'insuline. Pourquoi ?", "o": ["Seules elles possèdent le gène de l'insuline", "Elles ont plus d'ADN que les autres cellules", "L'insuline vient de l'alimentation", "Toutes les cellules ont ce gène, mais seules celles du pancréas l'expriment"], "a": "D", "e": "Toutes les cellules ont le même ADN. Une cellule spécialisée n'exprime qu'une partie de ses gènes."}, {"n": 9, "p": "Chez les végétaux, les cellules sont entourées et maintenues par :", "o": ["un noyau", "des chromosomes", "une paroi", "des nucléotides"], "a": "C", "e": "La paroi joue chez les végétaux le rôle de la matrice extracellulaire : elle maintient les cellules ensemble."}, {"n": 10, "p": "Le noyau et les mitochondries sont des exemples :", "o": ["d'organites", "de tissus", "d'organes", "de nucléotides"], "a": "A", "e": "Un organite est une structure de la cellule qui a une fonction précise."}, {"n": 11, "p": "Dans l'ADN, la lettre G désigne :", "o": ["le glucose", "la guanine", "un gène", "la glycine"], "a": "B", "e": "Les 4 nucléotides sont : A = adénine, T = thymine, C = cytosine, G = guanine."}, {"n": 12, "p": "Quel est le brin complémentaire de : G A T T C ?", "o": ["G A T T C", "C T T A G", "G A A T C", "C T A A G"], "a": "D", "e": "G face à C, A face à T, T face à A, T face à A, C face à G : C T A A G."}, {"n": 13, "p": "Un brin d'ADN porte 10 adénines (A). Combien de thymines (T) y a-t-il en face, sur l'autre brin ?", "o": ["10", "0", "20", "On ne peut pas savoir"], "a": "A", "e": "Chaque A est associé à un T sur l'autre brin : 10 A donnent 10 T en face."}, {"n": 14, "p": "L'information génétique est portée par :", "o": ["la couleur de l'ADN", "la taille des cellules", "l'ordre (la séquence) des nucléotides", "le nombre de brins de l'ADN"], "a": "C", "e": "Comme les lettres d'un mot, c'est l'ordre des nucléotides qui code l'information."}, {"n": 15, "p": "Deux gènes différents se distinguent par :", "o": ["les types de nucléotides utilisés", "leur séquence de nucléotides", "leur nombre de brins", "l'organite où ils sont rangés"], "a": "B", "e": "Tous les gènes utilisent les 4 mêmes nucléotides ; seul leur ordre (leur séquence) change."}, {"n": 16, "p": "Grâce à l'universalité de l'ADN :", "o": ["tous les êtres vivants se ressemblent", "toutes les cellules d'un organisme sont identiques", "l'ADN humain n'a que 2 nucléotides", "un gène transféré d'une espèce à une autre peut y être exprimé"], "a": "D", "e": "L'ADN a la même structure chez tous les êtres vivants : un gène humain peut, par exemple, être exprimé par une bactérie."}, {"n": 17, "p": "Photo au grossissement × 400 : une cellule y mesure 2 cm. Quelle est sa taille réelle ?", "o": ["800 cm", "50 µm", "5 µm", "0,5 mm"], "a": "B", "e": "2 cm ÷ 400 = 0,005 cm = 0,05 mm = 50 µm."}, {"n": 18, "p": "Une barre d'échelle de 1 cm représente 20 µm. Un noyau mesure 3,5 cm sur l'image. Quelle est sa taille réelle ?", "o": ["7 µm", "17,5 µm", "70 µm", "5,7 µm"], "a": "C", "e": "Produit en croix : 3,5 × 20 ÷ 1 = 70 µm."}, {"n": 19, "p": "5 × 10<sup>−3</sup> mm = ?", "o": ["5 µm", "50 µm", "0,5 µm", "5 nm"], "a": "A", "e": "5 × 10<sup>−3</sup> mm = 0,005 mm = 0,005 × 1 000 µm = 5 µm."}, {"n": 20, "p": "Dans une réponse rédigée, la phrase « Sur le document, seules les cellules du pancréas contiennent de l'insuline » est :", "o": ["un « je sais »", "un « j'en déduis »", "une hypothèse", "un « je vois »"], "a": "D", "e": "L'information vient du document : c'est un constat, donc un « je vois »."}];
+var PARTS = [{"n": 1, "label": "Échelles du vivant et ordres de grandeur", "q": [1, 2, 3, 4, 5], "conseil": "Récite l'ordre ADN < noyau < cellule < tissu < organe et retiens : cellule ≈ 10 à 100 µm, noyau ≈ 5 µm, ADN ≈ 2 nm de large."}, {"n": 2, "label": "Cellules, tissus et spécialisation", "q": [6, 7, 8, 9, 10], "conseil": "Organe = plusieurs tissus ; tissu = cellules spécialisées ; toutes les cellules ont le même ADN mais n'en expriment qu'une partie."}, {"n": 3, "label": "L'ADN, support de l'information génétique", "q": [11, 12, 13, 14, 15, 16], "conseil": "A en face de T, C en face de G. L'information, c'est l'ordre des nucléotides (la séquence)."}, {"n": 4, "label": "Calculs et méthode", "q": [17, 18, 19, 20], "conseil": "Taille réelle = taille mesurée ÷ grossissement, puis conversion. Je vois = document, je sais = cours, j'en déduis = réponse."}];
+var LET = ['A','B','C','D'];
+function $(id){return document.getElementById(id);}
+var root=document.documentElement, fs=24;
+function setFs(v){fs=Math.max(20,Math.min(40,v));root.style.setProperty('--fs',fs+'px');}
+$('aMinus').onclick=function(){setFs(fs-2);};
+$('aPlus').onclick=function(){setFs(fs+2);};
+$('contrastBtn').onclick=function(){var on=root.getAttribute('data-contrast')!=='high';
+  if(on)root.setAttribute('data-contrast','high');else root.removeAttribute('data-contrast');
+  this.setAttribute('aria-pressed',String(on));this.textContent=on?'◐ Contraste élevé : activé':'◐ Contraste élevé';};
+function sysDark(){try{return window.matchMedia('(prefers-color-scheme: dark)').matches;}catch(e){return false;}}
+if(!root.getAttribute('data-theme'))root.setAttribute('data-theme',sysDark()?'dark':'light');
+(function(){var d=root.getAttribute('data-theme')==='dark',b=$('darkBtn');b.setAttribute('aria-pressed',String(d));b.textContent=d?'☀ Mode clair':'☾ Mode sombre';})();
+$('darkBtn').onclick=function(){var on=root.getAttribute('data-theme')!=='dark';
+  root.setAttribute('data-theme',on?'dark':'light');
+  this.setAttribute('aria-pressed',String(on));this.textContent=on?'☀ Mode clair':'☾ Mode sombre';};
+
+var cur=0, answers=[], chosen=null, t0=null;
+function partOf(n){for(var i=0;i<PARTS.length;i++){if(PARTS[i].q.indexOf(n)!==-1)return PARTS[i];}}
+function focusH(el){try{el.focus({preventScroll:true});}catch(e){el.focus();}window.scrollTo(0,0);}
+function progress(){
+  $('progressText').textContent='Question '+(cur+1)+' / '+Q.length;
+  $('barFill').style.width=(cur/Q.length*100)+'%';
+}
+function renderQ(){
+  var q=Q[cur], p=partOf(q.n);
+  chosen=null;
+  $('qPart').textContent='Partie '+p.n+' – '+p.label;
+  $('qTitle').textContent='Question '+q.n+' / '+Q.length;
+  $('qPrompt').innerHTML=q.p;
+  var box=$('qOpts'); box.innerHTML='';
+  q.o.forEach(function(t,i){
+    var b=document.createElement('button');
+    b.type='button';b.className='opt';b.setAttribute('aria-pressed','false');b.dataset.l=LET[i];
+    b.innerHTML='<span class="letter" aria-hidden="true">'+LET[i]+'</span><span class="txt"><span class="sr-l">'+t+'</span><span class="tag"></span></span>';
+    b.setAttribute('aria-label','Réponse '+LET[i]+' : '+t.replace(/<[^>]+>/g,''));
+    b.onclick=function(){
+      if(b.disabled)return;
+      Array.prototype.forEach.call(box.children,function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');chosen=LET[i];$('validateBtn').disabled=false;
+    };
+    box.appendChild(b);
+  });
+  $('validateBtn').disabled=true;$('validateBtn').hidden=false;
+  $('qFb').innerHTML='';$('qFb').className='';
+  $('nextBtn').hidden=true;
+  $('nextBtn').textContent=(cur===Q.length-1)?'Voir mon bilan →':'Question suivante →';
+  progress();focusH($('qTitle'));
+}
+$('startBtn').onclick=function(){t0=Date.now();$('intro').hidden=true;$('quiz').hidden=false;renderQ();};
+$('validateBtn').onclick=function(){
+  if(!chosen)return;
+  var q=Q[cur], ok=chosen===q.a;
+  answers[cur]={n:q.n,c:chosen,ok:ok};
+  Array.prototype.forEach.call($('qOpts').children,function(b){
+    b.disabled=true;
+    var l=b.dataset.l, tag=b.querySelector('.tag');
+    if(l===q.a){b.classList.add('is-ok');tag.textContent='✓ Bonne réponse';}
+    else if(l===chosen){b.classList.add('is-ko');tag.textContent='✗ Ta réponse';}
+  });
+  var fb=$('qFb');
+  fb.className='box '+(ok?'ok':'ko');
+  fb.innerHTML='<span class="box-label">'+(ok?'✓ Juste !':'✗ Pas tout à fait – la bonne réponse est '+q.a)+'</span>'+q.e;
+  $('validateBtn').hidden=true;$('nextBtn').hidden=false;$('nextBtn').focus();
+};
+$('nextBtn').onclick=function(){
+  if(cur<Q.length-1){cur++;renderQ();}
+  else{$('quiz').hidden=true;$('bilan').hidden=false;$('progressText').textContent='Bilan';$('barFill').style.width='100%';buildBilan();focusH(document.querySelector('#bilan h1'));}
+};
+
+var bilanText='';
+function status(p){return p>=75?'✓ Acquis':(p>=50?'≈ En cours':'✗ À revoir');}
+function buildBilan(){
+  var total=0,rows=[],lines=[],weak=[];
+  answers.forEach(function(a){if(a&&a.ok)total++;});
+  PARTS.forEach(function(p){
+    var s=0;p.q.forEach(function(n){var a=answers[n-1];if(a&&a.ok)s++;});
+    var pc=Math.round(s/p.q.length*100), st=status(pc);
+    if(pc<75)weak.push({p:p,pc:pc});
+    rows.push('<tr><td>'+p.label+'</td><td>'+s+' / '+p.q.length+'</td><td><strong>'+st+'</strong></td></tr>');
+    lines.push('- '+p.label+' : '+s+'/'+p.q.length+' – '+st);
+  });
+  weak.sort(function(a,b){return a.pc-b.pc;});
+  var wrong=answers.filter(function(a){return a&&!a.ok;}).map(function(a){return a.n;});
+  var pct=Math.round(total/Q.length*100);
+  var msg=pct>=80?'Excellent ! Ce chapitre est solide. 🌟':(pct>=60?'Bon résultat ! Encore quelques points à consolider. 💪':'Merci pour ton travail ! On sait maintenant précisément quoi revoir. 🌱');
+  var conseil=weak.length?weak[0].p.conseil:'Continue comme ça : relis ta fiche 10 minutes avant le contrôle.';
+  var aRevoir=weak.length?weak.map(function(w){return w.p.label;}).join(' ; '):'Aucune 🎉';
+  var mins=t0?Math.max(1,Math.round((Date.now()-t0)/60000)):0;
+  var h='<div class="box info"><span class="box-label">ℹ️ Score</span><p class="big">'+total+' / '+Q.length+' ('+pct+' %)</p><p>'+msg+'</p><p>Temps : environ '+mins+' min</p></div>';
+  h+='<div class="table-wrap"><table><thead><tr><th>Partie</th><th>Score</th><th>État</th></tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
+  h+='<div class="box warn"><span class="box-label">🔁 Notions à revoir</span>'+aRevoir+(wrong.length?'<br>Questions ratées : '+wrong.join(', '):'')+'</div>';
+  h+='<div class="box rule"><span class="box-label">✅ Mon conseil</span>'+conseil+'</div>';
+  $('bilanContent').innerHTML=h;
+  var name=($('pname').value||'Élève').trim();
+  bilanText='Bilan – QCM final SVT 2nde (chapitre 1)\nÉlève : '+name+'\nDate : '+new Date().toLocaleDateString('fr-FR')+
+   '\nScore : '+total+' / '+Q.length+' ('+pct+' %) – Temps : ~'+mins+' min\nDétail par partie :\n'+lines.join('\n')+
+   '\nRéponses : '+answers.map(function(a){return a.n+a.c+(a.ok?'✓':'✗');}).join(' ')+
+   '\nQuestions ratées : '+(wrong.length?wrong.join(', '):'aucune')+'\nNotions à revoir : '+aRevoir+'\nConseil : '+conseil;
+  syncShare();
+}
+$('pname').addEventListener('input',buildBilan);
+$('reviewBtn').onclick=function(){
+  var r=$('review');
+  var wrong=answers.filter(function(a){return !a.ok;});
+  if(!wrong.length){r.innerHTML='<div class="box ok"><span class="box-label">✓ Aucune erreur</span>Rien à revoir, bravo !</div>';return;}
+  r.innerHTML=wrong.map(function(a){var q=Q[a.n-1];
+    return '<div class="box ko"><span class="box-label">✗ Question '+q.n+'</span><p>'+q.p+'</p><p>Ta réponse : '+a.c+' – '+q.o[LET.indexOf(a.c)]+'</p><p><strong>Bonne réponse : '+q.a+' – '+q.o[LET.indexOf(q.a)]+'</strong></p><p>'+q.e+'</p></div>';}).join('');
+};
+$('restartBtn').onclick=function(){cur=0;answers=[];t0=Date.now();$('review').innerHTML='';$('bilan').hidden=true;$('quiz').hidden=false;renderQ();};
+function fallbackCopy(t){var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';
+  document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);return ok;}
+function copyMsg(ok){var m=$('copyMsg');m.className='mark '+(ok?'ok':'ko');m.textContent=ok?'✓ Bilan copié ! Tu peux le coller dans un message.':'✗ La copie n\'a pas marché. Utilise plutôt le bouton « Envoyer ».';}
+$('copyBtn').onclick=function(){buildBilan();
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(bilanText).then(function(){copyMsg(true);},function(){copyMsg(fallbackCopy(bilanText));});}
+  else copyMsg(fallbackCopy(bilanText));};
+function syncShare() {
+    var nm = (document.getElementById('pname').value || 'Élève').trim();
+    var subj = 'Bilan – ' + document.title + ' – ' + nm;
+    document.getElementById('waLink').href = 'https://wa.me/?text=' + encodeURIComponent(bilanText);
+    document.getElementById('gmLink').href = 'https://mail.google.com/mail/?view=cm&fs=1&su=' +
+      encodeURIComponent(subj) + '&body=' + encodeURIComponent(bilanText);
+    var ta = document.getElementById('bilanRaw'); if (ta) ta.value = bilanText;
+  }
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

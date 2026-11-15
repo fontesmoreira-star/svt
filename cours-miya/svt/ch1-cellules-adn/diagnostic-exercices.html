@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagnostic SVT chapitre 1</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+:root{
+  --fs:24px; color-scheme:light;
+  --bg:#fbfaf6; --text:#141414; --card:#ffffff; --line:#4a554a;
+  --svt:#1b5e20; --svt-soft:#e7f3e8;
+  --ok:#1b5e20; --ok-bg:#e7f3e8;
+  --ko:#a31515; --ko-bg:#fdeceb;
+  --info:#0b4a8b; --info-bg:#e6f0fb;
+  --warn:#8a4500; --warn-bg:#fff1e0;
+  --btn-bg:#1b5e20; --btn-text:#ffffff;
+  --btn2-bg:#ffffff; --btn2-text:#1b5e20;
+  --focus:#d35400;
+}
+html[data-contrast="high"]{
+  --bg:#ffffff; --text:#000000; --card:#ffffff; --line:#000000;
+  --svt-soft:#ffffff; --ok:#0a3d0f; --ko:#7a0000; --info:#002f6c; --warn:#5c2d00;
+  --ok-bg:#ffffff; --ko-bg:#ffffff; --info-bg:#ffffff; --warn-bg:#ffffff;
+  --btn2-text:#000000; --btn-bg:#0a3d0f;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#111111; --text:#f2f2f2; --card:#1c1c1c; --line:#a8b3a8;
+  --svt-soft:#1d2e1f; --ok:#8fd694; --ok-bg:#16301a; --ko:#ff9c9c; --ko-bg:#3a1414;
+  --info:#9cc8ff; --info-bg:#12253d; --warn:#ffc078; --warn-bg:#3a2610;
+  --btn-bg:#8fd694; --btn-text:#000000; --btn2-bg:#1c1c1c; --btn2-text:#8fd694; --focus:#ffb74d; color-scheme:dark; } }
+html[data-theme="dark"]{
+  --bg:#111111; --text:#f2f2f2; --card:#1c1c1c; --line:#a8b3a8;
+  --svt-soft:#1d2e1f; --ok:#8fd694; --ok-bg:#16301a; --ko:#ff9c9c; --ko-bg:#3a1414;
+  --info:#9cc8ff; --info-bg:#12253d; --warn:#ffc078; --warn-bg:#3a2610;
+  --btn-bg:#8fd694; --btn-text:#000000; --btn2-bg:#1c1c1c; --btn2-text:#8fd694; --focus:#ffb74d; color-scheme:dark;
+}
+html[data-theme="dark"][data-contrast="high"]{
+  --bg:#000000; --text:#ffffff; --card:#000000; --line:#ffffff; --svt-soft:#000000;
+  --ok:#b6ffb9; --ko:#ffb3b3; --info:#cfe3ff; --warn:#ffd9a8;
+  --ok-bg:#000000; --ko-bg:#000000; --info-bg:#000000; --warn-bg:#000000;
+  --btn-bg:#b6ffb9; --btn2-bg:#000000; --btn2-text:#ffffff;
+}
+html{font-size:var(--fs);}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Luciole,Verdana,Arial,sans-serif;line-height:1.5;font-size:1rem;}
+.banner{background:#1b5e20;color:#ffffff;border-bottom:8px solid #0d3b12;}
+.banner-inner{max-width:900px;margin:0 auto;padding:.5rem 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem 1rem;}
+.subject{font-size:2rem;font-weight:800;letter-spacing:.06em;}
+.banner-title{font-size:1.05rem;font-weight:700;}
+.toolbar{max-width:900px;margin:.7rem auto 0;padding:0 16px;display:flex;flex-wrap:wrap;gap:.5rem;}
+.progress{max-width:900px;margin:.7rem auto 0;padding:0 16px;}
+.progress-text{font-weight:700;}
+.bar{height:16px;border:3px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);}
+.bar-fill{height:100%;width:0;background:var(--btn-bg);transition:width .3s;}
+main{max-width:900px;margin:0 auto;padding:0 16px 2rem;}
+h1{font-size:1.5rem;line-height:1.3;margin:1rem 0 .5rem;}
+h2{font-size:1.3rem;line-height:1.3;margin:1rem 0 .5rem;}
+h2:focus{outline:none;}
+p{margin:.5rem 0;}
+button,select,input{font:inherit;}
+.btn{min-height:48px;min-width:48px;padding:.35rem .9rem;border:3px solid var(--btn-bg);background:var(--btn2-bg);color:var(--btn2-text);border-radius:12px;cursor:pointer;font-weight:700;line-height:1.2;}
+.btn.primary{background:var(--btn-bg);color:var(--btn-text);}
+.btn[disabled]{opacity:.55;cursor:not-allowed;}
+.btn:focus-visible,select:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px;}
+.level{display:inline-block;border:3px solid var(--line);border-radius:10px;padding:0 .4rem;margin-right:.3rem;font-size:1rem;}
+.consigne{font-weight:700;}
+.box{border:3px solid var(--line);border-left-width:12px;border-radius:12px;padding:.6rem .9rem;margin:1rem 0;background:var(--card);}
+.box.info{border-color:var(--info);background:var(--info-bg);}
+.box.rule{border-color:var(--ok);background:var(--ok-bg);}
+.box.warn{border-color:var(--warn);background:var(--warn-bg);}
+.box.ok{border-color:var(--ok);background:var(--ok-bg);}
+.box.ko{border-color:var(--ko);background:var(--ko-bg);}
+.box-label{font-weight:800;display:block;}
+.item{padding:.7rem 0;border-bottom:3px dotted var(--line);}
+.item:last-child{border-bottom:none;}
+.item label{display:block;font-weight:700;margin-bottom:.3rem;}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
+select,input[type=text]{min-height:48px;border:3px solid var(--line);border-radius:10px;padding:.2rem .5rem;background:var(--card);color:var(--text);font-size:1rem;max-width:100%;}
+input.num{width:7.5em;}
+input.dna{width:12em;font-family:"Courier New",Courier,monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:700;}
+.mark{font-weight:800;}
+.mark.ok{color:var(--ok);}
+.mark.ko{color:var(--ko);}
+.dna-show{font-family:"Courier New",Courier,monospace;font-size:1.4rem;font-weight:800;letter-spacing:.25em;}
+.actions,.nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0;}
+.nav{justify-content:space-between;border-top:3px solid var(--line);padding-top:1rem;}
+.pool{display:flex;flex-wrap:wrap;gap:.6rem;margin:.5rem 0 1rem;}
+ol.chosen{padding-left:1.6em;margin:.5rem 0;}
+ol.chosen li{margin:.4rem 0;}
+ol.chosen li .btn{text-align:left;}
+.empty{border:3px dashed var(--line);border-radius:12px;padding:.5rem .8rem;}
+.table-wrap{overflow-x:auto;}
+table{border-collapse:collapse;width:100%;margin:.5rem 0;}
+th,td{border:3px solid var(--line);padding:.4rem .5rem;text-align:left;vertical-align:top;}
+th{background:var(--svt-soft);}
+.hints p{margin:.4rem 0;}
+.solution{margin-top:.5rem;}
+.big{font-size:1.4rem;font-weight:800;}
+fieldset{border:3px solid var(--line);border-radius:12px;padding:.5rem .8rem;margin:1rem 0;}
+legend{font-weight:800;padding:0 .3rem;}
+.radio{display:flex;align-items:flex-start;gap:.6rem;min-height:48px;padding:.3rem 0;cursor:pointer;}
+.radio input{width:28px;height:28px;margin-top:.25rem;flex:0 0 auto;}
+footer{max-width:900px;margin:0 auto;padding:1rem 16px 2rem;border-top:3px solid var(--line);}
+.sr{position:absolute;left:-9999px;}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<style>.linkbtn{display:inline-flex;align-items:center;text-decoration:none;}#bilanRaw{width:100%;min-height:8em;font:inherit;font-size:.85rem;padding:.5rem;border:3px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);}</style>
+
+
+<div id="noJs" role="alert" style="max-width:900px;margin:1rem auto 0;padding:.8rem 1rem;border:4px solid #a31515;border-left-width:14px;border-radius:12px;background:#fdeceb;color:#141414;font-size:1.05rem;">
+  <strong>⚠️ Les boutons ne vont pas marcher ici.</strong><br>
+  Le fichier est ouvert en mode « aperçu » (souvent sur iPad ou iPhone, depuis un mail ou l'app Fichiers).<br>
+  👉 Ouvre plutôt le <strong>lien</strong> envoyé par Mr Moreira, ou ouvre ce fichier sur un ordinateur.
+</div>
+<header class="banner">
+  <div class="banner-inner">
+    <span class="subject">SVT</span>
+    <span class="banner-title">2nde · Chapitre 1 · Cellules, ADN et échelles du vivant</span>
+  </div>
+</header>
+
+<div class="toolbar" role="toolbar" aria-label="Réglages d'affichage">
+  <button class="btn" id="aMinus" aria-label="Diminuer la taille du texte">A–</button>
+  <button class="btn" id="aPlus" aria-label="Augmenter la taille du texte">A+</button>
+  <button class="btn" id="contrastBtn" aria-pressed="false">◐ Contraste élevé</button>
+  <button class="btn" id="darkBtn" aria-pressed="false">☾ Mode sombre</button>
+</div>
+
+<div class="progress" aria-live="polite">
+  <div class="progress-text" id="progressText">Accueil</div>
+  <div class="bar" aria-hidden="true"><div class="bar-fill" id="barFill"></div></div>
+</div>
+
+<main>
+
+<!-- ===================== ACCUEIL ===================== -->
+<section class="screen" id="s-intro">
+  <h1 tabindex="-1">Bonjour 👋</h1>
+  <p>Voici <strong>7 exercices</strong> pour faire le point sur le chapitre 1.</p>
+  <div class="box info">
+    <span class="box-label">ℹ️ Comment ça marche</span>
+    <p>⏱ Durée : environ <strong>25 minutes</strong>.</p>
+    <p>✓ / ✗ : tu sais tout de suite si c'est juste.</p>
+    <p>💡 Bloquée ? Demande un <strong>indice</strong>.</p>
+    <p>🔁 Ton score compte au <strong>premier essai</strong>. Ensuite, tu peux réessayer autant que tu veux.</p>
+  </div>
+  <div class="box rule">
+    <span class="box-label">✅ Astuce</span>
+    <p>Texte trop petit ? Appuie sur <strong>A+</strong> en haut.</p>
+  </div>
+  <div class="nav"><span></span><button class="btn primary" data-next>Commencer →</button></div>
+</section>
+
+<!-- ===================== EXERCICE 1 ===================== -->
+<section class="screen" id="ex1" data-n="1" hidden>
+  <h2 tabindex="-1"><span class="level">🟢 Facile</span> Exercice 1 – Du plus grand au plus petit</h2>
+  <p class="consigne">Touche les 6 éléments dans l'ordre, du PLUS GRAND au PLUS PETIT.</p>
+  <p>Éléments à ranger :</p>
+  <div class="pool" id="orderPool"></div>
+  <p><strong>Ton classement :</strong></p>
+  <div id="orderChosenWrap"></div>
+  <p>Pour retirer un élément, touche-le dans ton classement.</p>
+  <div class="actions">
+    <button class="btn primary" data-check="1">Vérifier</button>
+    <button class="btn" data-hint="1">💡 Indice</button>
+    <button class="btn" data-solution="1" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints1" aria-live="polite"></div>
+  <div id="fb1" aria-live="polite"></div>
+  <div class="solution box rule" id="sol1" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p class="big">Organisme › Organe › Tissu › Cellule › Noyau › Molécule d'ADN</p>
+    <p>Un <strong>organe</strong> est formé de plusieurs <strong>tissus</strong>. Un tissu est un ensemble de <strong>cellules spécialisées</strong>. Le <strong>noyau</strong> est dans la cellule, et la <strong>molécule d'ADN</strong> est dans le noyau.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- ===================== EXERCICE 2 ===================== -->
+<section class="screen" id="ex2" data-n="2" hidden>
+  <h2 tabindex="-1"><span class="level">🟢 Facile</span> Exercice 2 – Le bon ordre de grandeur</h2>
+  <p class="consigne">Pour chaque objet, choisis la taille la plus réaliste.</p>
+  <div class="item">
+    <label for="q2a">a) Une danseuse (organisme)</label>
+    <div class="row">
+      <select id="q2a" data-answer="b"><option value="">— choisir —</option><option value="a">1,7 mm</option><option value="b">1,7 m</option><option value="c">17 m</option></select>
+      <span class="mark" aria-live="polite"></span>
+    </div>
+  </div>
+  <div class="item">
+    <label for="q2b">b) Une cellule de l'intérieur de la joue</label>
+    <div class="row">
+      <select id="q2b" data-answer="b"><option value="">— choisir —</option><option value="a">50 nm</option><option value="b">50 µm</option><option value="c">50 mm</option></select>
+      <span class="mark"></span>
+    </div>
+  </div>
+  <div class="item">
+    <label for="q2c">c) Le noyau d'une cellule</label>
+    <div class="row">
+      <select id="q2c" data-answer="a"><option value="">— choisir —</option><option value="a">6 µm</option><option value="b">6 mm</option><option value="c">6 nm</option></select>
+      <span class="mark"></span>
+    </div>
+  </div>
+  <div class="item">
+    <label for="q2d">d) Le diamètre (la largeur) de la molécule d'ADN</label>
+    <div class="row">
+      <select id="q2d" data-answer="c"><option value="">— choisir —</option><option value="a">2 mm</option><option value="b">2 µm</option><option value="c">2 nm</option></select>
+      <span class="mark"></span>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="2">Vérifier</button>
+    <button class="btn" data-hint="2">💡 Indice</button>
+    <button class="btn" data-solution="2" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints2" aria-live="polite"></div>
+  <div id="fb2" aria-live="polite"></div>
+  <div class="solution box rule" id="sol2" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) 1,7 m · b) 50 µm · c) 6 µm · d) 2 nm</p>
+    <p>3 repères à retenir : <strong>cellule ≈ 10 à 100 µm</strong>, <strong>noyau ≈ 5 µm</strong>, <strong>ADN ≈ 2 nm</strong> de large.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- ===================== EXERCICE 3 ===================== -->
+<section class="screen" id="ex3" data-n="3" hidden>
+  <h2 tabindex="-1"><span class="level">🟡 Moyen</span> Exercice 3 – Conversions</h2>
+  <p class="consigne">Complète avec un nombre. Tu peux utiliser la virgule.</p>
+  <div class="item">
+    <label for="q3a">a) 1 mm = ? µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="q3a" data-answer="1000" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q3b">b) 0,1 mm = ? µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="q3b" data-answer="100" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q3c">c) 20 µm = ? mm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="q3c" data-answer="0.02" autocomplete="off"> <span>mm</span> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q3d">d) 2 nm = ? µm</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="q3d" data-answer="0.002" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="3">Vérifier</button>
+    <button class="btn" data-hint="3">💡 Indice</button>
+    <button class="btn" data-solution="3" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints3" aria-live="polite"></div>
+  <div id="fb3" aria-live="polite"></div>
+  <div class="solution box rule" id="sol3" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) 1 mm = <strong>1000 µm</strong></p>
+    <p>b) 0,1 mm = 0,1 × 1000 = <strong>100 µm</strong></p>
+    <p>c) 20 µm = 20 ÷ 1000 = <strong>0,02 mm</strong></p>
+    <p>d) 2 nm = 2 ÷ 1000 = <strong>0,002 µm</strong></p>
+    <p>Vers une unité plus <strong>petite</strong> : × 1000. Vers une unité plus <strong>grande</strong> : ÷ 1000.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- ===================== EXERCICE 4 ===================== -->
+<section class="screen" id="ex4" data-n="4" hidden>
+  <h2 tabindex="-1"><span class="level">🟡 Moyen</span> Exercice 4 – Calculer une taille réelle</h2>
+  <div class="item">
+    <p><strong>a)</strong> Une photo au microscope (grossissement <strong>× 500</strong>) montre une cellule musculaire. Sur la photo, sa largeur mesure <strong>5 cm</strong>.</p>
+    <label for="q4a">Quelle est sa largeur réelle, en µm ?</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="q4a" data-answer="100" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <p><strong>b)</strong> Sur une autre photo, la barre d'échelle mesure <strong>1,5 cm</strong> et représente <strong>10 µm</strong>. Un noyau mesure <strong>0,9 cm</strong> sur la photo.</p>
+    <label for="q4b">Quelle est la taille réelle du noyau, en µm ?</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="q4b" data-answer="6" autocomplete="off"> <span>µm</span> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="4">Vérifier</button>
+    <button class="btn" data-hint="4">💡 Indice</button>
+    <button class="btn" data-solution="4" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints4" aria-live="polite"></div>
+  <div id="fb4" aria-live="polite"></div>
+  <div class="solution box rule" id="sol4" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p><strong>a)</strong> Taille réelle = taille mesurée ÷ grossissement</p>
+    <p>= 5 cm ÷ 500 = 0,01 cm</p>
+    <p>= 0,1 mm = <strong>100 µm</strong></p>
+    <p><strong>b)</strong> 1,5 cm sur la photo ↔ 10 µm en vrai</p>
+    <p>0,9 cm sur la photo ↔ ? µm</p>
+    <p>? = 0,9 × 10 ÷ 1,5 = <strong>6 µm</strong></p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- ===================== EXERCICE 5 ===================== -->
+<section class="screen" id="ex5" data-n="5" hidden>
+  <h2 tabindex="-1"><span class="level">🟡 Moyen</span> Exercice 5 – Le brin complémentaire</h2>
+  <p class="consigne">Écris le brin d'ADN complémentaire de chaque brin.</p>
+  <div class="item">
+    <p>a) Brin donné :</p>
+    <p class="dna-show">A T G C C T A G</p>
+    <label for="q5a">Brin complémentaire :</label>
+    <div class="row"><input type="text" class="dna" id="q5a" data-answer="TACGGATC" autocomplete="off" autocapitalize="characters" spellcheck="false"> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <p>b) Brin donné :</p>
+    <p class="dna-show">G G A T C A</p>
+    <label for="q5b">Brin complémentaire :</label>
+    <div class="row"><input type="text" class="dna" id="q5b" data-answer="CCTAGT" autocomplete="off" autocapitalize="characters" spellcheck="false"> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="5">Vérifier</button>
+    <button class="btn" data-hint="5">💡 Indice</button>
+    <button class="btn" data-solution="5" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints5" aria-live="polite"></div>
+  <div id="fb5" aria-live="polite"></div>
+  <div class="solution box rule" id="sol5" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) <span class="dna-show">T A C G G A T C</span></p>
+    <p>b) <span class="dna-show">C C T A G T</span></p>
+    <p>Règle de complémentarité : <strong>A en face de T</strong>, <strong>C en face de G</strong>.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- ===================== EXERCICE 6 ===================== -->
+<section class="screen" id="ex6" data-n="6" hidden>
+  <h2 tabindex="-1"><span class="level">🔴 Défi</span> Exercice 6 – Je vois, je sais, j'en déduis</h2>
+  <div class="box info">
+    <span class="box-label">ℹ️ Document – 3 cellules d'une même personne</span>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Cellule</th><th>ADN dans le noyau</th><th>Gène de la myosine utilisé ?</th></tr></thead>
+        <tbody>
+          <tr><td>Cellule musculaire</td><td>6,6 pg</td><td>Oui</td></tr>
+          <tr><td>Cellule de la peau</td><td>6,6 pg</td><td>Non</td></tr>
+          <tr><td>Neurone</td><td>6,6 pg</td><td>Non</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>pg = picogramme. La myosine est une protéine qui permet au muscle de se contracter.</p>
+  </div>
+  <p class="consigne">Question : montrer que ces cellules ont la même information génétique mais ne l'utilisent pas de la même façon.</p>
+  <p><strong>Partie 1.</strong> Pour chaque phrase, choisis : Je vois, Je sais ou J'en déduis.</p>
+  <div class="item">
+    <label for="q6a">1. « Le noyau des 3 cellules contient 6,6 pg d'ADN. »</label>
+    <div class="row"><select id="q6a" data-answer="vois"><option value="">— choisir —</option><option value="vois">Je vois</option><option value="sais">Je sais</option><option value="deduis">J'en déduis</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q6b">2. « L'ADN porte l'information génétique, organisée en gènes. »</label>
+    <div class="row"><select id="q6b" data-answer="sais"><option value="">— choisir —</option><option value="vois">Je vois</option><option value="sais">Je sais</option><option value="deduis">J'en déduis</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q6c">3. « Seule la cellule musculaire utilise le gène de la myosine. »</label>
+    <div class="row"><select id="q6c" data-answer="vois"><option value="">— choisir —</option><option value="vois">Je vois</option><option value="sais">Je sais</option><option value="deduis">J'en déduis</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q6d">4. « Toutes les cellules d'un organisme sont issues d'une même cellule-œuf. »</label>
+    <div class="row"><select id="q6d" data-answer="sais"><option value="">— choisir —</option><option value="vois">Je vois</option><option value="sais">Je sais</option><option value="deduis">J'en déduis</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q6e">5. « Ces cellules ont le même ADN, mais n'expriment pas les mêmes gènes : elles sont spécialisées. »</label>
+    <div class="row"><select id="q6e" data-answer="deduis"><option value="">— choisir —</option><option value="vois">Je vois</option><option value="sais">Je sais</option><option value="deduis">J'en déduis</option></select> <span class="mark"></span></div>
+  </div>
+  <fieldset>
+    <legend>Partie 2. Quelle conclusion répond le mieux à la question ?</legend>
+    <label class="radio"><input type="radio" name="q6f" value="a"> <span>a) Les cellules musculaires ont plus d'ADN que les autres.</span></label>
+    <label class="radio"><input type="radio" name="q6f" value="b"> <span>b) Les cellules de la peau ne possèdent pas le gène de la myosine.</span></label>
+    <label class="radio"><input type="radio" name="q6f" value="c"> <span>c) Les 3 cellules ont le même ADN, mais chacune n'exprime qu'une partie de ses gènes.</span></label>
+    <label class="radio"><input type="radio" name="q6f" value="d"> <span>d) Le gène de la myosine n'existe que chez les sportifs et les danseurs.</span></label>
+    <p class="mark" id="mark6f" aria-live="polite"></p>
+  </fieldset>
+  <div class="actions">
+    <button class="btn primary" data-check="6">Vérifier</button>
+    <button class="btn" data-hint="6">💡 Indice</button>
+    <button class="btn" data-solution="6" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints6" aria-live="polite"></div>
+  <div id="fb6" aria-live="polite"></div>
+  <div class="solution box rule" id="sol6" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p><strong>Je vois :</strong> phrases 1 et 3 (elles viennent du document, avec ses chiffres).</p>
+    <p><strong>Je sais :</strong> phrases 2 et 4 (connaissances du cours, absentes du document).</p>
+    <p><strong>J'en déduis :</strong> phrase 5 (elle répond à la question).</p>
+    <p><strong>Conclusion :</strong> c). La b) est fausse : la cellule de peau possède le gène, elle ne l'utilise simplement pas.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- ===================== EXERCICE 7 ===================== -->
+<section class="screen" id="ex7" data-n="7" hidden>
+  <h2 tabindex="-1"><span class="level">🔴 Défi</span> Exercice 7 – Vrai ou faux ?</h2>
+  <p class="consigne">Attention aux pièges ! Lis chaque phrase en entier.</p>
+  <div class="item">
+    <label for="q7a">a) Un neurone et une cellule de peau d'une même personne ont la même information génétique.</label>
+    <div class="row"><select id="q7a" data-answer="v"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q7b">b) Une cellule musculaire a perdu les gènes qu'elle n'utilise pas.</label>
+    <div class="row"><select id="q7b" data-answer="f"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q7c">c) Un organe est formé d'un seul type de cellule.</label>
+    <div class="row"><select id="q7c" data-answer="f"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="item">
+    <label for="q7d">d) Entre les cellules d'un tissu animal, la matrice extracellulaire permet aux cellules de rester attachées.</label>
+    <div class="row"><select id="q7d" data-answer="v"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div>
+  </div>
+  <div class="actions">
+    <button class="btn primary" data-check="7">Vérifier</button>
+    <button class="btn" data-hint="7">💡 Indice</button>
+    <button class="btn" data-solution="7" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints7" aria-live="polite"></div>
+  <div id="fb7" aria-live="polite"></div>
+  <div class="solution box rule" id="sol7" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) <strong>Vrai</strong> : toutes les cellules viennent de la même cellule-œuf.</p>
+    <p>b) <strong>Faux</strong> : elle garde tous ses gènes, mais n'en exprime qu'une partie.</p>
+    <p>c) <strong>Faux</strong> : un organe contient plusieurs tissus, donc plusieurs types de cellules.</p>
+    <p>d) <strong>Vrai</strong> : la matrice extracellulaire assure l'adhérence des cellules.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Voir mon bilan →</button></div>
+</section>
+
+<!-- ===================== BILAN ===================== -->
+<section class="screen" id="s-bilan" hidden>
+  <h1 tabindex="-1">🏁 Mon bilan</h1>
+  <div class="item">
+    <label for="pname">Mon prénom</label>
+    <input type="text" id="pname" value="" placeholder="Ton prénom (facultatif)" autocomplete="off">
+  </div>
+  <div id="bilanContent" aria-live="polite"></div>
+  <div class="actions">
+    <button class="btn primary" id="copyBtn">📋 Copier mon bilan</button>
+    <a class="btn primary linkbtn" id="waLink" href="https://wa.me/" target="_blank" rel="noopener">💬 Envoyer par WhatsApp</a>
+    <a class="btn primary linkbtn" id="gmLink" href="https://mail.google.com/" target="_blank" rel="noopener">✉️ Envoyer par Gmail</a>
+  </div>
+  <p id="copyMsg" class="mark" aria-live="polite"></p>
+  <div class="box info"><span class="box-label">ℹ️ Si aucun bouton ne marche</span>Appuie sur « Copier mon bilan », puis colle-le dans un message à ton professeur, ou montre-lui cet écran.<p>Ton bilan (tu peux aussi le sélectionner ici) :</p><label for="bilanRaw" class="sr">Texte du bilan</label><textarea id="bilanRaw" readonly></textarea></div>
+  <div class="nav"><button class="btn" data-prev>← Revenir aux exercices</button><span></span></div>
+</section>
+
+</main>
+
+<footer>
+  <p>SVT 2nde · Diagnostic chapitre 1 · Fonctionne hors ligne · Aucune donnée n'est enregistrée ni envoyée automatiquement.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var nj=document.getElementById('noJs'); if(nj) nj.parentNode.removeChild(nj);
+
+  function $(id) { return document.getElementById(id); }
+  var root = document.documentElement;
+
+  /* ---------- Réglages d'affichage ---------- */
+  var fs = 24;
+  function setFs(v) { fs = Math.max(20, Math.min(40, v)); root.style.setProperty('--fs', fs + 'px'); }
+  $('aMinus').addEventListener('click', function () { setFs(fs - 2); });
+  $('aPlus').addEventListener('click', function () { setFs(fs + 2); });
+  $('contrastBtn').addEventListener('click', function () {
+    var on = root.getAttribute('data-contrast') !== 'high';
+    if (on) root.setAttribute('data-contrast', 'high'); else root.removeAttribute('data-contrast');
+    this.setAttribute('aria-pressed', String(on));
+    this.textContent = on ? '◐ Contraste élevé : activé' : '◐ Contraste élevé';
+  });
+  function sysDark(){ try { return window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) { return false; } }
+  if (!root.getAttribute('data-theme')) root.setAttribute('data-theme', sysDark() ? 'dark' : 'light');
+  (function(){ var d = root.getAttribute('data-theme') === 'dark', b = $('darkBtn');
+    b.setAttribute('aria-pressed', String(d)); b.textContent = d ? '☀ Mode clair' : '☾ Mode sombre'; })();
+  $('darkBtn').addEventListener('click', function () {
+    var on = root.getAttribute('data-theme') !== 'dark';
+    root.setAttribute('data-theme', on ? 'dark' : 'light');
+    this.setAttribute('aria-pressed', String(on));
+    this.textContent = on ? '☀ Mode clair' : '☾ Mode sombre';
+  });
+
+  /* ---------- Données ---------- */
+  var MAX = { 1: 6, 2: 4, 3: 4, 4: 2, 5: 2, 6: 6, 7: 4 };
+  var NB_EX = 7;
+  var NOTIONS = [
+    { label: 'Échelles du vivant et ordres de grandeur', ex: [1, 2],
+      conseil: 'Récite l\'ordre organisme › organe › tissu › cellule › noyau › ADN et retiens 3 repères : cellule ≈ 10 à 100 µm, noyau ≈ 5 µm, ADN ≈ 2 nm de large.' },
+    { label: 'Conversions et calcul de taille réelle', ex: [3, 4],
+      conseil: 'Écris le tableau m | mm | µm | nm (× 1000 à chaque case) et applique : taille réelle = taille mesurée ÷ grossissement.' },
+    { label: 'ADN : structure et complémentarité', ex: [5],
+      conseil: 'Retiens A–T et C–G, puis écris le brin complémentaire lettre par lettre, sans aller trop vite.' },
+    { label: 'Méthode « je vois › je sais › j\'en déduis »', ex: [6],
+      conseil: 'Je vois = un fait chiffré du document. Je sais = une phrase du cours. J\'en déduis = la réponse à la question posée.' },
+    { label: 'Cellules spécialisées et expression des gènes', ex: [7],
+      conseil: 'Toutes les cellules ont le même ADN. Elles sont spécialisées parce qu\'elles n\'expriment pas les mêmes gènes.' }
+  ];
+  var HINTS = {
+    1: ['Commence par le plus grand : le corps entier, c\'est l\'organisme.',
+        'Un organe (le cœur, un muscle…) est fait de plusieurs tissus.',
+        'La molécule d\'ADN est dans le noyau, et le noyau est dans la cellule.'],
+    2: ['Une cellule ne se voit pas à l\'œil nu : il faut un microscope. Elle mesure des micromètres (µm).',
+        'Le noyau est plus petit que la cellule, mais reste en micromètres.',
+        'Une molécule est encore 1000 fois plus petite : on parle en nanomètres (nm).'],
+    3: ['Tableau : 1 m = 1000 mm ; 1 mm = 1000 µm ; 1 µm = 1000 nm.',
+        'Vers une unité plus PETITE, on multiplie par 1000. Vers une unité plus GRANDE, on divise par 1000.',
+        'Exemple : 20 µm → mm : 20 ÷ 1000 = 0,02.'],
+    4: ['a) Taille réelle = taille mesurée ÷ grossissement.',
+        'a) 5 cm ÷ 500 = 0,01 cm. Convertis ensuite : 0,01 cm = 0,1 mm = ? µm.',
+        'b) Fais un produit en croix : 1,5 cm ↔ 10 µm, donc 0,9 cm ↔ 0,9 × 10 ÷ 1,5.'],
+    5: ['A est toujours en face de T. C est toujours en face de G.',
+        'Lis le brin donné une lettre à la fois et écris sa partenaire.',
+        'a) commence par T A C… ; b) commence par C C T…'],
+    6: ['« Je vois » : l\'information se trouve DANS le document (souvent avec un chiffre).',
+        '« Je sais » : c\'est une phrase du cours, elle n\'est pas écrite dans le document.',
+        '« J\'en déduis » : c\'est la phrase qui répond à la question posée.'],
+    7: ['Rappel : toutes les cellules d\'un individu viennent de la cellule-œuf.',
+        'Une cellule spécialisée n\'utilise qu\'une partie de ses gènes. Elle ne les jette pas.',
+        'Organe › plusieurs tissus › plusieurs types de cellules.']
+  };
+  var scores = {};
+  var hintsUsed = {};
+
+  /* ---------- Navigation ---------- */
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
+  var cur = 0;
+  function show(i) {
+    if (i < 0 || i >= screens.length) return;
+    screens[cur].hidden = true;
+    cur = i;
+    var s = screens[cur];
+    s.hidden = false;
+    var n = s.getAttribute('data-n');
+    if (n) {
+      $('progressText').textContent = 'Exercice ' + n + ' / ' + NB_EX;
+      $('barFill').style.width = (Number(n) / NB_EX * 100) + '%';
+    } else if (s.id === 's-bilan') {
+      $('progressText').textContent = 'Bilan';
+      $('barFill').style.width = '100%';
+      buildBilan();
+    } else {
+      $('progressText').textContent = 'Accueil';
+      $('barFill').style.width = '0%';
+    }
+    window.scrollTo(0, 0);
+    var h = s.querySelector('h1, h2');
+    if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    if (b.hasAttribute('data-next')) { show(cur + 1); return; }
+    if (b.hasAttribute('data-prev')) { show(cur - 1); return; }
+    if (b.hasAttribute('data-check')) { var n = b.getAttribute('data-check'); CHECK[n](); return; }
+    if (b.hasAttribute('data-hint')) { giveHint(b.getAttribute('data-hint'), b); return; }
+    if (b.hasAttribute('data-solution')) {
+      var sol = $('sol' + b.getAttribute('data-solution'));
+      sol.hidden = !sol.hidden;
+      b.textContent = sol.hidden ? '📖 Voir la correction' : '📖 Cacher la correction';
+    }
+  });
+
+  /* ---------- Indices ---------- */
+  function giveHint(n, btn) {
+    var used = hintsUsed[n] || 0;
+    var list = HINTS[n];
+    if (used >= list.length) return;
+    var p = document.createElement('p');
+    p.className = 'box warn';
+    p.innerHTML = '<span class="box-label">💡 Indice ' + (used + 1) + ' / ' + list.length + '</span>';
+    p.appendChild(document.createTextNode(list[used]));
+    $('hints' + n).appendChild(p);
+    hintsUsed[n] = used + 1;
+    if (hintsUsed[n] >= list.length) { btn.disabled = true; btn.textContent = '💡 Plus d\'indice'; }
+  }
+
+  /* ---------- Outils de correction ---------- */
+  function setMark(span, ok) {
+    if (!span) return;
+    span.className = 'mark ' + (ok ? 'ok' : 'ko');
+    span.textContent = ok ? '✓ Juste' : '✗ Faux';
+  }
+  function parseNum(v) {
+    v = String(v || '').trim().replace(/\s/g, '').replace(',', '.');
+    if (v === '') return NaN;
+    return Number(v);
+  }
+  function same(a, b) { return Math.abs(a - b) <= 1e-9 + Math.abs(b) * 1e-6; }
+  function markAfter(el) { return el.parentNode.querySelector('.mark'); }
+
+  function checkSelects(sec) {
+    var els = sec.querySelectorAll('select[data-answer]');
+    var pts = 0, complete = true;
+    Array.prototype.forEach.call(els, function (s) {
+      if (!s.value) { complete = false; return; }
+    });
+    if (!complete) return { complete: false };
+    Array.prototype.forEach.call(els, function (s) {
+      var ok = s.value === s.getAttribute('data-answer');
+      if (ok) pts++;
+      setMark(markAfter(s), ok);
+    });
+    return { complete: true, pts: pts };
+  }
+  function checkNums(sec) {
+    var els = sec.querySelectorAll('input.num[data-answer]');
+    var pts = 0, complete = true;
+    Array.prototype.forEach.call(els, function (i) { if (i.value.trim() === '') complete = false; });
+    if (!complete) return { complete: false };
+    Array.prototype.forEach.call(els, function (i) {
+      var v = parseNum(i.value);
+      var ok = !isNaN(v) && same(v, Number(i.getAttribute('data-answer')));
+      if (ok) pts++;
+      setMark(markAfter(i), ok);
+    });
+    return { complete: true, pts: pts };
+  }
+
+  function evaluate(n, res) {
+    var fb = $('fb' + n);
+    if (!res.complete) {
+      fb.className = 'box warn';
+      fb.innerHTML = '<span class="box-label">⚠️ Attention</span>Réponds à toutes les questions avant de vérifier.';
+      return;
+    }
+    var first = !(n in scores);
+    if (first) scores[n] = res.pts;
+    var max = MAX[n];
+    var html;
+    if (res.pts === max) {
+      fb.className = 'box ok';
+      html = '<span class="box-label">✓ Bravo !</span>Tout est juste : ' + res.pts + ' / ' + max + '.';
+    } else {
+      fb.className = 'box ko';
+      html = '<span class="box-label">✗ Pas encore</span>' + res.pts + ' / ' + max +
+             ' juste(s). Corrige les réponses marquées ✗ et vérifie à nouveau, ou demande un indice 💡.';
+    }
+    if (!first) html += '<br>Score enregistré (premier essai) : ' + scores[n] + ' / ' + max + '.';
+    fb.innerHTML = html;
+    var sb = document.querySelector('[data-solution="' + n + '"]');
+    if (sb) sb.hidden = false;
+  }
+
+  /* ---------- Exercice 1 : classement ---------- */
+  var ORDER = ['Organisme', 'Organe', 'Tissu', 'Cellule', 'Noyau', 'Molécule d\'ADN'];
+  var POOL_ORDER = ['Cellule', 'Molécule d\'ADN', 'Organe', 'Noyau', 'Organisme', 'Tissu'];
+  var chosen = [];
+  var orderMarks = null;
+
+  function renderOrder() {
+    var pool = $('orderPool');
+    pool.innerHTML = '';
+    POOL_ORDER.forEach(function (it) {
+      if (chosen.indexOf(it) !== -1) return;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn';
+      b.textContent = it;
+      b.addEventListener('click', function () { chosen.push(it); orderMarks = null; renderOrder(); });
+      pool.appendChild(b);
+    });
+    if (chosen.length === POOL_ORDER.length) {
+      var d = document.createElement('p');
+      d.textContent = '✓ Tous les éléments sont placés. Appuie sur « Vérifier ».';
+      pool.appendChild(d);
+    }
+    var wrap = $('orderChosenWrap');
+    wrap.innerHTML = '';
+    if (chosen.length === 0) {
+      var e = document.createElement('p');
+      e.className = 'empty';
+      e.textContent = 'Vide pour l\'instant : touche un élément ci-dessus.';
+      wrap.appendChild(e);
+      return;
+    }
+    var ol = document.createElement('ol');
+    ol.className = 'chosen';
+    chosen.forEach(function (it, idx) {
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn';
+      var label = it;
+      if (orderMarks) label += orderMarks[idx] ? '  ✓ Bonne place' : '  ✗ Mauvaise place';
+      b.textContent = label;
+      b.setAttribute('aria-label', it + ', position ' + (idx + 1) + '. Toucher pour retirer.');
+      b.addEventListener('click', function () { chosen.splice(idx, 1); orderMarks = null; renderOrder(); });
+      li.appendChild(b);
+      ol.appendChild(li);
+    });
+    wrap.appendChild(ol);
+  }
+
+  /* ---------- Corrections par exercice ---------- */
+  var CHECK = {
+    1: function () {
+      if (chosen.length < ORDER.length) { evaluate(1, { complete: false }); return; }
+      var pts = 0;
+      orderMarks = chosen.map(function (it, i) { var ok = it === ORDER[i]; if (ok) pts++; return ok; });
+      renderOrder();
+      evaluate(1, { complete: true, pts: pts });
+    },
+    2: function () { evaluate(2, checkSelects($('ex2'))); },
+    3: function () { evaluate(3, checkNums($('ex3'))); },
+    4: function () { evaluate(4, checkNums($('ex4'))); },
+    5: function () {
+      var els = $('ex5').querySelectorAll('input.dna');
+      var pts = 0, complete = true;
+      Array.prototype.forEach.call(els, function (i) { if (i.value.trim() === '') complete = false; });
+      if (!complete) { evaluate(5, { complete: false }); return; }
+      Array.prototype.forEach.call(els, function (i) {
+        var v = i.value.toUpperCase().replace(/[^A-Z]/g, '');
+        var ok = v === i.getAttribute('data-answer');
+        if (ok) pts++;
+        setMark(markAfter(i), ok);
+      });
+      evaluate(5, { complete: true, pts: pts });
+    },
+    6: function () {
+      var r = checkSelects($('ex6'));
+      var radio = document.querySelector('input[name="q6f"]:checked');
+      if (!r.complete || !radio) { evaluate(6, { complete: false }); return; }
+      var ok = radio.value === 'c';
+      setMark($('mark6f'), ok);
+      evaluate(6, { complete: true, pts: r.pts + (ok ? 1 : 0) });
+    },
+    7: function () { evaluate(7, checkSelects($('ex7'))); }
+  };
+
+  /* ---------- Bilan ---------- */
+  var bilanText = '';
+  function status(p) {
+    if (p >= 75) return '✓ Acquis';
+    if (p >= 50) return '≈ En cours';
+    return '✗ À revoir';
+  }
+  function buildBilan() {
+    var total = 0, totalMax = 0, done = 0, hints = 0, k;
+    for (k = 1; k <= NB_EX; k++) {
+      totalMax += MAX[k];
+      if (k in scores) { total += scores[k]; done++; }
+      hints += hintsUsed[k] || 0;
+    }
+    var pct = Math.round(total / totalMax * 100);
+    var rows = [], weak = [], lines = [];
+    NOTIONS.forEach(function (no) {
+      var s = 0, m = 0, d = 0;
+      no.ex.forEach(function (e) { m += MAX[e]; if (e in scores) { s += scores[e]; d++; } });
+      var st, p = Math.round(s / m * 100);
+      if (d === 0) { st = '— Non fait'; weak.push({ no: no, p: -1 }); }
+      else { st = status(p); if (p < 75) weak.push({ no: no, p: p }); }
+      rows.push('<tr><td>' + no.label + '</td><td>' + s + ' / ' + m + '</td><td><strong>' + st + '</strong></td></tr>');
+      lines.push('- ' + no.label + ' : ' + s + '/' + m + ' – ' + st);
+    });
+    weak.sort(function (a, b) { return a.p - b.p; });
+
+    var msg;
+    if (pct >= 80) msg = 'Excellent travail ! Tu maîtrises très bien ce chapitre. 🌟';
+    else if (pct >= 60) msg = 'Bon travail ! Les bases sont là ; quelques points sont à consolider. 💪';
+    else msg = 'Merci pour tes efforts ! Ce bilan montre exactement quoi travailler : on va progresser étape par étape. 🌱';
+
+    var conseil = weak.length ? weak[0].no.conseil :
+      'Garde ce rythme : relis ta fiche 10 minutes avant le prochain cours.';
+    var aRevoir = weak.length ? weak.map(function (w) { return w.no.label; }).join(' ; ') : 'Aucune 🎉';
+
+    var html = '';
+    html += '<div class="box info"><span class="box-label">ℹ️ Score</span><p class="big">' + total + ' / ' + totalMax + ' (' + pct + ' %)</p>';
+    html += '<p>' + msg + '</p>';
+    html += '<p>Exercices faits : ' + done + ' / ' + NB_EX + ' · Indices utilisés : ' + hints + '</p></div>';
+    if (done < NB_EX) html += '<div class="box warn"><span class="box-label">⚠️ Attention</span>Il reste des exercices non vérifiés. Tu peux revenir en arrière pour les faire.</div>';
+    html += '<div class="table-wrap"><table><thead><tr><th>Notion</th><th>Score</th><th>État</th></tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
+    html += '<div class="box warn"><span class="box-label">🔁 Notions à revoir</span>' + aRevoir + '</div>';
+    html += '<div class="box rule"><span class="box-label">✅ Mon conseil</span>' + conseil + '</div>';
+    $('bilanContent').innerHTML = html;
+
+    var name = ($('pname').value || 'Élève').trim();
+    bilanText =
+      'Bilan – Diagnostic SVT 2nde (chapitre 1)\n' +
+      'Élève : ' + name + '\n' +
+      'Date : ' + new Date().toLocaleDateString('fr-FR') + '\n' +
+      'Score : ' + total + ' / ' + totalMax + ' (' + pct + ' %)\n' +
+      'Exercices faits : ' + done + ' / ' + NB_EX + ' – Indices utilisés : ' + hints + '\n' +
+      'Détail par notion :\n' + lines.join('\n') + '\n' +
+      'Notions à revoir : ' + aRevoir + '\n' +
+      'Conseil : ' + conseil;
+    syncShare();
+  }
+  $('pname').addEventListener('input', buildBilan);
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  function copyMsg(ok) {
+    $('copyMsg').className = 'mark ' + (ok ? 'ok' : 'ko');
+    $('copyMsg').textContent = ok ? '✓ Bilan copié ! Tu peux le coller dans un message.' :
+      '✗ La copie n\'a pas marché. Utilise plutôt le bouton « Envoyer ».';
+  }
+  $('copyBtn').addEventListener('click', function () {
+    buildBilan();
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(bilanText).then(function () { copyMsg(true); },
+        function () { copyMsg(fallbackCopy(bilanText)); });
+    } else {
+      copyMsg(fallbackCopy(bilanText));
+    }
+  });
+  function syncShare() {
+    var nm = (document.getElementById('pname').value || 'Élève').trim();
+    var subj = 'Bilan – ' + document.title + ' – ' + nm;
+    document.getElementById('waLink').href = 'https://wa.me/?text=' + encodeURIComponent(bilanText);
+    document.getElementById('gmLink').href = 'https://mail.google.com/mail/?view=cm&fs=1&su=' +
+      encodeURIComponent(subj) + '&body=' + encodeURIComponent(bilanText);
+    var ta = document.getElementById('bilanRaw'); if (ta) ta.value = bilanText;
+  }
+
+  renderOrder();
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

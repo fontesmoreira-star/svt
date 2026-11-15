@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Métabolisme des cellules</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+:root{
+  --fs:24px; color-scheme:light;
+  --bg:#fbfaf6; --text:#141414; --card:#ffffff; --line:#4a554a;
+  --svt:#1b5e20; --svt-soft:#e7f3e8; --svt-line:#2e7d32;
+  --ok:#1b5e20; --ok-bg:#e7f3e8;
+  --ko:#a31515; --ko-bg:#fdeceb;
+  --info:#0b4a8b; --info-bg:#e6f0fb;
+  --warn:#8a4500; --warn-bg:#fff1e0;
+  --btn-bg:#1b5e20; --btn-text:#ffffff;
+  --btn2-bg:#ffffff; --btn2-text:#1b5e20;
+  --focus:#d35400;
+}
+html[data-contrast="high"]{
+  --bg:#ffffff; --text:#000000; --card:#ffffff; --line:#000000;
+  --svt-soft:#ffffff; --ok:#0a3d0f; --ko:#7a0000; --info:#002f6c; --warn:#5c2d00;
+  --ok-bg:#ffffff; --ko-bg:#ffffff; --info-bg:#ffffff; --warn-bg:#ffffff;
+  --btn2-text:#000000; --btn-bg:#0a3d0f;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#111111; --text:#f2f2f2; --card:#1c1c1c; --line:#a8b3a8;
+  --svt-soft:#1d2e1f; --ok:#8fd694; --ok-bg:#16301a; --ko:#ff9c9c; --ko-bg:#3a1414;
+  --info:#9cc8ff; --info-bg:#12253d; --warn:#ffc078; --warn-bg:#3a2610;
+  --btn-bg:#8fd694; --btn-text:#000000; --btn2-bg:#1c1c1c; --btn2-text:#8fd694; --focus:#ffb74d; --svt-line:#8fd694; color-scheme:dark; } }
+html[data-theme="dark"]{
+  --bg:#111111; --text:#f2f2f2; --card:#1c1c1c; --line:#a8b3a8;
+  --svt-soft:#1d2e1f; --ok:#8fd694; --ok-bg:#16301a; --ko:#ff9c9c; --ko-bg:#3a1414;
+  --info:#9cc8ff; --info-bg:#12253d; --warn:#ffc078; --warn-bg:#3a2610;
+  --btn-bg:#8fd694; --btn-text:#000000; --btn2-bg:#1c1c1c; --btn2-text:#8fd694; --focus:#ffb74d; --svt-line:#8fd694; color-scheme:dark;
+}
+html[data-theme="dark"][data-contrast="high"]{
+  --bg:#000000; --text:#ffffff; --card:#000000; --line:#ffffff; --svt-soft:#000000;
+  --ok:#b6ffb9; --ko:#ffb3b3; --info:#cfe3ff; --warn:#ffd9a8;
+  --ok-bg:#000000; --ko-bg:#000000; --info-bg:#000000; --warn-bg:#000000;
+  --btn-bg:#b6ffb9; --btn2-bg:#000000; --btn2-text:#ffffff;
+}
+html{font-size:var(--fs);}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Luciole,Verdana,Arial,sans-serif;line-height:1.5;font-size:1rem;}
+.banner{background:#1b5e20;color:#ffffff;border-bottom:8px solid #0d3b12;}
+.banner-inner{max-width:900px;margin:0 auto;padding:.5rem 16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem 1rem;}
+.subject{font-size:2rem;font-weight:800;letter-spacing:.06em;}
+.banner-title{font-size:1.05rem;font-weight:700;}
+.toolbar{max-width:900px;margin:.7rem auto 0;padding:0 16px;display:flex;flex-wrap:wrap;gap:.5rem;}
+.progress{max-width:900px;margin:.7rem auto 0;padding:0 16px;}
+.progress-text{font-weight:700;}
+.bar{height:16px;border:3px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);}
+.bar-fill{height:100%;width:0;background:var(--btn-bg);transition:width .3s;}
+main{max-width:900px;margin:0 auto;padding:0 16px 2rem;}
+h1{font-size:1.5rem;line-height:1.3;margin:1rem 0 .5rem;}
+h2{font-size:1.3rem;line-height:1.3;margin:1rem 0 .5rem;}
+h2:focus{outline:none;}
+p{margin:.5rem 0;}
+button,select,input{font:inherit;}
+.btn{min-height:48px;min-width:48px;padding:.35rem .9rem;border:3px solid var(--btn-bg);background:var(--btn2-bg);color:var(--btn2-text);border-radius:12px;cursor:pointer;font-weight:700;line-height:1.2;}
+.btn.primary{background:var(--btn-bg);color:var(--btn-text);}
+.btn[disabled]{opacity:.55;cursor:not-allowed;}
+.btn:focus-visible,select:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px;}
+.level{display:inline-block;border:3px solid var(--line);border-radius:10px;padding:0 .4rem;margin-right:.3rem;font-size:1rem;}
+.consigne{font-weight:700;}
+.box{border:3px solid var(--line);border-left-width:12px;border-radius:12px;padding:.6rem .9rem;margin:1rem 0;background:var(--card);}
+.box.info{border-color:var(--info);background:var(--info-bg);}
+.box.rule{border-color:var(--ok);background:var(--ok-bg);}
+.box.warn{border-color:var(--warn);background:var(--warn-bg);}
+.box.ok{border-color:var(--ok);background:var(--ok-bg);}
+.box.ko{border-color:var(--ko);background:var(--ko-bg);}
+.box-label{font-weight:800;display:block;}
+.item{padding:.7rem 0;border-bottom:3px dotted var(--line);}
+.item:last-child{border-bottom:none;}
+.item label{display:block;font-weight:700;margin-bottom:.3rem;}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;}
+select,input[type=text]{min-height:48px;border:3px solid var(--line);border-radius:10px;padding:.2rem .5rem;background:var(--card);color:var(--text);font-size:1rem;max-width:100%;}
+input.num{width:7.5em;}
+input.dna{width:12em;font-family:"Courier New",Courier,monospace;letter-spacing:.2em;text-transform:uppercase;font-weight:700;}
+.mark{font-weight:800;}
+.mark.ok{color:var(--ok);}
+.mark.ko{color:var(--ko);}
+.dna-show{font-family:"Courier New",Courier,monospace;font-size:1.4rem;font-weight:800;letter-spacing:.25em;}
+.actions,.nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0;}
+.nav{justify-content:space-between;border-top:3px solid var(--line);padding-top:1rem;}
+.pool{display:flex;flex-wrap:wrap;gap:.6rem;margin:.5rem 0 1rem;}
+ol.chosen{padding-left:1.6em;margin:.5rem 0;}
+ol.chosen li{margin:.4rem 0;}
+ol.chosen li .btn{text-align:left;}
+.empty{border:3px dashed var(--line);border-radius:12px;padding:.5rem .8rem;}
+.table-wrap{overflow-x:auto;}
+table{border-collapse:collapse;width:100%;margin:.5rem 0;}
+th,td{border:3px solid var(--line);padding:.4rem .5rem;text-align:left;vertical-align:top;}
+th{background:var(--svt-soft);}
+.hints p{margin:.4rem 0;}
+.solution{margin-top:.5rem;}
+.big{font-size:1.4rem;font-weight:800;}
+fieldset{border:3px solid var(--line);border-radius:12px;padding:.5rem .8rem;margin:1rem 0;}
+legend{font-weight:800;padding:0 .3rem;}
+.radio{display:flex;align-items:flex-start;gap:.6rem;min-height:48px;padding:.3rem 0;cursor:pointer;}
+.radio input{width:28px;height:28px;margin-top:.25rem;flex:0 0 auto;}
+footer{max-width:900px;margin:0 auto;padding:1rem 16px 2rem;border-top:3px solid var(--line);}
+.sr{position:absolute;left:-9999px;}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<style>
+.row + label{margin-top:.8rem;}
+.linkbtn{display:inline-flex;align-items:center;text-decoration:none;}
+#bilanRaw{width:100%;min-height:8em;font:inherit;font-size:.85rem;padding:.5rem;border:3px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);}
+.chart{display:block;margin:.5rem 0;max-width:100%;height:auto;}
+.chart .axis{stroke:var(--text);stroke-width:2;}
+.chart .grid{stroke:var(--line);stroke-width:1;opacity:.35;}
+.chart .tick{fill:var(--text);font-size:1em;font-family:inherit;}
+.chart .atitle{fill:var(--text);font-size:1em;font-weight:700;font-family:inherit;}
+.chart .band-light{fill:var(--warn-bg);}
+.chart .band-dark{fill:var(--line);opacity:.25;}
+.chart .band-label{fill:var(--text);font-size:1em;font-weight:800;font-family:inherit;}
+.chart .series{fill:none;stroke:var(--svt-line);stroke-width:3;stroke-linejoin:round;stroke-linecap:round;}
+.chart .pt{fill:var(--svt-line);stroke:var(--card);stroke-width:2;}
+.chart .pt.on{stroke:var(--text);stroke-width:3;}
+.chart .hit{fill:transparent;cursor:pointer;}
+.chart .event{stroke:var(--text);stroke-width:2;stroke-dasharray:6 5;}
+.readout{font-weight:700;min-height:1.6em;}
+.sr{position:absolute;left:-9999px;}
+.doc-title{font-weight:800;}
+</style>
+<header class="banner">
+  <div class="banner-inner">
+    <span class="subject">SVT</span>
+    <span class="banner-title">2nde · Chapitre 2 · Le métabolisme des cellules (séance 1)</span>
+  </div>
+</header>
+
+<div class="toolbar" role="toolbar" aria-label="Réglages d'affichage">
+  <button class="btn" id="aMinus" aria-label="Diminuer la taille du texte">A–</button>
+  <button class="btn" id="aPlus" aria-label="Augmenter la taille du texte">A+</button>
+  <button class="btn" id="contrastBtn" aria-pressed="false">◐ Contraste élevé</button>
+  <button class="btn" id="darkBtn" aria-pressed="false">☾ Mode sombre</button>
+</div>
+
+<div class="progress" aria-live="polite">
+  <div class="progress-text" id="progressText">Accueil</div>
+  <div class="bar" aria-hidden="true"><div class="bar-fill" id="barFill"></div></div>
+</div>
+
+<main>
+
+<section class="screen" id="s-intro">
+  <h1 tabindex="-1">Le métabolisme des cellules 🌿💃</h1>
+  <p>Quand tu danses une heure, les cellules de tes muscles <strong>consomment</strong> du glucose. Une feuille, elle, en <strong>fabrique</strong>. Comment ?</p>
+  <div class="box rule">
+    <span class="box-label">✅ À retenir pour commencer</span>
+    <p>Le <strong>métabolisme</strong>, c'est l'ensemble des transformations chimiques qui se déroulent dans une cellule.</p>
+    <p>La cellule prend des <strong>substrats</strong> (molécules consommées) et rejette des <strong>produits</strong> (molécules fabriquées).</p>
+  </div>
+  <div class="box info">
+    <span class="box-label">ℹ️ Comment ça marche</span>
+    <p>⏱ 6 exercices, environ <strong>25 minutes</strong>.</p>
+    <p>📈 Touche un point d'un graphique pour lire sa valeur.</p>
+    <p>💡 Bloquée ? Demande un <strong>indice</strong>. Ton score compte au <strong>premier essai</strong>.</p>
+  </div>
+  <div class="nav"><span></span><button class="btn primary" data-next>Commencer →</button></div>
+</section>
+
+<!-- EX 1 -->
+<section class="screen" id="ex1" data-n="1" hidden>
+  <h2 tabindex="-1"><span class="level">🟢 Facile</span> Exercice 1 – Autotrophe ou hétérotrophe ?</h2>
+  <div class="box rule">
+    <span class="box-label">✅ Définitions</span>
+    <p><strong>Autotrophe</strong> : fabrique sa matière organique (glucose…) à partir de matière minérale (CO₂, eau).</p>
+    <p><strong>Hétérotrophe</strong> : doit prélever de la matière organique déjà fabriquée.</p>
+  </div>
+  <p class="consigne">Classe chaque cellule.</p>
+  <div class="item"><label for="e1a">a) Une cellule de feuille de laitue (verte)</label>
+    <div class="row"><select id="e1a" data-answer="auto"><option value="">— choisir —</option><option value="auto">Autotrophe</option><option value="hetero">Hétérotrophe</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e1b">b) Une cellule de racine de carotte</label>
+    <div class="row"><select id="e1b" data-answer="hetero"><option value="">— choisir —</option><option value="auto">Autotrophe</option><option value="hetero">Hétérotrophe</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e1c">c) Une levure de boulanger</label>
+    <div class="row"><select id="e1c" data-answer="hetero"><option value="">— choisir —</option><option value="auto">Autotrophe</option><option value="hetero">Hétérotrophe</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e1d">d) Une cellule musculaire de ton mollet</label>
+    <div class="row"><select id="e1d" data-answer="hetero"><option value="">— choisir —</option><option value="auto">Autotrophe</option><option value="hetero">Hétérotrophe</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e1e">e) Une chlorelle (algue verte unicellulaire)</label>
+    <div class="row"><select id="e1e" data-answer="auto"><option value="">— choisir —</option><option value="auto">Autotrophe</option><option value="hetero">Hétérotrophe</option></select> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="1">Vérifier</button>
+    <button class="btn" data-hint="1">💡 Indice</button>
+    <button class="btn" data-solution="1" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints1" aria-live="polite"></div>
+  <div id="fb1" aria-live="polite"></div>
+  <div class="solution box rule" id="sol1" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) et e) <strong>autotrophes</strong> : cellules vertes (chlorophylle), elles font la photosynthèse.</p>
+    <p>c) et d) <strong>hétérotrophes</strong> : elles consomment du glucose venu d'ailleurs.</p>
+    <p>b) <strong>hétérotrophe</strong> ⚠️ : la racine est dans le noir et n'a pas de chlorophylle. Elle reçoit le glucose fabriqué par les feuilles.</p>
+    <p>👉 Une même plante contient donc des cellules autotrophes <strong>et</strong> des cellules hétérotrophes.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 2 -->
+<section class="screen" id="ex2" data-n="2" hidden>
+  <h2 tabindex="-1"><span class="level">🟢 Facile</span> Exercice 2 – Substrat ou produit ?</h2>
+  <div class="box info">
+    <span class="box-label">ℹ️ Les deux bilans</span>
+    <p>🌿 <strong>Photosynthèse</strong> (chloroplaste, à la lumière) :<br>CO₂ + eau → glucose + O₂</p>
+    <p>🔥 <strong>Respiration</strong> (mitochondrie, jour et nuit) :<br>glucose + O₂ → CO₂ + eau</p>
+  </div>
+  <p class="consigne">Phrase-test : la cellule le <strong>prend</strong> = substrat ; la cellule le <strong>rejette</strong> = produit.</p>
+  <div class="item"><label for="e2a">a) Photosynthèse : le CO₂ est…</label>
+    <div class="row"><select id="e2a" data-answer="sub"><option value="">— choisir —</option><option value="sub">un substrat</option><option value="prod">un produit</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2b">b) Photosynthèse : le glucose est…</label>
+    <div class="row"><select id="e2b" data-answer="prod"><option value="">— choisir —</option><option value="sub">un substrat</option><option value="prod">un produit</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2c">c) Photosynthèse : l'O₂ est…</label>
+    <div class="row"><select id="e2c" data-answer="prod"><option value="">— choisir —</option><option value="sub">un substrat</option><option value="prod">un produit</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2d">d) Respiration : le glucose est…</label>
+    <div class="row"><select id="e2d" data-answer="sub"><option value="">— choisir —</option><option value="sub">un substrat</option><option value="prod">un produit</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2e">e) Respiration : l'O₂ est…</label>
+    <div class="row"><select id="e2e" data-answer="sub"><option value="">— choisir —</option><option value="sub">un substrat</option><option value="prod">un produit</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e2f">f) Respiration : le CO₂ est…</label>
+    <div class="row"><select id="e2f" data-answer="prod"><option value="">— choisir —</option><option value="sub">un substrat</option><option value="prod">un produit</option></select> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="2">Vérifier</button>
+    <button class="btn" data-hint="2">💡 Indice</button>
+    <button class="btn" data-solution="2" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints2" aria-live="polite"></div>
+  <div id="fb2" aria-live="polite"></div>
+  <div class="solution box rule" id="sol2" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>Photosynthèse : CO₂ et eau = <strong>substrats</strong> ; glucose et O₂ = <strong>produits</strong>.</p>
+    <p>Respiration : glucose et O₂ = <strong>substrats</strong> ; CO₂ et eau = <strong>produits</strong>.</p>
+    <p>👉 Les deux bilans sont « en miroir » : ce que l'un produit, l'autre le consomme.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 3 -->
+<section class="screen" id="ex3" data-n="3" hidden>
+  <h2 tabindex="-1"><span class="level">🟡 Moyen</span> Exercice 3 – Des algues à la lumière, puis à l'obscurité</h2>
+  <div class="box info">
+    <span class="box-label">ℹ️ Document 1 – Expérience ExAO (données simulées)</span>
+    <p>Des chlorelles sont placées dans une enceinte fermée. Un capteur mesure le <strong>dioxygène (O₂) dissous</strong> dans l'eau. Lumière de 0 à 10 min, obscurité de 10 à 20 min.</p>
+    <p class="doc-title">O₂ dissous (mg/L) en fonction du temps (min)</p>
+    <div id="chart1"></div>
+    <p class="readout" id="readout1" aria-live="polite">Touche un point pour lire sa valeur.</p>
+    <div class="table-wrap"><table id="table1"></table></div>
+  </div>
+  <div class="box rule">
+    <span class="box-label">✅ Méthode : calculer une vitesse</span>
+    <p>vitesse = (valeur finale − valeur de départ) ÷ durée, en <strong>mg/L/min</strong>.</p>
+    <p>Si la courbe descend, la vitesse est <strong>négative</strong>.</p>
+  </div>
+  <div class="item"><label for="e3a">a) Vitesse de variation de l'O₂ à la lumière (0 → 10 min)</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e3a" data-answer="0.15" autocomplete="off"> <span>mg/L/min</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e3b">b) Vitesse de variation de l'O₂ à l'obscurité (10 → 20 min)</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e3b" data-answer="-0.04" autocomplete="off"> <span>mg/L/min</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e3c">c) À l'obscurité, l'O₂ diminue parce que…</label>
+    <div class="row"><select id="e3c" data-answer="b"><option value="">— choisir —</option><option value="a">les algues meurent</option><option value="b">seule la respiration a lieu : elle consomme de l'O₂</option><option value="c">la photosynthèse consomme de l'O₂</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e3d">d) « Le taux d'O₂ passe de 8,0 à 9,5 mg/L en 10 min à la lumière. » C'est…</label>
+    <div class="row"><select id="e3d" data-answer="vois"><option value="">— choisir —</option><option value="vois">un « je vois »</option><option value="sais">un « je sais »</option><option value="deduis">un « j'en déduis »</option></select> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="3">Vérifier</button>
+    <button class="btn" data-hint="3">💡 Indice</button>
+    <button class="btn" data-solution="3" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints3" aria-live="polite"></div>
+  <div id="fb3" aria-live="polite"></div>
+  <div class="solution box rule" id="sol3" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) (9,5 − 8,0) ÷ 10 = <strong>+0,15 mg/L/min</strong></p>
+    <p>b) (9,1 − 9,5) ÷ 10 = <strong>−0,04 mg/L/min</strong></p>
+    <p>c) Sans lumière, pas de photosynthèse. Il ne reste que la <strong>respiration</strong>, qui consomme de l'O₂.</p>
+    <p>d) C'est lu sur le document, avec des valeurs : un <strong>« je vois »</strong>.</p>
+    <p><strong>J'en déduis</strong> : à la lumière, les algues produisent plus d'O₂ par photosynthèse qu'elles n'en consomment par respiration.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 4 -->
+<section class="screen" id="ex4" data-n="4" hidden>
+  <h2 tabindex="-1"><span class="level">🟡 Moyen</span> Exercice 4 – Des levures et du glucose</h2>
+  <div class="box info">
+    <span class="box-label">ℹ️ Document 2 – Expérience ExAO (données simulées)</span>
+    <p>Des levures sont placées dans une enceinte fermée. On mesure l'O₂ et le CO₂. On ajoute du <strong>glucose à t = 2 min</strong> (trait pointillé).</p>
+    <p class="doc-title">O₂ dissous (mg/L) en fonction du temps (min)</p>
+    <div id="chart2a"></div>
+    <p class="readout" id="readout2a" aria-live="polite">Touche un point pour lire sa valeur.</p>
+    <p class="doc-title">CO₂ (unités relatives) en fonction du temps (min)</p>
+    <div id="chart2b"></div>
+    <p class="readout" id="readout2b" aria-live="polite">Touche un point pour lire sa valeur.</p>
+    <div class="table-wrap"><table id="table2"></table></div>
+  </div>
+  <div class="item"><label for="e4a">a) Avant l'ajout de glucose (0 → 2 min), l'O₂…</label>
+    <div class="row"><select id="e4a" data-answer="stable"><option value="">— choisir —</option><option value="monte">augmente</option><option value="stable">reste stable</option><option value="baisse">diminue</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e4b">b) Vitesse de variation de l'O₂ après l'ajout (2 → 8 min)</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e4b" data-answer="-0.3" autocomplete="off"> <span>mg/L/min</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e4c">c) Quels sont les substrats consommés par les levures ?</label>
+    <div class="row"><select id="e4c" data-answer="b"><option value="">— choisir —</option><option value="a">CO₂ et eau</option><option value="b">glucose et O₂</option><option value="c">glucose et CO₂</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e4d">d) Quel produit est mesuré ici ?</label>
+    <div class="row"><select id="e4d" data-answer="co2"><option value="">— choisir —</option><option value="o2">l'O₂</option><option value="co2">le CO₂</option><option value="glucose">le glucose</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e4e">e) Ce métabolisme est…</label>
+    <div class="row"><select id="e4e" data-answer="resp"><option value="">— choisir —</option><option value="photo">la photosynthèse</option><option value="resp">la respiration</option></select> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="4">Vérifier</button>
+    <button class="btn" data-hint="4">💡 Indice</button>
+    <button class="btn" data-solution="4" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints4" aria-live="polite"></div>
+  <div id="fb4" aria-live="polite"></div>
+  <div class="solution box rule" id="sol4" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) De 0 à 2 min, l'O₂ reste à 8,0 mg/L : sans glucose, les levures respirent très peu.</p>
+    <p>b) (6,2 − 8,0) ÷ 6 = <strong>−0,3 mg/L/min</strong></p>
+    <p>c) Les levures consomment du <strong>glucose et de l'O₂</strong> (la courbe d'O₂ descend dès que le glucose est ajouté).</p>
+    <p>d) Le <strong>CO₂</strong> augmente : c'est un produit.</p>
+    <p>e) Glucose + O₂ → CO₂ + eau : c'est la <strong>respiration</strong>. Les levures sont hétérotrophes.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 5 -->
+<section class="screen" id="ex5" data-n="5" hidden>
+  <h2 tabindex="-1"><span class="level">🔴 Défi</span> Exercice 5 – Vrai ou faux ?</h2>
+  <p class="consigne">Attention aux pièges ! Lis chaque phrase en entier.</p>
+  <div class="item"><label for="e5a">a) Une plante ne respire que la nuit.</label>
+    <div class="row"><select id="e5a" data-answer="f"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e5b">b) Toutes les cellules d'une plante sont autotrophes.</label>
+    <div class="row"><select id="e5b" data-answer="f"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e5c">c) La photosynthèse se déroule dans les chloroplastes.</label>
+    <div class="row"><select id="e5c" data-answer="v"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e5d">d) Une cellule de feuille possède aussi des mitochondries.</label>
+    <div class="row"><select id="e5d" data-answer="v"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div></div>
+  <div class="item"><label for="e5e">e) Quand tu danses, tes cellules musculaires font la photosynthèse.</label>
+    <div class="row"><select id="e5e" data-answer="f"><option value="">— choisir —</option><option value="v">Vrai</option><option value="f">Faux</option></select> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="5">Vérifier</button>
+    <button class="btn" data-hint="5">💡 Indice</button>
+    <button class="btn" data-solution="5" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints5" aria-live="polite"></div>
+  <div id="fb5" aria-live="polite"></div>
+  <div class="solution box rule" id="sol5" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) <strong>Faux</strong> : la plante respire jour et nuit. Le jour, la photosynthèse « masque » la respiration.</p>
+    <p>b) <strong>Faux</strong> : les cellules des racines sont hétérotrophes.</p>
+    <p>c) <strong>Vrai</strong> : les chloroplastes contiennent la chlorophylle.</p>
+    <p>d) <strong>Vrai</strong> : c'est pour cela qu'elle peut respirer.</p>
+    <p>e) <strong>Faux</strong> : elles n'ont pas de chloroplastes. Elles font la <strong>respiration</strong> dans leurs mitochondries.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Suivant →</button></div>
+</section>
+
+<!-- EX 6 -->
+<section class="screen" id="ex6" data-n="6" hidden>
+  <h2 tabindex="-1"><span class="level">🔴 Défi</span> Exercice 6 – Ce que la courbe cache</h2>
+  <p>Reprends le document 1. À la lumière, les algues font <strong>en même temps</strong> la photosynthèse (qui produit de l'O₂) et la respiration (qui en consomme).</p>
+  <p>On suppose que la respiration a la même vitesse à la lumière et à l'obscurité.</p>
+  <div class="box info">
+    <span class="box-label">ℹ️ Rappel – Document 1 (données simulées)</span>
+    <p class="doc-title">O₂ dissous (mg/L) en fonction du temps (min)</p>
+    <div id="chart1b"></div>
+    <p class="readout" id="readout1b" aria-live="polite">Touche un point pour lire sa valeur.</p>
+    <div class="table-wrap"><table id="table1b"></table></div>
+    <p>Rappel de tes résultats : <strong>+0,15 mg/L/min</strong> à la lumière, <strong>−0,04 mg/L/min</strong> à l'obscurité.</p>
+  </div>
+  <div class="item"><label for="e6a">a) À quelle vitesse la respiration consomme-t-elle l'O₂ ? (valeur positive)</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e6a" data-answer="0.04" autocomplete="off"> <span>mg/L/min</span> <span class="mark"></span></div></div>
+  <div class="item"><label for="e6b">b) À quelle vitesse la photosynthèse produit-elle vraiment l'O₂ ?</label>
+    <div class="row"><input type="text" inputmode="decimal" class="num" id="e6b" data-answer="0.19" autocomplete="off"> <span>mg/L/min</span> <span class="mark"></span></div></div>
+  <div class="actions">
+    <button class="btn primary" data-check="6">Vérifier</button>
+    <button class="btn" data-hint="6">💡 Indice</button>
+    <button class="btn" data-solution="6" hidden>📖 Voir la correction</button>
+  </div>
+  <div class="hints" id="hints6" aria-live="polite"></div>
+  <div id="fb6" aria-live="polite"></div>
+  <div class="solution box rule" id="sol6" hidden>
+    <span class="box-label">📖 Correction</span>
+    <p>a) À l'obscurité, l'O₂ baisse de 0,04 mg/L/min : la respiration consomme <strong>0,04 mg/L/min</strong>.</p>
+    <p>b) Ce qu'on mesure à la lumière = production − consommation, donc 0,15 = photosynthèse − 0,04.</p>
+    <p>Photosynthèse = 0,15 + 0,04 = <strong>0,19 mg/L/min</strong>.</p>
+    <p>👉 La courbe montre seulement le <strong>bilan</strong> des deux métabolismes.</p>
+  </div>
+  <div class="nav"><button class="btn" data-prev>← Précédent</button><button class="btn primary" data-next>Voir mon bilan →</button></div>
+</section>
+
+<section class="screen" id="s-bilan" hidden>
+  <h1 tabindex="-1">🏁 Mon bilan</h1>
+  <div class="item">
+    <label for="pname">Mon prénom</label>
+    <input type="text" id="pname" value="" placeholder="Ton prénom (facultatif)" autocomplete="off">
+  </div>
+  <div id="bilanContent" aria-live="polite"></div>
+  <div class="actions">
+    <button class="btn primary" id="copyBtn">📋 Copier mon bilan</button>
+    <a class="btn primary linkbtn" id="waLink" href="https://wa.me/" target="_blank" rel="noopener">💬 Envoyer par WhatsApp</a>
+    <a class="btn primary linkbtn" id="gmLink" href="https://mail.google.com/" target="_blank" rel="noopener">✉️ Envoyer par Gmail</a>
+  </div>
+  <p id="copyMsg" class="mark" aria-live="polite"></p>
+  <div class="box info"><span class="box-label">ℹ️ Si aucun bouton ne marche</span>Appuie sur « Copier mon bilan », puis colle-le dans un message à ton professeur, ou montre-lui cet écran.
+    <p>Ton bilan (tu peux aussi le sélectionner ici) :</p>
+    <label for="bilanRaw" class="sr">Texte du bilan</label><textarea id="bilanRaw" readonly></textarea></div>
+  <div class="nav"><button class="btn" data-prev>← Revenir aux exercices</button><span></span></div>
+</section>
+
+</main>
+
+<footer>
+  <p>SVT 2nde · Chapitre 2 · Métabolisme, séance 1 · Données ExAO simulées à but pédagogique · Aucune donnée n'est enregistrée ni envoyée automatiquement.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var nj=document.getElementById('noJs'); if(nj) nj.parentNode.removeChild(nj);
+  function $(id) { return document.getElementById(id); }
+  var root = document.documentElement;
+
+  var fs = 24;
+  function setFs(v) { fs = Math.max(20, Math.min(40, v)); root.style.setProperty('--fs', fs + 'px'); if (typeof drawAll === 'function') drawAll(); }
+  $('aMinus').addEventListener('click', function () { setFs(fs - 2); });
+  $('aPlus').addEventListener('click', function () { setFs(fs + 2); });
+  $('contrastBtn').addEventListener('click', function () {
+    var on = root.getAttribute('data-contrast') !== 'high';
+    if (on) root.setAttribute('data-contrast', 'high'); else root.removeAttribute('data-contrast');
+    this.setAttribute('aria-pressed', String(on));
+    this.textContent = on ? '◐ Contraste élevé : activé' : '◐ Contraste élevé';
+  });
+  function sysDark(){ try { return window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) { return false; } }
+  if (!root.getAttribute('data-theme')) root.setAttribute('data-theme', sysDark() ? 'dark' : 'light');
+  (function(){ var d = root.getAttribute('data-theme') === 'dark', b = $('darkBtn');
+    b.setAttribute('aria-pressed', String(d)); b.textContent = d ? '☀ Mode clair' : '☾ Mode sombre'; })();
+  $('darkBtn').addEventListener('click', function () {
+    var on = root.getAttribute('data-theme') !== 'dark';
+    root.setAttribute('data-theme', on ? 'dark' : 'light');
+    this.setAttribute('aria-pressed', String(on));
+    this.textContent = on ? '☀ Mode clair' : '☾ Mode sombre';
+  });
+
+  /* ---------- Graphiques ExAO (SVG, un axe par graphique) ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+  function fmt(v, d) { return v.toFixed(d).replace('.', ','); }
+  var CHARTS = [];
+  function chart(id, readoutId, cfg) { CHARTS.push({ id: id, readoutId: readoutId, cfg: cfg }); }
+  function drawChart(c) {
+    var box = $(c.id), cfg = c.cfg;
+    var W = Math.round(box.clientWidth);
+    if (!W) return;
+    if (box.getAttribute('data-w') === String(W)) return;
+    box.setAttribute('data-w', W); box.innerHTML = '';
+    var small = W < 520;
+    var fsz = small ? 16 : 17;
+    var H = Math.round(Math.max(300, Math.min(420, W * 0.62)));
+    var m = { l: fsz * 3.8, r: 16, t: fsz * 2.4, b: fsz * 3.6 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var xstep = cfg.xstep * ((pw / ((cfg.x1 - cfg.x0) / cfg.xstep)) < fsz * 2.2 ? 2 : 1);
+    var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, 'class': 'chart', role: 'img', 'aria-label': cfg.label, style: 'font-size:' + fsz + 'px' });
+    function X(t) { return m.l + (t - cfg.x0) / (cfg.x1 - cfg.x0) * pw; }
+    function Y(v) { return m.t + (1 - (v - cfg.y0) / (cfg.y1 - cfg.y0)) * ph; }
+    (cfg.bands || []).forEach(function (b) {
+      el('rect', { x: X(b.from), y: m.t, width: X(b.to) - X(b.from), height: ph, 'class': b.cls }, svg);
+      var tx = el('text', { x: (X(b.from) + X(b.to)) / 2, y: m.t - fsz * 0.7, 'text-anchor': 'middle', 'class': 'band-label' }, svg);
+      tx.textContent = small ? b.short : b.text;
+    });
+    for (var v = cfg.y0; v <= cfg.y1 + 1e-9; v += cfg.ystep) {
+      el('line', { x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), 'class': 'grid' }, svg);
+      var t = el('text', { x: m.l - 8, y: Y(v) + fsz * 0.35, 'text-anchor': 'end', 'class': 'tick' }, svg); t.textContent = fmt(v, cfg.ydec);
+    }
+    for (var x = cfg.x0; x <= cfg.x1; x += xstep) {
+      var tt = el('text', { x: X(x), y: m.t + ph + fsz * 1.4, 'text-anchor': 'middle', 'class': 'tick' }, svg); tt.textContent = x;
+    }
+    (cfg.events || []).forEach(function (ev) {
+      el('line', { x1: X(ev.t), x2: X(ev.t), y1: m.t, y2: m.t + ph, 'class': 'event' }, svg);
+      var et = el('text', { x: X(ev.t) + 6, y: m.t - fsz * 0.7, 'class': 'band-label' }, svg); et.textContent = ev.text;
+    });
+    el('line', { x1: m.l, x2: m.l, y1: m.t, y2: m.t + ph, 'class': 'axis' }, svg);
+    el('line', { x1: m.l, x2: m.l + pw, y1: m.t + ph, y2: m.t + ph, 'class': 'axis' }, svg);
+    var xt = el('text', { x: m.l + pw / 2, y: H - fsz * 0.5, 'text-anchor': 'middle', 'class': 'atitle' }, svg); xt.textContent = 'Temps (min)';
+    var yx = fsz * 0.9;
+    var yt = el('text', { x: yx, y: m.t + ph / 2, 'text-anchor': 'middle', 'class': 'atitle', transform: 'rotate(-90 ' + yx + ' ' + (m.t + ph / 2) + ')' }, svg); yt.textContent = cfg.unit;
+    el('path', { d: cfg.pts.map(function (p, i) { return (i ? 'L' : 'M') + X(p[0]) + ' ' + Y(p[1]); }).join(' '), 'class': 'series' }, svg);
+    var dots = [];
+    cfg.pts.forEach(function (p) {
+      var dot = el('circle', { cx: X(p[0]), cy: Y(p[1]), r: 6, 'class': 'pt' }, svg); dots.push(dot);
+      var h = el('circle', { cx: X(p[0]), cy: Y(p[1]), r: 18, 'class': 'hit', tabindex: 0, role: 'button',
+        'aria-label': 't = ' + p[0] + ' min : ' + fmt(p[1], cfg.vdec) + ' ' + cfg.short }, svg);
+      function pick() {
+        dots.forEach(function (d) { d.setAttribute('class', 'pt'); d.setAttribute('r', 6); });
+        dot.setAttribute('class', 'pt on'); dot.setAttribute('r', 9);
+        $(c.readoutId).textContent = '📍 t = ' + p[0] + ' min → ' + cfg.short + ' = ' + fmt(p[1], cfg.vdec) + ' ' + cfg.vunit;
+      }
+      h.addEventListener('click', pick);
+      h.addEventListener('mouseenter', pick);
+      h.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+    });
+    box.appendChild(svg);
+  }
+  function drawAll() { CHARTS.forEach(drawChart); }
+  var rT; window.addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(drawAll, 150); });
+  var D1 = [[0,8.0],[2,8.3],[4,8.6],[6,8.9],[8,9.2],[10,9.5],[12,9.42],[14,9.34],[16,9.26],[18,9.18],[20,9.1]];
+  var D2o = [[0,8.0],[1,8.0],[2,8.0],[3,7.7],[4,7.4],[5,7.1],[6,6.8],[7,6.5],[8,6.2]];
+  var D2c = [[0,1.0],[1,1.0],[2,1.0],[3,1.23],[4,1.47],[5,1.7],[6,1.93],[7,2.17],[8,2.4]];
+  chart('chart1', 'readout1', { label: 'Courbe de l\'O₂ dissous : monte de 8,0 à 9,5 mg/L à la lumière, puis descend à 9,1 mg/L à l\'obscurité',
+    pts: D1, x0: 0, x1: 20, xstep: 2, y0: 7.5, y1: 10, ystep: 0.5, ydec: 1, vdec: 2, unit: 'O₂ (mg/L)', short: 'O₂', vunit: 'mg/L',
+    bands: [{ from: 0, to: 10, cls: 'band-light', text: '☀ LUMIÈRE', short: '☀ LUMIÈRE' }, { from: 10, to: 20, cls: 'band-dark', text: '☾ OBSCURITÉ', short: '☾ NUIT' }] });
+  chart('chart1b', 'readout1b', { label: 'Rappel du document 1 : l\'O₂ monte de 8,0 à 9,5 mg/L à la lumière, puis descend à 9,1 mg/L à l\'obscurité',
+    pts: D1, x0: 0, x1: 20, xstep: 2, y0: 7.5, y1: 10, ystep: 0.5, ydec: 1, vdec: 2, unit: 'O₂ (mg/L)', short: 'O₂', vunit: 'mg/L',
+    bands: [{ from: 0, to: 10, cls: 'band-light', text: '☀ LUMIÈRE', short: '☀ LUMIÈRE' }, { from: 10, to: 20, cls: 'band-dark', text: '☾ OBSCURITÉ', short: '☾ NUIT' }] });
+  chart('chart2a', 'readout2a', { label: 'Courbe de l\'O₂ : stable à 8,0 mg/L jusqu\'à 2 min, puis descend jusqu\'à 6,2 mg/L à 8 min',
+    pts: D2o, x0: 0, x1: 8, xstep: 1, y0: 6, y1: 8.5, ystep: 0.5, ydec: 1, vdec: 1, unit: 'O₂ (mg/L)', short: 'O₂', vunit: 'mg/L',
+    events: [{ t: 2, text: '+ glucose' }] });
+  chart('chart2b', 'readout2b', { label: 'Courbe du CO₂ : stable à 1,0 jusqu\'à 2 min, puis monte jusqu\'à 2,4 à 8 min',
+    pts: D2c, x0: 0, x1: 8, xstep: 1, y0: 0.5, y1: 2.5, ystep: 0.5, ydec: 1, vdec: 2, unit: 'CO₂ (u. rel.)', short: 'CO₂', vunit: '(unités relatives)',
+    events: [{ t: 2, text: '+ glucose' }] });
+  function table(id, head, rows) {
+    var h = '<thead><tr>' + head.map(function (x) { return '<th>' + x + '</th>'; }).join('') + '</tr></thead><tbody>';
+    rows.forEach(function (r) { h += '<tr>' + r.map(function (x) { return '<td>' + x + '</td>'; }).join('') + '</tr>'; });
+    $(id).innerHTML = h + '</tbody>';
+  }
+  table('table1', ['Temps (min)'].concat(D1.filter(function (p) { return [0, 4, 10, 14, 20].indexOf(p[0]) !== -1; }).map(function (p) { return p[0]; })),
+    [['O₂ (mg/L)'].concat(D1.filter(function (p) { return [0, 4, 10, 14, 20].indexOf(p[0]) !== -1; }).map(function (p) { return fmt(p[1], 2); }))]);
+  table('table1b', ['Temps (min)'].concat(D1.filter(function (p) { return [0, 4, 10, 14, 20].indexOf(p[0]) !== -1; }).map(function (p) { return p[0]; })),
+    [['O₂ (mg/L)'].concat(D1.filter(function (p) { return [0, 4, 10, 14, 20].indexOf(p[0]) !== -1; }).map(function (p) { return fmt(p[1], 2); }))]);
+  table('table2', ['Temps (min)', '0', '2', '4', '6', '8'],
+    [['O₂ (mg/L)', '8,0', '8,0', '7,4', '6,8', '6,2'], ['CO₂ (u. rel.)', '1,0', '1,0', '1,47', '1,93', '2,4']]);
+
+  /* ---------- Exercices ---------- */
+  var NB_EX = 6, MAX = {};
+  for (var k = 1; k <= NB_EX; k++) MAX[k] = $('ex' + k).querySelectorAll('[data-answer]').length;
+  var NOTIONS = [
+    { label: 'Autotrophe / hétérotrophe', ex: [1],
+      conseil: 'Autotrophe = fabrique son glucose (cellule verte à la lumière). Hétérotrophe = prélève du glucose. Pense à la racine : elle est hétérotrophe !' },
+    { label: 'Substrats et produits', ex: [2],
+      conseil: 'Phrase-test : la cellule le PREND = substrat ; elle le REJETTE = produit. Les bilans de la photosynthèse et de la respiration sont en miroir.' },
+    { label: 'Lire une courbe ExAO et calculer une vitesse', ex: [3, 4],
+      conseil: 'Vitesse = (valeur finale − valeur de départ) ÷ durée, en mg/L/min. Courbe qui descend = vitesse négative = la molécule est consommée.' },
+    { label: 'Photosynthèse, respiration et organites', ex: [5, 6],
+      conseil: 'Une plante respire jour et nuit (mitochondries). La photosynthèse (chloroplastes) n\'a lieu qu\'à la lumière et masque la respiration.' }
+  ];
+  var HINTS = {
+    1: ['Une cellule verte à la lumière fabrique son propre glucose.',
+        'La racine est sous la terre, dans le noir : peut-elle faire la photosynthèse ?',
+        'Les levures et tes muscles « mangent » du glucose venu d\'ailleurs.'],
+    2: ['Ce qui est à GAUCHE de la flèche est consommé (substrat).',
+        'Ce qui est à DROITE de la flèche est fabriqué (produit).',
+        'Respiration : glucose + O₂ → CO₂ + eau.'],
+    3: ['a) Lis la valeur à 0 min et à 10 min dans le tableau.',
+        'a) (9,5 − 8,0) ÷ 10. b) (9,1 − 9,5) ÷ 10 : le résultat est négatif.',
+        'c) Sans lumière, quel métabolisme peut encore avoir lieu ?'],
+    4: ['a) Regarde la courbe de l\'O₂ entre 0 et 2 min.',
+        'b) (6,2 − 8,0) ÷ 6. N\'oublie pas le signe −.',
+        'c) Une courbe qui descend = la molécule est consommée. Le glucose ajouté est aussi consommé.'],
+    5: ['Une cellule de feuille possède des chloroplastes ET des mitochondries.',
+        'La respiration ne s\'arrête jamais : une cellule qui ne respire plus meurt.',
+        'Les cellules musculaires n\'ont pas de chlorophylle.'],
+    6: ['a) Regarde la vitesse à l\'obscurité : seule la respiration agit.',
+        'b) Ce qu\'on mesure à la lumière = ce que la photosynthèse produit − ce que la respiration consomme.',
+        'b) 0,15 = photosynthèse − 0,04. Donc photosynthèse = ?']
+  };
+  var scores = {}, hintsUsed = {};
+
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
+  var cur = 0;
+  function show(i) {
+    if (i < 0 || i >= screens.length) return;
+    screens[cur].hidden = true; cur = i;
+    var s = screens[cur]; s.hidden = false;
+    var n = s.getAttribute('data-n');
+    if (n) { $('progressText').textContent = 'Exercice ' + n + ' / ' + NB_EX; $('barFill').style.width = (Number(n) / NB_EX * 100) + '%'; }
+    else if (s.id === 's-bilan') { $('progressText').textContent = 'Bilan'; $('barFill').style.width = '100%'; buildBilan(); }
+    else { $('progressText').textContent = 'Accueil'; $('barFill').style.width = '0%'; }
+    drawAll();
+    window.scrollTo(0, 0);
+    var h = s.querySelector('h1, h2');
+    if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    if (b.hasAttribute('data-next')) { show(cur + 1); return; }
+    if (b.hasAttribute('data-prev')) { show(cur - 1); return; }
+    if (b.hasAttribute('data-check')) { check(b.getAttribute('data-check')); return; }
+    if (b.hasAttribute('data-hint')) { giveHint(b.getAttribute('data-hint'), b); return; }
+    if (b.hasAttribute('data-solution')) {
+      var sol = $('sol' + b.getAttribute('data-solution'));
+      sol.hidden = !sol.hidden;
+      b.textContent = sol.hidden ? '📖 Voir la correction' : '📖 Cacher la correction';
+    }
+  });
+  function giveHint(n, btn) {
+    var used = hintsUsed[n] || 0, list = HINTS[n];
+    if (used >= list.length) return;
+    var p = document.createElement('p'); p.className = 'box warn';
+    p.innerHTML = '<span class="box-label">💡 Indice ' + (used + 1) + ' / ' + list.length + '</span>';
+    p.appendChild(document.createTextNode(list[used]));
+    $('hints' + n).appendChild(p);
+    hintsUsed[n] = used + 1;
+    if (hintsUsed[n] >= list.length) { btn.disabled = true; btn.textContent = '💡 Plus d\'indice'; }
+  }
+  function setMark(span, ok) { if (!span) return; span.className = 'mark ' + (ok ? 'ok' : 'ko'); span.textContent = ok ? '✓ Juste' : '✗ Faux'; }
+  function parseNum(v) { v = String(v || '').trim().replace(/\s/g, '').replace(',', '.').replace('−', '-').replace('–', '-'); return v === '' ? NaN : Number(v); }
+  function same(a, b) { return Math.abs(a - b) <= 1e-9 + Math.abs(b) * 1e-6; }
+  function markAfter(el) { var n = el.nextElementSibling; while (n && !(n.classList && n.classList.contains('mark'))) n = n.nextElementSibling; return n; }
+  function check(n) {
+    var els = $('ex' + n).querySelectorAll('[data-answer]'), complete = true, pts = 0;
+    Array.prototype.forEach.call(els, function (el) { if (String(el.value).trim() === '') complete = false; });
+    var fb = $('fb' + n);
+    if (!complete) { fb.className = 'box warn'; fb.innerHTML = '<span class="box-label">⚠️ Attention</span>Réponds à toutes les questions avant de vérifier.'; return; }
+    Array.prototype.forEach.call(els, function (el) {
+      var ans = el.getAttribute('data-answer'), ok;
+      if (el.tagName === 'SELECT') ok = el.value === ans;
+      else { var v = parseNum(el.value); ok = !isNaN(v) && same(v, Number(ans)); }
+      if (ok) pts++;
+      setMark(markAfter(el), ok);
+    });
+    var first = !(n in scores); if (first) scores[n] = pts;
+    var max = MAX[n], html;
+    if (pts === max) { fb.className = 'box ok'; html = '<span class="box-label">✓ Bravo !</span>Tout est juste : ' + pts + ' / ' + max + '.'; }
+    else { fb.className = 'box ko'; html = '<span class="box-label">✗ Pas encore</span>' + pts + ' / ' + max + ' juste(s). Corrige les réponses marquées ✗ et vérifie à nouveau, ou demande un indice 💡.'; }
+    if (!first) html += '<br>Score enregistré (premier essai) : ' + scores[n] + ' / ' + max + '.';
+    fb.innerHTML = html;
+    var sb = document.querySelector('[data-solution="' + n + '"]'); if (sb) sb.hidden = false;
+  }
+
+  var bilanText = '';
+  function status(p) { return p >= 75 ? '✓ Acquis' : (p >= 50 ? '≈ En cours' : '✗ À revoir'); }
+  function buildBilan() {
+    var total = 0, totalMax = 0, done = 0, hints = 0, k;
+    for (k = 1; k <= NB_EX; k++) { totalMax += MAX[k]; if (k in scores) { total += scores[k]; done++; } hints += hintsUsed[k] || 0; }
+    var pct = Math.round(total / totalMax * 100), rows = [], weak = [], lines = [];
+    NOTIONS.forEach(function (no) {
+      var s = 0, m = 0, d = 0;
+      no.ex.forEach(function (e) { m += MAX[e]; if (e in scores) { s += scores[e]; d++; } });
+      var st, p = Math.round(s / m * 100);
+      if (d === 0) { st = '— Non fait'; weak.push({ no: no, p: -1 }); } else { st = status(p); if (p < 75) weak.push({ no: no, p: p }); }
+      rows.push('<tr><td>' + no.label + '</td><td>' + s + ' / ' + m + '</td><td><strong>' + st + '</strong></td></tr>');
+      lines.push('- ' + no.label + ' : ' + s + '/' + m + ' – ' + st);
+    });
+    weak.sort(function (a, b) { return a.p - b.p; });
+    var msg = pct >= 80 ? 'Excellent début de chapitre ! 🌟' : (pct >= 60 ? 'Bon début ! Quelques points à consolider. 💪' : 'Merci pour ton travail ! On reprendra ensemble les points difficiles. 🌱');
+    var conseil = weak.length ? weak[0].no.conseil : 'Refais le schéma autotrophe / hétérotrophe de mémoire avant la prochaine séance.';
+    var aRevoir = weak.length ? weak.map(function (w) { return w.no.label; }).join(' ; ') : 'Aucune 🎉';
+    var html = '<div class="box info"><span class="box-label">ℹ️ Score</span><p class="big">' + total + ' / ' + totalMax + ' (' + pct + ' %)</p>';
+    html += '<p>' + msg + '</p><p>Exercices faits : ' + done + ' / ' + NB_EX + ' · Indices utilisés : ' + hints + '</p></div>';
+    if (done < NB_EX) html += '<div class="box warn"><span class="box-label">⚠️ Attention</span>Il reste des exercices non vérifiés. Tu peux revenir en arrière pour les faire.</div>';
+    html += '<div class="table-wrap"><table><thead><tr><th>Notion</th><th>Score</th><th>État</th></tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
+    html += '<div class="box warn"><span class="box-label">🔁 Notions à revoir</span>' + aRevoir + '</div>';
+    html += '<div class="box rule"><span class="box-label">✅ Mon conseil</span>' + conseil + '</div>';
+    $('bilanContent').innerHTML = html;
+    var name = ($('pname').value || 'Élève').trim();
+    bilanText = 'Bilan – SVT 2nde, chapitre 2 : métabolisme (séance 1)\nÉlève : ' + name +
+      '\nDate : ' + new Date().toLocaleDateString('fr-FR') +
+      '\nScore : ' + total + ' / ' + totalMax + ' (' + pct + ' %)' +
+      '\nExercices faits : ' + done + ' / ' + NB_EX + ' – Indices utilisés : ' + hints +
+      '\nDétail par notion :\n' + lines.join('\n') +
+      '\nNotions à revoir : ' + aRevoir + '\nConseil : ' + conseil;
+    $('waLink').href = 'https://wa.me/?text=' + encodeURIComponent(bilanText);
+    $('gmLink').href = 'https://mail.google.com/mail/?view=cm&fs=1&su=' +
+      encodeURIComponent('Bilan SVT – Métabolisme séance 1 – ' + name) + '&body=' + encodeURIComponent(bilanText);
+    $('bilanRaw').value = bilanText;
+  }
+  $('pname').addEventListener('input', buildBilan);
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta); return ok;
+  }
+  function copyMsg(ok) {
+    $('copyMsg').className = 'mark ' + (ok ? 'ok' : 'ko');
+    $('copyMsg').textContent = ok ? '✓ Bilan copié ! Tu peux le coller dans un message.' : '✗ La copie n\'a pas marché. Sélectionne le texte du bilan plus bas.';
+  }
+  $('copyBtn').addEventListener('click', function () {
+    buildBilan();
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(bilanText).then(function () { copyMsg(true); }, function () { copyMsg(fallbackCopy(bilanText)); });
+    } else copyMsg(fallbackCopy(bilanText));
+  });
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>
