@@ -452,7 +452,15 @@
       },
       {
        "id": "echelles-biodiversite",
-       "titre": "Les échelles de la biodiversité"
+       "titre": "Les échelles de la biodiversité",
+       "activites": [
+        {
+         "fichier": "trois-echelles-biodiversite.html",
+         "tag": "Activité · TP virtuels",
+         "titre": "Espèce, parentés et échelles de la biodiversité",
+         "desc": "Séance d'une heure : croisements de canards (notion d'espèce), groupes emboîtés et arbre de parenté, portraits, exploration d'un lac, d'une forêt et d'un champ."
+        }
+       ]
       },
       {
        "id": "biodiversite-temps",

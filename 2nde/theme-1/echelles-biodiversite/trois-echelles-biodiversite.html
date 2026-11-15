@@ -1,0 +1,1641 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Les échelles de la biodiversité</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
+   Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
+:root{
+  --fs:21px;
+  --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
+  --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
+  --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
+  --ok:#17703d; --ok-soft:#ddf1e4; --bad:#ad2318; --bad-soft:#fbe2de;
+  --info:#1d5bb0; --info-soft:#e1ebf9; --warn:#9c4f05; --warn-soft:#fdead3;
+  --key:#17703d; --key-soft:#ddf1e4; --err:#ad2318; --err-soft:#fbe2de;
+  --easy:#17703d; --mid:#7d5a00; --hard:#ad2318;
+  --c1:#0a6a76; --c2:#c0531a; --c3:#5a48b5; --c4:#2d7a31; --c5:#8a6400; --c6:#6f777c;
+  --grid:#dbe5e7; --shade:rgba(10,106,118,.10);
+  --f-display:"Charter","Iowan Old Style","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0}
+sub,sup{line-height:0;font-size:.72em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html.proj .wrap{max-width:none}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- bandeau ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.band .titles{min-width:0;flex:1 1 20rem}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
+.band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+.tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+
+/* ---------- onglets collants ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.tab .dot{font-size:0.9rem}
+
+main{padding-block:1.2rem 3rem}
+.view{display:grid;gap:1.1rem}
+.lead{color:var(--muted);max-width:44rem}
+.sec-title{font-size:1.45rem}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+
+/* ---------- cartes / panneaux ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.panel h3{font-size:1.15rem}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:.8rem}
+.card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
+.card-btn:hover{border-color:var(--accent)}
+.card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.mid{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- encadrés ---------- */
+.box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
+.box.err{background:var(--err-soft);border-color:var(--err)} .box.err>.lab{color:var(--err)}
+.box ul{margin:0;padding-left:1.2rem;display:grid;gap:.25rem}
+
+/* ---------- boutons ---------- */
+.btn{min-height:48px;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---------- options QCM / choix ---------- */
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
+.opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+
+.field{display:grid;gap:.3rem}
+.field label{font-weight:700;font-size:0.9rem}
+.inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
+.inp.wide{max-width:none}
+textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
+.inp.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.inp.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{color:var(--muted);font-weight:700}
+
+/* ---------- retour d'information ---------- */
+.fb{border-radius:12px;padding:.7rem .9rem;border:1.5px solid;display:grid;gap:.35rem}
+.fb .h{font-weight:800}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.ok .h{color:var(--ok)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)} .fb.bad .h{color:var(--bad)}
+.fb.neutral{background:var(--surface-2);border-color:var(--line)}
+.hints{display:grid;gap:.45rem}
+.hint{background:var(--surface-2);border-radius:10px;padding:.55rem .8rem;border-left:4px solid var(--mid);font-size:.92rem}
+.hint b{color:var(--mid)}
+.corr{background:var(--info-soft);border:1.5px solid var(--info);border-radius:12px;padding:.75rem .95rem;display:grid;gap:.4rem}
+.corr .h{font-weight:800;color:var(--info)}
+
+/* ---------- documents ---------- */
+.doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh .sim{font-weight:700;color:var(--warn)}
+.doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
+.tablewrap{overflow-x:auto;max-width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
+table.t td,table.t th{vertical-align:top}
+table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+table.t th{background:var(--surface-2);font-weight:800}
+table.t td.n{text-align:right}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+
+/* ---------- graphiques ---------- */
+.chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body)}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend svg{flex:none}
+
+/* ---------- niveaux ---------- */
+.lv{display:inline-flex;align-items:center;gap:.35rem;font-weight:800}
+.lv.easy{color:var(--easy)} .lv.mid{color:var(--mid)} .lv.hard{color:var(--hard)}
+
+/* ---------- bilan ---------- */
+.score-big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 1rem) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(16px,env(safe-area-inset-left,0px))}
+.overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
+.overlay h2{font-size:2.2rem}
+.overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
+.toast{font-weight:700;color:var(--ok)}
+
+/* ---------- divers ---------- */
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
+.eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
+.chartbox{display:grid;gap:.45rem;min-width:0}
+/* ---------- exercices : coefficients, ordre, critères ---------- */
+.coefs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:1.05rem}
+.coef{display:inline-flex;align-items:center;gap:.25rem;background:var(--surface-2);border-radius:12px;padding:.25rem}
+.coef button{min-width:48px;min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.coef output{min-width:1.6rem;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.coef .f{padding:0 .4rem;font-weight:700}
+.coef.is-ok{outline:2px solid var(--ok)} .coef.is-bad{outline:2px solid var(--bad)}
+.arrow{font-weight:800;color:var(--muted)}
+.order-list{display:grid;gap:.45rem}
+.order-item{display:flex;gap:.7rem;align-items:center;text-align:left;min-height:52px;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);color:var(--ink);font-size:.95rem}
+.order-item .n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted)}
+.order-item[data-pos]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.order-item[data-pos] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.order-item.is-ok{border-color:var(--ok);background:var(--ok-soft)} .order-item.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:.6rem}
+.rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
+.rowq .rt{font-size:.95rem}
+.pfb{font-size:0.9rem;font-weight:700}
+.pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
+.part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.part:first-child{border-top:0;padding-top:0}
+.part > .pl{font-weight:700}
+.crit{display:grid;gap:.4rem}
+.crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
+.crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.sci .inp{max-width:7rem}
+.sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
+
+/* Identité SVT : bandeau vert foncé ; neutres teintés vert ; bandes « lumière » jaune pâle sur les courbes */
+:root{
+  --bg:#f3f6f2; --surface:#ffffff; --surface-2:#e8f0e7; --ink:#14251a; --muted:#46604d; --line:#c6d6c6;
+  --band:#1b4a2c; --band-ink:#eef7f0; --band-muted:#b3d3bc; --band-line:#3b6c4a;
+  --accent:#21703a; --accent-ink:#ffffff; --accent-soft:#d9eedf;
+  --shade:rgba(232,176,20,.20); --day:#fbe6a2; --day-ink:#3a2b00; --night:#1c2b21; --night-ink:#e7f1ea;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}
+
+/* ---------- 5e EIST · Vitesses et mouvements ---------- */
+:root{--trk:#dfe9ea;--dot:#11282e;--rov:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}}
+:root[data-theme="dark"]{--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+.gap{display:inline-block;min-width:4.5rem;border-bottom:3px dotted var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.recop{border:2px solid var(--key);border-radius:14px;background:var(--key-soft);padding:1rem 1.1rem;display:grid;gap:.6rem}
+.recop .lab{font-size:.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--key)}
+.recop p{font-size:1.05rem;line-height:1.6}
+.recop u{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800}
+h4{font-size:1rem}
+.match{display:grid;gap:.45rem}
+.mrow{display:flex;gap:.6rem;align-items:center;text-align:left;min-height:54px;padding:.45rem .7rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;width:100%}
+.mrow[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.mrow .me{font-size:1.5rem;flex:none;width:2rem;text-align:center}
+.mrow .mn{flex:1 1 auto;min-width:0}
+.mrow .mv{flex:none;min-width:5.2rem;text-align:center;border-radius:10px;padding:.25rem .5rem;border:2px dashed var(--muted);color:var(--muted);font-weight:800;font-variant-numeric:tabular-nums}
+.mrow .mv.has{border-style:solid;border-color:var(--accent);color:var(--ink);background:var(--surface)}
+.mrow.is-ok{border-color:var(--ok);background:var(--ok-soft)} .mrow.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.mrow .tag{flex:none;font-weight:800;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chipb{min-height:48px;padding:0 .9rem;border-radius:999px;border:2px solid var(--accent);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tabs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.7rem}
+.tabs3 > div{display:grid;gap:.3rem}
+.tabs3 .tn{font-weight:800}
+.gauge{height:1.2rem;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1.5px solid var(--line)}
+.gauge i{display:block;height:100%;background:var(--rov);transition:width .15s linear}
+.pilot{display:flex;flex-wrap:wrap;gap:.5rem}
+.pilot .btn{min-width:8.5rem}
+
+/* ---------- 2nde SVT · Les échelles de la biodiversité ---------- */
+:root{--sea:#2d6fb6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sea:#5a9ee0}}
+:root[data-theme="dark"]{--sea:#5a9ee0}
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.lab3{font-weight:800;font-size:.9rem}
+.pilot .btn{min-height:52px;min-width:0}
+.doc > .db > *{min-width:0}
+.res{display:grid;gap:.35rem}
+.res .tablewrap{max-width:100%}
+.res table.t td.n,.corr table.t td.n,.panel table.t td.n{text-align:left}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+/* groupes emboîtés à explorer */
+.emb{min-width:0}
+.nb{border:2px solid var(--accent);border-radius:12px;padding:.35rem;display:grid;gap:.35rem;background:var(--surface);min-width:0}
+.nb.o{background:var(--surface-2)}
+.nb.on{box-shadow:0 0 0 3px var(--warn)}
+.nbh{min-height:48px;display:flex;align-items:center;gap:.4rem;padding:0 .5rem;border:0;border-radius:8px;background:transparent;color:var(--accent);font-weight:800;font-size:.95rem;text-align:left;width:fit-content;max-width:100%}
+.nbh::before{content:"▸";font-weight:800}
+.nbh[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.nbs{display:flex;flex-wrap:wrap;gap:.35rem}
+.sp{min-height:48px;padding:.2rem .8rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:.9rem}
+.sp[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.win{min-height:5.2rem}
+.chipb[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+/* portraits */
+.pfs{display:grid;gap:.55rem}
+.pf{display:grid;gap:.25rem}
+/* écosystèmes */
+.sensors{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.5rem}
+.sens{display:grid;gap:.2rem;border:1.5px solid var(--line);border-radius:12px;padding:.5rem .7rem;background:var(--surface)}
+.sens .sn{font-size:.9rem;font-weight:700;color:var(--muted)}
+.sens .sv{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.gauge i{background:var(--accent);transition:none}
+.scene svg{border-radius:12px;border:1.5px solid var(--line);touch-action:manipulation}
+.ecosp{cursor:pointer;outline:none}
+.ecosp .hit{fill:transparent}
+.ecosp:focus-visible .hit{stroke:#fff;stroke-width:4;fill:rgba(255,255,255,.25)}
+.sim{font-weight:700;color:var(--warn)}
+
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">2nde SVT · Thème 1 · Chapitre 3 · Biodiversité actuelle et passée</p><h1>Espèce, parentés et échelles de la biodiversité</h1><p class="sub">Croise des canards, convertis des groupes emboîtés en arbre de parenté, puis explore un lac, une forêt et un champ.</p></div>
+<div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
+<main class="wrap" id="main"><p>Chargement…</p></main>
+<footer class="wrap foot">Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les données simulées sont signalées par ⚠. Lycée Français Vauban · SVT 2nde.</footer>
+<noscript><p class="wrap">Cette application a besoin de JavaScript : ouvre le lien dans Safari (pas dans l'aperçu de Teams ou de Fichiers).</p></noscript>
+<script>
+/* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
+"use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
+
+/* ---------- stockage de confort (l'app marche sans) ---------- */
+const Store = {
+  key: "es-th1",
+  load(def) { let o = {}; try { o = JSON.parse(localStorage.getItem(this.key) || "{}") || {}; } catch (e) { o = {}; } return Object.assign({}, def, o); },
+  save(obj) { try { localStorage.setItem(this.key, JSON.stringify(obj)); } catch (e) {} }
+};
+
+/* ---------- nombres à la française ---------- */
+const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+const supStr = s => String(s).split("").map(c => SUP[c] || c).join("");
+function fmt(x, dec) {
+  if (x === null || x === undefined || Number.isNaN(x)) return "—";
+  let s = dec === undefined ? String(Math.round(x * 1e6) / 1e6) : Number(x).toFixed(dec);
+  let neg = s.startsWith("-"); if (neg) s = s.slice(1);
+  let [i, d] = s.split(".");
+  i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
+}
+function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
+  if (p === 0) return "0";
+  const e = Math.floor(Math.log10(Math.abs(p))); const m = p / Math.pow(10, e);
+  const mr = Math.round(m * 100) / 100;
+  if (e >= -1 && e <= 3) return fmt(p, p < 10 ? 2 : 0);
+  return (mr === 1 ? "" : fmt(mr) + " × ") + "10" + supStr(e);
+}
+/* lit « 1 020 », « 1,02e5 », « 1,02 × 10^5 », « 1,02x10⁵ », « 10⁵ », « −3 », « +12,4 °C » */
+function parseNum(str) {
+  if (str === null || str === undefined) return NaN;
+  let s = String(str).trim();
+  const SUPR = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-" };
+  s = s.replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m, g) => "10^" + g.split("").map(c => SUPR[c]).join(""));
+  s = s.replace(/[−–]/g, "-").replace(/[\s  ]/g, "").replace(/,/g, ".");
+  s = s.replace(/(°c|°|pa|hpa|bar|mbar|atm|mmhg|cm|mm|m|ans?|%|points?|pts?|\/an|°c\/siècle|°c\/an)+$/i, "");
+  let m = s.match(/^([+-]?\d*\.?\d+)(?:[x×*·]10\^?\(?([+-]?\d+)\)?)$/i);
+  if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+  m = s.match(/^([+-]?)10\^\(?([+-]?\d+)\)?$/);
+  if (m) return (m[1] === "-" ? -1 : 1) * Math.pow(10, parseInt(m[2], 10));
+  if (/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)) return parseFloat(s);
+  return NaN;
+}
+const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+
+/* ---------- affichage : taille, thème, projection ---------- */
+const Display = {
+  S: null, onChange: null,
+  init(S, save) {
+    this.S = S; this.save = save; this.apply();
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
+    $("#themeBtn").onclick = () => {
+      const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; this.apply(); save();
+    };
+    $("#projBtn").onclick = () => { S.proj = !S.proj; this.apply(); save(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => this.apply());
+  },
+  apply() {
+    const S = this.S, r = document.documentElement;
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
+    r.classList.toggle("proj", !!S.proj);
+    const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
+    const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
+    Charts.redrawAll();
+    if (this.onChange) this.onChange();
+  }
+};
+
+/* bouton à confirmation en deux temps (pas de confirm()) */
+function armButton(btn, label, confirmLabel, action) {
+  let t = null;
+  btn.onclick = () => {
+    if (!t) { btn.textContent = confirmLabel; btn.classList.add("warn"); t = setTimeout(() => { btn.textContent = label; btn.classList.remove("warn"); t = null; }, 4000); return; }
+    clearTimeout(t); t = null; btn.textContent = label; btn.classList.remove("warn"); action();
+  };
+}
+
+/* ======================= GRAPHIQUES (SVG redessiné à la largeur réelle) ======================= */
+const Charts = {
+  list: new Set(),
+  redrawAll() { this.list.forEach(c => { if (!document.body.contains(c.host)) this.list.delete(c); else c.draw(); }); }
+};
+let _rsT = null;
+window.addEventListener("resize", () => { clearTimeout(_rsT); _rsT = setTimeout(() => Charts.redrawAll(), 120); });
+
+const PAT = ["none", "dots", "diag", "cross", "horiz", "vert"];
+function patternOne(pid, color, p) {
+  let inner = "";
+  if (p === "dots") inner = `<circle cx="3" cy="3" r="1.3" style="fill:var(--surface)"/>`;
+  if (p === "diag") inner = `<path d="M-1,7 L7,-1" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "cross") inner = `<path d="M-1,7 L7,-1 M-1,-1 L7,7" style="stroke:var(--surface);stroke-width:1.1"/>`;
+  if (p === "horiz") inner = `<path d="M0,3 H6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "vert") inner = `<path d="M3,0 V6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  return `<pattern id="${pid}" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--${color})"/>${inner}</pattern>`;
+}
+function patDefs(id, colors) { return colors.map((c, i) => patternOne(`${id}-p${i}`, c, PAT[i % PAT.length])).join(""); }
+const DASH = i => (i % 4 === 1 ? "7 4" : i % 4 === 2 ? "2 4" : i % 4 === 3 ? "11 4 2 4" : "");
+function swatch(color, i, kind) {
+  if (kind === "line") return `<svg width="34" height="12" aria-hidden="true"><path d="M2 6 H32" style="stroke:var(--${color});stroke-width:3.2;fill:none;stroke-linecap:round" stroke-dasharray="${DASH(i)}"/></svg>`;
+  const pid = "sw" + Math.random().toString(36).slice(2, 8); const p = PAT[i % PAT.length];
+  const fill = p === "none" ? `var(--${color})` : `url(#${pid})`;
+  return `<svg width="20" height="20" aria-hidden="true">${p === "none" ? "" : `<defs>${patternOne(pid, color, p)}</defs>`}<rect x="1" y="1" width="18" height="18" rx="3" style="fill:${fill};stroke:var(--ink);stroke-width:.7"/></svg>`;
+}
+
+/* phase de l'eau */
+const PSAT = [[0.01, 611.657], [10, 1228], [20, 2339], [30, 4247], [40, 7385], [50, 12352], [60, 19946], [70, 31201], [80, 47414], [90, 70182], [100, 101418], [120, 198670], [140, 361540], [160, 618230], [180, 1002800], [200, 1554900], [220, 2319600], [240, 3346900], [260, 4692300], [280, 6416600], [300, 8587900], [320, 11284000], [340, 14594000], [360, 18666000], [374, 22064000]];
+const Water = {
+  Tt: 0.01, Pt: 611.657, Tc: 374, Pc: 2.2064e7,
+  psat(T) { if (T <= 0.01) return this.Pt; if (T >= 374) return this.Pc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (T <= t1) { const f = (T - t0) / (t1 - t0); return Math.pow(10, Math.log10(p0) + f * (Math.log10(p1) - Math.log10(p0))); } } return this.Pc; },
+  tsat(P) { if (P <= this.Pt) return this.Tt; if (P >= this.Pc) return this.Tc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (P <= p1) { const f = (Math.log10(P) - Math.log10(p0)) / (Math.log10(p1) - Math.log10(p0)); return t0 + f * (t1 - t0); } } return this.Tc; },
+  psub(T) { const K = T + 273.15; return Math.exp(9.550426 - 5723.265 / K + 3.53068 * Math.log(K) - 0.00728332 * K); },
+  tmelt(P) { return 0.01 - 7.4e-8 * (P - this.Pt); },
+  state(T, P) {
+    if (P >= this.Pc && T >= this.Tc) return "fluide supercritique";
+    if (P > this.Pt && T < this.tmelt(P)) return "solide (glace)";
+    if (P <= this.Pt && T < 0.01) return P > this.psub(T) ? "solide (glace)" : "gaz (vapeur)";
+    if (T >= this.Tc) return "gaz (vapeur)";
+    return P > this.psat(T) ? "liquide" : "gaz (vapeur)";
+  }
+};
+
+function mountChart(container, spec) {
+  container.innerHTML = "";
+  const id = "ch" + Math.random().toString(36).slice(2, 8);
+  const host = document.createElement("div"); host.className = "chart"; host.tabIndex = 0;
+  host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
+  const legend = document.createElement("div"); legend.className = "legend";
+  const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
+  readout.innerHTML = spec.readHint || CT.readHint;
+  container.append(host);
+  if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
+  container.append(readout);
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
+
+  const ch = { host, spec, sel: null, draw: null };
+  const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+
+  if (spec.type !== "phase" && legend.isConnected) {
+    const names = spec.type === "stack" ? spec.parts : spec.series.map(s => s.name);
+    const colors = spec.type === "stack" ? spec.colors : spec.series.map(s => s.color);
+    if (names.length > 1 || spec.type === "stack") legend.innerHTML = names.map((n, i) => `<span>${swatch(colors[i], i, spec.type === "line" ? "line" : "fill")}${esc(n)}</span>`).join("");
+    else legend.remove();
+  }
+
+  function axisText(x, y, txt, anchor, size, extra) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="fill:var(--ink);font-size:${size}px" ${extra || ""}>${esc(txt)}</text>`; }
+
+  ch.draw = function () {
+    const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
+    const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
+    let svg = "";
+    if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
+    else if (spec.type === "line") svg = drawLine(W, H, F, tk, tt);
+    else if (spec.type === "stack") svg = drawStack(W, F, tk, tt);
+    else if (spec.type === "phase") svg = drawPhase(W, H, F, tk, tt);
+    host.innerHTML = svg;
+  };
+
+  /* --- barres groupées --- */
+  let geo = {};
+  function drawBar(W, H, F, tk, tt) {
+    const S = spec.series, cats = spec.categories;
+    const L = F * 3.3, R = F * 0.8, T = F * 0.9, B = F * 3.2 + (spec.rotate ? F * 1.2 : 0);
+    const pw = W - L - R, ph = H - T - B;
+    const yMax = spec.yMax, yStep = spec.yStep;
+    const y = v => T + ph - (v / yMax) * ph;
+    let g = "";
+    for (let v = 0; v <= yMax + 1e-9; v += yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/>` + axisText(L - 6, y(v) + tk * 0.35, fmt(v), "end", tk); }
+    const gw = pw / cats.length, bw = Math.min(gw * 0.7 / S.length, F * 3.2);
+    geo = { bars: [] };
+    cats.forEach((c, ci) => {
+      const gx = L + gw * ci + (gw - bw * S.length) / 2;
+      S.forEach((s, si) => {
+        const v = s.values[ci]; const x = gx + bw * si; const yy = y(Math.max(v, 0));
+        const sel = ch.sel && ch.sel[0] === ci && ch.sel[1] === si;
+        g += `<rect x="${x + 1}" y="${yy}" width="${bw - 2}" height="${Math.max(T + ph - yy, 0)}" rx="3" style="fill:var(--${s.color});${sel ? "stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v);
+        if (spec.showValues !== false) g += axisText(x + bw / 2, yy - 5, lbl, "middle", tk, `font-weight="700"`);
+        geo.bars.push({ ci, si, x, w: bw });
+      });
+      const cx = L + gw * ci + gw / 2;
+      if (spec.rotate) g += `<text transform="translate(${cx},${T + ph + 8}) rotate(35)" style="fill:var(--ink);font-size:${tk}px">${esc(c)}</text>`;
+      else g += axisText(cx, T + ph + tk * 1.35, c, "middle", tk, `font-weight="700"`);
+    });
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- courbes --- */
+  function drawLine(W, H, F, tk, tt) {
+    const S = spec.series;
+    const L = F * 3.6, R = F * 1.1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const { xMin, xMax, yMin, yMax } = spec;
+    const X = v => L + (v - xMin) / (xMax - xMin) * pw, Y = v => T + ph - (v - yMin) / (yMax - yMin) * ph;
+    let g = "";
+    (spec.bands || []).forEach(b => { g += `<rect x="${X(b.x0)}" y="${T}" width="${X(b.x1) - X(b.x0)}" height="${ph}" style="fill:var(--shade)"/>` + (b.label ? axisText((X(b.x0) + X(b.x1)) / 2, T + tk * 1.1, b.label, "middle", tk * 0.92, `font-weight="700"`) : ""); });
+    const maxXt = Math.max(2, Math.floor(pw / (F * (spec.xTickW || 3.6))));
+    let xs = spec.xStep; while ((xMax - xMin) / xs > maxXt) xs *= 2;
+    for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
+    for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
+    (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
+    S.forEach((s, si) => {
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
+    });
+    if (ch.sel !== null) {
+      const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
+      S.forEach(s => { const p = s.pts.find(q => q[0] === xv); if (p) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--${s.color});stroke-width:3"/>`; });
+    }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    geo = { L, pw, X, xMin, xMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- barres empilées horizontales (cumul à 100 %) --- */
+  function drawStack(W, F, tk, tt) {
+    const rows = spec.rows, P = spec.parts;
+    const L = F * (spec.labelW || 5.6), R = F * 0.9, T = F * 0.5, rowH = F * 2.3, gap = F * 0.9, B = F * 3.1;
+    const pw = W - L - R; const H = T + rows.length * (rowH + gap) - gap + B;
+    const X = v => L + v / 100 * pw;
+    let g = `<defs>${patDefs(id, spec.colors)}</defs>`;
+    for (let v = 0; v <= 100; v += 20) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + rows.length * (rowH + gap) - gap}" style="stroke:var(--grid)"/>` + axisText(X(v), T + rows.length * (rowH + gap) - gap + tk * 1.35, fmt(v), "middle", tk);
+    geo = { segs: [] };
+    rows.forEach((r, ri) => {
+      const y0 = T + ri * (rowH + gap); let acc = 0;
+      g += axisText(L - 8, y0 + rowH / 2 - (r.sub ? tk * 0.2 : -tk * 0.35), r.label, "end", tk, `font-weight="700"`);
+      if (r.sub) g += axisText(L - 8, y0 + rowH / 2 + tk * 0.95, r.sub, "end", tk * 0.88);
+      r.values.forEach((v, pi) => {
+        if (v <= 0) return;
+        const x = X(acc), w = X(acc + v) - X(acc);
+        const sel = ch.sel && ch.sel[0] === ri && ch.sel[1] === pi;
+        const fill = PAT[pi % PAT.length] === "none" ? `var(--${spec.colors[pi]})` : `url(#${id}-p${pi})`;
+        g += `<rect x="${x}" y="${y0}" width="${w}" height="${rowH}" style="fill:${fill};stroke:var(--surface);stroke-width:1.5${sel ? ";stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = fmt(v) + " %";
+        if (w > tk * 3.4) g += `<rect x="${x + w / 2 - tk * 1.55}" y="${y0 + rowH / 2 - tk * 0.75}" width="${tk * 3.1}" height="${tk * 1.5}" rx="4" style="fill:var(--surface);opacity:.92"/>` + axisText(x + w / 2, y0 + rowH / 2 + tk * 0.36, lbl, "middle", tk * 0.92, `font-weight="800"`);
+        geo.segs.push({ ri, pi, x, w, y0, h: rowH });
+        acc += v;
+      });
+    });
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "Proportion (%)", "middle", tt, `font-weight="700"`);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- diagramme d'état de l'eau (pression en échelle logarithmique) --- */
+  function drawPhase(W, H, F, tk, tt) {
+    const L = F * 3.6, R = F * 1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const tMin = spec.tMin ?? -150, tMax = spec.tMax ?? 500, lpMin = spec.lpMin ?? 1, lpMax = spec.lpMax ?? 8;
+    const X = t => L + (t - tMin) / (tMax - tMin) * pw;
+    const Y = p => T + ph - (Math.log10(p) - lpMin) / (lpMax - lpMin) * ph;
+    const clipY = y => Math.min(Math.max(y, T), T + ph);
+    let g = `<defs><clipPath id="${id}-c"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+    // zones colorées
+    let sub = "", sat = "";
+    for (let t = tMin; t <= 0.01; t += 2) sub += (sub ? "L" : "M") + X(t).toFixed(1) + "," + Y(Math.max(Water.psub(t), Math.pow(10, lpMin - 3))).toFixed(1) + " ";
+    sub += "L" + X(0.01) + "," + Y(Water.Pt);
+    for (let t = 0.01; t <= 374; t += 2) sat += (sat ? "L" : "M") + X(t).toFixed(1) + "," + Y(Water.psat(t)).toFixed(1) + " ";
+    sat += "L" + X(374) + "," + Y(Water.Pc);
+    const Ptop = Math.pow(10, lpMax);
+    const meltTop = X(Water.tmelt(Ptop));
+    g += `<g clip-path="url(#${id}-c)">`;
+    g += `<path d="${sub.replace("M", "M" + X(tMin) + "," + Y(Ptop) + " L")} L${meltTop},${Y(Ptop)} Z" style="fill:var(--info-soft)"/>`;
+    g += `<path d="M${X(0.01)},${Y(Water.Pt)} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${meltTop},${Y(Ptop)} Z" style="fill:var(--ok-soft)"/>`;
+    g += `<path d="${sub} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${X(tMax)},${Y(Ptop)} L${X(tMax)},${T + ph + 50} L${X(tMin)},${T + ph + 50} Z" style="fill:var(--warn-soft)"/>`;
+    g += `</g>`;
+    for (let e = lpMin; e <= lpMax; e++) g += `<line x1="${L}" x2="${L + pw}" y1="${Y(Math.pow(10, e))}" y2="${Y(Math.pow(10, e))}" style="stroke:var(--grid)"/>` + axisText(L - 6, Y(Math.pow(10, e)) + tk * 0.35, "10" + supStr(e), "end", tk);
+    let step = [10, 20, 50, 100, 200, 500].find(s => (tMax - tMin) / s <= pw / (F * 2.6)) || 500;
+    for (let t = Math.ceil(tMin / step) * step; t <= tMax; t += step) g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(t), T + ph + tk * 1.35, fmt(t), "middle", tk);
+    g += `<g clip-path="url(#${id}-c)"><path d="${sub}" style="fill:none;stroke:var(--info);stroke-width:2.5"/><path d="${sat}" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><line x1="${X(0.01)}" y1="${Y(Water.Pt)}" x2="${meltTop}" y2="${Y(Ptop)}" style="stroke:var(--info);stroke-width:2.5"/></g>`;
+    g += `<circle cx="${X(0.01)}" cy="${Y(Water.Pt)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(0.01) + F * 0.35, Y(Water.Pt) + tk * 1.25, "point triple", "start", tk * 0.88, `font-weight="700"`);
+    if (Water.Pc <= Ptop) g += `<circle cx="${X(374)}" cy="${Y(Water.Pc)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(374), Y(Water.Pc) - F * 0.45, "point critique", "middle", tk * 0.88, `font-weight="700"`);
+    g += axisText(X(tMin) + F * 0.6, T + F * 1.4, "SOLIDE", "start", tt, `font-weight="800" letter-spacing=".08em"`);
+    const pl = Math.pow(10, lpMax - 0.5), tl = Math.min(Water.tsat(pl), tMax) / 2;
+    g += axisText(X(tl), Y(pl) + F * 0.4, "LIQUIDE", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    g += axisText(X(tMin + 0.86 * (tMax - tMin)), Y(Math.pow(10, lpMin + 0.35)), "GAZ", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    (spec.segments || []).forEach(s => {
+      const y = Y(s.P); g += `<line x1="${X(s.t0)}" x2="${X(s.t1)}" y1="${y}" y2="${y}" style="stroke:var(--${s.color || "c3"});stroke-width:${F * 0.32};stroke-linecap:round;opacity:.9"/>` + axisText(X(s.t0), y - F * 0.5, s.label, "start", tk, `font-weight="800"`);
+    });
+    (spec.points || []).forEach(p => { g += `<circle cx="${X(p.T)}" cy="${Y(p.P)}" r="${F * 0.3}" style="fill:var(--${p.color || "c3"});stroke:var(--surface);stroke-width:2"/>` + axisText(X(p.T) + F * 0.45, Y(p.P) - F * 0.35, p.label, "start", tk, `font-weight="800"`); });
+    if (ch.sel) { const [t, p] = ch.sel; g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><line x1="${L}" x2="${L + pw}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><circle cx="${X(t)}" cy="${Y(p)}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`; }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, "Température (°C)", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">Pression (Pa, échelle logarithmique)</text>`;
+    geo = { L, T, pw, ph, tMin, tMax, lpMin, lpMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- lecture au toucher --- */
+  function pick(evt) {
+    const svg = host.querySelector("svg"); if (!svg) return;
+    const r = svg.getBoundingClientRect(); const sx = (evt.clientX - r.left) * (svg.viewBox.baseVal.width / r.width); const sy = (evt.clientY - r.top) * (svg.viewBox.baseVal.height / r.height);
+    if (spec.type === "bar") { let best = null, bd = 1e9; geo.bars.forEach(b => { const d = Math.abs(sx - (b.x + b.w / 2)); if (d < bd) { bd = d; best = b; } }); if (best) setSel([best.ci, best.si]); }
+    else if (spec.type === "line") { const xv = geo.xMin + (sx - geo.L) / geo.pw * (geo.xMax - geo.xMin); setSel(nearestX(xv)); }
+    else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
+    else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
+  }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
+  function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
+  function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
+  function describe() {
+    if (spec.type === "bar") { const [ci, si] = ch.sel; const s = spec.series[si]; const v = s.values[ci]; return `<b>${esc(spec.categories[ci])}</b>${spec.series.length > 1 ? " · " + esc(s.name) : ""} : ${spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v)}${spec.unit ? " " + spec.unit : ""}`; }
+    if (spec.type === "line") { const xv = ch.sel; return `<b>${spec.xRead ? spec.xRead(xv) : fmt(xv)}</b> → ` + spec.series.map(s => { const p = s.pts.find(q => q[0] === xv); return p ? `${esc(s.name)} : ${spec.yRead ? spec.yRead(p[1]) : fmt(p[1])}` : null; }).filter(Boolean).join(" · "); }
+    if (spec.type === "stack") { const [ri, pi] = ch.sel; return `<b>${esc(spec.rows[ri].label)}</b> · ${esc(spec.parts[pi])} : ${fmt(spec.rows[ri].values[pi])} %`; }
+    if (spec.type === "phase") { const [t, p] = ch.sel; return `Point touché : <b>T ≈ ${fmt(Math.round(t))} °C</b> ; <b>P ≈ ${fmtPow(Number(p.toPrecision(2)))} Pa</b>${spec.readState ? ` → état de l'eau : <b>${Water.state(t, p)}</b>` : ""}`; }
+    return "";
+  }
+  host.addEventListener("pointerdown", e => { pick(e); });
+  host.addEventListener("pointermove", e => { if (e.buttons && e.pointerType === "mouse") pick(e); });
+  host.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault(); const dir = e.key === "ArrowRight" ? 1 : -1;
+    if (spec.type === "line") { const xs = allX(); let i = ch.sel === null ? 0 : xs.indexOf(ch.sel) + dir; i = Math.max(0, Math.min(xs.length - 1, i)); setSel(xs[i]); }
+    if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
+    if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
+  });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
+  ch.draw(); Charts.list.add(ch);
+  if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
+  return ch;
+}
+
+function buildTable(spec) {
+  let head = "", body = "";
+  if (spec.type === "bar") {
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name || spec.yTitle)}</th>`).join("")}</tr>`;
+    body = spec.categories.map((c, ci) => `<tr><td>${esc(c)}</td>${spec.series.map((s, si) => `<td class="n">${spec.valueLabel ? spec.valueLabel(s.values[ci], ci, si) : fmt(s.values[ci])}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "line") {
+    const xs = new Set(); spec.series.forEach(s => s.pts.forEach(p => xs.add(p[0])));
+    const X = Array.from(xs).sort((a, b) => a - b);
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr>`;
+    body = X.map(x => `<tr><td class="n">${spec.xFmt ? spec.xFmt(x) : fmt(x)}</td>${spec.series.map(s => { const p = s.pts.find(q => q[0] === x); return `<td class="n">${p ? (spec.yFmt ? spec.yFmt(p[1]) : fmt(p[1])) : "—"}</td>`; }).join("")}</tr>`).join("");
+  } else if (spec.type === "stack") {
+    head = `<tr><th>Niveau</th>${spec.parts.map(p => `<th>${esc(p)} (%)</th>`).join("")}</tr>`;
+    body = spec.rows.map(r => `<tr><td>${esc(r.label)}${r.sub ? " (" + esc(r.sub) + ")" : ""}</td>${r.values.map(v => `<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "phase") {
+    if (spec.table === "none") return null;
+    head = `<tr><th>Repère</th><th>Température</th><th>Pression</th></tr>`;
+    body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
+  }
+  const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  return d;
+}
+
+/* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
+const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
+let _dlP = null;
+function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
+setTimeout(() => { getDownloads(); }, 0);
+
+async function saveText(filename, text) {
+  if (inClaude()) {
+    const d = await getDownloads();
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
+  }
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
+}
+
+function renderBilanTools(container, getText, getShow, appSlug) {
+  container.innerHTML = `
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="row">
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
+    </div>
+    <p class="toast" id="bMsg" aria-live="polite"></p>
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
+  const inp = $("#eleve", container);
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
+  const msg = t => { $("#bMsg", container).textContent = t; };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bCp", container).onclick = () => {
+    const txt = getText(inp.value); const ta = $("#bTxt", container);
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
+  };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
+  $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
+}
+function showOverlay(html) {
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
+  document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
+  const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
+  c.onclick = close; document.addEventListener("keydown", k);
+}
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
+
+/* ===== Boîte à outils commune : typographie, SVG à la largeur réelle, commande d'animation ===== */
+const SIMUL = "Valeurs simulées";
+const NB = " ", NN = " ";
+const tbl = (head, rows) => `<div class="tablewrap"><table class="t"><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+/* ---------- typographie française appliquée aux contenus ---------- */
+function nb(s) {
+  return String(s).replace(/ ([?!;])/g, NN + "$1").replace(/ :(?=[ <]|$)/g, NB + ":").replace(/« /g, "«" + NB).replace(/ »/g, NB + "»")
+    .replace(/(\d) (\d{3})(?!\d)/g, "$1" + NN + "$2").replace(/(\d) (%|°C|m|cm|mm|mL|L|W|km|km²|km³|Mt|t|kg|ans|min|fois|millions)(?![\wà-ÿ²³])/g, "$1" + NB + "$2");
+}
+function typo(o) { if (typeof o === "string") return nb(o); if (Array.isArray(o)) return o.map(typo); if (o && typeof o === "object") { Object.keys(o).forEach(k => { if (typeof o[k] !== "function") o[k] = typo(o[k]); }); } return o; }
+
+/* ---------- SVG redessiné à la largeur réelle (texte toujours lisible) ---------- */
+const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+function liveSVG(host, draw) {
+  const o = { host, draw() { const W = Math.max(260, host.clientWidth || 320); host.innerHTML = draw(W, fsPx()); } };
+  o.draw(); Charts.list.add(o);
+  if (window.ResizeObserver) { let lw = host.clientWidth; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; o.draw(); } }).observe(host); }
+  return o;
+}
+const sT = (x, y, txt, a, size, extra) => `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${size.toFixed(1)}px" ${extra || ""}>${esc(txt)}</text>`;
+const TK = F => Math.max(15, F * 0.76);
+function arrow(x1, y1, x2, y2, w, color, op) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = Math.max(w * 1.1, 10), hw = Math.max(w * 0.95, 7);
+  const bx = x2 - Math.cos(a) * hl, by = y2 - Math.sin(a) * hl, nx = -Math.sin(a), ny = Math.cos(a);
+  return `<g style="opacity:${op || 1}"><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" style="stroke:var(--${color});stroke-width:${Math.max(w, 1.5).toFixed(1)}"/><polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${(bx + nx * hw).toFixed(1)},${(by + ny * hw).toFixed(1)} ${(bx - nx * hw).toFixed(1)},${(by - ny * hw).toFixed(1)}" style="fill:var(--${color})"/></g>`;
+}
+
+/* ---------- commande d'animation commune : Lancer / Pause / Recommencer ---------- */
+function animCtl(el, dur, onP) {
+  el.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+  const st = { p: 0, playing: false, lt: 0, raf: 0 }, b = el.querySelector('[data-a="run"]');
+  const lab = () => { b.textContent = st.playing ? CT.animPause : (st.p > 0 && st.p < 1) ? CT.animResume : CT.animRun; };
+  const frame = ts => {
+    if (!st.playing) return; if (!document.body.contains(el)) { st.playing = false; return; }
+    const dt = st.lt ? Math.min(100, ts - st.lt) : 0; st.lt = ts; st.p = Math.min(1, st.p + dt / dur);
+    if (st.p >= 1) st.playing = false; onP(st.p); lab(); if (st.playing) st.raf = requestAnimationFrame(frame);
+  };
+  st.play = () => { if (st.p >= 1) st.p = 0; st.playing = true; st.lt = 0; lab(); st.raf = requestAnimationFrame(frame); };
+  st.pause = () => { st.playing = false; cancelAnimationFrame(st.raf); lab(); };
+  st.set = p => { st.pause(); st.p = Math.max(0, Math.min(1, p)); onP(st.p); lab(); };
+  b.onclick = () => st.playing ? st.pause() : st.play();
+  el.querySelector('[data-a="reset"]').onclick = () => st.set(0);
+  lab(); onP(0); return st;
+}
+
+
+/* ===== 2nde SVT · Les échelles de la biodiversité : manipulations et animations ===== */
+Store.key = "svt2-echelles-biodiversite-v1";
+const WID = {}, LIVE = {};
+const lerp = (a, b, q) => a + (b - a) * Math.max(0, Math.min(1, q));
+const seg = (p, a, b) => Math.max(0, Math.min(1, (p - a) / (b - a)));
+const keep = () => { try { save(); } catch (e) {} if (typeof refreshTasks === "function") refreshTasks(); };
+const N1 = x => (+x).toFixed(1);
+
+/* ---------- dessins : canards et équidés ---------- */
+const DK = {
+  A: { body: "#b7babd", chest: "#6e4128", head: "#1f6b45", ring: 1, bill: "#e0b422", wing: "#8f9498", bl: 1 },
+  B: { body: "#fbfaf2", chest: "#fbfaf2", head: "#fbfaf2", bill: "#ee8a1e", wing: "#e6e2d3", bl: 1 },
+  C: { body: "#b4562c", chest: "#fbfaf2", head: "#1c5a4a", bill: "#23201e", wing: "#dfe3e6", bl: 1.75 },
+  D: { body: "#9b7648", chest: "#8b6539", head: "#ab8552", bill: "#c47a2c", wing: "#74552f", bl: 1, mot: 1 },
+  E: { body: "#a8845a", chest: "#97734a", head: "#b59163", bill: "#8d6d3e", wing: "#7f6039", bl: 1.75, mot: 1 },
+  K: { body: "#f1d54a", chest: "#f1d54a", head: "#f1d54a", bill: "#d98a2b", wing: "#c9a93a", bl: 0.8 }
+};
+function badge(x, y, r, txt) { return `<circle cx="${N1(x)}" cy="${N1(y)}" r="${N1(r)}" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/><text x="${N1(x)}" y="${N1(y + r * 0.42)}" text-anchor="middle" style="fill:var(--ink);font-size:${N1(r * 1.25)}px;font-weight:800">${txt}</text>`; }
+function duck(k, x, y, s, dir, lab, op) {
+  const d = DK[k], u = s / 10, st = `stroke:var(--ink);stroke-width:${Math.max(1, u * 0.28).toFixed(2)}`, tip = 6.3 + 2 * d.bl, wide = d.bl > 1.3 ? 0.3 : 0;
+  let g = `<g transform="translate(${N1(x)},${N1(y)}) scale(${dir < 0 ? -1 : 1},1)" style="opacity:${op === undefined ? 1 : op}">`;
+  g += `<path d="M${-4.4 * u},${-0.6 * u} L${-7.2 * u},${-2.8 * u} L${-4 * u},${1.2 * u}Z" style="fill:${d.wing};${st}"/>`;
+  g += `<ellipse cx="0" cy="0" rx="${5 * u}" ry="${3 * u}" style="fill:${d.body};${st}"/>`;
+  g += `<path d="M${1.2 * u},${-2.6 * u} Q${5.6 * u},${-2.4 * u} ${4.9 * u},${0.8 * u} Q${3.4 * u},${3 * u} ${1 * u},${2.9 * u} Q${2.6 * u},0 ${1.2 * u},${-2.6 * u}Z" style="fill:${d.chest};${st}"/>`;
+  g += `<ellipse cx="${-0.9 * u}" cy="${-0.5 * u}" rx="${2.9 * u}" ry="${1.6 * u}" style="fill:${d.wing};${st}"/>`;
+  if (d.mot) for (let i = 0; i < 5; i++) g += `<path d="M${(-3 + i * 1.5) * u},${(1.3 + (i % 2) * 0.5) * u} q${0.5 * u},${0.6 * u} ${1 * u},0" style="fill:none;stroke:#5a4022;stroke-width:${Math.max(1, u * 0.25).toFixed(2)}"/>`;
+  g += `<path d="M${3 * u},${-1.4 * u} L${3.3 * u},${-5 * u} L${5.6 * u},${-5 * u} L${5.3 * u},${-1 * u}Z" style="fill:${d.head}"/>`;
+  if (d.ring) g += `<rect x="${3.08 * u}" y="${-2.6 * u}" width="${2.3 * u}" height="${0.7 * u}" style="fill:#fbfaf2"/>`;
+  g += `<path d="M${6 * u},${-5.2 * u} L${tip * u},${(-4.95 - wide) * u} Q${(tip + 0.6) * u},${-4.4 * u} ${tip * u},${(-3.85 + wide) * u} L${6 * u},${-4 * u}Z" style="fill:${d.bill};${st}"/>`;
+  g += `<circle cx="${4.6 * u}" cy="${-5 * u}" r="${2 * u}" style="fill:${d.head};${st}"/><circle cx="${5.2 * u}" cy="${-5.5 * u}" r="${0.36 * u}" style="fill:#111"/></g>`;
+  if (lab) g += badge(x, y - s * 0.98, Math.max(11, s * 0.2), lab);
+  return g;
+}
+const EQ = { H: { c: "#8b5a33", m: "#3b2413", ear: 1.1, sz: 1 }, D: { c: "#9b9892", m: "#4c4a47", ear: 2.3, sz: 0.82, pale: 1 }, M: { c: "#5f4631", m: "#2b1f15", ear: 2, sz: 0.93 } };
+function equid(k, x, y, s, dir, lab, op) {
+  const e = EQ[k], u = s * e.sz / 10, st = `stroke:var(--ink);stroke-width:${Math.max(1, u * 0.26).toFixed(2)}`;
+  let g = `<g transform="translate(${N1(x)},${N1(y - 5.6 * u)}) scale(${dir < 0 ? -1 : 1},1)" style="opacity:${op === undefined ? 1 : op}">`;
+  g += `<path d="M${-4.3 * u},${-0.9 * u} Q${-6.2 * u},0 ${-5.4 * u},${3.6 * u}" style="fill:none;stroke:${e.m};stroke-width:${0.9 * u};stroke-linecap:round"/>`;
+  [-3.6, -2.4, 2.2, 3.4].forEach(lx => { g += `<rect x="${lx * u}" y="${1.2 * u}" width="${0.9 * u}" height="${4.4 * u}" rx="${0.3 * u}" style="fill:${e.c};${st}"/>`; });
+  g += `<ellipse cx="0" cy="0" rx="${4.6 * u}" ry="${2.3 * u}" style="fill:${e.c};${st}"/>`;
+  g += `<path d="M${2.6 * u},${-1.6 * u} L${4.4 * u},${0.2 * u} L${6.4 * u},${-4.4 * u} L${4.9 * u},${-5.6 * u}Z" style="fill:${e.c};${st}"/>`;
+  g += `<path d="M${2.7 * u},${-1.9 * u} L${4.9 * u},${-5.7 * u}" style="fill:none;stroke:${e.m};stroke-width:${0.9 * u};stroke-linecap:round"/>`;
+  g += `<ellipse cx="${5.2 * u}" cy="${(-6.1 - e.ear * 0.45) * u}" rx="${0.42 * u}" ry="${e.ear * 0.62 * u}" transform="rotate(-10 ${5.2 * u} ${-6 * u})" style="fill:${e.c};${st}"/>`;
+  g += `<ellipse cx="${6.7 * u}" cy="${-5 * u}" rx="${2 * u}" ry="${1.1 * u}" transform="rotate(28 ${6.7 * u} ${-5 * u})" style="fill:${e.c};${st}"/>`;
+  if (e.pale) g += `<ellipse cx="${7.9 * u}" cy="${-4.3 * u}" rx="${0.8 * u}" ry="${0.7 * u}" style="fill:#e9e5dc"/>`;
+  g += `<circle cx="${6.3 * u}" cy="${-5.6 * u}" r="${0.3 * u}" style="fill:#111"/></g>`;
+  if (lab) g += `<text x="${N1(x)}" y="${N1(y + s * 0.3)}" text-anchor="middle" style="fill:var(--ink);font-size:${N1(Math.max(14, s * 0.22))}px;font-weight:800">${lab}</text>`;
+  return g;
+}
+
+/* ---------- document : les cinq canards ---------- */
+WID.canards = el => {
+  el.innerHTML = `<div class="figbox"></div><p class="cap">Dessins simplifiés d'après des photographies : A, B, C et D sont ceux de la fiche ; E a été observé sur le même étang.</p>`;
+  liveSVG($(".figbox", el), (W, F) => {
+    const cols = W < 520 ? 3 : 5, cw = W / cols, rows = Math.ceil(5 / cols), rh = F * 6.2, s = Math.min(cw * 0.5, F * 3.4); let g = "";
+    for (let r = 0; r < rows; r++) g += `<rect x="2" y="${r * rh + F * 3.1}" width="${W - 4}" height="${F * 2.6}" rx="10" style="fill:var(--sea);opacity:.28"/>`;
+    "ABCDE".split("").forEach((k, i) => { const c = i % cols, r = Math.floor(i / cols), n = r === rows - 1 ? 5 - cols * (rows - 1) : cols, off = (cols - n) * cw / 2; g += duck(k, off + cw * (c + 0.45), r * rh + F * 3.7, s, 1, k); });
+    return `<svg viewBox="0 0 ${W} ${rows * rh}" width="${W}" height="${rows * rh}" role="img" aria-label="Cinq canards. A : tête verte, collier blanc, corps gris. B : entièrement blanc, bec orange. C : tête verte, poitrine blanche, flancs roux, grand bec large et noir. D : brun tacheté. E : brun tacheté, grand bec large.">${g}</svg>`;
+  });
+};
+
+/* ---------- TP virtuel : test d'interfécondité (volière, écurie) ---------- */
+const OUT = { fert: "✓ petits fertiles", ster: "◐ petits stériles", none: "✗ pas de descendance" };
+function mkCross(cfg) {
+  return el => {
+    const R = S.cross[cfg.key] || (S.cross[cfg.key] = {});
+    let m = cfg.males[0][0], f = cfg.females[0][0], p = 0, last = "";
+    el.innerHTML = `<p class="lead">${cfg.lead}</p>
+      <div class="opt3"><div><span class="lab3">♂ Mâle</span><div class="seg" role="group" aria-label="Choix du mâle">${cfg.males.map(([k, n]) => `<button type="button" data-m="${k}">${n}</button>`).join("")}</div></div>
+      <div><span class="lab3">♀ Femelle</span><div class="seg" role="group" aria-label="Choix de la femelle">${cfg.females.map(([k, n]) => `<button type="button" data-f="${k}">${n}</button>`).join("")}</div></div></div>
+      <div class="row animctl"></div><div class="figbox"></div><p class="readout" aria-live="polite"></p><div class="res"></div>`;
+    const nm = (list, k) => list.find(x => x[0] === k)[1];
+    const fig = liveSVG($(".figbox", el), (W, F) => crossScene(cfg, W, F, p, m, f, cfg.res(m, f)));
+    const table = () => { const n = Object.keys(R).length, tot = cfg.males.length * cfg.females.length; $(".res", el).innerHTML = `<p class="lead"><b>Mes croisements</b> : ${n}/${tot} réalisés.</p>` + tbl(["♂ \\ ♀", ...cfg.females.map(x => x[1])], cfg.males.map(a => [a[1], ...cfg.females.map(b => R[a[0] + b[0]] ? OUT[R[a[0] + b[0]]] : `<span class="muted">à tester</span>`)])); };
+    const ctl = animCtl($(".animctl", el), cfg.dur, q => {
+      p = q; fig.draw(); const lc = x => x[0].toLowerCase() + x.slice(1), t = cfg.text(q, nm(cfg.males, m), lc(nm(cfg.females, f)), cfg.res(m, f)); if (t !== last) { last = t; $(".readout", el).innerHTML = t; }
+      if (q >= 1 && !R[m + f]) { R[m + f] = cfg.res(m, f); keep(); table(); }
+    });
+    const paint = () => { $$("[data-m]", el).forEach(b => b.setAttribute("aria-pressed", b.dataset.m === m ? "true" : "false")); $$("[data-f]", el).forEach(b => b.setAttribute("aria-pressed", b.dataset.f === f ? "true" : "false")); };
+    $$("[data-m]", el).forEach(b => b.onclick = () => { m = b.dataset.m; paint(); ctl.set(0); });
+    $$("[data-f]", el).forEach(b => b.onclick = () => { f = b.dataset.f; paint(); ctl.set(0); });
+    paint(); table();
+  };
+}
+function crossScene(cfg, W, F, p, m, f, o) {
+  const H = F * 10.5, tk = TK(F), yW = F * 5.6, s = Math.min(F * 3.3, W * 0.2), ok = o !== "none", D = cfg.draw, gen2 = ok && p >= 0.74;
+  let g = cfg.water ? `<rect x="2" y="${F * 3.4}" width="${W - 4}" height="${H - F * 3.4 - 2}" rx="12" style="fill:var(--sea);opacity:.28"/>` : `<rect x="2" y="${F * 5.2}" width="${W - 4}" height="${H - F * 5.2 - 2}" rx="12" style="fill:var(--c4);opacity:.3"/>`;
+  const cap = t => sT(8, tk * 1.2, t, "start", tk, 'font-weight="800"');
+  const heart = (x, y, q) => `<text x="${N1(x)}" y="${N1(y)}" text-anchor="middle" style="font-size:${N1(F * (0.5 + 1.1 * q))}px;fill:var(--bad);opacity:${q}">♥</text>`;
+  const nest = (x, y, n, lab) => { let h = `<ellipse cx="${N1(x)}" cy="${N1(y)}" rx="${F * 1.9}" ry="${F * 0.7}" style="fill:#8a6a3c;stroke:var(--ink);stroke-width:1.5"/>`; for (let i = 0; i < n; i++) h += `<ellipse cx="${N1(x + (i - (n - 1) / 2) * F * 0.5)}" cy="${N1(y - F * 0.25 - (i % 2) * 3)}" rx="${F * 0.24}" ry="${F * 0.32}" style="fill:#f5f1e3;stroke:var(--ink);stroke-width:1.2"/>`; return h + (lab ? sT(x, y + F * 1.5, lab, "middle", tk * 0.9, 'font-weight="700"') : ""); };
+  if (!gen2) {
+    const a = seg(p, 0, 0.2), away = !ok ? seg(p, 0.42, 0.8) : 0;
+    const gapx = s * (cfg.water ? 1.05 : 1.15), xm = lerp(lerp(W * 0.13, W / 2 - gapx, a), W * 0.12, away), xf = lerp(lerp(W * 0.87, W / 2 + gapx, a), W * 0.88, away), bob = Math.sin(p * 60) * 2;
+    g += cap(p <= 0 ? "Avant le croisement" : "Génération 1 : les parents");
+    g += D(cfg.shape(m), xm, yW + bob, s, away > 0.15 ? -1 : 1, cfg.tag(m)) + D(cfg.shape(f), xf, yW - bob, s, away > 0.15 ? 1 : -1, cfg.tag(f));
+    if (ok && p > 0.2) g += heart(W / 2, yW - s * 0.75, Math.min(1, seg(p, 0.2, 0.3)) * (1 - seg(p, 0.5, 0.6)));
+    if (!ok && p > 0.22 && p < 0.5) g += sT(W / 2, yW - s * 0.6, "… ?", "middle", F * 1.3, 'font-weight="800"');
+    if (cfg.water) {
+      if (ok && p >= 0.36 && p < 0.58) g += nest(W / 2, H - F * 1.9, Math.round(seg(p, 0.36, 0.52) * 6), "");
+      if (!ok && p >= 0.5) g += nest(W / 2, H - F * 2.2, 0, "nid vide");
+    } else if (ok && p >= 0.36 && p < 0.56) g += sT(W / 2, H - F * 1.2, "⏳ gestation : environ un an", "middle", tk, 'font-weight="700"');
+    if (ok && p >= 0.56) { const q = seg(p, 0.56, 0.74), n = cfg.water ? 6 : 1, ks = cfg.water ? lerp(s * 0.26, s * 0.4, q) : lerp(s * 0.4, s * 0.62, q), sp = Math.min(ks * 1.9, (W - 16) / 6.4); for (let i = 0; i < n; i++) g += D(cfg.kid(m, f), W / 2 + (i - (n - 1) / 2) * sp, H - F * (cfg.water ? 1.7 : 0.9) + (cfg.water ? Math.sin(p * 80 + i) * 2 : 0), ks, 1); }
+  } else {
+    const [ya, yb] = cfg.young(m, f), a = seg(p, 0.74, 0.82), fert = o === "fert";
+    g += cap("Génération 2 : les jeunes adultes");
+    g += D(ya, lerp(W * 0.15, W / 2 - s * 1.1, a), yW, s * 0.95, 1) + D(yb, lerp(W * 0.85, W / 2 + s * 1.1, a), yW, s * 0.95, -1);
+    if (fert) { g += heart(W / 2, yW - s * 0.75, seg(p, 0.82, 0.88) * (1 - seg(p, 0.92, 0.96))); if (cfg.water && p >= 0.88 && p < 0.95) g += nest(W / 2, H - F * 1.9, 4, ""); if (p >= 0.95) { const n = cfg.water ? 4 : 1, ks = s * (cfg.water ? 0.3 : 0.42), sp = Math.min(ks * 1.9, (W - 16) / 6.4); for (let i = 0; i < n; i++) g += D(cfg.kid(m, f), W / 2 + (i - (n - 1) / 2) * sp, H - F * (cfg.water ? 1.7 : 0.9), ks, 1); } }
+    else if (p > 0.86) g += sT(W / 2, H - F * 1.3, "✗ toujours aucun petit", "middle", tk, 'font-weight="800"');
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${cfg.alt}">${g}</svg>`;
+}
+WID.voliere = mkCross({ key: "can", water: 1, dur: 9000, alt: "Volière : un mâle et une femelle sont réunis. Le résultat du croisement est écrit sous le dessin et dans le tableau.",
+  lead: "Choisis un mâle et une femelle, puis touche « ▶ Lancer » : ils sont réunis dans une volière pendant deux saisons de reproduction (temps accéléré). Réalise les <b>six croisements</b> possibles.",
+  males: [["A", "Canard A"], ["C", "Canard C"]], females: [["B", "Canard B"], ["D", "Canard D"], ["E", "Canard E"]],
+  res: (m, f) => (m === "A") === (f !== "E") ? "fert" : "none", draw: duck, shape: k => k, tag: k => k, kid: () => "K", young: (m, f) => [m, f],
+  text: (q, m, f, o) => q <= 0 ? `${m} et ${f} sont prêts : touche « ▶ Lancer ».` : q < 0.2 ? `${m} et ${f} sont réunis dans la volière…` : o === "none" ? (q < 0.45 ? "Ils s'observent, mais ne forment pas de couple." : q < 1 ? "Le nid reste vide…" : `✗ <b>${m} × ${f}</b> : aucun œuf, aucun caneton. <b>Pas de descendance.</b>`) : q < 0.36 ? "Ils forment un couple : accouplement." : q < 0.56 ? "La femelle pond : <b>6 œufs</b>." : q < 0.74 ? "Éclosion : <b>6 canetons</b>, qui grandissent." : q < 0.88 ? "Un an plus tard : les jeunes, devenus adultes, forment un couple à leur tour." : q < 1 ? "Nouvelle ponte…" : `✓ <b>${m} × ${f}</b> : des canetons, capables d'avoir eux-mêmes des petits. <b>Descendance fertile.</b>` });
+WID.ecurie = mkCross({ key: "equ", water: 0, dur: 9000, alt: "Pré : un mâle et une femelle sont réunis. Le résultat du croisement est écrit sous le dessin et dans le tableau.",
+  lead: "Même protocole dans un pré : réunis un mâle et une femelle, puis observe leur petit… et ce qu'il devient une fois adulte. Réalise les <b>quatre croisements</b>.",
+  males: [["H", "Étalon (cheval)"], ["D", "Âne"]], females: [["J", "Jument (cheval)"], ["N", "Ânesse"]],
+  res: (m, f) => (m === "H") === (f === "J") ? "fert" : "ster", draw: equid, shape: k => (k === "H" || k === "J") ? "H" : "D", tag: k => ({ H: "étalon", J: "jument", D: "âne", N: "ânesse" })[k],
+  kid: (m, f) => (m === "H") === (f === "J") ? (m === "H" ? "H" : "D") : "M", young: (m, f) => (m === "H") === (f === "J") ? (m === "H" ? ["H", "H"] : ["D", "D"]) : ["M", "M"],
+  text: (q, m, f, o) => { const kid = o === "fert" ? (m.startsWith("É") ? "un poulain" : "un ânon") : (m.startsWith("Â") ? "un mulet (ou une mule)" : "un bardot"); return q <= 0 ? `${m} et ${f} sont prêts : touche « ▶ Lancer ».` : q < 0.2 ? `${m} et ${f} sont réunis dans le pré…` : q < 0.36 ? "Ils forment un couple : accouplement." : q < 0.56 ? "Gestation…" : q < 0.74 ? `Naissance : <b>${kid}</b>, qui grandit.` : q < 0.88 ? "Quelques années plus tard : les petits de ce croisement sont adultes. On réunit un mâle et une femelle." : q < 1 ? "…" : o === "fert" ? `✓ <b>${m} × ${f}</b> : ${kid}, capable d'avoir à son tour des petits. <b>Descendance fertile.</b>` : `◐ <b>${m} × ${f}</b> : ${kid}, mais il ne peut pas avoir de petits. <b>Descendance stérile.</b>`; } });
+
+/* ---------- documents à explorer : classifications en groupes emboîtés ---------- */
+const EMB = {
+  veg: { hint: "Touche un caractère (en gras) ou un végétal.", levels: [
+    ["Chlorophylle", "pigment vert qui capte la lumière : il permet au végétal de fabriquer sa matière organique (photosynthèse).", [["Ulve (algue verte)", "algue verte marine, en forme de lame, aussi appelée laitue de mer."]]],
+    ["Tige et feuilles", "organes aériens : la tige porte les feuilles.", [["Polytric (mousse)", "mousse des sous-bois humides ; elle se reproduit par des spores."]]],
+    ["Racines et vaisseaux conducteurs", "les racines puisent l'eau et les sels minéraux ; les vaisseaux conduisent la sève dans toute la plante.", [["Fougère", "plante des sous-bois ; elle se reproduit par des spores, visibles sous les feuilles."]]],
+    ["Graines", "la graine contient un embryon et des réserves : en germant, elle donne une nouvelle plante.", [["Pin sylvestre (conifère)", "arbre dont les graines sont portées par des cônes (pommes de pin)."]]],
+    ["Fleurs et fruits", "la fleur est l'organe de la reproduction ; elle se transforme en fruit, qui renferme les graines.", [["Cerisier", "arbre dont la fleur donne un fruit, la cerise, qui renferme une graine."], ["Coquelicot", "plante des champs à fleurs rouges ; son fruit est une capsule pleine de graines."]]]] },
+  vert: { hint: "Touche un caractère (en gras) ou un animal.", levels: [
+    ["Crâne et vertèbres", "squelette interne : le crâne protège l'encéphale, les vertèbres forment la colonne vertébrale.", [["Lamproie", "animal aquatique au corps allongé, à la bouche ronde en ventouse."]]],
+    ["Mâchoires", "pièces du squelette qui bordent la bouche : elles permettent de saisir la nourriture.", [["Requin", "poisson dont le squelette est fait de cartilage."]]],
+    ["Squelette osseux", "squelette fait d'os, et non de cartilage.", [["Sardine", "poisson à nageoires rayonnées, qui vit en bancs."]]],
+    ["Doigts", "quatre membres terminés par des doigts.", [["Crapaud (amphibien)", "amphibien : sa peau est nue et humide, ses œufs sont pondus dans l'eau."], ["Grenouille (amphibien)", "amphibien : le têtard vit dans l'eau, l'adulte respire aussi par des poumons."]]],
+    ["Amnios", "poche remplie de liquide qui protège l'embryon : il peut se développer hors de l'eau.", [["Lézard", "animal couvert d'écailles soudées, qui pond des œufs à coquille."], ["Crocodile", "grand animal à écailles, qui pond ses œufs à terre."], ["Mésange", "oiseau : son corps est couvert de plumes."]]],
+    ["Poils et mamelles", "le corps est couvert de poils ; les femelles allaitent leurs petits.", [["Chat", "mammifère carnivore."], ["Gorille", "mammifère : grand singe d'Afrique."], ["Homme", "mammifère : l'espèce humaine."]]]] }
+};
+function mkEmb(key) {
+  return el => {
+    const d = EMB[key]; let h = "";
+    for (let i = d.levels.length - 1; i >= 0; i--) { const [n, , sp] = d.levels[i]; h = `<div class="nb ${i % 2 ? "o" : ""}" data-l="${i}"><button type="button" class="nbh" data-c="${i}" aria-pressed="false">${n}</button><div class="nbs">${sp.map((s, j) => `<button type="button" class="sp" data-s="${i}-${j}" aria-pressed="false">${s[0]}</button>`).join("")}</div>${h}</div>`; }
+    el.innerHTML = `<p class="lead">${d.hint} Une fenêtre d'explication s'ouvre sous le document. Un être vivant possède <b>tous les caractères des boîtes dans lesquelles il est rangé</b>.</p><div class="emb">${h}</div><div class="box info win" aria-live="polite"><p class="lab">ℹ Fenêtre d'explication</p><p class="wtxt">Touche un terme du document.</p></div>`;
+    const clear = () => { $$("[aria-pressed]", el).forEach(b => b.setAttribute("aria-pressed", "false")); $$(".nb", el).forEach(b => b.classList.remove("on")); };
+    $$(".nbh", el).forEach(b => b.onclick = () => { clear(); b.setAttribute("aria-pressed", "true"); b.parentNode.classList.add("on"); const L = d.levels[+b.dataset.c]; $(".wtxt", el).innerHTML = `<b>${L[0]}</b> : ${L[1]} Ce caractère est présent chez tous les êtres vivants rangés dans la boîte encadrée.`; });
+    $$(".sp", el).forEach(b => b.onclick = () => { clear(); b.setAttribute("aria-pressed", "true"); const [i, j] = b.dataset.s.split("-").map(Number), s = d.levels[i][2][j]; $(".wtxt", el).innerHTML = `<b>${s[0]}</b> : ${s[1]} Pour connaître ses caractères, repère toutes les boîtes qui le contiennent.`; });
+  };
+}
+WID.embVeg = mkEmb("veg"); WID.embVert = mkEmb("vert");
+
+/* ---------- groupes emboîtés construits par l'élève (mâchoires, doigts, mamelles) ---------- */
+const BOXA = ["Sardine", "Crapaud", "Gorille", "Requin", "Crocodile", "Homme"], BOXN = ["Mâchoires", "Doigts", "Mamelles"];
+LIVE.boites = (W, F, v) => {
+  const tk = TK(F), cur = (v && v[0]) || {}, rh = tk * 1.5, top = tk * 1.9, bh = rh * 2 + 12, H = top + bh * 3 + 14, todo = BOXA.filter((_, i) => cur[i] === undefined); let g = "";
+  g += sT(4, tk * 1.1, todo.length ? "À ranger : " + todo.join(", ") : "Tous les animaux sont rangés.", "start", tk * 0.9, 'font-weight="700"');
+  [0, 1, 2].forEach(b => { const x = 3 + b * F * 0.9, y = top + b * bh; g += `<rect x="${x}" y="${y}" width="${W - 2 * x}" height="${H - y - 4 - b * 6}" rx="10" style="fill:var(--${b % 2 ? "surface-2" : "surface"});stroke:var(--${["c1", "c2", "c3"][b]});stroke-width:2.5"/>` + sT(x + 10, y + rh * 0.95, BOXN[b], "start", tk, 'font-weight="800"') + sT(x + 10, y + rh * 1.95, BOXA.filter((_, i) => cur[i] === b).join(", ") || "…", "start", tk * 0.95); });
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Trois boîtes emboîtées : Mâchoires, qui contient Doigts, qui contient Mamelles. ${BOXA.map((a, i) => a + " : " + (cur[i] === undefined ? "à ranger" : "boîte " + BOXN[cur[i]])).join(" ; ")}.">${g}</svg>`;
+};
+
+/* ---------- des groupes emboîtés à l'arbre de parenté ---------- */
+const TROWS = [["h", "Mâchoires", 1], ["s", "Requin", 1], ["s", "Sardine", 1], ["h", "Doigts", 2], ["s", "Crapaud", 2], ["s", "Crocodile", 2], ["s", "Lézard", 2], ["s", "Mésange", 2], ["s", "Pigeon", 2], ["h", "Mamelles", 3], ["s", "Chat sauvage", 3], ["s", "Homme", 3], ["s", "Gorille", 3]];
+const TSP = TROWS.filter(r => r[0] === "s"), INNOV = ["mâchoires", "doigts", "mamelles"];
+function treeSVG(W, F, o) {
+  const tk = TK(F), rh = Math.max(F * 1.5, 28), top = 6, H = top + rh * TROWS.length + 16, lw = Math.min(W * 0.5, F * 7.8), xL = W - lw, ta = xL - 22, x0 = 8;
+  const X = [x0, x0 + ta * 0.3, 0, 0]; X[1] = x0 + ta * 0.34; X[2] = lerp(X[1], x0 + ta * 0.66, o.a2); X[3] = lerp(X[2], x0 + ta * 0.94, o.a3);
+  const yr = i => top + rh * (i + 0.5), ys = {}; TROWS.forEach((r, i) => { if (r[0] === "s") ys[r[1]] = yr(i); });
+  const NY = [0, 0, 0, (yr(10) + yr(12)) / 2]; NY[2] = (yr(4) + NY[3]) / 2; NY[1] = (yr(1) + NY[2]) / 2; NY[0] = NY[1];
+  const col = ["c1", "c2", "c3"], L = `stroke:var(--ink);stroke-width:2.5;fill:none;stroke-linecap:round`; let g = "";
+  [1, 2, 3].forEach(b => { const op = o.box[b - 1]; if (op <= 0) return; const first = TROWS.findIndex(r => r[0] === "h" && r[2] === b), ins = (b - 1) * 5; g += `<g style="opacity:${op}"><rect x="${xL - 4 + ins}" y="${top + rh * first + 2}" width="${lw - 2 - ins * 2}" height="${rh * (TROWS.length - first) + 10 - ins}" rx="8" style="fill:var(--${b % 2 ? "surface" : "surface-2"});stroke:var(--${col[b - 1]});stroke-width:2.5"/>` + sT(xL + 4 + ins, yr(first) + tk * 0.35, TROWS[first][1], "start", tk * 0.95, 'font-weight="800"') + `</g>`; });
+  const t1 = seg(o.a1, 0, 0.5), l1 = seg(o.a1, 0.5, 1);
+  g += `<line x1="${x0}" y1="${NY[1]}" x2="${lerp(x0, X[1], t1)}" y2="${NY[1]}" style="${L}"/>`;
+  g += `<g style="opacity:${l1}">`;
+  TSP.forEach(([, n, lv]) => { g += `<line x1="${X[lv]}" y1="${ys[n]}" x2="${xL - 8}" y2="${ys[n]}" style="${L}"/>`; });
+  g += `<line x1="${X[1]}" y1="${yr(1)}" x2="${X[1]}" y2="${NY[2]}" style="${L}"/><line x1="${X[1]}" y1="${NY[2]}" x2="${X[2]}" y2="${NY[2]}" style="${L}"/><line x1="${X[2]}" y1="${yr(4)}" x2="${X[2]}" y2="${NY[3]}" style="${L}"/><line x1="${X[2]}" y1="${NY[3]}" x2="${X[3]}" y2="${NY[3]}" style="${L}"/><line x1="${X[3]}" y1="${yr(10)}" x2="${X[3]}" y2="${yr(12)}" style="${L}"/></g>`;
+  const sel = (o.sel || []).filter(n => ys[n]), lv = n => TSP.find(r => r[1] === n)[2], mr = sel.length === 2 ? Math.min(lv(sel[0]), lv(sel[1])) : 0;
+  if (mr) sel.forEach(n => { let k = lv(n), d = `M${xL - 8},${ys[n]} L${X[k]},${ys[n]} L${X[k]},${NY[k]}`; while (k > mr) { d += ` L${X[k - 1]},${NY[k]} L${X[k - 1]},${NY[k - 1]}`; k--; } g += `<path d="${d}" style="fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;opacity:.8"/>`; });
+  [[1, t1 >= 1 ? 1 : 0, (x0 + X[1]) / 2], [2, seg(o.a2, 0.6, 1), (X[1] + X[2]) / 2], [3, seg(o.a3, 0.6, 1), (X[2] + X[3]) / 2]].forEach(([k, op, mx]) => { if (op <= 0) return;
+    g += `<g style="opacity:${op}"><line x1="${mx}" y1="${NY[k] - 8}" x2="${mx}" y2="${NY[k] + 8}" style="stroke:var(--${col[k - 1]});stroke-width:5"/>` + sT(k === 1 ? x0 - 4 : mx, NY[k] + F * 0.62 + tk * 0.95, INNOV[k - 1], k === 1 ? "start" : "middle", tk * 0.82, `font-weight="800" style="fill:var(--${col[k - 1]});paint-order:stroke;stroke:var(--surface);stroke-width:4px"`) + `<circle cx="${X[k]}" cy="${NY[k]}" r="${F * 0.5}" style="fill:var(--${mr === k ? "accent" : "surface"});stroke:var(--ink);stroke-width:2.5"/><text x="${X[k]}" y="${NY[k] + F * 0.24}" text-anchor="middle" style="fill:var(--${mr === k ? "accent-ink" : "ink"});font-size:${N1(F * 0.68)}px;font-weight:800">${k}</text></g>`; });
+  TSP.forEach(([, n]) => { g += `<g style="opacity:${Math.max(l1, o.box[0])}">` + sT(xL + 15, ys[n] + tk * 0.35, n, "start", tk * (W < 420 ? 0.88 : 0.95), sel.includes(n) ? 'font-weight="800"' : "") + `</g>`; });
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${o.alt}">${g}</svg>`;
+}
+const TLEG = `<p class="cap"><b>①, ②, ③</b> : ancêtres communs 1, 2 et 3. Un trait de couleur sur une branche : apparition d'un caractère, transmis à tous les descendants. Arbre construit avec trois caractères seulement.</p>`;
+WID.morph = el => {
+  el.innerHTML = `<div class="row animctl"></div><p class="readout" aria-live="polite"></p><div class="figbox"></div>${TLEG}`;
+  let p = 0, last = ""; const fig = liveSVG($(".figbox", el), (W, F) => treeSVG(W, F, { a1: seg(p, 0.06, 0.28), a2: seg(p, 0.44, 0.64), a3: seg(p, 0.78, 0.97), box: [seg(p, 0, 0.06) || (p > 0 ? 1 : 0.0001), seg(p, 0.36, 0.44), seg(p, 0.7, 0.78)], alt: "Animation : les trois boîtes emboîtées deviennent, une à une, les branches d'un arbre de parenté." }));
+  animCtl($(".animctl", el), 14000, q => { p = q; fig.draw(); const t = q <= 0 ? "Trois boîtes emboîtées… à convertir en arbre." : q < 0.34 ? "<b>Boîte « Mâchoires »</b> : tous ses animaux ont hérité des mâchoires d'un <b>ancêtre commun 1</b>." : q < 0.68 ? "<b>Boîte « Doigts »</b> : ses animaux ont hérité des doigts d'un <b>ancêtre commun 2</b>, plus récent." : q < 1 ? "<b>Boîte « Mamelles »</b> : ses animaux ont hérité des mamelles d'un <b>ancêtre commun 3</b>, encore plus récent." : "Chaque boîte est devenue une branche : un groupe emboîté correspond à un ancêtre commun et à tous ses descendants."; if (t !== last) { last = t; $(".readout", el).innerHTML = t; } });
+};
+WID.arbre = el => {
+  let sel = [];
+  el.innerHTML = `<p class="lead">Touche <b>deux espèces</b> : le chemin qui les relie à leur dernier ancêtre commun s'affiche sur l'arbre.</p><div class="chips">${TSP.map(r => `<button type="button" class="chipb" data-n="${r[1]}" aria-pressed="false">${r[1]}</button>`).join("")}</div><div class="figbox"></div><p class="readout" aria-live="polite"></p>${TLEG}`;
+  const fig = liveSVG($(".figbox", el), (W, F) => treeSVG(W, F, { a1: 1, a2: 1, a3: 1, box: [1, 1, 1], sel, alt: "Arbre de parenté. Ancêtre commun 1 (mâchoires) : Requin, Sardine et tous les suivants. Ancêtre commun 2 (doigts) : Crapaud, Crocodile, Lézard, Mésange, Pigeon et les suivants. Ancêtre commun 3 (mamelles) : Chat sauvage, Homme, Gorille." }));
+  const upd = () => { $$("[data-n]", el).forEach(b => b.setAttribute("aria-pressed", sel.includes(b.dataset.n) ? "true" : "false")); fig.draw(); const lv = n => TSP.find(r => r[1] === n)[2]; $(".readout", el).innerHTML = sel.length < 2 ? (sel.length ? `<b>${sel[0]}</b> sélectionné : touche une deuxième espèce.` : "Aucune espèce sélectionnée.") : `Dernier ancêtre commun de <b>${sel[0]}</b> et <b>${sel[1]}</b> : <b>ancêtre commun ${Math.min(lv(sel[0]), lv(sel[1]))}</b>.`; };
+  $$("[data-n]", el).forEach(b => b.onclick = () => { const n = b.dataset.n, i = sel.indexOf(n); if (i >= 0) sel.splice(i, 1); else { sel.push(n); if (sel.length > 2) sel.shift(); } upd(); }); upd();
+};
+
+/* ---------- biodiversité génétique : portraits ---------- */
+const P_Y = [["bleus", "#4b86c8"], ["verts", "#4f9a5b"], ["noisette", "#a5743a"], ["marron", "#5b381f"]], P_C = [["blonds", "#e2c168"], ["roux", "#c2612b"], ["bruns", "#6a4424"], ["noirs", "#1e1b19"]], P_T = ["raides", "ondulés", "frisés"], P_G = ["A+", "A−", "B+", "B−", "AB+", "AB−", "O+", "O−", "inconnu"];
+const PF = [["y", "Couleur des yeux", P_Y.map(x => x[0])], ["c", "Couleur des cheveux", P_C.map(x => x[0])], ["t", "Texture des cheveux", P_T], ["g", "Groupe sanguin", P_G]];
+function face(x, y, r, o) {
+  const hc = o.c === undefined ? null : P_C[o.c][1], ec = o.y === undefined ? "var(--line)" : P_Y[o.y][1], st = "stroke:var(--ink);stroke-width:1.6", hs = hc ? `fill:${hc};${st}` : `fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:4 3`; let g = "";
+  if (hc && o.t === 0) g += `<path d="M${x - r * 1.02},${y + r * 0.95} L${x - r * 1.02},${y - r * 0.1} A${r * 1.02},${r * 1.02} 0 0 1 ${x + r * 1.02},${y - r * 0.1} L${x + r * 1.02},${y + r * 0.95} L${x + r * 0.6},${y + r * 0.95} L${x + r * 0.6},${y} L${x - r * 0.6},${y} L${x - r * 0.6},${y + r * 0.95}Z" style="${hs}"/>`;
+  if (hc && o.t === 1) [-1, 1].forEach(sd => { let d = `M${x + sd * r * 0.86},${y - r * 0.2}`; for (let i = 0; i < 4; i++) d += ` q${sd * (i % 2 ? -1 : 1) * r * 0.32},${r * 0.15} 0,${r * 0.3}`; g += `<path d="${d}" style="fill:none;stroke:${hc};stroke-width:${r * 0.36};stroke-linecap:round"/>`; });
+  if (hc && o.t === 2) for (let a = 170; a <= 370; a += 20) { const q = a * Math.PI / 180; g += `<circle cx="${N1(x + Math.cos(q) * r * 0.92)}" cy="${N1(y + Math.sin(q) * r * 0.92)}" r="${N1(r * 0.3)}" style="${hs}"/>`; }
+  g += `<circle cx="${x}" cy="${y}" r="${r * 0.82}" style="fill:var(--surface);${st}"/>`;
+  g += `<path d="M${x - r * 0.8},${y - r * 0.18} A${r * 0.82},${r * 0.82} 0 0 1 ${x + r * 0.8},${y - r * 0.18} Q${x},${y - r * (o.t === 2 ? 0.75 : 0.5)} ${x - r * 0.8},${y - r * 0.18}Z" style="${hs}"/>`;
+  [-1, 1].forEach(sd => { g += `<ellipse cx="${x + sd * r * 0.3}" cy="${y + r * 0.08}" rx="${r * 0.17}" ry="${r * 0.13}" style="fill:#fff;${st}"/><circle cx="${x + sd * r * 0.3}" cy="${y + r * 0.08}" r="${r * 0.1}" style="fill:${ec}"/><circle cx="${x + sd * r * 0.3}" cy="${y + r * 0.08}" r="${r * 0.04}" style="fill:#111"/>`; });
+  return g + `<path d="M${x - r * 0.25},${y + r * 0.42} Q${x},${y + r * 0.62} ${x + r * 0.25},${y + r * 0.42}" style="fill:none;${st};stroke-linecap:round"/>`;
+}
+const porCount = () => S.por.reduce((n, o) => n + PF.filter(f => o[f[0]] !== undefined).length, 0);
+const porRows = () => PF.map(f => [f[1], ...S.por.map(o => o[f[0]] === undefined ? "—" : f[2][o[f[0]]])]);
+WID.portraits = el => {
+  let cur = 0;
+  el.innerHTML = `<p class="lead">Pense à trois personnes de ton entourage (amis, famille). Pour chacune, choisis ses caractères : le portrait et le tableau se construisent. Aucun nom n'est demandé ; si tu ne connais pas un groupe sanguin, choisis « inconnu ».</p>
+    <div class="seg" role="group" aria-label="Personne décrite">${[1, 2, 3].map(i => `<button type="button" data-p="${i - 1}">Personne ${i}</button>`).join("")}</div><div class="figbox"></div><div class="pfs"></div><div class="res"></div>`;
+  const fig = liveSVG($(".figbox", el), (W, F) => { const tk = TK(F), cw = W / 3, r = Math.min(cw * 0.3, F * 2.6), H = r * 2.5 + tk * 3.4; let g = ""; S.por.forEach((o, i) => { const cx = cw * (i + 0.5), cy = r * 1.3; if (i === cur) g += `<rect x="${cw * i + 3}" y="2" width="${cw - 6}" height="${H - 4}" rx="12" style="fill:var(--accent-soft);stroke:var(--accent);stroke-width:2"/>`; g += face(cx, cy, r, o) + sT(cx, r * 2.5 + tk * 1.1, "Personne " + (i + 1), "middle", tk, 'font-weight="800"') + sT(cx, r * 2.5 + tk * 2.4, o.g === undefined ? "groupe : —" : o.g === 8 ? "groupe inconnu" : "groupe " + P_G[o.g], "middle", tk * 0.9); }); return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Portraits des trois personnes décrites ; leurs caractères sont repris dans le tableau sous le dessin.">${g}</svg>`; });
+  const paint = () => {
+    $$("[data-p]", el).forEach(b => b.setAttribute("aria-pressed", +b.dataset.p === cur ? "true" : "false"));
+    $(".pfs", el).innerHTML = PF.map(f => `<div class="pf"><span class="lab3">${f[1]}</span><div class="seg" role="group" aria-label="${f[1]}, personne ${cur + 1}">${f[2].map((v, j) => `<button type="button" data-k="${f[0]}" data-j="${j}" aria-pressed="${S.por[cur][f[0]] === j}">${v}</button>`).join("")}</div></div>`).join("");
+    $$("[data-k]", el).forEach(b => b.onclick = () => { S.por[cur][b.dataset.k] = +b.dataset.j; keep(); paint(); const n = $(`[data-k="${b.dataset.k}"][data-j="${b.dataset.j}"]`, el); if (n) n.focus(); });
+    fig.draw(); $(".res", el).innerHTML = `<p class="lead"><b>Mon tableau</b> : ${porCount()}/12 cases remplies.</p>` + tbl(["Caractère", "Personne 1", "Personne 2", "Personne 3"], porRows());
+  };
+  $$("[data-p]", el).forEach(b => b.onclick = () => { cur = +b.dataset.p; paint(); }); paint();
+};
+WID.classe = el => {
+  let pop = [], t0 = 0;
+  el.innerHTML = `<p class="lead">Avec seulement ces quatre caractères, combien de portraits différents peut-on obtenir ? Tire une classe de 24 élèves au hasard.</p><div class="row"><button type="button" class="btn" data-draw>🎲 Tirer une classe au hasard</button></div><div class="figbox"></div><p class="readout" aria-live="polite"></p><p class="cap">Modèle simplifié : chaque version d'un caractère a ici la même chance d'être tirée, ce qui n'est pas le cas dans une vraie population.</p>`;
+  const fig = liveSVG($(".figbox", el), (W, F) => { const cols = W < 520 ? 4 : W < 760 ? 6 : 8, rows = Math.ceil(24 / cols), cw = W / cols, r = Math.min(cw * 0.36, F * 1.6), rh = r * 2.3 + TK(F) * 1.5, q = t0 ? (performance.now() - t0) / 1500 : 1; let g = ""; pop.forEach((o, i) => { const a = seg(q, i / 30, i / 30 + 0.2); if (a <= 0) return; const cx = cw * (i % cols + 0.5), cy = rh * Math.floor(i / cols) + r * 1.15; g += `<g style="opacity:${a}">` + face(cx, cy, r * (0.6 + 0.4 * a), o) + sT(cx, cy + r * 1.15 + TK(F) * 0.9, P_G[o.g], "middle", TK(F) * 0.85, 'font-weight="700"') + `</g>`; }); return `<svg viewBox="0 0 ${W} ${Math.max(rows * rh, F * 2)}" width="${W}" height="${Math.max(rows * rh, F * 2)}" role="img" aria-label="Vingt-quatre portraits tirés au hasard ; le nombre de portraits différents est écrit sous le dessin.">${g}</svg>`; });
+  const loop = () => { if (!document.body.contains(el)) return; fig.draw(); if (performance.now() - t0 < 1900) requestAnimationFrame(loop); else { t0 = 0; fig.draw(); } };
+  $("[data-draw]", el).onclick = () => { const rnd = n => Math.floor(Math.random() * n); pop = Array.from({ length: 24 }, () => ({ y: rnd(4), c: rnd(4), t: rnd(3), g: rnd(8) })); t0 = performance.now(); requestAnimationFrame(loop); const n = new Set(pop.map(o => [o.y, o.c, o.t, o.g].join("-"))).size; $(".readout", el).innerHTML = `24 élèves tirés au hasard : <b>${n} portraits différents</b>. Avec ces quatre caractères seulement, il existe 4 × 4 × 3 × 8 = <b>384 combinaisons</b> possibles.`; };
+  $(".readout", el).innerHTML = "Touche le bouton pour tirer une classe.";
+};
+
+/* ---------- TP virtuel : explorer deux écosystèmes ---------- */
+const ECO = {
+  lac: { name: "Lac", btn: "🏞 Lac", type: "aquatique", cond: { t: ["Température de l'eau", 16, "°C", 40], l: ["Luminosité à 1 m sous la surface", 20000, "lux", 100000], h: ["Humidité de l'air au-dessus de l'eau", 75, "%", 100] },
+    sp: [["canard", "🦆", "Canard colvert", "oiseau", 0.28, 0.335, "float", 1], ["cygne", "🦢", "Cygne tuberculé", "oiseau", 0.66, 0.32, "float", 1.15], ["gren", "🐸", "Grenouille verte", "amphibien", 0.47, 0.375, "hop", 0.85], ["perche", "🐟", "Perche", "poisson", 0.5, 0.63, "swim", 1], ["limnee", "🐌", "Limnée", "mollusque (escargot d'eau douce)", 0.26, 0.875, "walk", 0.8], ["ecrev", "🦞", "Écrevisse", "crustacé", 0.74, 0.87, "walk", 0.9], ["moust", "🦟", "Moustique", "insecte", 0.2, 0.15, "fly", 0.75], ["roseau", "🌾", "Roseau", "plante à fleurs", 0.92, 0.33, "sway", 1.5]] },
+  foret: { name: "Forêt", btn: "🌲 Forêt", type: "terrestre", cond: { t: ["Température de l'air", 18, "°C", 40], l: ["Luminosité dans le sous-bois", 2000, "lux", 100000], h: ["Humidité de l'air", 85, "%", 100] },
+    sp: [["chene", "🌳", "Chêne pédonculé", "plante à fleurs (arbre)", 0.22, 0.47, "sway", 3.1], ["chouette", "🦉", "Chouette hulotte", "oiseau", 0.62, 0.22, "still", 1], ["ecur", "🐿️", "Écureuil roux", "mammifère", 0.86, 0.45, "climb", 0.9], ["cerf", "🦌", "Cerf élaphe", "mammifère", 0.5, 0.68, "walk", 1.35], ["renard", "🦊", "Renard roux", "mammifère", 0.82, 0.78, "walk", 1], ["fougere", "🌿", "Fougère aigle", "fougère", 0.1, 0.85, "sway", 1.2], ["amanite", "🍄", "Amanite tue-mouches", "champignon", 0.3, 0.87, "still", 0.9], ["fourmi", "🐜", "Fourmi rousse", "insecte", 0.6, 0.95, "walk", 0.7]] },
+  champ: { name: "Champ", btn: "🌾 Champ", type: "terrestre", cond: { t: ["Température de l'air", 25, "°C", 40], l: ["Luminosité en plein soleil", 80000, "lux", 100000], h: ["Humidité de l'air", 45, "%", 100] },
+    sp: [["ble", "🌾", "Blé tendre", "plante à fleurs", 0.13, 0.62, "sway", 1.6], ["tournesol", "🌻", "Tournesol", "plante à fleurs", 0.87, 0.57, "sway", 1.7], ["lapin", "🐇", "Lapin de garenne", "mammifère", 0.35, 0.8, "hop", 1], ["abeille", "🐝", "Abeille domestique", "insecte", 0.62, 0.38, "fly", 0.75], ["cocci", "🐞", "Coccinelle à sept points", "insecte", 0.7, 0.92, "walk", 0.7], ["papillon", "🦋", "Piéride du chou", "insecte (papillon)", 0.3, 0.28, "fly", 0.85], ["campa", "🐁", "Campagnol des champs", "mammifère", 0.5, 0.93, "walk", 0.8], ["saut", "🦗", "Grande sauterelle verte", "insecte", 0.88, 0.86, "hop", 0.8]] }
+};
+const SENS = [["t", "🌡 Thermomètre"], ["l", "☀ Luxmètre"], ["h", "💧 Hygromètre"]];
+const ecoSt = k => { if (!S.eco[k]) S.eco[k] = { m: {}, sp: {} }; return S.eco[k]; };
+const ecoN = k => { const e = S.eco[k] || { m: {}, sp: {} }; return [Object.keys(e.m).length, Object.keys(e.sp).length]; };
+const ecoOk = k => { const [a, b] = ecoN(k); return a === 3 && b >= 5; };
+const ecoSeen = () => Object.keys(ECO).filter(k => { const [a, b] = ecoN(k); return a + b > 0; });
+const ecoVal = (k, c) => (S.eco[k] && S.eco[k].m[c]) ? fmt(ECO[k].cond[c][1]) + NB + ECO[k].cond[c][2] : "—";
+const ecoRows = ks => [["Type de milieu", ...ks.map(k => ECO[k].type)], ["Température", ...ks.map(k => ecoVal(k, "t"))], ["Luminosité", ...ks.map(k => ecoVal(k, "l"))], ["Humidité de l'air", ...ks.map(k => ecoVal(k, "h"))], ["Espèces identifiées", ...ks.map(k => ECO[k].sp.filter(s => S.eco[k].sp[s[0]]).map(s => s[2]).join(", ") || "—")]];
+function ecoDone() { const terr = ["foret", "champ"].find(ecoOk), part = k => { const [a, b] = ecoN(k); return `${ECO[k].name} : ${a}/3 mesures, ${Math.min(b, 5)}/5 espèces`; }; const best = terr || (ecoN("champ")[0] + ecoN("champ")[1] > ecoN("foret")[0] + ecoN("foret")[1] ? "champ" : "foret"); return { ok: ecoOk("lac") && !!terr, msg: `${part("lac")} · ${part(best)}${best === "foret" && !terr ? " (ou le champ)" : ""}.` }; }
+function ecoBg(k, W, H) {
+  if (k === "lac") return `<rect width="${W}" height="${H * 0.37}" style="fill:#cfe8f6"/><ellipse cx="${W * 0.3}" cy="${H * 0.37}" rx="${W * 0.5}" ry="${H * 0.09}" style="fill:#7fae6e"/><ellipse cx="${W * 0.85}" cy="${H * 0.37}" rx="${W * 0.35}" ry="${H * 0.07}" style="fill:#6b9c5f"/><rect y="${H * 0.37}" width="${W}" height="${H * 0.63}" style="fill:#4f93c4"/><rect y="${H * 0.62}" width="${W}" height="${H * 0.38}" style="fill:#3f7fb0"/><path d="M0,${H} L0,${H * 0.93} Q${W * 0.3},${H * 0.88} ${W * 0.55},${H * 0.94} T${W},${H * 0.91} L${W},${H}Z" style="fill:#8a7453"/><ellipse cx="${W * 0.47}" cy="${H * 0.41}" rx="${W * 0.06}" ry="${H * 0.014}" style="fill:#4d9a57"/><ellipse cx="${W * 0.58}" cy="${H * 0.43}" rx="${W * 0.04}" ry="${H * 0.011}" style="fill:#5aa864"/><path d="M0,${H * 0.375} H${W}" style="stroke:#fff;stroke-width:2;opacity:.6"/>`;
+  if (k === "foret") { let g = `<rect width="${W}" height="${H}" style="fill:#3d6b47"/><ellipse cx="${W * 0.5}" cy="${H * 0.55}" rx="${W * 0.4}" ry="${H * 0.3}" style="fill:#5c8f5f;opacity:.55"/><rect y="${H * 0.82}" width="${W}" height="${H * 0.18}" style="fill:#6b5335"/>`; [[0.62, 0.05], [0.86, 0.045], [0.04, 0.04]].forEach(([x, w]) => { g += `<rect x="${W * (x - w / 2)}" y="0" width="${W * w}" height="${H * 0.84}" style="fill:#5b3f28"/>`; }); g += `<path d="M${W * 0.62},${H * 0.3} L${W * 0.74},${H * 0.26}" style="stroke:#5b3f28;stroke-width:${H * 0.022}"/>`; for (let i = 0; i < 9; i++) g += `<circle cx="${W * (i / 8)}" cy="${H * (i % 2 ? 0.02 : 0.06)}" r="${W * 0.1}" style="fill:${i % 2 ? "#2f5a3a" : "#356641"}"/>`; return g; }
+  let g = `<rect width="${W}" height="${H * 0.56}" style="fill:#bfe1f5"/><circle cx="${W * 0.85}" cy="${H * 0.15}" r="${H * 0.07}" style="fill:#f7d046"/><rect y="${H * 0.52}" width="${W}" height="${H * 0.06}" style="fill:#86b56a"/><rect y="${H * 0.56}" width="${W}" height="${H * 0.44}" style="fill:#d9c36a"/>`; for (let i = 0; i < 28; i++) g += `<path d="M${W * (i + 0.5) / 28},${H * (0.6 + (i % 3) * 0.035)} v${H * 0.09}" style="stroke:#b8982f;stroke-width:2"/>`; return g;
+}
+WID.eco = el => {
+  let cur = S.eco.cur && ECO[S.eco.cur] ? S.eco.cur : "lac", paused = false, clock = 0, lt = 0, sens = null, pick = "", lastId = "";
+  try { paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  el.innerHTML = `<p class="lead">Explore le <b>lac</b> et <b>un milieu terrestre</b> au choix (forêt ou champ). Dans chacun : fais les <b>trois mesures</b>, puis touche les êtres vivants pour en identifier <b>au moins cinq</b>. Ton tableau se construit sous le paysage.</p>
+    <div class="seg" role="group" aria-label="Milieu exploré">${Object.keys(ECO).map(k => `<button type="button" data-e="${k}">${ECO[k].btn} <span class="muted">(${ECO[k].type})</span></button>`).join("")}</div>
+    <div class="pilot">${SENS.map(([k, n]) => `<button type="button" class="btn" data-sn="${k}">${n}</button>`).join("")}<button type="button" class="btn ghost" data-pause></button></div>
+    <div class="sensors"></div><div class="figbox scene"></div><p class="readout" aria-live="polite"></p><div class="res"></div>`;
+  const host = $(".scene", el);
+  const pos = (s, t, W, H) => { const ph = s[4] * 17, bx = s[4] * W, by = s[5] * H, mv = s[6]; let x = bx, y = by, flip = false, rot = 0;
+    if (mv === "float") { x += Math.sin(t * 0.25 + ph) * W * 0.06; y += Math.sin(t * 1.3 + ph) * 2.5; flip = Math.cos(t * 0.25 + ph) > 0; }
+    if (mv === "swim") { x += Math.sin(t * 0.35 + ph) * W * 0.3; y += Math.sin(t * 0.9 + ph) * H * 0.03; flip = Math.cos(t * 0.35 + ph) > 0; }
+    if (mv === "fly") { x += Math.sin(t * 0.7 + ph) * W * 0.09; y += Math.sin(t * 1.9 + ph) * H * 0.05; flip = Math.cos(t * 0.7 + ph) > 0; }
+    if (mv === "hop") y -= Math.pow(Math.max(0, Math.sin(t * 1.3 + ph)), 6) * H * 0.07;
+    if (mv === "walk") { x += Math.sin(t * 0.22 + ph) * W * 0.1; flip = Math.cos(t * 0.22 + ph) > 0; }
+    if (mv === "climb") y += Math.sin(t * 0.4 + ph) * H * 0.14;
+    if (mv === "sway") rot = Math.sin(t * 0.8 + ph) * 4;
+    return { x, y, flip, rot }; };
+  const fig = liveSVG(host, (W, F) => { const small = W < 480, H = small ? W * 1.15 : Math.max(F * 13, Math.min(W * 0.62, F * 21)), tk = TK(F), e = ECO[cur], st = ecoSt(cur); let g = `<clipPath id="ecoclip"><rect width="${W}" height="${H}" rx="12"/></clipPath><g clip-path="url(#ecoclip)">${ecoBg(cur, W, H)}</g>`;
+    e.sp.forEach(s => { const es = F * 1.75 * s[7], hr = Math.max(26, Math.min(es * 0.6, F * 2)), found = !!st.sp[s[0]], P = pos(s, clock, W, H);
+      g += `<g class="ecosp" data-id="${s[0]}" tabindex="0" role="button" aria-label="${found ? s[2] + ", " + s[3] + ", identifié" : "Être vivant à identifier"}" transform="translate(${N1(P.x)},${N1(P.y)})"><circle r="${N1(hr)}" class="hit"/><g class="em"><text text-anchor="middle" y="${N1(es * 0.35)}" style="font-size:${N1(es)}px">${s[1]}</text></g>${found ? ((!small || lastId === s[0]) ? `<text text-anchor="${s[4] < 0.25 ? "start" : s[4] > 0.75 ? "end" : "middle"}" x="${s[4] < 0.25 ? N1(-hr) : s[4] > 0.75 ? N1(hr) : 0}" y="${N1(es * 0.35 + tk * 1.05)}" style="font-size:${N1(tk * 0.82)}px;font-weight:800;fill:#14251a;paint-order:stroke;stroke:#fff;stroke-width:4px">✓ ${esc(s[2])}</text>` : `<g transform="translate(${N1(Math.min(hr, es * 0.5))},${N1(-Math.min(hr, es * 0.45))})"><circle r="11" style="fill:#17703d;stroke:#fff;stroke-width:1.5"/><text text-anchor="middle" y="5" style="font-size:15px;font-weight:800;fill:#fff">✓</text></g>`) : `<g transform="translate(${N1(Math.min(hr, es * 0.5))},${N1(-Math.min(hr, es * 0.45))})"><circle r="11" style="fill:#fff;stroke:#14251a;stroke-width:1.5"/><text text-anchor="middle" y="5" style="font-size:15px;font-weight:800;fill:#14251a">?</text></g>`}</g>`; });
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="group" aria-label="Paysage : ${e.name}. Touche les êtres vivants pour les identifier.">${g}</svg>`; });
+  const place = () => { const svg = host.firstElementChild; if (!svg) return; const W = +svg.getAttribute("width"), H = +svg.getAttribute("height"); ECO[cur].sp.forEach(s => { const n = svg.querySelector(`[data-id="${s[0]}"]`); if (!n) return; const P = pos(s, clock, W, H); n.setAttribute("transform", `translate(${N1(P.x)},${N1(P.y)})`); n.querySelector(".em").setAttribute("transform", `scale(${P.flip ? -1 : 1},1) rotate(${N1(P.rot)})`); }); };
+  const sensors = () => { const e = ECO[cur], st = ecoSt(cur); $(".sensors", el).innerHTML = SENS.map(([k]) => { const c = e.cond[k], run = sens && sens.k === k, q = run ? Math.min(1, (performance.now() - sens.t0) / 900) : 1, on = st.m[k] || run, v = on ? c[1] * (run ? 1 - Math.pow(1 - q, 3) : 1) : 0; return `<div class="sens"><span class="sn">${c[0]}</span><b class="sv">${on ? fmt(k === "l" ? Math.round(v / 100) * 100 : Math.round(v)) + NB + c[2] : "—"}</b><div class="gauge" aria-hidden="true"><i style="width:${on ? Math.max(2, v / c[3] * 100) : 0}%"></i></div></div>`; }).join(""); };
+  const table = () => { const ks = ecoSeen(), [a, b] = ecoN(cur); $(".res", el).innerHTML = `<p class="lead"><b>${ECO[cur].name}</b> : ${a}/3 mesures · ${b}/8 espèces identifiées (au moins 5).</p>` + (ks.length ? `<p class="lead"><b>Mon tableau</b></p>` + tbl(["", ...ks.map(k => ECO[k].name)], ecoRows(ks)) : ""); };
+  const paint = () => { $$("[data-e]", el).forEach(b => b.setAttribute("aria-pressed", b.dataset.e === cur ? "true" : "false")); $("[data-pause]", el).textContent = paused ? "▶ Reprendre l'animation" : "⏸ Pause"; fig.draw(); place(); sensors(); table(); };
+  const say = t => { $(".readout", el).innerHTML = t; };
+  const ident = id => { const s = ECO[cur].sp.find(x => x[0] === id); if (!s) return; ecoSt(cur).sp[id] = 1; lastId = id; keep(); say(`${s[1]} <b>${s[2]}</b> · ${s[3]} · milieu : ${ECO[cur].name.toLowerCase()}.`); fig.draw(); place(); table(); const n = host.querySelector(`[data-id="${id}"]`); if (n && pick === "key") n.focus(); };
+  host.addEventListener("click", ev => { const n = ev.target.closest("[data-id]"); if (n) { pick = "tap"; ident(n.dataset.id); } });
+  host.addEventListener("keydown", ev => { if (ev.key !== "Enter" && ev.key !== " ") return; const n = ev.target.closest("[data-id]"); if (n) { ev.preventDefault(); pick = "key"; ident(n.dataset.id); } });
+  $$("[data-e]", el).forEach(b => b.onclick = () => { cur = b.dataset.e; S.eco.cur = cur; sens = null; keep(); paint(); say(`Tu es dans le milieu « ${ECO[cur].name} » (${ECO[cur].type}).`); });
+  $$("[data-sn]", el).forEach(b => b.onclick = () => { const k = b.dataset.sn, c = ECO[cur].cond[k]; sens = { k, t0: performance.now() }; ecoSt(cur).m[k] = 1; keep(); say(`${c[0]} : <b>${fmt(c[1])}${NB}${c[2]}</b>.`); table(); });
+  $("[data-pause]", el).onclick = () => { paused = !paused; $("[data-pause]", el).textContent = paused ? "▶ Reprendre l'animation" : "⏸ Pause"; };
+  const loop = ts => { if (!document.body.contains(el)) return; const dt = lt ? Math.min(100, ts - lt) : 0; lt = ts; if (!paused) { clock += dt / 1000; place(); } if (sens) { sensors(); if (performance.now() - sens.t0 > 900) { sens = null; sensors(); } } requestAnimationFrame(loop); };
+  paint(); say(`Tu es dans le milieu « ${ECO[cur].name} » (${ECO[cur].type}).`); requestAnimationFrame(loop);
+};
+
+/* ---------- animation finale : le zoom sur les trois échelles ---------- */
+WID.zoom = el => {
+  el.innerHTML = `<div class="row animctl"></div><p class="readout" aria-live="polite"></p><div class="figbox"></div>`;
+  let p = 0, last = ""; const TXT = ["<b>① Diversité des écosystèmes</b> : des milieux de vie aux conditions différentes.", "<b>② Diversité des espèces</b> : dans un même milieu vivent de nombreuses espèces.", "<b>③ Diversité génétique</b> : au sein d'une même espèce, les individus sont différents."];
+  const fig = liveSVG($(".figbox", el), (W, F) => { const H = Math.max(F * 11, Math.min(W * 0.5, F * 15)), tk = TK(F), st = p < 1 / 3 ? 0 : p < 2 / 3 ? 1 : 2, q = seg(p, st / 3, (st + 1) / 3), fade = Math.min(1, q * 6) * (st < 2 ? 1 - seg(q, 0.9, 1) : 1); let g = "";
+    if (st === 0) { [["#4f93c4", "🏞", "Lac"], ["#3d6b47", "🌲", "Forêt"], ["#d9c36a", "🌾", "Champ"]].forEach(([c, e, n], i) => { const a = seg(q, i * 0.15, i * 0.15 + 0.2), w = W * 0.29, x = W * 0.04 + i * W * 0.315; g += `<g style="opacity:${a}"><rect x="${x}" y="${F * 1.2}" width="${w}" height="${H - F * 4}" rx="12" style="fill:${c};stroke:var(--ink);stroke-width:2"/><text x="${x + w / 2}" y="${H * 0.5}" text-anchor="middle" style="font-size:${N1(Math.min(w * 0.5, F * 3.4))}px">${e}</text>` + sT(x + w / 2, H - F * 1.6, n, "middle", tk, 'font-weight="800"') + `</g>`; }); if (q > 0.7) g += `<rect x="${W * 0.04 - 4}" y="${F * 1.2 - 4}" width="${W * 0.29 + 8}" height="${H - F * 4 + 8}" rx="14" style="fill:none;stroke:var(--c2);stroke-width:4;stroke-dasharray:8 6;opacity:${seg(q, 0.7, 0.8)}"/>`; }
+    if (st === 1) { g += `<rect x="4" y="${F * 1.2}" width="${W - 8}" height="${H - F * 2.4}" rx="12" style="fill:#4f93c4;stroke:var(--ink);stroke-width:2"/>`; ["🦆", "🦢", "🐸", "🐟", "🐌", "🦞", "🦟", "🌾"].forEach((e, i) => { const a = seg(q, 0.08 + i * 0.08, 0.16 + i * 0.08); g += `<text x="${W * (0.14 + (i % 4) * 0.24)}" y="${H * (0.42 + Math.floor(i / 4) * 0.32) + Math.sin(p * 40 + i) * 3}" text-anchor="middle" style="font-size:${N1(F * 2.2 * (0.5 + 0.5 * a))}px;opacity:${a}">${e}</text>`; }); if (q > 0.8) g += `<circle cx="${W * 0.14}" cy="${H * 0.42 - F * 0.7}" r="${F * 1.7}" style="fill:none;stroke:var(--c2);stroke-width:4;stroke-dasharray:8 6;opacity:${seg(q, 0.8, 0.88)}"/>`; }
+    if (st === 2) { g += `<rect x="4" y="${F * 1.2}" width="${W - 8}" height="${H - F * 2.4}" rx="12" style="fill:var(--sea);opacity:.28"/>`; const s = Math.min(F * 3, W * 0.16); ["A", "D", "B", "A", "D", "B"].forEach((k, i) => { const a = seg(q, 0.05 + i * 0.1, 0.15 + i * 0.1); g += duck(k, W * (0.17 + (i % 3) * 0.33), H * (0.42 + Math.floor(i / 3) * 0.34), s * (i > 2 ? 0.85 : 1), i % 2 ? -1 : 1, "", a); }); }
+    g = `<g style="opacity:${p <= 0 ? 1 : Math.max(0.05, fade)}">${g}</g>` + sT(8, tk * 1.05, ["① Écosystèmes", "② Espèces", "③ Individus d'une même espèce"][st], "start", tk, 'font-weight="800"');
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Zoom en trois temps : trois écosystèmes, puis les espèces d'un lac, puis des individus différents d'une même espèce de canard.">${g}</svg>`; });
+  animCtl($(".animctl", el), 13000, x => { p = x; fig.draw(); const t = x <= 0 ? "Un zoom en trois temps sur la biodiversité." : TXT[x < 1 / 3 ? 0 : x < 2 / 3 ? 1 : 2] + (x >= 1 ? " La biodiversité, c'est tout cela à la fois." : ""); if (t !== last) { last = t; $(".readout", el).innerHTML = t; } });
+};
+
+/* ===== 2nde SVT · Thème 1, chapitre 3 · Rappels + Activité 1, d'après les fiches et le corrigé du professeur ===== */
+const PROBLEM = "Comment peut-on affirmer que la biodiversité est en perpétuelle évolution ?";
+const gap = `<span class="gap">………</span>`;
+const HOME = { slug: "trois-echelles-biodiversite", short: "Les échelles de la biodiversité", last: "c3", lastG: "p3", lastK: 2,
+  kicker: "Thème 1 · Chapitre 3 · Biodiversité actuelle et passée · Rappels et activité 1", title: "Les différentes échelles de la biodiversité",
+  intro: "La biodiversité, qui signifie diversité biologique, désigne toutes les variations du monde vivant : variations du milieu de vie (biodiversité des écosystèmes), variations des espèces (biodiversité des espèces) et variations des individus d'une même espèce (biodiversité génétique).",
+  lab: "Problème du chapitre", goal: "Objectifs de la séance : exploiter des animations ; comparer la diversité biologique à différentes échelles.",
+  fact: "La forêt tropicale abrite environ 50 % des espèces connues dans le monde (affiche « Forêts et biodiversité », GoodPlanet).",
+  parts: "Les trois parties de la séance (environ une heure)", recop: "Bilan de l'activité",
+  txt: "LES DIFFÉRENTES ÉCHELLES DE LA BIODIVERSITÉ\n2nde SVT · Thème 1, chapitre 3 · Rappels et activité 1",
+  comps: { conn: "Mobiliser ses connaissances", lire: "Exploiter un document, une animation", mod: "Réaliser une manipulation virtuelle", rais: "Raisonner, argumenter" },
+  extra: () => `MES TABLEAUX\nBiodiversité génétique : trois personnes de mon entourage\n${porRows().map(r => "- " + r[0] + " : " + r.slice(1).join(" | ")).join("\n")}\n\nBiodiversité des espèces et des écosystèmes (valeurs simulées)\n${ecoSeen().length ? "- Milieux : " + ecoSeen().map(k => ECO[k].name).join(" | ") + "\n" + ecoRows(ecoSeen()).map(r => "- " + r[0] + " : " + r.slice(1).join(" | ")).join("\n") : "- aucun milieu exploré"}\n`,
+  extraHTML: () => `<p class="lead">Trois personnes de mon entourage</p>${tbl(["Caractère", "Personne 1", "Personne 2", "Personne 3"], porRows())}<p class="lead">Mes milieux de vie <span class="sim">⚠ Valeurs simulées</span></p>${ecoSeen().length ? tbl(["", ...ecoSeen().map(k => ECO[k].name)], ecoRows(ecoSeen())) : `<p>Aucun milieu exploré pour l'instant.</p>`}` };
+
+const DOC_CAN = { title: "Document 1 · Cinq canards observés au bord d'un étang", w: "canards", sim: "Dessins simplifiés" };
+const DOC_TAB = { title: "Document 4 · Tableau de caractères", html: tbl(["Animal", "Mâchoires", "Doigts", "Mamelles"], [["Requin", "présentes", "absents", "absentes"], ["Sardine", "présentes", "absents", "absentes"], ["Crapaud", "présentes", "présents", "absentes"], ["Crocodile", "présentes", "présents", "absentes"], ["Gorille", "présentes", "présents", "présentes"], ["Homme", "présentes", "présents", "présentes"]]) };
+const CLASSE = tbl(["Exemple obtenu dans une classe", "Élève 1", "Élève 2", "Élève 3"], [["Couleur des yeux", "marron foncé", "bleus", "marron"], ["Couleur des cheveux", "noirs", "blonds", "bruns"], ["Texture des cheveux", "raides", "raides", "raides"], ["Groupe sanguin", "A+", "A+", "A"]]);
+const BIL = ["La <u>biodiversité</u> est à la fois la <u>diversité des écosystèmes</u>, la <u>diversité des espèces</u> et la <u>diversité génétique</u> au sein des espèces.",
+  "<u>Espèce</u> : ensemble d'individus ayant des caractères communs, <u>interféconds</u> (capables de produire une descendance) et dont la descendance est <u>fertile</u>.",
+  "Au sein d'une même espèce, il existe une grande diversité de caractères.",
+  "Pour chaque milieu étudié, il existe une grande diversité d'espèces vivant dans ce milieu.",
+  "Rappel : avec un ensemble de caractères, il est possible de convertir des <u>groupes emboîtés</u> en <u>arbre de parenté</u>. Deux espèces sont d'autant plus proches parentes que leur dernier ancêtre commun est récent."];
+const bilanHTML = () => BIL.map(x => `<p>${nb(x)}</p>`).join("");
+const E3 = ["Écosystèmes", "Espèces", "Génétique"];
+
+const GROUPS = [
+{ id: "p1", n: 1, icon: "🦆", tab: "Espèce", title: "C'est quoi, une espèce ?", sub: "Rappels · environ 15 minutes · deux élevages virtuels pour tester l'interfécondité.",
+  items: [
+  { id: "a1", lvl: "easy", title: "TP virtuel · Combien d'espèces de canards ?",
+    intro: "Regarde ces canards : combien d'espèces identifies-tu ? Donne d'abord ton avis, puis vérifie-le en réalisant des croisements.",
+    docs: [DOC_CAN],
+    pre: { label: "Ton hypothèse : combien d'espèces vois-tu parmi ces cinq canards ?", o: ["Une seule espèce", "Deux espèces", "Trois espèces", "Cinq espèces"], a: 1 },
+    widget: { title: "TP virtuel · La volière : qui peut se reproduire avec qui ?", w: "voliere", sim: "Résultats simulés" },
+    parts: [
+      { t: "rows", c: "mod", label: "Réalise les six croisements. Que donnent ceux-ci ?", choices: ["Petits fertiles", "Pas de descendance"], rows: [{ txt: "Canard A × canard B", a: 0 }, { txt: "Canard A × canard E", a: 1 }, { txt: "Canard C × canard D", a: 1 }, { txt: "Canard C × canard E", a: 0 }] },
+      { t: "multi", c: "rais", label: "Quels canards appartiennent à la même espèce que le canard A ? (plusieurs réponses)", o: ["Canard B", "Canard C", "Canard D", "Canard E"], a: [0, 2] },
+      { t: "num", c: "rais", label: "Combien d'espèces y a-t-il parmi ces cinq canards ?", unit: "espèce(s)", ans: 2, err: [[v => v === 5, "Avoir un plumage différent ne suffit pas pour former une espèce : regarde le tableau de tes croisements."], [v => v === 3, "Les canards A, B et D donnent ensemble des petits fertiles : ils ne forment qu'une espèce."]] },
+      { t: "choice", c: "rais", label: "Les canards D et E se ressemblent beaucoup. Sont-ils de la même espèce ?", o: ["Oui : deux animaux qui se ressemblent sont toujours de la même espèce", "Non : D se reproduit avec A, E se reproduit avec C, et jamais l'inverse", "On ne peut pas le savoir"], a: 1 }],
+    hints: ["Remplis tout le tableau « Mes croisements » : deux mâles, trois femelles, six croisements.", "Regroupe les canards qui donnent ensemble des petits fertiles.", "A donne des petits fertiles avec B et D ; C seulement avec E : il y a deux groupes."],
+    corr: "Les canards A, B et D sont interféconds et leur descendance est fertile : ils appartiennent à la même espèce, le canard colvert (A : mâle ; D : femelle ; B : canard domestique blanc, issu du colvert). Les canards C et E forment une deuxième espèce, le canard souchet. Il y a donc deux espèces. Se ressembler ne suffit pas : D et E se ressemblent mais ne sont pas de la même espèce, alors que A et B, très différents, le sont." },
+  { id: "a2", lvl: "mid", title: "La définition d'une espèce",
+    intro: "Le cheval et l'âne se ressemblent et peuvent avoir un petit ensemble. Sont-ils pour autant de la même espèce ?",
+    widget: { title: "TP virtuel · Le pré : cheval et âne", w: "ecurie", sim: "Modèle simplifié" },
+    parts: [
+      { t: "rows", c: "mod", label: "Réalise les quatre croisements. Que donnent-ils ?", choices: ["Petit fertile", "Petit stérile"], rows: [{ txt: "Étalon × jument", a: 0 }, { txt: "Âne × jument", a: 1 }, { txt: "Âne × ânesse", a: 0 }, { txt: "Étalon × ânesse", a: 1 }] },
+      { t: "choice", c: "rais", label: "Le cheval et l'âne appartiennent-ils à la même espèce ?", o: ["Oui : ils se ressemblent et peuvent avoir un petit", "Non : ils ne peuvent avoir aucun petit", "Non : leur petit (mulet ou bardot) est stérile"], a: 2, no: { 0: "Se ressembler et avoir un petit ne suffit pas : regarde ce que devient ce petit une fois adulte.", 1: "Ils ont bien un petit : un mulet ou un bardot." } },
+      { t: "word", c: "conn", label: `Des individus capables de se reproduire entre eux sont dits ${gap}.`, ans: ["interféconds", "interfécond", "interfécondes", "inter-féconds", "interfeconds"], spell: true, err: [[["fertiles", "fertile", "féconds"], "Ce mot qualifie un individu ou une descendance. Ici, on cherche le mot qui signifie « féconds entre eux »."]] },
+      { t: "word", c: "conn", label: `Pour qu'ils soient de la même espèce, il faut aussi que leur descendance soit ${gap}.`, ans: ["fertile", "fertiles", "féconde", "fécondes"], err: [[["stérile", "steriles"], "C'est le contraire : stérile signifie « qui ne peut pas avoir de petits »."]] }],
+    hints: ["Dans le pré, observe bien la deuxième génération : le petit, devenu adulte, a-t-il des petits à son tour ?", "Le mot cherché commence par « inter » : féconds entre eux.", "Interféconds · descendance fertile. Le mulet est stérile : cheval et âne sont deux espèces."],
+    corr: "Espèce : ensemble d'individus ayant des caractères communs, interféconds (capables de produire une descendance) et dont la descendance est fertile. Le cheval et l'âne ont un petit, le mulet, mais il est stérile : ce sont deux espèces différentes. Compare cette définition avec celle de ton livre (page 79)." }] },
+
+{ id: "p2", n: 2, icon: "🌿", tab: "Classer", title: "Classer les êtres vivants et retrouver leurs parentés", sub: "Rappels · environ 15 minutes · des groupes emboîtés à l'arbre de parenté.",
+  items: [
+  { id: "b1", lvl: "easy", title: "Lire une classification en groupes emboîtés",
+    docs: [{ title: "Document 2 · Classification simplifiée des végétaux", w: "embVeg", sim: "Document à explorer" }, { title: "Document 3 · Classification simplifiée des vertébrés", w: "embVert", sim: "Document à explorer" }],
+    parts: [
+      { t: "multi", c: "lire", label: "Document 2 : quels caractères sont présents chez la fougère ? (plusieurs réponses)", o: ["Chlorophylle", "Fleurs et fruits", "Tige et feuilles", "Graines", "Racines et vaisseaux conducteurs"], a: [0, 2, 4] },
+      { t: "multi", c: "lire", label: "Document 3 : quels caractères sont présents chez les amphibiens ? (plusieurs réponses)", o: ["Poils et mamelles", "Crâne et vertèbres", "Doigts", "Amnios", "Mâchoires", "Squelette osseux"], a: [1, 2, 4, 5] },
+      { t: "choice", c: "lire", label: "Quel caractère le pin possède-t-il en plus de la fougère ?", o: ["La chlorophylle", "Les fleurs et les fruits", "Les graines"], a: 2 }],
+    hints: ["Un être vivant possède tous les caractères des boîtes qui le contiennent.", "Pars de la fougère (ou du crapaud) et remonte vers l'extérieur : note le nom de chaque boîte traversée.", "Fougère : 3 caractères. Amphibiens : 4 caractères. Le pin est dans une boîte de plus que la fougère."],
+    corr: "La fougère possède la chlorophylle, une tige et des feuilles, des racines et des vaisseaux conducteurs ; elle n'a ni graines, ni fleurs, ni fruits. Les amphibiens possèdent un crâne et des vertèbres, des mâchoires, un squelette osseux et des doigts ; ils n'ont ni amnios, ni poils, ni mamelles. Le pin possède, en plus de la fougère, des graines." },
+  { id: "b2", lvl: "mid", title: "Construire des groupes emboîtés",
+    intro: "Avec un ensemble de caractères, il est possible de convertir des groupes emboîtés en arbre de parenté. Commence par construire les groupes emboîtés pour trois caractères : mâchoires, doigts et mamelles.",
+    docs: [DOC_TAB], live: "boites", liveTitle: "Ta classification en groupes emboîtés (elle se remplit avec tes réponses)",
+    parts: [
+      { t: "rows", c: "mod", label: "Range chaque animal dans la plus petite boîte possible.", choices: BOXN, rows: [{ txt: "Sardine", a: 0 }, { txt: "Crapaud", a: 1 }, { txt: "Gorille", a: 2 }, { txt: "Requin", a: 0 }, { txt: "Crocodile", a: 1 }, { txt: "Homme", a: 2 }] },
+      { t: "choice", c: "rais", label: "Un animal rangé dans la boîte « Mamelles » possède…", o: ["uniquement des mamelles", "des mamelles et des doigts, mais pas de mâchoires", "des mâchoires, des doigts et des mamelles"], a: 2 }],
+    hints: ["La boîte « Mâchoires » contient la boîte « Doigts », qui contient la boîte « Mamelles ».", "Un animal sans doigts ne peut pas entrer dans la boîte « Doigts » : il reste dans « Mâchoires ».", "Mâchoires : sardine, requin. Doigts : crapaud, crocodile. Mamelles : gorille, homme."],
+    corr: "La sardine et le requin n'ont que les mâchoires. Le crapaud et le crocodile ont des mâchoires et des doigts. Le gorille et l'homme ont des mâchoires, des doigts et des mamelles : ils sont rangés dans les trois boîtes à la fois.",
+    unlock: { title: "🔓 Animation débloquée · Des groupes emboîtés à l'arbre de parenté", w: "morph", sim: "Modèle simplifié" } },
+  { id: "b3", lvl: "hard", title: "Lire un arbre de parenté",
+    widget: { title: "Document 5 · Arbre de parenté construit à partir des groupes emboîtés", w: "arbre", sim: "Document à explorer" },
+    parts: [
+      { t: "choice", c: "lire", label: "Entre la sardine et le crocodile, quelle espèce est la plus proche du gorille ?", o: ["La sardine", "Le crocodile", "Elles sont aussi proches l'une que l'autre"], a: 1 },
+      { t: "num", c: "lire", label: "Combien de caractères de cet arbre le crocodile partage-t-il avec le gorille ?", unit: "caractère(s)", ans: 2, err: [[v => v === 3, "Le crocodile n'a pas de mamelles."], [v => v === 1, "Compte tous les traits de couleur situés entre la base de l'arbre et leur dernier ancêtre commun."]] },
+      { t: "choice", c: "rais", label: "Quelle justification est correcte ?", o: ["Le crocodile et le gorille vivent tous les deux hors de l'eau", "La sardine et le gorille partagent l'ancêtre commun 1, le plus ancien : ce sont donc les plus proches", "Le crocodile et le gorille partagent un ancêtre commun plus récent (l'ancêtre commun 2), qui leur a transmis les doigts"], a: 2, no: { 0: "Le milieu de vie n'est pas un argument de parenté : on raisonne sur les ancêtres communs et les caractères hérités.", 1: "C'est l'inverse : plus le dernier ancêtre commun est récent, plus les espèces sont proches." } }],
+    hints: ["Sur le document, touche « Gorille » puis « Sardine », et ensuite « Gorille » puis « Crocodile ».", "Compare les deux ancêtres communs obtenus : lequel est le plus proche du bout des branches ?", "Gorille et crocodile : ancêtre commun 2 (mâchoires et doigts). Gorille et sardine : ancêtre commun 1 (mâchoires seulement)."],
+    corr: "Le crocodile est plus proche du gorille que la sardine. Le gorille et le crocodile partagent l'ancêtre commun 2, qui leur a transmis les doigts : ils ont deux caractères en commun (mâchoires et doigts). Le gorille et la sardine ne partagent que l'ancêtre commun 1, plus ancien : ils n'ont en commun que les mâchoires." }] },
+
+{ id: "p3", n: 3, icon: "🌍", tab: "Échelles", title: "Les différentes échelles de la biodiversité", sub: "Activité 1 · environ 30 minutes · individus, espèces, écosystèmes.",
+  items: [
+  { id: "c1", lvl: "easy", title: "La biodiversité génétique",
+    intro: "En prenant appui sur l'espèce humaine, montre qu'il existe une variabilité des individus au sein d'une même espèce.",
+    widget: { title: "À toi · Décris trois personnes de ton entourage", w: "portraits", sim: "Reste sur cet appareil" },
+    parts: [
+      { t: "task", c: "mod", label: "Complète le portrait des trois personnes (quatre caractères chacune).", okMsg: "Tableau complet.", done: () => ({ ok: porCount() === 12, msg: `${porCount()}/12 cases du tableau remplies.` }) },
+      { t: "choice", c: "rais", label: "Que montre ton tableau ?", o: ["Tous les individus d'une même espèce sont identiques", "Au sein d'une même espèce, il existe une grande diversité de caractères", "Chaque personne appartient à une espèce différente"], a: 1 },
+      { t: "choice", c: "conn", label: "À quoi est due cette variabilité des individus d'une même espèce ?", o: ["Les individus possèdent les mêmes gènes, mais pas les mêmes versions de ces gènes : les allèles", "Les individus n'ont pas le même nombre de chromosomes", "Les individus ne vivent pas dans le même milieu de vie"], a: 0, no: { 1: "Tous les êtres humains ont 46 chromosomes.", 2: "Le milieu de vie n'explique ni la couleur des yeux ni le groupe sanguin." } }],
+    hints: ["Choisis une personne, puis une réponse pour chacun des quatre caractères.", "Compare les trois colonnes de ton tableau : sont-elles identiques ?", "Souviens-toi de la classe de troisième : un gène existe en plusieurs versions, les allèles."],
+    corr: "Grâce au tableau, on peut constater qu'au sein d'une même espèce, il existe une grande diversité de caractères. Cette variabilité est due aux allèles : tous les individus d'une espèce possèdent les mêmes gènes, mais pas les mêmes versions de ces gènes. C'est la biodiversité génétique.",
+    corrx: CLASSE,
+    unlock: { title: "🔓 Simulation débloquée · Une classe tirée au hasard", w: "classe", sim: "Tirage simulé" } },
+  { id: "c2", lvl: "mid", title: "TP virtuel · La biodiversité des espèces et des écosystèmes",
+    intro: "À partir de deux milieux de vie (le lac, obligatoire, et un milieu terrestre au choix), construis un tableau qui montre la diversité des milieux de vie et la diversité des espèces.",
+    widget: { title: "TP virtuel · Explorer deux milieux de vie", w: "eco", sim: "Valeurs simulées" },
+    parts: [
+      { t: "task", c: "mod", label: "Dans le lac et dans un milieu terrestre : fais les trois mesures et identifie au moins cinq espèces.", okMsg: "Tableau complet pour deux milieux.", done: ecoDone },
+      { t: "choice", c: "lire", label: "D'après tes mesures, dans quel milieu la température est-elle la plus basse ?", o: ["Dans le milieu terrestre", "Dans le lac", "Elle est identique dans les deux milieux"], a: 1 },
+      { t: "choice", c: "rais", label: "Température, luminosité, humidité : que montrent tes relevés ?", o: ["Les conditions de vie diffèrent d'un milieu à l'autre : il existe une diversité des milieux de vie (écosystèmes)", "Les conditions de vie sont les mêmes partout", "Les conditions de vie ne dépendent que des espèces présentes"], a: 0 },
+      { t: "choice", c: "rais", label: "Que montre la liste des espèces relevées dans chaque milieu ?", o: ["Chaque milieu n'abrite qu'une seule espèce", "Les mêmes espèces vivent dans tous les milieux", "Pour chaque milieu étudié, il existe une grande diversité d'espèces vivant dans ce milieu"], a: 2 }],
+    hints: ["Les trois boutons de mesure sont au-dessus du paysage. Touche ensuite les êtres vivants marqués d'un « ? ».", "Change de milieu avec les boutons « Lac », « Forêt », « Champ » : tes relevés sont conservés.", "Lis ton tableau colonne par colonne : les conditions de vie changent, et les espèces aussi."],
+    corr: "Les conditions de vie (température, luminosité, humidité) ne sont pas les mêmes dans le lac et dans le milieu terrestre : il existe une diversité des milieux de vie, ou écosystèmes. Dans le tableau, on peut voir que pour chaque milieu étudié, il existe une grande diversité d'espèces vivant dans ce milieu." },
+  { id: "c3", lvl: "hard", title: "Le bilan : trois échelles", recop: true,
+    parts: [
+      { t: "rows", c: "rais", label: "À quelle échelle de la biodiversité chaque observation correspond-elle ?", choices: E3, rows: [
+        { txt: "Un lac, une forêt et un champ n'offrent pas les mêmes conditions de vie", a: 0 },
+        { txt: "Dans le lac vivent la perche, la grenouille verte, le cygne, la limnée…", a: 1 },
+        { txt: "Trois élèves n'ont ni les mêmes yeux, ni les mêmes cheveux, ni le même groupe sanguin", a: 2 },
+        { txt: "Les canards A, B et D n'ont pas le même plumage, mais appartiennent à la même espèce", a: 2 },
+        { txt: "La forêt tropicale abrite environ 50 % des espèces connues dans le monde", a: 1 }] },
+      { t: "choice", c: "conn", label: "La biodiversité, c'est…", o: ["uniquement le nombre d'espèces d'un milieu", "à la fois la diversité des écosystèmes, la diversité des espèces et la diversité génétique au sein des espèces", "la diversité des animaux, sans les végétaux"], a: 1 }],
+    hints: ["Trois échelles : les milieux de vie, les espèces, les individus d'une même espèce.", "Des individus différents au sein d'une même espèce : c'est la diversité génétique.", "Écosystèmes · espèces · génétique · génétique · espèces."],
+    corr: "La biodiversité est à la fois la diversité des écosystèmes, la diversité des espèces et la diversité génétique au sein des espèces.",
+    unlock: { title: "🔓 Animation débloquée · Le zoom sur la biodiversité", w: "zoom", sim: "Modèle simplifié" } }] }
+];
+const RAPPEL = { id: "r0", lvl: "easy", title: "Échauffement",
+  parts: [
+    { t: "choice", c: "conn", label: "Le mot « biodiversité » signifie…", o: ["nombre d'animaux sur Terre", "diversité biologique", "biologie des milieux"], a: 1 },
+    { t: "choice", c: "conn", label: "Au collège, tu as classé les êtres vivants en groupes emboîtés. Sur quoi ce classement repose-t-il ?", o: ["Sur les caractères que les êtres vivants partagent", "Sur leur milieu de vie", "Sur leur taille"], a: 0 }],
+  hints: ["Relis l'introduction, juste au-dessus.", "On range dans une même boîte les êtres vivants qui possèdent un même caractère.", "Diversité biologique · les caractères partagés."],
+  corr: "La biodiversité est la diversité biologique : toutes les variations du monde vivant. Pour classer les êtres vivants, on utilise les caractères qu'ils partagent." };
+const RESUME = `Problème du chapitre : ${PROBLEM}\n${HOME.goal}\n\nÀ retenir\n${BIL.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}`;
+typo(GROUPS); typo(RAPPEL);
+
+/* ===== Les échelles de la biodiversité (2nde) · moteur : navigation, questions, correction, bilan ===== */
+const LV = { easy: ["🟢 Facile", "easy", "🟢"], mid: ["🟡 Moyen", "mid", "🟡"], hard: ["🔴 Défi", "hard", "🔴"] };
+const COMPS = HOME.comps;
+const SIGN = "Mr Moreira, Vauban Luxembourg";
+const ITEMS = {};
+GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `Partie ${g.n} (${g.tab}) · étape ${i + 1} · ${it.title}` }; }));
+ITEMS.r0 = { it: RAPPEL, g: null, i: 0, label: "Accueil · " + RAPPEL.title };
+
+/* ---------- état ---------- */
+const DEF = { fs: 21, theme: null, proj: false, it: {}, view: "accueil", step: {}, cross: {}, por: [{}, {}, {}], eco: {} };
+let S = Store.load(DEF);
+["it", "step", "cross", "eco"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+if (!Array.isArray(S.por) || S.por.length !== 3) S.por = [{}, {}, {}];
+const save = () => Store.save(S);
+const scorable = p => p.t !== "text";
+function itState(id) { if (!S.it[id]) S.it[id] = { v: {}, hints: 0, crit: {} }; return S.it[id]; }
+const itemMax = it => it.parts.filter(scorable).length;
+const corrShown = st => !!(st && st.first && (st.lastOk || (st.tries || 0) >= 2));
+function status(it) { const st = S.it[it.id]; if (!st || !st.first) return ["", "à faire"]; if (!itemMax(it)) return ["✓", "rédigé"]; return st.first.pts === st.first.max ? ["✓", "réussi au premier essai"] : ["◐", st.first.pts + "/" + st.first.max + " au premier essai"]; }
+
+/* ---------- vérification ---------- */
+const stripUnit = s => String(s === undefined || s === null ? "" : s).replace(/[\s  ]*[a-zA-Zéèµ°%²³₂][\sa-zA-Zéèµ°%²³₂.\/  ]*$/, "");
+function checkPart(p, val) {
+  if (p.t === "word") {
+    const r = fuzzy(val, p.ans); if (r.empty) return { ok: false, empty: true, msg: "Réponse manquante." };
+    if (r.ok) return { ok: true, msg: (r.typo || (p.spell && normTxt(val) !== normTxt(p.ans[0]))) ? `✓ Juste. Orthographe exacte : « ${p.ans[0]} ».` : "✓ Juste." };
+    for (const [alts, m] of (p.err || [])) if (fuzzy(val, alts).ok) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : réfléchis encore, puis utilise un coup de pouce si besoin." };
+  }
+  if (p.t === "num") {
+    if (val === undefined || String(val).trim() === "") return { ok: false, empty: true, msg: "Réponse manquante." };
+    let v = parseNum(val); if (!Number.isFinite(v)) v = parseNum(stripUnit(val));
+    if (!Number.isFinite(v)) { const wv = ({ deux: 2, quatre: 4, huit: 8 })[normTxt(val)]; if (wv !== undefined) v = wv; }
+    if (!Number.isFinite(v)) return { ok: false, msg: "✗ Écris un nombre (la virgule est acceptée)." };
+    if (near(v, p.ans, p.tol || 0, 0)) return { ok: true, msg: "✓ Juste." };
+    for (const [f, m] of (p.err || [])) if (f(v)) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : vérifie ta lecture ou ton calcul." };
+  }
+  if (p.t === "choice") { if (val === undefined || val === null) return { ok: false, empty: true, msg: "Choisis une réponse." }; return val === p.a ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Faux. " + ((p.no && p.no[val]) || "Ce n'est pas la bonne proposition.") }; }
+  if (p.t === "multi") { const s = (val || []).slice().sort().join(","); if (!s) return { ok: false, empty: true, msg: "Choisis au moins une réponse." }; return s === p.a.slice().sort().join(",") ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Pas encore : il y a " + p.a.length + " bonnes réponses." }; }
+  if (p.t === "match") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Complète chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Tout est bien relié." }; }
+  if (p.t === "rows") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Réponds à chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} ligne(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les lignes sont justes." }; }
+  if (p.t === "order") { const v = val || []; if (v.length < p.keys.length) return { ok: false, empty: true, msg: "Place toutes les images." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} image(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Ordre juste." }; }
+  if (p.t === "shot") {
+    if (val === undefined || val === null) return { ok: false, empty: true, msg: "Photo manquante." };
+    const w = SHOTWIN[p.ph]; if (val >= w[0] && val <= w[1]) return { ok: true, msg: "✓ Bonne photo." };
+    const other = Object.entries(SHOTWIN).find(([k, x]) => k !== p.ph && val >= x[0] && val <= x[1]);
+    const NM = { pro: "la prophase : les chromosomes sont visibles, mais pas encore alignés", meta: "la métaphase : les chromosomes sont alignés au milieu", ana: "l'anaphase : les bâtonnets sont en train de s'écarter", telo: "la télophase : les bâtonnets sont déjà arrivés aux pôles" };
+    if (other) return { ok: false, msg: "✗ Faux. Ta photo montre " + NM[other[0]] + "." };
+    return { ok: false, msg: val < 0.3 ? "✗ Trop tôt : les chromosomes ne sont pas encore bien visibles." : val > 0.8 ? "✗ Trop tard : la cellule est déjà en train de se couper en deux." : "✗ Presque : ta photo est prise entre deux étapes. Avance ou recule un peu." };
+  }
+  if (p.t === "task") { const r = p.done(); return r.ok ? { ok: true, msg: "✓ " + p.okMsg } : { ok: false, empty: true, msg: "Termine d'abord la manipulation." }; }
+  if (p.t === "loop") { const v = val || []; if (v.length < p.items.length) return { ok: false, empty: true, msg: "Place toutes les étiquettes." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Boucle juste." }; }
+  return { ok: true, msg: "" };
+}
+function order(key, n) { const base = Array.from({ length: n }, (_, i) => i); let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) & 0x7fffffff; let r = shuffle(base, h); if (r.every((x, i) => x === i)) r = r.reverse(); return r; }
+
+/* ---------- documents ---------- */
+function docHTML(d) {
+  return `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${d.title}</span>${d.sim ? `<span class="sim">⚠ ${d.sim}</span>` : ""}</figcaption><div class="db">${d.html || ""}${d.w ? `<div data-w="${d.w}"></div>` : ""}${d.fig ? `<div class="figbox" data-fig="${d.fig}"></div>` : ""}${d.cap ? `<p class="cap">${d.cap}</p>` : ""}</div></figure>`;
+}
+function mountFigs(root) { $$("[data-w]", root).forEach(el => { if (el.dataset.mounted) return; el.dataset.mounted = "1"; WID[el.dataset.w](el); }); }
+
+/* ---------- navigation ---------- */
+const VIEWS = ["accueil", ...GROUPS.map(g => g.id), "bilan"];
+const grp = id => GROUPS.find(g => g.id === id);
+function gScore(g) { let pts = 0, max = 0, done = 0; g.items.forEach(it => { const st = S.it[it.id]; max += itemMax(it); if (st && st.first) { pts += st.first.pts; done++; } }); return { pts, max, done, n: g.items.length }; }
+function tabs() {
+  $("#tabs").innerHTML = VIEWS.map(v => {
+    if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Accueil</button>`;
+    if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Bilan</button>`;
+    const g = grp(v), sc = gScore(g);
+    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n} · ${g.tab}<span class="dot" aria-label="${sc.done} étape(s) faite(s) sur ${sc.n}">${sc.done}/${sc.n}</span></button>`;
+  }).join("");
+  $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
+}
+function go(v, noScroll) {
+  if (!VIEWS.includes(v)) v = "accueil";
+  S.view = v; save(); tabs();
+  if (location.hash !== "#" + v) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  const m = $("#main");
+  if (v === "accueil") renderHome(m); else if (v === "bilan") renderBilan(m); else renderGroup(m, grp(v));
+  if (!noScroll) window.scrollTo(0, 0);
+  const cur = $("#tabs [aria-current]"); if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+/* ---------- accueil ---------- */
+function renderHome(m) {
+  m.innerHTML = `<section class="view">
+    <div class="panel"><p class="kicker">${HOME.kicker}</p><h2 class="sec-title">${HOME.title}</h2>
+      <p>${nb(HOME.intro)}</p>
+      <div class="box info"><p class="lab">ℹ ${HOME.lab}</p><p><b>${nb(PROBLEM)}</b></p><p>${nb(HOME.goal)}</p></div>
+      <div class="box warn"><p class="lab">⚠ Le savais-tu ?</p><p>${nb(HOME.fact)}</p></div></div>
+    <article class="panel itemroot" id="item"></article>
+    <div><p class="kicker">${HOME.parts}</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Partie ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div class="panel"><p class="kicker">Mode d'emploi</p>
+      <ul class="ul">
+        <li>Fais les parties <b>dans l'ordre</b>, de 1 à 3 : la séance dure environ une heure.</li>
+        <li>Chaque étape contient une <b>manipulation</b> ou une <b>animation</b> : réalise-la avant de répondre.</li>
+        <li>Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>
+        <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un.</li>
+        <li>À la fin, l'onglet <b>Bilan</b> affiche le bilan de l'activité et te permet de télécharger ton résultat.</li>
+      </ul></div>
+  </section>`;
+  $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
+  renderItem(RAPPEL, $("#item"));
+}
+
+/* ---------- vue d'un atelier ---------- */
+function indDone(ind) { return ind.items.every(id => { const st = S.it[id]; return st && st.first && (st.lastOk || !itemMax(ITEMS[id].it)); }); }
+function renderGroup(m, g) {
+  const k = Math.max(0, Math.min(g.items.length - 1, S.step[g.id] || 0)), it = g.items[k], gi = GROUPS.indexOf(g);
+  m.innerHTML = `<section class="view"><div><p class="kicker">Partie ${g.n}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
+    ${(g.inds || []).length ? `<div class="panel"><p class="kicker">Indicateurs de réussite</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
+    <div class="stepper" role="group" aria-label="Étapes">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
+    <article class="panel itemroot" id="item"></article>
+    <div class="row" id="navx"></div></section>`;
+  $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
+  renderItem(it, $("#item"));
+  const nx = $("#navx"), nextG = GROUPS[gi + 1];
+  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Étape ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Étape ${k + 2} →</button>` : nextG ? `<button class="btn" type="button" data-c>${nextG.icon} Partie ${nextG.n} →</button>` : `<button class="btn" type="button" data-b>Voir mon bilan →</button>`}`;
+  const st = d => { S.step[g.id] = k + d; save(); renderGroup(m, g); window.scrollTo(0, 0); };
+  const a = $("[data-p]", nx); if (a) a.onclick = () => st(-1);
+  const b = $("[data-n]", nx); if (b) b.onclick = () => st(1);
+  const c = $("[data-c]", nx); if (c) c.onclick = () => go(nextG.id);
+  const d = $("[data-b]", nx); if (d) d.onclick = () => go("bilan");
+}
+function refreshChrome(it) {
+  tabs(); const g = ITEMS[it.id].g; if (!g) return;
+  $$(".stepper button").forEach((b, i) => { const x = g.items[i], s = status(x); b.innerHTML = `${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}`; b.setAttribute("aria-label", `Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}`); });
+  if (0) $$(".inds li").forEach((li, i) => { const d = g.inds[i], ok = indDone(d); li.classList.toggle("done", ok); $(".bx", li).textContent = ok ? "✓" : ""; $(".st", li).textContent = ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et "); });
+}
+
+/* ---------- une étape ---------- */
+let CUR = null;
+function refreshTasks() { if (!CUR || !document.body.contains(CUR.root)) return; CUR.it.parts.forEach((p, k) => { if (p.t === "task") { const n = $(`.part[data-k="${k}"] [data-task]`, CUR.root); if (n) n.innerHTML = p.done().msg; } }); }
+function renderItem(it, root) {
+  CUR = { it, root };
+  const id = it.id, st = itState(id), lvl = LV[it.lvl], locked = it.pre && st.pre === undefined;
+  root.innerHTML = `<p class="lv ${lvl[1]}">${lvl[0]}</p><h3 class="item-title">${it.title}</h3>${it.intro ? `<p>${it.intro}</p>` : ""}${(it.docs || []).map(docHTML).join("")}
+    ${it.pre ? `<div class="hypo" id="hypo"></div>` : ""}
+    ${it.live ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.liveTitle}</span></figcaption><div class="db"><div class="figbox" id="livefig"></div></div></figure>` : ""}
+    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Choisis d'abord ton hypothèse : la manipulation se débloque ensuite.</p>` : ""}</div></figure>` : ""}
+    <div class="parts ${it.parts.every(p => p.t === "shot") ? "grid4" : ""}" style="display:grid;gap:.9rem" ${locked ? "hidden" : ""}>${it.parts.map((p, k) => `<div class="part" data-k="${k}"></div>`).join("")}</div>
+    <div class="row acts" ${locked ? "hidden" : ""}></div><div class="gfb" aria-live="polite"></div>
+    <div class="hints hz"></div><div class="after" style="display:grid;gap:.9rem"></div><div class="unl"></div>`;
+  mountFigs(root);
+  if (it.pre) paintPre(it, root);
+  if (it.widget && !locked) WID[it.widget.w]($("#wz", root));
+  if (it.live) root._live = liveSVG($("#livefig", root), (W, F) => LIVE[it.live](W, F, S.it[id].v));
+  it.parts.forEach((p, k) => renderPart(it, k, root));
+  paintActions(it, root);
+}
+function paintPre(it, root) {
+  const st = S.it[it.id], h = $("#hypo", root), fixed = !!st.first, shown = corrShown(st);
+  h.innerHTML = `<p class="hl">🤔 ${it.pre.label} <span class="ctag">non noté</span></p><div class="opts" role="radiogroup">${it.pre.o.map((o, j) => `<button type="button" class="opt" role="radio" aria-checked="${st.pre === j}" data-h="${j}" ${fixed ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div>
+    ${shown && st.pre !== undefined ? `<p class="pfb ${st.pre === it.pre.a ? "ok" : ""}">${st.pre === it.pre.a ? "✓ Tu avais raison : ton hypothèse est confirmée par les croisements." : "↻ Les croisements t'ont conduit à réviser ton hypothèse de départ : c'est ainsi que l'on progresse."}</p>` : fixed ? `<p class="lead">Hypothèse enregistrée.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothèse enregistrée : tu peux encore la changer avant de vérifier.</p>`}`;
+  $$("[data-h]", h).forEach(b => b.onclick = () => { const was = st.pre === undefined; st.pre = +b.dataset.h; save(); if (was) { renderItem(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } else { paintPre(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } });
+}
+function renderPart(it, k, root) {
+  const id = it.id, p = it.parts[k], st = S.it[id], box = $(`.part[data-k="${k}"]`, root), v = st.v[k], pid = `${id}-p${k}`;
+  const checked = !!st.checked; const r = checked && scorable(p) ? checkPart(p, v) : null;
+  let h = `<p class="pl" id="${pid}-l"><span class="muted">${k + 1}.</span> ${p.label} <span class="ctag">${COMPS[p.c || "conn"]}</span></p>${p.th ? `<div class="th" style="max-width:12rem;border-radius:10px;overflow:hidden;background:var(--surface-2)">${thumb(TAUREF[p.th])}</div>` : ""}`;
+  const okc = r ? (r.ok ? "is-ok" : "is-bad") : "";
+  if (p.t === "num") h += `<div class="row"><input id="${pid}" class="inp ${okc}" inputmode="decimal" autocomplete="off" aria-labelledby="${pid}-l" value="${esc(v || "")}"><span class="unit">${p.unit || ""}</span></div>`;
+  if (p.t === "word") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="${pid}-l" value="${esc(v || "")}" style="max-width:22rem"></div>`;
+  if (p.t === "choice") h += `<div class="opts" role="radiogroup" aria-labelledby="${pid}-l">${p.o.map((o, j) => { let cls = "", t = ""; if (checked && v === j) { cls = j === p.a ? "is-ok" : "is-bad"; t = j === p.a ? "✓ Juste" : "✗ Faux"; } return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${v === j}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${o}</span>${t ? `<span class="tag">${t}</span>` : ""}</button>`; }).join("")}</div>`;
+  if (p.t === "multi") h += `<div class="opts" role="group" aria-labelledby="${pid}-l">${p.o.map((o, j) => { const on = (v || []).includes(j); return `<button type="button" class="opt" aria-pressed="${on}" aria-checked="${on}" data-j="${j}"><span class="k" style="border-radius:6px">${on ? "✓" : ""}</span><span>${o}</span></button>`; }).join("")}</div>`;
+  if (p.t === "match") {
+    const cur = v || {}, used = Object.values(cur), ord = order(id + k, p.rows.length); let sel = box._sel; if (sel === undefined || cur[sel] !== undefined) sel = p.rows.findIndex((r, i) => cur[i] === undefined);
+    box._sel = sel;
+    h += `<div class="match">${p.rows.map((r, i) => { const has = cur[i] !== undefined, cls = checked && has ? (cur[i] === i ? "is-ok" : "is-bad") : ""; return `<button type="button" class="mrow ${cls}" data-mi="${i}" aria-pressed="${sel === i}"><span class="me" aria-hidden="true">${r.e}</span><span class="mn">${r.txt}</span><span class="mv ${has ? "has" : ""}">${has ? p.rows[cur[i]].v : "?"}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div>
+      <p class="lead">${sel >= 0 ? `${p.ask || "Choisis l'étiquette de"} : <b>${p.rows[sel].txt}</b>` : "Touche une ligne pour changer son étiquette."}</p><div class="chips">${ord.filter(j => !used.includes(j)).map(j => `<button type="button" class="chipb" data-mj="${j}">${p.rows[j].v}</button>`).join("")}</div>`;
+  }
+  if (p.t === "rows") h += `<div class="rows">${p.rows.map((row, i) => { const cur = (v || {})[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${(row.o || p.choices).map((c, j) => { const cls = checked && cur === j ? (j === row.a ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" aria-pressed="${cur === j}" data-i="${i}" data-j="${j}">${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${c}</button>`; }).join("")}</div></div>`; }).join("")}</div>`;
+  if (p.t === "order") {
+    const ord = order(id + k, p.keys.length), chosen = v || [];
+    h += `<div class="order-list pics">${ord.map(j => { const pos = chosen.indexOf(j); const cls = checked && pos >= 0 ? (pos === j ? "is-ok" : "is-bad") : ""; return `<button type="button" class="order-item ${cls}" data-j="${j}" ${pos >= 0 ? `data-pos="${pos + 1}"` : ""} aria-label="${esc(p.alts[j])}${pos >= 0 ? ", placée en position " + (pos + 1) : ""}"><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span class="th">${thumb(TAUREF[p.keys[j]])}</span>${cls ? `<span class="tag" style="margin-left:auto;font-weight:800">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div><div class="row"><button type="button" class="btn ghost" data-clear>Effacer l'ordre</button><span class="lead">Touche une image placée pour la retirer.</span></div>`;
+  }
+  if (p.t === "shot") {
+    const has = v !== undefined && v !== null;
+    h += `<div class="shot"><div class="frame ${has ? "has" : ""} ${okc}">${has ? thumb(v) : "Pas encore de photo"}</div><div class="row"><button type="button" class="btn" data-shot aria-label="${has ? "Refaire la photo" : "Prendre la photo"}">📸 ${has ? "Refaire" : "Photo"}</button></div></div>`;
+  }
+  if (p.t === "loop") {
+    const chosen = v || [], ord = order(id + k, p.items.length), solved = checked && r && r.ok;
+    h += `<div class="loopd"><span class="lhead" aria-hidden="true">▶</span><div class="lslot fixed"><span class="n">1</span><span>${p.start}</span></div>${p.items.map((_, i) => { const j = chosen[i], cls = checked && j !== undefined ? (j === i ? "is-ok" : "is-bad") : ""; return `<div class="larr" aria-hidden="true">↓</div><button type="button" class="lslot ${j !== undefined ? "filled" : ""} ${cls}" data-slot="${i}" ${j === undefined ? "disabled" : ""} aria-label="Case ${i + 2} : ${j !== undefined ? esc(p.items[j]) + ". Toucher pour retirer." : "vide"}"><span class="n">${i + 2}</span><span>${j !== undefined ? p.items[j] : `<span class="muted">…</span>`}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}<p class="lret">↺ ${solved ? p.back + " : retour à la case 1." : "puis retour à la case 1 : la boucle est bouclée."}</p></div>
+      <div class="bank">${ord.filter(j => !chosen.includes(j)).map(j => `<button type="button" class="order-item" data-j="${j}"><span class="n">+</span><span>${p.items[j]}</span></button>`).join("")}</div><p class="lead">Touche une étiquette pour la placer dans la première case libre. Touche une case remplie pour la vider.</p>`;
+  }
+  if (p.t === "task") h += `<p class="task ${okc}" data-task>${p.done().msg}</p>`;
+  if (p.t === "text") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead">Après validation : réponse modèle et grille d'auto-évaluation.</p>`;
+  h += `<div class="pfbw" aria-live="polite">${r ? `<p class="pfb ${r.ok ? "ok" : "bad"}">${r.msg}</p>` : ""}</div>`;
+  box.innerHTML = h;
+  const setV = (val, rerender) => { st.v[k] = val; save(); if (rerender) renderPart(it, k, root); if (root._live) root._live.draw(); };
+  const clear = () => { $$(".is-ok,.is-bad", box).forEach(x => x.classList.remove("is-ok", "is-bad")); const f = $(".pfbw", box); if (f) f.innerHTML = ""; };
+  const refocus = sel => { const n = box.querySelector(sel); if (n) n.focus(); };
+  if (["num", "text", "word"].includes(p.t)) { const inp = box.querySelector("input,textarea"); inp.addEventListener("input", () => { setV(inp.value, false); clear(); }); if (p.t !== "text") inp.addEventListener("keydown", ev => { if (ev.key === "Enter") { const b = $(".acts [data-check]", root); if (b) b.click(); } }); }
+  if (p.t === "choice") $$(".opt", box).forEach(b => b.onclick = () => { setV(+b.dataset.j, true); refocus(`.opt[data-j="${b.dataset.j}"]`); });
+  if (p.t === "multi") $$(".opt", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); });
+  if (p.t === "match") {
+    $$("[data-mi]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = +b.dataset.mi; delete cur[i]; box._sel = i; setV(cur, true); refocus(`[data-mi="${i}"]`); });
+    $$("[data-mj]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = box._sel; if (i === undefined || i < 0) return; cur[i] = +b.dataset.mj; box._sel = undefined; setV(cur, true); refocus(".chipb") || refocus(".mrow"); });
+  }
+  if (p.t === "rows") $$(".seg button", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); cur[+b.dataset.i] = +b.dataset.j; setV(cur, true); refocus(`[data-i="${b.dataset.i}"][data-j="${b.dataset.j}"]`); });
+  if (p.t === "order") { $$(".order-item", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); }); box.querySelector("[data-clear]").onclick = () => setV([], true); }
+  if (p.t === "shot") box.querySelector("[data-shot]").onclick = () => { setV(CELL.tau, true); refocus("[data-shot]"); };
+  if (p.t === "loop") {
+    $$(".bank [data-j]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.push(+b.dataset.j); setV(cur, true); refocus(".bank [data-j]") || refocus(`[data-slot="${cur.length - 1}"]`); });
+    $$("[data-slot]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.splice(+b.dataset.slot, 1); setV(cur, true); refocus(".bank [data-j]"); });
+  }
+}
+
+function recopHTML() { return `<div class="recop"><p class="lab">✔ ${HOME.recop}</p>${bilanHTML()}</div>`; }
+
+function paintActions(it, root) {
+  const id = it.id, st = S.it[id]; const acts = $(".acts", root), gfb = $(".gfb", root), hints = $(".hz", root), after = $(".after", root);
+  const max = itemMax(it), hasText = it.parts.some(p => p.t === "text"), shown = corrShown(st);
+  acts.innerHTML = `<button class="btn" type="button" data-check>${max ? "Vérifier" : "Valider ma réponse"}</button>
+    ${st.hints < 3 && !(shown && st.lastOk) ? `<button class="btn ghost" type="button" data-hint>💡 Coup de pouce ${st.hints + 1}/3</button>` : ""}
+    <button class="btn ghost" type="button" data-reset>↺ Recommencer</button>`;
+  hints.innerHTML = it.hints.slice(0, st.hints).map((h, i) => `<p class="hint"><b>Coup de pouce ${i + 1}/3</b> · ${h}</p>`).join("");
+  if (st.first) {
+    const f = st.first;
+    gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ Tout est juste${f.pts === f.max ? (st.tries === 1 ? " du premier coup !" : ".") : " (après correction)."}</p><p>Score retenu (premier essai) : ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} coup(s) de pouce avant le premier essai` : ""}.</p></div>`
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} réponse(s) juste(s).</p><p>${shown ? "Le corrigé est affiché ci-dessous : corrige les réponses marquées ✗, puis vérifie à nouveau." : "Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé s'affichera au deuxième essai."} (Score retenu : ${f.pts}/${f.max}, premier essai.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Réponse enregistrée.</p><p>Compare-la à la réponse modèle, puis coche la grille.</p></div>`;
+  } else gfb.innerHTML = "";
+  let a = "";
+  if (shown && it.corr) a += `<div class="corr"><p class="h">Corrigé</p><p>${it.corr}</p>${it.corrx || ""}</div>`;
+  if (0) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Réponse rédigée · auto-évaluation</p><div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${it.model}</p></div><p><b>Coche ce que ta réponse contient :</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
+  if (shown && it.recop) a += recopHTML();
+  after.innerHTML = a;
+  const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
+  if (unl.dataset.state !== ustate) {
+    unl.dataset.state = ustate;
+    unl.innerHTML = ustate === "open" ? `<figure class="doc unlock" style="margin:0"><figcaption class="dh"><span>${it.unlock.title}</span>${it.unlock.sim ? `<span class="sim">⚠ ${it.unlock.sim}</span>` : ""}</figcaption><div class="db unlockz"></div></figure>` : ustate === "locked" ? `<p class="locked">🔒 Une simulation se débloque quand toutes les réponses sont justes.</p>` : "";
+    if (ustate === "open") WID[it.unlock.w]($(".unlockz", unl));
+  }
+  $("[data-check]", acts).onclick = () => {
+    const res = it.parts.map((p, k) => scorable(p) ? checkPart(p, st.v[k]) : null);
+    const empty = res.some(r => r && r.empty);
+    const textEmpty = it.parts.some((p, k) => p.t === "text" && !String(st.v[k] || "").trim());
+    const pts = res.filter(r => r && r.ok).length;
+    if ((empty || textEmpty) && !st.first) { gfb.innerHTML = `<div class="fb neutral"><p class="h">Complète toutes les questions avant de vérifier.</p><p>Le premier essai n'est compté que lorsque tout est rempli.</p></div>`; gfb.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    st.checked = true; st.lastPts = pts; st.lastOk = pts === max; st.tries = (st.tries || 0) + 1;
+    if (!st.first) st.first = { pts, max, hints: st.hints, parts: res.map(r => r ? !!r.ok : null) };
+    save();
+    it.parts.forEach((p, k) => renderPart(it, k, root)); if (it.pre) paintPre(it, root); paintActions(it, root); refreshChrome(it);
+    const g = $(".gfb", root); if (g && g.scrollIntoView) g.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const hb = $("[data-hint]", acts); if (hb) hb.onclick = () => { st.hints = Math.min(3, st.hints + 1); save(); paintActions(it, root); const hs = $$(".hz .hint", root); const last = hs[hs.length - 1]; if (last) last.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  armButton($("[data-reset]", acts), "↺ Recommencer", "Effacer mes réponses ?", () => { const keep = st.first; S.it[id] = { v: {}, hints: 0, crit: {}, pre: st.pre, first: keep, tries: keep ? st.tries : 0, lastOk: false }; save(); renderItem(it, root); refreshChrome(it); });
+  $$(".crit button", after).forEach(b => b.onclick = () => { const i = +b.dataset.ci; st.crit[i] = !st.crit[i]; save(); paintActions(it, root); const nb2 = $(`.after [data-ci="${i}"]`, root); if (nb2) nb2.focus(); });
+}
+
+/* ---------- bilan ---------- */
+function compStats() { const out = {}; Object.keys(COMPS).forEach(k => out[k] = { ok: 0, n: 0 }); Object.values(ITEMS).forEach(({ it }) => { const st = S.it[it.id]; if (!st || !st.first) return; it.parts.forEach((p, k) => { const c = p.c || "conn"; out[c].n++; if (st.first.parts[k]) out[c].ok++; }); }); return out; }
+function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = S.it[it.id]; if (!st || !st.first) return; st.first.parts.forEach((ok, k) => { if (ok === false) out.push(`${label} · question ${k + 1}`); }); }); return out; }
+function rScore() { const st = S.it.r0; return { pts: st && st.first ? st.first.pts : 0, max: itemMax(RAPPEL), done: st && st.first ? 1 : 0, n: 1 }; }
+function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
+const gName = g => `Partie ${g.n} · ${g.title}`;
+const recopReady = () => corrShown(S.it[HOME.last]);
+function bilanText(name) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
+  let t = `${HOME.txt}\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN DE L'ÉLÈVE\nÉlève : ${name || "—"}\nDate : ${today()}\n\nPoints au premier essai\n- Accueil · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
+  GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} étapes faites)\n`; g.items.forEach((it, i) => { const st = S.it[it.id]; t += `    étape ${i + 1} ${LV[it.lvl][2]} ${it.title} : ${st && st.first ? st.first.pts + "/" + st.first.max + (st.first.hints ? ` (${st.first.hints} coup(s) de pouce)` : "") : "—"}\n`; }); });
+  t += `Total : ${T.pts}/${T.max} (${T.done}/${T.n} étapes faites)\n\nBilan par compétence (premier essai)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? c.ok + "/" + c.n : "—"}\n`; });
+  t += `\nQuestions ratées au premier essai (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- aucune"}\n`;
+  return clean(t + "\n" + HOME.extra() + `\n${SIGN}\n`);
+}
+function renderBilan(m) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
+  m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan de l'activité</h2><p class="lead">Points comptés au premier essai. ${T.done}/${T.n} étapes faites.</p></div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie 3.</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Aller à la dernière étape</button></div>`}</div>
+    <div class="panel"><h3>Mes tableaux</h3>${HOME.extraHTML()}</div>
+    <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
+    <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Étapes faites</th><th>Points (premier essai)</th></tr></thead><tbody><tr><td>Accueil · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
+    <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const q = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${q * 100}%"></i></div></div>`; }).join("")}</div></div>
+    <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>Aucune pour l'instant.</p>"}</div>
+    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité (avec le bilan), tes tableaux, tes points par partie et par compétence et les questions ratées au premier essai.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses, les croisements et les tableaux de cette activité sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
+  const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step[HOME.lastG] = HOME.lastK; save(); go(HOME.lastG); };
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>${HOME.short} · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} étapes)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Questions ratées au premier essai</span><b class="num">${ms.length}</b></div><div class="line"><span>Bilan de l'activité</span><b>${recopReady() ? "✓ débloqué" : "pas encore"}</b></div>`, HOME.slug);
+  armButton($("#reset"), "Tout effacer", "Confirmer l'effacement ?", () => { S.it = {}; S.step = {}; S.cross = {}; S.por = [{}, {}, {}]; S.eco = {}; save(); go("accueil"); });
+}
+
+/* ---------- démarrage ---------- */
+Display.init(S, save);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h && h !== S.view && VIEWS.includes(h)) go(h); });
+go(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (S.view || "accueil"), true);
+
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>
