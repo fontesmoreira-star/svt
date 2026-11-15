@@ -23,6 +23,8 @@ Aucune collecte de données : la progression reste dans le navigateur de l'élè
 3. Régénérer les pages : `python3 outils/generer_pages.py`
 4. Publier (commit + push) : le site est à jour en 1 à 2 minutes.
 
+Pour afficher une app déjà en ligne dans une autre rubrique sans la copier (par exemple les activités de 2nde dans « Cours Miya »), mettre dans le catalogue une clé `chemin` (chemin depuis la racine du site) à la place de `fichier`.
+
 ## Rubriques cachées
 Un niveau du catalogue marqué `"cache": true` n'apparaît pas sur l'accueil, et ses pages et ses apps portent `noindex` (non référencées par les moteurs de recherche). L'adresse n'est connue que de ceux à qui on la donne, mais le dépôt reste public : n'y mettre ni nom de famille, ni note, ni adresse personnelle.
 Une thématique peut avoir sa propre couleur (`"couleur": "pc"` = bleu physique-chimie).

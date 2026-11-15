@@ -11,6 +11,8 @@ Pages produites (les apps elles-mêmes ne sont pas touchées) :
 - pages de redirection pour les anciennes adresses (clé « redirections »)
 
 Emplacement d'une activité : <niveau>/[<thème>/[<chapitre>/]]<fichier>.
+Une activité peut aussi pointer vers une app rangée ailleurs sur le site, sans la copier :
+clé « chemin » (chemin depuis la racine du site, par exemple « 2nde/theme-1/metabolisme/tp-elodee.html »).
 Le script s'arrête si un fichier annoncé dans le catalogue est absent.
 """
 import html, json, os, sys
@@ -172,6 +174,15 @@ def card(a, href):
             f'<h4{tl}>{E(a["titre"])}</h4><p>{E(a["desc"])}</p><span class="go">Ouvrir →</span></a>')
 
 
+def href(a, local, depth):
+    """local : lien relatif habituel ; depth : profondeur de la page courante depuis la racine du site."""
+    return "../" * depth + a["chemin"] if a.get("chemin") else local
+
+
+def where(a, folder):
+    return a["chemin"] if a.get("chemin") else f'{folder}/{a["fichier"]}'
+
+
 def chap_count(c):
     return len(c.get("activites", []))
 
@@ -197,7 +208,7 @@ def write(path, content):
     return path
 
 
-def theme_block(n, t, rel_theme, link_theme=True):
+def theme_block(n, t, rel_theme, link_theme=True, depth=1):
     """rel_theme : chemin relatif depuis la page courante vers le dossier du thème ('' si on y est)."""
     out = []
     head_link = f'<a href="{rel_theme}">Page du thème →</a>' if link_theme else ""
@@ -205,7 +216,7 @@ def theme_block(n, t, rel_theme, link_theme=True):
     out.append(f'<section class="theme{tc}" id="{t["id"]}"><div class="thead"><h2>{E(t["titre"])}</h2>{head_link}</div>')
     if t.get("activites"):
         out.append('<div class="chap"><h3>Pour tout le thème</h3><div class="grid">')
-        out += [card(a, f'{rel_theme}{a["fichier"]}') for a in t["activites"]]
+        out += [card(a, href(a, f'{rel_theme}{a.get("fichier", "")}', depth)) for a in t["activites"]]
         out.append("</div></div>")
     vides = []
     for c in t["chapitres"]:
@@ -213,7 +224,7 @@ def theme_block(n, t, rel_theme, link_theme=True):
             vides.append(c["titre"]); continue
         rc = f'{rel_theme}{c["id"]}/'
         out.append(f'<div class="chap" id="{c["id"]}"><h3>{E(c["titre"])} <a href="{rc}">Page du chapitre →</a></h3><div class="grid">')
-        out += [card(a, f'{rc}{a["fichier"]}') for a in c["activites"]]
+        out += [card(a, href(a, f'{rc}{a.get("fichier", "")}', depth)) for a in c["activites"]]
         out.append("</div></div>")
     if vides:
         lab = "Chapitres du thème · activités dédiées à venir" if t.get("activites") else "Bientôt dans ce thème"
@@ -252,18 +263,18 @@ def main():
     for n in niveaux:
         lid, col = n["id"], n["couleur"]
         for a in n.get("transversal", []):
-            check(f'{lid}/{a["fichier"]}')
+            check(where(a, lid))
         for t in n["themes"]:
             for a in t.get("activites", []):
-                check(f'{lid}/{t["id"]}/{a["fichier"]}')
+                check(where(a, f'{lid}/{t["id"]}'))
             for c in t["chapitres"]:
                 for a in c.get("activites", []):
-                    check(f'{lid}/{t["id"]}/{c["id"]}/{a["fichier"]}')
+                    check(where(a, f'{lid}/{t["id"]}/{c["id"]}'))
 
         body = []
         if n.get("transversal"):
             body.append('<section class="theme"><div class="thead"><h2>Toute l\'année</h2></div><div class="grid">'
-                        + "".join(card(a, a["fichier"]) for a in n["transversal"]) + "</div></section>")
+                        + "".join(card(a, href(a, a.get("fichier", ""), 1)) for a in n["transversal"]) + "</div></section>")
         pleins = [t for t in n["themes"] if theme_count(t)]
         vides = [t for t in n["themes"] if not theme_count(t)]
         body += [theme_block(n, t, f'{t["id"]}/') for t in pleins]
@@ -281,12 +292,12 @@ def main():
             tdir = f'{lid}/{t["id"]}'
             written.append(write(f"{tdir}/index.html", page(f'{t["titre"]} · {n.get("court", n["titre"])}', n["sous"], 2, t.get("couleur", col),
                                                              [(home, "../../"), (n.get("court", n["titre"]), "../")],
-                                                             n["titre"], t["titre"], theme_block(n, t, "", link_theme=False), cache)))
+                                                             n["titre"], t["titre"], theme_block(n, t, "", link_theme=False, depth=2), cache)))
             for c in t["chapitres"]:
                 if not chap_count(c):
                     continue
                 cdir = f'{tdir}/{c["id"]}'
-                body = '<div class="grid">' + "".join(card(a, a["fichier"]) for a in c["activites"]) + "</div>"
+                body = '<div class="grid">' + "".join(card(a, href(a, a.get("fichier", ""), 3)) for a in c["activites"]) + "</div>"
                 written.append(write(f"{cdir}/index.html", page(f'{c["titre"]} · {n.get("court", n["titre"])}', t["titre"], 3, t.get("couleur", col),
                                                                  [(home, "../../../"), (n.get("court", n["titre"]), "../../"), (t["titre"], "../")],
                                                                  f'{n.get("court", n["titre"])} · {t["titre"]}', c["titre"], body, cache)))
@@ -308,11 +319,11 @@ def main():
     known = set(written)
     for n in niveaux:
         lid = n["id"]
-        known |= {f'{lid}/{a["fichier"]}' for a in n.get("transversal", [])}
+        known |= {where(a, lid) for a in n.get("transversal", [])}
         for t in n["themes"]:
-            known |= {f'{lid}/{t["id"]}/{a["fichier"]}' for a in t.get("activites", [])}
+            known |= {where(a, f'{lid}/{t["id"]}') for a in t.get("activites", [])}
             for c in t["chapitres"]:
-                known |= {f'{lid}/{t["id"]}/{c["id"]}/{a["fichier"]}' for a in c.get("activites", [])}
+                known |= {where(a, f'{lid}/{t["id"]}/{c["id"]}') for a in c.get("activites", [])}
     orphans = []
     for d, _, files in os.walk(ROOT):
         if "/.git" in d or d.endswith("/outils"):
