@@ -309,15 +309,46 @@ h4{font-size:1rem}
 .pilot{display:flex;flex-wrap:wrap;gap:.5rem}
 .pilot .btn{min-width:8.5rem}
 
-:root{--sea:#2d6fb6;--ice:#f8fcff;--part:#c0531a}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sea:#5a9ee0;--ice:#d7ebf2;--part:#f2914f}}
-:root[data-theme="dark"]{--sea:#5a9ee0;--ice:#d7ebf2;--part:#f2914f}
-.mrow .mv{max-width:52%;min-width:6rem;white-space:normal;line-height:1.25}
+/* ---------- 5e EIST · Révision Mission 4 (v2) ---------- */
+:root{--sea:#2d6fb6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sea:#5a9ee0}}
+:root[data-theme="dark"]{--sea:#5a9ee0}
+.mrow .mv{max-width:56%;min-width:6rem;white-space:normal;line-height:1.25}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}
+.chipb{white-space:normal;text-align:left;padding:.35rem .9rem}
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.lab3{font-weight:800;font-size:.9rem}
+.doc > .db > *{min-width:0}
+.sim{font-weight:700;color:var(--warn)}
+.res{display:grid;gap:.35rem}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
 .plotz{display:grid;gap:.5rem}
 .plotz .figbox{touch-action:manipulation;cursor:crosshair}
-.recop ul{margin:0;padding-left:1.2rem;display:grid;gap:.3rem}
-.links{display:grid;gap:.5rem}
-.links a{display:flex;min-height:48px;align-items:center;padding:.4rem .8rem;border-radius:12px;border:1.5px solid var(--accent);color:var(--ink);font-weight:700;text-decoration:none;background:var(--surface)}
+.recop ul{margin:0;padding-left:1.2rem;display:grid;gap:.35rem}
+.recop ul.chk{list-style:none;padding-left:.2rem}
+.recop .lab{margin-top:.3rem}
+.scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.7rem}
+.scenes figure{margin:0;display:grid;gap:.3rem}
+.scenes figcaption{font-size:.9rem}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:.9rem}
+.duo h4{margin:0 0 .3rem}
+.tpw{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.8rem;align-items:start}
+.chartg{touch-action:manipulation;cursor:pointer}
+.res table.t td.n{text-align:center}
+.pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,9.5rem),1fr));gap:.5rem}
+.picb{min-height:84px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);display:grid;justify-items:center;align-content:center;gap:.15rem;font-weight:700;font-size:.92rem;padding:.4rem;text-align:center}
+.picb .pe{font-size:1.8rem;line-height:1}
+.picb .pc{font-size:.8rem;color:var(--ok);font-weight:800;min-height:1em}
+.picb[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.picnic{border-radius:14px;padding:.7rem;background:linear-gradient(180deg,#fff7d6 0%,var(--surface-2) 60%);display:grid;gap:.5rem}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .picnic{background:linear-gradient(180deg,#3a3418 0%,var(--surface-2) 60%)}}
+:root[data-theme="dark"] .picnic{background:linear-gradient(180deg,#3a3418 0%,var(--surface-2) 60%)}
+.pfiche{min-height:5.5rem}
+.tblx .tablewrap+.tablewrap{margin-top:.5rem}.tblx table.t{margin:0}
+.tblx table.t{width:auto}
+@media (max-width:560px){.res table.t th,.res table.t td,.tblx table.t th,.tblx table.t td{padding:.3rem .45rem}}
 
 </style>
 <script>
@@ -345,7 +376,7 @@ h4{font-size:1rem}
 </script>
 </head>
 <body>
-<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">5e EIST · Mission 4 · Charger des vivres dans la fusée</p><h1>Mission 4 : je révise avant le contrôle</h1><p class="sub">Changements d'état de l'eau, courbes de température, micro-organismes et conservation des aliments.</p></div>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">5e EIST · Mission 4 · Charger des vivres dans la fusée · Révision</p><h1>Mission 4 : l'entraînement de l'équipage</h1><p class="sub">Particules d'eau, changements d'état, TP virtuel en temps réel, graphique à construire, microscope, boîte de Petri et enquête alimentaire.</p></div>
 <div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
 <nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
 <main class="wrap" id="main"><p>Chargement…</p></main>
@@ -863,13 +894,13 @@ function animCtl(el, dur, onP) {
 }
 
 
-/* ===== 5e EIST · Révision Mission 4 : graphique à construire et simulations ===== */
-Store.key = "eist5-revision-mission4-v1";
-const WID = {};
-
-/* --- graphique à construire : toucher la grille pour placer chaque point --- */
+/* ---------- tableau « temps / mesure » découpé en blocs pour tenir dans l'écran ---------- */
+const tblXin = (xn, yn, xs, ys) => { const F = parseFloat(getComputedStyle(document.documentElement).fontSize) || 20, avail = Math.min(innerWidth, F * 62) - 100, N = Math.floor((avail - F * 7.5) / (F * 3.2)); if (N < 4) return tbl([xn, yn], xs.map((x, i) => [x, ys[i]])); const c = Math.ceil(xs.length / N), per = Math.ceil(xs.length / c); let h = ""; for (let i = 0; i < xs.length; i += per) h += tbl([xn, ...xs.slice(i, i + per)], [[yn, ...ys.slice(i, i + per)]]); return h; };
+const tblX = (xn, yn, xs, ys) => `<div class="tblx" data-tx="${esc(JSON.stringify([xn, yn, xs, ys]))}">${tblXin(xn, yn, xs, ys)}</div>`;
+addEventListener("resize", () => $$("[data-tx]").forEach(d => { try { d.innerHTML = tblXin(...JSON.parse(d.dataset.tx)); } catch (e) {} }));
+/* ---------- question « placer les points » (reprise de la v1) ---------- */
 function mountPlot(el, p, v, checked, onChange) {
-  el.innerHTML = `${tbl([p.xName, ...p.pts.map(q => fmt(q[0]))], [[p.yName, ...p.pts.map(q => fmt(q[1]))]])}<p class="lead">Touche le quadrillage pour placer chaque point du tableau. Touche de nouveau pour le déplacer.</p><div class="figbox" tabindex="0"></div><p class="readout" aria-live="polite"></p><div class="row"><button type="button" class="btn ghost" data-clear>Effacer mes points</button></div>`;
+  el.innerHTML = `${tblX(p.xName, p.yName, p.pts.map(q => fmt(q[0])), p.pts.map(q => fmt(q[1])))}<p class="lead">Touche le quadrillage pour placer chaque point du tableau. Touche de nouveau pour le déplacer.</p><div class="figbox" tabindex="0"></div><p class="readout" aria-live="polite"></p><div class="row"><button type="button" class="btn ghost" data-clear>Effacer mes points</button></div>`;
   let geo = null; const host = $(".figbox", el), n = () => p.pts.filter((q, i) => v[i] !== undefined).length;
   const fig = liveSVG(host, (W, F) => {
     const tk = TK(F), H = Math.min(Math.max(W * 0.62, 17 * F), 20 * F), L = F * 3, R = F * 0.9, T = F * 1.3, B = F * 3, pw = W - L - R, ph = H - T - B;
@@ -893,153 +924,378 @@ function mountPlot(el, p, v, checked, onChange) {
   say();
 }
 
-/* --- les trois états de l'eau : curseur de température et particules --- */
-WID.thermo = el => {
-  el.innerHTML = `<p class="lead">Change la température de l'eau pure et observe son état et l'agitation des particules.</p><div class="field"><label for="thS">Température : <b class="num" id="thV"></b></label><input id="thS" type="range" min="-20" max="120" step="5" value="-20"></div><p class="readout" id="thR" aria-live="polite"></p><div class="figbox" style="max-width:24rem;margin:0 auto"></div>`;
-  let T = -20, t0 = performance.now(); const N = 30, seed = Array.from({ length: N }, (_, i) => [Math.sin(i * 12.9898) * 43758.5453 % 1, Math.sin(i * 78.233) * 12543.123 % 1].map(x => Math.abs(x)));
-  const fig = liveSVG($(".figbox", el), (W, F) => { const H = W * 0.7, t = (performance.now() - t0) / 1000, st = T < 0 ? 0 : T < 100 ? 1 : T === 100 ? 1.5 : 2, amp = st === 0 ? 1.2 : st < 2 ? 4 : 9; let g = `<rect x="2" y="2" width="${W - 4}" height="${H - 4}" rx="12" style="fill:var(--surface-2);stroke:var(--ink);stroke-width:2"/>`;
-    for (let i = 0; i < N; i++) { let x, y; const c = i % 6, r = Math.floor(i / 6), s = W * 0.085;
-      if (st === 0) { x = W / 2 + (c - 2.5) * s; y = H - s * 0.9 - r * s; }
-      else if (st < 2 && !(st === 1.5 && i % 3 === 0)) { x = W * 0.08 + seed[i][0] * W * 0.84; y = H - s * 0.6 - seed[i][1] * H * 0.36; }
-      else { x = W * 0.08 + seed[i][0] * W * 0.84 + Math.sin(t * 1.3 + i) * W * 0.05; y = H * 0.08 + seed[i][1] * H * 0.8 + Math.cos(t * 1.1 + i * 2) * H * 0.05; }
-      g += `<circle cx="${(x + Math.sin(t * 7 + i * 3) * amp).toFixed(1)}" cy="${(y + Math.cos(t * 6 + i * 5) * amp).toFixed(1)}" r="${s * 0.36}" style="fill:var(--sea)"/>`; }
-    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Particules d'eau : rangées et serrées à l'état solide, serrées mais désordonnées à l'état liquide, dispersées à l'état gazeux">${g}</svg>`; });
-  const upd = () => { $("#thV", el).textContent = (T < 0 ? "−" + (-T) : T) + NB + "°C"; $("#thR", el).innerHTML = T < 0 ? "État <b>solide</b> : particules rangées, serrées, qui vibrent sur place." : T === 0 ? "<b>0 °C</b> : solide et liquide en même temps." : T < 100 ? "État <b>liquide</b> : particules serrées, mais qui glissent les unes sur les autres." : T === 100 ? "<b>100 °C</b> : liquide et gaz en même temps." : "État <b>gazeux</b> : particules dispersées, très agitées."; };
-  $("#thS", el).oninput = e => { T = +e.target.value; upd(); };
-  const loop = () => { if (!document.body.contains(el)) return; fig.draw(); requestAnimationFrame(loop); }; upd(); requestAnimationFrame(loop);
+
+/* ===== 5e EIST · Révision Mission 4 (v2) : simulations et animations ===== */
+Store.key = "eist5-revision-mission4-v2";
+const WID = {}, LIVE = {};
+const lerp = (a, b, t) => a + (b - a) * Math.max(0, Math.min(1, t));
+const seg = (p, a, b) => Math.max(0, Math.min(1, (p - a) / (b - a)));
+const f1 = v => (+v).toFixed(1);
+const xst = () => { if (!S.x || typeof S.x !== "object") S.x = {}; return S.x; };
+const keep = () => { try { save(); } catch (e) {} if (typeof refreshTasks === "function") refreshTasks(); };
+const RM = (() => { try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return false; } })();
+const deg = T => (T < 0 ? "−" + fmt(-T) : fmt(T)) + NB + "°C";
+const press = (el, key, cur) => $$(`[data-${key}]`, el).forEach(b => b.setAttribute("aria-pressed", b.dataset[key] === String(cur) ? "true" : "false"));
+const segBtns = (name, key, opts, cur) => `<div><span class="lab3">${name}</span><div class="seg" role="group" aria-label="${esc(name)}">${opts.map(([k, l]) => `<button type="button" data-${key}="${k}" aria-pressed="${String(k) === String(cur)}">${l}</button>`).join("")}</div></div>`;
+const rng = s => { let x = s; return () => { x = (x * 1103515245 + 12345) & 0x7fffffff; return x / 0x7fffffff; }; };
+function loopWhile(el, fn) { const st = ts => { if (!document.body.contains(el)) return; fn(ts); requestAnimationFrame(st); }; requestAnimationFrame(st); }
+function thermo(x, y, h, T, Tmin, Tmax, tk) {
+  const q = Math.max(0, Math.min(1, (T - Tmin) / (Tmax - Tmin))), w = Math.max(8, h * 0.07), bulb = w * 1.25;
+  return `<rect x="${f1(x - w / 2)}" y="${f1(y)}" width="${f1(w)}" height="${f1(h)}" rx="${f1(w / 2)}" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.6"/><rect x="${f1(x - w * 0.25)}" y="${f1(y + h * (1 - q))}" width="${f1(w * 0.5)}" height="${f1(h * q + bulb * 0.5)}" style="fill:var(--bad)"/><circle cx="${f1(x)}" cy="${f1(y + h + bulb * 0.55)}" r="${f1(bulb)}" style="fill:var(--bad);stroke:var(--ink);stroke-width:1.6"/>` + sT(x, y + h + bulb * 2.6, deg(Math.round(T)), "middle", tk, 'font-weight="800"');
+}
+
+/* ---------- 1 · les particules d'eau : chauffer, refroidir ---------- */
+WID.particules = el => {
+  const N = 36, R = rng(7), P = Array.from({ length: N }, (_, i) => ({ c: i % 6, r: Math.floor(i / 6), lx: R(), ly: R(), gx: R(), gy: R(), ph: R() * 6.28, x: 0, y: 0, init: 0 }));
+  let T = -10, mode = 0, ice = 1, gas = 0, lt = 0;
+  el.innerHTML = `<p class="lead">${nb("Chauffe ou refroidis l'eau pure, ou déplace le curseur. Observe les particules et le thermomètre.")}</p>
+    <div class="row"><button type="button" class="btn" data-m="1">🔥 Chauffer</button><button type="button" class="btn" data-m="-1">❄ Refroidir</button><button type="button" class="btn ghost" data-m="0">⏸ Arrêter</button></div>
+    <div class="field"><label>Température de l'eau<input type="range" min="-20" max="120" step="1" value="-10" data-t aria-label="Température de l'eau en degrés Celsius"></label></div>
+    <div class="figbox" style="max-width:36rem;margin:0 auto"></div><p class="readout" aria-live="polite"></p>`;
+  const fig = liveSVG($(".figbox", el), (W, F) => {
+    const tk = TK(F), H = Math.min(W * 0.62, F * 15), bw = W - F * 5, bh = H - F * 0.8, s = Math.min(bw / 9, bh / 8), now = performance.now() / 1000;
+    let g = `<rect x="2" y="2" width="${f1(bw)}" height="${f1(bh)}" rx="12" style="fill:var(--surface-2);stroke:var(--ink);stroke-width:2"/>`;
+    const nIce = Math.round(N * (T < 0 ? 1 : T === 0 ? ice : 0)), nGas = Math.round(N * (T > 100 ? 1 : T === 100 ? gas : 0));
+    P.forEach((p, i) => {
+      const st = i < nIce ? 0 : i >= N - nGas ? 2 : 1; let tx, ty, amp;
+      if (st === 0) { tx = 2 + bw / 2 + (p.c - 2.5) * s * 1.05; ty = bh - s * 0.7 - p.r * s * 1.05; amp = s * (0.04 + 0.002 * Math.max(0, T + 20)); }
+      else if (st === 1) { tx = 2 + s * 0.6 + p.lx * (bw - s * 1.2); ty = bh - s * 0.6 - p.ly * bh * 0.42; amp = s * 0.18; tx += Math.sin(now * 0.8 + p.ph) * s * 0.6; }
+      else { tx = 2 + s * 0.6 + ((p.gx + now * 0.08 * (0.5 + p.ph / 6)) % 1) * (bw - s * 1.2); ty = s * 0.6 + Math.abs(Math.sin(now * 0.7 + p.ph * 3)) * (bh - s * 1.2) * (0.3 + 0.7 * p.gy); amp = s * 0.1; }
+      if (!p.init) { p.x = tx; p.y = ty; p.init = 1; } const k = st === 2 ? 0.25 : 0.12; p.x += (tx - p.x) * k; p.y += (ty - p.y) * k;
+      g += `<circle cx="${f1(p.x + Math.sin(now * 9 + p.ph * 5) * amp)}" cy="${f1(p.y + Math.cos(now * 8 + p.ph * 3) * amp)}" r="${f1(s * 0.38)}" style="fill:var(--sea);stroke:var(--ink);stroke-width:1"/>`;
+    });
+    g += thermo(W - F * 2, F * 0.6, H - F * 4.2, T, -20, 120, tk);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Particules d'eau à ${deg(T)} et thermomètre. L'état de l'eau est écrit sous le dessin.">${g}</svg>`;
+  });
+  const text = () => T < 0 ? `<b>${deg(T)}</b> · état <b>solide</b> (glace) : particules rangées, serrées, qui vibrent sur place.` : T === 0 ? `<b>0 °C</b> · la glace et l'eau liquide sont présentes en même temps.` : T < 100 ? `<b>${deg(T)}</b> · état <b>liquide</b> : particules serrées, en désordre, qui glissent les unes sur les autres.` : T === 100 ? `<b>100 °C</b> · l'eau liquide et la vapeur d'eau sont présentes en même temps.` : `<b>${deg(T)}</b> · état <b>gazeux</b> (vapeur d'eau) : particules très éloignées, qui bougent dans tous les sens.`;
+  let last = "";
+  const upd = () => { $("[data-t]", el).value = T; const t = nb(text()); if (t !== last) { last = t; $(".readout", el).innerHTML = t; } };
+  $$("[data-m]", el).forEach(b => b.onclick = () => { mode = +b.dataset.m; });
+  $("[data-t]", el).oninput = e => { mode = 0; T = +e.target.value; ice = T === 0 ? 0.5 : T < 0 ? 1 : 0; gas = T === 100 ? 0.5 : T > 100 ? 1 : 0; upd(); };
+  loopWhile(el, ts => { const dt = lt ? Math.min(0.1, (ts - lt) / 1000) : 0; lt = ts;
+    if (mode === 1) { if (T === 0 && ice > 0) ice = Math.max(0, ice - dt * 0.35); else if (T === 100 && gas < 1) gas = Math.min(1, gas + dt * 0.35); else { const nT = Math.min(120, T + dt * 14); T = (T < 0 && nT >= 0) ? 0 : (T < 100 && nT >= 100) ? 100 : nT; if (T === 0) ice = 1; if (T === 100) gas = 0; if (T >= 120) mode = 0; } }
+    if (mode === -1) { if (T === 100 && gas > 0) gas = Math.max(0, gas - dt * 0.35); else if (T === 0 && ice < 1) ice = Math.min(1, ice + dt * 0.35); else { const nT = Math.max(-20, T - dt * 14); T = (T > 100 && nT <= 100) ? 100 : (T > 0 && nT <= 0) ? 0 : nT; if (T === 100) gas = 1; if (T === 0) ice = 0; if (T <= -20) mode = 0; } }
+    if (mode) T = (T === 0 || T === 100) ? T : Math.round(T * 10) / 10; fig.draw(); if (mode) upd(); });
+  upd();
 };
 
-/* --- la balance : un glaçon fond dans un verre d'eau --- */
-WID.balance = el => {
-  el.innerHTML = `<p class="lead">Un verre d'eau contenant un glaçon est posé sur une balance. On attend que le glaçon fonde.</p><div class="row animctl"></div><p class="readout" aria-live="polite"></p><div class="figbox" style="max-width:22rem;margin:0 auto"></div>`;
-  let p = 0; const fig = liveSVG($(".figbox", el), (W, F) => { const tk = TK(F), H = W * 0.95, by = H - F * 3.2, gx = W * 0.3, gw = W * 0.4, gt = F * 1.2, s = gw * 0.34 * Math.cbrt(1 - p), wl = gt + (by - gt) * 0.35;
-    let g = `<rect x="${gx}" y="${wl}" width="${gw}" height="${by - wl}" style="fill:var(--sea);opacity:.3"/><path d="M${gx} ${gt} L${gx} ${by} L${gx + gw} ${by} L${gx + gw} ${gt}" style="fill:none;stroke:var(--ink);stroke-width:2.5"/>`;
-    if (s > 1.5) g += `<rect x="${gx + gw / 2 - s / 2}" y="${wl - s * 0.1}" width="${s}" height="${s}" rx="3" style="fill:var(--ice);stroke:var(--ink);stroke-width:1.5"/>`;
-    g += `<rect x="${W * 0.12}" y="${by}" width="${W * 0.76}" height="${F * 0.5}" rx="4" style="fill:var(--c6)"/><rect x="${W * 0.2}" y="${by + F * 0.5}" width="${W * 0.6}" height="${F * 2.3}" rx="8" style="fill:var(--surface-2);stroke:var(--ink);stroke-width:2"/>` + sT(W / 2, by + F * 2.05, "250,0 g", "middle", tk * 1.4, 'font-weight="800"');
-    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Verre d'eau avec un glaçon posé sur une balance qui affiche une masse">${g}</svg>`; });
-  animCtl($(".animctl", el), 7000, q => { p = q; fig.draw(); $(".readout", el).innerHTML = q <= 0 ? "<b>Début</b> : le glaçon flotte. Lis la masse affichée." : q < 1 ? "Le glaçon fond…" : "<b>Fin</b> : tout le glaçon a fondu. Lis de nouveau la masse."; });
+/* ---------- 1 · quatre scènes de la vie quotidienne ---------- */
+const SCENES = ["Un glaçon posé dans une assiette, au soleil", "Une flaque d'eau, après la pluie, au soleil", "Le miroir de la salle de bains, pendant une douche chaude", "De l'eau versée dans le bac à glaçons du congélateur"];
+function sceneSVG(i, W, F, t) {
+  const H = W * 0.62, tk = TK(F) * 0.85, u = (t % 6) / 6; let g = `<rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="10" style="fill:var(--surface-2);stroke:var(--line)"/>`;
+  if (i === 0) { const s = W * 0.22 * (1 - 0.75 * u), cx = W * 0.5, cy = H * 0.66; g += `<circle cx="${f1(W * 0.85)}" cy="${f1(H * 0.18)}" r="${f1(W * 0.07)}" style="fill:#f5c542"/><ellipse cx="${f1(cx)}" cy="${f1(cy + H * 0.12)}" rx="${f1(W * 0.36)}" ry="${f1(H * 0.1)}" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/><ellipse cx="${f1(cx)}" cy="${f1(cy + H * 0.11)}" rx="${f1(W * 0.08 + W * 0.22 * u)}" ry="${f1(H * 0.03 + H * 0.05 * u)}" style="fill:#7fb6e6;opacity:.8"/><rect x="${f1(cx - s / 2)}" y="${f1(cy + H * 0.1 - s)}" width="${f1(s)}" height="${f1(s)}" rx="${f1(s * 0.15)}" style="fill:#e6f3fb;stroke:#6a9cc4;stroke-width:1.5"/>`; }
+  if (i === 1) { const cx = W * 0.5, cy = H * 0.78; g += `<circle cx="${f1(W * 0.85)}" cy="${f1(H * 0.18)}" r="${f1(W * 0.07)}" style="fill:#f5c542"/><rect x="1" y="${f1(cy)}" width="${W - 2}" height="${f1(H - cy - 1)}" style="fill:#9a8d7a;opacity:.5"/><ellipse cx="${f1(cx)}" cy="${f1(cy + H * 0.04)}" rx="${f1(W * 0.34 * (1 - 0.8 * u))}" ry="${f1(H * 0.06 * (1 - 0.6 * u))}" style="fill:#7fb6e6;opacity:.85"/>`; for (let k = 0; k < 3; k++) { const v = (u * 1.5 + k / 3) % 1; g += `<path d="M${f1(cx - W * 0.15 + k * W * 0.15)},${f1(cy - v * H * 0.5)} q${f1(W * 0.03)},${f1(-H * 0.05)} 0,${f1(-H * 0.1)} q${f1(-W * 0.03)},${f1(-H * 0.05)} 0,${f1(-H * 0.1)}" style="fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:3 3;opacity:${f1(1 - v)}"/>`; } g += sT(W * 0.06, H * 0.14, "vapeur invisible", "start", tk * 0.85); }
+  if (i === 2) { const mx = W * 0.45, mw = W * 0.4, my = H * 0.12, mh = H * 0.62; g += `<rect x="${f1(mx)}" y="${f1(my)}" width="${f1(mw)}" height="${f1(mh)}" rx="8" style="fill:#dbeefa;stroke:var(--ink);stroke-width:2"/><rect x="${f1(mx)}" y="${f1(my)}" width="${f1(mw)}" height="${f1(mh)}" rx="8" style="fill:#ffffff;opacity:${f1(0.75 * u)}"/>`; const r = rng(3); for (let k = 0; k < 26; k++) { const x = mx + 6 + r() * (mw - 12), y = my + 6 + r() * (mh - 12); if (r() < u) g += `<circle cx="${f1(x)}" cy="${f1(y)}" r="${f1(1.5 + r() * 2.5)}" style="fill:#8fbfe3"/>`; } for (let k = 0; k < 3; k++) { const v = (u * 2 + k / 3) % 1; g += `<path d="M${f1(W * 0.12 + k * W * 0.08)},${f1(H * 0.85 - v * H * 0.5)} q${f1(W * 0.03)},${f1(-H * 0.05)} 0,${f1(-H * 0.1)}" style="fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:3 3;opacity:${f1(1 - v)}"/>`; } g += sT(W * 0.05, H * 0.95, "douche chaude", "start", tk * 0.85); }
+  if (i === 3) { const cols = 4, cw = W * 0.18, x0 = W * 0.5 - cw * cols / 2, y0 = H * 0.4, ch = H * 0.36; g += `<rect x="${f1(x0 - 6)}" y="${f1(y0 - 6)}" width="${f1(cw * cols + 12)}" height="${f1(ch + 12)}" rx="8" style="fill:var(--surface);stroke:var(--ink);stroke-width:1.5"/>`; for (let c = 0; c < cols; c++) { const fz = Math.max(0, Math.min(1, u * 1.6 - c * 0.12)); g += `<rect x="${f1(x0 + c * cw + 3)}" y="${f1(y0 + 3)}" width="${f1(cw - 6)}" height="${f1(ch - 6)}" rx="4" style="fill:rgb(${Math.round(lerp(127, 232, fz))},${Math.round(lerp(182, 244, fz))},${Math.round(lerp(230, 251, fz))});stroke:#6a9cc4"/>`; if (fz > 0.6) g += sT(x0 + c * cw + cw / 2, y0 + ch / 2 + tk * 0.35, "❄", "middle", tk * 1.1); } g += sT(W * 0.05, H * 0.2, "−18 °C", "start", tk, 'font-weight="800"'); }
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Scène ${i + 1} : ${SCENES[i]}">${g}</svg>`;
+}
+WID.scenes = el => {
+  let on = !RM, t = 0, lt = 0;
+  el.innerHTML = `<div class="row"><button type="button" class="btn ghost" data-pp></button></div><div class="scenes">${SCENES.map((s, i) => `<figure><div class="figbox" data-sc="${i}"></div><figcaption><b>Scène ${i + 1}</b> · ${nb(s)}</figcaption></figure>`).join("")}</div>`;
+  const figs = SCENES.map((s, i) => liveSVG($(`[data-sc="${i}"]`, el), (W, F) => sceneSVG(i, W, F, t)));
+  const lab = () => { $("[data-pp]", el).textContent = on ? "⏸ Pause" : "▶ Lancer les animations"; };
+  $("[data-pp]", el).onclick = () => { on = !on; lab(); }; lab();
+  loopWhile(el, ts => { const dt = lt ? Math.min(0.1, (ts - lt) / 1000) : 0; lt = ts; if (on) { t += dt; figs.forEach(f => f.draw()); } });
 };
 
-/* --- courbes données en document --- */
-const SOL = [[0, 20], [1, 10], [2, 5], [3, 0], [4, 0], [5, 0], [6, 0], [7, -5], [8, -10]];
-const FUS = [[0, -10], [1, -5], [2, 0], [3, 0], [4, 0], [5, 0], [6, 5], [7, 10], [8, 15]];
-const curve = (pts, bands) => el => { el.innerHTML = `<div class="chartbox"></div>`; mountChart($(".chartbox", el), { type: "line", series: [{ name: "Température de l'eau", pts, color: "c1", w: 3 }], markers: true, bands, xMin: 0, xMax: 8, xStep: 1, yMin: -15, yMax: 25, yStep: 5, xTitle: "Temps (min)", yTitle: "Température (°C)", xRead: v => "t = " + v + NB + "min", yRead: v => fmt(v) + NB + "°C", h: 14, alt: "Température de l'eau en fonction du temps" }); };
-WID.solDoc = curve(SOL, [{ x0: 0, x1: 3, label: "zone A" }, { x0: 6, x1: 8, label: "zone C" }]);
-WID.fusDoc = curve(FUS, []);
+/* ---------- 1 · masse et volume : la balance et la bouteille ---------- */
+WID.masse = el => {
+  let pa = 0, pb = 0;
+  el.innerHTML = `<div class="duo"><div><h4>${nb("Expérience A · Un glaçon dans un bocal fermé, posé sur une balance")}</h4><div class="row animctl" data-a></div><div class="figbox" data-fa></div><p class="readout" data-ra aria-live="polite"></p></div>
+    <div><h4>${nb("Expérience B · Une bouteille d'eau au congélateur, posée sur une balance")}</h4><div class="row animctl" data-b></div><div class="figbox" data-fb></div><p class="readout" data-rb aria-live="polite"></p></div></div>`;
+  const scale = (W, H, x, y, w, txt) => `<rect x="${f1(x - w / 2)}" y="${f1(y)}" width="${f1(w)}" height="${f1(H * 0.12)}" rx="6" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"/><rect x="${f1(x - w * 0.28)}" y="${f1(y + H * 0.025)}" width="${f1(w * 0.56)}" height="${f1(H * 0.07)}" rx="3" style="fill:#0f2a1c"/><text x="${f1(x)}" y="${f1(y + H * 0.08)}" text-anchor="middle" style="fill:#7dff9a;font-size:${f1(H * 0.06)}px;font-family:ui-monospace,Menlo,monospace;font-weight:700">${txt}</text>`;
+  const fa = liveSVG($("[data-fa]", el), (W, F) => { const H = Math.min(W * 0.85, F * 13), cx = W / 2, jw = W * 0.42, jh = H * 0.5, jy = H * 0.2, by = jy + jh, s = jw * 0.42 * (1 - 0.85 * pa), wl = jh * (0.05 + 0.1 * pa); let g = "";
+    g += `<rect x="${f1(cx - jw / 2)}" y="${f1(by - wl)}" width="${f1(jw)}" height="${f1(wl)}" style="fill:#7fb6e6;opacity:.85"/>`;
+    if (pa < 0.98) g += `<rect x="${f1(cx - s / 2)}" y="${f1(by - wl * 0.4 - s)}" width="${f1(s)}" height="${f1(s)}" rx="${f1(s * 0.15)}" style="fill:#e6f3fb;stroke:#6a9cc4;stroke-width:1.5"/>`;
+    g += `<path d="M${f1(cx - jw / 2)},${f1(jy)} L${f1(cx - jw / 2)},${f1(by)} L${f1(cx + jw / 2)},${f1(by)} L${f1(cx + jw / 2)},${f1(jy)}" style="fill:none;stroke:var(--ink);stroke-width:2.5"/><rect x="${f1(cx - jw / 2 - 4)}" y="${f1(jy - H * 0.05)}" width="${f1(jw + 8)}" height="${f1(H * 0.05)}" rx="3" style="fill:var(--c2)"/>` + sT(cx + jw / 2 + 6, jy - H * 0.01, "couvercle", "start", TK(F) * 0.8);
+    g += scale(W, H, cx, by + 2, W * 0.7, "152,4 g");
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Bocal fermé contenant un glaçon, posé sur une balance. La masse affichée est écrite sous le dessin.">${g}</svg>`; });
+  const fb = liveSVG($("[data-fb]", el), (W, F) => { const H = Math.min(W * 0.85, F * 13), cx = W / 2, bw = W * 0.26 * (1 + 0.12 * pb), bh = H * 0.56, by0 = H * 0.16, bot = by0 + bh, lvl = bh * (0.62 + 0.08 * pb), col = `rgb(${Math.round(lerp(127, 225, pb))},${Math.round(lerp(182, 240, pb))},${Math.round(lerp(230, 250, pb))})`; let g = "";
+    if (pb > 0.02) g += `<rect x="2" y="2" width="${W - 4}" height="${f1(bot)}" rx="8" style="fill:#d9ecf7;opacity:${f1(0.5 * Math.min(1, pb * 3))}"/>` + sT(8, F * 1.1, "congélateur −18 °C", "start", TK(F) * 0.85, 'font-weight="700"');
+    g += `<rect x="${f1(cx - bw / 2 + 3)}" y="${f1(bot - lvl)}" width="${f1(bw - 6)}" height="${f1(lvl - 3)}" rx="6" style="fill:${col}"/>`;
+    g += `<path d="M${f1(cx - bw * 0.16)},${f1(by0)} L${f1(cx - bw * 0.16)},${f1(by0 + bh * 0.12)} Q${f1(cx - bw / 2)},${f1(by0 + bh * 0.18)} ${f1(cx - bw / 2)},${f1(by0 + bh * 0.3)} L${f1(cx - bw / 2)},${f1(bot - 6)} Q${f1(cx - bw / 2)},${f1(bot)} ${f1(cx - bw / 2 + 6)},${f1(bot)} L${f1(cx + bw / 2 - 6)},${f1(bot)} Q${f1(cx + bw / 2)},${f1(bot)} ${f1(cx + bw / 2)},${f1(bot - 6)} L${f1(cx + bw / 2)},${f1(by0 + bh * 0.3)} Q${f1(cx + bw / 2)},${f1(by0 + bh * 0.18)} ${f1(cx + bw * 0.16)},${f1(by0 + bh * 0.12)} L${f1(cx + bw * 0.16)},${f1(by0)}Z" style="fill:none;stroke:var(--ink);stroke-width:2.5"/><rect x="${f1(cx - bw * 0.2)}" y="${f1(by0 - H * 0.05)}" width="${f1(bw * 0.4)}" height="${f1(H * 0.05)}" rx="3" style="fill:var(--c1)"/>`;
+    const ly = bot - bh * 0.62; g += `<line x1="${f1(cx - bw / 2 - 10)}" x2="${f1(cx + bw / 2 + 10)}" y1="${f1(ly)}" y2="${f1(ly)}" style="stroke:var(--bad);stroke-width:2.5;stroke-dasharray:6 4"/>` + sT(cx + bw / 2 + 12, ly + 5, "trait de départ", "start", TK(F) * 0.8, 'style="fill:var(--bad)"');
+    g += scale(W, H, cx, bot + 2, W * 0.7, "500,0 g");
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Bouteille d'eau sur une balance, avec un trait rouge au niveau de départ de l'eau. Ce qui se passe est écrit sous le dessin.">${g}</svg>`; });
+  animCtl($("[data-a]", el), 7000, q => { pa = q; fa.draw(); $("[data-ra]", el).innerHTML = nb(q <= 0 ? "Touche « Lancer » : le glaçon va fondre (temps accéléré). Surveille l'écran de la balance." : q < 1 ? "Le glaçon fond…" : "Le glaçon a entièrement fondu. Regarde l'écran de la balance."); });
+  animCtl($("[data-b]", el), 7000, q => { pb = q; fb.draw(); $("[data-rb]", el).innerHTML = nb(q <= 0 ? "Bouteille d'eau liquide, remplie jusqu'au trait rouge. Touche « Lancer » : direction le congélateur." : q < 1 ? "L'eau se transforme en glace…" : "Toute l'eau est devenue de la glace. Compare avec le trait rouge et regarde la balance."); });
+};
 
-/* ===== 5e EIST · Révision de la Mission 4, d'après les documents du professeur ===== */
-const PROBLEM = "Comment conserver les vivres de la fusée ? Ce qu'il faut savoir sur l'eau, les micro-organismes et les aliments.";
+/* ---------- 2 · TP virtuel : l'eau qui gèle, courbe en temps réel ---------- */
+const GEL = [[0, 18], [1, 11], [2, 6], [3, 2.5], [4, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, -2.5], [10, -5], [11, -7], [12, -8]];
+const gelT = t => { const i = Math.min(11, Math.floor(t)), a = GEL[i], b = GEL[i + 1]; return a[1] + (b[1] - a[1]) * (t - i); };
+const gelIce = t => Math.max(0, Math.min(1, (t - 4) / 4));
+WID.tpgel = el => {
+  let t = 0, sel = null, geo = null;
+  el.innerHTML = `<p class="lead">${nb("Comme au TP 2 : un tube d'eau pure est plongé dans un mélange de glace et de sel. Lance la manipulation (temps accéléré) : les mesures s'ajoutent chaque minute.")}</p><div class="row animctl"></div>
+    <div class="tpw"><div class="figbox" data-bench></div><div><div class="figbox chartg" data-g tabindex="0"></div><p class="readout" data-rd aria-live="polite"></p></div></div><div class="res"></div>`;
+  const bench = liveSVG($("[data-bench]", el), (W, F) => { const tk = TK(F), H = Math.min(W * 0.95, F * 15), cx = W * 0.42, bw = W * 0.6, by = H * 0.4, bh = H * 0.5, tw = W * 0.14, ty = H * 0.12, th = H * 0.68, T = gelT(t), ice = gelIce(t); let g = "";
+    g += `<rect x="${f1(cx - bw / 2)}" y="${f1(by)}" width="${f1(bw)}" height="${f1(bh)}" rx="10" style="fill:#e8f2f8;stroke:var(--ink);stroke-width:2"/>`;
+    const r = rng(11); for (let k = 0; k < 14; k++) { const x = cx - bw / 2 + 8 + r() * (bw - 16), y = by + 10 + r() * (bh - 24), s = 10 + r() * 10; if (Math.abs(x - cx) < tw * 0.7) continue; g += `<rect x="${f1(x - s / 2)}" y="${f1(y - s / 2)}" width="${f1(s)}" height="${f1(s)}" rx="3" style="fill:#ffffff;stroke:#9cc3dd" transform="rotate(${f1(r() * 40 - 20)} ${f1(x)} ${f1(y)})"/>`; }
+    g += sT(cx, by + bh + tk * 1.2, "glace + sel", "middle", tk * 0.9, 'font-weight="700"');
+    const wl = th * 0.55, wy = ty + th - wl;
+    g += `<rect x="${f1(cx - tw / 2 + 3)}" y="${f1(wy)}" width="${f1(tw - 6)}" height="${f1(wl - tw * 0.4)}" style="fill:#7fb6e6"/><rect x="${f1(cx - tw / 2 + 3)}" y="${f1(wy + (wl - tw * 0.4) * (1 - ice))}" width="${f1(tw - 6)}" height="${f1((wl - tw * 0.4) * ice)}" style="fill:#e3f1fb"/>`;
+    const r2 = rng(5); for (let k = 0; k < 18; k++) { const yy = wy + 4 + r2() * (wl - tw * 0.6), xx = cx - tw / 2 + 5 + r2() * (tw - 10); if (ice > 0 && ice < 1 && r2() < 0.6 && (yy - wy) / (wl - tw * 0.4) > 1 - ice - 0.25) g += `<path d="M${f1(xx - 4)},${f1(yy)} L${f1(xx + 4)},${f1(yy)} M${f1(xx)},${f1(yy - 4)} L${f1(xx)},${f1(yy + 4)}" style="stroke:#ffffff;stroke-width:1.5"/>`; }
+    g += `<path d="M${f1(cx - tw / 2)},${f1(ty)} L${f1(cx - tw / 2)},${f1(ty + th - tw / 2)} Q${f1(cx - tw / 2)},${f1(ty + th)} ${f1(cx)},${f1(ty + th)} Q${f1(cx + tw / 2)},${f1(ty + th)} ${f1(cx + tw / 2)},${f1(ty + th - tw / 2)} L${f1(cx + tw / 2)},${f1(ty)}" style="fill:none;stroke:var(--ink);stroke-width:2.2"/>`;
+    g += `<line x1="${f1(cx)}" y1="${f1(ty - H * 0.08)}" x2="${f1(cx)}" y2="${f1(ty + th - tw * 0.5)}" style="stroke:var(--ink);stroke-width:2"/>` + thermo(W * 0.88, H * 0.06, H * 0.62, T, -10, 20, tk);
+    g += sT(4, tk * 1.2, "⏱ " + Math.floor(t) + " min " + String(Math.floor((t % 1) * 60)).padStart(2, "0") + " s", "start", tk, 'font-weight="800"');
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Tube d'eau dans un bain de glace et de sel, avec un thermomètre. La température et l'état sont écrits sous le graphique.">${g}</svg>`; });
+  const gr = liveSVG($("[data-g]", el), (W, F) => { const tk = TK(F) * 0.9, H = Math.min(Math.max(W * 0.75, F * 13), F * 17), L = F * 2.8, Rr = F * 0.8, Tp = F * 1.4, B = F * 2.6, pw = W - L - Rr, ph = H - Tp - B, X = x => L + x / 12 * pw, Y = y => Tp + (20 - y) / 30 * ph; let g = "";
+    for (let y = -10; y <= 20; y += 5) g += `<line x1="${f1(L)}" x2="${f1(L + pw)}" y1="${f1(Y(y))}" y2="${f1(Y(y))}" style="stroke:var(--${y === 0 ? "muted" : "grid"});stroke-width:${y === 0 ? 1.5 : 1}"/>` + sT(L - 5, Y(y) + tk * 0.35, fmt(y), "end", tk);
+    for (let x = 0; x <= 12; x += 2) g += `<line x1="${f1(X(x))}" x2="${f1(X(x))}" y1="${f1(Tp)}" y2="${f1(Tp + ph)}" style="stroke:var(--grid)"/>` + sT(X(x), Tp + ph + tk * 1.3, x, "middle", tk);
+    g += `<line x1="${f1(L)}" x2="${f1(L)}" y1="${f1(Tp)}" y2="${f1(Tp + ph)}" style="stroke:var(--ink);stroke-width:1.6"/>` + sT(L + pw / 2, H - F * 0.3, "Temps (min)", "middle", tk, 'font-weight="700"') + sT(4, Tp - F * 0.5, "Température (°C)", "start", tk, 'font-weight="700"');
+    let d = ""; for (let k = 0; k <= 60; k++) { const tt = Math.min(t, k * 0.2); d += (k ? "L" : "M") + f1(X(tt)) + "," + f1(Y(gelT(tt))); if (tt >= t) break; } if (t > 0) g += `<path d="${d}" style="fill:none;stroke:var(--c1);stroke-width:3"/>`;
+    GEL.forEach(([x, y]) => { if (x <= t + 1e-6) g += `<circle cx="${f1(X(x))}" cy="${f1(Y(y))}" r="${f1(F * (sel === x ? 0.42 : 0.28))}" style="fill:var(--c2);stroke:var(--surface);stroke-width:2"/>`; });
+    geo = { L, pw };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Graphique en cours de tracé : température de l'eau en fonction du temps. Les mesures sont dans le tableau.">${g}</svg>`; });
+  const host = $("[data-g]", el);
+  host.addEventListener("pointerdown", e => { const svg = host.querySelector("svg"); if (!svg || !geo) return; const r = svg.getBoundingClientRect(), k = svg.viewBox.baseVal.width / r.width, x = Math.round(((e.clientX - r.left) * k - geo.L) / geo.pw * 12); if (x < 0 || x > 12 || x > t + 1e-6) return; sel = x; gr.draw(); $("[data-rd]", el).innerHTML = nb(`Mesure à <b>${x} min</b> : <b>${deg(GEL[x][1])}</b>.`); });
+  const table = () => { const n = Math.floor(t + 1e-6); $(".res", el).innerHTML = `<p class="lead"><b>Tableau de mesures</b> <span class="sim">⚠ Valeurs simulées</span></p>` + tblX("Temps (min)", "Température (°C)", GEL.map(q => q[0]), GEL.map(q => q[0] <= n ? fmt(q[1]) : "")); };
+  let ln = -1;
+  animCtl($(".animctl", el), 26000, q => { t = q * 12; bench.draw(); gr.draw(); const n = Math.floor(t + 1e-6); if (n !== ln) { ln = n; table(); } const ice = gelIce(t), st = ice <= 0 ? "liquide" : ice >= 1 ? "solide" : "liquide et solide : des cristaux de glace se forment"; if (sel === null || q >= 1 || q <= 0) $("[data-rd]", el).innerHTML = nb(q <= 0 ? "Touche « Lancer ». Tu pourras ensuite toucher le graphique pour lire une mesure." : `Température : <b>${deg(Math.round(gelT(t) * 10) / 10)}</b> · eau à l'état <b>${st}</b>.`); });
+  table();
+};
+
+/* ---------- 2 · animation débloquée : pourquoi un palier ? ---------- */
+WID.palier = el => {
+  let p = 0;
+  el.innerHTML = `<div class="row animctl"></div><p class="readout" aria-live="polite"></p><div class="figbox" style="max-width:34rem;margin:0 auto"></div>`;
+  const T = q => q < 0.25 ? lerp(-15, 0, q / 0.25) : q < 0.65 ? 0 : lerp(0, 25, (q - 0.65) / 0.35), ice = q => q < 0.25 ? 1 : q < 0.65 ? 1 - (q - 0.25) / 0.4 : 0;
+  const fig = liveSVG($(".figbox", el), (W, F) => { const tk = TK(F) * 0.9, H = Math.min(W * 0.7, F * 14), px = W * 0.25, py = H * 0.35, pw = W * 0.36, ph = H * 0.38, now = performance.now() / 1000; let g = "";
+    g += `<rect x="${f1(px - pw / 2 - 10)}" y="${f1(py + ph + 4)}" width="${f1(pw + 20)}" height="${f1(H * 0.07)}" rx="4" style="fill:var(--muted)"/>`;
+    for (let k = 0; k < 4; k++) { const v = (now * 0.8 + k / 4) % 1; g += arrow(px - pw / 3 + k * pw / 4.5, py + ph + H * 0.22 - v * H * 0.12, px - pw / 3 + k * pw / 4.5, py + ph + H * 0.14 - v * H * 0.12, 2.5, "bad", 1 - v); }
+    g += sT(px, H - 4, "la plaque chauffe toujours autant", "middle", tk * 0.85, 'font-weight="700"');
+    const wl = ph * 0.6, ic = ice(p); g += `<rect x="${f1(px - pw / 2 + 3)}" y="${f1(py + ph - wl)}" width="${f1(pw - 6)}" height="${f1(wl - 3)}" style="fill:#7fb6e6;opacity:${f1(0.3 + 0.6 * (1 - ic))}"/>`;
+    const r = rng(9); for (let k = 0; k < 7; k++) { const s = pw * 0.18 * ic, x = px - pw * 0.35 + r() * pw * 0.6, y = py + ph - wl * 0.4 - r() * wl * 0.4; if (s > 2) g += `<rect x="${f1(x)}" y="${f1(y)}" width="${f1(s)}" height="${f1(s)}" rx="3" style="fill:#e6f3fb;stroke:#6a9cc4"/>`; }
+    g += `<path d="M${f1(px - pw / 2)},${f1(py)} L${f1(px - pw / 2)},${f1(py + ph)} L${f1(px + pw / 2)},${f1(py + ph)} L${f1(px + pw / 2)},${f1(py)}" style="fill:none;stroke:var(--ink);stroke-width:2.5"/>` + thermo(px + pw / 2 + F * 1.2, py - H * 0.2, ph + H * 0.12, T(p), -15, 25, tk);
+    const gx = W * 0.6, gw = W * 0.38, gy = H * 0.12, gh = H * 0.6, X = q => gx + q * gw, Y = v => gy + (25 - v) / 40 * gh;
+    g += `<line x1="${f1(gx)}" y1="${f1(gy)}" x2="${f1(gx)}" y2="${f1(gy + gh)}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${f1(gx)}" y1="${f1(Y(0))}" x2="${f1(gx + gw)}" y2="${f1(Y(0))}" style="stroke:var(--muted);stroke-dasharray:4 3"/>` + sT(gx - 4, Y(0) + tk * 0.35, "0", "end", tk) + sT(gx + gw / 2, gy + gh + tk * 1.3, "temps", "middle", tk) + sT(gx, gy - 6, "T (°C)", "start", tk);
+    let d = ""; for (let k = 0; k <= 50; k++) { const q = Math.min(p, k / 50); d += (k ? "L" : "M") + f1(X(q)) + "," + f1(Y(T(q))); if (q >= p) break; } if (p > 0) g += `<path d="${d}" style="fill:none;stroke:var(--c1);stroke-width:3"/>`;
+    if (p > 0.3 && p < 0.65) g += sT(X(0.45), Y(0) - 8, "palier", "middle", tk, 'font-weight="800" style="fill:var(--c2)"');
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Une casserole de glace chauffée, avec un thermomètre, et la courbe de température qui se trace en même temps.">${g}</svg>`; });
+  loopWhile(el, () => fig.draw());
+  animCtl($(".animctl", el), 14000, q => { p = q; $(".readout", el).innerHTML = nb(q <= 0 ? "De la glace à −15 °C sur une plaque chauffante. La plaque chauffe toujours autant." : q < 0.25 ? "La glace se réchauffe : sa température monte." : q < 0.65 ? "La glace fond : la chaleur reçue sert à faire fondre la glace, la température reste à 0 °C. C'est le <b>palier</b>." : q < 1 ? "Toute la glace a fondu : la température de l'eau liquide remonte." : "La température ne reste constante que pendant le changement d'état."); });
+};
+
+/* ---------- 3 · le microscope virtuel ---------- */
+const SLIDES = [["yaourt", "Lame 1 · Une goutte de yaourt", 58], ["levure", "Lame 2 · De la levure de boulanger dans de l'eau", 41], ["pain", "Lame 3 · Un peu de pain moisi", 70]];
+WID.micro = el => {
+  const M = xst().mic || (xst().mic = {});
+  let sl = "yaourt", z = 40, foc = 20;
+  el.innerHTML = `<p class="lead">${nb("Choisis une lame, un grossissement, puis tourne la vis de mise au point jusqu'à obtenir une image nette.")}</p>
+    <div class="opt3">${segBtns("Lame", "sl", SLIDES.map(s => [s[0], s[1].split(" · ")[0]]), sl)}${segBtns("Grossissement", "z", [[40, "× 40"], [100, "× 100"], [400, "× 400"]], z)}</div>
+    <div class="field"><label>Vis de mise au point<input type="range" min="0" max="100" step="1" value="20" data-f aria-label="Mise au point"></label></div>
+    <div class="figbox" style="max-width:26rem;margin:0 auto"></div><p class="readout" aria-live="polite"></p>`;
+  const fig = liveSVG($(".figbox", el), (W, F) => {
+    const S0 = SLIDES.find(s => s[0] === sl), blur = Math.max(0, Math.abs(foc - S0[2]) - 4) / 5, k = { 40: 0.16, 100: 0.4, 400: 1 }[z], H = W, cx = W / 2, cy = H / 2, R = W * 0.46, r = rng(sl.length * 31 + 7), u = R * 0.05 * k; let g = "";
+    g += `<defs><clipPath id="fov"><circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(R)}"/></clipPath><filter id="bl" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${f1(blur)}"/></filter></defs><rect width="${W}" height="${H}" style="fill:#0b0b0b"/><circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(R)}" style="fill:#f4f1e4"/>`;
+    let o = "";
+    const spr = { yaourt: 2.2, levure: 1.9, pain: 1.15 }[sl]; for (let n = 0; n < 60; n++) { const x = cx + (r() * 2 - 1) * R * spr * k, y = cy + (r() * 2 - 1) * R * spr * k, a = r() * 360;
+      if (sl === "yaourt") { for (let c = 0; c < 3; c++) o += `<rect x="${f1(x + c * u * 2.6 * Math.cos(a / 57.3) - u * 1.2)}" y="${f1(y + c * u * 2.6 * Math.sin(a / 57.3) - u * 0.4)}" width="${f1(u * 2.4)}" height="${f1(u * 0.8)}" rx="${f1(u * 0.4)}" transform="rotate(${f1(a)} ${f1(x + c * u * 2.6 * Math.cos(a / 57.3))} ${f1(y + c * u * 2.6 * Math.sin(a / 57.3))})" style="fill:#7a5aa8"/>`; }
+      else if (sl === "levure") { if (n > 30) break; o += `<ellipse cx="${f1(x)}" cy="${f1(y)}" rx="${f1(u * 3.2)}" ry="${f1(u * 2.6)}" style="fill:#e9d8a6;stroke:#8a6d2c;stroke-width:${f1(Math.max(0.8, u * 0.35))}"/><circle cx="${f1(x - u * 0.6)}" cy="${f1(y)}" r="${f1(u * 0.8)}" style="fill:#c8a85a;opacity:.7"/>` + (r() < 0.5 ? `<ellipse cx="${f1(x + u * 3.6)}" cy="${f1(y - u * 1.6)}" rx="${f1(u * 1.4)}" ry="${f1(u * 1.1)}" style="fill:#e9d8a6;stroke:#8a6d2c;stroke-width:${f1(Math.max(0.8, u * 0.35))}"/>` : ""); }
+      else { if (n > 9) break; let px = x, py = y, d = `M${f1(px)},${f1(py)}`; for (let s = 0; s < 6; s++) { px += Math.cos(a / 57.3 + (s % 2 ? 0.35 : -0.25)) * u * 4; py += Math.sin(a / 57.3 + (s % 2 ? 0.35 : -0.25)) * u * 4; d += ` L${f1(px)},${f1(py)}`; } o += `<path d="${d}" style="fill:none;stroke:#5c7a4a;stroke-width:${f1(Math.max(1, u * 0.9))}"/><line x1="${f1(px)}" y1="${f1(py)}" x2="${f1(px)}" y2="${f1(py - u * 6)}" style="stroke:#5c7a4a;stroke-width:${f1(Math.max(1, u * 0.7))}"/><circle cx="${f1(px)}" cy="${f1(py - u * 7.5)}" r="${f1(u * 2.4)}" style="fill:#2f4f3a"/>`; for (let s = 0; s < 6; s++) o += `<circle cx="${f1(px + Math.cos(s) * u * 1.4)}" cy="${f1(py - u * 7.5 + Math.sin(s) * u * 1.4)}" r="${f1(u * 0.5)}" style="fill:#8fbf7a"/>`; }
+    }
+    g += `<g clip-path="url(#fov)"><g filter="url(#bl)">${o}</g></g><circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(R)}" style="fill:none;stroke:#333;stroke-width:3"/>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Champ du microscope : ${S0[1]}, grossissement ${z}, image ${blur < 0.5 ? "nette" : "floue"}.">${g}</svg>`;
+  });
+  const upd = () => { const S0 = SLIDES.find(s => s[0] === sl), net = Math.abs(foc - S0[2]) <= 4; if (net && z === 400 && !M[sl]) { M[sl] = 1; keep(); }
+    $(".readout", el).innerHTML = nb(`${S0[1]} · grossissement × ${z} · image <b>${net ? "nette" : "floue"}</b>${net && z < 400 ? " : augmente le grossissement pour mieux voir" : ""}${net && z === 400 ? " ✓" : ""}. Lames observées nettes à × 400 : ${Object.keys(M).length}/3.`); fig.draw(); };
+  $$("[data-sl]", el).forEach(b => b.onclick = () => { sl = b.dataset.sl; press(el, "sl", sl); upd(); });
+  $$("[data-z]", el).forEach(b => b.onclick = () => { z = +b.dataset.z; press(el, "z", z); upd(); });
+  $("[data-f]", el).oninput = e => { foc = +e.target.value; upd(); };
+  upd();
+};
+
+/* ---------- 3 · la boîte de Petri : multiplication des bactéries ---------- */
+const PLACES = [["table", "Sur la table (25 °C)", 20, "Table (25 °C)"], ["frigo", "Au réfrigérateur (4 °C)", 180, "Réfrigé\u00adrateur (4 °C)"], ["congel", "Au congélateur (−18 °C)", 0, "Congé\u00adlateur (−18 °C)"]];
+WID.petri = el => {
+  let pl = "table", p = 0; const R0 = rng(17), PTS = Array.from({ length: 520 }, () => { const a = R0() * 6.283, d = Math.sqrt(R0()); return [Math.cos(a) * d, Math.sin(a) * d]; });
+  el.innerHTML = `<p class="lead">${nb("Une seule bactérie au départ. Choisis où ranger l'aliment, puis lance 3 heures de multiplication (temps accéléré).")}</p><div class="opt3">${segBtns("Lieu", "pl", PLACES.map(x => [x[0], x[1]]), pl)}</div><div class="row animctl"></div><div class="figbox" style="max-width:30rem;margin:0 auto"></div><p class="readout" aria-live="polite"></p><div class="res"></div>`;
+  const count = m => { const per = PLACES.find(x => x[0] === pl)[2]; return per ? Math.pow(2, Math.floor(m / per + 1e-9)) : 1; };
+  const fig = liveSVG($(".figbox", el), (W, F) => { const tk = TK(F), H = W * 0.72, cx = W * 0.42, cy = H * 0.52, R = H * 0.42, m = p * 180, n = count(m), shown = Math.min(n, PTS.length); let g = "";
+    g += `<circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(R + 6)}" style="fill:var(--surface);stroke:var(--ink);stroke-width:2.5"/><circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(R)}" style="fill:#f3e7c4"/>`;
+    for (let i = 0; i < shown; i++) g += `<ellipse cx="${f1(cx + PTS[i][0] * R * Math.min(1, 0.12 + Math.sqrt(shown) / 23))}" cy="${f1(cy + PTS[i][1] * R * Math.min(1, 0.12 + Math.sqrt(shown) / 23))}" rx="${f1(Math.max(2, R * 0.03))}" ry="${f1(Math.max(1.3, R * 0.016))}" style="fill:#7a5aa8"/>`;
+    g += sT(W * 0.86, H * 0.2, Math.floor(m / 60) + " h " + String(Math.round(m % 60)).padStart(2, "0"), "middle", tk * 1.2, 'font-weight="800"') + sT(W * 0.86, H * 0.2 + tk * 1.4, "écoulées", "middle", tk * 0.85);
+    g += sT(W * 0.86, H * 0.55, fmt(n), "middle", tk * 1.3, 'font-weight="800" style="fill:var(--accent)"') + sT(W * 0.86, H * 0.55 + tk * 1.3, n > 1 ? "bactéries" : "bactérie", "middle", tk * 0.85);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Boîte de Petri : ${fmt(n)} bactérie(s) après ${Math.round(m)} minutes. Les résultats sont aussi dans le tableau.">${g}</svg>`; });
+  const RES = () => xst().petri || (xst().petri = {});
+  const table = () => { const Rr = RES(); $(".res", el).innerHTML = `<p class="lead"><b>Mes résultats</b> (nombre de bactéries après 1 h, 2 h, 3 h) <span class="sim">⚠ Valeurs simulées pour le réfrigérateur et le congélateur</span></p>` + tbl(["Lieu", "1\u00a0h", "2\u00a0h", "3\u00a0h"], PLACES.map(x => [x[3], ...[60, 120, 180].map(m => Rr[x[0]] && Rr[x[0]][m] !== undefined ? fmt(Rr[x[0]][m]) : "—")])); };
+  const ctl = animCtl($(".animctl", el), 12000, q => { p = q; fig.draw(); const m = q * 180, Rr = RES(); [60, 120, 180].forEach(h => { if (m >= h - 1e-6) { Rr[pl] = Rr[pl] || {}; if (Rr[pl][h] === undefined) { Rr[pl][h] = count(h); keep(); table(); } } });
+    $(".readout", el).innerHTML = nb(q <= 0 ? "Touche « Lancer »." : pl === "table" ? "À 25 °C, chaque bactérie se divise en deux toutes les 20 minutes." : pl === "frigo" ? "Au froid, les bactéries se divisent beaucoup plus lentement." : "Au congélateur, les bactéries ne se multiplient plus… mais elles ne sont pas mortes."); });
+  $$("[data-pl]", el).forEach(b => b.onclick = () => { pl = b.dataset.pl; press(el, "pl", pl); ctl.set(0); });
+  table();
+};
+
+/* ---------- 3 · le bouclier anti-microbes : besoins et conservation ---------- */
+const NEEDS = [["eau", "💧", "eau"], ["nut", "🍞", "nutriments"], ["chal", "🌡", "chaleur"], ["o2", "💨", "dioxygène"]];
+const TECH = [["aucune", "Aucune", [], "Les micro-organismes trouvent tout ce dont ils ont besoin : ils se multiplient vite."], ["frigo", "Réfrigérateur", ["chal"], "Il fait froid : les micro-organismes se multiplient beaucoup plus lentement."], ["congel", "Congélateur", ["chal", "eau"], "Très froid et l'eau devient de la glace : ils ne se multiplient plus."], ["pasteur", "Pasteurisation", ["kill"], "L'aliment est chauffé : la plupart des micro-organismes sont tués."], ["selsucre", "Sel ou sucre", ["eau"], "Le sel ou le sucre « attirent » l'eau : elle n'est plus disponible pour les micro-organismes."], ["vide", "Mise sous vide", ["o2"], "Sans air, plus de dioxygène pour la plupart des micro-organismes."]];
+WID.bouclier = el => {
+  let te = "aucune", lt = 0, grow = 0;
+  el.innerHTML = `<div class="opt3">${segBtns("Technique de conservation", "te", TECH.map(x => [x[0], x[1]]), te)}</div><div class="figbox" style="max-width:30rem;margin:0 auto"></div><p class="readout" aria-live="polite"></p>`;
+  const fig = liveSVG($(".figbox", el), (W, F) => { const tk = TK(F), H = Math.max(W * 0.75, F * 15), cx = W / 2, cy = H / 2, rx = Math.min(W * 0.36, W / 2 - F * 3.4), ry = H / 2 - F * 3.4, now = performance.now() / 1000, T = TECH.find(x => x[0] === te), kill = T[2].includes("kill"), frozen = te === "congel"; let g = "";
+    NEEDS.forEach(([k, ic, nm], i) => { const a = -Math.PI / 2 + i * Math.PI / 2, x = cx + Math.cos(a) * rx, y = cy + Math.sin(a) * ry, off = T[2].includes(k); g += `<circle cx="${f1(x)}" cy="${f1(y)}" r="${f1(F * 1.6)}" style="fill:var(--${off ? "bad-soft" : "ok-soft"});stroke:var(--${off ? "bad" : "ok"});stroke-width:2.5"/><text x="${f1(x)}" y="${f1(y + F * 0.45)}" text-anchor="middle" style="font-size:${f1(F * 1.3)}px">${ic}</text>` + sT(x, y + F * 2.4, (off ? "✗ " : "✓ ") + nm, "middle", tk * 0.9, `font-weight="800" style="fill:var(--${off ? "bad" : "ok"})"`); if (off) g += `<line x1="${f1(x - F * 1.2)}" y1="${f1(y - F * 1.2)}" x2="${f1(x + F * 1.2)}" y2="${f1(y + F * 1.2)}" style="stroke:var(--bad);stroke-width:4"/>`; });
+    const n = Math.min(12, 1 + Math.floor(grow)), r = rng(4);
+    for (let i = 0; i < n; i++) { const a = r() * 6.283, d = i ? F * (0.9 + r() * 1.3) : 0, x = cx + Math.cos(a) * d, y = cy + Math.sin(a) * d, wob = frozen || kill ? 0 : Math.sin(now * 6 + i) * 2; g += `<ellipse cx="${f1(x + wob)}" cy="${f1(y)}" rx="${f1(F * 0.85)}" ry="${f1(F * 0.5)}" transform="rotate(${f1(a * 57)} ${f1(x)} ${f1(y)})" style="fill:${kill ? "#9aa0a6" : frozen ? "#9fc6e6" : "#7a5aa8"};stroke:var(--ink);stroke-width:1.2"/>` + (kill ? sT(x, y + tk * 0.35, "✗", "middle", tk, 'font-weight="800" style="fill:var(--bad)"') : ""); }
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Un micro-organisme entouré de ses quatre besoins. La technique choisie barre un ou plusieurs besoins ; l'effet est écrit sous le dessin.">${g}</svg>`; });
+  const upd = () => { press(el, "te", te); grow = 0; $(".readout", el).innerHTML = nb(TECH.find(x => x[0] === te)[3]); fig.draw(); };
+  $$("[data-te]", el).forEach(b => b.onclick = () => { te = b.dataset.te; upd(); });
+  loopWhile(el, ts => { const dt = lt ? Math.min(0.1, (ts - lt) / 1000) : 0; lt = ts; const sp = { aucune: 1.6, frigo: 0.25, congel: 0, pasteur: 0, selsucre: 0.15, vide: 0.3 }[te]; grow = Math.min(11.9, grow + dt * sp * (RM ? 0 : 1)); if (grow >= 11.9 && sp > 0) grow = 0; fig.draw(); });
+  upd();
+};
+
+/* ---------- 3 · enquête : le pique-nique de Léo ---------- */
+const PIC = [["poulet", "🍗", "Poulet rôti", "Sorti du réfrigérateur à 11 h, puis resté dans le panier, au soleil, jusqu'au repas de 16 h. Température dans le panier : 32 °C.", 1], ["yaourt", "🥛", "Yaourts", "Gardés toute la journée dans la glacière, avec des pains de glace : 6 °C.", 0], ["mayo", "🥚", "Mayonnaise maison", "Préparée le matin avec des œufs crus, puis restée 5 heures au soleil, hors de la glacière.", 1], ["confiture", "🍓", "Confiture", "Très sucrée. Pot ouvert le matin même.", 0], ["jus", "🧃", "Jus de fruits pasteurisé", "Brique fermée jusqu'au repas, bue en entier.", 0], ["pain", "🥖", "Pain", "Acheté le matin, sec et croustillant.", 0]];
+WID.piquenique = el => {
+  const I = xst().pic || (xst().pic = {}); let cur = null;
+  el.innerHTML = `<div class="picnic"><p class="lead">${nb("☀ Samedi, 32 °C à l'ombre. Le soir, Léo a mal au ventre. Touche chaque aliment du pique-nique pour lire sa fiche.")}</p><div class="pics">${PIC.map(x => `<button type="button" class="picb" data-pi="${x[0]}"><span class="pe" aria-hidden="true">${x[1]}</span><span>${x[2]}</span><span class="pc"></span></button>`).join("")}</div></div><div class="box info pfiche" aria-live="polite"><p class="lab">ℹ Fiche de l'aliment</p><p class="pt">Touche un aliment.</p></div>`;
+  const paint = () => { $$("[data-pi]", el).forEach(b => { const k = b.dataset.pi; b.setAttribute("aria-pressed", cur === k ? "true" : "false"); $(".pc", b).textContent = I[k] ? "✓ inspecté" : ""; }); const x = PIC.find(q => q[0] === cur); if (x) $(".pt", el).innerHTML = nb(`<b>${x[1]} ${x[2]}</b> : ${x[3]}`); };
+  $$("[data-pi]", el).forEach(b => b.onclick = () => { cur = b.dataset.pi; if (!I[cur]) { I[cur] = 1; keep(); } paint(); });
+  paint();
+};
+
+/* ===== 5e EIST · Révision de la Mission 4 (v2), d'après les activités et TP du professeur ===== */
+const PROBLEM = "Comment conserver les vivres de l'équipage pendant le long voyage vers Mars ?";
 const gap = `<span class="gap">………</span>`;
-const word = (label, ans, err) => ({ t: "word", c: "conn", label, ans, err });
-const CH = ["Fusion", "Solidification", "Vaporisation", "Liquéfaction"];
-const DOC_SOL = { title: "Document · Refroidissement de l'eau pure (comme au TP2)", sim: SIMUL, w: "solDoc" };
-const DOC_FUS = { title: "Document · On réchauffe de la glace", sim: SIMUL, w: "fusDoc" };
-const DOC_BACT = { title: "Document · La multiplication des bactéries (activité 1)", html: `<p>À température ambiante, chaque bactérie se divise en deux une fois toutes les 20 minutes environ. Le nombre de bactéries est donc multiplié par deux toutes les 20 minutes.</p>` };
-const bilanHTML = () => `<ul>${["nommer les quatre changements d'état de l'eau étudiés et dire s'il faut chauffer ou refroidir", "dire ce que deviennent la masse et le volume de l'eau lors d'un changement d'état", "construire un graphique : titre, axes avec unités, échelle régulière, points bien placés", "repérer un palier sur une courbe et dire ce qui se passe pendant ce palier", "donner la température d'ébullition et la température de solidification de l'eau pure", "citer des micro-organismes et dire avec quel instrument on les observe", "calculer un nombre de bactéries qui double toutes les 20 minutes, et retrouver dans l'activité 1 le seuil à partir duquel un plat devient toxique", "citer les besoins des micro-organismes et expliquer comment chaque technique de conservation les en prive"].map(x => `<li>Je sais ${nb(x)}.</li>`).join("")}</ul><p><b>Pour t'entraîner encore :</b></p><div class="links"><a href="changements-etat/ebullition-eau.html">💧 L'ébullition de l'eau (TP3)</a><a href="micro-organismes/echiquier-bacteries.html">♟ L'échiquier des bactéries (activité 1)</a></div>`;
+const HOME = { slug: "revision-mission-4", short: "Révision · Mission 4", last: "d1", lastG: "p4", lastK: 0,
+  kicker: "5e EIST · Mission 4 · Charger des vivres dans la fusée", title: "Entraînement de l'équipage avant le contrôle",
+  intro: "Avant le départ, chaque membre d'équipage passe quatre épreuves : le labo de l'eau, le labo des courbes, le labo des micro-organismes et l'épreuve finale. Manipule d'abord, puis réponds.",
+  lab: "La question de la mission", goal: "Objectif : réviser toute la Mission 4, puis recopier ta fiche mémo dans ton cahier.",
+  fact: "Dans l'espace, les astronautes mangent surtout des aliments déshydratés ou en conserve : ils se gardent des mois sans réfrigérateur.",
+  parts: "Les quatre épreuves (environ une heure, en plusieurs fois si tu veux)", recop: "Ma fiche mémo",
+  txt: "RÉVISION · MISSION 4 · CHARGER DES VIVRES DANS LA FUSÉE\n5e EIST",
+  comps: { conn: "Mobiliser ses connaissances", mod: "Observer, manipuler", lire: "Lire et construire un graphique", rais: "Raisonner, argumenter" } };
+
+const MEMO = ["L'eau existe sous trois états : <u>solide</u> (la glace), <u>liquide</u> et <u>gazeux</u> (la vapeur d'eau, invisible).",
+  "On passe d'un état à l'autre en chauffant ou en refroidissant : ce sont les <u>changements d'état</u>. Un glaçon qui fond, c'est une <u>fusion</u> ; de l'eau qui gèle, une <u>solidification</u> ; une flaque qui sèche, une <u>vaporisation</u> ; la buée sur un miroir, une <u>liquéfaction</u>.",
+  "Quand l'eau gèle dans une bouteille, elle prend plus de place : la bouteille gonfle.",
+  "Pendant un changement d'état de l'eau pure, la température reste constante : sur la courbe, c'est un <u>palier</u> (à 0 °C pour la glace qui fond ou l'eau qui gèle).",
+  "Un graphique complet a un <u>titre</u>, deux axes avec leur grandeur et leur unité, et une <u>échelle régulière</u>.",
+  "Les <u>micro-organismes</u> sont des êtres vivants visibles seulement au microscope. Ils ont besoin d'eau, de nutriments, de chaleur et, pour la plupart, de dioxygène.",
+  "Pour conserver un aliment, on supprime un de leurs besoins (froid, sel ou sucre, mise sous vide) ou on les tue par la chaleur (pasteurisation)."];
+const CHECK = ["nommer les changements d'état et dire s'il faut chauffer ou refroidir", "dire ce que deviennent la masse et le volume de l'eau quand elle change d'état", "construire un graphique à partir d'un tableau : échelle régulière, points, titre", "légender une courbe : états de l'eau, changement d'état, palier", "citer des types de micro-organismes et savoir à partir de quand un plat devient dangereux", "mener une enquête alimentaire et rédiger une explication"];
+const bilanHTML = () => `<ul>${MEMO.map(x => `<li>${nb(x)}</li>`).join("")}</ul><p class="lab">Je vérifie que je sais…</p><ul class="chk">${CHECK.map(x => `<li>☐ ${nb(x)}</li>`).join("")}</ul>`;
+const FUS = [[0, -15], [1, -10], [2, -5], [3, 0], [4, 0], [5, 0], [6, 0], [7, 5], [8, 10], [9, 15]];
+const CH4 = ["Fusion", "Solidification", "Vaporisation", "Liquéfaction"];
 
 const GROUPS = [
-{ id: "p1", n: 1, icon: "💧", tab: "États", title: "Les changements d'état de l'eau", sub: "Nommer un changement d'état ; masse et volume.",
+{ id: "p1", n: 1, icon: "💧", tab: "Labo de l'eau", title: "Épreuve 1 · Le labo de l'eau", sub: "Les états de l'eau, les changements d'état, la masse et le volume.",
   items: [
-  { id: "a1", lvl: "easy", title: "Quel changement d'état ?",
+  { id: "a1", lvl: "easy", title: "Les particules d'eau",
+    widget: { title: "Simulation · L'eau au microscope… imaginaire", w: "particules", sim: "Modèle simplifié" },
     parts: [
-      { t: "rows", c: "conn", label: "Nomme le changement d'état dans chaque situation.", choices: CH, rows: [{ txt: "Un glaçon devient de l'eau dans un verre.", a: 0 }, { txt: "De la buée se forme sur un miroir froid.", a: 3 }, { txt: "L'eau d'une flaque disparaît au soleil.", a: 2 }, { txt: "L'eau d'un bac devient de la glace au congélateur.", a: 1 }] },
-      { t: "rows", c: "conn", label: "Faut-il chauffer ou refroidir ?", choices: ["Il faut chauffer", "Il faut refroidir"], rows: [{ txt: "Pour passer de l'état liquide à l'état gazeux", a: 0 }, { txt: "Pour passer de l'état liquide à l'état solide", a: 1 }, { txt: "Pour passer de l'état gazeux à l'état liquide", a: 1 }] }],
-    hints: ["Repère l'état de départ et l'état d'arrivée : solide, liquide ou gazeux.", "La buée, ce sont de fines gouttes d'eau liquide : la vapeur d'eau de l'air est devenue liquide.", "Glaçon qui fond : fusion. Buée : liquéfaction. Flaque qui sèche : vaporisation. Bac à glaçons : solidification."],
-    corr: "Solide → liquide : fusion. Liquide → solide : solidification. Liquide → gaz : vaporisation. Gaz → liquide : liquéfaction. On chauffe pour la fusion et la vaporisation ; on refroidit pour la solidification et la liquéfaction.",
-    unlock: { title: "🔓 Simulation débloquée · Les particules d'eau selon la température", w: "thermo", sim: "Modèle simplifié" } },
-  { id: "a2", lvl: "mid", title: "Masse et volume : l'expérience du glaçon",
-    pre: { label: "Ton hypothèse : quand le glaçon aura fondu, la balance affichera…", o: ["une masse plus petite", "la même masse", "une masse plus grande"], a: 1 },
-    widget: { title: "Expérience virtuelle · Un glaçon fond sur la balance", w: "balance", sim: SIMUL },
+      { t: "rows", c: "mod", label: "Utilise la simulation. Dans quel état est l'eau pure ?", choices: ["Solide", "Liquide", "Gazeux"], rows: [{ txt: "À −15 °C", a: 0 }, { txt: "À 40 °C", a: 1 }, { txt: "À 115 °C", a: 2 }] },
+      { t: "match", c: "conn", label: "Relie chaque description à l'état de l'eau.", ask: "Choisis l'état pour", rows: [{ e: "🧊", txt: "Particules rangées et serrées, qui vibrent sur place", v: "État solide" }, { e: "💧", txt: "Particules serrées mais en désordre, qui glissent", v: "État liquide" }, { e: "♨", txt: "Particules très éloignées, qui bougent dans tous les sens", v: "État gazeux" }] }],
+    hints: ["Déplace le curseur de température et lis le texte sous le dessin.", "Plus il fait chaud, plus les particules bougent et s'éloignent.", "−15 °C : solide · 40 °C : liquide · 115 °C : gazeux."],
+    corr: "À −15 °C, l'eau est solide : ses particules sont rangées et serrées. À 40 °C, elle est liquide : particules serrées mais en désordre. À 115 °C, elle est gazeuse : particules très éloignées, qui bougent dans tous les sens." },
+  { id: "a2", lvl: "mid", title: "Les changements d'état autour de nous",
+    widget: { title: "Animations · Quatre scènes de la vie quotidienne", w: "scenes" },
     parts: [
-      { t: "num", c: "mod", label: "Lance l'expérience. Quelle masse la balance affiche-t-elle quand le glaçon a fondu ?", unit: "g", ans: 250, tol: 0.5 },
-      { t: "choice", c: "rais", label: "Que montre cette expérience ?", o: ["De la matière a disparu pendant la fusion", "La quantité de matière n'a pas changé : seul l'état de l'eau a changé", "De la matière est apparue pendant la fusion"], a: 1 },
-      { t: "choice", c: "rais", label: "Une bouteille en verre remplie d'eau et fermée éclate au congélateur. Pourquoi ?", o: ["La glace est plus lourde que l'eau liquide", "En devenant solide, l'eau prend plus de place", "Le froid rend le verre mou"], a: 1 }],
-    hints: ["Compare la masse affichée au début et à la fin.", "La balance mesure la quantité de matière. Elle ne dit rien de la place occupée.", "250 g au début comme à la fin. La bouteille éclate parce que la glace occupe plus de place que l'eau liquide."],
-    corr: "La balance affiche 250 g avant et après la fusion du glaçon. Dans la bouteille, l'eau qui gèle occupe plus de place qu'à l'état liquide : le volume, lui, a changé. À toi d'en tirer la règle sur la masse et sur le volume, et de la vérifier dans ton cahier." }] },
+      { t: "match", c: "conn", label: "Quel changement d'état se produit dans chaque scène ?", ask: "Choisis le changement d'état de", rows: [{ e: "1", txt: "Scène 1 · Le glaçon au soleil", v: CH4[0] }, { e: "2", txt: "Scène 4 · Le bac à glaçons", v: CH4[1] }, { e: "3", txt: "Scène 2 · La flaque au soleil", v: CH4[2] }, { e: "4", txt: "Scène 3 · Le miroir de la salle de bains", v: CH4[3] }] },
+      { t: "rows", c: "conn", label: "Pour provoquer ce changement d'état, faut-il chauffer ou refroidir ?", choices: ["Chauffer", "Refroidir"], rows: [{ txt: "Fusion", a: 0 }, { txt: "Solidification", a: 1 }, { txt: "Vaporisation", a: 0 }, { txt: "Liquéfaction", a: 1 }] }],
+    hints: ["Pour chaque scène, demande-toi : de quel état part l'eau, et dans quel état arrive-t-elle ?", "Solide → liquide : fusion. Liquide → solide : solidification. Liquide → gaz : vaporisation. Gaz → liquide : liquéfaction.", "Glaçon : fusion · bac à glaçons : solidification · flaque : vaporisation · miroir : liquéfaction (la vapeur de la douche redevient liquide sur le miroir froid)."],
+    corr: "Le glaçon qui fond : fusion (on chauffe). L'eau du bac qui gèle : solidification (on refroidit). La flaque qui sèche : vaporisation (on chauffe). La buée sur le miroir : liquéfaction, la vapeur d'eau redevient liquide au contact du miroir froid (on refroidit)." },
+  { id: "a3", lvl: "mid", title: "Deux expériences : la balance et la bouteille",
+    widget: { title: "Expériences virtuelles · Masse et volume", w: "masse", sim: "Valeurs simulées" },
+    parts: [
+      { t: "choice", c: "mod", label: "Expérience A : pendant que le glaçon fond dans le bocal fermé, l'écran de la balance…", o: ["affiche toujours le même nombre", "affiche un nombre de plus en plus grand", "affiche un nombre de plus en plus petit"], a: 0 },
+      { t: "choice", c: "rais", label: "Pourquoi le bocal doit-il être fermé pour que l'expérience soit juste ?", o: ["Pour que rien ne puisse entrer ni sortir du bocal", "Pour que la glace fonde plus vite", "Pour que la balance fonctionne"], a: 0 },
+      { t: "choice", c: "mod", label: "Expérience B : quand l'eau de la bouteille devient de la glace, elle…", o: ["dépasse le trait rouge : elle prend plus de place", "reste au niveau du trait rouge", "descend sous le trait rouge"], a: 0 },
+      { t: "choice", c: "rais", label: "Pourquoi ne faut-il pas remplir à ras bord une bouteille que l'on met au congélateur ?", o: ["Elle pourrait éclater, car la glace prend plus de place que l'eau liquide", "L'eau ne gèlerait pas", "La bouteille deviendrait plus lourde"], a: 0, no: { 2: "Regarde la balance de l'expérience B : le nombre change-t-il ?" } }],
+    hints: ["Lance les deux expériences et regarde bien l'écran des balances et le trait rouge.", "Si le bocal était ouvert, de la vapeur d'eau pourrait s'échapper.", "A : toujours le même nombre ; il faut que rien n'entre ni ne sorte. B : la glace dépasse le trait, la bouteille peut éclater."],
+    corr: "Dans le bocal fermé, la balance affiche toujours le même nombre pendant que la glace fond. Dans la bouteille, la glace dépasse le trait rouge : en gelant, l'eau prend plus de place, ce qui peut faire éclater une bouteille trop pleine." }] },
 
-{ id: "p2", n: 2, icon: "📈", tab: "Courbes", title: "Construire et lire une courbe", sub: "Placer des points, repérer un palier, conclure.",
+{ id: "p2", n: 2, icon: "📈", tab: "Labo des courbes", title: "Épreuve 2 · Le labo des courbes", sub: "Mesurer, construire un graphique, repérer un palier.",
   items: [
-  { id: "b1", lvl: "mid", title: "Construire un graphique",
-    intro: `<div class="box key"><p class="lab">✔ Règle clé</p><p>Un graphique complet a un titre, deux axes avec leur grandeur et leur unité, et une échelle régulière.</p></div>`,
+  { id: "b1", lvl: "mid", title: "TP virtuel · L'eau qui gèle",
+    widget: { title: "TP virtuel · Refroidir de l'eau pure", w: "tpgel", sim: "Valeurs simulées" },
     parts: [
-      { t: "plot", c: "lire", label: "Place les neuf points du tableau.", pts: SOL, xMax: 8, yMin: -15, yMax: 25, snap: 5, xName: "Temps (min)", yName: "Température (°C)", xTitle: "Temps (min)", yTitle: "Température (°C)" },
-      { t: "choice", c: "lire", label: "Quel titre convient à ce graphique ?", o: ["Évolution de la température de l'eau en fonction du temps", "Évolution du temps en fonction de l'eau", "Tableau des températures"], a: 0 }],
-    hints: ["Pour chaque colonne du tableau : repère le temps en bas, puis monte jusqu'à la bonne température.", "Attention aux températures négatives : elles sont sous la ligne du zéro.", "De 3 à 6 min, les quatre points sont tous sur la ligne 0 °C."],
-    corr: "On lit le temps sur l'axe horizontal et la température sur l'axe vertical. Les températures négatives se placent sous le zéro. Le titre dit ce qui est mesuré (la température de l'eau) en fonction de quoi (le temps)." },
-  { id: "b2", lvl: "mid", title: "Lire la courbe de solidification", docs: [DOC_SOL],
+      { t: "num", c: "lire", label: "Lance le TP. À quelle température l'eau pure se transforme-t-elle en glace ?", unit: "°C", ans: 0 },
+      { t: "num", c: "lire", label: "Pendant combien de minutes la température reste-t-elle constante ?", unit: "min", ans: 4, err: [[v => v === 5, "Compte la durée entre la première et la dernière mesure à 0 °C, pas le nombre de mesures."], [v => v === 8, "8 min, c'est le moment où le palier se termine. On demande sa durée."]] },
+      { t: "rows", c: "lire", label: "Dans quel état est l'eau du tube ?", choices: ["Liquide", "Liquide et solide", "Solide"], rows: [{ txt: "À 2 min", a: 0 }, { txt: "À 6 min", a: 1 }, { txt: "À 11 min", a: 2 }] },
+      { t: "word", c: "conn", label: `Le passage de l'état liquide à l'état solide s'appelle la ${gap}.`, ans: ["solidification"], spell: true, err: [[["fusion"], "La fusion, c'est l'inverse : du solide vers le liquide."], [["congélation"], "C'est le mot de la vie courante. Le mot scientifique est attendu."]] }],
+    hints: ["Touche le graphique pour lire chaque mesure. Le tableau se remplit aussi minute par minute.", "La partie horizontale de la courbe s'appelle un palier.", "0 °C · palier de 4 à 8 min, soit 4 min · liquide, liquide et solide, solide · solidification."],
+    corr: "La température descend jusqu'à 0 °C, reste constante de 4 à 8 minutes (palier de 4 minutes) pendant que l'eau se transforme en glace, puis redescend. Pendant le palier, l'eau est à la fois liquide et solide : c'est la solidification." },
+  { id: "b2", lvl: "hard", title: "Construire et légender un graphique",
+    intro: "On réchauffe de la glace sortie du congélateur. Le tableau donne les mesures.",
     parts: [
-      { t: "rows", c: "lire", label: "Dans quel état se trouve l'eau ?", choices: ["Liquide", "Liquide et solide en même temps", "Solide"], rows: [{ txt: "Zone A (de 0 à 3 min)", a: 0 }, { txt: "Entre les zones A et C (de 3 à 6 min)", a: 1 }, { txt: "Zone C (de 6 à 8 min)", a: 2 }] },
-      word(`La partie horizontale de la courbe s'appelle un ${gap}.`, ["palier", "palier de température", "plateau"]),
-      { t: "num", c: "lire", label: "À quelle température l'eau pure devient-elle solide ?", unit: "°C", ans: 0 }],
-    hints: ["Au début, l'eau est à 20 °C : dans quel état est-elle ?", "Pendant la partie horizontale, la glace se forme peu à peu : il y a encore du liquide.", "Liquide, puis liquide et solide pendant le palier à 0 °C, puis solide."],
-    corr: "L'eau liquide refroidit jusqu'à 0 °C. La température reste alors constante : c'est un palier, pendant lequel l'eau se solidifie (liquide et solide sont présents). Quand toute l'eau est solide, la température baisse de nouveau." },
-  { id: "b3", lvl: "mid", title: "La conclusion du TP3",
-    parts: [
-      word(`La température d'${gap} de l'eau pure, dans des conditions normales de pression, est de 100 °C.`, ["ébullition", "vaporisation"]),
-      word(`Pendant le changement d'état, la température reste ${gap}.`, ["constante", "la même", "stable", "fixe"]),
-      { t: "choice", c: "conn", label: "Au TP3, des gouttelettes apparaissent sur les parois du ballon. Que s'est-il passé ?", o: ["De la vapeur d'eau est redevenue liquide au contact de la paroi plus froide", "Le ballon a fui", "L'eau liquide a grimpé le long du verre"], a: 0 },
-      { t: "choice", c: "rais", label: "L'eau bout-elle toujours à 100 °C ?", o: ["Oui, partout et toujours", "Non : cela dépend de la pression, par exemple en haute montagne", "Non : cela dépend de la couleur de la casserole"], a: 1 }],
-    hints: ["Relis la conclusion de ta fiche de TP3.", "Quand l'eau bout, le thermomètre ne monte plus.", "Ébullition · constante · la vapeur d'eau se liquéfie sur la paroi froide · cela dépend de la pression."],
-    corr: "La température d'ébullition de l'eau pure, dans des conditions normales de pression, est de 100 °C. On note l'existence d'un palier : la vaporisation de l'eau pure s'effectue à température constante. Les gouttelettes sur les parois viennent de la vapeur d'eau qui redevient liquide." }] },
+      { t: "choice", c: "lire", label: "Sur l'axe des températures, quelle graduation est correcte ?", o: ["−20 ; −15 ; −10 ; −5 ; 0 ; 5 ; 10 ; 15 ; 20", "−20 ; −10 ; −5 ; 0 ; 10 ; 15 ; 20", "0 ; 5 ; 10 ; 20 ; 40"], a: 0, no: { 1: "Les écarts ne sont pas tous égaux : une échelle doit être régulière.", 2: "Les températures négatives du tableau ne pourraient pas être placées, et l'échelle n'est pas régulière." } },
+      { t: "plot", c: "lire", label: "Place les dix points du tableau.", pts: FUS, xMax: 9, yMin: -20, yMax: 20, snap: 5, xName: "Temps (min)", yName: "Température (°C)", xTitle: "Temps (min)", yTitle: "Température (°C)" },
+      { t: "choice", c: "lire", label: "Quel titre convient à ce graphique ?", o: ["Évolution de la température de la glace en fonction du temps", "Évolution du temps en fonction de la glace", "La glace"], a: 0 },
+      { t: "rows", c: "lire", label: "Légende ta courbe : que se passe-t-il ?", choices: ["Glace (solide) qui se réchauffe", "Palier : fusion (solide + liquide)", "Eau liquide qui se réchauffe"], rows: [{ txt: "De 0 à 3 min", a: 0 }, { txt: "De 3 à 6 min", a: 1 }, { txt: "De 6 à 9 min", a: 2 }] }],
+    hints: ["Une échelle régulière : on ajoute toujours la même valeur d'une graduation à la suivante.", "Pour chaque colonne du tableau, repère le temps en bas, puis monte jusqu'à la bonne température. Les températures négatives sont sous le zéro.", "Le titre dit ce qui est mesuré (la température de la glace) en fonction de quoi (le temps). Le palier est à 0 °C, de 3 à 6 min."],
+    corr: "L'échelle doit être régulière (de 5 en 5). Les points dessinent une montée, un palier à 0 °C de 3 à 6 minutes, puis une nouvelle montée. Titre : évolution de la température de la glace en fonction du temps. Avant le palier, la glace (solide) se réchauffe ; pendant le palier, elle fond (fusion) ; après, l'eau liquide se réchauffe.",
+    unlock: { title: "🔓 Animation débloquée · Pourquoi un palier ?", w: "palier", sim: "Modèle simplifié" } }] },
 
-{ id: "p3", n: 3, icon: "🦠", tab: "Microbes", title: "Micro-organismes et conservation", sub: "Ce qu'ils sont, comment ils se multiplient, comment s'en protéger.",
+{ id: "p3", n: 3, icon: "🦠", tab: "Labo des microbes", title: "Épreuve 3 · Le labo des micro-organismes", sub: "Les observer, comprendre leur multiplication, s'en protéger, enquêter.",
   items: [
-  { id: "c1", lvl: "easy", title: "Petits, mais nombreux", docs: [DOC_BACT],
+  { id: "c1", lvl: "easy", title: "Au microscope",
+    widget: { title: "Microscope virtuel", w: "micro", sim: "Images dessinées" },
     parts: [
-      { t: "rows", c: "conn", label: "Avec quoi peut-on l'observer ?", choices: ["À l'œil nu", "Seulement au microscope"], rows: [{ txt: "Une fourmi", a: 0 }, { txt: "Une bactérie", a: 1 }, { txt: "Un grain de riz", a: 0 }, { txt: "Une levure", a: 1 }] },
-      { t: "num", c: "calc", label: "On part d'une seule bactérie. Combien y en a-t-il au bout de 1 heure ?", unit: "bactéries", ans: 8, err: [[v => v === 6, "On ne multiplie pas par 2 le nombre de divisions : la population double à chaque division. 1 → 2 → 4 → …"], [v => v === 3, "3, c'est le nombre de divisions en 1 heure. Combien de bactéries après 3 doublements ?"]] },
-      { t: "num", c: "calc", label: "Et au bout de 2 heures ?", unit: "bactéries", ans: 64, err: [[v => v === 16, "16, c'est le double de 8. Mais en une heure de plus, il y a encore 3 divisions."], [v => v === 12, "La population double à chaque division : 8 → 16 → 32 → …"]] }],
-    hints: ["En 1 heure, il y a 60 ÷ 20 = 3 divisions.", "1 → 2 → 4 → 8 : chaque flèche est une division de 20 minutes.", "8 bactéries après 1 h. En 2 h, 6 divisions : 64 bactéries."],
-    corr: "Les bactéries et les levures sont des micro-organismes : on ne les voit qu'au microscope. En 1 heure, il y a 3 divisions : 1 → 2 → 4 → 8 bactéries. En 2 heures, 6 divisions : 64 bactéries. Le nombre double à chaque fois : il devient très vite immense." },
-  { id: "c2", lvl: "mid", title: "Conserver les aliments",
+      { t: "task", c: "mod", label: "Obtiens une image nette des trois lames au grossissement × 400.", okMsg: "Trois lames observées.", done: () => { const n = Object.keys(xst().mic || {}).length; return { ok: n >= 3, msg: `${n}/3 lames observées nettes à × 400.` }; } },
+      { t: "rows", c: "mod", label: "Qu'observe-t-on sur chaque lame ?", choices: ["Des bactéries", "Des levures", "Une moisissure"], rows: [{ txt: "Lame 1 · yaourt (petits bâtonnets en chaînettes)", a: 0 }, { txt: "Lame 2 · levure de boulanger (cellules ovales qui bourgeonnent)", a: 1 }, { txt: "Lame 3 · pain moisi (longs filaments et boules de spores)", a: 2 }] },
+      { t: "choice", c: "conn", label: "Pourquoi les appelle-t-on des micro-organismes ?", o: ["Ce sont des êtres vivants si petits qu'on ne les voit qu'au microscope", "Ce sont des objets fabriqués en laboratoire", "Ce sont des poussières"], a: 0 }],
+    hints: ["Tourne la vis de mise au point lentement : l'image devient nette d'un seul coup.", "Les levures et les moisissures sont des champignons ; les bactéries sont beaucoup plus petites.", "Yaourt : bactéries · levure : levures · pain moisi : moisissure."],
+    corr: "Le yaourt contient des bactéries (petits bâtonnets), la levure de boulanger est faite de levures (cellules ovales qui bourgeonnent) et le pain moisi porte une moisissure (filaments et spores). Ce sont des êtres vivants microscopiques : des micro-organismes." },
+  { id: "c2", lvl: "mid", title: "La boîte de Petri",
+    widget: { title: "Simulation · Une bactérie dans un aliment", w: "petri", sim: "Valeurs simulées" },
     parts: [
-      { t: "multi", c: "conn", label: "De quoi les micro-organismes ont-ils besoin pour se développer sur un aliment ? (4 réponses)", o: ["D'eau", "De nourriture", "De chaleur", "De temps", "De lumière", "De froid"], a: [0, 1, 2, 3] },
-      { t: "rows", c: "rais", label: "Comment cette technique freine-t-elle les micro-organismes ?", choices: ["Elle les prive de chaleur", "Elle les prive d'eau"], rows: [{ txt: "Mettre un plat au réfrigérateur", a: 0 }, { txt: "Saler un jambon", a: 1 }, { txt: "Faire une confiture très sucrée", a: 1 }, { txt: "Déshydrater un plat pour l'espace", a: 1 }] },
-      { t: "choice", c: "rais", label: "Sam prépare un plat réhydraté à midi, le laisse sur la table et le mange le lendemain. Quel est le problème ?", o: ["Le plat a eu de l'eau, de la chaleur et du temps : les micro-organismes ont pu se multiplier", "Le plat a perdu son goût", "Le plat a gelé"], a: 0 }],
-    hints: ["Pense à ce qui manque dans un plat déshydraté, et à ce qui manque dans un réfrigérateur.", "Le sel et le sucre « retiennent » l'eau : les micro-organismes ne peuvent plus l'utiliser.", "Eau, nourriture, chaleur, temps. Réfrigérateur : moins de chaleur. Sel, sucre, déshydratation : moins d'eau."],
-    corr: "Pour se développer, les micro-organismes ont besoin d'eau, de nourriture, de chaleur et de temps. Pour réduire leur développement, il suffit de supprimer l'un de ces éléments : le froid les prive de chaleur ; le sel, le sucre et la déshydratation les privent d'eau. Un plat réhydraté laissé à température ambiante leur offre tout ce qu'il faut." }] },
+      { t: "num", c: "rais", label: "Sur la table (25 °C), combien de bactéries y a-t-il au bout d'une heure, à partir d'une seule ?", unit: "bactéries", ans: 8, err: [[v => v === 3, "3, c'est le nombre de divisions en une heure. Chaque division double le nombre de bactéries : 1 → 2 → 4 → …"], [v => v === 6, "Le nombre ne s'ajoute pas : il double toutes les 20 minutes."]] },
+      { t: "num", c: "rais", label: "Et au bout de 2 heures ?", unit: "bactéries", ans: 64, err: [[v => v === 16, "16, c'est le double de 8. Mais en une heure de plus, il y a 3 nouvelles divisions."], [v => v === 6, "6, c'est le nombre de divisions en 2 heures."]] },
+      { t: "choice", c: "mod", label: "Au réfrigérateur, les bactéries…", o: ["se multiplient beaucoup plus lentement", "meurent toutes", "se multiplient plus vite"], a: 0 },
+      { t: "choice", c: "mod", label: "Au congélateur, les bactéries…", o: ["ne se multiplient plus, mais ne sont pas toutes mortes", "sont toutes tuées", "se multiplient lentement"], a: 0, no: { 1: "Regarde le texte de la simulation : le froid arrête la multiplication, il ne tue pas." } }],
+    hints: ["Lance la simulation sur la table et lis le compteur toutes les 20 minutes.", "En 1 heure, il y a 3 divisions : 1 → 2 → 4 → 8.", "1 h : 8 bactéries · 2 h : 6 divisions, 64 bactéries · réfrigérateur : plus lent · congélateur : arrêt."],
+    corr: "À 25 °C, le nombre de bactéries double toutes les 20 minutes : 1 → 2 → 4 → 8 en une heure, 64 en deux heures. Au réfrigérateur, la multiplication est beaucoup plus lente ; au congélateur, elle s'arrête, mais les bactéries ne sont pas toutes mortes." },
+  { id: "c3", lvl: "mid", title: "Le bouclier anti-microbes",
+    widget: { title: "Simulation · Les besoins des micro-organismes", w: "bouclier", sim: "Modèle simplifié" },
+    parts: [
+      { t: "match", c: "conn", label: "Que supprime chaque technique de conservation ?", ask: "Choisis l'effet de", rows: [{ e: "🧊", txt: "Réfrigérateur", v: "La chaleur" }, { e: "❄", txt: "Congélateur", v: "La chaleur et l'eau liquide" }, { e: "🔥", txt: "Pasteurisation", v: "Les micro-organismes (tués par la chaleur)" }, { e: "🧂", txt: "Sel ou sucre", v: "L'eau disponible" }, { e: "📦", txt: "Mise sous vide", v: "Le dioxygène" }] },
+      { t: "choice", c: "rais", label: "Pour ralentir le développement des micro-organismes dans un aliment, il suffit de…", o: ["supprimer un de leurs besoins", "laver l'aliment à l'eau froide", "ajouter des nutriments"], a: 0 }],
+    hints: ["Choisis chaque technique dans la simulation : le besoin supprimé est barré.", "Les quatre besoins : eau, nutriments, chaleur, dioxygène.", "Réfrigérateur : chaleur · congélateur : chaleur et eau liquide · pasteurisation : tue · sel ou sucre : eau · sous vide : dioxygène."],
+    corr: "Les micro-organismes ont besoin d'eau, de nutriments, de chaleur et, pour la plupart, de dioxygène. Le réfrigérateur supprime la chaleur ; le congélateur, la chaleur et l'eau liquide ; le sel et le sucre rendent l'eau indisponible ; la mise sous vide supprime le dioxygène ; la pasteurisation tue la plupart des micro-organismes par la chaleur." },
+  { id: "c4", lvl: "hard", title: "Enquête · Le pique-nique de Léo",
+    widget: { title: "Enquête · Les aliments du pique-nique", w: "piquenique" },
+    parts: [
+      { t: "task", c: "mod", label: "Inspecte les six aliments du pique-nique.", okMsg: "Les six aliments sont inspectés.", done: () => { const n = Object.keys(xst().pic || {}).length; return { ok: n >= 6, msg: `${n}/6 aliments inspectés.` }; } },
+      { t: "multi", c: "rais", label: "Quels aliments ont pu rendre Léo malade ? (plusieurs réponses)", o: ["Le poulet rôti", "Les yaourts", "La mayonnaise maison", "La confiture", "Le jus de fruits pasteurisé", "Le pain"], a: [0, 2] },
+      { t: "choice", c: "rais", label: "Pourquoi ces aliments sont-ils dangereux ?", o: ["Restés longtemps au chaud, les micro-organismes ont eu le temps de s'y multiplier énormément", "Ils étaient trop sucrés", "Ils avaient été pasteurisés"], a: 0 },
+      { t: "choice", c: "rais", label: "Qu'aurait dû faire Léo ?", o: ["Garder ces aliments au froid, dans la glacière, jusqu'au repas", "Les laisser au soleil pour les réchauffer", "Ajouter du sel sur le poulet au moment du repas"], a: 0 }],
+    hints: ["Repère les aliments restés longtemps à une température élevée.", "La glacière, le sucre et la pasteurisation protègent les aliments.", "Poulet et mayonnaise : plusieurs heures à 32 °C, les bactéries se sont multipliées. Il fallait les garder au froid."],
+    corr: "Le poulet et la mayonnaise sont restés plusieurs heures au soleil, à 32 °C : les micro-organismes ont eu le temps de s'y multiplier énormément. Les yaourts (glacière), la confiture (sucre), le jus (pasteurisé, fermé) et le pain sec sont protégés. Il fallait garder ces aliments au froid jusqu'au repas." }] },
 
-{ id: "p4", n: 4, icon: "🎯", tab: "Défi", title: "Prêt pour le contrôle ?", sub: "Des situations nouvelles pour vérifier que tu sais faire.",
+{ id: "p4", n: 4, icon: "🚀", tab: "Épreuve finale", title: "Épreuve 4 · Prêt pour le décollage ?", sub: "Des situations nouvelles, puis ta fiche mémo à recopier.",
   items: [
-  { id: "d2", lvl: "hard", title: "Défi final", docs: [DOC_FUS, DOC_BACT], recop: true,
+  { id: "d1", lvl: "hard", title: "L'épreuve finale de l'équipage", recop: true,
+    intro: "Journal de bord : la fusée est en route vers Mars. Aide l'équipage à résoudre ces petits problèmes.",
     parts: [
-      { t: "num", c: "lire", label: "Sur ce graphique, à quelle température se trouve le palier ?", unit: "°C", ans: 0 },
-      { t: "choice", c: "rais", label: "Quel changement d'état se produit pendant ce palier ?", o: CH, a: 0, no: { 1: "Ici on réchauffe de la glace : la température monte.", 2: "La vaporisation de l'eau pure se fait vers 100 °C." } },
-      { t: "num", c: "lire", label: "Pendant combien de minutes la température reste-t-elle constante ?", unit: "min", ans: 3, tol: 0.2, err: [[v => v === 4, "Il y a 4 points sur le palier, mais de 2 min à 5 min il s'écoule…"]] },
-      { t: "num", c: "calc", label: "En partant d'une bactérie, combien de divisions faut-il pour dépasser 1 000 bactéries ?", unit: "divisions", ans: 10, err: [[v => v === 500, "La population ne gagne pas 2 bactéries à chaque fois : elle double."]] },
-      { t: "num", c: "calc", label: "Combien de minutes cela représente-t-il ?", unit: "min", ans: 200, tol: 0.5 }],
-    hints: ["Le palier est la partie horizontale de la courbe.", "1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1 024…", "Palier à 0 °C pendant 3 min : fusion. 10 divisions × 20 min = 200 min."],
-    corr: "Le palier est à 0 °C, de 2 à 5 min, soit pendant 3 minutes : la glace fond (fusion). Pour les bactéries : 1 → 2 → 4 → … → 1 024 après 10 divisions, soit 10 × 20 = 200 minutes (3 h 20 min)." }] }
+      { t: "choice", c: "rais", label: "Une bouteille d'eau pleine à ras bord est oubliée dans un module où il fait −30 °C. Que risque-t-il de se passer ?", o: ["L'eau gèle, prend plus de place et la bouteille peut éclater", "L'eau s'évapore entièrement", "Rien : l'eau ne gèle pas dans l'espace"], a: 0 },
+      { t: "word", c: "conn", label: `En sortant du module froid, la visière du casque se couvre de buée : la vapeur d'eau de l'air devient liquide. C'est une ${gap}.`, ans: ["liquéfaction", "liquefaction", "condensation"], err: [[["vaporisation"], "C'est l'inverse : la vaporisation fait passer du liquide au gaz."], [["solidification", "fusion"], "Ici, l'eau passe de l'état gazeux à l'état liquide."]] },
+      { t: "num", c: "rais", label: "Un repas réhydraté est oublié 1 h 40 min à 25 °C. Il contenait une bactérie. Combien en contient-il maintenant ?", unit: "bactéries", ans: 32, err: [[v => v === 5, "5, c'est le nombre de divisions. Le nombre de bactéries double à chaque division."], [v => v === 64, "Compte les divisions : 1 h 40 min = 100 min = 5 fois 20 minutes."]] },
+      { t: "choice", c: "rais", label: "Quels vivres emporter pour un voyage de plusieurs mois sans réfrigérateur ?", o: ["Des aliments déshydratés ou en conserve", "Des yaourts et de la viande fraîche", "Des fruits frais coupés"], a: 0 }],
+    hints: ["Pense aux expériences de l'épreuve 1, puis à la boîte de Petri.", "Gaz → liquide : liquéfaction. 1 h 40 min = 100 min = 5 divisions de 20 minutes.", "Bouteille qui éclate · liquéfaction · 2 × 2 × 2 × 2 × 2 = 32 bactéries · aliments déshydratés ou en conserve."],
+    corr: "L'eau qui gèle prend plus de place : la bouteille peut éclater. La buée est une liquéfaction. En 100 minutes, il y a 5 divisions : 32 bactéries. Pour un long voyage sans froid, on emporte des aliments déshydratés (sans eau) ou en conserve (chauffés puis fermés). Ta fiche mémo s'affiche ci-dessous : recopie-la dans ton cahier." }] }
 ];
 const RAPPEL = { id: "r0", lvl: "easy", title: "Échauffement",
   parts: [
-    { t: "choice", c: "conn", label: "Quels sont les trois états de l'eau ?", o: ["Solide, liquide, gazeux", "Froid, tiède, chaud", "Glace, neige, grêle"], a: 0 },
-    { t: "choice", c: "conn", label: "Pourquoi les plats des astronautes sont-ils déshydratés ?", o: ["Pour qu'ils soient plus jolis", "Pour qu'ils se conservent longtemps et pèsent moins lourd", "Pour qu'ils cuisent plus vite"], a: 1 }],
-  hints: ["Pense à la glace, à l'eau du robinet et à la vapeur.", "Sans eau, les micro-organismes ne se développent pas.", "Solide, liquide, gazeux · conservation et masse."],
-  corr: "L'eau existe à l'état solide, liquide ou gazeux. Un plat déshydraté ne contient presque plus d'eau : les micro-organismes ne peuvent pas s'y développer, et il est plus léger à emporter." };
-const RESUME = `Révision de la Mission 4 : changements d'état de l'eau, courbes de température, micro-organismes, conservation des aliments.
-
-Avant le contrôle, je vérifie que je sais :
-- nommer les changements d'état de l'eau et dire s'il faut chauffer ou refroidir ;
-- dire ce que deviennent la masse et le volume lors d'un changement d'état ;
-- construire un graphique complet (titre, axes, unités, échelle, points) ;
-- repérer un palier et dire ce qui se passe pendant ce palier ;
-- citer des micro-organismes, calculer un doublement toutes les 20 minutes ;
-- citer les besoins des micro-organismes et les techniques de conservation.`;
+    { t: "choice", c: "conn", label: "Lequel de ces mots n'est pas un état de l'eau ?", o: ["Solide", "Liquide", "Gazeux", "Bouillant"], a: 3 },
+    { t: "choice", c: "conn", label: "Un micro-organisme est…", o: ["un être vivant visible seulement au microscope", "un petit insecte", "une poussière"], a: 0 },
+    { t: "choice", c: "conn", label: "Pourquoi range-t-on les yaourts au réfrigérateur ?", o: ["Pour ralentir la multiplication des micro-organismes", "Pour tuer tous les micro-organismes", "Pour qu'ils soient plus sucrés"], a: 0 }],
+  hints: ["Les trois états : un pour la glace, un pour l'eau, un pour la vapeur.", "« Micro » signifie très petit.", "Bouillant · être vivant microscopique · ralentir."],
+  corr: "L'eau existe sous trois états : solide, liquide et gazeux. Un micro-organisme est un être vivant visible seulement au microscope. Le froid du réfrigérateur ralentit leur multiplication." };
+const RESUME = `La question de la mission : ${PROBLEM}\n\nMa fiche mémo\n${MEMO.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}\n\nJe vérifie que je sais…\n${CHECK.map(x => "- " + x).join("\n")}`;
 typo(GROUPS); typo(RAPPEL);
 
-/* ===== Révision Mission 4 (5e EIST) · moteur : navigation, questions, correction, bilan ===== */
+/* ===== 5e EIST · Révision Mission 4 (v2) · moteur : navigation, questions, correction, bilan ===== */
 const LV = { easy: ["🟢 Facile", "easy", "🟢"], mid: ["🟡 Moyen", "mid", "🟡"], hard: ["🔴 Défi", "hard", "🔴"] };
-const COMPS = { conn: "Mobiliser ses connaissances", lire: "Lire ou construire un graphique", mod: "Expérimenter avec une simulation", calc: "Calculer", rais: "Raisonner" };
+const COMPS = HOME.comps;
 const SIGN = "Mr Moreira, Vauban Luxembourg";
 const ITEMS = {};
 GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `Partie ${g.n} (${g.tab}) · étape ${i + 1} · ${it.title}` }; }));
 ITEMS.r0 = { it: RAPPEL, g: null, i: 0, label: "Accueil · " + RAPPEL.title };
 
 /* ---------- état ---------- */
-const DEF = { fs: 21, theme: null, proj: false, it: {}, view: "accueil", step: {} };
+const DEF = { fs: 21, theme: null, proj: false, it: {}, view: "accueil", step: {}, x: {} };
 let S = Store.load(DEF);
-["it", "step"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+["it", "step", "x"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
 const save = () => Store.save(S);
 const scorable = p => p.t !== "text";
 function itState(id) { if (!S.it[id]) S.it[id] = { v: {}, hints: 0, crit: {} }; return S.it[id]; }
@@ -1074,11 +1330,12 @@ function checkPart(p, val) {
     if (val === undefined || val === null) return { ok: false, empty: true, msg: "Photo manquante." };
     const w = SHOTWIN[p.ph]; if (val >= w[0] && val <= w[1]) return { ok: true, msg: "✓ Bonne photo." };
     const other = Object.entries(SHOTWIN).find(([k, x]) => k !== p.ph && val >= x[0] && val <= x[1]);
-    const NM = { pro: "la prophase : les chromosomes sont visibles, mais pas encore alignés", meta: "la métaphase : les chromosomes sont alignés au milieu", ana: "l'anaphase : les bâtonnets sont en train de s'écarter", telo: "la télophase : les bâtonnets sont déjà arrivés aux pôles" };
-    if (other) return { ok: false, msg: "✗ Faux. Ta photo montre " + NM[other[0]] + "." };
-    return { ok: false, msg: val < 0.3 ? "✗ Trop tôt : les chromosomes ne sont pas encore bien visibles." : val > 0.8 ? "✗ Trop tard : la cellule est déjà en train de se couper en deux." : "✗ Presque : ta photo est prise entre deux étapes. Avance ou recule un peu." };
+    if (other) return { ok: false, msg: "✗ Faux. Ta photo montre " + SHOTNM[other[0]] + "." };
+    return { ok: false, msg: val < w[0] ? "✗ Trop tôt : avance un peu l'animation." : "✗ Trop tard : recule un peu l'animation." };
   }
   if (p.t === "plot") { const v = val || {}; if (p.pts.some((q, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Place tous les points." }; const bad = p.pts.filter((q, i) => v[i] !== q[1]).length; return bad ? { ok: false, msg: `✗ ${bad} point(s) mal placé(s) (marqués ✗ sur le graphique).` } : { ok: true, msg: "✓ Tous les points sont bien placés." }; }
+  if (p.t === "grid") { const v = val || {}; if (p.ans.some((a, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Complète toutes les cases." }; const bad = p.ans.filter((a, i) => v[i] !== a).length; return bad ? { ok: false, msg: `✗ ${bad} case(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Tableau juste." }; }
+  if (p.t === "task") { const r = p.done(); return r.ok ? { ok: true, msg: "✓ " + p.okMsg } : { ok: false, empty: true, msg: "Termine d'abord la manipulation." }; }
   if (p.t === "loop") { const v = val || []; if (v.length < p.items.length) return { ok: false, empty: true, msg: "Place toutes les étiquettes." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Boucle juste." }; }
   return { ok: true, msg: "" };
 }
@@ -1116,17 +1373,19 @@ function go(v, noScroll) {
 /* ---------- accueil ---------- */
 function renderHome(m) {
   m.innerHTML = `<section class="view">
-    <div class="panel"><p class="kicker">Mission 4 · Révision</p><h2 class="sec-title">Charger des vivres dans la fusée : je révise</h2>
-      <p>${nb("Changements d'état de l'eau, courbes de température, micro-organismes et conservation des aliments : entraîne-toi sur toute la mission avant le contrôle.")}</p>
-      <div class="box info"><p class="lab">ℹ Ta mission</p><p><b>${nb(PROBLEM)}</b></p></div></div>
+    <div class="panel"><p class="kicker">${HOME.kicker}</p><h2 class="sec-title">${HOME.title}</h2>
+      <p>${nb(HOME.intro)}</p>
+      <div class="box info"><p class="lab">ℹ ${HOME.lab}</p><p><b>${nb(PROBLEM)}</b></p><p>${nb(HOME.goal)}</p></div>
+      <div class="box warn"><p class="lab">⚠ Le savais-tu ?</p><p>${nb(HOME.fact)}</p></div></div>
     <article class="panel itemroot" id="item"></article>
-    <div><p class="kicker">Les quatre parties de la révision</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Partie ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div><p class="kicker">${HOME.parts}</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Partie ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
     <div class="panel"><p class="kicker">Mode d'emploi</p>
       <ul class="ul">
-        <li>Fais les parties <b>dans l'ordre</b>, de 1 à 4. </li>
+        <li>Fais les parties <b>dans l'ordre</b>, de 1 à ${GROUPS.length} : la séance dure environ une heure.</li>
+        <li>Chaque étape contient une <b>manipulation</b> ou une <b>animation</b> : réalise-la avant de répondre.</li>
         <li>Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>
         <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un.</li>
-        <li>À la fin, l'onglet <b>Bilan</b> affiche le texte à recopier dans ton cahier et te permet de télécharger ton résultat.</li>
+        <li>À la fin, l'onglet <b>Bilan</b> affiche le bilan de l'activité et te permet de télécharger ton résultat.</li>
       </ul></div>
   </section>`;
   $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
@@ -1159,26 +1418,29 @@ function refreshChrome(it) {
 }
 
 /* ---------- une étape ---------- */
+let CUR = null;
+function refreshTasks() { if (!CUR || !document.body.contains(CUR.root)) return; CUR.it.parts.forEach((p, k) => { if (p.t === "task") { const n = $(`.part[data-k="${k}"] [data-task]`, CUR.root); if (n) n.innerHTML = p.done().msg; } }); }
 function renderItem(it, root) {
+  CUR = { it, root };
   const id = it.id, st = itState(id), lvl = LV[it.lvl], locked = it.pre && st.pre === undefined;
   root.innerHTML = `<p class="lv ${lvl[1]}">${lvl[0]}</p><h3 class="item-title">${it.title}</h3>${it.intro ? `<p>${it.intro}</p>` : ""}${(it.docs || []).map(docHTML).join("")}
     ${it.pre ? `<div class="hypo" id="hypo"></div>` : ""}
-    ${it.live ? `<div class="figbox" id="livefig"></div>` : ""}
-    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Choisis d'abord ton hypothèse : l'expérience se débloque ensuite.</p>` : ""}</div></figure>` : ""}
+    ${it.live ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.liveTitle}</span></figcaption><div class="db"><div class="figbox" id="livefig"></div></div></figure>` : ""}
+    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Choisis d'abord ton hypothèse : la manipulation se débloque ensuite.</p>` : ""}</div></figure>` : ""}
     <div class="parts ${it.parts.every(p => p.t === "shot") ? "grid4" : ""}" style="display:grid;gap:.9rem" ${locked ? "hidden" : ""}>${it.parts.map((p, k) => `<div class="part" data-k="${k}"></div>`).join("")}</div>
     <div class="row acts" ${locked ? "hidden" : ""}></div><div class="gfb" aria-live="polite"></div>
     <div class="hints hz"></div><div class="after" style="display:grid;gap:.9rem"></div><div class="unl"></div>`;
   mountFigs(root);
   if (it.pre) paintPre(it, root);
   if (it.widget && !locked) WID[it.widget.w]($("#wz", root));
-  if (it.live) root._live = liveSVG($("#livefig", root), (W, F) => schemaSVG(W, F, [(S.it[id].v[0] || {})[1], (S.it[id].v[0] || {})[3]]));
+  if (it.live) root._live = liveSVG($("#livefig", root), (W, F) => LIVE[it.live](W, F, S.it[id].v));
   it.parts.forEach((p, k) => renderPart(it, k, root));
   paintActions(it, root);
 }
 function paintPre(it, root) {
   const st = S.it[it.id], h = $("#hypo", root), fixed = !!st.first, shown = corrShown(st);
   h.innerHTML = `<p class="hl">🤔 ${it.pre.label} <span class="ctag">non noté</span></p><div class="opts" role="radiogroup">${it.pre.o.map((o, j) => `<button type="button" class="opt" role="radio" aria-checked="${st.pre === j}" data-h="${j}" ${fixed ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div>
-    ${shown && st.pre !== undefined ? `<p class="pfb ${st.pre === it.pre.a ? "ok" : ""}">${st.pre === it.pre.a ? "✓ Ton hypothèse est confirmée par l'expérience." : "↻ L'expérience t'a conduit à réviser ton hypothèse de départ : c'est ainsi que l'on progresse."}</p>` : fixed ? `<p class="lead">Hypothèse enregistrée.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothèse enregistrée : tu peux encore la changer avant de vérifier.</p>`}`;
+    ${shown && st.pre !== undefined ? `<p class="pfb ${st.pre === it.pre.a ? "ok" : ""}">${st.pre === it.pre.a ? "✓ Tu avais raison : ton hypothèse est confirmée par l'observation." : "↻ L'observation t'a conduit à réviser ton hypothèse de départ : c'est ainsi que l'on progresse."}</p>` : fixed ? `<p class="lead">Hypothèse enregistrée.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothèse enregistrée : tu peux encore la changer avant de vérifier.</p>`}`;
   $$("[data-h]", h).forEach(b => b.onclick = () => { const was = st.pre === undefined; st.pre = +b.dataset.h; save(); if (was) { renderItem(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } else { paintPre(it, root); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); } });
 }
 function renderPart(it, k, root) {
@@ -1210,6 +1472,13 @@ function renderPart(it, k, root) {
     h += `<div class="loopd"><span class="lhead" aria-hidden="true">▶</span><div class="lslot fixed"><span class="n">1</span><span>${p.start}</span></div>${p.items.map((_, i) => { const j = chosen[i], cls = checked && j !== undefined ? (j === i ? "is-ok" : "is-bad") : ""; return `<div class="larr" aria-hidden="true">↓</div><button type="button" class="lslot ${j !== undefined ? "filled" : ""} ${cls}" data-slot="${i}" ${j === undefined ? "disabled" : ""} aria-label="Case ${i + 2} : ${j !== undefined ? esc(p.items[j]) + ". Toucher pour retirer." : "vide"}"><span class="n">${i + 2}</span><span>${j !== undefined ? p.items[j] : `<span class="muted">…</span>`}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}<p class="lret">↺ ${solved ? p.back + " : retour à la case 1." : "puis retour à la case 1 : la boucle est bouclée."}</p></div>
       <div class="bank">${ord.filter(j => !chosen.includes(j)).map(j => `<button type="button" class="order-item" data-j="${j}"><span class="n">+</span><span>${p.items[j]}</span></button>`).join("")}</div><p class="lead">Touche une étiquette pour la placer dans la première case libre. Touche une case remplie pour la vider.</p>`;
   }
+  if (p.t === "grid") {
+    const cur = v || {}, nc = p.cols.length; let sel = box._sel; if (sel === undefined || cur[sel] !== undefined) sel = p.ans.findIndex((a, i) => cur[i] === undefined); box._sel = sel;
+    const nm = i => `${p.rows[Math.floor(i / nc)].join(" ")} × ${p.cols[i % nc].join(" ")}`;
+    h += `<div class="xgrid" style="grid-template-columns:minmax(3.4rem,auto) repeat(${nc},minmax(0,1fr))"><div class="xg-k">${p.corner}</div>${p.cols.map(c => `<div class="xg-h xg-col"><span>${c[0]}</span><b>${c[1]}</b></div>`).join("")}${p.rows.map((r, ri) => `<div class="xg-h xg-row"><span>${r[0]}</span><b>${r[1]}</b></div>${p.cols.map((c, ci) => { const i = ri * nc + ci, has = cur[i] !== undefined, cls = checked && has ? (cur[i] === p.ans[i] ? "is-ok" : "is-bad") : ""; return `<button type="button" class="xg-c ${cls}" data-gi="${i}" aria-pressed="${sel === i}" aria-label="Case ${esc(nm(i))} : ${has ? esc(p.chips[cur[i]]) : "vide"}"><b>${has ? p.chips[cur[i]] : "?"}</b>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}`).join("")}</div>
+      <p class="lead">${sel >= 0 ? `${p.ask} : <b>${nm(sel)}</b>` : "Touche une case pour la changer."}</p><div class="chips">${p.chips.map((c, j) => `<button type="button" class="chipb" data-gj="${j}">${c}</button>`).join("")}</div>`;
+  }
+  if (p.t === "task") h += `<p class="task ${okc}" data-task>${p.done().msg}</p>`;
   if (p.t === "text") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead">Après validation : réponse modèle et grille d'auto-évaluation.</p>`;
   h += `<div class="pfbw" aria-live="polite">${r ? `<p class="pfb ${r.ok ? "ok" : "bad"}">${r.msg}</p>` : ""}</div>`;
   if (p.t === "plot") h = h.replace('<div class="pfbw"', '<div class="plotz"></div><div class="pfbw"');
@@ -1225,6 +1494,10 @@ function renderPart(it, k, root) {
     $$("[data-mi]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = +b.dataset.mi; delete cur[i]; box._sel = i; setV(cur, true); refocus(`[data-mi="${i}"]`); });
     $$("[data-mj]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = box._sel; if (i === undefined || i < 0) return; cur[i] = +b.dataset.mj; box._sel = undefined; setV(cur, true); refocus(".chipb") || refocus(".mrow"); });
   }
+  if (p.t === "grid") {
+    $$("[data-gi]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = +b.dataset.gi; delete cur[i]; box._sel = i; setV(cur, true); refocus(`[data-gi="${i}"]`); });
+    $$("[data-gj]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = box._sel; if (i === undefined || i < 0) return; cur[i] = +b.dataset.gj; box._sel = undefined; setV(cur, true); refocus(`[data-gj="${b.dataset.gj}"]`); });
+  }
   if (p.t === "rows") $$(".seg button", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); cur[+b.dataset.i] = +b.dataset.j; setV(cur, true); refocus(`[data-i="${b.dataset.i}"][data-j="${b.dataset.j}"]`); });
   if (p.t === "order") { $$(".order-item", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); }); box.querySelector("[data-clear]").onclick = () => setV([], true); }
   if (p.t === "shot") box.querySelector("[data-shot]").onclick = () => { setV(CELL.tau, true); refocus("[data-shot]"); };
@@ -1234,7 +1507,7 @@ function renderPart(it, k, root) {
   }
 }
 
-function recopHTML() { return `<div class="recop"><p class="lab">✔ Avant le contrôle : je vérifie que je sais…</p>${bilanHTML()}</div>`; }
+function recopHTML() { return `<div class="recop"><p class="lab">✔ ${HOME.recop}</p>${bilanHTML()}</div>`; }
 
 function paintActions(it, root) {
   const id = it.id, st = S.it[id]; const acts = $(".acts", root), gfb = $(".gfb", root), hints = $(".hz", root), after = $(".after", root);
@@ -1249,10 +1522,10 @@ function paintActions(it, root) {
       : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} réponse(s) juste(s).</p><p>${shown ? "Le corrigé est affiché ci-dessous : corrige les réponses marquées ✗, puis vérifie à nouveau." : "Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé s'affichera au deuxième essai."} (Score retenu : ${f.pts}/${f.max}, premier essai.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Réponse enregistrée.</p><p>Compare-la à la réponse modèle, puis coche la grille.</p></div>`;
   } else gfb.innerHTML = "";
   let a = "";
-  if (shown && it.corr) a += `<div class="corr"><p class="h">Corrigé</p><p>${it.corr}</p></div>`;
+  if (shown && it.corr) a += `<div class="corr"><p class="h">Corrigé</p><p>${it.corr}</p>${it.corrx || ""}</div>`;
   if (0) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Réponse rédigée · auto-évaluation</p><div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${it.model}</p></div><p><b>Coche ce que ta réponse contient :</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
   if (shown && it.recop) a += recopHTML();
-  after.innerHTML = a;
+  after.innerHTML = a; mountFigs(after);
   const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
   if (unl.dataset.state !== ustate) {
     unl.dataset.state = ustate;
@@ -1282,28 +1555,30 @@ function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, lab
 function rScore() { const st = S.it.r0; return { pts: st && st.first ? st.first.pts : 0, max: itemMax(RAPPEL), done: st && st.first ? 1 : 0, n: 1 }; }
 function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
 const gName = g => `Partie ${g.n} · ${g.title}`;
-const recopReady = () => corrShown(S.it.d2);
+const recopReady = () => corrShown(S.it[HOME.last]);
 function bilanText(name) {
   const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
-  let t = `RÉVISION · MISSION 4 · CHARGER DES VIVRES DANS LA FUSÉE\n5e EIST\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN DE L'ÉLÈVE\nÉlève : ${name || "—"}\nDate : ${today()}\n\nPoints au premier essai\n- Accueil · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
+  let t = `${HOME.txt}\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN DE L'ÉLÈVE\nÉlève : ${name || "—"}\nDate : ${today()}\n\nPoints au premier essai\n- Accueil · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
   GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} étapes faites)\n`; g.items.forEach((it, i) => { const st = S.it[it.id]; t += `    étape ${i + 1} ${LV[it.lvl][2]} ${it.title} : ${st && st.first ? st.first.pts + "/" + st.first.max + (st.first.hints ? ` (${st.first.hints} coup(s) de pouce)` : "") : "—"}\n`; }); });
   t += `Total : ${T.pts}/${T.max} (${T.done}/${T.n} étapes faites)\n\nBilan par compétence (premier essai)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? c.ok + "/" + c.n : "—"}\n`; });
   t += `\nQuestions ratées au premier essai (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- aucune"}\n`;
-  return clean(t + `\n${SIGN}\n`);
+  return clean(t + (HOME.extra ? "\n" + HOME.extra() : "") + `\n${SIGN}\n`);
 }
 function renderBilan(m) {
   const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
   m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan de l'activité</h2><p class="lead">Points comptés au premier essai. ${T.done}/${T.n} étapes faites.</p></div>
-    <div class="panel"><h3>Ma liste de vérification</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 Le bilan à recopier s'affiche quand tu as terminé la partie 4.</p><div class="row"><button class="btn" type="button" id="goD2">🎯 Aller à la partie 4</button></div>`}</div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie 3.</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Aller à la dernière étape</button></div>`}</div>
+    ${HOME.extraHTML ? `<div class="panel"><h3>${HOME.extraTitle}</h3>${HOME.extraHTML()}</div>` : ""}
     <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
     <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Étapes faites</th><th>Points (premier essai)</th></tr></thead><tbody><tr><td>Accueil · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
     <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const q = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${q * 100}%"></i></div></div>`; }).join("")}</div></div>
     <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>Aucune pour l'instant.</p>"}</div>
-    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité (avec la liste « je sais… »), tes points par partie et par compétence et les questions ratées au premier essai.</p><div id="bt"></div></div>
-    <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses de cette activité sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
-  const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step.p4 = 0; save(); go("p4"); };
-  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>Révision Mission 4 · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} étapes)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Questions ratées au premier essai</span><b class="num">${ms.length}</b></div><div class="line"><span>Bilan à recopier</span><b>${recopReady() ? "✓ débloqué" : "pas encore"}</b></div>`, "revision-mission-4");
-  armButton($("#reset"), "Tout effacer", "Confirmer l'effacement ?", () => { S.it = {}; S.step = {}; save(); go("accueil"); });
+    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité (avec le bilan à recopier), ${HOME.extraHTML ? "ton tableau de croisement, " : ""}tes points par partie et par compétence et les questions ratées au premier essai.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses et les manipulations de cette activité sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
+  const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step[HOME.lastG] = HOME.lastK; save(); go(HOME.lastG); };
+  mountFigs(m);
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>${HOME.short} · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} étapes)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Questions ratées au premier essai</span><b class="num">${ms.length}</b></div><div class="line"><span>Bilan de l'activité</span><b>${recopReady() ? "✓ débloqué" : "pas encore"}</b></div>`, HOME.slug);
+  armButton($("#reset"), "Tout effacer", "Confirmer l'effacement ?", () => { S.it = {}; S.step = {}; S.x = {}; save(); go("accueil"); });
 }
 
 /* ---------- démarrage ---------- */
