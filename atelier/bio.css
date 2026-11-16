@@ -40,3 +40,24 @@
 .ecosp .hit{fill:transparent}
 .ecosp:focus-visible .hit{stroke:#fff;stroke-width:4;fill:rgba(255,255,255,.25)}
 .sim{font-weight:700;color:var(--warn)}
+/* deux versions : guidée / lycée */
+.vers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem}
+.vers .card-btn[aria-checked="true"]{border-color:var(--accent);border-width:2.5px;background:var(--accent-soft)}
+.vers .card-btn .t{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.vchip{min-height:48px;padding:0 .8rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;font-size:.9rem;white-space:nowrap}
+.pfb.mid{color:var(--warn)}
+.wc{font-size:.9rem}
+.grille{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.35rem}
+.grille li{display:grid;grid-template-columns:auto 1fr auto;gap:.3rem .7rem;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:.45rem .7rem;background:var(--surface);font-size:.92rem}
+.grille li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.grille .gk{font-weight:800;font-size:.9rem;color:var(--muted);white-space:nowrap}
+.grille .gt{font-weight:800;white-space:nowrap}
+.grille li.ok .gt{color:var(--ok)} .grille li.no .gt{color:var(--bad)}
+.grille .gs{grid-column:1/-1;justify-self:start}
+@media (max-width:560px){.grille li{grid-template-columns:1fr}.grille .gt{white-space:normal}}
+.redlist{display:grid;gap:.7rem}
+.red{border:1.5px solid var(--line);border-radius:12px;padding:.6rem .8rem;display:grid;gap:.25rem;background:var(--surface)}
+.red .rq{font-weight:800;font-size:.92rem}
+.red .rv{white-space:pre-wrap;overflow-wrap:anywhere}
+.part textarea.inp{min-height:9.5rem}
+@media (max-width:560px){.tabsw{flex-wrap:nowrap}#tabx{width:auto}.vchip .vl{display:none}.vchip{padding:0 .7rem;min-width:48px}}

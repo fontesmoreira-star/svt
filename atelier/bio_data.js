@@ -119,5 +119,93 @@ const RAPPEL = { id: "r0", lvl: "easy", title: "Échauffement",
     { t: "choice", c: "conn", label: "Au collège, tu as classé les êtres vivants en groupes emboîtés. Sur quoi ce classement repose-t-il ?", o: ["Sur les caractères que les êtres vivants partagent", "Sur leur milieu de vie", "Sur leur taille"], a: 0 }],
   hints: ["Relis l'introduction, juste au-dessus.", "On range dans une même boîte les êtres vivants qui possèdent un même caractère.", "Diversité biologique · les caractères partagés."],
   corr: "La biodiversité est la diversité biologique : toutes les variations du monde vivant. Pour classer les êtres vivants, on utilise les caractères qu'ils partagent." };
+/* ===== VERSION LYCÉE : mêmes documents et mêmes TP virtuels, moins de questions, réponses rédigées =====
+   Chaque réponse rédigée a des « éléments attendus » (crit) repérés par mots-clés dans le texte sans accents
+   (T : casse conservée ; n : minuscules). Un point par élément repéré au premier essai. */
+const duckLetters = T => new Set([...(T.match(/\b[A-E]\b(?!')/g) || []), ...(T.match(/canards? [a-e]\b(?!')/gi) || []).map(x => x.slice(-1).toUpperCase())]).size;
+const SPK = ["perche", "grenouille", "cygne", "canard", "limnee", "ecrevisse", "moustique", "roseau", "chene", "chouette", "ecureuil", "cerf", "renard", "fougere", "amanite", "fourmi", "bles?\\b", "tournesol", "lapin", "abeille", "coccinelle", "pieride", "papillon", "campagnol", "sauterelle"];
+const spCount = n => SPK.filter(k => new RegExp("\\b" + k).test(n)).length;
+const fertileSaid = (T, n) => /fertil|descendance (\w+ ){0,2}feconde/.test(n.replace(/(non|pas|in)[ -]?fertil\w*/g, " "));
+const lumPairs = () => { const ks = Object.keys(ECO).filter(k => S.eco[k] && S.eco[k].m && S.eco[k].m.l), out = []; ks.forEach(a => ks.forEach(b => { const x = ECO[a].cond.l[1], y = ECO[b].cond.l[1]; if (x > y) out.push([x, y]); })); return out; };
+const LYCEE = {
+r0: { parts: [
+    { t: "word", c: "conn", label: `Le mot « biodiversité » signifie ${gap} (deux mots).`, ans: ["diversité biologique", "diversité du vivant", "diversité du monde vivant"] },
+    { t: "word", c: "conn", label: `Au collège, tu as classé les êtres vivants en groupes emboîtés. Ce classement repose sur les ${gap} qu'ils partagent.`, ans: ["caractères", "attributs"], err: [[["milieu", "milieux de vie", "taille"], "Ni le milieu de vie ni la taille : on regarde ce que les êtres vivants possèdent en commun."]] }],
+  hints: ["Relis l'introduction, juste au-dessus.", "On range dans une même boîte les êtres vivants qui possèdent un même…", "Diversité biologique · les caractères."] },
+a1: { pre: { label: "Ton hypothèse : combien d'espèces vois-tu parmi ces cinq canards ?", num: true, n: 2, unit: "espèce(s)" },
+  parts: [
+    { t: "task", c: "mod", label: "Réalise les six croisements possibles dans la volière.", okMsg: "Six croisements réalisés.", done: () => { const n = Object.keys(S.cross.can || {}).length; return { ok: n >= 6, msg: `${n}/6 croisements réalisés.` }; } },
+    { t: "num", c: "rais", label: "Combien d'espèces y a-t-il parmi ces cinq canards ?", unit: "espèce(s)", ans: 2, err: [[v => v === 5, "Avoir un plumage différent ne suffit pas pour former une espèce : regarde le tableau de tes croisements."], [v => v === 3, "Les canards A, B et D donnent ensemble des petits fertiles : ils ne forment qu'une espèce."]] },
+    { t: "redac", c: "rais", min: 25, label: "Justifie ce nombre à partir de tes croisements, puis explique pourquoi les canards D et E, qui se ressemblent beaucoup, ne sont pas de la même espèce.",
+      crit: [{ g: "vois", lab: "Tu t'appuies sur des croisements précis, en nommant les canards par leur lettre", re: [T => duckLetters(T) >= 2] },
+        { g: "vois", lab: "Tu donnes le résultat de ces croisements", re: [/fertil|descendan|petits|caneton|oeuf|se reprodui|reproduction/] },
+        { g: "sais", lab: "Tu rappelles ce qui définit une espèce", re: [/interfecond|inter-fecond|meme espece(\W+\w+){0,10}\W+(fertil|se reprodui)|(fertil|se reprodui\w*)(\W+\w+){0,10}\W+meme espece|une espece (est|c'est|regroupe|rassemble)/] },
+        { g: "deduis", lab: "Tu conclus sur le nombre d'espèces", re: [/\b(2|deux) (especes|groupes)/] },
+        { g: "deduis", lab: "Tu traites le cas des canards D et E", re: [/ressembl|apparence|plumage|aspect|physique|semblable|pareil|identique/, /ne suffi|pas suffisant|pas un critere|meme si|malgre|pourtant|alors qu|bien qu|\bmais\b|cependant|jamais/] }],
+      model: "Je vois que le canard A donne des petits fertiles avec les canards B et D, mais aucune descendance avec E ; le canard C ne donne des petits fertiles qu'avec E. Je sais que les individus d'une même espèce sont interféconds et que leur descendance est fertile. J'en déduis qu'il y a deux espèces : A, B et D d'une part, C et E d'autre part. D et E se ressemblent, mais D se reproduit avec A et E avec C, jamais l'inverse : se ressembler ne suffit pas pour appartenir à la même espèce." }],
+  hints: ["Remplis tout le tableau « Mes croisements » avant de rédiger : deux mâles, trois femelles, six croisements.", "Construis ta réponse en trois temps : je vois (des croisements précis et leur résultat) → je sais (ce qui définit une espèce) → j'en déduis (le nombre d'espèces, puis le cas de D et E).", "A donne des petits fertiles avec B et D ; C seulement avec E. Les individus d'une même espèce sont interféconds et leur descendance est fertile : il y a deux espèces, et se ressembler ne suffit pas."] },
+a2: { parts: [
+    { t: "task", c: "mod", label: "Réalise les quatre croisements possibles dans le pré.", okMsg: "Quatre croisements réalisés.", done: () => { const n = Object.keys(S.cross.equ || {}).length; return { ok: n >= 4, msg: `${n}/4 croisements réalisés.` }; } },
+    { t: "redac", c: "rais", min: 20, label: "Le cheval et l'âne appartiennent-ils à la même espèce ? Argumente à partir de tes croisements.",
+      crit: [{ g: "vois", lab: "Tu nommes le petit obtenu en croisant un cheval et un âne", re: [/mulet|\bmules?\b|bardot|hybride/] },
+        { g: "vois", lab: "Tu précises ce que devient ce petit une fois adulte", re: [/steril|infertil|non fertil|pas fertil|pas (de |avoir de |avoir des |d')?(petits|descendan)|pas se reprodui|ne se reprodui|incapable/] },
+        { g: "sais", lab: "Tu rappelles la condition que doit remplir la descendance au sein d'une espèce", re: [fertileSaid] },
+        { g: "deduis", lab: "Tu conclus clairement", re: [/(2|deux) especes|especes? (\w+ ){0,2}different|pas (\w+ ){0,2}la meme espece|pas de meme espece|n'appartiennent pas/] }],
+      model: "Je vois que le croisement d'un cheval et d'un âne donne un petit, le mulet (ou le bardot), mais que ce petit est stérile. Je sais que, dans une même espèce, la descendance est fertile. J'en déduis que le cheval et l'âne appartiennent à deux espèces différentes." },
+    { t: "redac", c: "conn", min: 10, label: "Rédige la définition d'une espèce.",
+      crit: [{ g: "sais", lab: "Première idée : ce que ces individus ont en commun", re: [/caractere|ressembl|commun/] },
+        { g: "sais", lab: "Deuxième idée : la reproduction entre eux", re: [/interfecond|inter-fecond|se reprodui|produire une descendance|avoir (des|une) (petits|descendance)|reproduction/] },
+        { g: "sais", lab: "Troisième idée : la condition sur leur descendance", re: [fertileSaid] }],
+      model: "Espèce : ensemble d'individus ayant des caractères communs, interféconds (capables de produire une descendance) et dont la descendance est fertile." }],
+  hints: ["Dans le pré, observe bien la deuxième génération : le petit, devenu adulte, a-t-il des petits à son tour ?", "Une définition d'espèce tient en trois idées : ce que les individus ont en commun, leur reproduction entre eux, et une condition sur leur descendance.", "Le mulet (ou le bardot) est stérile : le cheval et l'âne sont deux espèces. Espèce : caractères communs, individus interféconds, descendance fertile."] },
+b1: { parts: [
+    { t: "list", c: "lire", label: "Document 2 : cite tous les caractères présents chez la fougère.", ph: "caractère 1, caractère 2, …", need: [{ re: /chlorophyl/ }, { re: /tige|feuill/ }, { re: /racine|vaisseau/ }], bad: [{ re: /graine/ }, { re: /fleur|fruit/ }] },
+    { t: "list", c: "lire", label: "Document 3 : cite tous les caractères présents chez les amphibiens.", ph: "caractère 1, caractère 2, …", need: [{ re: /crane|vertebre/ }, { re: /machoire/ }, { re: /squelette|osseu|\bos\b/ }, { re: /doigt/ }], bad: [{ re: /amnios/ }, { re: /poil|mamelle/ }] },
+    { t: "word", c: "lire", label: "Quel caractère le pin possède-t-il en plus de la fougère ?", ans: ["graines"], err: [[["fleurs", "fruits", "fleurs et fruits"], "Les fleurs et les fruits sont dans la boîte suivante : le pin n'y est pas rangé."], [["chlorophylle", "tige", "feuilles", "racines"], "La fougère possède déjà ce caractère."]] }] },
+b2: { parts: [
+    { t: "rows", c: "mod", label: "Range chaque animal dans la plus petite boîte possible.", choices: BOXN, rows: [{ txt: "Sardine", a: 0 }, { txt: "Crapaud", a: 1 }, { txt: "Gorille", a: 2 }, { txt: "Requin", a: 0 }, { txt: "Crocodile", a: 1 }, { txt: "Homme", a: 2 }] },
+    { t: "list", c: "rais", label: "Cite tous les caractères que possède un animal rangé dans la boîte « Mamelles ».", ph: "caractère 1, caractère 2, …", need: [{ re: /machoire/ }, { re: /doigt/ }, { re: /mamelle/ }] }] },
+b3: { parts: [
+    { t: "word", c: "lire", label: "Entre la sardine et le crocodile, quelle espèce est la plus proche parente du gorille ?", ans: ["crocodile"], err: [[["sardine"], "Compare leurs derniers ancêtres communs avec le gorille : lequel est le plus récent ?"]] },
+    { t: "num", c: "lire", label: "Combien de caractères de cet arbre le crocodile partage-t-il avec le gorille ?", unit: "caractère(s)", ans: 2, err: [[v => v === 3, "Le crocodile n'a pas de mamelles."], [v => v === 1, "Compte tous les traits de couleur situés entre la base de l'arbre et leur dernier ancêtre commun."]] },
+    { t: "redac", c: "rais", min: 20, label: "Justifie ta réponse à l'aide de l'arbre de parenté.",
+      crit: [{ g: "vois", lab: "Tu repères les derniers ancêtres communs sur l'arbre", re: [/ancetre/] },
+        { g: "vois", lab: "Tu cites le caractère que le gorille et le crocodile ont hérité de leur dernier ancêtre commun", re: [/doigt/] },
+        { g: "sais", lab: "Tu énonces la règle qui relie ancêtre commun et parenté", re: [/ancetre/, /recent|ancien|\btard/] },
+        { g: "deduis", lab: "Tu conclus", re: [/crocodile/, /proche|parent/] }],
+      model: "Je vois que le gorille et le crocodile partagent l'ancêtre commun 2, qui leur a transmis les doigts, alors que le gorille et la sardine ne partagent que l'ancêtre commun 1, plus ancien (mâchoires seulement). Je sais que deux espèces sont d'autant plus proches parentes que leur dernier ancêtre commun est récent. J'en déduis que le crocodile est plus proche parent du gorille que la sardine." }],
+  hints: ["Sur le document, touche « Gorille » puis « Sardine », et ensuite « Gorille » puis « Crocodile ».", "Compare les deux derniers ancêtres communs obtenus, puis rédige : je vois (ancêtres communs, caractère hérité) → je sais (la règle) → j'en déduis.", "Gorille et crocodile : ancêtre commun 2 (mâchoires et doigts). Gorille et sardine : ancêtre commun 1 (mâchoires seulement). Plus le dernier ancêtre commun est récent, plus les espèces sont proches."] },
+c1: { parts: [
+    { t: "task", c: "mod", label: "Complète le portrait des trois personnes (quatre caractères chacune).", okMsg: "Tableau complet.", done: () => ({ ok: porCount() === 12, msg: `${porCount()}/12 cases du tableau remplies.` }) },
+    { t: "redac", c: "rais", min: 20, label: "Que montre ton tableau ? Explique l'origine de cette variabilité.",
+      crit: [{ g: "vois", lab: "Tu décris ton tableau en citant au moins un caractère observé", re: [/yeux|cheveux|sanguin/] },
+        { g: "sais", lab: "Tu précises ce que tous les individus d'une espèce possèdent en commun", re: [/memes? genes?/] },
+        { g: "sais", lab: "Tu donnes l'origine de cette variabilité", re: [/allele|versions? (\w+ ){0,3}genes?/] },
+        { g: "deduis", lab: "Tu conclus sur les individus d'une même espèce", re: [/divers|variab|variation|different|varie|pas (tous )?(les )?memes|pas identique|unique/, /espece|individu|humain|personne/] }],
+      model: "Je vois dans mon tableau que les trois personnes n'ont pas toutes la même couleur d'yeux, les mêmes cheveux ou le même groupe sanguin. Je sais que tous les individus d'une espèce possèdent les mêmes gènes, mais pas les mêmes versions de ces gènes : les allèles. J'en déduis qu'au sein d'une même espèce, il existe une grande diversité de caractères, due aux allèles : c'est la biodiversité génétique." }],
+  hints: ["Choisis une personne, puis une réponse pour chacun des quatre caractères.", "Je vois : compare les trois colonnes de ton tableau. Je sais : souviens-toi de la classe de troisième, un gène existe en plusieurs versions.", "Les individus d'une espèce ont les mêmes gènes, mais pas les mêmes allèles : d'où la diversité des caractères au sein d'une espèce."] },
+c2: { parts: [
+    { t: "task", c: "mod", label: "Dans le lac et dans un milieu terrestre : fais les trois mesures et identifie au moins cinq espèces.", okMsg: "Tableau complet pour deux milieux.", done: ecoDone },
+    { t: "num", c: "lire", tol: 0.05, label: "Calcul : compare la luminosité de tes deux milieux. Combien de fois est-elle plus forte dans le plus lumineux que dans l'autre ?", unit: "fois plus forte", ans: () => { const r = lumPairs().map(([x, y]) => x / y); return r.length ? r : [NaN]; },
+      err: [[v => lumPairs().some(([x, y]) => v === x - y), "Tu as calculé une différence. On demande un rapport : divise la plus grande luminosité par la plus petite."], [v => v > 0 && v < 1, "Divise la plus grande valeur par la plus petite : le résultat doit être supérieur à 1."]] },
+    { t: "redac", c: "rais", min: 25, label: "Rédige la conclusion de ton tableau : que montre-t-il sur les milieux de vie, puis sur les espèces ?",
+      crit: [{ g: "vois", lab: "Tu cites au moins une condition de vie mesurée", re: [/temperature|luminosite|lumiere|humidite|\blux\b|°c|degre/] },
+        { g: "vois", lab: "Tu cites au moins deux espèces relevées", re: [(T, n) => spCount(n) >= 2] },
+        { g: "deduis", lab: "Tu conclus sur les milieux de vie", re: [/condition|milieu|ecosysteme/, /different|divers|varie|variation|pas les memes|change|differe/] },
+        { g: "deduis", lab: "Tu conclus sur les espèces de chaque milieu", re: [/espece/, /divers|plusieurs|nombreuses|beaucoup|different|variete|multiple|grand nombre/] }],
+      model: "Je vois que la température, la luminosité et l'humidité ne sont pas les mêmes dans le lac et dans le milieu terrestre : j'en déduis qu'il existe une diversité des milieux de vie (écosystèmes). Je vois aussi que chaque milieu abrite plusieurs espèces (dans le lac : la perche, la grenouille verte, le cygne…) : j'en déduis que, pour chaque milieu étudié, il existe une grande diversité d'espèces." }],
+  corr: "Les conditions de vie (température, luminosité, humidité) ne sont pas les mêmes dans le lac et dans le milieu terrestre : il existe une diversité des milieux de vie, ou écosystèmes. Dans le tableau, on peut voir que pour chaque milieu étudié, il existe une grande diversité d'espèces vivant dans ce milieu. Calcul (valeurs simulées) : lac et forêt, 20 000 ÷ 2 000 = 10 ; champ et lac, 80 000 ÷ 20 000 = 4.",
+  hints: ["Les trois boutons de mesure sont au-dessus du paysage. Touche ensuite les êtres vivants marqués d'un « ? ».", "Calcul : un rapport, c'est la plus grande valeur divisée par la plus petite. Conclusion : traite d'abord les conditions de vie, puis les espèces.", "Lis ton tableau colonne par colonne : les conditions de vie changent d'un milieu à l'autre (diversité des écosystèmes), et chaque milieu abrite plusieurs espèces (diversité des espèces)."] },
+c3: { parts: [
+    { t: "redac", c: "rais", min: 30, label: "Rédige le bilan de la séance : définis la biodiversité en citant ses trois échelles, et illustre chacune par un exemple rencontré pendant la séance.",
+      crit: [{ g: "sais", lab: "Tu cites l'échelle des milieux de vie", re: [/ecosysteme|milieux? de vie|milieux/] },
+        { g: "sais", lab: "Tu cites l'échelle des espèces", re: [/(des|d'|les) ?especes|diversite specifique/] },
+        { g: "sais", lab: "Tu cites l'échelle des individus d'une même espèce", re: [/genetique|allele|individus/] },
+        { g: "vois", lab: "Tu illustres avec un milieu ou des espèces de la séance", re: [(T, n) => /\blacs?\b|foret|champ/.test(n) || spCount(n) >= 1] },
+        { g: "vois", lab: "Tu illustres la diversité au sein d'une espèce avec un exemple de la séance", re: [/yeux|cheveux|sanguin|plumage|colvert|canards? [abd]\b|personnes|eleves|entourage/] }],
+      model: "La biodiversité est à la fois la diversité des écosystèmes (un lac, une forêt et un champ n'offrent pas les mêmes conditions de vie), la diversité des espèces (dans le lac vivent la perche, la grenouille verte, le cygne…) et la diversité génétique au sein des espèces (trois personnes n'ont ni les mêmes yeux, ni les mêmes cheveux, ni le même groupe sanguin)." }],
+  hints: ["Trois échelles : les milieux de vie, les espèces, les individus d'une même espèce.", "Pour chaque échelle, donne un exemple rencontré pendant la séance : les milieux explorés, les espèces relevées, tes trois portraits ou les canards.", "Écosystèmes (lac, forêt, champ) · espèces (perche, cygne…) · génétique (yeux, cheveux, groupe sanguin différents au sein de l'espèce humaine)."] }
+};
+[RAPPEL, ...GROUPS.flatMap(g => g.items)].forEach(it => { if (LYCEE[it.id]) it.L = LYCEE[it.id]; });
 const RESUME = `Problème du chapitre : ${PROBLEM}\n${HOME.goal}\n\nÀ retenir\n${BIL.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}`;
 typo(GROUPS); typo(RAPPEL);

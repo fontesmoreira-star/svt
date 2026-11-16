@@ -40,6 +40,9 @@ Partir du gabarit le plus proche (copier ses 4 fichiers, renommer, changer les d
 Contrat de données du gabarit « parcours à étapes » : `HOME`, `GROUPS` (parties → étapes → `parts`), `RAPPEL`, `RESUME`, `bilanHTML`, `WID` (widgets), `LIVE`.
 Types de `parts` : `num`, `word`, `choice`, `multi`, `rows`, `match`, `order`, `shot`, `task` (`done()` → `{ok, msg}`), `grid`, `plot`.
 
+### Deux versions dans le même fichier (guidée / lycée)
+`bio.js` (Biodiversité 2nde) sait proposer deux versions d'une même activité : chaque étape peut porter un bloc `L` (`parts`, `hints`, `pre`, `corr`) qui remplace les questions guidées en version lycée (voir `LYCEE` dans `bio_data.js`). Types de questions ajoutés : `redac` (réponse rédigée ; `crit` = éléments attendus repérés par mots-clés, un point chacun ; `model` = réponse modèle ; auto-validation possible après le corrigé) et `list` (éléments à citer, `need` / `bad`). Réponses et scores séparés par version (`S.it` / `S.itL`), manipulations communes. Lien direct : `?version=lycee`. Tests : `test/b/flow_l.py`, `smoke_l.py`, `lycee_crit.py` (réponses types pour régler les mots-clés).
+
 ## Bibliothèques communes
 - `core.js` / `core.css` : `$`, `$$`, `Store` (localStorage protégé), `fmt`, `parseNum`, `fuzzy`, `normTxt`, `esc`, `Display` (A+/A−, sombre, projection), `armButton` (validation en deux temps), `renderBilanTools` (.txt, Copier, Montrer), `showOverlay`, `mountChart`, `buildTable`.
 - `kit.js` : `nb()` / `typo()` (espaces insécables), `tbl()`, `liveSVG(host, (W, F) => svg)` (redessin à la largeur réelle), `sT()` (texte SVG), `TK()`, `arrow()`, `animCtl()` (Lancer / Pause / Recommencer).
