@@ -1,0 +1,51 @@
+/* ---------- 3e · TP noté : test d'agglutination ---------- */
+:root{--rbc:#c62828;--rbc-in:#e85a4f;--plasma:#f6d3cf;--well:#f7f9f8;--well-rim:#b9c7c0;--agA:#2f74c8;--agB:#e3b21b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--rbc:#e0463c;--rbc-in:#ff7d70;--plasma:#5a2622;--well:#1f2f27;--well-rim:#4a6355;--agA:#6ea8f0;--agB:#f2cc4a}}
+:root[data-theme="dark"]{--rbc:#e0463c;--rbc-in:#ff7d70;--plasma:#5a2622;--well:#1f2f27;--well-rim:#4a6355;--agA:#6ea8f0;--agB:#f2cc4a}
+.wcell{transition:transform 1.4s ease}
+@media (prefers-reduced-motion: reduce){.wcell{transition:none}}
+.bench{display:grid;gap:.8rem}
+.guide{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.guide li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.guide li .ck{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:800}
+.guide li.ok .ck{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.guide li.ok{color:var(--muted)}
+.guide li.now{font-weight:800}
+.guide li.now .ck{border-color:var(--accent);color:var(--accent)}
+.toolsbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
+@media (max-width:620px){.toolsbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tool{min-height:64px;border:2px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px;text-align:center;line-height:1.2;font-size:.9rem}
+.tool .tic{font-size:1.4rem;line-height:1}
+.tool[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+.tool small{font-weight:400;color:var(--muted);font-size:.85rem}
+.tool[disabled]{opacity:.5}
+.tray{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;background:var(--surface-2);border-radius:18px;padding:.8rem;border:1px solid var(--line)}
+.wellbtn{border:3px solid var(--well-rim);border-radius:18px;background:var(--surface);color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:4px;padding:.5rem .3rem;min-width:0}
+.wellbtn.target{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.wellbtn.contam{border-color:var(--bad)}
+.wellbtn svg{width:100%;max-width:170px;height:auto}
+.wellbtn .wn{font-weight:800}
+.wellbtn .ws{font-size:.9rem;color:var(--muted);min-height:2.4em;text-align:center}
+.log{font-weight:700;min-height:1.6em}
+.reftable{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) minmax(0,1.4fr);gap:.4rem .6rem;align-items:center}
+.reftable .h{font-weight:800;font-size:.9rem;color:var(--muted)}
+.reftable .h.c{text-align:center}
+.reftable .g{font-weight:800;font-size:1.2rem;text-align:center}
+.reftable svg{width:100%;max-width:90px;height:auto;display:block;margin:0 auto}
+.reftable .t{font-size:.9rem}
+details.ref{border:1.5px solid var(--info);border-radius:12px;background:var(--info-soft);padding:.2rem .9rem}
+details.ref summary{min-height:48px;display:flex;align-items:center;font-weight:800;color:var(--info);cursor:pointer}
+details.ref[open]{padding-bottom:.8rem}
+.rows{display:grid;gap:.6rem}
+.rowq .ctag{margin-left:.4rem}
+.conc{display:grid;gap:.9rem}
+.cstep{display:grid;gap:.45rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.cstep:first-child{border-top:0;padding-top:0}
+.cn{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.9rem}
+.inds{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.inds li{display:flex;gap:.6rem;align-items:flex-start}
+.inds .bx{flex:none;width:1.5rem;height:1.5rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:.9rem;margin-top:.1rem}
+.inds li.done .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.inds .st{color:var(--muted);font-size:.9rem;font-weight:700}
+.quote{font-style:italic;white-space:pre-wrap;background:var(--surface-2);border-radius:12px;padding:.7rem .9rem}
+.btn.warn{white-space:normal}

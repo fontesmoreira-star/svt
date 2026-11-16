@@ -1,0 +1,10 @@
+:root{--cyto:#d3d0ec;--nuc:#eef4dc;--chr:#5b3f8c;--has:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--cyto:#3a3963;--nuc:#2c4636;--chr:#b9a5f0;--has:#f2914f}}
+:root[data-theme="dark"]{--cyto:#3a3963;--nuc:#2c4636;--chr:#b9a5f0;--has:#f2914f}
+.mrow .mv{max-width:52%;min-width:6rem;white-space:normal;line-height:1.25}
+.recop table.t td:last-child{text-align:left}
+.jv{display:grid;gap:.3rem;background:var(--surface-2);border-radius:12px;padding:.6rem .8rem}
+.jv b{color:var(--accent)}
+.swl{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.9rem;margin-bottom:.35rem;color:var(--ink)}
+.swl span{display:inline-flex;align-items:center;gap:.4rem}
+.swl i{display:inline-block;width:1.5rem;height:.85rem;border-radius:3px;border:1.5px solid var(--muted)}

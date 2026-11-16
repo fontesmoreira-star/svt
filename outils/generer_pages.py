@@ -326,7 +326,7 @@ def main():
                 known |= {where(a, f'{lid}/{t["id"]}/{c["id"]}') for a in c.get("activites", [])}
     orphans = []
     for d, _, files in os.walk(ROOT):
-        if "/.git" in d or d.endswith("/outils"):
+        if "/.git" in d or d.endswith("/outils") or os.path.relpath(d, ROOT).split(os.sep)[0] == "atelier":
             continue
         for f in files:
             if f.endswith(".html"):

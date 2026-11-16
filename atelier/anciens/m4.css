@@ -1,0 +1,9 @@
+:root{--sea:#2d6fb6;--ice:#f8fcff;--part:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sea:#5a9ee0;--ice:#d7ebf2;--part:#f2914f}}
+:root[data-theme="dark"]{--sea:#5a9ee0;--ice:#d7ebf2;--part:#f2914f}
+.mrow .mv{max-width:52%;min-width:6rem;white-space:normal;line-height:1.25}
+.plotz{display:grid;gap:.5rem}
+.plotz .figbox{touch-action:manipulation;cursor:crosshair}
+.recop ul{margin:0;padding-left:1.2rem;display:grid;gap:.3rem}
+.links{display:grid;gap:.5rem}
+.links a{display:flex;min-height:48px;align-items:center;padding:.4rem .8rem;border-radius:12px;border:1.5px solid var(--accent);color:var(--ink);font-weight:700;text-decoration:none;background:var(--surface)}

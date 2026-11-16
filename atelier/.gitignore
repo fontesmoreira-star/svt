@@ -1,0 +1,6 @@
+src/
+**/*.png
+!elodee/img/*
+*.txt
+__pycache__/
+dist/

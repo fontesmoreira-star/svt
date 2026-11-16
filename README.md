@@ -28,3 +28,6 @@ Pour afficher une app déjà en ligne dans une autre rubrique sans la copier (pa
 ## Rubriques cachées
 Un niveau du catalogue marqué `"cache": true` n'apparaît pas sur l'accueil, et ses pages et ses apps portent `noindex` (non référencées par les moteurs de recherche). L'adresse n'est connue que de ceux à qui on la donne, mais le dépôt reste public : n'y mettre ni nom de famille, ni note, ni adresse personnelle.
 Une thématique peut avoir sa propre couleur (`"couleur": "pc"` = bleu physique-chimie).
+
+## Atelier
+Le dossier `atelier/` contient les sources de toutes les apps, le script de construction, les tests et la charte commune (`atelier/CHARTE.md`). Mode d'emploi : `atelier/README.md`.

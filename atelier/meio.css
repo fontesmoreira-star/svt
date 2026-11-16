@@ -1,0 +1,33 @@
+/* ---------- Activité 10 (3e) · La méiose ---------- */
+:root{--chp:#1f5fae;--chm:#c0392b;--ovu:#f6d6dc;--spz:#dfe8f6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--chp:#7fb3f5;--chm:#ff8d7d;--ovu:#5a3940;--spz:#2e3d55}}
+:root[data-theme="dark"]{--chp:#7fb3f5;--chm:#ff8d7d;--ovu:#5a3940;--spz:#2e3d55}
+.swl{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.9rem;margin-bottom:.35rem;color:var(--ink)}
+.swl span{display:inline-flex;align-items:center;gap:.4rem}
+.swl i{display:inline-block;width:1.5rem;height:.85rem;border-radius:3px;border:1.5px solid var(--muted)}
+.swl i.mat{background:repeating-linear-gradient(90deg,var(--chm) 0 6px,var(--surface) 6px 9px)}
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.lab3{font-weight:800;font-size:.9rem}
+.doc > .db > *{min-width:0}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.recop .lab{margin-top:.3rem}
+/* collection de la loterie */
+.gams{display:flex;flex-wrap:wrap;gap:.5rem}
+.gam{display:grid;justify-items:center;gap:.1rem;padding:.3rem .45rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);min-width:4.4rem;font-weight:800;font-size:.9rem;color:var(--muted)}
+.gam.has{border-style:solid;border-color:var(--accent);color:var(--ink)}
+.calc{display:grid;gap:.35rem;border-top:1px solid var(--line);padding-top:.6rem}
+/* tableau de croisement */
+.xgrid{display:grid;gap:.35rem;max-width:34rem}
+.xg-k{display:grid;place-items:center;font-weight:800;color:var(--muted);font-size:.9rem}
+.xg-h{hyphens:manual;overflow-wrap:anywhere;min-width:0;display:grid;justify-items:center;align-content:center;gap:.05rem;border-radius:12px;padding:.35rem .3rem;font-size:.85rem;text-align:center;line-height:1.15}
+.xg-h b{font-size:1.25rem}
+.xg-col{background:var(--spz);border:1.5px solid var(--chp)}
+.xg-row{background:var(--ovu);border:1.5px solid var(--chm)}
+.xg-c{min-height:4.2rem;border-radius:12px;border:2px dashed var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;gap:.1rem;font-size:1.15rem;padding:.3rem}
+.xg-c[aria-pressed="true"]{border-style:solid;border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.xg-c.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)} .xg-c.is-bad{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
+.xg-c .tag{font-size:.8rem;font-weight:800}
+.rowq .seg button{text-align:left}

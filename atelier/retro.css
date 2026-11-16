@@ -1,0 +1,50 @@
+/* ---------- Activité « Évolution de la température et rétroactions » ---------- */
+:root{--sand:#ead9c0;--ice:#f8fcff;--sea:#2d6fb6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sand:#5b4a37;--ice:#d7ebf2;--sea:#5a9ee0}}
+:root[data-theme="dark"]{--sand:#5b4a37;--ice:#d7ebf2;--sea:#5a9ee0}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.doc .db p{max-width:46rem}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.inds{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.inds li{display:flex;gap:.6rem;align-items:flex-start}
+.inds .bx{flex:none;width:1.5rem;height:1.5rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:.9rem;margin-top:.1rem}
+.inds li.done .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.inds .st{color:var(--muted);font-size:.9rem;font-weight:700}
+.hypo{border:1.5px dashed var(--accent);border-radius:12px;padding:.75rem .9rem;display:grid;gap:.55rem;background:var(--surface)}
+.hypo .hl{font-weight:800}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+/* schéma en boucle */
+.loopd{position:relative;display:grid;gap:.2rem;padding-left:2.4rem}
+.loopd::before{content:"";position:absolute;left:.75rem;top:1.5rem;bottom:1.5rem;width:1.2rem;border:3px solid var(--accent);border-right:0;border-radius:16px 0 0 16px}
+.loopd .lhead{position:absolute;left:1.5rem;top:.78rem;color:var(--accent);font-size:1rem;line-height:1.45rem;font-weight:800}
+.lslot{min-height:52px;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);padding:.55rem .8rem;display:flex;gap:.6rem;align-items:center;text-align:left;color:var(--ink);font-size:.95rem;width:100%}
+.lslot.fixed{border-style:solid;border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.lslot.filled{border-style:solid;border-color:var(--accent)}
+.lslot.is-ok{border-color:var(--ok);background:var(--ok-soft)} .lslot.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.lslot .n{flex:none;width:1.9rem;height:1.9rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted);font-size:.9rem}
+.lslot .tag{margin-left:auto;font-weight:800;flex:none}
+.larr{text-align:center;font-weight:800;color:var(--accent);line-height:1.1}
+.lret{font-weight:700;color:var(--accent);font-size:.92rem;padding:.2rem 0 0}
+.bank{display:grid;gap:.45rem;margin-top:.5rem}
+.bank .order-item{border-style:solid}
+/* schéma-bilan */
+.synth{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.7rem}
+.synth > div{border-radius:12px;border:1.5px solid var(--line);padding:.7rem .85rem;display:grid;gap:.3rem;align-content:start;background:var(--surface)}
+.synth .sg{font-weight:800;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.synth .ef{font-weight:800}
+.beforeafter{display:grid;gap:.4rem}
+.beforeafter .ba{display:flex;flex-wrap:wrap;gap:.3rem .8rem;justify-content:space-between;border-bottom:1px solid var(--line);padding-block:.35rem}
+.swl{display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.9rem;margin-bottom:.35rem;color:var(--ink)}
+.swl span{display:inline-flex;align-items:center;gap:.4rem}
+.swl i{display:inline-block;width:1.5rem;height:.85rem;border-radius:3px;border:1.5px solid var(--muted)}
+.bigres{display:grid;gap:.15rem}
+.mosaic{height:1.6rem;border-radius:8px;overflow:hidden;display:flex;border:1.5px solid var(--muted)}
+.mosaic i{display:block;height:100%}
+.sig{font-weight:700}
+h4{font-size:1rem}

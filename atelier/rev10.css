@@ -1,0 +1,15 @@
+/* ---------- 3e · Révision génétique (activités 1 à 10) ---------- */
+.btn.tog[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.pilot{display:flex;flex-wrap:wrap;gap:.45rem}
+.pilot .btn{min-height:50px;text-align:left}
+.res{display:grid;gap:.35rem}
+.res table.t td.n{text-align:left}
+.sim{font-weight:700;color:var(--warn)}
+.rowq .rt{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.rowq .rt .pic{display:block;width:min(100%,13rem);border-radius:10px;overflow:hidden;background:var(--surface)}
+.rowq .rt .pic svg{display:block;width:100%;height:auto}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.8rem}
+.duo h4{margin:0 0 .3rem}
+.karyo svg{touch-action:manipulation}
+.kp{cursor:pointer;outline:none}
+.kp:focus-visible rect:first-child{stroke:var(--accent)!important;stroke-dasharray:4 3}

@@ -1,0 +1,44 @@
+/* ---------- Activité 9 (3e) : multiplication cellulaire ---------- */
+:root{--cyto:#d3d0ec;--nuc:#eef4dc;--chl:#2d7a31;--chs:#b07f00}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--cyto:#3a3963;--nuc:#2c4636;--chl:#7cc97f;--chs:#e3b64b}}
+:root[data-theme="dark"]{--cyto:#3a3963;--nuc:#2c4636;--chl:#7cc97f;--chs:#e3b64b}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:.5rem}
+.phase{background:var(--surface-2);border-radius:12px;padding:.6rem .75rem;display:grid;gap:.25rem;align-content:start}
+.phase .pn{display:flex;gap:.5rem;align-items:center;font-weight:800;letter-spacing:.04em;color:var(--accent)}
+.phase .pn i{font-style:normal;flex:none;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+.stamp{display:inline-block;border:2px solid var(--bad);color:var(--bad);font-weight:800;padding:.1rem .6rem;border-radius:8px;transform:rotate(-2deg);width:fit-content}
+.shot{display:grid;gap:.5rem}
+.shot .frame{border:2px dashed var(--line);border-radius:12px;background:var(--surface-2);min-height:6.2rem;display:grid;place-items:center;color:var(--muted);font-size:.9rem;font-weight:700;text-align:center;padding:.2rem;overflow:hidden}
+.shot .frame.has{border-style:solid;border-color:var(--accent);background:var(--surface)}
+.shot .frame.is-ok{border-color:var(--ok)} .shot .frame.is-bad{border-color:var(--bad)}
+.shot .frame svg{display:block;width:100%;height:auto}
+.order-item .th{flex:none;width:6.4rem;border-radius:8px;overflow:hidden;background:var(--surface-2)}
+.order-item .th svg{display:block;width:100%;height:auto}
+.gap{display:inline-block;min-width:4.5rem;border-bottom:3px dotted var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.recop{border:2px solid var(--key);border-radius:14px;background:var(--key-soft);padding:1rem 1.1rem;display:grid;gap:.6rem}
+.recop .lab{font-size:.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--key)}
+.recop p{font-size:1.05rem;line-height:1.6}
+.recop u{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800}
+.celllab{font-weight:800;min-height:1.6em}
+h4{font-size:1rem}
+.parts.grid4{grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem!important;align-items:start}
+.parts.grid4 .part{border-top:0;padding-top:0}
+.parts.grid4 .ctag{display:none}
+.parts.grid4 .btn{width:100%;padding:0 .4rem}
+@media (max-width:700px){.parts.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.order-list.pics{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.order-list.pics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.order-list.pics .order-item{flex-direction:column;align-items:stretch;gap:.35rem;padding:.45rem;position:relative}
+.order-list.pics .order-item .th{width:100%}
+.order-list.pics .order-item .n{position:absolute;left:.3rem;top:.3rem;background:var(--surface)}
+.order-list.pics .order-item[data-pos] .n{background:var(--accent)}
+.order-list.pics .order-item .tag{margin:0!important;text-align:center}

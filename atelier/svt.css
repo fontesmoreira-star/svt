@@ -1,0 +1,21 @@
+/* Identité SVT : bandeau vert foncé ; neutres teintés vert ; bandes « lumière » jaune pâle sur les courbes */
+:root{
+  --bg:#f3f6f2; --surface:#ffffff; --surface-2:#e8f0e7; --ink:#14251a; --muted:#46604d; --line:#c6d6c6;
+  --band:#1b4a2c; --band-ink:#eef7f0; --band-muted:#b3d3bc; --band-line:#3b6c4a;
+  --accent:#21703a; --accent-ink:#ffffff; --accent-soft:#d9eedf;
+  --shade:rgba(232,176,20,.20); --day:#fbe6a2; --day-ink:#3a2b00; --night:#1c2b21; --night-ink:#e7f1ea;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}
