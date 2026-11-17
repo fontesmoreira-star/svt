@@ -151,7 +151,15 @@
       },
       {
        "id": "soleil-terre-lune",
-       "titre": "Signaux lumineux : le système Soleil-Terre-Lune"
+       "titre": "Signaux lumineux : le système Soleil-Terre-Lune",
+       "activites": [
+        {
+         "fichier": "phases-de-la-lune.html",
+         "tag": "Activité 6 · Physique-chimie",
+         "titre": "Pourquoi la Lune change-t-elle d'apparence ?",
+         "desc": "Le trajet de la lumière, un simulateur de lunaison, le schéma Soleil-Terre-Lune à compléter et la vue depuis l'espace. Deux versions : guidée ou experte. Bilan à recopier."
+        }
+       ]
       },
       {
        "id": "energie",

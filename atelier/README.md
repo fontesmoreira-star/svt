@@ -30,6 +30,7 @@ Partir du gabarit le plus proche (copier ses 4 fichiers, renommer, changer les d
 | Gabarit | Fichiers | Apps | Pour quoi |
 |---|---|---|---|
 | **Parcours à étapes** (le plus complet, à privilégier) | `m4b.js` + `*_widgets.js` + `*_data.js` | Révision Mission 4 (5e) | Parties à étapes, paliers, simulations par étape, animation débloquée, fiche mémo à recopier, bilan par partie et compétence |
+| **Deux versions (guidée / exigeante)** | `lune.js` + `lune_widgets.js` + `lune_data.js` | Phases de la Lune (5e) | Moteur générique tiré de `bio.js` : `HOME.vers` nomme les versions, `EXPERT` contient les blocs exigeants, type `phase` (dessiner une Lune par moitiés éclairées). À privilégier pour toute nouvelle activité (règle : plusieurs niveaux de difficulté). |
 | même famille | `meio.js`, `rev10.js`, `bio.js`, `pomme.js` | Méiose, Révision génétique 1-10 (3e), Biodiversité, Pomme de terre FR/EN (2nde) | Idem, versions précédentes |
 | Missions 5e | `mouv.js`, `fusee.js`, `eau.js` | Mission 5 | Scénario-mission, ateliers |
 | Activités 3e | `mitose.js`, `rev3.js` | Multiplication cellulaire, Révision ch. 1 | Photos d'étapes, exercice type brevet |
