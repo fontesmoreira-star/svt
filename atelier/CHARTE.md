@@ -36,6 +36,7 @@ Chaque projet de niveau n'ajoute que ses spécificités. En cas de conflit, la d
 - **L'animation ne doit jamais donner la réponse** : elle montre le phénomène, l'élève conclut.
 - Un document utilisé dans une question est réaffiché avec la question (pas de retour en arrière).
 - Progression en paliers 🟢 Facile / 🟡 Moyen / 🔴 Défi ; une animation peut se débloquer après une étape réussie.
+- **Différents niveaux de difficulté pour les questions**, dans chaque activité. Mise en œuvre de référence : deux versions au choix de l'élève dans le même fichier, une **guidée** (choix, mots à compléter) et une **exigeante** (réponses rédigées « je vois → je sais → j'en déduis », éléments à citer, calcul), mêmes manipulations, scores séparés, lien direct `?version=…` (voir la Biodiversité de 2nde, `bio.js`).
 
 ## 5. Évaluation
 - Correction immédiate. **Score compté au premier essai**, réessais libres ensuite, aucun point négatif.
@@ -46,7 +47,7 @@ Chaque projet de niveau n'ajoute que ses spécificités. En cas de conflit, la d
 
 ## 6. Fin d'activité
 - Export **.txt** (résumé de l'activité + bilan), bouton **Copier**, écran **« Bilan à montrer au professeur »** lisible de loin ; « Envoyer par mail » possible sur GitHub Pages.
-- **Collège (5e, 3e)** : en plus, un bilan clair à recopier dans le cahier (fiche mémo).
+- **Toutes les activités, tous niveaux** : en plus, un **bilan clair à recopier** dans le cahier (fiche mémo), affiché en fin d'activité et repris dans l'onglet Bilan et dans l'export.
 
 ## 7. Données personnelles (RGPD)
 - Aucune collecte, aucun compte, aucun envoi automatique. Prénom ou numéro facultatif, saisi par l'élève, qui reste sur l'appareil.
