@@ -34,7 +34,7 @@ const stripUnit = s => String(s === undefined || s === null ? "" : s).replace(/[
 const nzT = s => String(s === undefined || s === null ? "" : s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/Œ/g, "Oe").replace(/[’`]/g, "'").replace(/\s+/g, " ").trim();
 const nWords = s => (String(s || "").match(/[A-Za-zÀ-ÿ0-9]+/g) || []).length;
 const critHit = (c, T) => { const n = T.toLowerCase(); return [].concat(c.re).every(x => typeof x === "function" ? x(T, n) : x.test(n)); };
-const GK = { vois: "Je vois", sais: "Je sais", deduis: "J'en déduis" };
+const GK = Object.assign({ vois: "Je vois", sais: "Je sais", deduis: "J'en déduis" }, HOME.gk || {});
 function checkPart(p, val, self) {
   if (p.t === "phase") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Dessine chaque Lune (touche « Rien d'éclairé » si aucune partie éclairée n'est visible)." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} Lune(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les Lunes sont justes." }; }
   if (p.t === "redac") {

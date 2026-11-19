@@ -1,0 +1,10 @@
+/* ---------- 5e EIST · Mission 6 · Activité 1 · L'énergie éolienne sur Mars (complète lune.css) ---------- */
+.vbtn{min-width:5.2rem}
+.vbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.prodw{display:grid;gap:.25rem;max-width:34rem;margin:0 auto;width:100%}
+.prodw span{font-weight:800;font-size:.9rem}
+.prodw .gauge{height:1.2rem;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1.5px solid var(--line)}
+.prodw .gauge i{display:block;height:100%;width:0;background:#e0a800;transition:width .15s linear}
+.mypara{font-size:1.05rem;line-height:1.6;border-left:4px solid var(--key);padding:.4rem .8rem;background:var(--key-soft);border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.mrow .mv{max-width:60%;min-width:6rem;white-space:normal;line-height:1.25;text-align:left}
+.chipb{white-space:normal;text-align:left;padding:.35rem .9rem}

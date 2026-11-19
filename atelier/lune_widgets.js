@@ -1,4 +1,5 @@
 /* ===== 5e EIST · Mission 5 · Activité 6 · Les phases de la Lune · dessins et simulations ===== */
+Store.key = "eist5-phases-lune-v1";
 const WID = {}, LIVE = {};
 const keep = () => { try { save(); } catch (e) {} if (typeof refreshTasks === "function") refreshTasks(); };
 const xst = () => S.x;

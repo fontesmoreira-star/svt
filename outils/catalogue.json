@@ -176,9 +176,21 @@
      ]
     },
     {
-     "id": "mission-robots",
-     "titre": "Mission robots",
+     "id": "mission-6",
+     "titre": "Mission 6 · Tempête de sable",
      "chapitres": [
+      {
+       "id": "energie-eolienne",
+       "titre": "Physique-chimie · L'énergie éolienne",
+       "activites": [
+        {
+         "fichier": "eolienne-sur-mars.html",
+         "tag": "Activité 1",
+         "titre": "Peut-on utiliser l'énergie éolienne sur Mars ?",
+         "desc": "Soufflerie, double échelle m/s ↔ km/h, la même éolienne sur Terre et sur Mars, puis le paragraphe argumenté (j'observe que, or, donc). Deux versions : guidée ou experte. Fiche mémo à recopier."
+        }
+       ]
+      },
       {
        "id": "programmation",
        "titre": "Technologie · La programmation"
@@ -186,19 +198,13 @@
      ]
     },
     {
-     "id": "mission-6",
-     "titre": "Mission 6",
+     "id": "mission-7",
+     "titre": "Mission 7",
      "chapitres": [
       {
        "id": "nourrir-marsonautes",
        "titre": "Nourrir les marsonautes"
-      }
-     ]
-    },
-    {
-     "id": "mission-7",
-     "titre": "Mission 7",
-     "chapitres": [
+      },
       {
        "id": "nutrition-vegetaux",
        "titre": "La nutrition des végétaux"
