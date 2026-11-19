@@ -74,6 +74,10 @@ APPS = {
       sub="Virtual amylase lab, glucose in the blood, storage and metabolic pathways: how a food provides matter and energy.", js=["kit.js", "pomme_widgets.js", "pomme_data.js", "pomme.js"], css=["svt.css", "mouv.css", "pomme.css"],
       root="2nde/theme-1/metabolisme", eyebrow="Year 11 (2nde) · DNL Biology · Theme 1 · Chapter 2 · Cell metabolism",
       foot="No data is sent: your answers stay on this device. Simulated data are flagged with ⚠. Lycée Français Vauban · DNL Biology."),
+  "simulateur-climat-futur": dict(title="Modéliser le climat du futur", h1="Manipuler un modèle climatique simple",
+      sub="Un simulateur inspiré de SimClimat : règle les émissions de CO₂, compare des scénarios jusqu'en 2107, critique le modèle et découvre pourquoi modéliser le climat est complexe. Deux versions : guidée ou exigeante.", js=["kit.js", "simc_widgets.js", "simc_data.js", "lune.js"], css=["mouv.css", "lune.css", "simc.css"],
+      root="terminale/theme-1/1-3-climat-futur", eyebrow="Terminale · Enseignement scientifique · Thème 1 · Chapitre 3 · Le climat du futur · Activité 1",
+      foot="Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Le simulateur est un modèle simplifié : ses valeurs sont signalées ⚠ Valeurs simulées. Lycée Français Vauban · Enseignement scientifique."),
 }
 HEADER = """<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">{eyebrow}</p><h1>{h1}</h1><p class="sub">{sub}</p></div>
 <div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button>{extra}</div></div></header>

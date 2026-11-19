@@ -630,7 +630,15 @@
       },
       {
        "id": "1-3-climat-futur",
-       "titre": "1.3 Le climat du futur"
+       "titre": "1.3 Le climat du futur",
+       "activites": [
+        {
+         "fichier": "simulateur-climat-futur.html",
+         "tag": "Simulation · 2 versions",
+         "titre": "Activité 1 · Manipuler un modèle climatique simple",
+         "desc": "Un simulateur inspiré de SimClimat : trois scénarios d'émissions jusqu'en 2107, défi de stabilisation du CO₂, comparaison aux observations, rétroactions et fourchette des projections. Version guidée ou exigeante."
+        }
+       ]
       }
      ]
     },

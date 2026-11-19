@@ -36,6 +36,7 @@ Partir du gabarit le plus proche (copier ses 4 fichiers, renommer, changer les d
 | Activités 3e | `mitose.js`, `rev3.js` | Multiplication cellulaire, Révision ch. 1 | Photos d'étapes, exercice type brevet |
 | **TP noté** | `tpagg.js` | TP noté agglutination (3e) | Barème sur 10, copie verrouillée après « Rendre ma copie », compteur de copies |
 | Terminale ES | `data.js` + `fiches.js` / `qcm.js` / `exos.js` ; `retro.js` | Atmosphère et climat, Rétroactions | Fiches + rappel espacé, QCM en parties, entraînement à paliers + sujets chronométrés, ateliers de simulation |
+| **Simulateur climatique** (Terminale ES, sur le moteur `lune.js`) | `simc_widgets.js` + `simc_data.js` | Modéliser le climat du futur (1.3) | Modèle 0D (cycle du carbone, effet de serre, océan à deux couches, niveau des mers, rétroactions activables), simulations nommées superposées, courbe animée, curseur d'année, tableau adaptatif ; tâches `hasSim(E, masque)` ; valeurs des réponses calculées par le modèle (`V`) |
 | TP ExAO | `elodee/` (`python3 elodee/build.py` → `elodee/dist/`, puis `outils/adapter.py`) | TP élodée FR + DNL (2nde) | ExAO virtuelle, documents, fiche élève |
 
 Contrat de données du gabarit « parcours à étapes » : `HOME`, `GROUPS` (parties → étapes → `parts`), `RAPPEL`, `RESUME`, `bilanHTML`, `WID` (widgets), `LIVE`.
