@@ -77,6 +77,59 @@ a.lvl .big{font-family:var(--f-display);font-size:1.6rem;font-weight:700;color:v
 .soonlist li{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:4px 10px;font-size:.82rem;color:var(--muted)}
 .second{margin-top:26px}
 .second h2{font-size:1rem;color:var(--muted);font-family:var(--f-body);font-weight:600;margin-bottom:6px}
+
+/* ---- plan Thème / Chapitre ---- */
+.lbl{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:12px;margin:14px 0 6px}
+a.tile{display:flex;flex-direction:column;gap:8px;text-decoration:none;background:var(--surface);border:2px solid var(--line);border-top:8px solid var(--c);border-radius:14px;padding:12px 14px;min-height:120px}
+a.tile .lbl{color:var(--c)}
+a.tile b{font-family:var(--f-display);font-size:1rem;line-height:1.2;flex:1}
+a.tile.empty{border-top-color:var(--line);background:transparent}
+a.tile.empty .lbl,a.tile.empty b{color:var(--muted)}
+.dots{display:flex;flex-wrap:wrap;gap:5px;margin:0;padding:0;list-style:none}
+.dots li{min-width:26px;height:26px;padding:0 4px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;border:2px dashed var(--line);color:var(--muted)}
+.dots li.on{background:var(--c);border:2px solid var(--c);color:var(--surface)}
+.cnt{font-size:.78rem;font-weight:700;color:var(--muted)}
+details.th{margin:22px 0 0;background:var(--surface);border:2px solid var(--line);border-radius:18px;overflow:hidden}
+details.th>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:64px;background:var(--cs);border-bottom:2px solid transparent}
+details.th[open]>summary{border-bottom-color:var(--line)}
+details.th>summary::-webkit-details-marker{display:none}
+details.th.empty>summary{background:transparent}
+.num{flex:0 0 auto;width:54px;height:54px;border-radius:14px;background:var(--c);color:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.num small{font-size:.5rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.num span{font-family:var(--f-display);font-size:1.45rem;font-weight:800}
+details.th.empty .num{background:transparent;border:2px dashed var(--line);color:var(--muted)}
+.sumtxt{flex:1;min-width:0}
+.sumtxt h2{font-size:1.2rem;color:var(--ink)}
+.sumtxt .cnt{display:block;margin-top:3px}
+.chev{flex:0 0 auto;font-size:1.3rem;color:var(--c);transition:transform .2s}
+details.th[open] .chev{transform:rotate(180deg)}
+details.th.empty .chev{color:var(--muted)}
+.thbody{padding:6px 16px 18px}
+.thlink{display:inline-block;font-size:.85rem;font-weight:700;color:var(--c);padding:12px 0 4px}
+ol.chaps{list-style:none;margin:8px 0 0;padding:0;position:relative}
+ol.chaps>li{position:relative;padding:0 0 18px 58px}
+ol.chaps>li::before{content:"";position:absolute;left:21px;top:44px;bottom:0;width:3px;background:var(--line);border-radius:2px}
+ol.chaps>li:last-child::before{display:none}
+.cnum{position:absolute;left:0;top:2px;width:45px;height:45px;border-radius:50%;background:var(--c);color:var(--surface);display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:800;font-size:1rem}
+li.vide .cnum{background:var(--surface);border:3px dashed var(--line);color:var(--muted)}
+.chead{min-height:48px;display:flex;flex-direction:column;justify-content:center}
+.chead .lbl{color:var(--c)}
+li.vide .chead .lbl{color:var(--muted)}
+.chead h3{font-size:1.06rem;margin-top:2px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+li.vide .chead h3{color:var(--muted);font-weight:600}
+.disc{font-family:var(--f-body);font-size:.68rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:6px;padding:2px 7px;color:#fff;background:var(--pc)}
+.disc.techno{background:#8a4b0f}
+.disc.svt{background:var(--svt)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .disc{color:#0b171b}:root:not([data-theme="light"]) .disc.techno{background:#f0a35c}}
+.later{font-size:.82rem;color:var(--muted);margin:2px 0 0}
+.clink{display:inline-block;font-size:.82rem;font-weight:700;color:var(--c);padding:10px 0 0}
+.year{background:var(--surface);border:2px solid var(--line);border-left:8px solid var(--c);border-radius:14px;padding:12px 16px;margin-top:18px}
+.year h2{font-size:1.05rem;margin-bottom:4px}
+.pager{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin-top:26px}
+.pager a{flex:1 1 240px;text-decoration:none;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:12px 16px;min-height:56px}
+.pager a .lbl{display:block;color:var(--c)}
+.pager a.next{text-align:right}
 footer{color:var(--muted);font-size:.8rem;padding:34px 0 calc(30px + env(safe-area-inset-bottom,0px))}
 </style>
 </head>
@@ -97,17 +150,28 @@ footer{color:var(--muted);font-size:.8rem;padding:34px 0 calc(30px + env(safe-ar
 </header>
 <main class="wrap">
 <p class="msg" id="msg" role="status" aria-live="polite"></p>
-<section class="theme" id="planete-terre"><div class="thead"><h2>La planète Terre, l&#x27;environnement et l&#x27;action humaine</h2><a href="planete-terre/">Page du thème →</a></div>
-<div class="chap" id="tectonique-des-plaques"><h3>La tectonique des plaques <a href="planete-terre/tectonique-des-plaques/">Page du chapitre →</a></h3><div class="grid">
-<a class="card" href="planete-terre/tectonique-des-plaques/plaques-en-mouvement.html"><span class="tag">Séance animée · 45 min</span><h4>Plaques en mouvement</h4><p>Cinq étapes : séismes, Wegener, lithosphère, frontières de plaques, moteur. Bilan à recopier.</p><span class="go">Ouvrir →</span></a>
-</div></div>
-</section>
-<section class="theme" id="corps-sante"><div class="thead"><h2>Le corps humain et la santé</h2><a href="corps-sante/">Page du thème →</a></div>
-<div class="chap" id="puberte-reproduction"><h3>Puberté et reproduction humaine <a href="corps-sante/puberte-reproduction/">Page du chapitre →</a></h3><div class="grid">
-<a class="card" href="corps-sante/puberte-reproduction/devenir-adulte.html"><span class="tag">Séance animée · 45 min</span><h4>Devenir adulte : la puberté</h4><p>Cinq étapes : transformations du corps, appareils reproducteurs, cycles, hormones, schéma-bilan. Bilan à recopier.</p><span class="go">Ouvrir →</span></a>
-</div></div>
-</section>
-<div class="box soon"><span class="ic" aria-hidden="true">🗓️</span><div><b>Bientôt</b><ul class="soonlist"><li>Le vivant et son évolution</li></ul></div></div>
+<section class="theme"><div class="thead"><h2>Sommaire · Thèmes et chapitres</h2></div><div class="toc"><a class="tile" href="#planete-terre"><span class="lbl">Thème 1</span><b>La planète Terre, l&#x27;environnement et l&#x27;action humaine</b><ul class="dots" aria-hidden="true"><li class="on" title="Chapitre 1 · La tectonique des plaques">1</li></ul><span class="cnt">1 activité</span></a><a class="tile empty" href="#vivant-evolution"><span class="lbl">Thème 2</span><b>Le vivant et son évolution</b><span class="cnt">À venir</span></a><a class="tile" href="#corps-sante"><span class="lbl">Thème 3</span><b>Le corps humain et la santé</b><ul class="dots" aria-hidden="true"><li class="on" title="Chapitre 1 · Puberté et reproduction humaine">1</li></ul><span class="cnt">1 activité</span></a></div><p class="cnt">Pastille pleine : chapitre avec des activités · pointillés : à venir.</p></section>
+<details class="th" id="planete-terre" open><summary><span class="num" aria-hidden="true"><small>Thème</small><span>1</span></span><span class="sumtxt"><h2>La planète Terre, l&#x27;environnement et l&#x27;action humaine</h2><span class="cnt">1 activité · 1 chapitre sur 1</span></span><span class="chev" aria-hidden="true">▾</span></summary><div class="thbody">
+<a class="thlink" href="planete-terre/">Page du thème →</a>
+<ol class="chaps">
+<li id="tectonique-des-plaques" class=""><span class="cnum" aria-hidden="true">1</span><div class="chead"><span class="lbl">Chapitre 1 · 1 activité</span><h3>La tectonique des plaques</h3></div>
+<div class="grid"><a class="card" href="planete-terre/tectonique-des-plaques/plaques-en-mouvement.html"><span class="tag">Séance animée · 45 min</span><h4>Plaques en mouvement</h4><p>Cinq étapes : séismes, Wegener, lithosphère, frontières de plaques, moteur. Bilan à recopier.</p><span class="go">Ouvrir →</span></a></div>
+<a class="clink" href="planete-terre/tectonique-des-plaques/">Page du chapitre →</a>
+</li>
+</ol>
+</div></details>
+<details class="th empty" id="vivant-evolution"><summary><span class="num" aria-hidden="true"><small>Thème</small><span>2</span></span><span class="sumtxt"><h2>Le vivant et son évolution</h2><span class="cnt">Activités à venir</span></span><span class="chev" aria-hidden="true">▾</span></summary><div class="thbody">
+
+</div></details>
+<details class="th" id="corps-sante" open><summary><span class="num" aria-hidden="true"><small>Thème</small><span>3</span></span><span class="sumtxt"><h2>Le corps humain et la santé</h2><span class="cnt">1 activité · 1 chapitre sur 1</span></span><span class="chev" aria-hidden="true">▾</span></summary><div class="thbody">
+<a class="thlink" href="corps-sante/">Page du thème →</a>
+<ol class="chaps">
+<li id="puberte-reproduction" class=""><span class="cnum" aria-hidden="true">1</span><div class="chead"><span class="lbl">Chapitre 1 · 1 activité</span><h3>Puberté et reproduction humaine</h3></div>
+<div class="grid"><a class="card" href="corps-sante/puberte-reproduction/devenir-adulte.html"><span class="tag">Séance animée · 45 min</span><h4>Devenir adulte : la puberté</h4><p>Cinq étapes : transformations du corps, appareils reproducteurs, cycles, hormones, schéma-bilan. Bilan à recopier.</p><span class="go">Ouvrir →</span></a></div>
+<a class="clink" href="corps-sante/puberte-reproduction/">Page du chapitre →</a>
+</li>
+</ol>
+</div></details>
 <footer><p>Aucun compte, aucune collecte de données : la progression reste sur l'appareil de l'élève. Les données simulées sont signalées dans chaque activité.</p><p data-signature><b>Mr Moreira · Vauban Luxembourg</b></p></footer>
 </main>
 <script>
@@ -125,6 +189,9 @@ footer{color:var(--muted);font-size:.8rem;padding:34px 0 calc(30px + env(safe-ar
     var fail=function(){msg.textContent="Lien de cette page : "+u;};
     try{navigator.clipboard.writeText(u).then(done,fail);}catch(e){fail();}
   };
+  function openHash(){try{var id=decodeURIComponent(location.hash.slice(1));if(!id)return;var el=document.getElementById(id);if(!el)return;
+    var d=el.tagName==="DETAILS"?el:el.closest("details");if(d&&!d.open)d.open=true;}catch(e){}}
+  window.addEventListener("hashchange",openHash);openHash();
   applyFs();
 })();
 </script>
