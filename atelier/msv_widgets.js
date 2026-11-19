@@ -157,26 +157,40 @@ const immDone = () => { const d = xo("imm").done || {}; return !!(d[1] && d[2]);
    4 · La balance électronique et la tare (gobelet + jus)
    ===================================================================== */
 WID.balance = el => {
-  const st = xo("bal"); if (!st.on) st.on = "rien"; if (!Number.isFinite(st.tare)) st.tare = 0; if (!st.f || typeof st.f !== "object") st.f = {};
-  const M = { rien: 0, gob: 5.8, jus: 167.0 }; let shown = M[st.on] - st.tare, pour = 0;
+  /* modèle physique : masse brute sur le plateau (gobelet + jus versé) − tare ; une seule boucle d'animation pour tout le widget */
+  const st = xo("bal"), G = 5.8, J = 161.2;
+  if (!["rien", "gob"].includes(st.on)) st.on = st.on === "jus" ? "gob" : "rien"; if (!Number.isFinite(st.pour)) st.pour = 0; if (!Number.isFinite(st.tare)) st.tare = 0; if (!st.f || typeof st.f !== "object") st.f = {};
+  if (st.pour > 0) st.pour = 1; /* un versement interrompu par un rechargement est considéré comme terminé */
+  let pouring = false, msg = "";
+  const gross = () => (st.on === "gob" ? G + J * st.pour : 0), net = () => Math.round((gross() - st.tare) * 10) / 10;
+  let shown = net();
   el.innerHTML = `<div class="row"><button type="button" class="btn" data-a="gob">🥤 Poser le gobelet vide</button><button type="button" class="btn" data-a="jus">🍊 Verser le jus</button><button type="button" class="btn ghost" data-a="tare">TARE (remise à zéro)</button><button type="button" class="btn ghost" data-a="rien">↺ Tout enlever</button></div>
     <div class="figbox" data-fig></div><p class="readout" data-ro aria-live="polite"></p>`;
   const fig = liveSVG($("[data-fig]", el), (W, F) => {
-    const H = Math.max(F * 12, W * 0.55), bw = Math.min(W * 0.8, F * 22), bx = (W - bw) / 2, by = H * 0.55; let g = balance(bx, by, bw, gfmt(shown), F, { tareHi: st.tare > 0 });
-    if (st.on !== "rien") { const gw = bw * 0.22, gh = bw * 0.26, gx = W / 2 - gw / 2, gy = by - gh; const fill = st.on === "jus" ? Math.min(1, pour) : 0; g += `<path d="M${N1(gx)},${N1(gy)} L${N1(gx + gw * 0.12)},${N1(gy + gh)} L${N1(gx + gw * 0.88)},${N1(gy + gh)} L${N1(gx + gw)},${N1(gy)} Z" style="fill:${GLASS};${glassStroke}"/>`; if (fill > 0) { const fy = gy + gh * (1 - 0.85 * fill); g += `<path d="M${N1(gx + gw * 0.12 * (1 - (fy - gy) / gh) + gw * 0.12 * ((fy - gy) / gh))},${N1(fy)} L${N1(gx + gw * 0.12)},${N1(gy + gh - 2)} L${N1(gx + gw * 0.88)},${N1(gy + gh - 2)} L${N1(gx + gw - gw * 0.12 * ((fy - gy) / gh))},${N1(fy)} Z" style="fill:#ff9f1c;opacity:.9"/>`; } if (st.on === "jus" && pour < 1) g += `<path d="M${N1(gx + gw * 0.9)},${N1(gy - bw * 0.25)} Q${N1(gx + gw * 0.6)},${N1(gy - bw * 0.1)} ${N1(gx + gw * 0.55)},${N1(gy + gh * 0.9)}" style="fill:none;stroke:#ff9f1c;stroke-width:${N1(F * 0.35)};stroke-linecap:round"/><text x="${N1(gx + gw * 1.1)}" y="${N1(gy - bw * 0.2)}" style="font-size:${N1(F * 2.2)}px">🫗</text>`; }
-    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Balance électronique affichant ${gfmt(shown)} g">${g}</svg>`;
+    const H = Math.max(F * 12, W * 0.55), bw = Math.min(W * 0.8, F * 22), bx = (W - bw) / 2, by = H * 0.55, d = Math.round(shown * 10) / 10; let g = balance(bx, by, bw, gfmt(Object.is(d, -0) ? 0 : d), F, { tareHi: st.tare > 0 });
+    if (st.on === "gob") {
+      const gw = bw * 0.22, gh = bw * 0.26, gx = W / 2 - gw / 2, gy = by - gh, f = st.pour, inset = gw * 0.12;
+      if (f > 0) { const top = gy + gh * (1 - 0.85 * f), k = (top - gy) / gh; g += `<path d="M${N1(gx + inset * k)},${N1(top)} L${N1(gx + inset)},${N1(gy + gh - 2)} L${N1(gx + gw - inset)},${N1(gy + gh - 2)} L${N1(gx + gw - inset * k)},${N1(top)} Z" style="fill:#ff9f1c;opacity:.9"/>`; }
+      g += `<path d="M${N1(gx)},${N1(gy)} L${N1(gx + inset)},${N1(gy + gh)} L${N1(gx + gw - inset)},${N1(gy + gh)} L${N1(gx + gw)},${N1(gy)} Z" style="fill:${GLASS};${glassStroke}"/>`;
+      if (pouring) g += `<path d="M${N1(gx + gw * 0.9)},${N1(gy - bw * 0.25)} Q${N1(gx + gw * 0.6)},${N1(gy - bw * 0.1)} ${N1(gx + gw * 0.55)},${N1(gy + gh * 0.9)}" style="fill:none;stroke:#ff9f1c;stroke-width:${N1(F * 0.35)};stroke-linecap:round"/><text x="${N1(gx + gw * 1.1)}" y="${N1(gy - bw * 0.2)}" style="font-size:${N1(F * 2.2)}px">🫗</text>`;
+    }
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Balance électronique affichant ${gfmt(d)} g">${g}</svg>`;
   });
-  const ro = () => { $("[data-ro]", el).innerHTML = `Sur la balance : <b>${st.on === "rien" ? "rien" : st.on === "gob" ? "le gobelet vide" : "le gobelet et le jus"}</b>${st.tare ? " · tare faite (la balance a été remise à zéro)" : ""}`; };
-  const anim = () => { const goal = M[st.on] - st.tare; loop(el, dt => { if (st.on === "jus") pour = Math.min(1, pour + dt / 1.5); shown += (goal - shown) * Math.min(1, dt * (st.on === "jus" ? 2.5 : 8)); if (Math.abs(goal - shown) < 0.05 && (st.on !== "jus" || pour >= 1)) { shown = goal; fig.draw(); return false; } fig.draw(); }); };
+  const ro = () => { const on = st.on === "rien" ? "rien" : st.pour >= 1 ? "le gobelet et le jus" : st.pour > 0 ? "le gobelet, en train de se remplir" : "le gobelet vide"; $("[data-ro]", el).innerHTML = `Sur la balance : <b>${on}</b>${st.tare ? ` · tare faite (la balance a été remise à zéro avec ${f1(st.tare)} g sur le plateau)` : ""}${msg ? `<br>${msg}` : ""}`; };
+  loop(el, dt => {
+    if (pouring) { st.pour = Math.min(1, st.pour + dt / 1.6); if (st.pour >= 1) { pouring = false; if (Math.abs(st.tare - G) < 0.05) st.f.jusTare = 1; else if (!st.tare) st.f.jusSans = 1; else msg = "⚠ La tare a été faite pendant le versement : la balance n'affiche pas la masse de tout le jus. Recommence."; keep(); ro(); } }
+    const goal = net(), k = Math.min(1, dt * (pouring ? 9 : 12)); shown += (goal - shown) * k; if (Math.abs(goal - shown) < 0.05) shown = goal;
+    fig.draw();
+  });
   $$("[data-a]", el).forEach(b => b.onclick = () => {
-    const a = b.dataset.a;
-    if (a === "tare") { st.tare = M[st.on]; if (st.on === "gob") st.f.tareGob = 1; shown = 0; }
-    else if (a === "jus") { if (st.on === "rien") { st.on = "gob"; } st.on = "jus"; pour = 0; if (st.tare === M.gob) st.f.jusTare = 1; else st.f.jusSans = 1; }
-    else if (a === "gob") { st.on = "gob"; pour = 0; if (!st.tare) st.f.gob = 1; }
-    else { st.on = "rien"; st.tare = 0; pour = 0; }
-    keep(); ro(); anim(); if (a === "tare") fig.draw();
+    const a = b.dataset.a; msg = "";
+    if (a === "gob") { if (st.on === "gob") msg = "Le gobelet est déjà sur le plateau."; else { st.on = "gob"; st.pour = 0; if (!st.tare) st.f.gob = 1; } }
+    else if (a === "jus") { if (st.on !== "gob") msg = "Pose d'abord le gobelet sur le plateau."; else if (st.pour >= 1 || pouring) msg = "Le gobelet est déjà plein."; else pouring = true; }
+    else if (a === "tare") { st.tare = Math.round(gross() * 10) / 10; shown = net(); if (st.on === "gob" && st.pour === 0) st.f.tareGob = 1; if (pouring) msg = "⚠ Tare faite pendant le versement !"; }
+    else { st.on = "rien"; st.pour = 0; st.tare = 0; pouring = false; shown = 0; }
+    keep(); ro(); fig.draw();
   });
-  pour = st.on === "jus" ? 1 : 0; ro();
+  ro();
 };
 const balDone = () => { const f = xo("bal").f || {}; return !!(f.gob && f.jusTare); };
 
