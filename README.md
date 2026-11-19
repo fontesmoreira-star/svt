@@ -148,7 +148,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - ▫️ Chapitre 4 · Agents pathogènes et maladies vectorielles · à venir
   - ▫️ Chapitre 5 · Microbiote humain et santé · à venir
 
-### [Terminale · Enseignement scientifique](https://fontesmoreira-star.github.io/svt/terminale/) · 5 activités
+### [Terminale · Enseignement scientifique](https://fontesmoreira-star.github.io/svt/terminale/) · 6 activités
 
 - 📂 **Thème 1 · Science, climat et société** · [page](https://fontesmoreira-star.github.io/svt/terminale/theme-1/)
   - 📌 [Fiches Atmosphère et climat](https://fontesmoreira-star.github.io/svt/terminale/theme-1/fiches-atmosphere-climat.html)
@@ -159,6 +159,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
     - [Évolution de la température et rétroactions](https://fontesmoreira-star.github.io/svt/terminale/theme-1/1-2-systeme-climatique/temperature-retroactions.html) · Ateliers
   - 📁 **1.3 · Le climat du futur**
     - [Activité 1 · Manipuler un modèle climatique simple](https://fontesmoreira-star.github.io/svt/terminale/theme-1/1-3-climat-futur/simulateur-climat-futur.html) · Simulation · 2 versions
+    - [Activité 2 · Le laboratoire du climatologue](https://fontesmoreira-star.github.io/svt/terminale/theme-1/1-3-climat-futur/comment-sont-faits-les-modeles.html) · Laboratoires · 2 versions
 - ▫️ **Thème 2 · Le futur des énergies** · à venir
   - ▫️ 2.1 · Deux siècles d'énergie électrique · à venir
   - ▫️ 2.2 · Les atouts de l'électricité et l'optimisation de son transport · à venir

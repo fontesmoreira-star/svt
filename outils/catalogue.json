@@ -637,6 +637,12 @@
          "tag": "Simulation · 2 versions",
          "titre": "Activité 1 · Manipuler un modèle climatique simple",
          "desc": "Un simulateur inspiré de SimClimat : trois scénarios d'émissions jusqu'en 2107, défi de stabilisation du CO₂, comparaison aux observations, rétroactions et fourchette des projections. Version guidée ou exigeante."
+        },
+        {
+         "fichier": "comment-sont-faits-les-modeles.html",
+         "tag": "Laboratoires · 2 versions",
+         "titre": "Activité 2 · Le laboratoire du climatologue",
+         "desc": "Assembler un modèle du système Terre, découper l'Europe en mailles, le chaos de Lorenz (météo ou climat ?), régler un modèle sur le présent, le tester sur la dernière glaciation, 12 modèles de 1850 à 2100. Paragraphe synthétique construit partie après partie."
         }
        ]
       }
