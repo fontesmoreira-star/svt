@@ -112,6 +112,14 @@
     {
      "id": "mission-5",
      "titre": "Mission 5",
+     "activites": [
+      {
+       "fichier": "revision-mission-5.html",
+       "tag": "Révision",
+       "titre": "Mission 5 : la check-list avant le décollage (révision)",
+       "desc": "Centrifugeuse, prélèvements de sang, schéma des échanges sang-cerveau, décollage vu depuis le sol ou depuis le siège, radar du rover, traces de mobiles, retour de la capsule, rover et fusée en technologie, phases de la Lune. Code de lancement à trouver et fiche mémo à recopier."
+      }
+     ],
      "chapitres": [
       {
        "id": "decollage",

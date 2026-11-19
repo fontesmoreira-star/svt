@@ -1325,7 +1325,7 @@ function checkPart(p, val) {
   if (p.t === "multi") { const s = (val || []).slice().sort().join(","); if (!s) return { ok: false, empty: true, msg: "Choisis au moins une réponse." }; return s === p.a.slice().sort().join(",") ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Pas encore : il y a " + p.a.length + " bonnes réponses." }; }
   if (p.t === "match") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Complète chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Tout est bien relié." }; }
   if (p.t === "rows") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Réponds à chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} ligne(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les lignes sont justes." }; }
-  if (p.t === "order") { const v = val || []; if (v.length < p.keys.length) return { ok: false, empty: true, msg: "Place toutes les images." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} image(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Ordre juste." }; }
+  if (p.t === "order") { const v = val || [], n = (p.keys || p.txt).length; if (v.length < n) return { ok: false, empty: true, msg: p.txt ? "Place toutes les étiquettes." : "Place toutes les images." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} ${p.txt ? "étiquette(s)" : "image(s)"} mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Ordre juste." }; }
   if (p.t === "shot") {
     if (val === undefined || val === null) return { ok: false, empty: true, msg: "Photo manquante." };
     const w = SHOTWIN[p.ph]; if (val >= w[0] && val <= w[1]) return { ok: true, msg: "✓ Bonne photo." };
@@ -1379,9 +1379,10 @@ function renderHome(m) {
       <div class="box warn"><p class="lab">⚠ Le savais-tu ?</p><p>${nb(HOME.fact)}</p></div></div>
     <article class="panel itemroot" id="item"></article>
     <div><p class="kicker">${HOME.parts}</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Partie ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    ${HOME.homeHTML ? HOME.homeHTML() : ""}
     <div class="panel"><p class="kicker">Mode d'emploi</p>
       <ul class="ul">
-        <li>Fais les parties <b>dans l'ordre</b>, de 1 à ${GROUPS.length} : la séance dure environ une heure.</li>
+        <li>Fais les parties <b>dans l'ordre</b>, de 1 à ${GROUPS.length} : la séance dure ${HOME.dur || "environ une heure"}.</li>
         <li>Chaque étape contient une <b>manipulation</b> ou une <b>animation</b> : réalise-la avant de répondre.</li>
         <li>Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>
         <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un.</li>
@@ -1389,6 +1390,7 @@ function renderHome(m) {
       </ul></div>
   </section>`;
   $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
+  if (HOME.homeHTML) mountFigs(m);
   renderItem(RAPPEL, $("#item"));
 }
 
@@ -1400,6 +1402,7 @@ function renderGroup(m, g) {
     ${(g.inds || []).length ? `<div class="panel"><p class="kicker">Indicateurs de réussite</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
     <div class="stepper" role="group" aria-label="Étapes">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
     <article class="panel itemroot" id="item"></article>
+    <div id="gfoot">${HOME.groupFoot ? HOME.groupFoot(g) : ""}</div>
     <div class="row" id="navx"></div></section>`;
   $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
   renderItem(it, $("#item"));
@@ -1413,6 +1416,7 @@ function renderGroup(m, g) {
 }
 function refreshChrome(it) {
   tabs(); const g = ITEMS[it.id].g; if (!g) return;
+  const gf = $("#gfoot"); if (gf && HOME.groupFoot) { gf.innerHTML = HOME.groupFoot(g); mountFigs(gf); }
   $$(".stepper button").forEach((b, i) => { const x = g.items[i], s = status(x); b.innerHTML = `${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}`; b.setAttribute("aria-label", `Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}`); });
   if (0) $$(".inds li").forEach((li, i) => { const d = g.inds[i], ok = indDone(d); li.classList.toggle("done", ok); $(".bx", li).textContent = ok ? "✓" : ""; $(".st", li).textContent = ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et "); });
 }
@@ -1460,8 +1464,8 @@ function renderPart(it, k, root) {
   }
   if (p.t === "rows") h += `<div class="rows">${p.rows.map((row, i) => { const cur = (v || {})[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${(row.o || p.choices).map((c, j) => { const cls = checked && cur === j ? (j === row.a ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" aria-pressed="${cur === j}" data-i="${i}" data-j="${j}">${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${c}</button>`; }).join("")}</div></div>`; }).join("")}</div>`;
   if (p.t === "order") {
-    const ord = order(id + k, p.keys.length), chosen = v || [];
-    h += `<div class="order-list pics">${ord.map(j => { const pos = chosen.indexOf(j); const cls = checked && pos >= 0 ? (pos === j ? "is-ok" : "is-bad") : ""; return `<button type="button" class="order-item ${cls}" data-j="${j}" ${pos >= 0 ? `data-pos="${pos + 1}"` : ""} aria-label="${esc(p.alts[j])}${pos >= 0 ? ", placée en position " + (pos + 1) : ""}"><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span class="th">${thumb(TAUREF[p.keys[j]])}</span>${cls ? `<span class="tag" style="margin-left:auto;font-weight:800">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div><div class="row"><button type="button" class="btn ghost" data-clear>Effacer l'ordre</button><span class="lead">Touche une image placée pour la retirer.</span></div>`;
+    const ord = order(id + k, (p.keys || p.txt).length), chosen = v || [];
+    h += `<div class="order-list ${p.txt ? "" : "pics"}">${ord.map(j => { const pos = chosen.indexOf(j); const cls = checked && pos >= 0 ? (pos === j ? "is-ok" : "is-bad") : ""; return `<button type="button" class="order-item ${cls}" data-j="${j}" ${pos >= 0 ? `data-pos="${pos + 1}"` : ""} aria-label="${esc((p.alts || p.txt)[j])}${pos >= 0 ? ", placée en position " + (pos + 1) : ""}"><span class="n">${pos >= 0 ? pos + 1 : ""}</span>${p.txt ? `<span>${p.txt[j]}</span>` : `<span class="th">${thumb(TAUREF[p.keys[j]])}</span>`}${cls ? `<span class="tag" style="margin-left:auto;font-weight:800">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div><div class="row"><button type="button" class="btn ghost" data-clear>Effacer l'ordre</button><span class="lead">${p.txt ? "Touche les étiquettes dans l'ordre ; touche une étiquette placée pour la retirer." : "Touche une image placée pour la retirer."}</span></div>`;
   }
   if (p.t === "shot") {
     const has = v !== undefined && v !== null;
@@ -1567,13 +1571,13 @@ function bilanText(name) {
 function renderBilan(m) {
   const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
   m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan de l'activité</h2><p class="lead">Points comptés au premier essai. ${T.done}/${T.n} étapes faites.</p></div>
-    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie 3.</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Aller à la dernière étape</button></div>`}</div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie ${grp(HOME.lastG).n}.</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Aller à la dernière étape</button></div>`}</div>
     ${HOME.extraHTML ? `<div class="panel"><h3>${HOME.extraTitle}</h3>${HOME.extraHTML()}</div>` : ""}
     <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
     <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Étapes faites</th><th>Points (premier essai)</th></tr></thead><tbody><tr><td>Accueil · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
     <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const q = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${q * 100}%"></i></div></div>`; }).join("")}</div></div>
     <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>Aucune pour l'instant.</p>"}</div>
-    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité (avec le bilan à recopier), ${HOME.extraHTML ? "ton tableau de croisement, " : ""}tes points par partie et par compétence et les questions ratées au premier essai.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité (avec le bilan à recopier), ${HOME.extraHTML ? (HOME.extraLabel || "ton tableau de croisement") + ", " : ""}tes points par partie et par compétence et les questions ratées au premier essai.</p><div id="bt"></div></div>
     <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses et les manipulations de cette activité sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
   const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step[HOME.lastG] = HOME.lastK; save(); go(HOME.lastG); };
   mountFigs(m);

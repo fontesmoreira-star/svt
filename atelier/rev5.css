@@ -1,0 +1,51 @@
+/* ---------- 5e EIST · Révision Mission 5 (styles repris de la Mission 4) ---------- */
+:root{--sea:#2d6fb6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sea:#5a9ee0}}
+:root[data-theme="dark"]{--sea:#5a9ee0}
+.mrow .mv{max-width:56%;min-width:6rem;white-space:normal;line-height:1.25}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}
+.chipb{white-space:normal;text-align:left;padding:.35rem .9rem}
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.lab3{font-weight:800;font-size:.9rem}
+.doc > .db > *{min-width:0}
+.sim{font-weight:700;color:var(--warn)}
+.res{display:grid;gap:.35rem}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.plotz{display:grid;gap:.5rem}
+.plotz .figbox{touch-action:manipulation;cursor:crosshair}
+.recop ul{margin:0;padding-left:1.2rem;display:grid;gap:.35rem}
+.recop ul.chk{list-style:none;padding-left:.2rem}
+.recop .lab{margin-top:.3rem}
+.scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.7rem}
+.scenes figure{margin:0;display:grid;gap:.3rem}
+.scenes figcaption{font-size:.9rem}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:.9rem}
+.duo h4{margin:0 0 .3rem}
+.tpw{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.8rem;align-items:start}
+.chartg{touch-action:manipulation;cursor:pointer}
+.res table.t td.n{text-align:center}
+.pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,9.5rem),1fr));gap:.5rem}
+.picb{min-height:84px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);display:grid;justify-items:center;align-content:center;gap:.15rem;font-weight:700;font-size:.92rem;padding:.4rem;text-align:center}
+.picb .pe{font-size:1.8rem;line-height:1}
+.picb .pc{font-size:.8rem;color:var(--ok);font-weight:800;min-height:1em}
+.picb[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.picnic{border-radius:14px;padding:.7rem;background:linear-gradient(180deg,#fff7d6 0%,var(--surface-2) 60%);display:grid;gap:.5rem}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .picnic{background:linear-gradient(180deg,#3a3418 0%,var(--surface-2) 60%)}}
+:root[data-theme="dark"] .picnic{background:linear-gradient(180deg,#3a3418 0%,var(--surface-2) 60%)}
+.pfiche{min-height:5.5rem}
+.tblx .tablewrap+.tablewrap{margin-top:.5rem}.tblx table.t{margin:0}
+.tblx table.t{width:auto}
+@media (max-width:560px){.res table.t th,.res table.t td,.tblx table.t th,.tblx table.t td{padding:.3rem .45rem}}
+/* ---------- 5e EIST · Révision Mission 5 ---------- */
+.labsang{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.8rem}
+.labsang .brain{font-size:2.6rem}
+.syr{min-height:64px;min-width:9.5rem;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;display:grid;gap:.1rem;padding:.4rem .8rem}
+.syr small{font-weight:600;color:var(--muted);font-size:.85rem}
+.syr[aria-pressed="true"]{border-color:var(--bad);background:var(--bad-soft)}
+.gbtn{min-width:4.2rem}
+.gbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+[data-lp][aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.codeb{display:inline-block;min-width:2.2rem;text-align:center;font-size:1.5rem;border-radius:10px;background:var(--surface);border:2px solid var(--key);padding:0 .4rem}
+.launchz:empty{display:none}
