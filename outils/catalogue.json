@@ -92,6 +92,18 @@
        ]
       },
       {
+       "id": "masse-volume",
+       "titre": "Physique-chimie · Masse et volume",
+       "activites": [
+        {
+         "fichier": "masse-et-volume.html",
+         "tag": "Labo · exercices animés",
+         "titre": "⚡ Le labo de mesure : masse et volume",
+         "desc": "Les 15 exercices de la feuille en expériences : seringue, éprouvettes à la loupe, déplacement d'eau, balance et tare, défi chrono, tableau de conversion, lingots, huile et glaçons, roche qui éclate. Version guidée ou experte."
+        }
+       ]
+      },
+      {
        "id": "changements-etat",
        "titre": "Physique-chimie · Les changements d'état",
        "activites": [

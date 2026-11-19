@@ -8,7 +8,7 @@ Les règles à respecter sont dans [`CHARTE.md`](CHARTE.md).
 2. Travailler dans `atelier/` : `cd /home/claude/svt/atelier`.
 3. Construire : `python3 build.py <morceau-du-nom>` (sans argument : tout reconstruit).
    La page est écrite à sa place dans le site, déjà adaptée pour GitHub Pages (`outils/adapter.py` ajoute la signature et le téléchargement).
-4. Tester (Playwright est préinstallé) : `python3 test/<dossier>/smoke.py`, puis `wid.py` et `flow.py` s'ils existent. Regarder les captures (ignorées par git).
+4. Tester (Playwright est préinstallé) : `python3 test/<dossier>/smoke.py`, puis `wid.py` et `flow.py` s'ils existent. Pour une app sur `lune.js`, `test/msv/flow.py` est un parcours générique : il tire les bonnes réponses des données (choix, nombres, réponses modèles) et vérifie aussi que chaque réponse modèle rédigée valide tous ses critères ; il suffit d'adapter `URL`, `G` et la fonction `task()`. Regarder les captures (ignorées par git).
 5. Publier : ajouter l'app au catalogue, régénérer les pages, commit, push sur `main` (voir plus bas).
 
 Contrôle : reconstruire toutes les apps ne doit modifier aucune page publiée (`git status` vide hors `atelier/`).
@@ -38,6 +38,7 @@ Partir du gabarit le plus proche (copier ses 4 fichiers, renommer, changer les d
 | Terminale ES | `data.js` + `fiches.js` / `qcm.js` / `exos.js` ; `retro.js` | Atmosphère et climat, Rétroactions | Fiches + rappel espacé, QCM en parties, entraînement à paliers + sujets chronométrés, ateliers de simulation |
 | **Simulateur climatique** (Terminale ES, sur le moteur `lune.js`) | `simc_widgets.js` + `simc_data.js` | Modéliser le climat du futur (1.3) | Modèle 0D (cycle du carbone, effet de serre, océan à deux couches, niveau des mers, rétroactions activables), simulations nommées superposées, courbe animée, curseur d'année, tableau adaptatif ; tâches `hasSim(E, masque)` ; valeurs des réponses calculées par le modèle (`V`) |
 | **Laboratoires de modélisation** (Terminale ES, moteur `lune.js`) | `mod_widgets.js` + `mod_data.js` + `mod_maps.js` | Le laboratoire du climatologue (1.3) | Cartes terre/mer en canvas (`mod_maps.js`, généré depuis `global-land-mask`), graphique générique `lchart()` (bandes, marqueurs, curseur), bilan d'énergie par latitude, Lorenz, modèle paléo itératif, ensemble de 12 modèles (attribution et scénarios SSP) ; paragraphe synthétique construit partie après partie (`para: true`, `paraParts()`) |
+| **Labo d'exercices animés** (5e, moteur `lune.js`) | `msv_widgets.js` + `msv_data.js` | Masse et volume, le labo de mesure (Mission 4) | Feuille d'exercices transformée en TP virtuels : éprouvette + loupe (parallaxe), déplacement d'eau, balance avec tare, défi chrono, tableau de conversion, effet `boom()` ; conversions générées (`convG` / `convL`) |
 | TP ExAO | `elodee/` (`python3 elodee/build.py` → `elodee/dist/`, puis `outils/adapter.py`) | TP élodée FR + DNL (2nde) | ExAO virtuelle, documents, fiche élève |
 
 Contrat de données du gabarit « parcours à étapes » : `HOME`, `GROUPS` (parties → étapes → `parts`), `RAPPEL`, `RESUME`, `bilanHTML`, `WID` (widgets), `LIVE`.

@@ -35,7 +35,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
 <!-- plan:debut (généré par outils/generer_pages.py, ne pas modifier à la main) -->
 ## Plan du site
 
-### [5e EIST](https://fontesmoreira-star.github.io/svt/5e/) · 12 activités
+### [5e EIST](https://fontesmoreira-star.github.io/svt/5e/) · 13 activités
 
 - 📌 **Toute l'année** · [Mes automatismes de 5e](https://fontesmoreira-star.github.io/svt/5e/automatismes.html)
 - ▫️ **Mission 1 · Le système solaire · Les voyages dans l'espace …** · à venir
@@ -53,9 +53,11 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - 📁 **Chapitre 1 · Les micro-organismes**
     - [Un repas, des bactéries… et des maths](https://fontesmoreira-star.github.io/svt/5e/mission-4/micro-organismes/echiquier-bacteries.html) · Défi
     - [A meal, some bacteria… and maths](https://fontesmoreira-star.github.io/svt/5e/mission-4/micro-organismes/bacteria-chessboard.html) · English · DNL
-  - 📁 **Chapitre 2 · Les changements d'état**
+  - 📁 **Chapitre 2 · Masse et volume**
+    - [⚡ Le labo de mesure : masse et volume](https://fontesmoreira-star.github.io/svt/5e/mission-4/masse-volume/masse-et-volume.html) · Labo · exercices animés
+  - 📁 **Chapitre 3 · Les changements d'état**
     - [Quand l'eau se met à bouillir](https://fontesmoreira-star.github.io/svt/5e/mission-4/changements-etat/ebullition-eau.html) · TP virtuel
-  - ▫️ Chapitre 3 · Les micro-organismes et la santé · à venir
+  - ▫️ Chapitre 4 · Les micro-organismes et la santé · à venir
 - 📂 **Mission 5 · Le décollage · Le mouvement …** · [page](https://fontesmoreira-star.github.io/svt/5e/mission-5/)
   - 📌 [Mission 5 : la check-list avant le décollage (révision)](https://fontesmoreira-star.github.io/svt/5e/mission-5/revision-mission-5.html)
   - 📁 **Chapitre 1 · Le décollage**

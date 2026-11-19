@@ -82,6 +82,10 @@ APPS = {
       sub="Construis une Terre virtuelle, découpe-la en mailles, découvre pourquoi on prévoit le climat mais pas la météo de 2100, règle un modèle sur le présent, teste-le sur la dernière glaciation et fais tourner 12 modèles de 1850 à 2100. Deux versions : guidée ou exigeante.", js=["kit.js", "mod_maps.js", "mod_widgets.js", "mod_data.js", "lune.js"], css=["mouv.css", "lune.css", "mod.css"],
       root="terminale/theme-1/1-3-climat-futur", eyebrow="Terminale · Enseignement scientifique · Thème 1 · Chapitre 3 · Le climat du futur · Activité 2",
       foot="Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les laboratoires sont des modèles simplifiés : leurs valeurs sont signalées ⚠ Valeurs simulées. Carte terre/mer : GLOBE (NOAA). Lycée Français Vauban · Enseignement scientifique."),
+  "masse-et-volume": dict(title="Masse et volume · le labo de mesure", h1="⚡ Le labo de mesure : masse et volume",
+      sub="Écrase une seringue, lis des éprouvettes à la loupe, fais la tare, bats le chrono, fais sauter la virgule, empile des lingots d'or, fais fondre des glaçons… et exploser une roche. Deux versions : guidée ou experte.", js=["kit.js", "msv_widgets.js", "msv_data.js", "lune.js"], css=["mouv.css", "lune.css", "msv.css"],
+      root="5e/mission-4/masse-volume", eyebrow="5e EIST · Mission 4 · Physique-chimie · Chapitre 3 : la mesure · Feuille d'exercices",
+      foot="Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les expériences sont des modèles simplifiés, signalés par ⚠. Lycée Français Vauban · EIST 5e."),
 }
 HEADER = """<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">{eyebrow}</p><h1>{h1}</h1><p class="sub">{sub}</p></div>
 <div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button>{extra}</div></div></header>
