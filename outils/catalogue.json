@@ -684,7 +684,15 @@
      "chapitres": [
       {
        "id": "3-1-biodiversite",
-       "titre": "3.1 La biodiversité et son évolution"
+       "titre": "3.1 La biodiversité et son évolution",
+       "activites": [
+        {
+         "fichier": "methode-capture-marquage-recapture.html",
+         "tag": "Simulation · 2 versions",
+         "titre": "Activité 1 · Estimer un effectif par capture-marquage-recapture",
+         "desc": "Un étang simulé : capturer, marquer, recapturer, calculer N̂ et l'écart à l'effectif réel ; tester grands échantillons et recaptures multiples, puis les pièges du terrain (marque, mélange, naissances, filet évité) ; 50 CMR automatiques et intervalles de confiance à 95 %. Version guidée ou exigeante."
+        }
+       ]
       },
       {
        "id": "3-2-evolution-grille-lecture",

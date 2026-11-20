@@ -150,7 +150,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - ▫️ Chapitre 4 · Agents pathogènes et maladies vectorielles · à venir
   - ▫️ Chapitre 5 · Microbiote humain et santé · à venir
 
-### [Terminale · Enseignement scientifique](https://fontesmoreira-star.github.io/svt/terminale/) · 6 activités
+### [Terminale · Enseignement scientifique](https://fontesmoreira-star.github.io/svt/terminale/) · 7 activités
 
 - 📂 **Thème 1 · Science, climat et société** · [page](https://fontesmoreira-star.github.io/svt/terminale/theme-1/)
   - 📌 [Fiches Atmosphère et climat](https://fontesmoreira-star.github.io/svt/terminale/theme-1/fiches-atmosphere-climat.html)
@@ -166,8 +166,9 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - ▫️ 2.1 · Deux siècles d'énergie électrique · à venir
   - ▫️ 2.2 · Les atouts de l'électricité et l'optimisation de son transport · à venir
   - ▫️ 2.3 · Énergie, choix de développement et futur climatique · à venir
-- ▫️ **Thème 3 · Une histoire du vivant** · à venir
-  - ▫️ 3.1 · La biodiversité et son évolution · à venir
+- 📂 **Thème 3 · Une histoire du vivant** · [page](https://fontesmoreira-star.github.io/svt/terminale/theme-3/)
+  - 📁 **3.1 · La biodiversité et son évolution**
+    - [Activité 1 · Estimer un effectif par capture-marquage-recapture](https://fontesmoreira-star.github.io/svt/terminale/theme-3/3-1-biodiversite/methode-capture-marquage-recapture.html) · Simulation · 2 versions
   - ▫️ 3.2 · L'évolution comme grille de lecture du monde · à venir
   - ▫️ 3.3 · L'évolution humaine · à venir
   - ▫️ 3.4 · Les modèles démographiques · à venir

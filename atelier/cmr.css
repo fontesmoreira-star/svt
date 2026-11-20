@@ -1,0 +1,40 @@
+/* ---------- Terminale ES · 3.1 La biodiversité et son évolution · Activité 1 : laboratoire de capture-marquage-recapture (complète mouv.css, lune.css et simc.css) ---------- */
+.cmr .pond{border-radius:12px;overflow:hidden;background:var(--surface);touch-action:manipulation;cursor:crosshair;line-height:0;border:1.5px solid var(--line)}
+.cmr .pond canvas{display:block}
+.cmrsteps{list-style:none;display:flex;flex-wrap:wrap;gap:.3rem;margin:0;padding:0}
+.cmrsteps li{display:flex;align-items:center;gap:.35rem;padding:.2rem .6rem .2rem .25rem;border-radius:999px;border:1.5px solid var(--line);font-size:.85rem;font-weight:700;color:var(--muted);background:var(--surface)}
+.cmrsteps li .n{display:inline-grid;place-items:center;min-width:1.5em;height:1.5em;border-radius:50%;background:var(--surface-2);font-size:.8rem}
+.cmrsteps li.cur{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+.cmrsteps li.cur .n{background:var(--accent);color:var(--accent-ink)}
+.cmrsteps li.dn{color:var(--ok);border-color:var(--ok)}
+.cmrsteps li.dn .n{background:var(--ok-soft)}
+.pleg{font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;margin:0}
+.pleg .sim{color:var(--warn);font-weight:700}
+.pleg .sep{opacity:.6}
+.fico{width:2.2rem;height:1.1rem;vertical-align:middle;flex:none}
+.fico.sm{width:1.7rem;height:.85rem}
+.fico .fb{fill:var(--ink)}
+.fico .ft{fill:#f08a00;stroke:#3b2200;stroke-width:1.6}
+.fishes{display:flex;flex-wrap:wrap;gap:.45rem .6rem;padding:.5rem .6rem;border-radius:10px;background:var(--surface)}
+.fishes.sm{gap:.25rem .3rem}
+.tray{display:grid;gap:.4rem;border:2px dashed var(--line);border-radius:12px;padding:.5rem .6rem}
+.tray .kicker{margin:0}
+.carnet{display:grid;gap:.45rem;border-radius:12px;background:var(--surface);border:1.5px solid var(--line);padding:.65rem .8rem;min-width:0;overflow-wrap:anywhere}
+.carnet .kicker,.carnet p{margin:0}
+.carnet .ul{margin:0}
+.estf{display:grid;gap:.45rem;padding:.6rem;border-radius:10px;background:var(--accent-soft)}
+.estf .inp{max-width:9rem}
+.estf .pfb{margin:0}
+.acts2{gap:.5rem}
+.acts2 [data-act]{flex:1 1 15rem;min-height:52px;font-size:1rem}
+.lockn{color:var(--warn);font-weight:700;margin:0}
+.bal{display:grid;gap:.7rem}
+.balrow{display:grid;gap:.45rem;padding:.6rem;border-radius:12px;background:var(--surface);min-width:0}
+.balrow .kicker{margin:0}
+.pbar{height:18px;border-radius:9px;background:var(--surface-2);border:1.5px solid var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--c2);transition:width .15s}
+.pv{margin:0}
+.cmr .simtab td .muted{font-size:.82rem}
+.cmr [data-fsel]{display:flex;flex-wrap:wrap}
+@media (prefers-reduced-motion: reduce){.pbar i{transition:none}}
+@media (max-width:520px){.cmrsteps li{font-size:.8rem;padding-right:.45rem}.carnet{padding:.55rem .55rem}}
