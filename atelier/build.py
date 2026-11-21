@@ -55,7 +55,7 @@ APPS = {
       root="2nde/theme-1/metabolisme", eyebrow="2nde SVT · Thème 1 · Chapitre 2 · Le métabolisme des cellules",
       foot="Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les données simulées sont signalées par ⚠. Lycée Français Vauban · SVT 2nde."),
   "labo-agglutination-tp-note": dict(title="TP noté · Agglutination", h1="TP noté : analyse du sang retrouvé sur les vêtements de la victime",
-      sub="Réalise le test d'agglutination, note tes résultats, rédige ta conclusion, puis rends ta copie : barème sur 10 points.", js=["kit.js", "tpagg.js"], css=["svt.css", "mouv.css", "tpagg.css"],
+      sub="Réalise le test d'agglutination, note et justifie tes résultats, rédige ta conclusion, puis rends ta copie : 8 points ici, la manipulation (2 points) est notée par le professeur.", js=["kit.js", "tpagg.js"], css=["svt.css", "mouv.css", "tpagg.css"],
       root="3e/vivant-evolution/ch2-transmission", eyebrow="3e SVT · Génétique · Activité 7 · TP évalué sur 10",
       foot="Aucune donnée n'est envoyée : la copie reste sur cet appareil jusqu'à ce que l'élève la transmette. Labo virtuel : résultats simulés. Lycée Français Vauban · SVT 3e."),
   "revision-genetique-activites-1-10": dict(title="Révision · Génétique 3e", h1="Je révise la génétique : activités 1 à 10",
