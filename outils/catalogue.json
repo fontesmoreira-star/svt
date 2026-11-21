@@ -500,6 +500,12 @@
          "desc": "TP virtuel sur l'amylase, glucose dans le sang, stockage et voies métaboliques du glucose."
         },
         {
+         "fichier": "tp-amylase-amidon-note.html",
+         "tag": "TP noté sur 10 · 8 + manipulation /2",
+         "titre": "TP noté : l'action de l'amylase sur l'amidon",
+         "desc": "Version évaluée du TP amylase : paillasse virtuelle (tube témoin, bain-marie, eau iodée, Glucotest) avec erreurs de manipulation relevées, fiche de résultats, réponses rédigées notées par éléments attendus, conclusion je vois → donc → mais. Copie sur 8 (2 + 2 + 4) + manipulation sur 2 notée par le professeur."
+        },
+        {
          "fichier": "potato-metabolism-dnl.html",
          "lang": "en",
          "tag": "English · DNL",
@@ -839,6 +845,12 @@
          "tag": "En classe · Activité · enzymes et respiration",
          "titre": "Pomme de terre et respiration cellulaire",
          "desc": "TP virtuel sur l'amylase, glucose dans le sang, stockage et voies métaboliques du glucose."
+        },
+        {
+         "chemin": "2nde/theme-1/metabolisme/tp-amylase-amidon-note.html",
+         "tag": "En classe · TP noté sur 10 · 8 + manipulation /2",
+         "titre": "TP noté : l'action de l'amylase sur l'amidon",
+         "desc": "Version évaluée du TP amylase : paillasse virtuelle (tube témoin, bain-marie, eau iodée, Glucotest) avec erreurs de manipulation relevées, fiche de résultats, réponses rédigées notées par éléments attendus, conclusion je vois → donc → mais. Copie sur 8 (2 + 2 + 4) + manipulation sur 2 notée par le professeur."
         },
         {
          "chemin": "2nde/theme-1/metabolisme/potato-metabolism-dnl.html",

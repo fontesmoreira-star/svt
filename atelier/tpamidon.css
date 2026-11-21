@@ -1,0 +1,43 @@
+/* ---------- 2nde · TP noté : l'action de l'amylase sur l'amidon (moteur tpamidon.js) ---------- */
+:root{--well:#f4f6f1;--io0:#1d2140;--io1:#4a2f52;--io2:#8a5a2c;--io3:#c99a2e;--io4:#e9c84a;--gneg:#e6d25a;--gpos:#2f8a4a;--starch:#efe6c8;--sea:#2d6fb6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--starch:#b9ad84;--sea:#5a9ee0;--well:#22332a}}
+:root[data-theme="dark"]{--starch:#b9ad84;--sea:#5a9ee0;--well:#22332a}
+.targets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+.tgt{min-height:56px;border:2px dashed var(--line);border-radius:14px;background:var(--surface-2);color:var(--ink);font-weight:800;padding:6px;line-height:1.2}
+.tgt.target{border-style:solid;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);background:var(--surface)}
+.tgt[disabled]{opacity:.5}
+#bacts .btn{white-space:normal}
+.figbox{width:100%;overflow:hidden}
+.sim{font-weight:700;color:var(--warn);font-size:.9rem;margin:0}
+.bench{display:grid;gap:.8rem;grid-template-columns:minmax(0,1fr)}
+.bench>*{min-width:0}
+.bench .chip{white-space:normal}
+#bobs table.t td,#bobs table.t th{white-space:normal}
+.guide{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.guide li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.guide li .ck{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:800}
+.guide li.ok .ck{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.guide li.ok{color:var(--muted)}
+.guide li.now{font-weight:800}
+.guide li.now .ck{border-color:var(--accent);color:var(--accent)}
+.toolsbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem}
+@media (max-width:620px){.toolsbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tool{min-height:64px;border:2px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px;text-align:center;line-height:1.2;font-size:.9rem}
+.tool .tic{font-size:1.4rem;line-height:1}
+.tool[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+.tool small{font-weight:400;color:var(--muted);font-size:.85rem}
+.tool[disabled]{opacity:.5}
+.log{font-weight:700;min-height:1.6em}
+.rows{display:grid;gap:.6rem}
+.rowq .ctag{margin-left:.4rem}
+.conc{display:grid;gap:.9rem}
+.cstep{display:grid;gap:.45rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.cstep:first-child{border-top:0;padding-top:0}
+.cn{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.9rem}
+.inds{display:grid;gap:.35rem;margin:0;padding:0;list-style:none}
+.inds li{display:flex;gap:.6rem;align-items:flex-start}
+.inds .bx{flex:none;width:1.5rem;height:1.5rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:.9rem;margin-top:.1rem}
+.inds li.done .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.inds .st{color:var(--muted);font-size:.9rem;font-weight:700}
+.quote{font-style:italic;white-space:pre-wrap;background:var(--surface-2);border-radius:12px;padding:.7rem .9rem}
+.btn.warn{white-space:normal}
