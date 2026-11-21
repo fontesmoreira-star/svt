@@ -41,6 +41,10 @@ async def main():
             await pick("t1-0",OBS["t1"][0]); await pick("t2-0",OBS["t2"][0]); await pg.wait_for_timeout(300)
             print(name,"3 min locked:",await pg.locator(".obsrow.now .locked").inner_text(), "| chip:",await pg.locator("#nextc").inner_text())
             await pg.screenshot(path=f"test/tpa/{name}-p2-wait.png",full_page=True); await ov("p2-wait")
+            if name=="phone":   # recalage du chronomètre : le prélèvement de 3 min devient « maintenant »
+                await pg.locator("#recalBtn").click(); print(name,"recal arm:",await pg.locator("#recalBtn").inner_text()); await pg.locator("#recalBtn").click(); await pg.wait_for_timeout(900)
+                print(name,"after recal:",await pg.locator("#chrono").inner_text(),"| 3 min open:",await pg.locator('[data-o="t1-1"]').count()>0,"| recal:",await pg.evaluate("JSON.stringify(S.recal.map(r=>r.at))"))
+                await pg.locator(".chronop").screenshot(path=f"test/tpa/{name}-chrono.png")
             await pg.evaluate("S.chrono=Date.now()-13*60*1000;save()"); await pg.wait_for_timeout(900)
             for c in range(1,5):
                 await pick(f"t1-{c}",OBS["t1"][c] if not (name=="phone" and c==2) else 3); await pick(f"t2-{c}",OBS["t2"][c]); await pg.wait_for_timeout(250)
@@ -85,6 +89,7 @@ async def main():
             await pg.locator('#tabs [data-v="copie"]').click(); await pg.wait_for_timeout(250)
             async with pg.expect_download() as d: await pg.locator("#bDl").click()
             dl=await d.value; await dl.save_as(f"test/tpa/{name}-cr2.txt")
+            print(name,"recal in txt:",[l for l in open(f"test/tpa/{name}-cr2.txt",encoding="utf-8-sig").read().splitlines() if "recalé" in l])
             print(name,"après in txt:", "APRÈS LA REMISE" in open(f"test/tpa/{name}-cr2.txt",encoding="utf-8-sig").read())
             await pg.reload(); await pg.wait_for_timeout(300)
             print(name,"after reload:",await pg.evaluate("[S.rendu&&S.rendu.note,location.hash]"),"| editable:",await pg.locator("textarea:not([readonly])").count())

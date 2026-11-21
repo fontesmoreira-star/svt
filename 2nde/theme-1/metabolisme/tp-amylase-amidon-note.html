@@ -961,10 +961,11 @@ Store.key = "svt2-tp-amylase-note-v1";
 const META_KEY = "svt2-tp-amylase-note-meta";
 const SIGN = "Mr Moreira, Vauban Luxembourg";
 const NOBS = () => ({ t1: [null, null, null, null, null], t2: [null, null, null, null, null], g1: null, g2: null });
-const DEF = { fs: 21, theme: null, proj: false, view: "consignes", groupe: ["", "", "", ""], hyp: "", steps: {}, chrono: null, obs: NOBS(), ans: { p1: {}, p2: {}, c: {} }, val: {}, rendu: null, apres: "" };
+const DEF = { fs: 21, theme: null, proj: false, view: "consignes", groupe: ["", "", "", ""], hyp: "", steps: {}, chrono: null, recal: [], obs: NOBS(), ans: { p1: {}, p2: {}, c: {} }, val: {}, rendu: null, apres: "" };
 let S = Store.load(DEF);
 ["steps", "val"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
 if (!Array.isArray(S.groupe)) S.groupe = ["", "", "", ""];
+if (!Array.isArray(S.recal)) S.recal = [];
 if (!S.obs || !Array.isArray(S.obs.t1) || !Array.isArray(S.obs.t2)) S.obs = NOBS();
 if (!S.ans || typeof S.ans !== "object") S.ans = {}; ["p1", "p2", "c"].forEach(k => { if (!S.ans[k] || typeof S.ans[k] !== "object") S.ans[k] = {}; });
 const save = () => Store.save(S);
@@ -1228,7 +1229,7 @@ function renderP2(m) {
   const P = PARTS[1];
   m.innerHTML = `<section class="view"><div><p class="kicker">Partie 2 · ${pts(P.max)} points</p><h2 class="sec-title">${nb(P.title)}</h2></div>
     ${!S.steps.s3 ? `<p class="locked">🔒 ${nb("Terminez d'abord la préparation (partie 1) : le chronomètre démarre quand les tubes sont au bain-marie.")}</p>` : `
-    <div class="panel chronop"><div class="row" style="justify-content:space-between;align-items:center"><span class="chrono" id="chrono" aria-live="off"></span><span class="chip" id="nextc" aria-live="polite"></span></div></div>
+    <div class="panel chronop"><div class="row" style="justify-content:space-between;align-items:center"><span class="chrono" id="chrono" aria-live="off"></span><span class="chip" id="nextc" aria-live="polite"></span></div><div id="recal"></div></div>
     ${RAPPEL}
     <div class="panel"><h3>${nb("Prélèvements et observations")}</h3><p class="lead">${nb("Notez la couleur que vous voyez <b>vraiment</b> dans chaque godet, même si elle vous surprend.")}</p><div id="obs"></div></div>
     <div class="panel"><h3>${nb("Notre tableau de résultats")}</h3><div id="otab"></div></div>`}
@@ -1249,6 +1250,10 @@ function renderP2(m) {
       else h += `<div class="obsrow"><span class="ck">${c + 1}</span><span class="muted">${t} min · à venir</span></div>`; });
     h += glOpen ? `<div class="obsrow ${S.obs.g1 !== null && S.obs.g2 !== null ? "ok" : "now"}"><p class="ot"><b>Glucotest</b> · ${nb(GLUCO_TXT)}</p>${lock ? "" : `<div class="figbox" id="gfig"></div><div class="row"><button type="button" class="btn ghost" id="greplay">▶ Revoir le geste</button></div>`}<p class="ol">Bandelette du tube 1 (témoin)</p>${palHTML("g1", GLC, S.obs.g1, lock)}<p class="ol">Bandelette du tube 2 (+ amylase)</p>${palHTML("g2", GLC, S.obs.g2, lock)}</div>` : `<div class="obsrow"><span class="ck">6</span><span class="muted">Glucotest · après le test de 12 min</span></div>`;
     el.innerHTML = h;
+    const rc = $("#recal", m);
+    if (rc) { if (lock || n < 0) rc.innerHTML = ""; else { const T = TIMES[n];
+      rc.innerHTML = `<p class="cap">${nb("Chronomètre lancé trop tôt ou trop tard ? Recalez-le : le prochain prélèvement se fait alors maintenant. Le recalage est signalé dans le compte rendu.")}</p><div class="row"><button type="button" class="btn ghost" id="recalBtn">↺ Recaler : prélèvement de ${T} min maintenant</button></div>`;
+      armButton($("#recalBtn", m), `↺ Recaler : prélèvement de ${T} min maintenant`, `Confirmer : le chronomètre repart de ${T}:00`, () => { S.chrono = Date.now() - T * 60000; S.recal.push({ at: T, t: Date.now() }); save(); lastKey = ""; tickF(); }); } }
     const sf = $("#sfig", m); if (sf) { const c = n; const a = animFig(sf, "sample", c); a.play(); $("#replay", m).onclick = a.play; }
     const gf = $("#gfig", m); if (gf) { const a = animFig(gf, "gluco", 5); if (S.obs.g1 === null) a.play(); $("#greplay", m).onclick = a.play; }
     $$("[data-o]", el).forEach(b => b.onclick = () => { const [k, c] = b.dataset.o.split("-"), j = +b.dataset.j; if (c === undefined) S.obs[k] = j; else S.obs[k][+c] = j; save();
@@ -1302,7 +1307,7 @@ function copyText() {
   let t = `COMPTE RENDU DE TP · L'ACTION DE L'AMYLASE SUR L'AMIDON\n2nde SVT · Thème 1 · Le métabolisme des cellules\n\nGroupe : ${groupNames().join(", ") || "—"}\n${R ? `Compte rendu rendu le ${dmy(R.t)} à ${hm(R.t)} · comptes rendus rendus sur cet appareil : ${R.n}` : `Date : ${dmy(Date.now())}`}\n`;
   t += `\n1. PROBLÈME\n${PROBLEME}\n`;
   t += `\n2. HYPOTHÈSE (non notée)\n${q(S.hyp)}\n`;
-  t += `\n3. PROTOCOLE\n- Deux tubes contenant chacun 5 mL d'empois d'amidon.\n- Tube 2 : ajout de 2 mL d'amylase. Tube 1 : sans amylase, c'est le témoin.\n- Les deux tubes sont placés au bain-marie à 37 °C.\n- Toutes les 3 minutes, de 0 à 12 minutes : prélèvement de quelques gouttes de chaque tube, test à l'eau iodée dans un godet.\n- À 12 minutes : test de chaque tube avec une bandelette Glucotest.\nPourquoi 37 °C ? ${chOf("p1", it(P1.items, "c"))}.\nRôle du tube témoin : ${q(txtOf("p1", "j"))}\n`;
+  t += `\n3. PROTOCOLE\n- Deux tubes contenant chacun 5 mL d'empois d'amidon.\n- Tube 2 : ajout de 2 mL d'amylase. Tube 1 : sans amylase, c'est le témoin.\n- Les deux tubes sont placés au bain-marie à 37 °C.\n- Toutes les 3 minutes, de 0 à 12 minutes : prélèvement de quelques gouttes de chaque tube, test à l'eau iodée dans un godet.\n- À 12 minutes : test de chaque tube avec une bandelette Glucotest.\nPourquoi 37 °C ? ${chOf("p1", it(P1.items, "c"))}.\nRôle du tube témoin : ${q(txtOf("p1", "j"))}\n${S.recal.length ? `Chronomètre de l'application recalé ${S.recal.length} fois (au prélèvement de ${S.recal.map(r => r.at + " min").join(", ")}).\n` : ""}`;
   t += `\n4. RÉSULTATS\nTableau · Couleur de l'eau iodée au cours du temps et couleur des bandelettes Glucotest, à 37 °C\nTemps | Tube 1 (témoin) | Tube 2 (+ amylase)\n${TIMES.map((tm, c) => `${tm} min | ${iol(c).join(" | ")}`).join("\n")}\nGlucotest (12 min) | ${S.obs.g1 === null ? "—" : GLC[S.obs.g1][1]} | ${S.obs.g2 === null ? "—" : GLC[S.obs.g2][1]}\n`;
   t += `Lecture : tube 1 (témoin) : ${chOf("p2", it(P2.items, "a"))} ; tube 2 : ${chOf("p2", it(P2.items, "b"))}. Glucotest : tube 1 : ${chOf("p2", it(P2.items, "g1"))} ; tube 2 : ${chOf("p2", it(P2.items, "g2"))}.\n`;
   t += `\n5. INTERPRÉTATION\n${q(txtOf("p2", "j"))}\n`;
@@ -1335,7 +1340,7 @@ function renderCopie(m) {
     <div class="panel"><h3>Recommencer</h3><p class="lead">${nb("Efface le compte rendu, les observations et les prénoms sur cet appareil (pour le groupe suivant). Le nombre de comptes rendus rendus reste enregistré.")}</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
   if (!R) wireGroup(m);
   const r = $("#rendre", m); if (r) armButton(r, "📝 Rendre notre compte rendu", "Confirmer la remise", () => { if (!groupNames().length) { $("#rmsg", m).innerHTML = `<div class="fb neutral"><p class="h">${nb("Indiquez au moins un prénom dans « Notre groupe ».")}</p></div>`; return; } const M = meta(); M.n = (M.n || 0) + 1; setMeta(M); S.rendu = { t: Date.now(), note: total(), n: M.n }; save(); tabs(); renderCopie(m); window.scrollTo(0, 0); });
-  if (R) { renderBilanTools($("#bt", m), copyText, () => `<p class="kicker">TP noté · Amylase et amidon · compte rendu à montrer au professeur</p><h2>${esc(groupNames().join(", ") || "Groupe")}</h2><p>${nb(`Rendu le ${dmy(R.t)} à ${hm(R.t)}`)}</p><p class="score-big">${pts(R.note)} / ${MAXAPP}</p>${PARTS.map(P => `<div class="line"><span>${nb(P.title)}</span><b class="num">${pts(partScore(P))} / ${pts(P.max)}</b></div>`).join("")}<div class="line"><span>Conclusion et retour sur l'hypothèse</span><b class="num">${pts(concScore())} / ${pts(CMAX)}</b></div><div class="line"><span>Manipulation (professeur)</span><b class="num">… / ${MANIP}</b></div><div class="line"><span>Total</span><b class="num">… / ${MAXAPP + MANIP}</b></div><div class="line"><span>Comptes rendus rendus sur cet appareil</span><b class="num">${R.n}</b></div>`, "tp-amylase");
+  if (R) { renderBilanTools($("#bt", m), copyText, () => `<p class="kicker">TP noté · Amylase et amidon · compte rendu à montrer au professeur</p><h2>${esc(groupNames().join(", ") || "Groupe")}</h2><p>${nb(`Rendu le ${dmy(R.t)} à ${hm(R.t)}`)}</p><p class="score-big">${pts(R.note)} / ${MAXAPP}</p>${PARTS.map(P => `<div class="line"><span>${nb(P.title)}</span><b class="num">${pts(partScore(P))} / ${pts(P.max)}</b></div>`).join("")}<div class="line"><span>Conclusion et retour sur l'hypothèse</span><b class="num">${pts(concScore())} / ${pts(CMAX)}</b></div><div class="line"><span>Manipulation (professeur)</span><b class="num">… / ${MANIP}</b></div><div class="line"><span>Total</span><b class="num">… / ${MAXAPP + MANIP}</b></div>${S.recal.length ? `<div class="line"><span>Chronomètre recalé</span><b class="num">${S.recal.length} fois</b></div>` : ""}<div class="line"><span>Comptes rendus rendus sur cet appareil</span><b class="num">${R.n}</b></div>`, "tp-amylase");
     const inp = $("#eleve", m); if (inp) { inp.value = groupNames().join(" ") || "groupe"; const f = inp.closest(".field"); if (f) f.hidden = true; } }
   wireNext(m);
   armButton($("#reset", m), "Tout effacer", "Confirmer l'effacement ?", () => { const fs = S.fs, th = S.theme; S = Object.assign(JSON.parse(JSON.stringify(DEF)), { fs, theme: th }); save(); go("consignes"); });
