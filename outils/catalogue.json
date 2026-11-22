@@ -915,6 +915,18 @@
          "desc": "Questions inédites, même structure que le diagnostic pour mesurer les progrès."
         }
        ]
+      },
+      {
+       "id": "ch2-entites-stables",
+       "titre": "Chapitre 2 · Vers des entités plus stables",
+       "activites": [
+        {
+         "fichier": "seance-3-competition-ionique.html",
+         "tag": "Séance 3 · Animation",
+         "titre": "La compétition ionique",
+         "desc": "Gaz nobles, duel Na contre Cl, tableau des charges et noms des ions : pourquoi les atomes deviennent des ions, en 4 scènes animées."
+        }
+       ]
       }
      ]
     }

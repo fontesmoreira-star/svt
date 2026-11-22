@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Séance 3 PC Compétition ionique</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout : une colonne de lecture large, une question par écran, outils d'accessibilité en tête. Identité PC = bleu foncé. */
+:root{
+  --fs:24px;
+  --paper:#f6f8fc; --surface:#ffffff; --ink:#0f1d33; --muted:#3c4a63;
+  --pc:#163a7a; --pc-band:#163a7a; --pc-tint:#e4ecf9;
+  --line:#8796b2; --ok:#17602f; --ok-bg:#e1f2e6; --ko:#9e2418; --ko-bg:#fbe4df;
+  --focus:#c05a00; --data-bg:#eef3fb;
+  --font:Verdana,"Atkinson Hyperlegible",Arial,sans-serif;
+  --bw:2px;
+}
+:root[data-contrast="high"]{
+  --paper:#ffffff; --surface:#ffffff; --ink:#000000; --muted:#000000;
+  --pc:#002a80; --pc-band:#002a80; --pc-tint:#ffffff; --line:#000000;
+  --ok:#004d1a; --ok-bg:#ffffff; --ko:#8a0000; --ko-bg:#ffffff; --data-bg:#ffffff; --bw:3px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+    --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+    --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0d1320; --surface:#162034; --ink:#eef2f9; --muted:#c4cee0;
+  --pc:#a9c6ff; --pc-band:#3f6fd0; --pc-tint:#1b2a46; --line:#6a7c9c;
+  --ok:#8fe0a7; --ok-bg:#12301f; --ko:#ffa597; --ko-bg:#3b1815; --focus:#ffb066; --data-bg:#1a2742;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"])[data-contrast="high"]{
+    --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+    --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+    --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+  }
+}
+:root[data-theme="dark"][data-contrast="high"]{
+  --paper:#000000; --surface:#000000; --ink:#ffffff; --muted:#ffffff;
+  --pc:#c4d8ff; --pc-band:#c4d8ff; --pc-tint:#000000; --line:#ffffff;
+  --ok:#9dffb8; --ok-bg:#000000; --ko:#ffb3a8; --ko-bg:#000000; --data-bg:#000000; --bw:3px;
+}
+
+html{font-size:var(--fs)}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.5;margin:0;overflow-wrap:break-word}
+*,*::before,*::after{box-sizing:border-box}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* En-tête matière */
+.band{height:12px;background:var(--pc-band)}
+header.top{background:var(--pc-tint);border-bottom:var(--bw) solid var(--pc)}
+header.top .wrap{padding-block:.6rem .7rem;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between}
+.subject{min-width:0}
+.subject b{display:block;color:var(--pc);font-size:1.15rem;letter-spacing:.06em;line-height:1.2}
+.subject span{display:block;font-size:.8rem;color:var(--muted);line-height:1.35}
+.tools{display:flex;flex-wrap:wrap;gap:.4rem}
+.tool{min-height:48px;min-width:48px;padding:.2rem .6rem;font:inherit;font-size:.75rem;font-weight:bold;color:var(--pc);background:var(--surface);border:var(--bw) solid var(--pc);border-radius:10px;cursor:pointer}
+.tool[aria-pressed="true"]{outline:3px solid var(--pc);outline-offset:1px}
+
+main .wrap{padding-block:1.2rem 3rem;display:flex;flex-direction:column;gap:1rem}
+h1,h2{line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:1.4rem}
+h2{font-size:1.2rem}
+p{margin:0}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+h1:focus,h2:focus{outline:none}
+
+.card{background:var(--surface);border:var(--bw) solid var(--line);border-radius:14px;padding:1rem}
+.kicker{font-size:.8rem;font-weight:bold;color:var(--pc);letter-spacing:.05em;text-transform:uppercase}
+.list{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:.3rem}
+
+.btn{min-height:56px;font:inherit;font-weight:bold;padding:.4rem 1.1rem;border-radius:12px;cursor:pointer;border:4px solid var(--pc);background:var(--pc-tint);color:var(--ink);text-align:center}
+.btn.ghost{background:var(--surface);color:var(--pc);border-width:var(--bw)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:.7rem}
+.row .btn{flex:1 1 12rem}
+
+/* Progression */
+.progress{display:flex;flex-direction:column;gap:.35rem}
+.progress .lab{font-size:.8rem;font-weight:bold;color:var(--muted)}
+.bar{height:14px;border:2px solid var(--pc);border-radius:8px;overflow:hidden;background:var(--surface)}
+.bar i{display:block;height:100%;background:var(--pc-band)}
+
+/* Question */
+.stem{font-size:1.05rem}
+.data{background:var(--data-bg);border:var(--bw) dashed var(--pc);border-radius:12px;padding:.7rem .9rem}
+.data .t{font-weight:bold;color:var(--pc);font-size:.85rem}
+.opts{display:flex;flex-direction:column;gap:.6rem;margin:0;padding:0;list-style:none}
+.opt{width:100%;min-height:64px;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.2rem .7rem;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:var(--bw) solid var(--line);border-radius:12px;padding:.5rem .8rem;cursor:pointer}
+.opt .L{grid-row:1 / span 2;width:2em;height:2em;display:grid;place-items:center;border:var(--bw) solid var(--pc);border-radius:8px;font-weight:bold;color:var(--pc)}
+.opt .txt{min-width:0;overflow-wrap:normal}
+.opt .mark{grid-column:2;font-size:.85rem;font-weight:bold}
+.opt[aria-pressed="true"]{border-width:4px;border-color:var(--pc);background:var(--pc-tint)}
+.opt[aria-pressed="true"] .L{border-width:4px;text-decoration:underline}
+.opt.good{border:4px solid var(--ok);background:var(--ok-bg)}
+.opt.bad{border:4px solid var(--ko);background:var(--ko-bg)}
+.opt.good .mark{color:var(--ok)} .opt.bad .mark{color:var(--ko)}
+.opt:disabled{cursor:default;opacity:1}
+.idk{align-self:flex-start;min-height:48px;font:inherit;font-size:.85rem;padding:.3rem .8rem;border-radius:10px;border:2px dashed var(--line);background:transparent;color:var(--muted);cursor:pointer}
+
+.fb{border-radius:12px;padding:.8rem 1rem;border:var(--bw) solid}
+.fb.ok{border-color:var(--ok);background:var(--ok-bg)}
+.fb.ko{border-color:var(--ko);background:var(--ko-bg)}
+.fb .v{font-weight:bold;font-size:1.1rem}
+.fb.ok .v{color:var(--ok)} .fb.ko .v{color:var(--ko)}
+.fb .why{margin-top:.4rem}
+.step{display:block;margin-top:.25rem}
+
+/* Notation du noyau A en haut, Z en bas */
+.nuc{display:inline-flex;align-items:center;vertical-align:middle;white-space:nowrap}
+.nuc .s{display:inline-flex;flex-direction:column;align-items:flex-end;font-size:.7em;line-height:1.05;margin-right:.06em}
+sub,sup{font-size:.68em;line-height:0}
+
+/* Bilan */
+.total{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.total b{font-size:2.2rem;color:var(--pc);font-variant-numeric:tabular-nums}
+.parts{display:grid;gap:.7rem}
+.prt{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;align-items:center;border:var(--bw) solid var(--line);border-radius:12px;padding:.6rem .8rem;background:var(--surface)}
+.prt .n{min-width:0;font-weight:bold}
+.prt .sc{font-weight:bold;font-variant-numeric:tabular-nums;color:var(--pc)}
+.prt .st{grid-column:1 / -1;font-size:.85rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.dots{letter-spacing:.12em;font-size:.95rem}
+.report{white-space:pre-wrap;font-family:var(--font);font-size:.8rem;line-height:1.45;background:var(--data-bg);border:2px solid var(--line);border-radius:12px;padding:.8rem;user-select:text;-webkit-user-select:text;overflow-wrap:anywhere;margin:0}
+.mail{overflow-wrap:anywhere;word-break:break-all;font-weight:bold;user-select:all;-webkit-user-select:all}
+.status{min-height:1.5em;font-weight:bold}
+details{border:var(--bw) solid var(--line);border-radius:12px;background:var(--surface)}
+summary{min-height:56px;padding:.7rem 1rem;cursor:pointer;font-weight:bold;color:var(--pc)}
+details .inner{padding:0 1rem 1rem;display:flex;flex-direction:column;gap:.9rem}
+.rev{border-top:2px solid var(--line);padding-top:.7rem}
+.rev .h{font-weight:bold}
+.small{font-size:.85rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<style>
+/* Mémo animé : une scène SVG par réflexe, pilotée étape par étape ; légende en HTML (suit A+/A−) */
+:root{--nuc:#b3261e;--el:#1f5fbf;--hl:#b85400;--plus-bg:#fde2d6;--plus-bd:#b3261e;--minus-bg:#dbe8fb;--minus-bd:#1f5fbf;--shaft:#eef3fb;--atomc:#e4ecf9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--nuc:#c2412f;--el:#8fb8ff;--hl:#ffb066;--plus-bg:#4a2416;--plus-bd:#ff9a85;--minus-bg:#1c3358;--minus-bd:#8fb8ff;--shaft:#1a2742;--atomc:#1b2a46}}
+:root[data-theme="dark"]{--nuc:#c2412f;--el:#8fb8ff;--hl:#ffb066;--plus-bg:#4a2416;--plus-bd:#ff9a85;--minus-bg:#1c3358;--minus-bd:#8fb8ff;--shaft:#1a2742;--atomc:#1b2a46}
+.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+@media (min-width:700px){.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tab{min-height:52px;font:inherit;font-size:.72rem;font-weight:bold;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:.3rem .5rem;text-align:left}
+.tab[aria-current="true"]{border:4px solid var(--pc);background:var(--pc-tint)}
+.stage{background:var(--surface);border:var(--bw) solid var(--line);border-radius:16px;padding:.3rem;overflow:hidden}
+.stage svg{display:block;width:100%;height:auto;max-width:620px;margin:0 auto;font-family:var(--font)}
+.cap{border-left:8px solid var(--pc);background:var(--data-bg);border-radius:0 12px 12px 0;padding:.7rem .9rem;min-height:5.5em;font-size:1.05rem}
+.stepinfo{display:flex;justify-content:space-between;align-items:center;gap:.5rem;font-size:.8rem;font-weight:bold;color:var(--muted)}
+.pips{display:flex;gap:.3rem;flex-wrap:wrap}
+.pips i{width:14px;height:14px;border-radius:50%;border:2px solid var(--pc);display:block}
+.pips i.on{background:var(--pc)}
+.ctrls{display:grid;grid-template-columns:1fr 2fr;gap:.6rem}
+.ctrls .btn{min-height:60px}
+.replay{justify-self:start;min-height:48px;font:inherit;font-size:.8rem;font-weight:bold;padding:.2rem .8rem;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--pc);cursor:pointer}
+.qcard{border:4px solid var(--pc);border-radius:14px;padding:1rem;background:var(--surface);display:flex;flex-direction:column;gap:.8rem}
+/* SVG */
+.t-ink{fill:var(--ink)} .t-muted{fill:var(--muted)} .t-pc{fill:var(--pc)} .t-hl{fill:var(--hl)} .t-ok{fill:var(--ok)} .t-ko{fill:var(--ko)} .t-white{fill:#ffffff}
+.orbit{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:6 6}
+.nuc{fill:var(--nuc)}
+.el{fill:var(--el)}
+.spot{fill:none;stroke:var(--hl);stroke-width:5}
+.post{stroke:var(--muted);stroke-width:8;stroke-linecap:round}
+.base{fill:var(--muted)}
+.beam{stroke:var(--ink);stroke-width:8;stroke-linecap:round}
+.pivot{fill:var(--ink)}
+.str{stroke:var(--muted);stroke-width:2}
+.plate{stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.tk-plus rect{fill:var(--plus-bg);stroke:var(--plus-bd);stroke-width:3}
+.tk-minus rect{fill:var(--minus-bg);stroke:var(--minus-bd);stroke-width:3}
+.strike{stroke:var(--hl);stroke-width:6;stroke-linecap:round;stroke-dasharray:46;stroke-dashoffset:46}
+.strike.on{stroke-dashoffset:0}
+.shaft{fill:var(--shaft);stroke:var(--line);stroke-width:2}
+.floor{stroke:var(--line);stroke-width:1}
+.floor0{stroke:var(--ink);stroke-width:2}
+.cabin{fill:var(--pc);stroke:var(--ink);stroke-width:2}
+.atomc{fill:var(--atomc);stroke:var(--pc);stroke-width:3}
+.radius{stroke:var(--hl);stroke-width:5;stroke-dasharray:140;stroke-dashoffset:140}
+.radius.on{stroke-dashoffset:0}
+.box{fill:var(--surface);stroke:var(--ink);stroke-width:3}
+.ghost{fill:none;stroke:var(--hl);stroke-width:3;stroke-dasharray:7 5}
+.ghost.bad{stroke:var(--ko)}
+.hlr{fill:none;stroke:var(--hl);stroke-width:4}
+.okr{fill:none;stroke:var(--ok);stroke-width:4}
+.pcr{fill:none;stroke:var(--pc);stroke-width:4;stroke-dasharray:8 5}
+.cell{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.cell.mg{fill:var(--pc-tint)}
+.mv{transition:transform .9s cubic-bezier(.3,1.25,.5,1),opacity .55s ease,stroke-dashoffset .9s ease}
+.instant .mv,.instant .strike,.instant .radius{transition:none!important}
+.strike,.radius{transition:stroke-dashoffset .8s ease}
+@media (prefers-reduced-motion:reduce){.mv,.strike,.radius{transition:none!important}}
+.orbit-full{fill:none;stroke:var(--ok);stroke-width:4}
+.trail{fill:none;stroke:var(--hl);stroke-width:4;stroke-dasharray:180;stroke-dashoffset:180;transition:stroke-dashoffset 1.5s ease}
+.trail.on{stroke-dashoffset:0}
+.ghost-e{fill:none;stroke:var(--hl);stroke-width:4;stroke-dasharray:6 4}
+.tk-plus circle{fill:var(--plus-bg);stroke:var(--plus-bd);stroke-width:3}
+.tk-minus circle{fill:var(--minus-bg);stroke:var(--minus-bd);stroke-width:3}
+.cell.dim{opacity:.4}
+@keyframes pulse{50%{opacity:.2}}
+.pulse{animation:pulse 1s ease-in-out infinite}
+.instant .trail{transition:none!important}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}.trail{transition:none!important}}
+</style>
+
+<div class="band" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <div class="subject"><b>PHYSIQUE-CHIMIE</b><span>2nde · Séance 3 · La compétition ionique</span></div>
+    <div class="tools" role="group" aria-label="Affichage">
+      <button class="tool" id="fsMinus" type="button" aria-label="Texte plus petit">A−</button>
+      <button class="tool" id="fsPlus" type="button" aria-label="Texte plus grand">A+</button>
+      <button class="tool" id="hc" type="button" aria-pressed="false">Contraste +</button>
+      <button class="tool" id="theme" type="button">Thème : auto</button>
+    </div>
+  </div>
+</header>
+<main><div class="wrap" id="app"></div></main>
+
+<script>
+(function(){
+"use strict";
+const MAIL="fontes.moreira@gmail.com", STORE="s3-pc-competition-ionique-v1";
+const NS="http://www.w3.org/2000/svg";
+let RM=false;try{RM=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+let instant=false,pending=[];
+function clearPending(){const p=pending;pending=[];p.forEach(f=>{try{f();}catch(e){}});}
+function later(fn,ms){if(instant){fn();return;}const id=setTimeout(()=>{fn();},ms);pending.push(()=>{clearTimeout(id);fn();});}
+function E(tag,a,p){const e=document.createElementNS(NS,tag);if(a)for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function TX(p,x,y,txt,o){o=o||{};const t=E("text",{x:x,y:y,"font-size":o.s||24,"text-anchor":o.a||"middle","font-weight":o.b?"bold":"normal",class:(o.c||"t-ink")+(o.mv?" mv":"")},p);t.textContent=txt;if(o.hide)t.style.opacity="0";return t;}
+function to(el,x,y,o,d){el.style.transitionDelay=instant?"0ms":(d||0)+"ms";el.style.transform="translate("+x+"px,"+y+"px)";if(o!==undefined)el.style.opacity=String(o);}
+function snap(el,x,y){el.style.transition="none";el.style.transform="translate("+x+"px,"+y+"px)";el.getBoundingClientRect();el.style.transition="";}
+function op(el,v,d){el.style.transitionDelay=instant?"0ms":(d||0)+"ms";el.style.opacity=String(v);}
+function tween(a,b,dur,fn){if(instant){fn(b);return;}const t0=performance.now();let id,done=false;const f=t=>{const p=Math.min(1,(t-t0)/dur);const e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;fn(a+(b-a)*e);if(p<1)id=requestAnimationFrame(f);else done=true;};id=requestAnimationFrame(f);pending.push(()=>{cancelAnimationFrame(id);if(!done)fn(b);});}
+const sp=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ");
+
+/* ================= SCÈNES ================= */
+const SC=[];
+function gT(g,x,y,s,sx){g.setAttribute("transform","translate("+x.toFixed(1)+" "+y.toFixed(1)+") scale("+(sx!==undefined?sx:s).toFixed(3)+" "+s.toFixed(3)+")");}
+/* atome dessiné : couches (rayons R), électrons placés aux angles donnés (degrés) */
+function atom(parent,cx,cy,sym,R,angles,o){o=o||{};
+ const g=E("g",{},parent);gT(g,cx,cy,1);
+ const sh=R.map(r=>E("circle",{cx:0,cy:0,r:r,class:"orbit"},g));
+ E("circle",{cx:0,cy:0,r:o.nr||18,class:"nuc"},g);
+ TX(g,0,o.ns?o.ns*0.36:7,sym,{s:o.ns||18,b:1,c:"t-white"});
+ const el=angles.map((list,i)=>list.map(a=>{const t=a*Math.PI/180,x=R[i]*Math.cos(t),y=R[i]*Math.sin(t);
+   const c=E("circle",{cx:0,cy:0,r:o.er||6.5,class:"el mv"},g);c._x=x;c._y=y;c.style.transform="translate("+x+"px,"+y+"px)";return c;}));
+ return {g:g,sh:sh,el:el,cx:cx,cy:cy};}
+const ring=(n,a0)=>Array.from({length:n},(_,j)=>(a0||0)+360*j/n);
+function popIn(A,start){let d=start||0;A.el.forEach(list=>list.forEach(c=>{if(instant){to(c,c._x,c._y,1);}else{snap(c,0,0);c.style.opacity="0";to(c,c._x,c._y,1,d);d+=110;}}));return d;}
+
+/* ---------- Scène 1 : les champions de la stabilité ---------- */
+SC.push({title:"Scène 1 · Les champions de la stabilité",vb:"0 0 420 372",
+ caps:["L'<b>hélium</b> (Z = 2) : sa seule couche contient 2 électrons. Elle est <b>pleine</b> : on parle de <b>duet</b>.",
+  "Le <b>néon</b> (Z = 10) : 2 électrons, puis <b>8</b> sur sa couche externe. 8 électrons sur la couche externe, c'est un <b>octet</b>.",
+  "L'<b>argon</b> (Z = 18) : 2, puis 8, puis <b>8</b> sur sa couche externe : encore un octet.",
+  "Les <b>gaz nobles</b> ont leur couche externe pleine : ils sont <b>très stables</b> et ne forment pas d'ions. Les autres atomes deviennent plus stables en prenant <b>la même configuration qu'eux</b>."],
+ q:{stem:"Pourquoi les gaz nobles sont-ils très stables&nbsp;?",opts:["Leur couche externe est pleine (2 ou 8 électrons)","Ils n'ont pas d'électrons","Leur noyau est neutre"],a:0,why:"Leur <b>couche externe est saturée</b> : 2 électrons pour l'hélium (duet), 8 pour les autres (octet)."},
+ build(svg){const g={};this.g=g;
+  g.ttl=TX(svg,210,40,"",{s:26,b:1});
+  g.He=atom(svg,210,195,"He",[62],[[0,180]],{nr:24,ns:22,er:8});
+  g.Ne=atom(svg,210,195,"Ne",[42,84],[[90,270],ring(8,22.5)],{nr:22,ns:22,er:7.5});
+  g.Ar=atom(svg,210,195,"Ar",[32,64,98],[[90,270],ring(8,22.5),ring(8,0)],{nr:20,ns:20,er:7});
+  [g.He,g.Ne,g.Ar].forEach(A=>{A.g.classList.add("mv");A.g.style.opacity="0";});
+  g.star=TX(svg,335,100,"★",{s:46,b:1,c:"t-hl",mv:1,hide:1});
+  g.badge=TX(svg,210,338,"",{s:21,b:1,c:"t-ok",mv:1,hide:1});
+  g.trio=E("g",{class:"mv"},svg);g.trio.style.opacity="0";
+  const mini=[["He",75,[24],[[0,180]],"duet"],["Ne",210,[20,40],[[90,270],ring(8,22.5)],"octet"],["Ar",345,[16,34,52],[[90,270],ring(8,22.5),ring(8,0)],"octet"]];
+  g.mini=mini.map(m=>{const A=atom(g.trio,m[1],180,m[0],m[2],m[3],{nr:12,ns:12,er:4});A.sh[A.sh.length-1].setAttribute("class","orbit-full");
+    TX(g.trio,m[1],262,m[4],{s:20,b:1,c:"t-ok"});const s=TX(g.trio,m[1],108,"★",{s:34,c:"t-hl",mv:1});return s;});
+  TX(g.trio,210,318,"Très stables :",{s:22,b:1});TX(g.trio,210,348,"ils ne forment pas d'ions",{s:22,b:1});},
+ render(k){const g=this.g,A=[g.He,g.Ne,g.Ar][k];
+  [g.He,g.Ne,g.Ar].forEach((x,i)=>op(x.g,i===k?1:0));op(g.trio,k===3?1:0);
+  g.ttl.textContent=["He · Z = 2","Ne · Z = 10","Ar · Z = 18","Les gaz nobles"][k];
+  g.badge.textContent=["couche externe pleine : 2 (duet)","couche externe pleine : 8 (octet)","couche externe pleine : 8 (octet)",""][k];
+  op(g.star,0);op(g.badge,0);
+  if(A){const outer=A.sh[A.sh.length-1];outer.setAttribute("class","orbit");
+   const d=popIn(A,300);
+   later(()=>{outer.setAttribute("class","orbit-full");op(g.star,1);op(g.badge,1);},instant?0:d+500);}
+  else{g.mini.forEach((s,i)=>{if(instant)s.style.opacity="1";else{s.style.opacity="0";op(s,1,500+i*350);}});}}
+});
+
+/* ---------- Scène 2 : le duel Na contre Cl ---------- */
+SC.push({title:"Scène 2 · Le duel Na contre Cl",vb:"0 0 420 380",
+ caps:["<b>Le duel</b> : le sodium Na (Z = 11) contre le chlore Cl (Z = 17). Chacun devient plus stable s'il obtient la configuration du <b>gaz noble le plus proche</b>.",
+  "Na n'a qu'<b>1 électron de valence</b>. En le perdant, il retrouve la configuration du néon (2, 8). En gagner 7 serait beaucoup plus difficile.",
+  "Cl a <b>7 électrons de valence</b> : il lui en manque <b>1</b> pour en avoir 8, comme l'argon.",
+  "L'électron passe du sodium au chlore ! Na devient <b>Na<sup>+</sup></b> (1 électron perdu), Cl devient <b>Cl<sup>−</sup></b> (1 électron gagné).",
+  "Résultat : Na<sup>+</sup> a la configuration du <b>néon</b>, Cl<sup>−</sup> celle de l'<b>argon</b>. Les deux ions sont plus stables que les atomes de départ.",
+  "Un ion + et un ion − <b>s'attirent</b>. Ensemble, ils sont électriquement neutres : (+1) + (−1) = 0.",
+  "Dans le sel de cuisine, des milliards d'ions Na<sup>+</sup> et Cl<sup>−</sup> s'empilent en alternance : c'est le <b>chlorure de sodium, NaCl</b>."],
+ q:{stem:"Le fluor (1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>5</sup>) devient plus stable en formant l'ion :",opts:["F<sup>+</sup>","F<sup>−</sup>","F<sup>2−</sup>"],a:1,why:"7 électrons de valence : il en <b>gagne 1</b> pour en avoir 8, comme le néon → <b>F<sup>−</sup></b>."},
+ build(svg){const g={};this.g=g;
+  g.nL=TX(svg,105,38,"Na · Z = 11",{s:23,b:1});g.nL2=TX(svg,105,38,"Na⁺",{s:28,b:1,c:"t-pc",mv:1,hide:1});
+  g.sL=TX(svg,105,66,"valence : 1",{s:20});g.sL2=TX(svg,105,66,"a perdu 1 e⁻",{s:20,b:1,c:"t-pc",mv:1,hide:1});
+  g.nR=TX(svg,315,38,"Cl · Z = 17",{s:23,b:1});g.nR2=TX(svg,315,38,"Cl⁻",{s:28,b:1,c:"t-pc",mv:1,hide:1});
+  g.sR=TX(svg,315,66,"valence : 7",{s:20});g.sR2=TX(svg,315,66,"a gagné 1 e⁻",{s:20,b:1,c:"t-pc",mv:1,hide:1});
+  g.vs=TX(svg,210,56,"VS",{s:28,b:1,c:"t-hl",mv:1});
+  g.trail=E("path",{d:"M173 205 Q210 95 247 205",class:"trail"},svg);
+  g.Na=atom(svg,105,205,"Na",[24,46,68],[[90,270],ring(8,22.5),[0]],{nr:16,ns:16,er:6.5});
+  g.Cl=atom(svg,315,205,"Cl",[24,46,68],[[90,270],ring(8,22.5),[225,270,315,0,45,90,135]],{nr:16,ns:16,er:6.5});
+  g.got=E("circle",{cx:0,cy:0,r:6.5,class:"el mv"},g.Cl.g);g.got.style.transform="translate(-68px,0px)";g.got.style.opacity="0";
+  g.ghost=E("circle",{cx:247,cy:205,r:10,class:"ghost-e mv"},svg);g.ghost.style.opacity="0";
+  g.tr=E("circle",{cx:0,cy:0,r:7,class:"el"},svg);g.tr.style.opacity="0";
+  const badge=(A,sym,cls,bx)=>{const b=E("g",{class:"tk-"+cls+" mv"},A.g);E("circle",{cx:bx,cy:-52,r:17},b);TX(b,bx,-44,sym,{s:24,b:1});b.style.opacity="0";return b;};
+  g.bL=badge(g.Na,"+","plus",-52);g.bR=badge(g.Cl,"−","minus",52);
+  g.tL=TX(svg,105,322,"perdre 1 → comme Ne",{s:18,b:1,c:"t-ok",mv:1,hide:1});
+  g.tL2=TX(svg,105,348,"(gagner 7 ? non)",{s:17,c:"t-muted",mv:1,hide:1});
+  g.tR=TX(svg,315,322,"gagner 1 → comme Ar",{s:18,b:1,c:"t-ok",mv:1,hide:1});
+  g.cL=TX(svg,105,322,"1s² 2s² 2p⁶",{s:18,b:1,mv:1,hide:1});g.cL2=TX(svg,105,350,"= comme Ne ★",{s:18,b:1,c:"t-ok",mv:1,hide:1});
+  g.cR=TX(svg,315,322,"1s² 2s² 2p⁶ 3s² 3p⁶",{s:18,b:1,mv:1,hide:1});g.cR2=TX(svg,315,350,"= comme Ar ★",{s:18,b:1,c:"t-ok",mv:1,hide:1});
+  g.att=TX(svg,210,322,"+ et − s'attirent",{s:22,b:1,c:"t-hl",mv:1,hide:1});
+  g.att2=TX(svg,210,354,"(+1) + (−1) = 0 → NaCl",{s:22,b:1,c:"t-ok",mv:1,hide:1});
+  /* cristal */
+  g.X=E("g",{class:"mv"},svg);g.X.style.opacity="0";g.xi=[];
+  for(let r=0;r<4;r++)for(let c=0;c<5;c++){const plus=(r+c)%2===0,x=110+c*50,y=95+r*50;
+   const t=E("g",{class:(plus?"tk-plus":"tk-minus")+" mv"},g.X);E("circle",{cx:0,cy:0,r:plus?14:21},t);TX(t,0,plus?7:8,plus?"+":"−",{s:plus?20:24,b:1});
+   t._x=x;t._y=y;t._sx=(r*5+c)%2?-120:540;t._sy=40+((r*7+c*3)%5)*70;t.style.transform="translate("+x+"px,"+y+"px)";g.xi.push(t);}
+  g.x1=TX(g.X,210,320,"le sel de cuisine",{s:22,b:1});g.x2=TX(g.X,210,352,"autant de Na⁺ que de Cl⁻ → NaCl",{s:20,b:1,c:"t-ok"});
+  this.pos={na:105,cl:315,sn:1,sc:1};},
+ place(na,cl,sn,sc){gT(this.g.Na.g,na,205,sn);gT(this.g.Cl.g,cl,205,sc);this.pos={na:na,cl:cl,sn:sn,sc:sc};},
+ render(k){const g=this.g;
+  const after=k>=3;
+  /* étiquettes */
+  const dl=(k===3&&!instant)?2300:0;
+  op(g.nL,after?0:1,dl);op(g.sL,after?0:1,dl);op(g.nR,after?0:1,dl);op(g.sR,after?0:1,dl);
+  op(g.nL2,after?1:0,dl);op(g.sL2,after?1:0,dl);op(g.nR2,after?1:0,dl);op(g.sR2,after?1:0,dl);
+  op(g.vs,k<3?1:0);
+  op(g.tL,k===1||k===2?1:0);op(g.tL2,k===1||k===2?1:0);op(g.tR,k===2?1:0);
+  [g.cL,g.cL2,g.cR,g.cR2].forEach((t,i)=>op(t,k===4?1:0,k===4&&!instant?i*350:0));
+  op(g.att,k===5?1:0);op(g.att2,k===5?1:0,k===5&&!instant?900:0);
+  /* électron de valence de Na qui clignote, case vide de Cl */
+  const ve=g.Na.el[2][0];ve.classList.toggle("pulse",k===1);
+  op(g.ghost,k===2?1:0);g.ghost.classList.toggle("pulse",k===2);
+  /* positions des atomes */
+  const atomsOn=k<6;op(g.Na.g,atomsOn?1:0);op(g.Cl.g,atomsOn?1:0);
+  const target=k>=5?[140,272,.82,1.06]:(k>=3?[105,315,.82,1.06]:[105,315,1,1]);
+  if(k<3){g.trail.classList.remove("on");g.tr.style.opacity="0";ve.style.opacity="1";g.got.style.opacity="0";op(g.Na.sh[2],1);op(g.bL,0);op(g.bR,0);this.place(105,315,1,1);}
+  else if(k===3&&!instant){
+   this.place(105,315,1,1);ve.style.opacity="1";g.got.style.opacity="0";op(g.bL,0);op(g.bR,0);op(g.Na.sh[2],1);g.trail.classList.remove("on");
+   later(()=>{ve.style.opacity="0";g.tr.setAttribute("cx",173);g.tr.setAttribute("cy",205);g.tr.style.opacity="1";g.trail.classList.add("on");
+     tween(0,1,1500,p=>{const x=(1-p)*(1-p)*173+2*(1-p)*p*210+p*p*247,y=(1-p)*(1-p)*205+2*(1-p)*p*95+p*p*205;g.tr.setAttribute("cx",x.toFixed(1));g.tr.setAttribute("cy",y.toFixed(1));});},500);
+   later(()=>{g.tr.style.opacity="0";g.got.style.opacity="1";op(g.Na.sh[2],0);
+     tween(0,1,900,p=>this.place(105,315,1-.18*p,1+.06*p));},2100);
+   later(()=>{op(g.bL,1);op(g.bR,1,200);},2900);}
+  else{ve.style.opacity="0";g.tr.style.opacity="0";g.got.style.opacity="1";op(g.Na.sh[2],0);op(g.bL,1);op(g.bR,1);g.trail.classList.toggle("on",k===3||k===4);
+   if(k===5&&!instant){this.place(105,315,.82,1.06);later(()=>tween(0,1,1400,p=>this.place(105+35*p,315-43*p,.82,1.06)),300);}
+   else this.place(target[0],target[1],target[2],target[3]);}
+  if(k<3)g.trail.classList.remove("on");
+  if(k===5)g.trail.classList.remove("on");
+  /* cristal */
+  op(g.X,k===6?1:0);
+  g.xi.forEach((t,i)=>{if(k===6&&!instant){snap(t,t._sx,t._sy);to(t,t._x,t._y,1,200+i*90);}else to(t,t._x,t._y,1);});}
+});
+
+/* ---------- Scène 3 : le tableau des charges ---------- */
+SC.push({title:"Scène 3 · Le tableau des charges",vb:"0 0 420 372",
+ caps:["Le tableau périodique cache une règle simple : <b>la colonne donne la charge de l'ion</b>.",
+  "<b>Colonne 1</b> : 1 électron de valence. L'atome le <b>perd</b> → ions de charge + : <b>H<sup>+</sup>, Li<sup>+</sup>, Na<sup>+</sup>, K<sup>+</sup></b>.",
+  "<b>Colonne 2</b> : 2 électrons de valence perdus → ions 2+ : <b>Mg<sup>2+</sup>, Ca<sup>2+</sup></b>.",
+  "<b>Colonne 13</b> : 3 électrons perdus → <b>Al<sup>3+</sup></b>.",
+  "<b>Colonne 17</b> : 7 électrons de valence, il en manque 1. L'atome en <b>gagne 1</b> → ions − : <b>F<sup>−</sup>, Cl<sup>−</sup></b>.",
+  "<b>Colonne 16</b> : il en manque 2 → ions 2− : <b>O<sup>2−</sup>, S<sup>2−</sup></b>.",
+  "<b>Colonne 18</b> : les gaz nobles sont déjà stables, pas d'ion. À retenir : un atome perd ou gagne des électrons pour avoir la configuration du <b>gaz noble le plus proche</b>."],
+ q:{stem:"Le magnésium est dans la colonne 2. Il forme l'ion :",opts:["Mg<sup>+</sup>","Mg<sup>2+</sup>","Mg<sup>2−</sup>"],a:1,why:"2 électrons de valence perdus → <b>Mg<sup>2+</sup></b>, qui a la configuration du néon."},
+ build(svg){const g={};this.g=g;
+  const cols=["1","2","13","14","15","16","17","18"];
+  const rows=[["H","","","","","","","He"],["Li","Be","B","C","N","O","F","Ne"],["Na","Mg","Al","Si","P","S","Cl","Ar"],["K","Ca","","","","","",""]];
+  const ions={H:"H⁺",Li:"Li⁺",Na:"Na⁺",K:"K⁺",Mg:"Mg²⁺",Ca:"Ca²⁺",Al:"Al³⁺",O:"O²⁻",S:"S²⁻",F:"F⁻",Cl:"Cl⁻"};
+  const chg={H:-1,Li:-1,Na:-1,K:-1,Mg:-2,Ca:-2,Al:-3,O:2,S:2,F:1,Cl:1};
+  cols.forEach((c,i)=>TX(svg,45+46*i,60,c,{s:16,b:1,c:"t-muted"}));
+  g.hl=E("rect",{x:20,y:66,width:50,height:180,rx:8,class:"hlr mv"},svg);g.hl.style.opacity="0";
+  g.cells={};g.col=cols.map(()=>[]);
+  rows.forEach((r,ri)=>r.forEach((e,ci)=>{if(!e)return;const x=22+46*ci,y=70+44*ri,cx=x+23,cy=y+20;
+   const rc=E("rect",{x:x,y:y,width:46,height:40,class:"cell"},svg);
+   const t=TX(svg,cx,cy+7,e,{s:19,b:1,mv:1});
+   const cell={rc:rc,t:t,cx:cx,cy:cy,e:e,ci:ci};
+   if(ions[e]){cell.it=TX(svg,cx,cy+7,ions[e],{s:17,b:1,c:"t-pc",mv:1,hide:1});cell.n=chg[e];
+     cell.els=Array.from({length:Math.abs(chg[e])},()=>{const c=E("circle",{cx:0,cy:0,r:5,class:"el mv"},svg);c.style.opacity="0";return c;});}
+   g.cells[e]=cell;g.col[ci].push(cell);}));
+  const bd=[["+",0],["2+",1],["3+",2],["2−",5],["−",6],["0",7]];
+  g.badge={};bd.forEach(b=>{g.badge[b[1]]=TX(svg,45+46*b[1],286,b[0],{s:26,b:1,c:b[1]>=5?(b[1]===7?"t-ok":"t-pc"):"t-pc",mv:1,hide:1});});
+  g.cls=TX(svg,210,330,"",{s:19,b:1,c:"t-hl",mv:1});
+  g.rule=TX(svg,210,360,"→ comme le gaz noble le plus proche",{s:19,b:1,c:"t-ok",mv:1,hide:1});
+  this.order=[null,0,1,2,6,5,7];},
+ render(k){const g=this.g;const cur=this.order[k];
+  const done=this.order.slice(1,k+1);
+  if(cur===null||cur===undefined)op(g.hl,0);else{g.hl.setAttribute("x",20+46*cur);op(g.hl,1);}
+  for(const e in g.cells){const c=g.cells[e];const isDone=done.includes(c.ci)&&c.it;
+   c.rc.setAttribute("class","cell"+((k===6&&(c.ci===3||c.ci===4||e==="Be"||e==="B"))?" dim":"")+(c.ci===7&&k===6?" mg":""));
+   if(!c.it)continue;
+   const animNow=!instant&&c.ci===cur;
+   if(isDone){if(animNow){c.t.style.opacity="1";c.it.style.opacity="0";
+      c.els.forEach((el,i)=>{const lose=c.n<0;
+        if(lose){snap(el,c.cx,c.cy);el.style.opacity="1";to(el,c.cx+(i-1)*12,26,0,300+i*150);}
+        else{snap(el,c.cx+(i-0.5)*14,20);el.style.opacity="1";to(el,c.cx,c.cy,0,300+i*200);} });
+      op(c.t,0,900);op(c.it,1,1100);}
+    else{c.t.style.opacity="0";c.it.style.opacity="1";c.els.forEach(el=>el.style.opacity="0");}}
+   else{c.t.style.opacity="1";c.it.style.opacity="0";c.els.forEach(el=>el.style.opacity="0");}}
+  for(const ci in g.badge){const on=done.includes(+ci);op(g.badge[ci],on?1:0,(!instant&&+ci===cur)?1300:0);}
+  g.cls.textContent=["","perd 1 électron","perd 2 électrons","perd 3 électrons","gagne 1 électron","gagne 2 électrons","déjà stable : pas d'ion"][k];
+  op(g.rule,k===6?1:0,k===6&&!instant?800:0);}
+});
+
+/* ---------- Scène 4 : nommer les ions ---------- */
+SC.push({title:"Scène 4 · Nommer les ions",vb:"0 0 420 380",
+ caps:["Dernière étape : savoir <b>nommer les ions</b>. Voici ceux qu'il faut connaître.",
+  "Les <b>cations</b> portent simplement le nom de l'élément : ion hydrogène, ion sodium, ion potassium, ion magnésium, ion calcium.",
+  "Les <b>anions</b> prennent la terminaison <b>« -ure »</b> : ion fluorure, ion chlorure.",
+  "Attention à l'exception : <b>O<sup>2−</sup> s'appelle ion oxyde</b>."],
+ q:{stem:"Comment s'appelle l'ion Cl<sup>−</sup>&nbsp;?",opts:["ion chlore","ion chlorure","ion chlorine"],a:1,why:"Anion → terminaison « -ure » : <b>ion chlorure</b>. Le chlore, c'est l'élément ou l'atome."},
+ build(svg){const g={};this.g=g;
+  const L=[["H⁺","ion hydrogène"],["Na⁺","ion sodium"],["K⁺","ion potassium"],["Mg²⁺","ion magnésium"],["Ca²⁺","ion calcium"]];
+  const R=[["F⁻","ion fluorure",64],["Cl⁻","ion chlorure",122],["O²⁻","ion oxyde",238]];
+  TX(svg,110,28,"cations",{s:20,b:1,c:"t-muted"});TX(svg,310,28,"anions",{s:20,b:1,c:"t-muted"});
+  const card=(cx,cy,f,n,cls)=>{const c=E("g",{class:"tk-"+cls},svg);E("rect",{x:-90,y:-24,width:180,height:48,rx:10},c);
+    const a=TX(c,0,9,f,{s:26,b:1});const b=TX(c,0,7,n,{s:19,b:1});b.style.opacity="0";gT(c,cx,cy,1);return {g:c,a:a,b:b,cx:cx,cy:cy};};
+  g.cat=L.map((x,i)=>card(110,64+58*i,x[0],x[1],"plus"));
+  g.an=R.map(x=>card(310,x[2],x[0],x[1],"minus"));
+  g.exc=TX(svg,310,292,"exception !",{s:19,b:1,c:"t-ko",mv:1,hide:1});
+  g.r=TX(svg,210,360,"",{s:19,b:1,c:"t-hl"});},
+ flip(c,show,anim,delay){const set=(sx,back)=>{gT(c.g,c.cx,c.cy,1,sx);c.a.style.opacity=back?"0":"1";c.b.style.opacity=back?"1":"0";};
+  if(instant||!anim){set(1,show);return;}
+  set(1,!show);later(()=>tween(0,1,650,p=>set(Math.max(.02,Math.abs(Math.cos(Math.PI*p))),p>=.5?show:!show)),delay);},
+ render(k){const g=this.g;
+  g.cat.forEach((c,i)=>this.flip(c,k>=1,k===1,300+i*380));
+  g.an.forEach((c,i)=>{const show=i<2?k>=2:k>=3;const now=(i<2&&k===2)||(i===2&&k===3);this.flip(c,show,now,300+i*380);});
+  op(g.exc,k===3?1:0,k===3&&!instant?900:0);
+  g.r.textContent=["","cation : « ion » + nom de l'élément","anion : « ion » + racine + « -ure »","O²⁻ : ion oxyde"][k];}
+});
+
+/* ================= ÉTAT ET AFFICHAGE ================= */
+const fresh=()=>({started:false,s:0,k:0,ans:{},t0:null,t1:null,end:false});
+let st=fresh(),ui={fs:24,hc:false,theme:"auto"};
+try{const r=localStorage.getItem(STORE);if(r){const o=JSON.parse(r);if(o.st)st=Object.assign(fresh(),o.st);if(o.ui)ui=Object.assign(ui,o.ui);}}catch(e){}
+function save(){try{localStorage.setItem(STORE,JSON.stringify({st,ui}));}catch(e){}}
+const root=document.documentElement,hostTheme=root.getAttribute("data-theme");
+function applyUI(){root.style.setProperty("--fs",ui.fs+"px");
+ if(ui.hc)root.setAttribute("data-contrast","high");else root.removeAttribute("data-contrast");
+ if(ui.theme==="light"||ui.theme==="dark")root.setAttribute("data-theme",ui.theme);else{if(hostTheme)root.setAttribute("data-theme",hostTheme);else root.removeAttribute("data-theme");}
+ document.getElementById("hc").setAttribute("aria-pressed",ui.hc?"true":"false");
+ document.getElementById("theme").textContent="Thème : "+({auto:"auto",light:"clair",dark:"sombre"})[ui.theme];}
+document.getElementById("fsMinus").onclick=()=>{ui.fs=Math.max(18,ui.fs-2);applyUI();save();};
+document.getElementById("fsPlus").onclick=()=>{ui.fs=Math.min(40,ui.fs+2);applyUI();save();};
+document.getElementById("hc").onclick=()=>{ui.hc=!ui.hc;applyUI();save();};
+document.getElementById("theme").onclick=()=>{ui.theme=({auto:"light",light:"dark",dark:"auto"})[ui.theme];applyUI();save();};
+
+const app=document.getElementById("app");
+const LET=["A","B","C"];
+let svgEl=null,cur=null;
+function setView(html){clearPending();app.innerHTML=html;window.scrollTo(0,0);const h=app.querySelector("h1,h2");if(h){h.setAttribute("tabindex","-1");h.focus({preventScroll:true});}}
+function tabsHtml(){return `<nav class="tabs" aria-label="Les 4 scènes">${SC.map((s,i)=>`<button class="tab" type="button" data-go="${i}" aria-current="${!st.end&&st.s===i?"true":"false"}">${st.ans[i]?(st.ans[i].ok?"✓ ":"✗ "):""}${s.title.replace(" · ","<br>")}</button>`).join("")}</nav>`;}
+
+function renderStart(){
+ const resume=st.started&&!st.end;
+ setView(`<h1>La compétition ionique</h1>
+ <div class="card"><div style="display:flex;flex-direction:column;gap:.6rem">
+  <p>Pourquoi les atomes deviennent-ils des <b>ions</b> ? Découvre-le en <b>4 scènes animées</b>. Tu avances <b>à ton rythme</b> avec le bouton « Étape suivante ».</p>
+  <ul class="list"><li>Tu peux revenir en arrière ou rejouer une étape.</li><li>À la fin de chaque scène : une question « À toi ! ».</li><li>Durée : 12 minutes environ.</li></ul>
+ </div></div>
+ <div class="card"><div style="display:flex;flex-direction:column;gap:.5rem"><span class="kicker">Les 4 scènes</span>
+  <ol class="list">${SC.map(s=>`<li><b>${s.title.split(" · ")[1]}</b></li>`).join("")}</ol></div></div>
+ <div class="row"><button class="btn" id="go" type="button">${resume?"Reprendre":"Commencer"}</button></div>`);
+ document.getElementById("go").onclick=()=>{if(!st.started){st.started=true;st.t0=Date.now();}save();route();};
+}
+
+function renderScene(animate){
+ const i=st.s,S=SC[i],K=S.caps.length,k=Math.min(st.k,K-1),last=k===K-1,a=st.ans[i];
+ setView(`${tabsHtml()}
+ <span class="kicker">Scène ${i+1} sur 4</span>
+ <h1>${S.title.split(" · ")[1]}</h1>
+ <div class="stage"><svg id="svg" viewBox="${S.vb}" role="img" aria-label="${S.title}"></svg></div>
+ <div class="stepinfo"><span>Étape ${k+1} sur ${K}</span><span class="pips" aria-hidden="true">${S.caps.map((c,j)=>`<i class="${j<=k?"on":""}"></i>`).join("")}</span></div>
+ <div class="cap" id="cap" aria-live="polite">${S.caps[k]}</div>
+ <div class="ctrls">
+  <button class="btn ghost" id="prev" type="button" ${k===0?"disabled":""}>◀ Retour</button>
+  ${last?`<button class="btn" id="toq" type="button">${a?"Voir la question":"À toi ! ▼"}</button>`:`<button class="btn" id="next" type="button">Étape suivante ▶</button>`}
+ </div>
+ <button class="replay" id="replay" type="button">↺ Rejouer l'étape</button>
+ ${last?qHtml(i):""}`);
+ svgEl=document.getElementById("svg");cur=S;S.build(svgEl);
+ instant=true;svgEl.classList.add("instant");
+ if(animate&&k>0){S.render(k-1);}else S.render(k);
+ svgEl.getBoundingClientRect();svgEl.classList.remove("instant");instant=false;
+ if(animate&&!RM){requestAnimationFrame(()=>requestAnimationFrame(()=>{S.render(k);}));}
+ else if(animate&&RM){instant=true;S.render(k);instant=false;}
+ const nx=document.getElementById("next");if(nx)nx.onclick=()=>{st.k=k+1;save();renderScene(true);};
+ document.getElementById("prev").onclick=()=>{st.k=Math.max(0,k-1);save();renderScene(false);};
+ document.getElementById("replay").onclick=()=>renderScene(true);
+ const tq=document.getElementById("toq");if(tq)tq.onclick=()=>{const q=document.getElementById("qcard");if(q)q.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});};
+ app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{st.s=+b.dataset.go;st.k=0;st.end=false;save();renderScene(false);});
+ bindQ(i);
+}
+function qHtml(i){const q=SC[i].q,a=st.ans[i];
+ const opts=q.opts.map((o,j)=>{let cls="opt",mark="";if(a){if(j===q.a){cls+=" good";mark="✓ Bonne réponse";}else if(j===a.c){cls+=" bad";mark="✗ Ta réponse";}}
+  return `<li><button class="${cls}" type="button" data-q="${j}" ${a?"disabled":""}><span class="L" aria-hidden="true">${LET[j]}</span><span class="txt">${o}</span>${mark?`<span class="mark">${mark}</span>`:""}</button></li>`;}).join("");
+ const fb=a?`<div class="fb ${a.ok?"ok":"ko"}" role="status"><div class="v">${a.ok?"✓ Bravo, c'est juste !":"✗ Pas tout à fait. La bonne réponse est "+LET[q.a]+"."}</div><div class="why">${q.why}</div></div>`:"";
+ const nextLbl=i<SC.length-1?"Scène suivante →":"Voir mon bilan";
+ return `<section class="qcard" id="qcard"><span class="kicker">À toi !</span><p class="stem">${q.stem}</p><ul class="opts">${opts}</ul>${fb}
+  ${a?`<div class="row"><button class="btn" id="nextS" type="button">${nextLbl}</button></div>`:""}</section>`;}
+function bindQ(i){
+ app.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const c=+b.dataset.q;st.ans[i]={c:c,ok:c===SC[i].q.a};save();
+  const qc=document.getElementById("qcard");qc.outerHTML=qHtml(i);bindQ(i);
+  const t=app.querySelector(`.tab[data-go="${i}"]`);if(t)t.innerHTML=(st.ans[i].ok?"✓ ":"✗ ")+SC[i].title.replace(" · ","<br>");
+  const f=document.querySelector("#qcard .fb");if(f)f.scrollIntoView({block:"nearest"});});
+ const n=document.getElementById("nextS");
+ if(n)n.onclick=()=>{if(i<SC.length-1){st.s=i+1;st.k=0;save();renderScene(false);}else{st.end=true;st.t1=st.t1||Date.now();save();route();}};
+}
+
+/* ---------- bilan ---------- */
+function fmtDate(t){const d=new Date(t),z=n=>String(n).padStart(2,"0");return `${z(d.getDate())}/${z(d.getMonth()+1)}/${d.getFullYear()} à ${z(d.getHours())}h${z(d.getMinutes())}`;}
+function plain(h){const d=document.createElement("div");d.innerHTML=h.replace(/<sup>(.*?)<\/sup>/g,(m,x)=>x.split("").map(c=>({"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","+":"⁺","−":"⁻"}[c]||c)).join("")).replace(/<sub>(.*?)<\/sub>/g,(m,x)=>x.split("").map(c=>({"0":"₀","1":"₁","2":"₂","3":"₃","4":"₄","5":"₅","6":"₆","7":"₇","8":"₈","9":"₉"}[c]||c)).join(""));return d.textContent.replace(/\s+/g," ").trim();}
+function bilan(){const ok=SC.filter((s,i)=>st.ans[i]&&st.ans[i].ok).length;
+ const L=["SÉANCE 3 — PHYSIQUE-CHIMIE 2nde","La compétition ionique : vers des entités plus stables","Élève : (écris ton prénom)","Fait le "+fmtDate(st.t1||Date.now())+(st.t0&&st.t1?" · durée : "+Math.max(1,Math.round((st.t1-st.t0)/60000))+" min":""),"","QUESTIONS « À TOI » : "+ok+"/4"];
+ SC.forEach((s,i)=>{const a=st.ans[i];L.push(s.title+" : "+(!a?"pas de réponse":(a.ok?"✓ "+LET[a.c]:"✗ "+LET[a.c]+" (attendu "+LET[s.q.a]+" : "+plain(s.q.opts[s.q.a])+")")));});
+ const miss=SC.filter((s,i)=>!(st.ans[i]&&st.ans[i].ok));
+ L.push("","À REVOIR");if(!miss.length)L.push("- Rien : tout est juste !");miss.forEach(s=>L.push("- "+s.title+" : rejoue la scène"));
+ L.push("","CONSEIL",miss.length?"Rejoue la scène ratée, puis réessaie la question.":"Bravo ! Tu sais pourquoi et comment les atomes deviennent des ions.");
+ return {txt:L.join("\n"),ok};}
+let dl=null;
+function renderEnd(){const b=bilan(),txt=b.txt,esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+ const wa="https://wa.me/?text="+encodeURIComponent(txt);
+ const gm="https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(MAIL)+"&su="+encodeURIComponent("Bilan séance 3 PC – compétition ionique")+"&body="+encodeURIComponent(txt);
+ setView(`${tabsHtml()}<span class="kicker">Bilan</span><h1>Bravo, tu as terminé la compétition !</h1>
+ <div class="card"><div class="total"><b>${b.ok}/4</b><span>questions réussies</span></div></div>
+ <div class="parts">${SC.map((s,i)=>{const a=st.ans[i];return `<div class="prt"><span class="n">${s.title}</span><span class="sc">${!a?"—":(a.ok?"✓":"✗")}</span><span class="st"><b>${!a?"pas encore faite":(a.ok?"réussie":"à rejouer")}</b></span></div>`;}).join("")}</div>
+ <h2>Envoie ton bilan à Mr Moreira</h2>
+ <div class="row"><button class="btn" id="dl" type="button" hidden>Télécharger mon bilan</button><button class="btn" id="cp" type="button">Copier mon bilan</button>
+  <a class="btn ghost" href="${wa}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par WhatsApp</a>
+  <a class="btn ghost" href="${gm}" target="_blank" rel="noopener" style="text-decoration:none;display:flex;align-items:center;justify-content:center">Envoyer par Gmail</a></div>
+ <p class="status" id="msg" role="status" aria-live="polite"></p>
+ <p>Adresse de Mr Moreira :<br><span class="mail">${MAIL}</span></p>
+ <pre class="report" id="rep">${esc(txt)}</pre>
+ <details><summary>Tout recommencer</summary><div class="inner"><p>Tes réponses seront effacées.</p><div class="row"><button class="btn ghost" id="rs" type="button">Oui, recommencer</button></div></div></details>`);
+ const msg=document.getElementById("msg");
+ document.getElementById("cp").onclick=()=>{const fb=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("rep"));const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Le texte est sélectionné : appuie sur « Copier ».";};
+  try{navigator.clipboard.writeText(txt).then(()=>msg.textContent="✓ Bilan copié. Colle-le dans un message.",fb);}catch(e){fb();}};
+ const d=document.getElementById("dl");if(dl)d.hidden=false;
+ d.onclick=async()=>{if(!dl)return;try{await dl.save({filename:"bilan-seance3-competition-ionique.txt",data:txt});msg.textContent="✓ Bilan téléchargé.";}catch(e){const c=e&&e.code;msg.textContent=c==="declined"?"Téléchargement annulé.":"Le téléchargement ne marche pas ici : utilise « Copier » ou WhatsApp.";}};
+ app.querySelectorAll("[data-go]").forEach(x=>x.onclick=()=>{st.s=+x.dataset.go;st.k=0;st.end=false;save();renderScene(false);});
+ document.getElementById("rs").onclick=()=>{st=fresh();save();route();};
+}
+function route(){if(!st.started)return renderStart();if(st.end)return renderEnd();renderScene(false);}
+
+/* rotation des électrons (réflexe 1) */
+let lastT=null;
+function loop(t){if(lastT!==null&&cur&&cur.tick&&!RM&&document.visibilityState!=="hidden"&&svgEl&&svgEl.isConnected)cur.tick(Math.min(60,t-lastT));lastT=t;requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+
+applyUI();route();
+try{if(window.claude&&window.claude.use)window.claude.use("downloads").then(d=>{dl=d;const b=document.getElementById("dl");if(b&&dl)b.hidden=false;}).catch(()=>{});}catch(e){}
+})();
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>
