@@ -120,7 +120,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - ▫️ Chapitre 4 · Le monde microbien et la santé · à venir
 - ▫️ **Thème 3 · La planète Terre, l'environnement et l'action humaine** · à venir
 
-### [2nde SVT](https://fontesmoreira-star.github.io/svt/2nde/) · 9 activités
+### [2nde SVT](https://fontesmoreira-star.github.io/svt/2nde/) · 10 activités
 
 - 📌 **Toute l'année** · [Mes automatismes de 2nde](https://fontesmoreira-star.github.io/svt/2nde/automatismes.html)
 - 📂 **Thème 1 · La Terre, la vie et l'organisation du vivant** · [page](https://fontesmoreira-star.github.io/svt/2nde/theme-1/)
@@ -133,6 +133,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
     - [Pomme de terre et respiration cellulaire](https://fontesmoreira-star.github.io/svt/2nde/theme-1/metabolisme/pomme-de-terre-metabolisme.html) · Activité · enzymes et respiration
     - [TP noté : l'action de l'amylase sur l'amidon](https://fontesmoreira-star.github.io/svt/2nde/theme-1/metabolisme/tp-amylase-amidon-note.html) · TP noté sur 10 · 8 + manipulation /2
     - [Potato and cellular respiration](https://fontesmoreira-star.github.io/svt/2nde/theme-1/metabolisme/potato-metabolism-dnl.html) · English · DNL
+    - [Le métabolisme des cellules : la fiche animée](https://fontesmoreira-star.github.io/svt/2nde/theme-1/metabolisme/fiche-animee-metabolisme.html) · Fiche de révision animée
   - 📁 **Chapitre 3 · Les échelles de la biodiversité**
     - [Espèce, parentés et échelles de la biodiversité](https://fontesmoreira-star.github.io/svt/2nde/theme-1/echelles-biodiversite/trois-echelles-biodiversite.html) · Activité · TP virtuels
   - ▫️ Chapitre 4 · La biodiversité change au cours du temps · à venir

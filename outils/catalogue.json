@@ -517,6 +517,12 @@
          "tag": "English · DNL",
          "titre": "Potato and cellular respiration",
          "desc": "Version anglaise de l'activité pomme de terre : amylase, glucose, voies métaboliques."
+        },
+        {
+         "fichier": "fiche-animee-metabolisme.html",
+         "tag": "Fiche de révision animée",
+         "titre": "Le métabolisme des cellules : la fiche animée",
+         "desc": "Toute la fiche de révision du chapitre 2 en animations : les deux ateliers d'une cellule, deux micro-organismes mystères en culture, respiration, fermentations et photosynthèse à l'échelle des molécules, microscope virtuel (levures, euglènes, taille réelle), flux de matière autour du tilleul, trajet de l'amidon et amylase, voies du glucose, ExAO de graines de pois. Deux versions : guidée ou exigeante. Bilan « Ce qu'il faut retenir » à recopier."
         }
        ]
       },
@@ -864,6 +870,12 @@
          "tag": "En classe · English · DNL",
          "titre": "Potato and cellular respiration",
          "desc": "Version anglaise de l'activité pomme de terre : amylase, glucose, voies métaboliques."
+        },
+        {
+         "chemin": "2nde/theme-1/metabolisme/fiche-animee-metabolisme.html",
+         "tag": "En classe · Fiche de révision animée",
+         "titre": "Le métabolisme des cellules : la fiche animée",
+         "desc": "Toute la fiche de révision du chapitre 2 en animations : les deux ateliers d'une cellule, deux micro-organismes mystères en culture, respiration, fermentations et photosynthèse à l'échelle des molécules, microscope virtuel (levures, euglènes, taille réelle), flux de matière autour du tilleul, trajet de l'amidon et amylase, voies du glucose, ExAO de graines de pois. Deux versions : guidée ou exigeante. Bilan « Ce qu'il faut retenir » à recopier."
         }
        ]
       }

@@ -1,0 +1,45 @@
+/* ---------- 2nde SVT · Chapitre 2 · Le métabolisme des cellules · fiche de révision animée ---------- */
+:root{
+  --glc:#f2b648;--glc-s:#8a5a00;--nrg:#ffd23f;--nrg-s:#b07d00;--cell:#e9f4e4;--cell-s:#4f8a43;
+  --cy:#3e9a3a;--ye:#c9a25a;--medium:#e4f0f6;--chl:#2f7d2b;--chl-soft:#cfe8c6;
+  --sky:#e6f2fb;--soil:#e7d6b9;--leaf:#5fae4c;--org:#f0a21a;--org-s:#8a5300;--min:#3d8fd9;--min-s:#174f86;
+  --skin:#f6d9bf;--gut:#f3b7a6;--gut-s:#b96852;--blood:#c8343a;--enz:#8a5cc7;--enz-s:#4b2a7c;--fat:#ffe07a;--fat-s:#b38b00;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --glc:#f0b54a;--glc-s:#ffd88a;--nrg:#ffd23f;--nrg-s:#ffc21a;--cell:#183021;--cell-s:#7cc46d;
+  --cy:#6fd06a;--ye:#e0bd76;--medium:#20343d;--chl:#7fd477;--chl-soft:#1f3d22;
+  --sky:#16283a;--soil:#3a2e1e;--leaf:#3f8a35;--org:#f5b02e;--org-s:#ffd27a;--min:#5aa8ef;--min-s:#a8d3ff;
+  --skin:#c99f7d;--gut:#c98b7a;--gut-s:#f0b5a5;--blood:#e0525a;--enz:#a47ae0;--enz-s:#dcc6ff;--fat:#e6c552;--fat-s:#fff0a6;
+}}
+:root[data-theme="dark"]{
+  --glc:#f0b54a;--glc-s:#ffd88a;--nrg:#ffd23f;--nrg-s:#ffc21a;--cell:#183021;--cell-s:#7cc46d;
+  --cy:#6fd06a;--ye:#e0bd76;--medium:#20343d;--chl:#7fd477;--chl-soft:#1f3d22;
+  --sky:#16283a;--soil:#3a2e1e;--leaf:#3f8a35;--org:#f5b02e;--org-s:#ffd27a;--min:#5aa8ef;--min-s:#a8d3ff;
+  --skin:#c99f7d;--gut:#c98b7a;--gut-s:#f0b5a5;--blood:#e0525a;--enz:#a47ae0;--enz-s:#dcc6ff;--fat:#e6c552;--fat-s:#fff0a6;
+}
+.mleg{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.9rem;color:var(--muted)}
+.mleg span{display:inline-flex;align-items:center;gap:.35rem}
+.mleg svg{flex:none}
+.eqs{display:grid;gap:.5rem}
+.eqs p{display:grid;gap:.15rem;margin:0;padding:.55rem .75rem;border-radius:12px;background:var(--surface-2);border-left:5px solid var(--accent)}
+.eqs p span{font-size:1.08rem;font-weight:700;font-variant-numeric:tabular-nums}
+.eqn{margin:0;font-size:1rem}
+.nrgw{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;align-items:center}
+.nrgbar{height:1.15rem;border-radius:999px;background:var(--surface-2);border:1.5px solid var(--line);overflow:hidden}
+.nrgbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--nrg),var(--nrg-s))}
+.nrgv{font-weight:800;min-width:5rem;text-align:right}
+@media (max-width:560px){.nrgw{grid-template-columns:1fr auto}.nrgw .lead{grid-column:1/-1}}
+.simw{color:var(--warn);font-weight:700}
+.esc-info{margin:0}
+.cu-l{margin:.2rem 0}
+.dgst{gap:.4rem}
+.dgc{display:inline-flex;align-items:center;min-height:40px;padding:0 .75rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:.9rem;color:var(--muted)}
+.dgc.done{border-color:var(--ok);color:var(--ok)}
+.dgc.on{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.readout{margin:0;font-size:.95rem;min-height:1.5em}
+.figbox.go,.figbox.gc{touch-action:manipulation;cursor:crosshair}
+.doc .ul{margin:0}
+.fit table.t{table-layout:fixed}
+.fit table.t td,.fit table.t th{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto;padding:.35rem .45rem}
+.fit table.t tr > :first-child{width:30%}
+@media (max-width:560px){.fit table.t{font-size:.82rem}}
