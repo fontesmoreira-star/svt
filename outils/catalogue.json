@@ -160,12 +160,6 @@
          "tag": "Activité 4 · Technologie",
          "titre": "Construire une fusée",
          "desc": "Légender une fusée, relier fonctions et solutions techniques, puis tester ses fusées à l'atelier de lancement."
-        },
-        {
-         "fichier": "fusee-a-eau.html",
-         "tag": "Activité 5 · Technologie",
-         "titre": "Construire une fusée à eau",
-         "desc": "Solutions techniques de la fusée à eau, choix du matériel, banc d'essai virtuel et liste de préparation."
         }
        ]
       },
@@ -175,7 +169,7 @@
        "activites": [
         {
          "fichier": "phases-de-la-lune.html",
-         "tag": "Activité 6 · Physique-chimie",
+         "tag": "Activité 5 · Physique-chimie",
          "titre": "Pourquoi la Lune change-t-elle d'apparence ?",
          "desc": "Le trajet de la lumière, un simulateur de lunaison, le schéma Soleil-Terre-Lune à compléter et la vue depuis l'espace. Deux versions : guidée ou experte. Bilan à recopier."
         }

@@ -1,13 +1,13 @@
-/* ===== 5e EIST · Mission 5 · Signaux lumineux : le système Soleil-Terre-Lune · Activité 6, d'après la fiche du professeur ===== */
+/* ===== 5e EIST · Mission 5 · Signaux lumineux : le système Soleil-Terre-Lune · Activité 5, d'après la fiche du professeur ===== */
 const PROBLEM = "Pourquoi la Lune change-t-elle d'apparence ?";
 const gap = `<span class="gap">………</span>`;
 const HOME = { slug: "phases-de-la-lune", short: "Les phases de la Lune", last: "c1", lastG: "p3", lastK: 0, dur: "environ 45 minutes",
-  kicker: "Mission 5 · Signaux lumineux · Activité 6", title: "Pourquoi la Lune change-t-elle d'apparence ?",
+  kicker: "Mission 5 · Signaux lumineux · Activité 5", title: "Pourquoi la Lune change-t-elle d'apparence ?",
   intro: "Avant le départ pour Mars, l'équipage apprend à lire le ciel. Chaque soir, la Lune n'a pas la même forme. À toi de comprendre pourquoi !",
   lab: "La question de la mission", goal: "Objectif : expliquer les phases de la Lune avec le Soleil, la Terre et la Lune.",
   fact: "La lumière renvoyée par la Lune met environ 1,3 seconde pour arriver jusqu'à ton œil.",
   parts: "Les trois parties de l'activité", recop: "Bilan à recopier dans le cahier",
-  txt: "ACTIVITÉ 6 · POURQUOI LA LUNE CHANGE-T-ELLE D'APPARENCE ?\n5e EIST · Mission 5 · Signaux lumineux : le système Soleil-Terre-Lune",
+  txt: "ACTIVITÉ 5 · POURQUOI LA LUNE CHANGE-T-ELLE D'APPARENCE ?\n5e EIST · Mission 5 · Signaux lumineux : le système Soleil-Terre-Lune",
   comps: { conn: "Mobiliser ses connaissances", lire: "Exploiter un schéma, une animation", mod: "Manipuler, modéliser", rais: "Raisonner, argumenter" },
   vers: { g: { icon: "🧭", short: "Guidée", name: "Version guidée", q: "guidee", desc: "Je choisis ou je complète, pas à pas." },
     l: { icon: "🚀", short: "Experte", name: "Version experte", q: "experte", desc: "Les mêmes manipulations, moins d'aide : j'écris mes réponses, j'explique avec mes mots et je calcule." } },

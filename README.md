@@ -35,7 +35,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
 <!-- plan:debut (généré par outils/generer_pages.py, ne pas modifier à la main) -->
 ## Plan du site
 
-### [5e EIST](https://fontesmoreira-star.github.io/svt/5e/) · 13 activités
+### [5e EIST](https://fontesmoreira-star.github.io/svt/5e/) · 12 activités
 
 - 📌 **Toute l'année** · [Mes automatismes de 5e](https://fontesmoreira-star.github.io/svt/5e/automatismes.html)
 - ▫️ **Mission 1 · Le système solaire · Les voyages dans l'espace …** · à venir
@@ -65,9 +65,8 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - 📁 **Chapitre 2 · Le mouvement**
     - [Vitesses et mouvements](https://fontesmoreira-star.github.io/svt/5e/mission-5/mouvement/vitesses-mouvements.html) · Activités 2 et 3
     - [Construire une fusée](https://fontesmoreira-star.github.io/svt/5e/mission-5/mouvement/construire-une-fusee.html) · Activité 4 · Technologie
-    - [Construire une fusée à eau](https://fontesmoreira-star.github.io/svt/5e/mission-5/mouvement/fusee-a-eau.html) · Activité 5 · Technologie
   - 📁 **Chapitre 3 · Signaux lumineux : le système Soleil-Terre-Lune**
-    - [Pourquoi la Lune change-t-elle d'apparence ?](https://fontesmoreira-star.github.io/svt/5e/mission-5/soleil-terre-lune/phases-de-la-lune.html) · Activité 6 · Physique-chimie
+    - [Pourquoi la Lune change-t-elle d'apparence ?](https://fontesmoreira-star.github.io/svt/5e/mission-5/soleil-terre-lune/phases-de-la-lune.html) · Activité 5 · Physique-chimie
   - ▫️ Chapitre 4 · Les sources et conversions d'énergie · à venir
 - 📂 **Mission 6 · Tempête de sable** · [page](https://fontesmoreira-star.github.io/svt/5e/mission-6/)
   - 📁 **Chapitre 1 · L'énergie éolienne**
