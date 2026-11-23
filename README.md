@@ -100,7 +100,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - 📁 **Chapitre 1 · Puberté et reproduction humaine**
     - [Devenir adulte : la puberté](https://fontesmoreira-star.github.io/svt/4e/corps-sante/puberte-reproduction/devenir-adulte.html) · Séance animée · 45 min
 
-### [3e SVT](https://fontesmoreira-star.github.io/svt/3e/) · 10 activités
+### [3e SVT](https://fontesmoreira-star.github.io/svt/3e/) · 12 activités
 
 - 📌 **Toute l'année** · [Mes automatismes de 3e](https://fontesmoreira-star.github.io/svt/3e/automatismes.html)
 - 📂 **Thème 1 · Le vivant et son évolution** · [page](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/)
@@ -112,7 +112,9 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
     - [Labo d'agglutination](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/labo-agglutination.html) · Enquête · dossier 7
     - [TP noté : le test d'agglutination](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/labo-agglutination-tp-note.html) · TP noté sur 10 · dossier 7
     - [L'arbre de Jean](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/arbre-jean.html) · Enquête · dossier 8
+    - [Activité notée : l'arbre de Jean](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/arbre-jean-note.html) · Activité notée sur 10 · dossier 8
     - [La multiplication cellulaire](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/multiplication-cellulaire.html) · Activité 9
+    - [Activité notée : la multiplication cellulaire](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/multiplication-cellulaire-note.html) · Activité notée sur 10 · activité 9
     - [Reconstituer les étapes de la méiose](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/meiose-cellules-reproductrices.html) · Activité 10
     - [Je révise toute la génétique](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch2-transmission/revision-genetique-activites-1-10.html) · Révision · activités 1 à 10
   - ▫️ Chapitre 3 · Diversité et évolution des êtres vivants · à venir

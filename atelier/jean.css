@@ -1,0 +1,70 @@
+/* ---------- 3e · Activité 8 · L'arbre de Jean (fabrique, arbre, naissances au hasard) ---------- */
+:root{--rbc:#c62828;--rbc-in:#e85a4f;--agA:#2f74c8;--agB:#e3b21b;--agO:#9aa3a0;--chr:#e9c79a;--chr-band:#c8553d;--slot:#e8792b;--slot-bg:#fff6ec;--dad:#2f6fb5;--dad-soft:#e1ecf8;--mom:#b3367a;--mom-soft:#f8e3ee}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--rbc:#e0463c;--rbc-in:#ff7d70;--agA:#6ea8f0;--agB:#f2cc4a;--agO:#7d8784;--chr:#8a6b45;--chr-band:#e07a5f;--slot:#f3a95c;--slot-bg:#2b2014;--dad:#8ab8f2;--dad-soft:#15263b;--mom:#f29cc8;--mom-soft:#3a1a2b}}
+:root[data-theme="dark"]{--rbc:#e0463c;--rbc-in:#ff7d70;--agA:#6ea8f0;--agB:#f2cc4a;--agO:#7d8784;--chr:#8a6b45;--chr-band:#e07a5f;--slot:#f3a95c;--slot-bg:#2b2014;--dad:#8ab8f2;--dad-soft:#15263b;--mom:#f29cc8;--mom-soft:#3a1a2b}
+.al{display:inline-flex;align-items:center;gap:4px;font-weight:800;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.al svg{width:18px;height:18px;flex:none}
+.legendrow{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.pair{display:flex;gap:8px;align-items:flex-end;justify-content:center}
+.chr{display:flex;flex-direction:column;align-items:center;gap:4px}
+.chr svg.bar9{width:30px;height:auto}
+.slotb{min-width:48px;min-height:48px;border-radius:8px;border:3px solid var(--slot);background:var(--slot-bg);color:var(--ink);font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:800;font-size:1.05rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:3px;padding:0 4px}
+.slotb svg{width:16px;height:16px}
+.slotb.empty{color:var(--muted)}
+.slotb.ro,.slotb[disabled]{cursor:default;opacity:1}
+.chr .from{font-size:.8rem;font-weight:700;line-height:1.1;text-align:center}
+.chr .from.d{color:var(--dad)} .chr .from.m{color:var(--mom)}
+.chr.d svg.bar9 rect.body{stroke:var(--dad);stroke-width:3}
+.chr.m svg.bar9 rect.body{stroke:var(--mom);stroke-width:3}
+.factory{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:center}
+.farrow{font-size:2rem;font-weight:800;color:var(--muted);text-align:center;line-height:1}
+.farrow::before{content:"→"}
+@media (max-width:620px){.factory{grid-template-columns:minmax(0,1fr)}.farrow::before{content:"↓"}}
+.cellout{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.cellout svg.rbc{width:130px;height:130px}
+.cellout .grp{font-weight:800;font-size:1.4rem}
+.cellout .gen{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:600}
+.log{font-weight:700;min-height:1.6em}
+.pop{animation:popj .4s ease}
+@keyframes popj{from{transform:scale(.85);opacity:.4}to{transform:none;opacity:1}}
+.tree{position:relative;display:flex;flex-direction:column;padding:8px 0}
+.gen1,.gen2{display:grid;gap:10px}
+.gen1{grid-template-columns:repeat(2,minmax(0,1fr));max-width:620px;margin:0 auto;width:100%}
+.gen2{grid-template-columns:repeat(3,minmax(0,1fr))}
+.links{height:40px;position:relative}
+.links .h{position:absolute;left:25%;right:25%;top:0;height:20px;border-bottom:3px solid var(--muted)}
+.links .v{position:absolute;left:50%;top:20px;bottom:0;border-left:3px solid var(--muted)}
+.links2{height:22px;position:relative;margin:0 calc(100%/6)}
+.links2 .h{position:absolute;left:0;right:0;top:0;border-top:3px solid var(--muted)}
+.links2 .t{position:absolute;top:0;bottom:0;border-left:3px solid var(--muted)}
+.person{border-radius:14px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0;border:2px solid var(--line);background:var(--surface)}
+.person.dad{background:var(--dad-soft);border-color:var(--dad)}
+.person.mom{background:var(--mom-soft);border-color:var(--mom)}
+.person .pn{font-weight:800;line-height:1.15}
+.person .pg{font-size:.9rem;color:var(--muted);font-weight:700}
+.person.jean{box-shadow:0 0 0 3px var(--accent-soft)}
+@media (max-width:480px){.gen2{gap:5px}.gen2 .person{padding:8px 2px}.gen2 .pair{gap:3px}.gen2 .slotb{min-width:44px;padding:0 2px;font-size:.95rem}.gen2 .slotb svg{display:none}}
+.parents{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}
+@media (max-width:420px){.parents{gap:4px}.parents .person{padding:8px 2px}.gam{gap:3px}.gam span{min-width:44px;min-height:44px}}
+.parents .x{font-weight:800;font-size:1.6rem;color:var(--muted)}
+.gam{display:flex;gap:6px;justify-content:center}
+.gam span{min-width:48px;min-height:48px;border-radius:50%;border:3px solid var(--line);display:grid;place-items:center;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:800;background:var(--surface);transition:transform .2s,border-color .2s}
+.gam span.pick{border-color:var(--slot);transform:scale(1.18);background:var(--slot-bg)}
+.kid{display:flex;align-items:center;gap:14px;justify-content:center;min-height:110px;flex-wrap:wrap;text-align:center}
+.kid svg.rbc{width:90px;height:90px}
+.kid .kt{font-weight:800;font-size:1.3rem}
+.sbars{display:flex;flex-direction:column;gap:10px}
+.sbars .b{display:grid;grid-template-columns:6em minmax(0,1fr) 3em;gap:8px;align-items:center}
+.sbars .tr{height:28px;background:var(--surface-2);border-radius:6px;overflow:hidden}
+.sbars .tr span{display:block;height:100%;background:var(--accent);border-radius:6px;transition:width .25s linear}
+.sbars .n{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.punnett{border-collapse:collapse;font-size:1rem;margin:0 auto}
+.punnett th,.punnett td{border:1.5px solid var(--line);padding:.45rem .55rem;white-space:nowrap;text-align:center;font-weight:700}
+.punnett th{background:var(--surface-2)}
+.punnett th.d{color:var(--dad)} .punnett th.m{color:var(--mom)}
+.punnett td{background:var(--surface)}
+.gtab{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.3rem .8rem;align-items:center}
+.gtab .g{font-weight:800}
+@media (prefers-reduced-motion:reduce){.pop,.gam span,.sbars .tr span{animation:none;transition:none}}
+.rti svg{width:2.2rem;height:2.2rem;vertical-align:middle;margin-right:.4rem}
+[data-wid] table.t th,[data-wid] table.t td{padding:.3rem .4rem}
