@@ -1,0 +1,1648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phases of the Moon (DNL)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
+   Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
+:root{
+  --fs:21px;
+  --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
+  --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
+  --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
+  --ok:#17703d; --ok-soft:#ddf1e4; --bad:#ad2318; --bad-soft:#fbe2de;
+  --info:#1d5bb0; --info-soft:#e1ebf9; --warn:#9c4f05; --warn-soft:#fdead3;
+  --key:#17703d; --key-soft:#ddf1e4; --err:#ad2318; --err-soft:#fbe2de;
+  --easy:#17703d; --mid:#7d5a00; --hard:#ad2318;
+  --c1:#0a6a76; --c2:#c0531a; --c3:#5a48b5; --c4:#2d7a31; --c5:#8a6400; --c6:#6f777c;
+  --grid:#dbe5e7; --shade:rgba(10,106,118,.10);
+  --f-display:"Charter","Iowan Old Style","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0}
+sub,sup{line-height:0;font-size:.72em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html.proj .wrap{max-width:none}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- bandeau ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.band .titles{min-width:0;flex:1 1 20rem}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
+.band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+.tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+
+/* ---------- onglets collants ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.tab .dot{font-size:0.9rem}
+
+main{padding-block:1.2rem 3rem}
+.view{display:grid;gap:1.1rem}
+.lead{color:var(--muted);max-width:44rem}
+.sec-title{font-size:1.45rem}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+
+/* ---------- cartes / panneaux ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.panel h3{font-size:1.15rem}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:.8rem}
+.card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
+.card-btn:hover{border-color:var(--accent)}
+.card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.mid{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- encadrés ---------- */
+.box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
+.box.err{background:var(--err-soft);border-color:var(--err)} .box.err>.lab{color:var(--err)}
+.box ul{margin:0;padding-left:1.2rem;display:grid;gap:.25rem}
+
+/* ---------- boutons ---------- */
+.btn{min-height:48px;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---------- options QCM / choix ---------- */
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
+.opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+
+.field{display:grid;gap:.3rem}
+.field label{font-weight:700;font-size:0.9rem}
+.inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
+.inp.wide{max-width:none}
+textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
+.inp.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.inp.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{color:var(--muted);font-weight:700}
+
+/* ---------- retour d'information ---------- */
+.fb{border-radius:12px;padding:.7rem .9rem;border:1.5px solid;display:grid;gap:.35rem}
+.fb .h{font-weight:800}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.ok .h{color:var(--ok)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)} .fb.bad .h{color:var(--bad)}
+.fb.neutral{background:var(--surface-2);border-color:var(--line)}
+.hints{display:grid;gap:.45rem}
+.hint{background:var(--surface-2);border-radius:10px;padding:.55rem .8rem;border-left:4px solid var(--mid);font-size:.92rem}
+.hint b{color:var(--mid)}
+.corr{background:var(--info-soft);border:1.5px solid var(--info);border-radius:12px;padding:.75rem .95rem;display:grid;gap:.4rem}
+.corr .h{font-weight:800;color:var(--info)}
+
+/* ---------- documents ---------- */
+.doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh .sim{font-weight:700;color:var(--warn)}
+.doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
+.tablewrap{overflow-x:auto;max-width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
+table.t td,table.t th{vertical-align:top}
+table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+table.t th{background:var(--surface-2);font-weight:800}
+table.t td.n{text-align:right}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+
+/* ---------- graphiques ---------- */
+.chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body)}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend svg{flex:none}
+
+/* ---------- niveaux ---------- */
+.lv{display:inline-flex;align-items:center;gap:.35rem;font-weight:800}
+.lv.easy{color:var(--easy)} .lv.mid{color:var(--mid)} .lv.hard{color:var(--hard)}
+
+/* ---------- bilan ---------- */
+.score-big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 1rem) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(16px,env(safe-area-inset-left,0px))}
+.overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
+.overlay h2{font-size:2.2rem}
+.overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
+.toast{font-weight:700;color:var(--ok)}
+
+/* ---------- divers ---------- */
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
+.eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
+.chartbox{display:grid;gap:.45rem;min-width:0}
+/* ---------- exercices : coefficients, ordre, critères ---------- */
+.coefs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:1.05rem}
+.coef{display:inline-flex;align-items:center;gap:.25rem;background:var(--surface-2);border-radius:12px;padding:.25rem}
+.coef button{min-width:48px;min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.coef output{min-width:1.6rem;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.coef .f{padding:0 .4rem;font-weight:700}
+.coef.is-ok{outline:2px solid var(--ok)} .coef.is-bad{outline:2px solid var(--bad)}
+.arrow{font-weight:800;color:var(--muted)}
+.order-list{display:grid;gap:.45rem}
+.order-item{display:flex;gap:.7rem;align-items:center;text-align:left;min-height:52px;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);color:var(--ink);font-size:.95rem}
+.order-item .n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted)}
+.order-item[data-pos]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.order-item[data-pos] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.order-item.is-ok{border-color:var(--ok);background:var(--ok-soft)} .order-item.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:.6rem}
+.rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
+.rowq .rt{font-size:.95rem}
+.pfb{font-size:0.9rem;font-weight:700}
+.pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
+.part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.part:first-child{border-top:0;padding-top:0}
+.part > .pl{font-weight:700}
+.crit{display:grid;gap:.4rem}
+.crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
+.crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.sci .inp{max-width:7rem}
+.sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
+
+/* ---------- 5e EIST · Vitesses et mouvements ---------- */
+:root{--trk:#dfe9ea;--dot:#11282e;--rov:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}}
+:root[data-theme="dark"]{--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+.gap{display:inline-block;min-width:4.5rem;border-bottom:3px dotted var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.recop{border:2px solid var(--key);border-radius:14px;background:var(--key-soft);padding:1rem 1.1rem;display:grid;gap:.6rem}
+.recop .lab{font-size:.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--key)}
+.recop p{font-size:1.05rem;line-height:1.6}
+.recop u{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800}
+h4{font-size:1rem}
+.match{display:grid;gap:.45rem}
+.mrow{display:flex;gap:.6rem;align-items:center;text-align:left;min-height:54px;padding:.45rem .7rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;width:100%}
+.mrow[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.mrow .me{font-size:1.5rem;flex:none;width:2rem;text-align:center}
+.mrow .mn{flex:1 1 auto;min-width:0}
+.mrow .mv{flex:none;min-width:5.2rem;text-align:center;border-radius:10px;padding:.25rem .5rem;border:2px dashed var(--muted);color:var(--muted);font-weight:800;font-variant-numeric:tabular-nums}
+.mrow .mv.has{border-style:solid;border-color:var(--accent);color:var(--ink);background:var(--surface)}
+.mrow.is-ok{border-color:var(--ok);background:var(--ok-soft)} .mrow.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.mrow .tag{flex:none;font-weight:800;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chipb{min-height:48px;padding:0 .9rem;border-radius:999px;border:2px solid var(--accent);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tabs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.7rem}
+.tabs3 > div{display:grid;gap:.3rem}
+.tabs3 .tn{font-weight:800}
+.gauge{height:1.2rem;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1.5px solid var(--line)}
+.gauge i{display:block;height:100%;background:var(--rov);transition:width .15s linear}
+.pilot{display:flex;flex-wrap:wrap;gap:.5rem}
+.pilot .btn{min-width:8.5rem}
+
+/* ---------- 5e EIST · Mission 5 · Activité 6 · Les phases de la Lune ---------- */
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.lab3{font-weight:800;font-size:.9rem}
+.pilot .btn{min-height:52px;min-width:0}
+.doc > .db > *{min-width:0}
+.res{display:grid;gap:.35rem}
+.res .tablewrap{max-width:100%}
+.res table.t td.n,.corr table.t td.n,.panel table.t td.n{text-align:left}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.chipb[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+/* simulateur : schéma et ciel côte à côte */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem;align-items:start}
+.wkb{display:flex;flex-wrap:wrap;gap:.35rem}
+.field input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+/* dessiner une Lune : deux moitiés à éclairer */
+.phg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.phr{display:grid;justify-items:center;align-content:start;gap:.4rem;padding:.65rem .5rem;border-radius:12px;background:var(--surface-2);border:2px solid transparent}
+.phr.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.phr.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.phr .tag{font-weight:800;font-size:.9rem}
+.phr.is-ok .tag{color:var(--ok)} .phr.is-bad .tag{color:var(--bad)}
+.pht{font-weight:800}
+.moon{display:flex;width:6.6rem;height:6.6rem;border-radius:50%;overflow:hidden;border:2.5px solid var(--ink);background:#2a2f36;flex:none}
+.moon.unset{border-style:dashed;border-color:var(--muted);background:var(--surface)}
+.mh{flex:1 1 50%;min-width:0;min-height:48px;border:0;margin:0;padding:0;background:#2a2f36;cursor:pointer;touch-action:manipulation}
+.mh.l{box-shadow:inset -1px 0 0 #6b7280}
+.moon.unset .mh{background:transparent}
+.mh[aria-pressed="true"]{background:#f6e7a1}
+.mh:focus-visible{outline:3px solid var(--accent);outline-offset:-4px}
+.phd{font-size:.9rem;text-align:center;min-height:2.6em;color:var(--muted);margin:0}
+.phz{min-height:48px;font-size:.9rem;padding:0 .7rem}
+.phz[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+/* bilan : tableau et bande des phases à recopier */
+.phtab td{vertical-align:middle}
+.phtab td svg{display:block;margin:0 auto .2rem}
+.phtab .pdt{display:block;font-size:.85rem;text-align:center;color:var(--muted)}
+.recop .lab2{font-weight:800;margin-top:.3rem}
+.phstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(6rem,1fr));gap:.5rem;justify-items:center}
+.phstrip figure{margin:0;display:grid;justify-items:center;gap:.25rem}
+.phstrip figcaption{font-size:.9rem;font-weight:700;text-align:center}
+/* deux versions : guidée / exigeante (repris de bio.css) */
+.vers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem}
+.vers .card-btn[aria-checked="true"]{border-color:var(--accent);border-width:2.5px;background:var(--accent-soft)}
+.vers .card-btn .t{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.vchip{min-height:48px;padding:0 .8rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;font-size:.9rem;white-space:nowrap}
+.pfb.mid{color:var(--warn)}
+.wc{font-size:.9rem}
+.grille{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.35rem}
+.grille li{display:grid;grid-template-columns:auto 1fr auto;gap:.3rem .7rem;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:.45rem .7rem;background:var(--surface);font-size:.92rem}
+.grille li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.grille .gk{font-weight:800;font-size:.9rem;color:var(--muted);white-space:nowrap}
+.grille .gt{font-weight:800;white-space:nowrap}
+.grille li.ok .gt{color:var(--ok)} .grille li.no .gt{color:var(--bad)}
+.grille .gs{grid-column:1/-1;justify-self:start}
+@media (max-width:560px){.grille li{grid-template-columns:1fr}.grille .gt{white-space:normal}}
+.redlist{display:grid;gap:.7rem}
+.red{border:1.5px solid var(--line);border-radius:12px;padding:.6rem .8rem;display:grid;gap:.25rem;background:var(--surface)}
+.red .rq{font-weight:800;font-size:.92rem}
+.red .rv{white-space:pre-wrap;overflow-wrap:anywhere}
+.part textarea.inp{min-height:9.5rem}
+@media (max-width:560px){.tabsw{flex-wrap:nowrap}#tabx{width:auto}.vchip .vl{display:none}.vchip{padding:0 .7rem;min-width:48px}}
+
+/* DNL anglais : mots-clés, glossaire, can-do */
+.kwbox{display:flex;flex-wrap:wrap;gap:.4rem .5rem;align-items:center;margin:.2rem 0}
+.kwt{font-size:.85rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--info);margin-right:.2rem}
+.kw{display:inline-flex;flex-wrap:wrap;align-items:center;max-width:100%;gap:.35rem;background:var(--info-soft);border:1.5px solid var(--info);border-radius:24px;padding:.1rem .7rem .1rem .15rem;line-height:1.2}
+.kw b{font-weight:800;white-space:nowrap}
+.kw i{color:var(--muted);font-style:italic;white-space:nowrap}
+.kw i::before{content:"= ";font-style:normal}
+.say{min-width:48px;min-height:48px;border:0;border-radius:999px;background:transparent;font-size:1.1rem;cursor:pointer;color:inherit;padding:0}
+.say:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.nosay .say{display:none}
+.nosay .kw{padding-left:.7rem}
+.gw{display:inline-flex;align-items:center;gap:.2rem}
+table.gloss td:first-child{text-align:left}
+table.gloss td{vertical-align:middle}
+.cando{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.cando li{display:flex;gap:.55rem;align-items:flex-start}
+.cando .bx{flex:0 0 auto;width:1.15rem;height:1.15rem;border:2px solid var(--key);border-radius:4px;margin-top:.2rem}
+
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">5e EIST · Science in English (DNL) · Mission 5 · Physics · Activity 5</p><h1>Why does the Moon look different every night?</h1><p class="sub">Science in English: the path of light, a lunar month simulator, the Sun-Earth-Moon diagram and the view from space. Two versions: guided or expert.</p></div>
+<div class="tools" role="toolbar" aria-label="Display"><button class="tbtn" id="fsMinus" type="button" aria-label="Smaller text">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Larger text">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Dark</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projector</button></div></div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
+<main class="wrap" id="main"><p>Loading…</p></main>
+<footer class="wrap foot">No data is sent: your answers stay on this device. The animations are simplified models. Lycée Français Vauban · EIST 5e · DNL English.</footer>
+<noscript><p class="wrap">This app needs JavaScript: open the link in Safari (not in the Teams or Files preview).</p></noscript>
+<script>
+window.TP_LANG="en";window.CORE_T={"locale": "en-GB", "dec": ".", "readHint": "Tap the graph to read a value.", "table": "Table of values", "light": "☀ Light", "dark": "☾ Dark", "dlNo": "Download is not available here: use “Copy” or “Show the teacher”.", "dlOk": "File offered for saving.", "dlDeclined": "Saving cancelled.", "dlBusy": "A request is already open: try again in a moment.", "dlFail": "Download not possible here: use “Copy”.", "dlDone": "File downloaded.", "name": "First name or number (optional, stays on this device)", "bDl": "⬇ Download (.txt)", "bCp": "⧉ Copy", "bMail": "✉ Send by email", "bShow": "👁 Show the teacher", "cpSel": "Text selected: copy it with ⌘C / Ctrl+C or the Copy menu.", "cpOk": "Report copied: paste it where your teacher asked.", "mailOk": "Your mail app should open with your report.", "bilanTxt": "Report text", "close": "Close", "student": "student", "subject": "Report ", "animRun": "▶ Start", "animPause": "⏸ Pause", "animResume": "▶ Resume", "animReset": "↺ Restart"};
+/* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
+"use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
+
+/* ---------- stockage de confort (l'app marche sans) ---------- */
+const Store = {
+  key: "es-th1",
+  load(def) { let o = {}; try { o = JSON.parse(localStorage.getItem(this.key) || "{}") || {}; } catch (e) { o = {}; } return Object.assign({}, def, o); },
+  save(obj) { try { localStorage.setItem(this.key, JSON.stringify(obj)); } catch (e) {} }
+};
+
+/* ---------- nombres à la française ---------- */
+const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+const supStr = s => String(s).split("").map(c => SUP[c] || c).join("");
+function fmt(x, dec) {
+  if (x === null || x === undefined || Number.isNaN(x)) return "—";
+  let s = dec === undefined ? String(Math.round(x * 1e6) / 1e6) : Number(x).toFixed(dec);
+  let neg = s.startsWith("-"); if (neg) s = s.slice(1);
+  let [i, d] = s.split(".");
+  i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
+}
+function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
+  if (p === 0) return "0";
+  const e = Math.floor(Math.log10(Math.abs(p))); const m = p / Math.pow(10, e);
+  const mr = Math.round(m * 100) / 100;
+  if (e >= -1 && e <= 3) return fmt(p, p < 10 ? 2 : 0);
+  return (mr === 1 ? "" : fmt(mr) + " × ") + "10" + supStr(e);
+}
+/* lit « 1 020 », « 1,02e5 », « 1,02 × 10^5 », « 1,02x10⁵ », « 10⁵ », « −3 », « +12,4 °C » */
+function parseNum(str) {
+  if (str === null || str === undefined) return NaN;
+  let s = String(str).trim();
+  const SUPR = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-" };
+  s = s.replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m, g) => "10^" + g.split("").map(c => SUPR[c]).join(""));
+  s = s.replace(/[−–]/g, "-").replace(/[\s  ]/g, "").replace(/,/g, ".");
+  s = s.replace(/(°c|°|pa|hpa|bar|mbar|atm|mmhg|cm|mm|m|ans?|%|points?|pts?|\/an|°c\/siècle|°c\/an)+$/i, "");
+  let m = s.match(/^([+-]?\d*\.?\d+)(?:[x×*·]10\^?\(?([+-]?\d+)\)?)$/i);
+  if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+  m = s.match(/^([+-]?)10\^\(?([+-]?\d+)\)?$/);
+  if (m) return (m[1] === "-" ? -1 : 1) * Math.pow(10, parseInt(m[2], 10));
+  if (/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)) return parseFloat(s);
+  return NaN;
+}
+const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+
+/* ---------- affichage : taille, thème, projection ---------- */
+const Display = {
+  S: null, onChange: null,
+  init(S, save) {
+    this.S = S; this.save = save; this.apply();
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
+    $("#themeBtn").onclick = () => {
+      const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; this.apply(); save();
+    };
+    $("#projBtn").onclick = () => { S.proj = !S.proj; this.apply(); save(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => this.apply());
+  },
+  apply() {
+    const S = this.S, r = document.documentElement;
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
+    r.classList.toggle("proj", !!S.proj);
+    const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
+    const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
+    Charts.redrawAll();
+    if (this.onChange) this.onChange();
+  }
+};
+
+/* bouton à confirmation en deux temps (pas de confirm()) */
+function armButton(btn, label, confirmLabel, action) {
+  let t = null;
+  btn.onclick = () => {
+    if (!t) { btn.textContent = confirmLabel; btn.classList.add("warn"); t = setTimeout(() => { btn.textContent = label; btn.classList.remove("warn"); t = null; }, 4000); return; }
+    clearTimeout(t); t = null; btn.textContent = label; btn.classList.remove("warn"); action();
+  };
+}
+
+/* ======================= GRAPHIQUES (SVG redessiné à la largeur réelle) ======================= */
+const Charts = {
+  list: new Set(),
+  redrawAll() { this.list.forEach(c => { if (!document.body.contains(c.host)) this.list.delete(c); else c.draw(); }); }
+};
+let _rsT = null;
+window.addEventListener("resize", () => { clearTimeout(_rsT); _rsT = setTimeout(() => Charts.redrawAll(), 120); });
+
+const PAT = ["none", "dots", "diag", "cross", "horiz", "vert"];
+function patternOne(pid, color, p) {
+  let inner = "";
+  if (p === "dots") inner = `<circle cx="3" cy="3" r="1.3" style="fill:var(--surface)"/>`;
+  if (p === "diag") inner = `<path d="M-1,7 L7,-1" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "cross") inner = `<path d="M-1,7 L7,-1 M-1,-1 L7,7" style="stroke:var(--surface);stroke-width:1.1"/>`;
+  if (p === "horiz") inner = `<path d="M0,3 H6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "vert") inner = `<path d="M3,0 V6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  return `<pattern id="${pid}" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--${color})"/>${inner}</pattern>`;
+}
+function patDefs(id, colors) { return colors.map((c, i) => patternOne(`${id}-p${i}`, c, PAT[i % PAT.length])).join(""); }
+const DASH = i => (i % 4 === 1 ? "7 4" : i % 4 === 2 ? "2 4" : i % 4 === 3 ? "11 4 2 4" : "");
+function swatch(color, i, kind) {
+  if (kind === "line") return `<svg width="34" height="12" aria-hidden="true"><path d="M2 6 H32" style="stroke:var(--${color});stroke-width:3.2;fill:none;stroke-linecap:round" stroke-dasharray="${DASH(i)}"/></svg>`;
+  const pid = "sw" + Math.random().toString(36).slice(2, 8); const p = PAT[i % PAT.length];
+  const fill = p === "none" ? `var(--${color})` : `url(#${pid})`;
+  return `<svg width="20" height="20" aria-hidden="true">${p === "none" ? "" : `<defs>${patternOne(pid, color, p)}</defs>`}<rect x="1" y="1" width="18" height="18" rx="3" style="fill:${fill};stroke:var(--ink);stroke-width:.7"/></svg>`;
+}
+
+/* phase de l'eau */
+const PSAT = [[0.01, 611.657], [10, 1228], [20, 2339], [30, 4247], [40, 7385], [50, 12352], [60, 19946], [70, 31201], [80, 47414], [90, 70182], [100, 101418], [120, 198670], [140, 361540], [160, 618230], [180, 1002800], [200, 1554900], [220, 2319600], [240, 3346900], [260, 4692300], [280, 6416600], [300, 8587900], [320, 11284000], [340, 14594000], [360, 18666000], [374, 22064000]];
+const Water = {
+  Tt: 0.01, Pt: 611.657, Tc: 374, Pc: 2.2064e7,
+  psat(T) { if (T <= 0.01) return this.Pt; if (T >= 374) return this.Pc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (T <= t1) { const f = (T - t0) / (t1 - t0); return Math.pow(10, Math.log10(p0) + f * (Math.log10(p1) - Math.log10(p0))); } } return this.Pc; },
+  tsat(P) { if (P <= this.Pt) return this.Tt; if (P >= this.Pc) return this.Tc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (P <= p1) { const f = (Math.log10(P) - Math.log10(p0)) / (Math.log10(p1) - Math.log10(p0)); return t0 + f * (t1 - t0); } } return this.Tc; },
+  psub(T) { const K = T + 273.15; return Math.exp(9.550426 - 5723.265 / K + 3.53068 * Math.log(K) - 0.00728332 * K); },
+  tmelt(P) { return 0.01 - 7.4e-8 * (P - this.Pt); },
+  state(T, P) {
+    if (P >= this.Pc && T >= this.Tc) return "fluide supercritique";
+    if (P > this.Pt && T < this.tmelt(P)) return "solide (glace)";
+    if (P <= this.Pt && T < 0.01) return P > this.psub(T) ? "solide (glace)" : "gaz (vapeur)";
+    if (T >= this.Tc) return "gaz (vapeur)";
+    return P > this.psat(T) ? "liquide" : "gaz (vapeur)";
+  }
+};
+
+function mountChart(container, spec) {
+  container.innerHTML = "";
+  const id = "ch" + Math.random().toString(36).slice(2, 8);
+  const host = document.createElement("div"); host.className = "chart"; host.tabIndex = 0;
+  host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
+  const legend = document.createElement("div"); legend.className = "legend";
+  const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
+  readout.innerHTML = spec.readHint || CT.readHint;
+  container.append(host);
+  if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
+  container.append(readout);
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
+
+  const ch = { host, spec, sel: null, draw: null };
+  const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+
+  if (spec.type !== "phase" && legend.isConnected) {
+    const names = spec.type === "stack" ? spec.parts : spec.series.map(s => s.name);
+    const colors = spec.type === "stack" ? spec.colors : spec.series.map(s => s.color);
+    if (names.length > 1 || spec.type === "stack") legend.innerHTML = names.map((n, i) => `<span>${swatch(colors[i], i, spec.type === "line" ? "line" : "fill")}${esc(n)}</span>`).join("");
+    else legend.remove();
+  }
+
+  function axisText(x, y, txt, anchor, size, extra) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="fill:var(--ink);font-size:${size}px" ${extra || ""}>${esc(txt)}</text>`; }
+
+  ch.draw = function () {
+    const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
+    const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
+    let svg = "";
+    if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
+    else if (spec.type === "line") svg = drawLine(W, H, F, tk, tt);
+    else if (spec.type === "stack") svg = drawStack(W, F, tk, tt);
+    else if (spec.type === "phase") svg = drawPhase(W, H, F, tk, tt);
+    host.innerHTML = svg;
+  };
+
+  /* --- barres groupées --- */
+  let geo = {};
+  function drawBar(W, H, F, tk, tt) {
+    const S = spec.series, cats = spec.categories;
+    const L = F * 3.3, R = F * 0.8, T = F * 0.9, B = F * 3.2 + (spec.rotate ? F * 1.2 : 0);
+    const pw = W - L - R, ph = H - T - B;
+    const yMax = spec.yMax, yStep = spec.yStep;
+    const y = v => T + ph - (v / yMax) * ph;
+    let g = "";
+    for (let v = 0; v <= yMax + 1e-9; v += yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/>` + axisText(L - 6, y(v) + tk * 0.35, fmt(v), "end", tk); }
+    const gw = pw / cats.length, bw = Math.min(gw * 0.7 / S.length, F * 3.2);
+    geo = { bars: [] };
+    cats.forEach((c, ci) => {
+      const gx = L + gw * ci + (gw - bw * S.length) / 2;
+      S.forEach((s, si) => {
+        const v = s.values[ci]; const x = gx + bw * si; const yy = y(Math.max(v, 0));
+        const sel = ch.sel && ch.sel[0] === ci && ch.sel[1] === si;
+        g += `<rect x="${x + 1}" y="${yy}" width="${bw - 2}" height="${Math.max(T + ph - yy, 0)}" rx="3" style="fill:var(--${s.color});${sel ? "stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v);
+        if (spec.showValues !== false) g += axisText(x + bw / 2, yy - 5, lbl, "middle", tk, `font-weight="700"`);
+        geo.bars.push({ ci, si, x, w: bw });
+      });
+      const cx = L + gw * ci + gw / 2;
+      if (spec.rotate) g += `<text transform="translate(${cx},${T + ph + 8}) rotate(35)" style="fill:var(--ink);font-size:${tk}px">${esc(c)}</text>`;
+      else g += axisText(cx, T + ph + tk * 1.35, c, "middle", tk, `font-weight="700"`);
+    });
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- courbes --- */
+  function drawLine(W, H, F, tk, tt) {
+    const S = spec.series;
+    const L = F * 3.6, R = F * 1.1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const { xMin, xMax, yMin, yMax } = spec;
+    const X = v => L + (v - xMin) / (xMax - xMin) * pw, Y = v => T + ph - (v - yMin) / (yMax - yMin) * ph;
+    let g = "";
+    (spec.bands || []).forEach(b => { g += `<rect x="${X(b.x0)}" y="${T}" width="${X(b.x1) - X(b.x0)}" height="${ph}" style="fill:var(--shade)"/>` + (b.label ? axisText((X(b.x0) + X(b.x1)) / 2, T + tk * 1.1, b.label, "middle", tk * 0.92, `font-weight="700"`) : ""); });
+    const maxXt = Math.max(2, Math.floor(pw / (F * (spec.xTickW || 3.6))));
+    let xs = spec.xStep; while ((xMax - xMin) / xs > maxXt) xs *= 2;
+    for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
+    for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
+    (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
+    S.forEach((s, si) => {
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
+    });
+    if (ch.sel !== null) {
+      const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
+      S.forEach(s => { const p = s.pts.find(q => q[0] === xv); if (p) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--${s.color});stroke-width:3"/>`; });
+    }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    geo = { L, pw, X, xMin, xMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- barres empilées horizontales (cumul à 100 %) --- */
+  function drawStack(W, F, tk, tt) {
+    const rows = spec.rows, P = spec.parts;
+    const L = F * (spec.labelW || 5.6), R = F * 0.9, T = F * 0.5, rowH = F * 2.3, gap = F * 0.9, B = F * 3.1;
+    const pw = W - L - R; const H = T + rows.length * (rowH + gap) - gap + B;
+    const X = v => L + v / 100 * pw;
+    let g = `<defs>${patDefs(id, spec.colors)}</defs>`;
+    for (let v = 0; v <= 100; v += 20) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + rows.length * (rowH + gap) - gap}" style="stroke:var(--grid)"/>` + axisText(X(v), T + rows.length * (rowH + gap) - gap + tk * 1.35, fmt(v), "middle", tk);
+    geo = { segs: [] };
+    rows.forEach((r, ri) => {
+      const y0 = T + ri * (rowH + gap); let acc = 0;
+      g += axisText(L - 8, y0 + rowH / 2 - (r.sub ? tk * 0.2 : -tk * 0.35), r.label, "end", tk, `font-weight="700"`);
+      if (r.sub) g += axisText(L - 8, y0 + rowH / 2 + tk * 0.95, r.sub, "end", tk * 0.88);
+      r.values.forEach((v, pi) => {
+        if (v <= 0) return;
+        const x = X(acc), w = X(acc + v) - X(acc);
+        const sel = ch.sel && ch.sel[0] === ri && ch.sel[1] === pi;
+        const fill = PAT[pi % PAT.length] === "none" ? `var(--${spec.colors[pi]})` : `url(#${id}-p${pi})`;
+        g += `<rect x="${x}" y="${y0}" width="${w}" height="${rowH}" style="fill:${fill};stroke:var(--surface);stroke-width:1.5${sel ? ";stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = fmt(v) + " %";
+        if (w > tk * 3.4) g += `<rect x="${x + w / 2 - tk * 1.55}" y="${y0 + rowH / 2 - tk * 0.75}" width="${tk * 3.1}" height="${tk * 1.5}" rx="4" style="fill:var(--surface);opacity:.92"/>` + axisText(x + w / 2, y0 + rowH / 2 + tk * 0.36, lbl, "middle", tk * 0.92, `font-weight="800"`);
+        geo.segs.push({ ri, pi, x, w, y0, h: rowH });
+        acc += v;
+      });
+    });
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "Proportion (%)", "middle", tt, `font-weight="700"`);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- diagramme d'état de l'eau (pression en échelle logarithmique) --- */
+  function drawPhase(W, H, F, tk, tt) {
+    const L = F * 3.6, R = F * 1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const tMin = spec.tMin ?? -150, tMax = spec.tMax ?? 500, lpMin = spec.lpMin ?? 1, lpMax = spec.lpMax ?? 8;
+    const X = t => L + (t - tMin) / (tMax - tMin) * pw;
+    const Y = p => T + ph - (Math.log10(p) - lpMin) / (lpMax - lpMin) * ph;
+    const clipY = y => Math.min(Math.max(y, T), T + ph);
+    let g = `<defs><clipPath id="${id}-c"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+    // zones colorées
+    let sub = "", sat = "";
+    for (let t = tMin; t <= 0.01; t += 2) sub += (sub ? "L" : "M") + X(t).toFixed(1) + "," + Y(Math.max(Water.psub(t), Math.pow(10, lpMin - 3))).toFixed(1) + " ";
+    sub += "L" + X(0.01) + "," + Y(Water.Pt);
+    for (let t = 0.01; t <= 374; t += 2) sat += (sat ? "L" : "M") + X(t).toFixed(1) + "," + Y(Water.psat(t)).toFixed(1) + " ";
+    sat += "L" + X(374) + "," + Y(Water.Pc);
+    const Ptop = Math.pow(10, lpMax);
+    const meltTop = X(Water.tmelt(Ptop));
+    g += `<g clip-path="url(#${id}-c)">`;
+    g += `<path d="${sub.replace("M", "M" + X(tMin) + "," + Y(Ptop) + " L")} L${meltTop},${Y(Ptop)} Z" style="fill:var(--info-soft)"/>`;
+    g += `<path d="M${X(0.01)},${Y(Water.Pt)} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${meltTop},${Y(Ptop)} Z" style="fill:var(--ok-soft)"/>`;
+    g += `<path d="${sub} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${X(tMax)},${Y(Ptop)} L${X(tMax)},${T + ph + 50} L${X(tMin)},${T + ph + 50} Z" style="fill:var(--warn-soft)"/>`;
+    g += `</g>`;
+    for (let e = lpMin; e <= lpMax; e++) g += `<line x1="${L}" x2="${L + pw}" y1="${Y(Math.pow(10, e))}" y2="${Y(Math.pow(10, e))}" style="stroke:var(--grid)"/>` + axisText(L - 6, Y(Math.pow(10, e)) + tk * 0.35, "10" + supStr(e), "end", tk);
+    let step = [10, 20, 50, 100, 200, 500].find(s => (tMax - tMin) / s <= pw / (F * 2.6)) || 500;
+    for (let t = Math.ceil(tMin / step) * step; t <= tMax; t += step) g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(t), T + ph + tk * 1.35, fmt(t), "middle", tk);
+    g += `<g clip-path="url(#${id}-c)"><path d="${sub}" style="fill:none;stroke:var(--info);stroke-width:2.5"/><path d="${sat}" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><line x1="${X(0.01)}" y1="${Y(Water.Pt)}" x2="${meltTop}" y2="${Y(Ptop)}" style="stroke:var(--info);stroke-width:2.5"/></g>`;
+    g += `<circle cx="${X(0.01)}" cy="${Y(Water.Pt)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(0.01) + F * 0.35, Y(Water.Pt) + tk * 1.25, "point triple", "start", tk * 0.88, `font-weight="700"`);
+    if (Water.Pc <= Ptop) g += `<circle cx="${X(374)}" cy="${Y(Water.Pc)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(374), Y(Water.Pc) - F * 0.45, "point critique", "middle", tk * 0.88, `font-weight="700"`);
+    g += axisText(X(tMin) + F * 0.6, T + F * 1.4, "SOLIDE", "start", tt, `font-weight="800" letter-spacing=".08em"`);
+    const pl = Math.pow(10, lpMax - 0.5), tl = Math.min(Water.tsat(pl), tMax) / 2;
+    g += axisText(X(tl), Y(pl) + F * 0.4, "LIQUIDE", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    g += axisText(X(tMin + 0.86 * (tMax - tMin)), Y(Math.pow(10, lpMin + 0.35)), "GAZ", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    (spec.segments || []).forEach(s => {
+      const y = Y(s.P); g += `<line x1="${X(s.t0)}" x2="${X(s.t1)}" y1="${y}" y2="${y}" style="stroke:var(--${s.color || "c3"});stroke-width:${F * 0.32};stroke-linecap:round;opacity:.9"/>` + axisText(X(s.t0), y - F * 0.5, s.label, "start", tk, `font-weight="800"`);
+    });
+    (spec.points || []).forEach(p => { g += `<circle cx="${X(p.T)}" cy="${Y(p.P)}" r="${F * 0.3}" style="fill:var(--${p.color || "c3"});stroke:var(--surface);stroke-width:2"/>` + axisText(X(p.T) + F * 0.45, Y(p.P) - F * 0.35, p.label, "start", tk, `font-weight="800"`); });
+    if (ch.sel) { const [t, p] = ch.sel; g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><line x1="${L}" x2="${L + pw}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><circle cx="${X(t)}" cy="${Y(p)}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`; }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, "Température (°C)", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">Pression (Pa, échelle logarithmique)</text>`;
+    geo = { L, T, pw, ph, tMin, tMax, lpMin, lpMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- lecture au toucher --- */
+  function pick(evt) {
+    const svg = host.querySelector("svg"); if (!svg) return;
+    const r = svg.getBoundingClientRect(); const sx = (evt.clientX - r.left) * (svg.viewBox.baseVal.width / r.width); const sy = (evt.clientY - r.top) * (svg.viewBox.baseVal.height / r.height);
+    if (spec.type === "bar") { let best = null, bd = 1e9; geo.bars.forEach(b => { const d = Math.abs(sx - (b.x + b.w / 2)); if (d < bd) { bd = d; best = b; } }); if (best) setSel([best.ci, best.si]); }
+    else if (spec.type === "line") { const xv = geo.xMin + (sx - geo.L) / geo.pw * (geo.xMax - geo.xMin); setSel(nearestX(xv)); }
+    else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
+    else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
+  }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
+  function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
+  function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
+  function describe() {
+    if (spec.type === "bar") { const [ci, si] = ch.sel; const s = spec.series[si]; const v = s.values[ci]; return `<b>${esc(spec.categories[ci])}</b>${spec.series.length > 1 ? " · " + esc(s.name) : ""} : ${spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v)}${spec.unit ? " " + spec.unit : ""}`; }
+    if (spec.type === "line") { const xv = ch.sel; return `<b>${spec.xRead ? spec.xRead(xv) : fmt(xv)}</b> → ` + spec.series.map(s => { const p = s.pts.find(q => q[0] === xv); return p ? `${esc(s.name)} : ${spec.yRead ? spec.yRead(p[1]) : fmt(p[1])}` : null; }).filter(Boolean).join(" · "); }
+    if (spec.type === "stack") { const [ri, pi] = ch.sel; return `<b>${esc(spec.rows[ri].label)}</b> · ${esc(spec.parts[pi])} : ${fmt(spec.rows[ri].values[pi])} %`; }
+    if (spec.type === "phase") { const [t, p] = ch.sel; return `Point touché : <b>T ≈ ${fmt(Math.round(t))} °C</b> ; <b>P ≈ ${fmtPow(Number(p.toPrecision(2)))} Pa</b>${spec.readState ? ` → état de l'eau : <b>${Water.state(t, p)}</b>` : ""}`; }
+    return "";
+  }
+  host.addEventListener("pointerdown", e => { pick(e); });
+  host.addEventListener("pointermove", e => { if (e.buttons && e.pointerType === "mouse") pick(e); });
+  host.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault(); const dir = e.key === "ArrowRight" ? 1 : -1;
+    if (spec.type === "line") { const xs = allX(); let i = ch.sel === null ? 0 : xs.indexOf(ch.sel) + dir; i = Math.max(0, Math.min(xs.length - 1, i)); setSel(xs[i]); }
+    if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
+    if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
+  });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
+  ch.draw(); Charts.list.add(ch);
+  if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
+  return ch;
+}
+
+function buildTable(spec) {
+  let head = "", body = "";
+  if (spec.type === "bar") {
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name || spec.yTitle)}</th>`).join("")}</tr>`;
+    body = spec.categories.map((c, ci) => `<tr><td>${esc(c)}</td>${spec.series.map((s, si) => `<td class="n">${spec.valueLabel ? spec.valueLabel(s.values[ci], ci, si) : fmt(s.values[ci])}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "line") {
+    const xs = new Set(); spec.series.forEach(s => s.pts.forEach(p => xs.add(p[0])));
+    const X = Array.from(xs).sort((a, b) => a - b);
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr>`;
+    body = X.map(x => `<tr><td class="n">${spec.xFmt ? spec.xFmt(x) : fmt(x)}</td>${spec.series.map(s => { const p = s.pts.find(q => q[0] === x); return `<td class="n">${p ? (spec.yFmt ? spec.yFmt(p[1]) : fmt(p[1])) : "—"}</td>`; }).join("")}</tr>`).join("");
+  } else if (spec.type === "stack") {
+    head = `<tr><th>Niveau</th>${spec.parts.map(p => `<th>${esc(p)} (%)</th>`).join("")}</tr>`;
+    body = spec.rows.map(r => `<tr><td>${esc(r.label)}${r.sub ? " (" + esc(r.sub) + ")" : ""}</td>${r.values.map(v => `<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "phase") {
+    if (spec.table === "none") return null;
+    head = `<tr><th>Repère</th><th>Température</th><th>Pression</th></tr>`;
+    body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
+  }
+  const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  return d;
+}
+
+/* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
+const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
+let _dlP = null;
+function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
+setTimeout(() => { getDownloads(); }, 0);
+
+async function saveText(filename, text) {
+  if (inClaude()) {
+    const d = await getDownloads();
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
+  }
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
+}
+
+function renderBilanTools(container, getText, getShow, appSlug) {
+  container.innerHTML = `
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="row">
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
+    </div>
+    <p class="toast" id="bMsg" aria-live="polite"></p>
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
+  const inp = $("#eleve", container);
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
+  const msg = t => { $("#bMsg", container).textContent = t; };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bCp", container).onclick = () => {
+    const txt = getText(inp.value); const ta = $("#bTxt", container);
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
+  };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
+  $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
+}
+function showOverlay(html) {
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
+  document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
+  const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
+  c.onclick = close; document.addEventListener("keydown", k);
+}
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
+
+/* ===== Boîte à outils commune : typographie, SVG à la largeur réelle, commande d'animation ===== */
+const SIMUL = "Valeurs simulées";
+const NB = " ", NN = " ";
+const tbl = (head, rows) => `<div class="tablewrap"><table class="t"><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+/* ---------- typographie française appliquée aux contenus ---------- */
+function nb(s) {
+  return String(s).replace(/ ([?!;])/g, NN + "$1").replace(/ :(?=[ <]|$)/g, NB + ":").replace(/« /g, "«" + NB).replace(/ »/g, NB + "»")
+    .replace(/(\d) (\d{3})(?!\d)/g, "$1" + NN + "$2").replace(/(\d) (%|°C|m|cm|mm|mL|L|W|km|km²|km³|Mt|t|kg|ans|min|fois|millions)(?![\wà-ÿ²³])/g, "$1" + NB + "$2");
+}
+function typo(o) { if (typeof o === "string") return nb(o); if (Array.isArray(o)) return o.map(typo); if (o && typeof o === "object") { Object.keys(o).forEach(k => { if (typeof o[k] !== "function") o[k] = typo(o[k]); }); } return o; }
+
+/* ---------- SVG redessiné à la largeur réelle (texte toujours lisible) ---------- */
+const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+function liveSVG(host, draw) {
+  const o = { host, draw() { const W = Math.max(260, host.clientWidth || 320); host.innerHTML = draw(W, fsPx()); } };
+  o.draw(); Charts.list.add(o);
+  if (window.ResizeObserver) { let lw = host.clientWidth; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; o.draw(); } }).observe(host); }
+  return o;
+}
+const sT = (x, y, txt, a, size, extra) => `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${size.toFixed(1)}px" ${extra || ""}>${esc(txt)}</text>`;
+const TK = F => Math.max(15, F * 0.76);
+function arrow(x1, y1, x2, y2, w, color, op) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = Math.max(w * 1.1, 10), hw = Math.max(w * 0.95, 7);
+  const bx = x2 - Math.cos(a) * hl, by = y2 - Math.sin(a) * hl, nx = -Math.sin(a), ny = Math.cos(a);
+  return `<g style="opacity:${op || 1}"><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" style="stroke:var(--${color});stroke-width:${Math.max(w, 1.5).toFixed(1)}"/><polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${(bx + nx * hw).toFixed(1)},${(by + ny * hw).toFixed(1)} ${(bx - nx * hw).toFixed(1)},${(by - ny * hw).toFixed(1)}" style="fill:var(--${color})"/></g>`;
+}
+
+/* ---------- commande d'animation commune : Lancer / Pause / Recommencer ---------- */
+function animCtl(el, dur, onP) {
+  el.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+  const st = { p: 0, playing: false, lt: 0, raf: 0 }, b = el.querySelector('[data-a="run"]');
+  const lab = () => { b.textContent = st.playing ? CT.animPause : (st.p > 0 && st.p < 1) ? CT.animResume : CT.animRun; };
+  const frame = ts => {
+    if (!st.playing) return; if (!document.body.contains(el)) { st.playing = false; return; }
+    const dt = st.lt ? Math.min(100, ts - st.lt) : 0; st.lt = ts; st.p = Math.min(1, st.p + dt / dur);
+    if (st.p >= 1) st.playing = false; onP(st.p); lab(); if (st.playing) st.raf = requestAnimationFrame(frame);
+  };
+  st.play = () => { if (st.p >= 1) st.p = 0; st.playing = true; st.lt = 0; lab(); st.raf = requestAnimationFrame(frame); };
+  st.pause = () => { st.playing = false; cancelAnimationFrame(st.raf); lab(); };
+  st.set = p => { st.pause(); st.p = Math.max(0, Math.min(1, p)); onP(st.p); lab(); };
+  b.onclick = () => st.playing ? st.pause() : st.play();
+  el.querySelector('[data-a="reset"]').onclick = () => st.set(0);
+  lab(); onP(0); return st;
+}
+
+
+/* ===== DNL anglais (5e EIST) · mots-clés EN → FR avec prononciation, glossaire, « Can I do it? » =====
+   KW([["nose cone", "coiffe"], …]) : étiquettes à insérer dans un intro (contenu de phrase, valide dans un <p>).
+   Le bouton 🔊 lit le mot anglais (speechSynthesis, voix de l'appareil, hors ligne) ; il disparaît si l'appareil ne sait pas parler. */
+const DNL_SAY = (() => { try { return "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function"; } catch (e) { return false; } })();
+try { document.documentElement.classList.toggle("nosay", !DNL_SAY); } catch (e) {}
+document.addEventListener("click", e => {
+  const b = e.target.closest && e.target.closest("[data-say]"); if (!b || !DNL_SAY) return;
+  try { const u = new SpeechSynthesisUtterance(b.dataset.say); u.lang = "en-GB"; u.rate = 0.85; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); } catch (x) {}
+});
+const sayBtn = w => `<button type="button" class="say" data-say="${esc(w)}" aria-label="Listen: ${esc(w)}">🔊</button>`;
+const KW = pairs => `<span class="kwbox" role="group" aria-label="Key words"><span class="kwt">🔤 Key words</span>${pairs.map(([en, fr]) => `<span class="kw">${sayBtn(en)}<b lang="en">${en}</b><i lang="fr">${fr}</i></span>`).join("")}</span>`;
+const glossTable = pairs => `<div class="tablewrap"><table class="t gloss"><thead><tr><th>English</th><th>Français</th></tr></thead><tbody>${pairs.map(([en, fr]) => `<tr><td><span class="gw">${sayBtn(en)}<b lang="en">${en}</b></span></td><td lang="fr">${fr}</td></tr>`).join("")}</tbody></table></div>`;
+const canDo = list => `<div class="box key"><p class="lab">✔ Can I do it?</p><ul class="cando">${list.map(x => `<li><span class="bx" aria-hidden="true"></span>${x}</li>`).join("")}</ul></div>`;
+
+/* ===== 5e EIST · Mission 5 · Activité 5 · Les phases de la Lune · dessins et simulations ===== */
+Store.key = "eist5-moon-phases-dnl-v1";
+const WID = {}, LIVE = {};
+const keep = () => { try { save(); } catch (e) {} if (typeof refreshTasks === "function") refreshTasks(); };
+const xst = () => S.x;
+const N1 = x => (+x).toFixed(1);
+const sM = (x, y, txt, a, size) => `<text x="${N1(x)}" y="${N1(y)}" text-anchor="${a}" style="fill:var(--muted);font-size:${N1(size)}px">${esc(txt)}</text>`;
+const D2R = Math.PI / 180;
+const LIT = "#f6e7a1", DARK = "#2a2f36", MOONG = "#c4c7cc", SUNC = "#e3a72f";
+const rng = s => { let x = s; return () => { x = (x * 1103515245 + 12345) & 0x7fffffff; return x / 0x7fffffff; }; };
+const PH_TXT = ["No lit part visible", "Right half lit", "Left half lit", "Whole disc lit"];
+const PHN = ["New moon", "First quarter", "Full moon", "Last quarter"];
+
+/* pictogramme d'une Lune dessinée par moitiés : 0 rien, 1 droite, 2 gauche, 3 tout */
+function phasePic(st, s) {
+  if (st === undefined || st === null) return `<svg viewBox="0 0 40 40" width="${s}" height="${s}" role="img" aria-label="Not drawn yet"><circle cx="20" cy="20" r="17" style="fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:3 3"/></svg>`;
+  return `<svg viewBox="0 0 40 40" width="${s}" height="${s}" role="img" aria-label="${PH_TXT[st]}"><circle cx="20" cy="20" r="17" fill="${DARK}"/>${st & 2 ? `<path d="M20,3 A17,17 0 0 0 20,37 Z" fill="${LIT}"/>` : ""}${st & 1 ? `<path d="M20,3 A17,17 0 0 1 20,37 Z" fill="${LIT}"/>` : ""}<circle cx="20" cy="20" r="17" style="fill:none;stroke:var(--ink);stroke-width:1.3"/></svg>`;
+}
+
+/* Lune vue depuis la Terre (hémisphère Nord) : e = angle Soleil-Terre-Lune, 0 = nouvelle lune, 180 = pleine lune */
+function moonDisk(cx, cy, R, eDeg) {
+  const e = ((eDeg % 360) + 360) % 360, c = Math.cos(e * D2R), rx = Math.abs(c) * R, frac = (1 - c) / 2;
+  const top = `${N1(cx)},${N1(cy - R)}`, bot = `${N1(cx)},${N1(cy + R)}`;
+  const d = e < 180 ? `M${top} A${N1(R)},${N1(R)} 0 0 1 ${bot} A${N1(rx)},${N1(R)} 0 0 ${c > 0 ? 0 : 1} ${top} Z`
+    : `M${top} A${N1(R)},${N1(R)} 0 0 0 ${bot} A${N1(rx)},${N1(R)} 0 0 ${c > 0 ? 1 : 0} ${top} Z`;
+  const mare = [[-0.28, -0.22, 0.2], [0.18, -0.3, 0.14], [0.05, 0.18, 0.24], [-0.35, 0.28, 0.12], [0.38, 0.12, 0.1]].map(([x, y, r]) => `<circle cx="${N1(cx + x * R)}" cy="${N1(cy + y * R)}" r="${N1(r * R)}" style="fill:#000;opacity:.09"/>`).join("");
+  return `<circle cx="${N1(cx)}" cy="${N1(cy)}" r="${N1(R)}" fill="${DARK}"/>${frac > 0.004 ? `<path d="${d}" fill="${LIT}"/>` : ""}${mare}<circle cx="${N1(cx)}" cy="${N1(cy)}" r="${N1(R)}" style="fill:none;stroke:#5b6470;stroke-width:1.2"/>`;
+}
+function phaseName(eDeg) {
+  const e = ((eDeg % 360) + 360) % 360;
+  return e < 10 || e > 350 ? "New moon" : e < 80 ? "Waxing crescent" : e <= 100 ? "First quarter" : e < 170 ? "Waxing gibbous" : e <= 190 ? "Full moon" : e < 260 ? "Waning gibbous" : e <= 280 ? "Last quarter" : "Waning crescent";
+}
+
+/* ciel nocturne : ce que voit l'observateur terrestre */
+function skyView(W, F, eDeg, show) {
+  const tk = TK(F), H = Math.min(Math.max(W * 0.72, F * 11), F * 15), R = Math.min(W * 0.19, H * 0.24), cx = W / 2, cy = H * 0.43, r = rng(7);
+  let g = `<rect x="0" y="0" width="${W}" height="${H}" rx="14" fill="#0b1a2c"/>`;
+  for (let i = 0; i < 46; i++) { const x = r() * W, y = r() * H * 0.78, s = 0.6 + r() * 1.4; if (Math.hypot(x - cx, y - cy) > R * 1.25) g += `<circle cx="${N1(x)}" cy="${N1(y)}" r="${N1(s)}" fill="#dfe8f5" opacity="${N1(0.35 + r() * 0.6)}"/>`; }
+  g += moonDisk(cx, cy, R, eDeg);
+  const gy = H * 0.82;
+  g += `<path d="M0,${N1(gy)} C${N1(W * 0.25)},${N1(gy - H * 0.06)} ${N1(W * 0.45)},${N1(gy + H * 0.03)} ${N1(W * 0.7)},${N1(gy - H * 0.04)} S${N1(W)},${N1(gy)} ${N1(W)},${N1(gy)} L${W},${H} L0,${H} Z" fill="#132a1f"/>`;
+  const ox = W * 0.16, oy = gy - H * 0.005, s = Math.max(F * 0.9, H * 0.06);
+  g += `<g style="stroke:#9fb8a8;stroke-width:2.4;stroke-linecap:round;fill:none"><circle cx="${N1(ox)}" cy="${N1(oy - s * 1.9)}" r="${N1(s * 0.32)}"/><path d="M${N1(ox)},${N1(oy - s * 1.55)} L${N1(ox)},${N1(oy - s * 0.7)} M${N1(ox)},${N1(oy - s * 0.7)} L${N1(ox - s * 0.35)},${N1(oy)} M${N1(ox)},${N1(oy - s * 0.7)} L${N1(ox + s * 0.35)},${N1(oy)} M${N1(ox)},${N1(oy - s * 1.35)} L${N1(ox + s * 0.5)},${N1(oy - s * 1.75)}"/></g>`;
+  g += `<text x="10" y="${N1(tk * 1.3)}" style="fill:#dfe8f5;font-size:${N1(Math.min(tk * 0.9, W / 22))}px;font-weight:700">From Earth (Northern Hemisphere)</text>`;
+  if (show) g += `<text x="${N1(cx)}" y="${N1(H - tk * 0.6)}" text-anchor="middle" style="fill:#f6e7a1;font-size:${N1(tk)}px;font-weight:800">${esc(show)}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Night sky: the Moon as an observer on Earth sees it. The phase is written under the drawings.">${g}</svg>`;
+}
+
+/* le schéma du document : Soleil à gauche, Terre au centre, orbite de la Lune vue en perspective */
+const WKPHI = { 1: 270, 2: 0, 3: 90, 4: 180 };
+function persp(W, F, o) {
+  const tk = TK(F) * 0.9, narrow = W < F * 24, H = Math.min(Math.max(W * (narrow ? 0.7 : 0.6), F * 10), F * 17), cx = W * (narrow ? 0.58 : 0.6), cy = H * 0.54, rx = Math.min(W * (narrow ? 0.38 : 0.34), H * 0.95), ry = rx * 0.36, t = -14 * D2R, Re = rx * 0.3, Rm = Math.max(F * 0.62, rx * 0.085);
+  const P = ph => { const a = ph * D2R, dx = rx * Math.cos(a), dy = -ry * Math.sin(a); return [cx + dx * Math.cos(t) - dy * Math.sin(t), cy + dx * Math.sin(t) + dy * Math.cos(t)]; };
+  let g = "";
+  const bx = Math.max(6, W * 0.02), bw = Math.min(W * 0.2, F * 5.2);
+  g += `<rect x="${N1(bx)}" y="${N1(H * 0.1)}" width="${N1(bw)}" height="${N1(tk * 1.7)}" rx="6" style="fill:#fff3b0;stroke:${SUNC}"/><text x="${N1(bx + bw / 2)}" y="${N1(H * 0.1 + tk * 1.2)}" text-anchor="middle" style="fill:#5a4100;font-size:${N1(tk)}px;font-weight:800">☀ Sun</text>`;
+  const ax0 = Math.min(W * 0.26, P(180)[0] - Rm - 18);
+  [0.4, 0.58].forEach(y => { g += `<line x1="${N1(bx)}" y1="${N1(H * y)}" x2="${N1(ax0)}" y2="${N1(H * y)}" style="stroke:${SUNC};stroke-width:3.5"/><polygon points="${N1(ax0 + 12)},${N1(H * y)} ${N1(ax0)},${N1(H * y - 7)} ${N1(ax0)},${N1(H * y + 7)}" fill="${SUNC}"/>`; });
+  g += sM(bx, H * 0.4 - tk * 0.55, "sunlight", "start", tk * 0.85);
+  let d = ""; for (let k = 0; k <= 72; k++) { const [x, y] = P(k * 5); d += (k ? "L" : "M") + N1(x) + "," + N1(y); }
+  g += `<path d="${d}" style="fill:none;stroke:var(--ink);stroke-width:1.4;stroke-dasharray:5 5;opacity:.75"/>`;
+  [300, 125].forEach(ph => { const [x1, y1] = P(ph), [x2, y2] = P(ph + 7); g += arrow(x1, y1, x2, y2, 2, "ink", 0.8); });
+  const moon = (ph, main) => { const [x, y] = P(ph), r = main ? Rm * 1.05 : Rm; let m = `<circle cx="${N1(x)}" cy="${N1(y)}" r="${N1(r)}" style="fill:${o.lit ? DARK : MOONG};stroke:${main ? "var(--accent)" : "var(--ink)"};stroke-width:${main ? 3 : 1.3}"/>`; if (o.lit) m += `<path d="M${N1(x)},${N1(y - r)} A${N1(r)},${N1(r)} 0 0 0 ${N1(x)},${N1(y + r)} Z" fill="${LIT}"/><circle cx="${N1(x)}" cy="${N1(y)}" r="${N1(r)}" style="fill:none;stroke:var(--ink);stroke-width:1.3"/>`; return m; };
+  const label = w => { const [x, y] = P(WKPHI[w]), half = tk * 2.6, lx = Math.max(half + 2, Math.min(W - half - 2, x)), ly = w === 1 || w === 4 ? y + Rm + tk * 1.15 : y - Rm - tk * 0.45; return sT(lx, ly, "Week " + w, "middle", tk * 0.9, 'font-weight="700"'); };
+  const back = [], front = [];
+  if (o.ghosts) [1, 2, 3, 4].forEach(w => (Math.sin(WKPHI[w] * D2R) > 0.05 ? back : front).push(moon(WKPHI[w], false)));
+  if (o.phi !== undefined && o.phi !== null) (Math.sin(o.phi * D2R) > 0.05 ? back : front).push(moon(o.phi, true));
+  g += back.join("");
+  const ax = -22 * D2R, al = Re * 1.32;
+  g += `<line x1="${N1(cx + Math.sin(ax) * al)}" y1="${N1(cy + Math.cos(ax) * al)}" x2="${N1(cx - Math.sin(ax) * al)}" y2="${N1(cy - Math.cos(ax) * al)}" style="stroke:var(--ink);stroke-width:2.4"/>`;
+  g += `<circle cx="${N1(cx)}" cy="${N1(cy)}" r="${N1(Re)}" style="fill:#bfe9f2;stroke:var(--ink);stroke-width:1.6"/>`;
+  g += `<path d="M${N1(cx - Re * 0.92)},${N1(cy - Re * 0.25)} C${N1(cx - Re * 0.5)},${N1(cy + Re * 0.35)} ${N1(cx + Re * 0.2)},${N1(cy + Re * 0.2)} ${N1(cx + Re * 0.98)},${N1(cy + Re * 0.22)}" style="fill:none;stroke:#245a68;stroke-width:1.5"/>`;
+  if (o.lit) g += `<path d="M${N1(cx)},${N1(cy - Re)} A${N1(Re)},${N1(Re)} 0 0 1 ${N1(cx)},${N1(cy + Re)} Z" style="fill:#0b1a2c;opacity:.45"/>`;
+  g += arrow(cx - Math.sin(ax) * al * 0.95, cy - Math.cos(ax) * al * 0.95, cx - Math.sin(ax) * al * 1.25, cy - Math.cos(ax) * al * 1.25, 2.4, "ink", 1);
+  g += `<text x="${N1(cx)}" y="${N1(cy + Re * 0.62)}" text-anchor="middle" style="fill:#0c3c48;font-size:${N1(tk * 0.9)}px;font-weight:800">Earth</text>`;
+  g += front.join("");
+  if (o.ghosts || o.labels) [1, 2, 3, 4].forEach(w => { g += label(w); });
+  return { H, svg: `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(o.alt || "Diagram: the Sun on the left lights up the Earth and the Moon; the Moon goes around the Earth; its positions at the end of weeks 1 to 4 are shown.")}">${g}</svg>` };
+}
+
+/* ---------- 1 · le labo de la lumière : comment voit-on la Lune ? ---------- */
+WID.rayon = el => {
+  const X = xst(); X.ray = X.ray || {};
+  let scr = 0, hand = 0, q = 0;
+  el.innerHTML = `<p class="lead">${"Send the light. Then try again with an obstacle."}</p>
+    <div class="opt3"><div><span class="lab3">Screen between the Sun and the Moon</span><div class="seg" role="group" aria-label="Screen between the Sun and the Moon"><button type="button" data-s="0">No</button><button type="button" data-s="1">Yes</button></div></div>
+    <div><span class="lab3">Hand in front of the eye</span><div class="seg" role="group" aria-label="Hand in front of the eye"><button type="button" data-h="0">No</button><button type="button" data-h="1">Yes</button></div></div></div>
+    <div class="row animctl"></div><div class="figbox"></div><p class="readout" aria-live="polite"></p><p class="lead" data-n></p>`;
+  const key = () => scr ? "screen" : hand ? "hand" : "free";
+  const fig = liveSVG($(".figbox", el), (W, F) => {
+    const tk = TK(F) * 0.9, H = Math.min(Math.max(W * 0.5, F * 11), F * 14), sx = W * 0.1, sy = H * 0.3, sr = Math.min(H * 0.13, W * 0.07), mx = W * 0.6, my = H * 0.28, mr = Math.min(H * 0.08, W * 0.05), ex = W * 0.86, ey = H * 0.8, scX = W * 0.36, hx = ex - W * 0.07;
+    const p1 = Math.min(1, q / 0.45), p2 = Math.max(0, (q - 0.45) / 0.55), lit = !scr && q >= 0.45;
+    let g = `<rect width="${W}" height="${H}" rx="14" fill="#0b1a2c"/>`;
+    const r = rng(3); for (let i = 0; i < 30; i++) g += `<circle cx="${N1(r() * W)}" cy="${N1(r() * H * 0.6)}" r="${N1(0.6 + r())}" fill="#dfe8f5" opacity=".5"/>`;
+    for (let k = 0; k < 10; k++) { const a = k * 36 * D2R; g += `<line x1="${N1(sx + Math.cos(a) * sr * 1.15)}" y1="${N1(sy + Math.sin(a) * sr * 1.15)}" x2="${N1(sx + Math.cos(a) * sr * 1.6)}" y2="${N1(sy + Math.sin(a) * sr * 1.6)}" style="stroke:${SUNC};stroke-width:2.5;opacity:.85"/>`; }
+    g += `<circle cx="${N1(sx)}" cy="${N1(sy)}" r="${N1(sr)}" fill="#ffd34d"/>` + `<text x="${N1(sx)}" y="${N1(sy + sr * 1.6 + tk)}" text-anchor="middle" style="fill:#ffe9a8;font-size:${N1(tk)}px;font-weight:800">Sun</text>`;
+    const reach = scr ? (scX - sx) / (mx - mr - sx) : 1, L1 = Math.min(p1, reach);
+    if (q > 0) g += `<line x1="${N1(sx + sr)}" y1="${N1(sy)}" x2="${N1(sx + sr + (mx - mr - sx - sr) * L1)}" y2="${N1(sy + (my - sy) * L1)}" style="stroke:#ffd34d;stroke-width:3.5"/>`;
+    if (scr) g += `<rect x="${N1(scX - 6)}" y="${N1(sy - H * 0.2)}" width="12" height="${N1(H * 0.4)}" rx="3" fill="#8a96a3"/><text x="${N1(scX)}" y="${N1(sy + H * 0.2 + tk * 1.1)}" text-anchor="middle" style="fill:#dfe8f5;font-size:${N1(tk * 0.85)}px">screen</text>`;
+    g += `<circle cx="${N1(mx)}" cy="${N1(my)}" r="${N1(mr)}" style="fill:${lit ? "#f3eccb" : "#1a2533"};stroke:${lit ? "#f3eccb" : "#5b6470"};stroke-width:1.5;${lit ? "" : "stroke-dasharray:4 3"}"/><text x="${N1(mx)}" y="${N1(my - mr - tk * 0.5)}" text-anchor="middle" style="fill:#dfe8f5;font-size:${N1(tk)}px;font-weight:800">Moon</text>`;
+    if (lit) { for (let k = 0; k < 8; k++) { const a = (k * 45 + 20) * D2R, l = mr * (1.3 + 1.2 * Math.min(1, p2 * 2)); g += `<line x1="${N1(mx + Math.cos(a) * mr * 1.15)}" y1="${N1(my + Math.sin(a) * mr * 1.15)}" x2="${N1(mx + Math.cos(a) * l)}" y2="${N1(my + Math.sin(a) * l)}" style="stroke:#f3eccb;stroke-width:2;stroke-dasharray:4 3;opacity:.7"/>`; }
+      const stopX = hand ? hx + 10 : ex - 14, L2 = Math.min(p2, (stopX - mx) / (ex - mx));
+      g += `<line x1="${N1(mx)}" y1="${N1(my + mr)}" x2="${N1(mx + (ex - mx) * L2)}" y2="${N1(my + mr + (ey - my - mr) * L2)}" style="stroke:#f3eccb;stroke-width:3"/>`; }
+    g += `<path d="M0,${N1(H * 0.9)} Q${N1(W * 0.5)},${N1(H * 0.84)} ${N1(W)},${N1(H * 0.9)} L${W},${H} L0,${H} Z" fill="#132a1f"/>`;
+    g += `<ellipse cx="${N1(ex)}" cy="${N1(ey)}" rx="${N1(F * 1.05)}" ry="${N1(F * 0.6)}" style="fill:#f5f7fa;stroke:#dfe8f5;stroke-width:1.5"/><circle cx="${N1(ex - F * 0.25)}" cy="${N1(ey - F * 0.05)}" r="${N1(F * 0.38)}" fill="#3b6ea8"/><circle cx="${N1(ex - F * 0.25)}" cy="${N1(ey - F * 0.05)}" r="${N1(F * 0.16)}" fill="#0b1a2c"/>`;
+    g += `<text x="${N1(ex)}" y="${N1(ey + F * 0.6 + tk * 1.05)}" text-anchor="middle" style="fill:#dfe8f5;font-size:${N1(tk * 0.85)}px;font-weight:700">observer</text>`;
+    if (hand) g += `<text x="${N1(hx)}" y="${N1(ey + tk * 0.4)}" text-anchor="middle" style="font-size:${N1(F * 1.6)}px">✋</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="The Sun, the Moon and an observer on Earth. What happens is written under the drawing.">${g}</svg>`;
+  });
+  const done = () => { const n = ["free", "screen", "hand"].filter(k => X.ray[k]).length; $("[data-n]", el).textContent = `Tests done: ${n}/3 (no obstacle, with the screen, with the hand).`; };
+  const ctl = animCtl($(".animctl", el), 5200, p => { q = p; fig.draw();
+    $(".readout", el).innerHTML = (p <= 0 ? "Tap “Start”." : p < 0.45 ? (scr ? "Sunlight travels towards the Moon… and hits the screen." : "Sunlight travels towards the Moon…") : scr ? "Sunlight does not reach the Moon: the Moon is not lit. The observer cannot see it." : p < 1 ? "The Moon is lit: it sends the light back in all directions…" : hand ? "The hand stops the light coming from the Moon: the observer cannot see the Moon." : "The light coming from the Moon reaches the eye: the observer can see the Moon.");
+    if (p >= 1 && !X.ray[key()]) { X.ray[key()] = 1; keep(); done(); } });
+  const paint = () => { $$("[data-s]", el).forEach(b => b.setAttribute("aria-pressed", +b.dataset.s === scr ? "true" : "false")); $$("[data-h]", el).forEach(b => b.setAttribute("aria-pressed", +b.dataset.h === hand ? "true" : "false")); };
+  $$("[data-s]", el).forEach(b => b.onclick = () => { scr = +b.dataset.s; if (scr) hand = 0; paint(); ctl.set(0); });
+  $$("[data-h]", el).forEach(b => b.onclick = () => { hand = +b.dataset.h; if (hand) scr = 0; paint(); ctl.set(0); });
+  paint(); done();
+};
+
+/* ---------- 2 · le simulateur de lunaison (remplace la vidéo) ---------- */
+function lunaCtl(el, intro, onDay) {
+  el.innerHTML = `<p class="lead">${nb(intro)}</p><div class="row animctl"></div>
+    <div class="seg wkb" role="group" aria-label="Go to the end of a week">${[1, 2, 3, 4].map(w => `<button type="button" data-wk="${w}">Week ${w}</button>`).join("")}</div>
+    <div class="field"><label for="${el.id || "x"}-d">Day of the lunar month: <b data-dv>0</b> of 28</label><input id="${el.id || "x"}-d" type="range" min="0" max="28" step="0.5" value="0" data-day></div>
+    <div class="lgrid"><div class="figbox" data-dg></div><div class="figbox" data-sky></div></div><p class="readout" aria-live="polite"></p>`;
+  let day = 0;
+  const ctl = animCtl($(".animctl", el), 16000, q => { day = 28 * q; sync(); });
+  function sync() { const sl = $("[data-day]", el); if (sl && Math.abs(+sl.value - day) > 0.26) sl.value = String(Math.round(day * 2) / 2); $("[data-dv]", el).textContent = fmt(Math.round(day * 2) / 2); const wk = [1, 2, 3, 4].find(w => Math.abs(day - 7 * w) < 0.26); $$("[data-wk]", el).forEach(b => b.setAttribute("aria-pressed", +b.dataset.wk === wk ? "true" : "false")); onDay(day, wk); }
+  $$("[data-wk]", el).forEach(b => b.onclick = () => ctl.set(+b.dataset.wk / 4));
+  $("[data-day]", el).oninput = e => ctl.set(+e.target.value / 28);
+  return ctl;
+}
+WID.lunaison = el => {
+  const X = xst(); X.wk = X.wk || {};
+  let day = 0, dg, sky;
+  lunaCtl(el, "Start the lunar month, or tap a week. Watch the Moon from Earth.", (d, wk) => {
+    day = d; if (dg) { dg.draw(); sky.draw(); }
+    if (wk && !X.wk[wk]) { X.wk[wk] = 1; keep(); }
+    const e = 360 * d / 28;
+    $(".readout", el).innerHTML = (`Day ${fmt(Math.round(d * 2) / 2)}${wk ? ` · <b>end of week ${wk}</b>` : ""} · ${phaseName(e)}. Weeks observed: ${Object.keys(X.wk).length}/4.`);
+  });
+  dg = liveSVG($("[data-dg]", el), (W, F) => persp(W, F, { phi: 180 + 360 * day / 28, ghosts: true, alt: "Diagram of the document: the Moon (circled in colour) goes around the Earth. Its position and the day are written under the drawings." }).svg);
+  sky = liveSVG($("[data-sky]", el), (W, F) => skyView(W, F, 360 * day / 28, phaseName(360 * day / 28)));
+};
+
+/* ---------- 3 · le schéma du document (positions seules) ---------- */
+WID.schema = el => { el.innerHTML = `<div class="figbox"></div><p class="cap">The four positions of the Moon at the end of each week. You look at this diagram from space: the Sun is on your left.</p>`; liveSVG($(".figbox", el), (W, F) => persp(W, F, { ghosts: true }).svg); };
+
+/* ---------- animation débloquée : vue depuis l'espace et vue depuis la Terre ---------- */
+function topView(W, F, phi) {
+  const tk = TK(F) * 0.9, H = Math.min(Math.max(W * 0.78, F * 13), F * 17), cx = W * 0.57, cy = H * 0.52, Rm = F * 1.7, Re = F * 1.0, rO = Math.min(W * 0.36, H / 2 - Rm * 1.35 - F * 0.5);
+  let g = `<rect width="${W}" height="${H}" rx="14" style="fill:var(--surface-2)"/>`;
+  [0.3, 0.5, 0.7].forEach(y => { g += `<line x1="6" y1="${N1(H * y)}" x2="${N1(W * 0.14)}" y2="${N1(H * y)}" style="stroke:${SUNC};stroke-width:3"/><polygon points="${N1(W * 0.14 + 11)},${N1(H * y)} ${N1(W * 0.14)},${N1(H * y - 6)} ${N1(W * 0.14)},${N1(H * y + 6)}" fill="${SUNC}"/>`; });
+  g += sT(6, H * 0.3 - tk * 0.6, "☀ Sun", "start", tk, 'font-weight="800"');
+  g += `<circle cx="${N1(cx)}" cy="${N1(cy)}" r="${N1(rO)}" style="fill:none;stroke:var(--ink);stroke-width:1.3;stroke-dasharray:5 5;opacity:.7"/>`;
+  g += `<circle cx="${N1(cx)}" cy="${N1(cy)}" r="${N1(Re)}" fill="#1a3550"/><path d="M${N1(cx)},${N1(cy - Re)} A${N1(Re)},${N1(Re)} 0 0 0 ${N1(cx)},${N1(cy + Re)} Z" fill="#7cc6e6"/><circle cx="${N1(cx)}" cy="${N1(cy)}" r="${N1(Re)}" style="fill:none;stroke:var(--ink);stroke-width:1.4"/>` + sT(cx, cy + Re + tk * 1.1, "Earth", "middle", tk * 0.9, 'font-weight="800"');
+  const a = phi * D2R, mx = cx + rO * Math.cos(a), my = cy - rO * Math.sin(a);
+  g += `<circle cx="${N1(mx)}" cy="${N1(my)}" r="${N1(Rm)}" fill="${DARK}"/><path d="M${N1(mx)},${N1(my - Rm)} A${N1(Rm)},${N1(Rm)} 0 0 0 ${N1(mx)},${N1(my + Rm)} Z" fill="${LIT}" opacity=".55"/>`;
+  const psi = Math.atan2(cy - my, cx - mx) / D2R; let tt = psi; while (tt <= 0) tt += 360; while (tt > 360) tt -= 360;
+  const lo = Math.max(90, tt - 90), hi = Math.min(270, tt + 90);
+  if (hi - lo > 1) { let d = `M${N1(mx)},${N1(my)}`; for (let s = lo; s <= hi + 0.01; s += 3) d += ` L${N1(mx + Rm * Math.cos(s * D2R))},${N1(my + Rm * Math.sin(s * D2R))}`; g += `<path d="${d} Z" style="fill:#ffd84d;stroke:var(--accent);stroke-width:3;stroke-linejoin:round"/>`; }
+  let arc = ""; for (let s = psi - 90; s <= psi + 90.01; s += 4) arc += (arc ? " L" : "M") + `${N1(mx + Rm * 1.28 * Math.cos(s * D2R))},${N1(my + Rm * 1.28 * Math.sin(s * D2R))}`;
+  g += `<path d="${arc}" style="fill:none;stroke:var(--accent);stroke-width:2.2;stroke-dasharray:4 4"/><circle cx="${N1(mx)}" cy="${N1(my)}" r="${N1(Rm)}" style="fill:none;stroke:var(--ink);stroke-width:1.4"/>`;
+  g += `<line x1="${N1(cx + (mx - cx) * (Re / rO) * 1.1)}" y1="${N1(cy + (my - cy) * (Re / rO) * 1.1)}" x2="${N1(mx - (mx - cx) * (Rm * 1.4 / rO))}" y2="${N1(my - (my - cy) * (Rm * 1.4 / rO))}" style="stroke:var(--accent);stroke-width:1.4;stroke-dasharray:2 4"/>`;
+  g += sT(6, tk * 1.2, "Top view, from space", "start", tk * 0.9, 'font-weight="700"');
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Top view from space: the half of the Moon facing the Sun is always lit; the part we see from Earth is circled. The explanation is written under the drawings.">${g}</svg>`;
+}
+WID.espace = el => {
+  let day = 7, dg, sky;
+  const ctl = lunaCtl(el, "From space, the half facing the Sun is always lit. From Earth, we only see the half of the Moon facing us (dotted line).", (d, wk) => {
+    day = d; if (dg) { dg.draw(); sky.draw(); }
+    const e = ((360 * d / 28) % 360 + 360) % 360, near = x => Math.abs(e - x) < 10, part = e < 10 || e > 350 ? "we see <b>no part</b> of the lit half" : near(180) ? "we see <b>all</b> of the lit half" : near(90) || near(270) ? "we see <b>half</b> of the lit half" : `we see <b>${(e < 90 || e > 270) ? "a small part" : "a large part"}</b> of the lit half`;
+    $(".readout", el).innerHTML = (`Day ${fmt(Math.round(d * 2) / 2)}${wk ? ` · end of week ${wk}` : ""} · ${phaseName(e)}: from Earth, ${part} (highlighted).`);
+  });
+  dg = liveSVG($("[data-dg]", el), (W, F) => topView(W, F, 180 + 360 * day / 28));
+  sky = liveSVG($("[data-sky]", el), (W, F) => skyView(W, F, 360 * day / 28, phaseName(360 * day / 28)));
+  el.insertAdjacentHTML("beforeend", `<p class="cap">${"Top view: pale yellow = half lit by the Sun · bright yellow, outlined in colour = lit part facing the Earth, the part we see · dotted line = half of the Moon facing the Earth."}</p>`);
+  ctl.set(0.25);
+};
+
+/* ===== 5e EIST · Mission 5 · Activité 5 en DNL anglais (A2-B1) : les phases de la Lune, adapté de la fiche du professeur =====
+   Mêmes manipulations que la version française ; mots-clés EN → FR avec prononciation, glossaire, cadres de phrase (version experte). */
+const PROBLEM = "Why does the Moon look different every night?";
+const gap = `<span class="gap">………</span>`;
+const GLOSS = [["the Moon", "la Lune"], ["the Sun", "le Soleil"], ["the Earth", "la Terre"], ["primary light source", "source primaire de lumière"], ["scattering object", "objet diffusant"], ["to light up / lit", "éclairer / éclairé"], ["half", "la moitié"], ["the phases of the Moon", "les phases de la Lune"], ["lunar month", "la lunaison"], ["new moon", "la nouvelle lune"], ["first quarter", "le premier quartier"], ["full moon", "la pleine lune"], ["last quarter", "le dernier quartier"], ["frame of reference", "le référentiel"], ["observer", "l'observateur"]];
+const CANDO = ["I can explain how we see the Moon: Sun → Moon → eye.", "I can name the four main phases of the Moon in English.", "I can say why the Moon looks different: “From Earth, we see a bigger or smaller part of the lit half.”"];
+const HOME = { slug: "phases-of-the-moon-dnl", short: "Phases of the Moon (DNL)", last: "c1", lastG: "p3", lastK: 1, dur: "about 50 minutes",
+  kicker: "Mission 5 · Light signals · Activity 5 · Science in English", title: "Why does the Moon look different every night?",
+  intro: "Before leaving for Mars, the crew learns to read the sky. Every evening, the Moon does not look the same. Your mission: find out why!",
+  lab: "The mission question", goal: "Goal: explain the phases of the Moon with the Sun, the Earth and the Moon.",
+  fact: "Light from the Moon takes about 1.3 seconds to reach your eye.",
+  parts: "The three parts of the activity", recop: "Summary to copy into your notebook",
+  txt: "ACTIVITY 5 · WHY DOES THE MOON LOOK DIFFERENT EVERY NIGHT?\n5e EIST · Science in English (DNL) · Mission 5 · Light signals: the Sun-Earth-Moon system",
+  comps: { conn: "Use what I know", lire: "Use a diagram or an animation", mod: "Use a model", rais: "Reason and explain", lang: "Use scientific English" },
+  gk: { vois: "I see", sais: "I know", deduis: "So" },
+  vers: { g: { icon: "🧭", short: "Guided", name: "Guided version", q: "guided", desc: "I choose or I complete, step by step." },
+    l: { icon: "🚀", short: "Expert", name: "Expert version", q: "expert", desc: "The same experiments, less help: I write my answers, I explain in my own words and I calculate." } },
+  extraTitle: "My phases table",
+  extra: () => { const [T, E] = tabAns(); return `MY PHASES TABLE\n${[0, 1, 2, 3].map(i => `- Week ${i + 1} · from Earth: ${T[i] === undefined ? "—" : PH_TXT[T[i]]} · from space: ${E[i] === undefined ? "—" : PH_TXT[E[i]]}`).join("\n")}\n` },
+  extraHTML: () => { const [T, E] = tabAns(); return `<div class="tablewrap"><table class="t phtab"><thead><tr><th>Week</th><th>What an observer on Earth sees</th><th>What an observer in space sees</th></tr></thead><tbody>${[0, 1, 2, 3].map(i => `<tr><td>${i + 1}</td><td>${phasePic(T[i], 44)}<span class="pdt">${T[i] === undefined ? "—" : PH_TXT[T[i]]}</span></td><td>${phasePic(E[i], 44)}<span class="pdt">${E[i] === undefined ? "—" : PH_TXT[E[i]]}</span></td></tr>`).join("")}</tbody></table></div>` } };
+function tabAns() { const get = id => { const it = ITEMS[id].it, k = it.parts.findIndex(p => p.t === "phase"), st = IT()[id]; return k >= 0 && st && st.v[k] ? st.v[k] : {}; }; return [get("b1"), get("b2")]; }
+
+const DOC_INTRO = { title: "Document 1 · How do we see an object?", html: `<p><i>To see an object, light from this object must reach our eye.</i></p><p><i>Only stars, like the Sun, give out light: they are <b>primary light sources</b>.</i></p><p><i>Planets and moons (satellites), like the Moon, do not give out light: they are <b>scattering objects</b>. They send back the light they receive.</i></p><p><i>So the ……… must light up ……… and a ray of light must reach ………</i></p>` };
+const DOC_TXT = { title: "Document 2 · The phases of the Moon", html: `<p>If you look at the Moon every evening, you can see that it looks different. These different looks are called the <b>phases of the Moon</b>. The phases change over about 28 days: this is a <b>lunar month</b>. The Sun always lights up one half of the Moon, but an observer on Earth sees all of this lit half, part of it, or none of it.</p>` };
+const DOC_SCH = { title: "Document 3 · The Moon around the Earth", w: "schema", sim: "Simplified diagram" };
+const WEEKS = n => [1, 2, 3, 4].map(w => ({ txt: "Week " + w, a: n[w - 1] }));
+const FRAMES = list => `<span class="box info" style="display:grid"><span class="lab">✍ Sentence starters</span><span>${list.map(x => `“${x} …”`).join(" · ")}</span></span>`;
+
+const BIL = ["To see an object, light from this object must reach our eye.",
+  "The Sun is a <u>primary light source</u>. The Moon is a <u>scattering object</u>: it does not give out light, it sends back the light of the Sun.",
+  "The Sun always lights up <u>one half</u> of the Moon.",
+  "The Moon goes around the Earth in about 28 days: this is a <u>lunar month</u>. Depending on where the Moon is, an observer on Earth sees all, part or none of its lit half: these are the <u>phases of the Moon</u>.",
+  "From space, we always see one lit half: what the Moon looks like depends on where the observer is (the <u>frame of reference</u>)."];
+const bilanHTML = () => BIL.map(x => `<p>${x}</p>`).join("") + `<p class="lab2">I draw the four phases (seen from the Northern Hemisphere):</p><div class="phstrip">${[[0, "New moon"], [1, "First quarter"], [3, "Full moon"], [2, "Last quarter"]].map(([s, n]) => `<figure>${phasePic(s, 58)}<figcaption>${n}</figcaption></figure>`).join("")}</div><p class="lab2">My glossary</p>${glossTable(GLOSS)}${canDo(CANDO)}`;
+
+const GROUPS = [
+{ id: "p1", n: 1, icon: "🔦", tab: "See the Moon", title: "How do we see the Moon?", sub: "The light lab · about 10 minutes.",
+  items: [
+  { id: "a1", lvl: "easy", title: "The light lab",
+    intro: KW([["light", "lumière"], ["to give out light", "émettre de la lumière"], ["to light up", "éclairer"], ["ray of light", "rayon lumineux"], ["screen", "écran"], ["eye", "œil"]]),
+    docs: [DOC_INTRO],
+    widget: { title: "Virtual lab · The path of light", w: "rayon", sim: "Simplified model" },
+    parts: [
+      { t: "task", c: "mod", label: "Do the three tests: no obstacle, with the screen, with the hand.", okMsg: "Three tests done.", done: () => { const n = ["free", "screen", "hand"].filter(k => (xst().ray || {})[k]).length; return { ok: n === 3, msg: `${n}/3 tests done.` }; } },
+      { t: "rows", c: "conn", label: "Complete the sentence of document 1.", choices: ["Sun", "the Moon", "our eye"], rows: [{ txt: "So the … (1)", a: 0 }, { txt: "… must light up … (2)", a: 1 }, { txt: "… and a ray of light must reach … (3)", a: 2 }] },
+      { t: "rows", c: "conn", label: "Primary light source or scattering object?", choices: ["Primary light source", "Scattering object"], rows: [{ txt: "The Sun", a: 0 }, { txt: "The Moon", a: 1 }, { txt: "The planet Mars", a: 1 }, { txt: "The Pole Star (a star)", a: 0 }] }],
+    hints: ["In the lab, look where the light starts, then where it goes.", "Document 1 says it: only stars give out light. Planets and moons do not.", "Sun · the Moon · our eye. The Sun and the Pole Star are primary light sources; the Moon and Mars are scattering objects."],
+    corr: "So the Sun must light up the Moon and a ray of light must reach our eye. The Sun and the Pole Star are stars: they are primary light sources. The Moon (a satellite) and Mars (a planet) do not give out light: they are scattering objects. With the screen, the Moon is not lit; with the hand, the light from the Moon does not reach the eye: in both cases, we cannot see the Moon." }] },
+
+{ id: "p2", n: 2, icon: "🌓", tab: "The phases", title: "Why does the Moon look different?", sub: "Simulator and diagram · about 25 minutes.",
+  items: [
+  { id: "b1", lvl: "mid", title: "What an observer on Earth sees",
+    intro: `First, complete the column “observer on Earth”. ${KW([["week", "semaine"], ["lit", "éclairé"], ["dark", "sombre"], ["half", "moitié"], ["new moon", "nouvelle lune"], ["first quarter", "premier quartier"], ["full moon", "pleine lune"], ["last quarter", "dernier quartier"]])}`,
+    docs: [DOC_TXT],
+    widget: { title: "Simulator · The Moon around the Earth (instead of the video)", w: "lunaison", sim: "Simplified animation" },
+    parts: [
+      { t: "task", c: "mod", label: "Look at the Moon at the end of the four weeks.", okMsg: "All four weeks observed.", done: () => { const n = Object.keys(xst().wk || {}).length; return { ok: n >= 4, msg: `${n}/4 weeks observed.` }; } },
+      { t: "phase", c: "lire", label: "Draw what an observer on Earth sees.", rows: WEEKS([1, 3, 2, 0]) },
+      { t: "rows", c: "lire", label: "What is the name of each phase?", choices: PHN, rows: [{ txt: "Week 1", a: 1 }, { txt: "Week 2", a: 2 }, { txt: "Week 3", a: 3 }, { txt: "Week 4", a: 0 }] }],
+    hints: ["Tap “Week 1”, then 2, 3 and 4: look at the Moon in the sky, on the right.", "To draw, tap the lit half. If you see no lit part, tap “Nothing lit”.", "Week 1: right half (first quarter). Week 2: the whole disc (full moon). Week 3: left half (last quarter). Week 4: nothing (new moon)."],
+    corr: "Week 1: first quarter, the right half is lit. Week 2: full moon, the whole disc is lit. Week 3: last quarter, the left half is lit. Week 4: new moon, we cannot see any lit part. (Seen from the Northern Hemisphere, like in Luxembourg.)" },
+  { id: "b2", lvl: "hard", title: "What an observer in space sees",
+    intro: `Then think and complete the column “observer in space”. Remember: frame of reference! ${KW([["frame of reference", "référentiel"], ["space", "espace"], ["always", "toujours"], ["the same", "le même, pareil"], ["shadow", "ombre"]])}`,
+    docs: [DOC_SCH, { title: "Document 2 (extract)", html: `<p>The Sun always lights up one half of the Moon, but an observer on Earth sees all of this lit half, part of it, or none of it.</p>` }],
+    pre: { label: "Your opinion first: does the observer in space also see the Moon change?", o: ["Yes, they see the same phases as from Earth", "No, they always see the same thing", "I don't know"], a: 1, yes: "✓ Good idea: your drawing confirms it.", nope: "↻ Your drawing made you change your mind: that is how we learn." },
+    parts: [
+      { t: "phase", c: "mod", label: "Draw what an observer in space sees, from where you look at the diagram (the Sun is on their left).", rows: WEEKS([2, 2, 2, 2]) },
+      { t: "choice", c: "rais", label: "Why does this observer always see the same thing?", o: ["The Sun always lights up the half of the Moon facing it, and the observer always looks from the same place", "The Moon makes its own light", "The Moon does not go around the Earth"], a: 0, no: { 1: "Read document 1 again: the Moon is a scattering object.", 2: "Look at the diagram: the Moon is in four different places." } },
+      { t: "rows", c: "rais", label: "True or false?", choices: ["True", "False"], rows: [{ txt: "The Sun always lights up one half of the Moon.", a: 0 }, { txt: "The phases of the Moon are caused by the shadow of the Earth.", a: 1 }, { txt: "What the Moon looks like depends on where we look from.", a: 0 }] }],
+    hints: ["On the diagram, the Sun lights everything from the left.", "Wherever the Moon is, which half faces the Sun?", "The four drawings are the same: the left half, facing the Sun, is lit. The shadow of the Earth plays no part (that is an eclipse, which is rare)."],
+    corr: "From space, where you look at the diagram from, you always see the left half of the Moon lit: it is the half facing the Sun. The four drawings are the same. From Earth, depending on where the Moon is, we see a bigger or smaller part of this lit half: what the Moon looks like depends on the frame of reference. The phases are not caused by the shadow of the Earth.",
+    unlock: { title: "🔓 Animation unlocked · From space and from Earth", w: "espace", sim: "Simplified model" } }] },
+
+{ id: "p3", n: 3, icon: "🚀", tab: "Mission", title: "Ready to read the sky?", sub: "Your mission log, a new situation, then the summary to copy · about 15 minutes.",
+  items: [
+  { id: "c0", lvl: "easy", title: "Mission log · Moon words",
+    intro: "Show that you know the words of the mission. Tap 🔊 to hear a word.",
+    parts: [
+      { t: "match", c: "lang", label: "Find the French word for each English word.", ask: "Choose the French word for", rows: [{ e: "🔤", txt: "new moon", v: "nouvelle lune" }, { e: "🔤", txt: "full moon", v: "pleine lune" }, { e: "🔤", txt: "first quarter", v: "premier quartier" }, { e: "🔤", txt: "lunar month", v: "lunaison" }, { e: "🔤", txt: "scattering object", v: "objet diffusant" }, { e: "🔤", txt: "frame of reference", v: "référentiel" }] },
+      { t: "word", c: "lang", spell: true, label: `Complete: “When we see the whole disc lit, it is a ${gap} moon.”`, ans: ["full", "pleine"], err: [[["new", "half", "quarter"], "Look at your drawing for week 2: the whole disc is lit."]] }],
+    hints: ["Use the key words of the earlier steps: they give the French word.", "“Lunar month” is the 28-day cycle. “Frame of reference” is where you look from.", "new moon = nouvelle lune · full moon = pleine lune · first quarter = premier quartier · lunar month = lunaison · scattering object = objet diffusant · frame of reference = référentiel. The whole disc is lit: full moon."],
+    corr: "new moon = nouvelle lune · full moon = pleine lune · first quarter = premier quartier · lunar month = lunaison · scattering object = objet diffusant · frame of reference = référentiel. “When we see the whole disc lit, it is a full moon.”" },
+  { id: "c1", lvl: "hard", title: "The mission report", recop: true,
+    docs: [DOC_SCH],
+    parts: [
+      { t: "rows", c: "rais", label: "Where is the Moon?", choices: ["Between the Earth and the Sun", "Opposite the Sun", "On the side"], rows: [{ txt: "At full moon", a: 1 }, { txt: "At new moon", a: 0 }, { txt: "At first quarter", a: 2 }] },
+      { t: "choice", c: "rais", label: "Full moon. From the Moon, an astronaut looks at the Earth. What does the astronaut see?", o: ["An Earth that is almost all dark", "An Earth that is all lit", "An Earth that is half lit"], a: 0, no: { 1: "That is what the observer on Earth sees of the Moon. Put yourself in the astronaut's place: is the half of the Earth facing them lit by the Sun?", 2: "Look at the diagram: at full moon, the Moon is opposite the Sun." } },
+      { t: "choice", c: "conn", label: "Why does the Moon look different every night?", o: ["As it goes around the Earth, it shows us a bigger or smaller part of its half lit by the Sun", "The shadow of the Earth hides part of it", "It changes shape"], a: 0 }],
+    hints: ["Find Week 2 (full moon) and Week 4 (new moon) on the diagram: where are they compared with the Sun?", "For the astronaut, it is the Earth that is lit or not by the Sun. Which half of the Earth does the astronaut see?", "Full moon: opposite the Sun. New moon: between the Earth and the Sun. The astronaut sees the side of the Earth where it is night."],
+    corr: "At full moon, the Moon is opposite the Sun; at new moon, it is between the Earth and the Sun; at first quarter, it is on the side. At full moon, the astronaut sees the half of the Earth where it is night: an Earth that is almost all dark. The Moon looks different because, as it goes around the Earth, it shows us a bigger or smaller part of its half lit by the Sun." }] }
+];
+
+const RAPPEL = { id: "r0", lvl: "easy", title: "Warm-up",
+  intro: KW([["star", "étoile"], ["planet", "planète"], ["satellite", "satellite"], ["to go around", "tourner autour"]]),
+  parts: [
+    { t: "choice", c: "conn", label: "The Sun is…", o: ["a primary light source", "a scattering object", "a planet"], a: 0 },
+    { t: "choice", c: "conn", label: "The Moon goes around…", o: ["the Earth", "Mars", "itself only"], a: 0 }],
+  hints: ["The Sun is a star: it makes its own light.", "The Moon is the satellite of the Earth.", "Primary light source · the Earth."],
+  corr: "The Sun is a star: it is a primary light source. The Moon is the natural satellite of the Earth: it goes around the Earth." };
+
+/* ===== EXPERT VERSION: same experiments, written answers, explanations, one calculation ===== */
+const EXPERT = {
+r0: { parts: [
+    { t: "word", c: "conn", label: `The Sun makes its own light: it is a ${gap} light source.`, ans: ["primary", "primaire"], spell: true, err: [[["secondary", "scattering"], "A source that makes its own light is a primary light source."]] },
+    { t: "word", c: "conn", label: `The Moon is the natural satellite of the ${gap}.`, ans: ["Earth", "the Earth", "Terre"], spell: true }],
+  hints: ["A star, like the Sun, makes its own light.", "The Moon goes around our planet.", "Primary · Earth."] },
+a1: { parts: [
+    { t: "task", c: "mod", label: "Do the three tests: no obstacle, with the screen, with the hand.", okMsg: "Three tests done.", done: () => { const n = ["free", "screen", "hand"].filter(k => (xst().ray || {})[k]).length; return { ok: n === 3, msg: `${n}/3 tests done.` }; } },
+    { t: "word", c: "conn", spell: true, label: `So the ${gap} must light up…`, ans: ["Sun", "the Sun", "Soleil"], err: [[["Moon", "the Moon"], "The Moon does not give out light: it is the Moon that is lit."]] },
+    { t: "word", c: "conn", spell: true, label: `… must light up ${gap}…`, ans: ["the Moon", "Moon", "Lune"], err: [[["Sun", "the Sun"], "The Sun is the source: it is the Sun that lights up."]] },
+    { t: "word", c: "conn", label: `… and a ray of light must reach ${gap}.`, ans: ["our eye", "eye", "our eyes", "eyes", "the eye", "the observer", "observer", "the observer's eye"] },
+    { t: "redac", c: "rais", min: 15, label: `A crew member says: “The Moon shines because it makes its own light, like the Sun.” Explain the mistake. ${FRAMES(["You are wrong: the Moon", "It is a", "It is lit by", "This light"])}`,
+      crit: [{ g: "sais", lab: "You say that the Moon does not make light", re: [/(not|n'?t|never|no|cannot) (make|makes|produce|produces|give|gives|emit|emits|create|creates|have its own)|not (its own|a) (light|source)|no (own )?light|not a (primary )?(light )?source/] },
+        { g: "sais", lab: "You use the words: scattering object", re: [/scatter|diffus|non.?luminous/] },
+        { g: "deduis", lab: "You explain where the Moon's light comes from", re: [/sun/, /\blit\b|light|send|reflect|scatter|bounce/] },
+        { g: "deduis", lab: "You explain that this light reaches us", re: [/\beyes?\b|observer|reach(es)? us|to us|towards us|reach(es)? (the )?earth|to (the )?earth|we (can )?see|see it/] }],
+      model: "You are wrong: the Moon does not make its own light, it is not a primary light source. It is a scattering object: it is lit by the Sun and sends back part of this light, which reaches our eye." }],
+  hints: ["In the lab, look where the light starts, then where it goes.", "To answer the crew member: is the Moon a primary light source or a scattering object? Where does its light come from? Where does it go?", "Sun · the Moon · our eye. The Moon does not give out light: it is a scattering object, lit by the Sun; it sends this light back to our eye."] },
+b1: { parts: [
+    { t: "task", c: "mod", label: "Look at the Moon at the end of the four weeks.", okMsg: "All four weeks observed.", done: () => { const n = Object.keys(xst().wk || {}).length; return { ok: n >= 4, msg: `${n}/4 weeks observed.` }; } },
+    { t: "phase", c: "lire", label: "Draw what an observer on Earth sees.", rows: WEEKS([1, 3, 2, 0]) },
+    { t: "num", c: "rais", tol: 1, label: "Calculation: using document 2, how many days are there between new moon and full moon?", unit: "days", ans: 14.5, err: [[v => v === 28, "28 days is a whole lunar month: from new moon to new moon."], [v => v === 7, "7 days only takes you to the first quarter."]] },
+    { t: "word", c: "lire", label: `Between new moon and full moon, the lit part we can see ${gap}.`, ans: ["grows", "gets bigger", "increases", "gets larger", "becomes bigger", "is growing", "waxes", "grandit"], err: [[["shrinks", "decreases", "gets smaller", "wanes"], "Look at the sky in the simulator between week 4 and week 2."]] }],
+  hints: ["Tap “Week 1”, then 2, 3 and 4: look at the Moon in the sky, on the right.", "Full moon is halfway through the lunar month: divide the length of the lunar month by 2.", "Week 1: right half. Week 2: all. Week 3: left half. Week 4: nothing. 28 ÷ 2 = 14 days; the lit part we can see grows."],
+  corr: "Week 1: first quarter, the right half is lit. Week 2: full moon, the whole disc is lit. Week 3: last quarter, the left half is lit. Week 4: new moon, we cannot see any lit part. Full moon comes halfway through the lunar month: 28 ÷ 2 = about 14 days after new moon; between the two, the lit part we can see grows." },
+b2: { parts: [
+    { t: "phase", c: "mod", label: "Draw what an observer in space sees, from where you look at the diagram (the Sun is on their left).", rows: WEEKS([2, 2, 2, 2]) },
+    { t: "redac", c: "rais", min: 25, label: `Explain why the Moon looks different for the observer on Earth, but always looks the same for the observer in space. ${FRAMES(["I know that the Sun always", "From space, the observer", "From Earth, we see", "So, what the Moon looks like depends on"])}`,
+      crit: [{ g: "sais", lab: "The Sun always lights up one half of the Moon", re: [/half/, /\blit\b|light|illuminat/] },
+        { g: "vois", lab: "From space, we always see the same thing", re: [/space/, /always|same|(not|n't) change|never change|identical/] },
+        { g: "vois", lab: "From Earth, we see a bigger or smaller part of the lit half", re: [/earth/, /part|partly|partially|fully|all of|none|more or less|bigger|smaller|some of|whole|nothing|portion/] },
+        { g: "deduis", lab: "You link it to the Moon's movement or to the frame of reference", re: [/frame|reference|point of view|position|where|around|orbit|moves|turns|rotat|revolv/] }],
+      model: "I know that the Sun always lights up one half of the Moon. From space, the observer always looks from the same place: they always see the half facing the Sun, so the Moon always looks the same. From Earth, the Moon goes around us: depending on its position, we see all, part or none of its lit half. So, what the Moon looks like depends on the frame of reference." }],
+  hints: ["On the diagram, the Sun lights everything from the left: which half of the Moon is lit in each position?", "Write in three steps: I know (what the Sun lights up) → I see (from space, from Earth) → so (the frame of reference). Use the sentence starters.", "The four drawings are the same (left half). The Sun always lights up one half; from Earth, we see a bigger or smaller part of it, depending on where the Moon is."] },
+c0: { parts: [
+    { t: "word", c: "lang", spell: true, label: `In English, <i lang=fr>“nouvelle lune”</i> is: ${gap}`, ans: ["new moon"] },
+    { t: "word", c: "lang", spell: true, label: `In English, <i lang=fr>“pleine lune”</i> is: ${gap}`, ans: ["full moon"] },
+    { t: "word", c: "lang", spell: true, label: `In English, <i lang=fr>“premier quartier”</i> is: ${gap}`, ans: ["first quarter"] },
+    { t: "word", c: "lang", spell: true, label: `In English, <i lang=fr>“lunaison”</i> is: ${gap}`, ans: ["lunar month", "lunation"] },
+    { t: "word", c: "lang", spell: true, label: `In English, <i lang=fr>“référentiel”</i> is: ${gap}`, ans: ["frame of reference", "reference frame", "frame"] }],
+  hints: ["Use the key words of the earlier steps (tap 🔊 to hear them).", "In English, the adjective comes before the noun: <i lang=fr>pleine lune</i> → full … · <i lang=fr>lunaison</i> is a “month” of the Moon.", "new moon · full moon · first quarter · lunar month · frame of reference."],
+  corr: `<i lang=fr>nouvelle lune</i> = new moon · <i lang=fr>pleine lune</i> = full moon · <i lang=fr>premier quartier</i> = first quarter · <i lang=fr>lunaison</i> = lunar month · <i lang=fr>référentiel</i> = frame of reference.` },
+c1: { parts: [
+    { t: "redac", c: "rais", min: 30, label: `Answer the mission question: why does the Moon look different every night? Use the words of the activity. ${FRAMES(["The Moon is a scattering object:", "The Sun always lights up", "In about 28 days", "Depending on its position, we see", "These are"])}`,
+      crit: [{ g: "sais", lab: "The Moon is lit by the Sun", re: [/sun/, /\blit\b|light|scatter|reflect|send/] },
+        { g: "sais", lab: "One half of the Moon is always lit", re: [/half/] },
+        { g: "vois", lab: "The Moon goes around the Earth", re: [/around|orbit|turns|goes round|revolv|moves/] },
+        { g: "deduis", lab: "We see a bigger or smaller part of the lit half", re: [/part|partly|partially|fully|all of|none|more or less|bigger|smaller|some of|whole|nothing|portion/] },
+        { g: "sais", lab: "You use the words: phases, lunar month", re: [/phase|lunar month|lunation/] }],
+      model: "The Moon is a scattering object: the Sun always lights up one half of the Moon. In about 28 days (a lunar month), the Moon goes around the Earth. Depending on its position, an observer on Earth sees all, part or none of this lit half: these are the phases of the Moon." },
+    { t: "word", c: "rais", label: `Full moon. From the Moon, an astronaut looks at the Earth. The Earth looks ${gap}.`, ans: ["dark", "black", "not lit", "unlit", "almost dark", "all dark", "very dark", "in the night", "in darkness", "invisible", "sombre", "noire"], err: [[["lit", "bright", "full", "all lit", "fully lit", "round"], "That is what the observer on Earth sees of the Moon. Put yourself in the astronaut's place: is the half of the Earth facing them lit by the Sun?"]] }],
+  hints: ["Use your answers from parts 1 and 2: what lights up the Moon? Which part? What does the Moon do around the Earth?", "For the astronaut, it is the Earth that is lit or not by the Sun. At full moon, the Moon is opposite the Sun.", "The Sun lights up one half of the Moon; as it goes around the Earth (lunar month), it shows us a bigger or smaller part of it: these are the phases. The astronaut sees the side of the Earth where it is night: dark."],
+  corr: "The Sun always lights up one half of the Moon, a scattering object. As it goes around the Earth (lunar month of about 28 days), the Moon shows us a bigger or smaller part of this lit half: these are the phases of the Moon. At full moon, the Moon is opposite the Sun: the astronaut sees the side of the Earth where it is night, an Earth that is almost all dark." }
+};
+[RAPPEL, ...GROUPS.flatMap(g => g.items)].forEach(it => { if (EXPERT[it.id]) it.L = EXPERT[it.id]; });
+const RESUME = `The mission question: ${PROBLEM}\n${HOME.goal}\n\nSummary to copy\n${BIL.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}\n- The four phases (Northern Hemisphere): new moon (nothing lit), first quarter (right half), full moon (whole disc), last quarter (left half).\n\nMy glossary\n${GLOSS.map(([en, fr]) => `- ${en} = ${fr}`).join("\n")}`;
+
+/* ===== Moteur « parcours à étapes, deux versions » (dérivé de bio.js) · navigation, questions, correction, bilan =====
+   Données attendues : HOME (avec HOME.vers), GROUPS, RAPPEL, RESUME, bilanHTML, EXPERT (blocs de la version exigeante), WID. */
+const LV = { easy: ["🟢 Easy", "easy", "🟢"], mid: ["🟡 Medium", "mid", "🟡"], hard: ["🔴 Challenge", "hard", "🔴"] };
+const COMPS = HOME.comps;
+const SIGN = "Mr Moreira, Vauban Luxembourg";
+const ITEMS = {};
+GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `Part ${g.n} (${g.tab}) · step ${i + 1} · ${it.title}` }; }));
+ITEMS.r0 = { it: RAPPEL, g: null, i: 0, label: "Home · " + RAPPEL.title };
+
+/* ---------- état ---------- */
+const DEF = { fs: 21, theme: null, proj: false, it: {}, itL: {}, mode: "g", view: "accueil", step: {}, x: {} };
+let S = Store.load(DEF);
+["it", "itL", "step", "x"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+/* ---------- deux versions dans le même fichier : guidée (g) ou exigeante (l) ---------- */
+{ const q = new URLSearchParams(location.search).get("version"); if (q === HOME.vers.l.q || q === "lycee" || q === "experte") S.mode = "l"; else if (q === HOME.vers.g.q || q === "guidee") S.mode = "g"; else if (S.mode !== "l") S.mode = "g"; }
+const EXP = () => S.mode === "l";
+const IT = () => EXP() ? S.itL : S.it;
+const ALLIT = [RAPPEL, ...GROUPS.flatMap(g => g.items)];
+ALLIT.forEach(it => { it.G = { parts: it.parts, hints: it.hints, pre: it.pre, intro: it.intro, corr: it.corr }; });
+function applyMode() { ALLIT.forEach(it => Object.assign(it, it.G, EXP() && it.L ? it.L : {})); document.documentElement.classList.toggle("exp", EXP()); }
+applyMode();
+const VX = () => HOME.vers[EXP() ? "l" : "g"], VNAME = () => VX().name;
+const save = () => Store.save(S);
+const scorable = p => p.t !== "text";
+function itState(id) { if (!IT()[id]) IT()[id] = { v: {}, hints: 0, crit: {} }; return IT()[id]; }
+const pw = p => p.t === "redac" ? p.crit.length : 1;
+const itemMax = it => it.parts.filter(scorable).reduce((n, p) => n + pw(p), 0);
+const rpts = r => r ? (r.pts !== undefined ? r.pts : r.ok ? 1 : 0) : 0;
+const corrShown = st => !!(st && st.first && (st.lastOk || (st.tries || 0) >= 2));
+function status(it) { const st = IT()[it.id]; if (!st || !st.first) return ["", "to do"]; if (!itemMax(it)) return ["✓", "written"]; return st.first.pts === st.first.max ? ["✓", "correct on the first try"] : ["◐", st.first.pts + "/" + st.first.max + " on the first try"]; }
+
+/* ---------- vérification ---------- */
+const stripUnit = s => String(s === undefined || s === null ? "" : s).replace(/[\s  ]*[a-zA-Zéèµ°%²³₂][\sa-zA-Zéèµ°%²³₂.\/  ]*$/, "");
+const nzT = s => String(s === undefined || s === null ? "" : s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/Œ/g, "Oe").replace(/[’`]/g, "'").replace(/\s+/g, " ").trim();
+const nWords = s => (String(s || "").match(/[A-Za-zÀ-ÿ0-9]+/g) || []).length;
+const critHit = (c, T) => { const n = T.toLowerCase(); return [].concat(c.re).every(x => typeof x === "function" ? x(T, n) : x.test(n)); };
+const GK = Object.assign({ vois: "I see", sais: "I know", deduis: "So" }, HOME.gk || {});
+function checkPart(p, val, self) {
+  if (p.t === "phase") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Draw each Moon (tap “Nothing lit” if no lit part is visible)." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} Moon(s) to fix (marked ✗).` } : { ok: true, msg: "✓ All the Moons are correct." }; }
+  if (p.t === "redac") {
+    const T = nzT(val), min = p.min || 12;
+    if (!T) return { ok: false, empty: true, pts: 0, msg: "Written answer missing." };
+    if (nWords(val) < min) return { ok: false, empty: true, pts: 0, msg: `Written answer too short: write at least ${min} words, in full sentences.` };
+    const auto = p.crit.map(c => critHit(c, T)), hits = auto.map((h, i) => h || !!(self && self[i])), n = hits.filter(Boolean).length;
+    const cats = Object.keys(GK).filter(g => p.crit.some(c => c.g === g)).map(g => `${GK[g].toLowerCase()} ${p.crit.filter((c, i) => c.g === g && hits[i]).length}/${p.crit.filter(c => c.g === g).length}`).join(" · ");
+    return { ok: n === hits.length, pts: n, hits, auto, msg: n === hits.length ? `✓ ${n}/${n} expected elements found in your answer.` : `◐ ${n}/${hits.length} expected elements found (${cats}).` };
+  }
+  if (p.t === "list") {
+    const n = nzT(val).toLowerCase(); if (!n) return { ok: false, empty: true, msg: "Missing answer." };
+    const found = p.need.filter(x => x.re.test(n)).length, extra = (p.bad || []).filter(x => x.re.test(n)).length;
+    if (found === p.need.length && !extra) return { ok: true, msg: `✓ Correct: ${found} expected element(s), none extra.` };
+    return { ok: false, msg: "✗ Not yet: " + [`${found}/${p.need.length} expected element(s) found`, extra ? `${extra} wrong element(s)` : ""].filter(Boolean).join(" · ") + "." };
+  }
+  if (p.t === "word") {
+    const r = fuzzy(val, p.ans); if (r.empty) return { ok: false, empty: true, msg: "Missing answer." };
+    if (r.ok) return { ok: true, msg: (r.typo || (p.spell && normTxt(val) !== normTxt(p.ans[0]))) ? `✓ Correct. Exact spelling: “${p.ans[0]}”.` : "✓ Correct." };
+    for (const [alts, m] of (p.err || [])) if (fuzzy(val, alts).ok) return { ok: false, msg: "✗ Wrong. " + m };
+    return { ok: false, msg: "✗ Not yet: think again, then use a hint if needed." };
+  }
+  if (p.t === "num") {
+    if (val === undefined || String(val).trim() === "") return { ok: false, empty: true, msg: "Missing answer." };
+    let v = parseNum(val); if (!Number.isFinite(v)) v = parseNum(stripUnit(val));
+    if (!Number.isFinite(v)) { const wv = ({ deux: 2, quatre: 4, huit: 8 })[normTxt(val)]; if (wv !== undefined) v = wv; }
+    if (!Number.isFinite(v)) return { ok: false, msg: "✗ Type a number." };
+    const A = [].concat(typeof p.ans === "function" ? p.ans() : p.ans);
+    if (A.some(a => near(v, a, p.tol || 0, 0))) return { ok: true, msg: "✓ Correct." };
+    for (const [f, m] of (p.err || [])) if (f(v)) return { ok: false, msg: "✗ Wrong. " + m };
+    return { ok: false, msg: "✗ Not yet: check your reading or your calculation." };
+  }
+  if (p.t === "choice") { if (val === undefined || val === null) return { ok: false, empty: true, msg: "Choose an answer." }; return val === p.a ? { ok: true, msg: "✓ Correct." } : { ok: false, msg: "✗ Wrong. " + ((p.no && p.no[val]) || "That is not the right option.") }; }
+  if (p.t === "multi") { const s = (val || []).slice().sort().join(","); if (!s) return { ok: false, empty: true, msg: "Choose at least one answer." }; return s === p.a.slice().sort().join(",") ? { ok: true, msg: "✓ Correct." } : { ok: false, msg: "✗ Not yet: there are " + p.a.length + " correct answers." }; }
+  if (p.t === "match") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Complete every row." }; const bad = p.rows.filter((r, i) => v[i] !== i).length; return bad ? { ok: false, msg: `✗ ${bad} label(s) misplaced (marked ✗).` } : { ok: true, msg: "✓ Everything is matched correctly." }; }
+  if (p.t === "rows") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Answer every row." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} row(s) to fix (marked ✗).` } : { ok: true, msg: "✓ All rows are correct." }; }
+  if (p.t === "order") { const v = val || []; if (v.length < p.keys.length) return { ok: false, empty: true, msg: "Place all the pictures." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} picture(s) misplaced (marked ✗).` } : { ok: true, msg: "✓ Correct order." }; }
+  if (p.t === "shot") {
+    if (val === undefined || val === null) return { ok: false, empty: true, msg: "Photo manquante." };
+    const w = SHOTWIN[p.ph]; if (val >= w[0] && val <= w[1]) return { ok: true, msg: "✓ Bonne photo." };
+    const other = Object.entries(SHOTWIN).find(([k, x]) => k !== p.ph && val >= x[0] && val <= x[1]);
+    const NM = { pro: "la prophase : les chromosomes sont visibles, mais pas encore alignés", meta: "la métaphase : les chromosomes sont alignés au milieu", ana: "l'anaphase : les bâtonnets sont en train de s'écarter", telo: "la télophase : les bâtonnets sont déjà arrivés aux pôles" };
+    if (other) return { ok: false, msg: "✗ Faux. Ta photo montre " + NM[other[0]] + "." };
+    return { ok: false, msg: val < 0.3 ? "✗ Trop tôt : les chromosomes ne sont pas encore bien visibles." : val > 0.8 ? "✗ Trop tard : la cellule est déjà en train de se couper en deux." : "✗ Presque : ta photo est prise entre deux étapes. Avance ou recule un peu." };
+  }
+  if (p.t === "task") { const r = p.done(); return r.ok ? { ok: true, msg: "✓ " + p.okMsg } : { ok: false, empty: true, msg: "Finish the experiment first." }; }
+  if (p.t === "loop") { const v = val || []; if (v.length < p.items.length) return { ok: false, empty: true, msg: "Place all the labels." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} label(s) misplaced (marked ✗).` } : { ok: true, msg: "✓ Correct loop." }; }
+  return { ok: true, msg: "" };
+}
+function order(key, n) { const base = Array.from({ length: n }, (_, i) => i); let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) & 0x7fffffff; let r = shuffle(base, h); if (r.every((x, i) => x === i)) r = r.reverse(); return r; }
+
+/* ---------- documents ---------- */
+function docHTML(d) {
+  return `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${d.title}</span>${d.sim ? `<span class="sim">⚠ ${d.sim}</span>` : ""}</figcaption><div class="db">${d.html || ""}${d.w ? `<div data-w="${d.w}"></div>` : ""}${d.fig ? `<div class="figbox" data-fig="${d.fig}"></div>` : ""}${d.cap ? `<p class="cap">${d.cap}</p>` : ""}</div></figure>`;
+}
+function mountFigs(root) { $$("[data-w]", root).forEach(el => { if (el.dataset.mounted) return; el.dataset.mounted = "1"; WID[el.dataset.w](el); }); }
+
+/* ---------- navigation ---------- */
+const VIEWS = ["accueil", ...GROUPS.map(g => g.id), "bilan"];
+const grp = id => GROUPS.find(g => g.id === id);
+function gScore(g) { let pts = 0, max = 0, done = 0; g.items.forEach(it => { const st = IT()[it.id]; max += itemMax(it); if (st && st.first) { pts += st.first.pts; done++; } }); return { pts, max, done, n: g.items.length }; }
+function tabs() {
+  $("#tabs").innerHTML = VIEWS.map(v => {
+    if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Home</button>`;
+    if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Report</button>`;
+    const g = grp(v), sc = gScore(g);
+    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n} · ${g.tab}<span class="dot" aria-label="${sc.done} step(s) done out of ${sc.n}">${sc.done}/${sc.n}</span></button>`;
+  }).join("");
+  $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
+  const tx = $("#tabx"); if (tx) { tx.innerHTML = `<button type="button" class="vchip" aria-label="${VNAME()}: change version">${VX().icon}<span class="vl"> ${VX().short}</span></button>`; tx.firstChild.onclick = () => { go("accueil"); const n = $("#vers"); if (n) { n.scrollIntoView({ block: "center" }); const b = $("[aria-checked='true']", n); if (b) b.focus(); } }; }
+}
+function setMode(m) { if (m === S.mode) return; S.mode = m; save(); applyMode(); go("accueil", true); const b = $(`#vers [data-mode="${m}"]`); if (b) b.focus(); }
+function go(v, noScroll) {
+  if (!VIEWS.includes(v)) v = "accueil";
+  S.view = v; save(); tabs();
+  if (location.hash !== "#" + v) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  const m = $("#main");
+  if (v === "accueil") renderHome(m); else if (v === "bilan") renderBilan(m); else renderGroup(m, grp(v));
+  if (!noScroll) window.scrollTo(0, 0);
+  const cur = $("#tabs [aria-current]"); if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+/* ---------- accueil ---------- */
+function renderHome(m) {
+  m.innerHTML = `<section class="view">
+    <div class="panel"><p class="kicker">${HOME.kicker}</p><h2 class="sec-title">${HOME.title}</h2>
+      <p>${nb(HOME.intro)}</p>
+      <div class="box info"><p class="lab">ℹ ${HOME.lab}</p><p><b>${nb(PROBLEM)}</b></p><p>${nb(HOME.goal)}</p></div>
+      <div class="box warn"><p class="lab">⚠ Did you know?</p><p>${nb(HOME.fact)}</p></div></div>
+    <div class="panel" id="vers"><p class="kicker">Choose your version</p>
+      <div class="vers" role="radiogroup" aria-label="Version of the activity">
+        <button class="card-btn" type="button" role="radio" aria-checked="${!EXP()}" data-mode="g"><span class="t">${HOME.vers.g.icon} ${HOME.vers.g.name} ${!EXP() ? `<span class="chip ok">✓ chosen</span>` : ""}</span><span class="m">${HOME.vers.g.desc}</span></button>
+        <button class="card-btn" type="button" role="radio" aria-checked="${EXP()}" data-mode="l"><span class="t">${HOME.vers.l.icon} ${HOME.vers.l.name} ${EXP() ? `<span class="chip ok">✓ chosen</span>` : ""}</span><span class="m">${HOME.vers.l.desc}</span></button>
+      </div>
+      <p class="lead">You can change version at any time: your experiments are kept, and each version keeps its own answers and score.</p></div>
+    <article class="panel itemroot" id="item"></article>
+    <div><p class="kicker">${HOME.parts}</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Part ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} steps</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div class="panel"><p class="kicker">How it works</p>
+      <ul class="ul">
+        <li>Do the parts <b>in order</b>, from 1 to ${GROUPS.length}${HOME.dur ? ": " + HOME.dur : ""}.</li>
+        <li>Each step has an <b>experiment</b> or an <b>animation</b>: do it before you answer.</li>
+        <li>Tap 🔊 to hear an English word. The words in <i>italics</i> are in French. Your English is never marked down: what counts is the science.</li>
+        ${EXP() ? `<li>Write full sentences, with the method <b>I see → I know → so</b>. Use the sentence starters. Tap <b>Check</b>: the app looks for the expected elements in your answer (one point per element). Only your first try counts; then you can complete freely.</li>
+        <li>The check is automatic (key words): your teacher reads your written answers in your report.</li>` : `<li>Tap <b>Check</b>: feedback is immediate. Only your first try counts; then you can correct freely.</li>`}
+        <li>Stuck? Three <b>hints</b> appear one by one.</li>
+        <li>At the end, the <b>Report</b> tab shows the summary and lets you download your result.</li>
+      </ul></div>
+  </section>`;
+  $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
+  $$("[data-mode]", m).forEach(b => b.onclick = () => setMode(b.dataset.mode));
+  renderItem(RAPPEL, $("#item"));
+}
+
+/* ---------- vue d'un atelier ---------- */
+function indDone(ind) { return ind.items.every(id => { const st = IT()[id]; return st && st.first && (st.lastOk || !itemMax(ITEMS[id].it)); }); }
+function renderGroup(m, g) {
+  const k = Math.max(0, Math.min(g.items.length - 1, S.step[g.id] || 0)), it = g.items[k], gi = GROUPS.indexOf(g);
+  m.innerHTML = `<section class="view"><div><p class="kicker">Part ${g.n} · ${VNAME()}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
+    ${(g.inds || []).length ? `<div class="panel"><p class="kicker">Success criteria</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ done" : "to do · step" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" and ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
+    <div class="stepper" role="group" aria-label="Steps">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Step ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
+    <article class="panel itemroot" id="item"></article>
+    <div class="row" id="navx"></div></section>`;
+  $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
+  renderItem(it, $("#item"));
+  const nx = $("#navx"), nextG = GROUPS[gi + 1];
+  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Step ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Step ${k + 2} →</button>` : nextG ? `<button class="btn" type="button" data-c>${nextG.icon} Part ${nextG.n} →</button>` : `<button class="btn" type="button" data-b>See my report →</button>`}`;
+  const st = d => { S.step[g.id] = k + d; save(); renderGroup(m, g); window.scrollTo(0, 0); };
+  const a = $("[data-p]", nx); if (a) a.onclick = () => st(-1);
+  const b = $("[data-n]", nx); if (b) b.onclick = () => st(1);
+  const c = $("[data-c]", nx); if (c) c.onclick = () => go(nextG.id);
+  const d = $("[data-b]", nx); if (d) d.onclick = () => go("bilan");
+}
+function refreshChrome(it) {
+  tabs(); const g = ITEMS[it.id].g; if (!g) return;
+  $$(".stepper button").forEach((b, i) => { const x = g.items[i], s = status(x); b.innerHTML = `${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}`; b.setAttribute("aria-label", `Step ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}`); });
+  if (0) $$(".inds li").forEach((li, i) => { const d = g.inds[i], ok = indDone(d); li.classList.toggle("done", ok); $(".bx", li).textContent = ok ? "✓" : ""; $(".st", li).textContent = ok ? "✓ done" : "to do · step" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" and "); });
+}
+
+/* ---------- une étape ---------- */
+let CUR = null;
+function refreshTasks() { if (!CUR || !document.body.contains(CUR.root)) return; CUR.it.parts.forEach((p, k) => { if (p.t === "task") { const n = $(`.part[data-k="${k}"] [data-task]`, CUR.root); if (n) n.innerHTML = p.done().msg; } }); }
+function renderItem(it, root) {
+  CUR = { it, root };
+  const id = it.id, st = itState(id), lvl = LV[it.lvl], locked = it.pre && st.pre === undefined;
+  root.innerHTML = `<p class="lv ${lvl[1]}">${lvl[0]}</p><h3 class="item-title">${it.title}</h3>${it.intro ? `<p>${it.intro}</p>` : ""}${(it.docs || []).map(docHTML).join("")}
+    ${it.pre ? `<div class="hypo" id="hypo"></div>` : ""}
+    ${it.live ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.liveTitle}</span></figcaption><div class="db"><div class="figbox" id="livefig"></div></div></figure>` : ""}
+    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Give your opinion first: the experiment then unlocks.</p>` : ""}</div></figure>` : ""}
+    <div class="parts ${it.parts.every(p => p.t === "shot") ? "grid4" : ""}" style="display:grid;gap:.9rem" ${locked ? "hidden" : ""}>${it.parts.map((p, k) => `<div class="part" data-k="${k}"></div>`).join("")}</div>
+    <div class="row acts" ${locked ? "hidden" : ""}></div><div class="gfb" aria-live="polite"></div>
+    <div class="hints hz"></div><div class="after" style="display:grid;gap:.9rem"></div><div class="unl"></div>`;
+  mountFigs(root);
+  if (it.pre) paintPre(it, root);
+  if (it.widget && !locked) WID[it.widget.w]($("#wz", root));
+  if (it.live) root._live = liveSVG($("#livefig", root), (W, F) => LIVE[it.live](W, F, IT()[id].v));
+  it.parts.forEach((p, k) => renderPart(it, k, root));
+  paintActions(it, root);
+}
+function paintPre(it, root) {
+  const st = IT()[it.id], h = $("#hypo", root), fixed = !!st.first, shown = corrShown(st), pre = it.pre, good = pre.num ? st.pre === pre.n : st.pre === pre.a;
+  const tail = shown && st.pre !== undefined ? `<p class="pfb ${good ? "ok" : ""}">${good ? (pre.yes || "✓ You were right: your hypothesis is confirmed.") : (pre.nope || "↻ You changed your first idea: that is how we learn.")}</p>` : fixed ? `<p class="lead">Hypothesis saved.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothesis saved: you can still change it before checking.</p>`;
+  const done = was => { save(); if (was) renderItem(it, root); else paintPre(it, root); };
+  if (pre.num) {
+    h.innerHTML = `<p class="hl" id="preL">🤔 ${pre.label} <span class="ctag">not graded</span></p><div class="row"><input class="inp" id="preN" inputmode="numeric" autocomplete="off" aria-labelledby="preL" value="${st.pre === undefined ? "" : st.pre}" ${fixed ? "disabled" : ""}><span class="unit">${pre.unit || ""}</span>${fixed ? "" : `<button type="button" class="btn" data-preok>Save my hypothesis</button>`}</div><p class="pfb bad" id="preE" aria-live="polite"></p>${tail}`;
+    const ok = $("[data-preok]", h), inp = $("#preN", h);
+    const reg = () => { const v = parseNum(inp.value); if (!Number.isFinite(v) || v < 1 || v !== Math.round(v)) { $("#preE", h).textContent = "Type a whole number."; return; } const was = st.pre === undefined; st.pre = v; done(was); const n = $(was ? ".parts textarea, .parts input, #wz button" : "[data-preok]", root); if (n) n.focus(); };
+    if (ok) { ok.onclick = reg; inp.addEventListener("keydown", ev => { if (ev.key === "Enter") reg(); }); }
+    return;
+  }
+  h.innerHTML = `<p class="hl">🤔 ${pre.label} <span class="ctag">not graded</span></p><div class="opts" role="radiogroup">${pre.o.map((o, j) => `<button type="button" class="opt" role="radio" aria-checked="${st.pre === j}" data-h="${j}" ${fixed ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div>${tail}`;
+  $$("[data-h]", h).forEach(b => b.onclick = () => { const was = st.pre === undefined; st.pre = +b.dataset.h; done(was); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); });
+}
+function renderPart(it, k, root) {
+  const id = it.id, p = it.parts[k], st = IT()[id], box = $(`.part[data-k="${k}"]`, root), v = st.v[k], pid = `${id}-p${k}`;
+  const checked = !!st.checked; const r = checked && scorable(p) ? checkPart(p, v, st.self && st.self[k]) : null;
+  let h = `<p class="pl" id="${pid}-l"><span class="muted">${k + 1}.</span> ${p.label} <span class="ctag">${COMPS[p.c || "conn"]}</span></p>${p.th ? `<div class="th" style="max-width:12rem;border-radius:10px;overflow:hidden;background:var(--surface-2)">${thumb(TAUREF[p.th])}</div>` : ""}`;
+  const okc = r ? (r.ok ? "is-ok" : "is-bad") : "";
+  if (p.t === "num") h += `<div class="row"><input id="${pid}" class="inp ${okc}" inputmode="decimal" autocomplete="off" aria-labelledby="${pid}-l" value="${esc(v || "")}"><span class="unit">${p.unit || ""}</span></div>`;
+  if (p.t === "word") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="${pid}-l" value="${esc(v || "")}" style="max-width:22rem"></div>`;
+  if (p.t === "choice") h += `<div class="opts" role="radiogroup" aria-labelledby="${pid}-l">${p.o.map((o, j) => { let cls = "", t = ""; if (checked && v === j) { cls = j === p.a ? "is-ok" : "is-bad"; t = j === p.a ? "✓ Correct" : "✗ Wrong"; } return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${v === j}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${o}</span>${t ? `<span class="tag">${t}</span>` : ""}</button>`; }).join("")}</div>`;
+  if (p.t === "multi") h += `<div class="opts" role="group" aria-labelledby="${pid}-l">${p.o.map((o, j) => { const on = (v || []).includes(j); return `<button type="button" class="opt" aria-pressed="${on}" aria-checked="${on}" data-j="${j}"><span class="k" style="border-radius:6px">${on ? "✓" : ""}</span><span>${o}</span></button>`; }).join("")}</div>`;
+  if (p.t === "match") {
+    const cur = v || {}, used = Object.values(cur), ord = order(id + k, p.rows.length); let sel = box._sel; if (sel === undefined || cur[sel] !== undefined) sel = p.rows.findIndex((r, i) => cur[i] === undefined);
+    box._sel = sel;
+    h += `<div class="match">${p.rows.map((r, i) => { const has = cur[i] !== undefined, cls = checked && has ? (cur[i] === i ? "is-ok" : "is-bad") : ""; return `<button type="button" class="mrow ${cls}" data-mi="${i}" aria-pressed="${sel === i}"><span class="me" aria-hidden="true">${r.e}</span><span class="mn">${r.txt}</span><span class="mv ${has ? "has" : ""}">${has ? p.rows[cur[i]].v : "?"}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Correct" : "✗ Wrong"}</span>` : ""}</button>`; }).join("")}</div>
+      <p class="lead">${sel >= 0 ? `${p.ask || "Choose the label for"}: <b>${p.rows[sel].txt}</b>` : "Tap a row to change its label."}</p><div class="chips">${ord.filter(j => !used.includes(j)).map(j => `<button type="button" class="chipb" data-mj="${j}">${p.rows[j].v}</button>`).join("")}</div>`;
+  }
+  if (p.t === "rows") h += `<div class="rows">${p.rows.map((row, i) => { const cur = (v || {})[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${(row.o || p.choices).map((c, j) => { const cls = checked && cur === j ? (j === row.a ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" aria-pressed="${cur === j}" data-i="${i}" data-j="${j}">${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${c}</button>`; }).join("")}</div></div>`; }).join("")}</div>`;
+  if (p.t === "order") {
+    const ord = order(id + k, p.keys.length), chosen = v || [];
+    h += `<div class="order-list pics">${ord.map(j => { const pos = chosen.indexOf(j); const cls = checked && pos >= 0 ? (pos === j ? "is-ok" : "is-bad") : ""; return `<button type="button" class="order-item ${cls}" data-j="${j}" ${pos >= 0 ? `data-pos="${pos + 1}"` : ""} aria-label="${esc(p.alts[j])}${pos >= 0 ? ", placed in position " + (pos + 1) : ""}"><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span class="th">${thumb(TAUREF[p.keys[j]])}</span>${cls ? `<span class="tag" style="margin-left:auto;font-weight:800">${cls === "is-ok" ? "✓ Correct" : "✗ Wrong"}</span>` : ""}</button>`; }).join("")}</div><div class="row"><button type="button" class="btn ghost" data-clear>Clear the order</button><span class="lead">Tap a placed picture to remove it.</span></div>`;
+  }
+  if (p.t === "shot") {
+    const has = v !== undefined && v !== null;
+    h += `<div class="shot"><div class="frame ${has ? "has" : ""} ${okc}">${has ? thumb(v) : "No photo yet"}</div><div class="row"><button type="button" class="btn" data-shot aria-label="${has ? "Take the photo again" : "Take the photo"}">📸 ${has ? "Again" : "Photo"}</button></div></div>`;
+  }
+  if (p.t === "loop") {
+    const chosen = v || [], ord = order(id + k, p.items.length), solved = checked && r && r.ok;
+    h += `<div class="loopd"><span class="lhead" aria-hidden="true">▶</span><div class="lslot fixed"><span class="n">1</span><span>${p.start}</span></div>${p.items.map((_, i) => { const j = chosen[i], cls = checked && j !== undefined ? (j === i ? "is-ok" : "is-bad") : ""; return `<div class="larr" aria-hidden="true">↓</div><button type="button" class="lslot ${j !== undefined ? "filled" : ""} ${cls}" data-slot="${i}" ${j === undefined ? "disabled" : ""} aria-label="Box ${i + 2}: ${j !== undefined ? esc(p.items[j]) + ". Tap to remove." : "empty"}"><span class="n">${i + 2}</span><span>${j !== undefined ? p.items[j] : `<span class="muted">…</span>`}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Correct" : "✗ Wrong"}</span>` : ""}</button>`; }).join("")}<p class="lret">↺ ${solved ? p.back + ": back to box 1." : "then back to box 1: the loop is closed."}</p></div>
+      <div class="bank">${ord.filter(j => !chosen.includes(j)).map(j => `<button type="button" class="order-item" data-j="${j}"><span class="n">+</span><span>${p.items[j]}</span></button>`).join("")}</div><p class="lead">Tap a label to put it in the first empty box. Tap a filled box to empty it.</p>`;
+  }
+  if (p.t === "task") h += `<p class="task ${okc}" data-task>${p.done().msg}</p>`;
+  if (p.t === "phase") h += `<div class="phg">${p.rows.map((row, i) => { const cur = (v || {})[i], has = cur !== undefined, L = has && (cur & 2), R = has && (cur & 1), cls = checked && has ? (cur === row.a ? "is-ok" : "is-bad") : ""; return `<div class="phr ${cls}" role="group" aria-label="${esc(row.txt)}"><p class="pht">${row.txt}</p><div class="moon ${has ? "" : "unset"}"><button type="button" class="mh l" data-i="${i}" data-b="2" aria-pressed="${!!L}" aria-label="${esc(row.txt)}: left half, ${L ? "lit" : "dark"}"></button><button type="button" class="mh r" data-i="${i}" data-b="1" aria-pressed="${!!R}" aria-label="${esc(row.txt)}: right half, ${R ? "lit" : "dark"}"></button></div><p class="phd">${has ? PH_TXT[cur] : "Not drawn yet"}</p><button type="button" class="btn ghost phz" data-i="${i}" data-b="0" aria-pressed="${has && cur === 0}">🌑 Nothing lit</button>${cls ? `<p class="tag">${cls === "is-ok" ? "✓ Correct" : "✗ Wrong"}</p>` : ""}</div>`; }).join("")}</div><p class="lead">Tap a half to light it up or make it dark.</p>`;
+  if (p.t === "list") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" aria-labelledby="${pid}-l" value="${esc(v || "")}" placeholder="${esc(p.ph || "item 1, item 2, …")}" style="max-width:none;flex:1 1 16rem"></div><p class="lead">Write only the items present, separated by commas.</p>`;
+  if (p.t === "redac") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Write your answer here, in full sentences…">${esc(v || "")}</textarea><p class="lead wc" data-wc></p>`;
+  if (p.t === "text") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Write your answer here, in full sentences…">${esc(v || "")}</textarea><p class="lead">After submitting: model answer and self-assessment grid.</p>`;
+  const shownC = corrShown(st);
+  let grid = "";
+  if (p.t === "redac" && r && r.hits) grid = `<ul class="grille">${p.crit.map((c, i) => { const hit = r.hits[i], mine = hit && !r.auto[i]; return `<li class="${hit ? "ok" : "no"}"><span class="gk">${GK[c.g]}</span><span class="gl">${c.lab}</span><span class="gt">${mine ? "✓ confirmed by you" : hit ? "✓ found" : "✗ not found"}</span>${!hit && shownC ? `<button type="button" class="btn ghost gs" data-self="${i}">My answer has it</button>` : ""}</li>`; }).join("")}</ul>`;
+  h += `<div class="pfbw" aria-live="polite">${r ? `<p class="pfb ${r.ok ? "ok" : p.t === "redac" && !r.empty ? "mid" : "bad"}">${r.msg}</p>` : ""}${grid}</div>`;
+  if (p.t === "redac" && shownC) h += `<div class="box info"><p class="lab">ℹ Model answer</p><p>${p.model}</p></div><p class="lead">The check is automatic (key words) and can make mistakes. Compare your answer with the model answer: if an element marked ✗ really is in your answer, confirm it yourself. Your teacher reads your answer in your report.</p>`;
+  box.innerHTML = h;
+  const setV = (val, rerender) => { st.v[k] = val; save(); if (rerender) renderPart(it, k, root); if (root._live) root._live.draw(); };
+  const clear = () => { $$(".is-ok,.is-bad", box).forEach(x => x.classList.remove("is-ok", "is-bad")); const f = $(".pfbw", box); if (f) f.innerHTML = ""; };
+  const refocus = sel => { const n = box.querySelector(sel); if (n) n.focus(); };
+  if (p.t === "redac") { const wc = $("[data-wc]", box), ta = box.querySelector("textarea"), up = () => { const n = nWords(ta.value), min = p.min || 12; wc.textContent = `${n} word(s) · at least ${min} words expected.`; }; up(); ta.addEventListener("input", up);
+    $$("[data-self]", box).forEach(b => b.onclick = () => { const i = +b.dataset.self; st.self = st.self || {}; st.self[k] = st.self[k] || {}; st.self[k][i] = true; const e = evalItem(it, st); st.lastPts = e.pts; st.lastOk = e.pts === itemMax(it); save(); renderPart(it, k, root); paintActions(it, root); refreshChrome(it); const n = $(`.part[data-k="${k}"] [data-self], .part[data-k="${k}"] textarea`, root); if (n) n.focus(); }); }
+  if (["num", "text", "word", "list", "redac"].includes(p.t)) { const inp = box.querySelector("input,textarea"); inp.addEventListener("input", () => { setV(inp.value, false); clear(); }); if (p.t !== "text" && p.t !== "redac") inp.addEventListener("keydown", ev => { if (ev.key === "Enter") { const b = $(".acts [data-check]", root); if (b) b.click(); } }); }
+  if (p.t === "choice") $$(".opt", box).forEach(b => b.onclick = () => { setV(+b.dataset.j, true); refocus(`.opt[data-j="${b.dataset.j}"]`); });
+  if (p.t === "multi") $$(".opt", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); });
+  if (p.t === "match") {
+    $$("[data-mi]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = +b.dataset.mi; delete cur[i]; box._sel = i; setV(cur, true); refocus(`[data-mi="${i}"]`); });
+    $$("[data-mj]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = box._sel; if (i === undefined || i < 0) return; cur[i] = +b.dataset.mj; box._sel = undefined; setV(cur, true); refocus(".chipb") || refocus(".mrow"); });
+  }
+  if (p.t === "phase") $$("[data-b]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}), i = +b.dataset.i, bit = +b.dataset.b; cur[i] = bit ? ((cur[i] || 0) ^ bit) : 0; setV(cur, true); refocus(`[data-i="${i}"][data-b="${bit}"]`); });
+  if (p.t === "rows") $$(".seg button", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); cur[+b.dataset.i] = +b.dataset.j; setV(cur, true); refocus(`[data-i="${b.dataset.i}"][data-j="${b.dataset.j}"]`); });
+  if (p.t === "order") { $$(".order-item", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); }); box.querySelector("[data-clear]").onclick = () => setV([], true); }
+  if (p.t === "shot") box.querySelector("[data-shot]").onclick = () => { setV(CELL.tau, true); refocus("[data-shot]"); };
+  if (p.t === "loop") {
+    $$(".bank [data-j]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.push(+b.dataset.j); setV(cur, true); refocus(".bank [data-j]") || refocus(`[data-slot="${cur.length - 1}"]`); });
+    $$("[data-slot]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.splice(+b.dataset.slot, 1); setV(cur, true); refocus(".bank [data-j]"); });
+  }
+}
+
+function evalItem(it, st) { const res = it.parts.map((p, k) => scorable(p) ? checkPart(p, st.v[k], st.self && st.self[k]) : null); return { res, pts: res.reduce((n, r) => n + rpts(r), 0) }; }
+function recopHTML() { return `<div class="recop"><p class="lab">✔ ${HOME.recop}</p>${bilanHTML()}</div>`; }
+
+function paintActions(it, root) {
+  const id = it.id, st = IT()[id]; const acts = $(".acts", root), gfb = $(".gfb", root), hints = $(".hz", root), after = $(".after", root);
+  const max = itemMax(it), hasText = it.parts.some(p => p.t === "text"), shown = corrShown(st);
+  acts.innerHTML = `<button class="btn" type="button" data-check>${max ? "Check" : "Submit my answer"}</button>
+    ${st.hints < 3 && !(shown && st.lastOk) ? `<button class="btn ghost" type="button" data-hint>💡 Hint ${st.hints + 1}/3</button>` : ""}
+    <button class="btn ghost" type="button" data-reset>↺ Start again</button>`;
+  hints.innerHTML = it.hints.slice(0, st.hints).map((h, i) => `<p class="hint"><b>Hint ${i + 1}/3</b> · ${h}</p>`).join("");
+  if (st.first) {
+    const f = st.first;
+    gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ All correct${f.pts === f.max ? (st.tries === 1 ? " on the first try!" : ".") : " (after correction)."}</p><p>Score kept (first try): ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} hint(s) used before the first try` : ""}.</p></div>`
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} ${it.parts.some(p => pw(p) > 1) ? "point(s)" : "correct answer(s)"}.</p><p>${shown ? (it.parts.some(p => p.t === "redac") ? "The answer key and the model answers are shown: complete your answers, then check again." : "The answer key is shown below: fix the answers marked ✗, then check again.") : "Fix the answers marked ✗, then check again. The answer key appears on the second try."} (Score kept: ${f.pts}/${f.max}, first try.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Answer saved.</p><p>Compare it with the model answer, then tick the grid.</p></div>`;
+  } else gfb.innerHTML = "";
+  let a = "";
+  if (shown && it.corr) a += `<div class="corr"><p class="h">Answer key</p><p>${it.corr}</p>${it.corrx || ""}</div>`;
+  if (0) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Written answer · self-assessment</p><div class="box info"><p class="lab">ℹ Model answer</p><p>${it.model}</p></div><p><b>Tick what your answer contains:</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
+  if (shown && it.recop) a += recopHTML();
+  after.innerHTML = a;
+  const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
+  if (unl.dataset.state !== ustate) {
+    unl.dataset.state = ustate;
+    unl.innerHTML = ustate === "open" ? `<figure class="doc unlock" style="margin:0"><figcaption class="dh"><span>${it.unlock.title}</span>${it.unlock.sim ? `<span class="sim">⚠ ${it.unlock.sim}</span>` : ""}</figcaption><div class="db unlockz"></div></figure>` : ustate === "locked" ? `<p class="locked">🔒 A simulation unlocks when all answers are correct.</p>` : "";
+    if (ustate === "open") WID[it.unlock.w]($(".unlockz", unl));
+  }
+  $("[data-check]", acts).onclick = () => {
+    const { res, pts } = evalItem(it, st);
+    const empty = res.some(r => r && r.empty);
+    const textEmpty = it.parts.some((p, k) => p.t === "text" && !String(st.v[k] || "").trim());
+    if ((empty || textEmpty) && !st.first) { const why = [...new Set(res.filter(r => r && r.empty && /too short|experiment/.test(r.msg)).map(r => r.msg))].join(" ");
+      gfb.innerHTML = `<div class="fb neutral"><p class="h">Answer every question before checking.</p><p>${why ? why + " " : ""}Your first try only counts once everything is filled in.</p></div>`; gfb.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    st.checked = true; st.lastPts = pts; st.lastOk = pts === max; st.tries = (st.tries || 0) + 1;
+    if (!st.first) st.first = { pts, max, hints: st.hints, parts: res.map(r => r ? !!r.ok : null), pp: res.map(r => r ? rpts(r) : null), txt: it.parts.map((p, k) => p.t === "redac" ? String(st.v[k] || "").trim() : null) };
+    save();
+    it.parts.forEach((p, k) => renderPart(it, k, root)); if (it.pre) paintPre(it, root); paintActions(it, root); refreshChrome(it);
+    const g = $(".gfb", root); if (g && g.scrollIntoView) g.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const hb = $("[data-hint]", acts); if (hb) hb.onclick = () => { st.hints = Math.min(3, st.hints + 1); save(); paintActions(it, root); const hs = $$(".hz .hint", root); const last = hs[hs.length - 1]; if (last) last.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  armButton($("[data-reset]", acts), "↺ Start again", "Erase my answers?", () => { const keep = st.first; IT()[id] = { v: {}, hints: 0, crit: {}, pre: st.pre, first: keep, tries: keep ? st.tries : 0, lastOk: false }; save(); renderItem(it, root); refreshChrome(it); });
+  $$(".crit button", after).forEach(b => b.onclick = () => { const i = +b.dataset.ci; st.crit[i] = !st.crit[i]; save(); paintActions(it, root); const nb2 = $(`.after [data-ci="${i}"]`, root); if (nb2) nb2.focus(); });
+}
+
+/* ---------- bilan ---------- */
+function compStats() { const out = {}; Object.keys(COMPS).forEach(k => out[k] = { ok: 0, n: 0 }); Object.values(ITEMS).forEach(({ it }) => { const st = IT()[it.id]; if (!st || !st.first) return; it.parts.forEach((p, k) => { if (!scorable(p)) return; const c = p.c || "conn", w = pw(p); out[c].n += w; out[c].ok += st.first.pp ? (st.first.pp[k] || 0) : st.first.parts[k] ? w : 0; }); }); return out; }
+function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = IT()[it.id]; if (!st || !st.first) return; st.first.parts.forEach((ok, k) => { if (ok === false) out.push(`${label} · question ${k + 1}${it.parts[k] && it.parts[k].t === "redac" && st.first.pp ? ` (written answer: ${st.first.pp[k]}/${pw(it.parts[k])} elements found)` : ""}`); }); }); return out; }
+const plain = x => String(x).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+function writtenParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = IT()[it.id]; it.parts.forEach((p, k) => { if (p.t !== "redac" && p.t !== "list") return; const v = st && st.v[k] ? String(st.v[k]).trim() : "", f = st && st.first && st.first.txt ? st.first.txt[k] : null; out.push({ label, q: plain(p.label), v, v1: f && f !== v ? f : "", score: p.t === "redac" && st && st.first && st.first.pp ? `${st.first.pp[k]}/${pw(p)} elements found on the first try` : "" }); }); }); return out; }
+function rScore() { const st = IT().r0; return { pts: st && st.first ? st.first.pts : 0, max: itemMax(RAPPEL), done: st && st.first ? 1 : 0, n: 1 }; }
+function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
+const gName = g => `Part ${g.n} · ${g.title}`;
+const recopReady = () => corrShown(IT()[HOME.last]);
+function bilanText(name) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
+  let t = `${HOME.txt}\n\nACTIVITY SUMMARY\n${RESUME}\n\nSTUDENT REPORT\nStudent: ${name || "—"}\nDate: ${today()}\nVersion: ${EXP() ? HOME.vers.l.short.toLowerCase() + " (written answers; automatic check of expected elements, to be read by the teacher)" : HOME.vers.g.short.toLowerCase()}\n\nPoints on the first try\n- Home · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
+  GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} steps done)\n`; g.items.forEach((it, i) => { const st = IT()[it.id]; t += `    step ${i + 1} ${LV[it.lvl][2]} ${it.title} : ${st && st.first ? st.first.pts + "/" + st.first.max + (st.first.hints ? ` (${st.first.hints} hint(s))` : "") : "—"}\n`; }); });
+  t += `Total: ${T.pts}/${T.max} (${T.done}/${T.n} steps done)\n\nReport per skill (first try)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? c.ok + "/" + c.n : "—"}\n`; });
+  t += `\nQuestions missed on the first try (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- none"}\n`;
+  if (EXP()) { const w = writtenParts(); t += `\nMY WRITTEN ANSWERS (${w.filter(x => x.v).length}/${w.length})\n` + w.map(x => `\n${x.label}\nQuestion: ${x.q}\n${x.v1 ? "Answer on the first try: " + x.v1 + "\nFinal answer: " : "Answer: "}${x.v || "—"}${x.score ? "\n(" + x.score + ")" : ""}\n`).join(""); }
+  return clean(t + "\n" + HOME.extra() + `\n${SIGN}\n`);
+}
+function renderBilan(m) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
+  m.innerHTML = `<section class="view"><div><p class="kicker">Report</p><h2 class="sec-title">My activity report</h2><p class="lead"><b>${VNAME()}</b> · points counted on the first try. ${T.done}/${T.n} steps done.</p></div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 The summary appears once you have finished the mission report (part ${GROUPS.length}).</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Go to the mission report</button></div>`}</div>
+    <div class="panel"><h3>${HOME.extraTitle || "My tables"}</h3>${HOME.extraHTML()}</div>
+    <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
+    <div class="panel"><h3>Per part</h3><div class="tablewrap"><table class="t"><thead><tr><th>Part</th><th>Steps done</th><th>Points (first try)</th></tr></thead><tbody><tr><td>Home · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
+    <div class="panel"><h3>Per skill</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const q = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${q * 100}%"></i></div></div>`; }).join("")}</div></div>
+    <div class="panel"><h3>Questions missed on the first try</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>None so far.</p>"}</div>
+    ${EXP() ? `<div class="panel"><h3>My written answers</h3><p class="lead">Your teacher reads them in your report: the automatic check does not replace the teacher's reading.</p><div class="redlist">${writtenParts().map(x => `<div class="red"><p class="rq">${esc(x.label)}</p><p class="lead">${esc(x.q)}</p>${x.v1 ? `<p class="lead">First try</p><p class="rv">${esc(x.v1)}</p><p class="lead">Final answer</p>` : ""}<p class="rv">${x.v ? esc(x.v) : "—"}</p>${x.score ? `<p class="lead">${x.score}</p>` : ""}</div>`).join("")}</div></div>` : ""}
+    <div class="panel"><h3>Share my report</h3><p class="lead">The file contains the activity summary (with the text to copy and your glossary), your tables, your points per part and per skill${EXP() ? ", your written answers" : ""} and the questions missed on the first try.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Start over</h3><p class="lead">Erase all answers (both versions) and all experiments of this activity on this device.</p><div class="row"><button class="btn ghost" type="button" id="reset">Erase everything</button></div></div></section>`;
+  const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step[HOME.lastG] = HOME.lastK; save(); go(HOME.lastG); };
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Report to show the teacher</p><h2>${esc(name || "Student")}</h2><p>${HOME.short} · ${VNAME()} · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} steps)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (first try)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Questions missed on the first try</span><b class="num">${ms.length}</b></div><div class="line"><span>Summary to copy</span><b>${recopReady() ? "✓ unlocked" : "not yet"}</b></div>`, HOME.slug);
+  armButton($("#reset"), "Erase everything", "Confirm erasing?", () => { S.it = {}; S.itL = {}; S.step = {}; S.x = {}; save(); go("accueil"); });
+}
+
+/* ---------- démarrage ---------- */
+Display.init(S, save);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h && h !== S.view && VIEWS.includes(h)) go(h); });
+go(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (S.view || "accueil"), true);
+
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

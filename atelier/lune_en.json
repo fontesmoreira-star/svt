@@ -1,0 +1,518 @@
+[
+[
+"<span class=\"chip ok\">✓ choisie</span>",
+"<span class=\"chip ok\">✓ chosen</span>"
+],
+[
+"/courte|manipulation/.test(r.msg)",
+"/too short|experiment/.test(r.msg)"
+],
+[
+"${p.ask || \"Choisis l'étiquette de\"} : <b>",
+"${p.ask || \"Choose the label for\"}: <b>"
+],
+[
+"<p class=\"kicker\">Partie ${g.n} · ${VNAME()}</p>",
+"<p class=\"kicker\">Part ${g.n} · ${VNAME()}</p>"
+],
+[
+"Store.key = \"eist5-phases-lune-v1\"",
+"Store.key = \"eist5-moon-phases-dnl-v1\""
+],
+[
+"const PH_TXT = [\"Aucune partie éclairée visible\", \"Moitié droite éclairée\", \"Moitié gauche éclairée\", \"Disque entièrement éclairé\"];",
+"const PH_TXT = [\"No lit part visible\", \"Right half lit\", \"Left half lit\", \"Whole disc lit\"];"
+],
+[
+"const PHN = [\"Nouvelle lune\", \"Premier quartier\", \"Pleine lune\", \"Dernier quartier\"];",
+"const PHN = [\"New moon\", \"First quarter\", \"Full moon\", \"Last quarter\"];"
+],
+[
+"\"Pas encore dessinée\"",
+"\"Not drawn yet\""
+],
+[
+"e < 10 || e > 350 ? \"Nouvelle lune\" : e < 80 ? \"Premier croissant\" : e <= 100 ? \"Premier quartier\" : e < 170 ? \"Lune gibbeuse croissante\" : e <= 190 ? \"Pleine lune\" : e < 260 ? \"Lune gibbeuse décroissante\" : e <= 280 ? \"Dernier quartier\" : \"Dernier croissant\"",
+"e < 10 || e > 350 ? \"New moon\" : e < 80 ? \"Waxing crescent\" : e <= 100 ? \"First quarter\" : e < 170 ? \"Waxing gibbous\" : e <= 190 ? \"Full moon\" : e < 260 ? \"Waning gibbous\" : e <= 280 ? \"Last quarter\" : \"Waning crescent\""
+],
+[
+"Depuis la Terre (hémisphère Nord)",
+"From Earth (Northern Hemisphere)"
+],
+[
+"Ciel nocturne : la Lune telle que la voit un observateur terrestre. La phase est écrite sous les dessins.",
+"Night sky: the Moon as an observer on Earth sees it. The phase is written under the drawings."
+],
+[
+"☀ Soleil",
+"☀ Sun"
+],
+[
+"\"lumière du Soleil\"",
+"\"sunlight\""
+],
+[
+"\"Semaine \" + w",
+"\"Week \" + w"
+],
+[
+"font-weight:800\">Terre</text>",
+"font-weight:800\">Earth</text>"
+],
+[
+"\"Terre\", \"middle\"",
+"\"Earth\", \"middle\""
+],
+[
+"Schéma : le Soleil à gauche éclaire la Terre et la Lune ; la Lune tourne autour de la Terre ; ses positions à la fin des semaines 1 à 4 sont repérées.",
+"Diagram: the Sun on the left lights up the Earth and the Moon; the Moon goes around the Earth; its positions at the end of weeks 1 to 4 are shown."
+],
+[
+"nb(\"Lance la lumière. Puis recommence avec un obstacle.\")",
+"\"Send the light. Then try again with an obstacle.\""
+],
+[
+"Écran entre le Soleil et la Lune",
+"Screen between the Sun and the Moon"
+],
+[
+"Main devant l'œil",
+"Hand in front of the eye"
+],
+[
+"data-s=\"0\">Non</button><button type=\"button\" data-s=\"1\">Oui</button>",
+"data-s=\"0\">No</button><button type=\"button\" data-s=\"1\">Yes</button>"
+],
+[
+"data-h=\"0\">Non</button><button type=\"button\" data-h=\"1\">Oui</button>",
+"data-h=\"0\">No</button><button type=\"button\" data-h=\"1\">Yes</button>"
+],
+[
+"font-weight:800\">Soleil</text>",
+"font-weight:800\">Sun</text>"
+],
+[
+"px\">écran</text>",
+"px\">screen</text>"
+],
+[
+"font-weight:800\">Lune</text>",
+"font-weight:800\">Moon</text>"
+],
+[
+"font-weight:700\">observateur</text>",
+"font-weight:700\">observer</text>"
+],
+[
+"Le Soleil, la Lune et un observateur sur Terre. Ce qui se passe est écrit sous le dessin.",
+"The Sun, the Moon and an observer on Earth. What happens is written under the drawing."
+],
+[
+"`Essais réalisés : ${n}/3 (sans obstacle, avec l'écran, avec la main).`",
+"`Tests done: ${n}/3 (no obstacle, with the screen, with the hand).`"
+],
+[
+"nb(p <= 0 ? \"Touche « Lancer ».\"",
+"(p <= 0 ? \"Tap “Start”.\""
+],
+[
+"La lumière du Soleil part vers la Lune… et rencontre l'écran.",
+"Sunlight travels towards the Moon… and hits the screen."
+],
+[
+"La lumière du Soleil part vers la Lune…",
+"Sunlight travels towards the Moon…"
+],
+[
+"La lumière du Soleil n'arrive pas jusqu'à la Lune : la Lune n'est pas éclairée. L'observateur ne la voit pas.",
+"Sunlight does not reach the Moon: the Moon is not lit. The observer cannot see it."
+],
+[
+"La Lune est éclairée : elle renvoie la lumière dans toutes les directions…",
+"The Moon is lit: it sends the light back in all directions…"
+],
+[
+"La main arrête la lumière qui vient de la Lune : l'observateur ne voit pas la Lune.",
+"The hand stops the light coming from the Moon: the observer cannot see the Moon."
+],
+[
+"La lumière qui vient de la Lune arrive jusqu'à l'œil : l'observateur voit la Lune.",
+"The light coming from the Moon reaches the eye: the observer can see the Moon."
+],
+[
+"aria-label=\"Aller à la fin d'une semaine\"",
+"aria-label=\"Go to the end of a week\""
+],
+[
+"data-wk=\"${w}\">Semaine ${w}</button>",
+"data-wk=\"${w}\">Week ${w}</button>"
+],
+[
+"Jour de la lunaison : <b data-dv>0</b> sur 28",
+"Day of the lunar month: <b data-dv>0</b> of 28"
+],
+[
+"\"Lance la lunaison, ou touche une semaine. Observe la Lune depuis la Terre.\"",
+"\"Start the lunar month, or tap a week. Watch the Moon from Earth.\""
+],
+[
+"nb(`Jour ${",
+"(`Day ${"
+],
+[
+"<b>fin de la semaine ${wk}</b>",
+"<b>end of week ${wk}</b>"
+],
+[
+"Semaines observées : ${",
+"Weeks observed: ${"
+],
+[
+"Schéma du document : la Lune (cerclée de couleur) tourne autour de la Terre. Sa position et le jour sont écrits sous les dessins.",
+"Diagram of the document: the Moon (circled in colour) goes around the Earth. Its position and the day are written under the drawings."
+],
+[
+"Les quatre positions de la Lune à la fin de chaque semaine. Toi, tu regardes ce schéma depuis l'espace : le Soleil est à ta gauche.",
+"The four positions of the Moon at the end of each week. You look at this diagram from space: the Sun is on your left."
+],
+[
+"\"Vue de dessus, depuis l'espace\"",
+"\"Top view, from space\""
+],
+[
+"Vue de dessus depuis l'espace : la moitié de la Lune tournée vers le Soleil est toujours éclairée ; la partie que l'on voit depuis la Terre est entourée. L'explication est écrite sous les dessins.",
+"Top view from space: the half of the Moon facing the Sun is always lit; the part we see from Earth is circled. The explanation is written under the drawings."
+],
+[
+"\"Depuis l'espace, la moitié tournée vers le Soleil est toujours éclairée. Depuis la Terre, on ne voit que la moitié de la Lune tournée vers nous (pointillés).\"",
+"\"From space, the half facing the Sun is always lit. From Earth, we only see the half of the Moon facing us (dotted line).\""
+],
+[
+"\"on ne voit <b>aucune partie</b> de la moitié éclairée\"",
+"\"we see <b>no part</b> of the lit half\""
+],
+[
+"\"on voit <b>toute</b> la moitié éclairée\"",
+"\"we see <b>all</b> of the lit half\""
+],
+[
+"\"on voit <b>la moitié</b> de la moitié éclairée\"",
+"\"we see <b>half</b> of the lit half\""
+],
+[
+"`on voit <b>${(e < 90 || e > 270) ? \"une petite partie\" : \"une grande partie\"}</b> de la moitié éclairée`",
+"`we see <b>${(e < 90 || e > 270) ? \"a small part\" : \"a large part\"}</b> of the lit half`"
+],
+[
+"` · fin de la semaine ${wk}`",
+"` · end of week ${wk}`"
+],
+[
+" : depuis la Terre, ${part} (en surbrillance).`",
+": from Earth, ${part} (highlighted).`"
+],
+[
+"nb(\"Vue de dessus : jaune pâle = moitié éclairée par le Soleil · jaune vif, cerné de couleur = partie éclairée tournée vers la Terre, celle que l'on voit · pointillés = moitié de la Lune tournée vers la Terre.\")",
+"\"Top view: pale yellow = half lit by the Sun · bright yellow, outlined in colour = lit part facing the Earth, the part we see · dotted line = half of the Moon facing the Earth.\""
+],
+[
+"{ vois: \"Je vois\", sais: \"Je sais\", deduis: \"J'en déduis\" }",
+"{ vois: \"I see\", sais: \"I know\", deduis: \"So\" }"
+],
+[
+"Dessine chaque Lune (touche « Rien d'éclairé » si aucune partie éclairée n'est visible).",
+"Draw each Moon (tap “Nothing lit” if no lit part is visible)."
+],
+[
+"Lune(s) à corriger (marquées ✗).",
+"Moon(s) to fix (marked ✗)."
+],
+[
+"✓ Toutes les Lunes sont justes.",
+"✓ All the Moons are correct."
+],
+[
+"Réponse rédigée manquante.",
+"Written answer missing."
+],
+[
+"`Réponse rédigée trop courte : écris au moins ${min} mots, en phrases complètes.`",
+"`Written answer too short: write at least ${min} words, in full sentences.`"
+],
+[
+"éléments attendus repérés dans ta réponse.",
+"expected elements found in your answer."
+],
+[
+"éléments attendus repérés (${cats}).",
+"expected elements found (${cats})."
+],
+[
+"`✓ Juste : ${found} élément(s) attendu(s), aucun en trop.`",
+"`✓ Correct: ${found} expected element(s), none extra.`"
+],
+[
+"\"✗ Pas encore : \" + [`${found}/${p.need.length} élément(s) attendu(s) repéré(s)`, extra ? `${extra} élément(s) cité(s) à tort` : \"\"]",
+"\"✗ Not yet: \" + [`${found}/${p.need.length} expected element(s) found`, extra ? `${extra} wrong element(s)` : \"\"]"
+],
+[
+"\"✓ Juste.\"",
+"\"✓ Correct.\""
+],
+[
+"Place toutes les images.",
+"Place all the pictures."
+],
+[
+"image(s) mal placée(s) (marquées ✗).",
+"picture(s) misplaced (marked ✗)."
+],
+[
+"✓ Ordre juste.",
+"✓ Correct order."
+],
+[
+"Termine d'abord la manipulation.",
+"Finish the experiment first."
+],
+[
+"Place toutes les étiquettes.",
+"Place all the labels."
+],
+[
+"✓ Boucle juste.",
+"✓ Correct loop."
+],
+[
+"aria-label=\"${sc.done} étape(s) faite(s) sur ${sc.n}\"",
+"aria-label=\"${sc.done} step(s) done out of ${sc.n}\""
+],
+[
+"aria-label=\"${VNAME()} : changer de version\"",
+"aria-label=\"${VNAME()}: change version\""
+],
+[
+"⚠ Le savais-tu ?",
+"⚠ Did you know?"
+],
+[
+"Choisis ta version",
+"Choose your version"
+],
+[
+"aria-label=\"Version de l'activité\"",
+"aria-label=\"Version of the activity\""
+],
+[
+"Tu peux changer de version à tout moment : tes manipulations sont conservées, et chaque version garde ses réponses et son score.",
+"You can change version at any time: your experiments are kept, and each version keeps its own answers and score."
+],
+[
+"<li>Fais les parties <b>dans l'ordre</b>, de 1 à ${GROUPS.length}${HOME.dur ? \" : \" + HOME.dur : \"\"}.</li>",
+"<li>Do the parts <b>in order</b>, from 1 to ${GROUPS.length}${HOME.dur ? \": \" + HOME.dur : \"\"}.</li>"
+],
+[
+"<li>Chaque étape contient une <b>manipulation</b> ou une <b>animation</b> : réalise-la avant de répondre.</li>",
+"<li>Each step has an <b>experiment</b> or an <b>animation</b>: do it before you answer.</li>\n        <li>Tap 🔊 to hear an English word. The words in <i>italics</i> are in French. Your English is never marked down: what counts is the science.</li>"
+],
+[
+"<li>Rédige en phrases complètes, avec la méthode <b>je vois → je sais → j'en déduis</b>. Touche <b>Vérifier</b> : l'application repère les éléments attendus dans ta réponse (un point par élément). Seul le premier essai compte, puis tu complètes librement.</li>",
+"<li>Write full sentences, with the method <b>I see → I know → so</b>. Use the sentence starters. Tap <b>Check</b>: the app looks for the expected elements in your answer (one point per element). Only your first try counts; then you can complete freely.</li>"
+],
+[
+"<li>Le repérage est automatique (mots-clés) : ton professeur lit tes réponses rédigées dans ton bilan.</li>",
+"<li>The check is automatic (key words): your teacher reads your written answers in your report.</li>"
+],
+[
+"\"✓ fait\" : \"à faire · étape\" + (d.items.length > 1 ? \"s \" : \" \") + d.items.map(id => ITEMS[id].i + 1).join(\" et \")",
+"\"✓ done\" : \"to do · step\" + (d.items.length > 1 ? \"s \" : \" \") + d.items.map(id => ITEMS[id].i + 1).join(\" and \")"
+],
+[
+"Indicateurs de réussite",
+"Success criteria"
+],
+[
+"🔒 Donne d'abord ton hypothèse : la manipulation se débloque ensuite.",
+"🔒 Give your opinion first: the experiment then unlocks."
+],
+[
+"(pre.yes || \"✓ Tu avais raison : ton hypothèse est confirmée.\")",
+"(pre.yes || \"✓ You were right: your hypothesis is confirmed.\")"
+],
+[
+"(pre.nope || \"↻ Tu as révisé ton hypothèse de départ : c'est ainsi que l'on progresse.\")",
+"(pre.nope || \"↻ You changed your first idea: that is how we learn.\")"
+],
+[
+"Enregistrer mon hypothèse",
+"Save my hypothesis"
+],
+[
+"Écris un nombre entier.",
+"Type a whole number."
+],
+[
+"\", placée en position \"",
+"\", placed in position \""
+],
+[
+"Effacer l'ordre",
+"Clear the order"
+],
+[
+"Touche une image placée pour la retirer.",
+"Tap a placed picture to remove it."
+],
+[
+"\"Pas encore de photo\"",
+"\"No photo yet\""
+],
+[
+"\"Refaire la photo\" : \"Prendre la photo\"",
+"\"Take the photo again\" : \"Take the photo\""
+],
+[
+"\"Refaire\" : \"Photo\"",
+"\"Again\" : \"Photo\""
+],
+[
+"aria-label=\"Case ${i + 2} : ${j !== undefined ? esc(p.items[j]) + \". Toucher pour retirer.\" : \"vide\"}\"",
+"aria-label=\"Box ${i + 2}: ${j !== undefined ? esc(p.items[j]) + \". Tap to remove.\" : \"empty\"}\""
+],
+[
+"p.back + \" : retour à la case 1.\" : \"puis retour à la case 1 : la boucle est bouclée.\"",
+"p.back + \": back to box 1.\" : \"then back to box 1: the loop is closed.\""
+],
+[
+"Touche une étiquette pour la placer dans la première case libre. Touche une case remplie pour la vider.",
+"Tap a label to put it in the first empty box. Tap a filled box to empty it."
+],
+[
+" : moitié gauche, ${L ? \"éclairée\" : \"sombre\"}",
+": left half, ${L ? \"lit\" : \"dark\"}"
+],
+[
+" : moitié droite, ${R ? \"éclairée\" : \"sombre\"}",
+": right half, ${R ? \"lit\" : \"dark\"}"
+],
+[
+"🌑 Rien d'éclairé",
+"🌑 Nothing lit"
+],
+[
+"Touche une moitié pour l'éclairer ou l'assombrir.",
+"Tap a half to light it up or make it dark."
+],
+[
+"\"élément 1, élément 2, …\"",
+"\"item 1, item 2, …\""
+],
+[
+"Écris seulement les éléments présents, séparés par des virgules.",
+"Write only the items present, separated by commas."
+],
+[
+"Rédige ta réponse ici, en phrases complètes…",
+"Write your answer here, in full sentences…"
+],
+[
+"Après validation : réponse modèle et grille d'auto-évaluation.",
+"After submitting: model answer and self-assessment grid."
+],
+[
+"mine ? \"✓ validé par toi\" : hit ? \"✓ repéré\" : \"✗ non repéré\"",
+"mine ? \"✓ confirmed by you\" : hit ? \"✓ found\" : \"✗ not found\""
+],
+[
+">Ma réponse le contient</button>",
+">My answer has it</button>"
+],
+[
+"ℹ Réponse modèle",
+"ℹ Model answer"
+],
+[
+"Le repérage est automatique (mots-clés) et peut se tromper. Compare ta réponse à la réponse modèle : si un élément marqué ✗ figure bien dans ta réponse, valide-le toi-même. Ton professeur lit ta réponse dans ton bilan.",
+"The check is automatic (key words) and can make mistakes. Compare your answer with the model answer: if an element marked ✗ really is in your answer, confirm it yourself. Your teacher reads your answer in your report."
+],
+[
+"`${n} mot(s) · au moins ${min} mots attendus.`",
+"`${n} word(s) · at least ${min} words expected.`"
+],
+[
+"\"point(s)\" : \"réponse(s) juste(s)\"",
+"\"point(s)\" : \"correct answer(s)\""
+],
+[
+"Le corrigé et les réponses modèles sont affichés : complète tes réponses, puis vérifie à nouveau.",
+"The answer key and the model answers are shown: complete your answers, then check again."
+],
+[
+"Réponse rédigée · auto-évaluation",
+"Written answer · self-assessment"
+],
+[
+"Coche ce que ta réponse contient :",
+"Tick what your answer contains:"
+],
+[
+"` (réponse rédigée : ${st.first.pp[k]}/${pw(it.parts[k])} éléments repérés)`",
+"` (written answer: ${st.first.pp[k]}/${pw(it.parts[k])} elements found)`"
+],
+[
+"`${st.first.pp[k]}/${pw(p)} éléments repérés au premier essai`",
+"`${st.first.pp[k]}/${pw(p)} elements found on the first try`"
+],
+[
+"\\nVersion : ${EXP() ? HOME.vers.l.short.toLowerCase() + \" (réponses rédigées ; repérage automatique des éléments attendus, à relire par le professeur)\" : HOME.vers.g.short.toLowerCase()}",
+"\\nVersion: ${EXP() ? HOME.vers.l.short.toLowerCase() + \" (written answers; automatic check of expected elements, to be read by the teacher)\" : HOME.vers.g.short.toLowerCase()}"
+],
+[
+"\\nMES RÉPONSES RÉDIGÉES (",
+"\\nMY WRITTEN ANSWERS ("
+],
+[
+"\\nQuestion : ${x.q}\\n${x.v1 ? \"Réponse au premier essai : \" + x.v1 + \"\\nRéponse finale : \" : \"Réponse : \"}",
+"\\nQuestion: ${x.q}\\n${x.v1 ? \"Answer on the first try: \" + x.v1 + \"\\nFinal answer: \" : \"Answer: \"}"
+],
+[
+"· points comptés au premier essai.",
+"· points counted on the first try."
+],
+[
+"🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie ${GROUPS.length}.",
+"🔒 The summary appears once you have finished the mission report (part ${GROUPS.length})."
+],
+[
+"🧩 Aller à la dernière étape",
+"🧩 Go to the mission report"
+],
+[
+"HOME.extraTitle || \"Mes tableaux\"",
+"HOME.extraTitle || \"My tables\""
+],
+[
+"<h3>Mes réponses rédigées</h3><p class=\"lead\">Ton professeur les lit dans ton bilan : le repérage automatique ne remplace pas sa lecture.</p>",
+"<h3>My written answers</h3><p class=\"lead\">Your teacher reads them in your report: the automatic check does not replace the teacher's reading.</p>"
+],
+[
+"<p class=\"lead\">Premier essai</p>",
+"<p class=\"lead\">First try</p>"
+],
+[
+"<p class=\"lead\">Réponse finale</p>",
+"<p class=\"lead\">Final answer</p>"
+],
+[
+"Le fichier contient le résumé de l'activité (avec le bilan), tes tableaux, tes points par partie et par compétence${EXP() ? \", tes réponses rédigées\" : \"\"} et les questions ratées au premier essai.",
+"The file contains the activity summary (with the text to copy and your glossary), your tables, your points per part and per skill${EXP() ? \", your written answers\" : \"\"} and the questions missed on the first try."
+],
+[
+"Efface toutes les réponses (des deux versions) et toutes les manipulations de cette activité sur cet appareil.",
+"Erase all answers (both versions) and all experiments of this activity on this device."
+],
+[
+"<span>Bilan de l'activité</span><b>${recopReady() ? \"✓ débloqué\" : \"pas encore\"}</b>",
+"<span>Summary to copy</span><b>${recopReady() ? \"✓ unlocked\" : \"not yet\"}</b>"
+]
+]

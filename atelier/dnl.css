@@ -1,0 +1,17 @@
+/* DNL anglais : mots-clés, glossaire, can-do */
+.kwbox{display:flex;flex-wrap:wrap;gap:.4rem .5rem;align-items:center;margin:.2rem 0}
+.kwt{font-size:.85rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--info);margin-right:.2rem}
+.kw{display:inline-flex;flex-wrap:wrap;align-items:center;max-width:100%;gap:.35rem;background:var(--info-soft);border:1.5px solid var(--info);border-radius:24px;padding:.1rem .7rem .1rem .15rem;line-height:1.2}
+.kw b{font-weight:800;white-space:nowrap}
+.kw i{color:var(--muted);font-style:italic;white-space:nowrap}
+.kw i::before{content:"= ";font-style:normal}
+.say{min-width:48px;min-height:48px;border:0;border-radius:999px;background:transparent;font-size:1.1rem;cursor:pointer;color:inherit;padding:0}
+.say:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.nosay .say{display:none}
+.nosay .kw{padding-left:.7rem}
+.gw{display:inline-flex;align-items:center;gap:.2rem}
+table.gloss td:first-child{text-align:left}
+table.gloss td{vertical-align:middle}
+.cando{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.cando li{display:flex;gap:.55rem;align-items:flex-start}
+.cando .bx{flex:0 0 auto;width:1.15rem;height:1.15rem;border:2px solid var(--key);border-radius:4px;margin-top:.2rem}

@@ -26,6 +26,10 @@ APPS = {
       sub="Légende une vraie fusée, relie chaque fonction à sa solution, puis teste tes fusées à l'atelier.", js=["kit.js", "fusee_widgets.js", "fusee_data.js", "fusee.js"], css=["mouv.css", "fusee.css"],
       root="5e/mission-5/mouvement", eyebrow="5e EIST · Mission 5 · Technologie · Activité 4",
       foot="Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les données simulées portent la mention ⚠ Valeurs simulées. Lycée Français Vauban · EIST 5e."),
+  "building-a-rocket-dnl": dict(title="Building a rocket (DNL)", h1="Find out and reason to build a rocket", lang="en", en=["fusee_en.json", "pomme_en.json"], en_files=["fusee_widgets.js", "fusee.js"],
+      sub="Science in English: label a real rocket, match each function to its solution, then test your rockets in the launch lab.", js=["kit.js", "dnl.js", "fusee_widgets.js", "fusee_en_data.js", "fusee.js"], css=["mouv.css", "fusee.css", "dnl.css"],
+      root="5e/mission-5/mouvement", eyebrow="5e EIST · Science in English (DNL) · Mission 5 · Technology · Activity 4",
+      foot="No data is sent: your answers stay on this device. Simulated data are flagged with ⚠. Lycée Français Vauban · EIST 5e · DNL English."),
   "revision-chapitre-1": dict(title="Révision · L'information génétique", h1="Je révise le chapitre 1 : l'information génétique",
       sub="Activités 1 à 6 de l'enquête : caractères, hérédité, noyau, ADN, caryotypes. Puis un exercice type brevet.", js=["kit.js", "rev3_widgets.js", "rev3_data.js", "rev3.js"], css=["svt.css", "mouv.css", "rev3.css"],
       root="3e/vivant-evolution/ch1-information-genetique", eyebrow="3e SVT · Génétique · Révision du chapitre 1",
@@ -34,6 +38,10 @@ APPS = {
       sub="Le trajet de la lumière, un simulateur de lunaison, le schéma Soleil-Terre-Lune et la vue depuis l'espace. Deux versions : guidée ou experte.", js=["kit.js", "lune_widgets.js", "lune_data.js", "lune.js"], css=["mouv.css", "lune.css"],
       root="5e/mission-5/soleil-terre-lune", eyebrow="5e EIST · Mission 5 · Physique-chimie · Activité 5",
       foot="Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les animations sont des modèles simplifiés. Lycée Français Vauban · EIST 5e."),
+  "phases-of-the-moon-dnl": dict(title="Phases of the Moon (DNL)", h1="Why does the Moon look different every night?", lang="en", en=["lune_en.json", "pomme_en.json"], en_files=["lune_widgets.js", "lune.js"],
+      sub="Science in English: the path of light, a lunar month simulator, the Sun-Earth-Moon diagram and the view from space. Two versions: guided or expert.", js=["kit.js", "dnl.js", "lune_widgets.js", "lune_en_data.js", "lune.js"], css=["mouv.css", "lune.css", "dnl.css"],
+      root="5e/mission-5/soleil-terre-lune", eyebrow="5e EIST · Science in English (DNL) · Mission 5 · Physics · Activity 5",
+      foot="No data is sent: your answers stay on this device. The animations are simplified models. Lycée Français Vauban · EIST 5e · DNL English."),
   "revision-mission-4": dict(title="Révision Mission 4", h1="Mission 4 : l'entraînement de l'équipage",
       sub="Particules d'eau, changements d'état, TP virtuel en temps réel, graphique à construire, microscope, boîte de Petri et enquête alimentaire.", js=["kit.js", "m4b_plot.js", "m4b_widgets.js", "m4b_data.js", "m4b.js"], css=["mouv.css", "m4b.css"],
       root="5e/mission-4", eyebrow="5e EIST · Mission 4 · Charger des vivres dans la fusée · Révision",
@@ -105,8 +113,12 @@ def build(slug, cfg):
         import json
         CORE_EN = {"locale": "en-GB", "dec": ".", "readHint": "Tap the graph to read a value.", "table": "Table of values", "light": "☀ Light", "dark": "☾ Dark", "dlNo": "Download is not available here: use “Copy” or “Show the teacher”.", "dlOk": "File offered for saving.", "dlDeclined": "Saving cancelled.", "dlBusy": "A request is already open: try again in a moment.", "dlFail": "Download not possible here: use “Copy”.", "dlDone": "File downloaded.", "name": "First name or number (optional, stays on this device)", "bDl": "⬇ Download (.txt)", "bCp": "⧉ Copy", "bMail": "✉ Send by email", "bShow": "👁 Show the teacher", "cpSel": "Text selected: copy it with ⌘C / Ctrl+C or the Copy menu.", "cpOk": "Report copied: paste it where your teacher asked.", "mailOk": "Your mail app should open with your report.", "bilanTxt": "Report text", "close": "Close", "student": "student", "subject": "Report ", "animRun": "▶ Start", "animPause": "⏸ Pause", "animResume": "▶ Resume", "animReset": "↺ Restart"}
         pre = "window.TP_LANG=\"en\";window.CORE_T=" + json.dumps(CORE_EN, ensure_ascii=False) + ";\n"
-        eng = cfg["js"][-1]
-        for a, bb in json.loads((ROOT / cfg["en"]).read_text()): parts[eng] = parts[eng].replace(a, bb)
+        # en : un fichier ou une liste de fichiers de paires [français, anglais], appliqués dans l'ordre ;
+        # en_files : fichiers JS traduits (par défaut, le moteur seul)
+        ens = cfg["en"] if isinstance(cfg["en"], list) else [cfg["en"]]
+        for f in cfg.get("en_files", [cfg["js"][-1]]):
+            for e in ens:
+                for a, bb in json.loads((ROOT / e).read_text()): parts[f] = parts[f].replace(a, bb)
     js = pre + (ROOT / "core.js").read_text() + "\n" + "\n".join(parts[f] for f in cfg["js"])
     extra = '<button class="tbtn" id="timerBtn" type="button" aria-pressed="false">⏱ Mode DS</button>' if slug.startswith("entrainement") else ""
     body = HEADER.format(h1=cfg["h1"], sub=cfg["sub"], extra=extra, eyebrow=cfg.get("eyebrow", "Terminale · Enseignement scientifique · Thème 1 « Science, climat et société »"), foot=cfg.get("foot", "Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Les données simulées portent la mention ⚠ Valeurs simulées. Lycée Français Vauban · Enseignement scientifique."))

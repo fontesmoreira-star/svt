@@ -1,0 +1,154 @@
+[
+[
+"${p.ask || \"Choisis l'étiquette de\"} : <b>",
+"${p.ask || \"Choose the label for\"}: <b>"
+],
+[
+"Store.key = \"eist5-construire-fusee-v1\"",
+"Store.key = \"eist5-building-a-rocket-dnl-v1\""
+],
+[
+"Fusée en coupe avec six repères : 1 au sommet pointu, 2 sur la grande cuve intérieure, 3 sur la paroi extérieure, 4 sur le bloc situé en bas à l'intérieur, 5 sur le cône évasé tout en bas, 6 sur les petites ailes du bas",
+"Cut-away rocket with six numbers: 1 on the pointed top, 2 on the big container inside, 3 on the outer wall, 4 on the block low down inside, 5 on the wide cone at the very bottom, 6 on the small wings at the bottom"
+],
+[
+"[[\"Coiffe\", \"Pointe arrondie au sommet de la fusée. Sa forme fend l'air. Elle protège aussi le satellite.\"], [\"Réservoir\", \"Grande cuve à l'intérieur de la fusée. Il est rempli de carburant (les ergols).\"], [\"Corps (structure)\", \"Paroi solide tout autour de la fusée. Elle tient bon malgré la forte pression des gaz.\"], [\"Chambre de combustion\", \"Partie du moteur où le carburant brûle. Cela produit beaucoup de gaz très chauds, sous forte pression.\"], [\"Tuyère\", \"Cône évasé tout en bas. Les gaz brûlés sortent par là, à très grande vitesse.\"], [\"Ailerons\", \"Petites ailes fixées en bas. Ils gardent la fusée bien droite.\"]]",
+"[[\"Nose cone\", \"Rounded tip at the top of the rocket. Its shape cuts through the air. It also protects the satellite.\"], [\"Fuel tank\", \"Big container inside the rocket. It is full of fuel (propellants).\"], [\"Body (structure)\", \"Strong wall all around the rocket. It holds firm against the high pressure of the gases.\"], [\"Combustion chamber\", \"Part of the engine where the fuel burns. This makes a lot of very hot gases at high pressure.\"], [\"Nozzle\", \"Wide cone at the very bottom. The burnt gases come out here, very fast.\"], [\"Fins\", \"Small wings at the bottom. They keep the rocket straight.\"]]"
+],
+[
+"Dessin simplifié d'une fusée en coupe (les fiches d'information sont dans le désordre).",
+"Simplified cut-away drawing of a rocket (the information cards are in random order)."
+],
+[
+"[[\"nose\", \"Sommet\", [\"Plat\", \"Coiffe pointue\"]], [\"fins\", \"Ailerons\", [\"Sans\", \"Avec\"]], [\"tank\", \"Réservoir\", [\"Petit\", \"Grand\"]]]",
+"[[\"nose\", \"Top\", [\"Flat\", \"Pointed nose cone\"]], [\"fins\", \"Fins\", [\"Without\", \"With\"]], [\"tank\", \"Fuel tank\", [\"Small\", \"Big\"]]]"
+],
+[
+"Choisis les éléments de ta fusée, puis lance-la. Change <b>un seul élément à la fois</b> pour comparer.",
+"Choose the parts of your rocket, then launch it. Change <b>only one part at a time</b> to compare."
+],
+[
+"Vol de la fusée : altitude de 0 à 100 mètres",
+"Rocket flight: height from 0 to 100 metres"
+],
+[
+"`Fusée prête : <b>${desc()}</b>. Touche « Lancer ».`",
+"`Rocket ready: <b>${desc()}</b>. Tap “Start”.`"
+],
+[
+"\"Décollage…\"",
+"\"Lift-off…\""
+],
+[
+"`Altitude atteinte : <b>",
+"`Height reached: <b>"
+],
+[
+"\" · la fusée part de travers et tourne sur elle-même !\" : \" · vol bien droit.\"",
+"\" · the rocket goes sideways and spins!\" : \" · straight flight.\""
+],
+[
+"[\"Mes essais (sommet · ailerons · réservoir)\", \"Altitude\", \"Vol\"]",
+"[\"My tests (top · fins · fuel tank)\", \"Height\", \"Flight\"]"
+],
+[
+"h[2] ? \"de travers\" : \"droit\"",
+"h[2] ? \"sideways\" : \"straight\""
+],
+[
+"const COMPS = { conn: \"Mobiliser ses connaissances\", lire: \"S'informer, extraire des informations\", mod: \"Expérimenter avec une simulation\", rais: \"Raisonner\" };",
+"const COMPS = { conn: \"Use what I know\", lire: \"Find information\", mod: \"Experiment with a simulation\", rais: \"Reason\", lang: \"Use scientific English\" };"
+],
+[
+"<p class=\"kicker\">Mission 5 · Activité 4</p><h2 class=\"sec-title\">S'informer et raisonner pour construire une fusée</h2>",
+"<p class=\"kicker\">Mission 5 · Activity 4 · Science in English</p><h2 class=\"sec-title\">Find out and reason to build a rocket</h2>"
+],
+[
+"nb(\"Avant de construire ta minifusée, observe une vraie fusée : chaque élément a un rôle précis. À toi de trouver lequel.\")",
+"\"Before you build your mini rocket, look at a real rocket: each part has a precise job. Your mission: find out which one!\""
+],
+[
+"ℹ Ta mission",
+"ℹ Your mission"
+],
+[
+"Les trois parties de la mission",
+"The three parts of the mission"
+],
+[
+"<li>À la fin, l'onglet <b>Bilan</b> affiche le texte à recopier dans ton cahier et te permet de télécharger ton résultat.</li>",
+"<li>Tap 🔊 to hear an English word. The words in <i>italics</i> are in French.</li>\n        <li>Your English is never marked down: what counts is the science.</li>\n        <li>At the end, the <b>Report</b> tab shows the text to copy into your notebook and lets you download your result.</li>"
+],
+[
+"aria-label=\"${sc.done} étape(s) faite(s) sur ${sc.n}\"",
+"aria-label=\"${sc.done} step(s) done out of ${sc.n}\""
+],
+[
+"✔ Schéma à recopier dans ton cahier",
+"✔ Summary to copy into your notebook"
+],
+[
+"ACTIVITÉ 4 · S'INFORMER ET RAISONNER POUR CONSTRUIRE UNE FUSÉE\\n5e EIST · Mission 5 · Technologie",
+"ACTIVITY 4 · FIND OUT AND REASON TO BUILD A ROCKET\\n5e EIST · Science in English (DNL) · Mission 5 · Technology"
+],
+[
+"<h3>À recopier dans ton cahier</h3>",
+"<h3>Copy into your notebook</h3>"
+],
+[
+"🔒 Le bilan à recopier s'affiche quand tu as complété le schéma (partie 2).",
+"🔒 The summary to copy appears once you have completed the diagram (part 2)."
+],
+[
+"🧩 Aller au schéma",
+"🧩 Go to the diagram"
+],
+[
+"Le fichier contient le résumé de l'activité (avec le schéma à recopier), tes points par partie et par compétence et les questions ratées au premier essai.",
+"The file contains the activity summary (with the text to copy and your glossary), your points per part and per skill, and the questions missed on the first try."
+],
+[
+"<p>Construire une fusée · ${today()}</p>",
+"<p>Building a rocket (DNL) · ${today()}</p>"
+],
+[
+"<span>Bilan à recopier</span><b>${recopReady() ? \"✓ débloqué\" : \"pas encore\"}</b>",
+"<span>Summary to copy</span><b>${recopReady() ? \"✓ unlocked\" : \"not yet\"}</b>"
+],
+[
+"\"construire-une-fusee\");",
+"\"building-a-rocket-dnl\");"
+],
+[
+"Place toutes les images.",
+"Place all the pictures."
+],
+[
+"image(s) mal placée(s) (marquées ✗).",
+"picture(s) misplaced (marked ✗)."
+],
+[
+"✓ Ordre juste.",
+"✓ Correct order."
+],
+[
+"Place toutes les étiquettes.",
+"Place all the labels."
+],
+[
+"✓ Boucle juste.",
+"✓ Correct loop."
+],
+[
+"Termine d'abord la manipulation.",
+"Finish the experiment first."
+],
+[
+"\"✓ Juste.\"",
+"\"✓ Correct.\""
+],
+[
+"réponse(s) juste(s)",
+"correct answer(s)"
+]
+]

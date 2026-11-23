@@ -160,6 +160,12 @@
          "tag": "Activité 4 · Technologie",
          "titre": "Construire une fusée",
          "desc": "Légender une fusée, relier fonctions et solutions techniques, puis tester ses fusées à l'atelier de lancement."
+        },
+        {
+         "fichier": "building-a-rocket-dnl.html",
+         "tag": "Activité 4 · DNL anglais",
+         "titre": "Building a rocket (Science in English)",
+         "desc": "Version DNL anglais de l'activité 4 : mots-clés avec prononciation, légende d'une fusée, fonctions et solutions techniques, atelier de lancement, glossaire de mission."
         }
        ]
       },
@@ -172,6 +178,12 @@
          "tag": "Activité 5 · Physique-chimie",
          "titre": "Pourquoi la Lune change-t-elle d'apparence ?",
          "desc": "Le trajet de la lumière, un simulateur de lunaison, le schéma Soleil-Terre-Lune à compléter et la vue depuis l'espace. Deux versions : guidée ou experte. Bilan à recopier."
+        },
+        {
+         "fichier": "phases-of-the-moon-dnl.html",
+         "tag": "Activité 5 · DNL anglais",
+         "titre": "Why does the Moon look different every night? (Science in English)",
+         "desc": "Version DNL anglais de l'activité 5 : labo de la lumière, simulateur de lunaison, vue depuis l'espace, glossaire de mission. Deux versions : guidée ou experte (cadres de phrase)."
         }
        ]
       },
