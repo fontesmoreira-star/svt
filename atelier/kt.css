@@ -1,0 +1,38 @@
+/* ---------- 2nde SVT · Chapitre 3 · Activité 2 · L'évolution de la biodiversité au cours du temps ---------- */
+.simw{color:var(--warn);font-weight:700}
+.readout{margin:0;font-size:.95rem;min-height:1.5em}
+.mleg{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.9rem;color:var(--muted)}
+.mleg span{display:inline-flex;align-items:center;gap:.35rem}
+.mleg .sq{display:inline-block;width:1rem;height:1rem;border-radius:4px}
+.fit table.t{table-layout:fixed}
+.fit table.t td,.fit table.t th{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto;padding:.35rem .45rem}
+@media (max-width:560px){.fit table.t{font-size:.82rem}}
+.frp{gap:.35rem}
+.frp .chipb{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;font-size:.88rem;padding:0 .7rem}
+.frp .sw{display:inline-block;width:.9rem;height:.9rem;border-radius:3px;border:1px solid rgba(0,0,0,.25)}
+.fr-info,.tv-age{margin:0}
+.carnet{border:1.5px solid var(--line);border-radius:12px;padding:.6rem .8rem;background:var(--surface)}
+.carnet .ul{margin:.3rem 0 0}
+.gt{table-layout:fixed;width:100%}.gt col.gc0{width:38%}
+.gt td,.gt th{text-align:center;vertical-align:middle;padding:.3rem .25rem}
+.gt td:first-child,.gt th:first-child{text-align:left;overflow-wrap:break-word;hyphens:auto}
+.gt .cur{background:var(--accent-soft)}
+.gt td.na{color:var(--muted)}
+.gt td.is-ok{color:var(--ok);font-weight:800}
+.gt td.is-bad{color:var(--bad);background:var(--bad-soft);font-weight:800}
+.gt .muted{font-weight:600;font-size:.8rem;display:block}
+@media (max-width:560px){.gt{font-size:.8rem}.gt th{font-size:.7rem;padding:.3rem .1rem}.gt col.gc0{width:34%}}
+.gch{gap:.35rem;margin:.2rem 0 .5rem}
+.gch .chipb{min-height:44px;font-size:.88rem}
+.plate{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.6rem}
+.plate figure{margin:0;display:flex;gap:.6rem;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:.5rem;background:var(--surface)}
+.plate figcaption{font-size:.88rem;line-height:1.35}
+.plate svg{flex:none;background:#3c3226;border-radius:50%}
+.lp-q .chips{margin:.2rem 0 .4rem}
+.ktg{display:grid;grid-template-columns:minmax(8rem,10rem) 1fr;gap:.6rem;align-items:start}
+@media (max-width:620px){.ktg{grid-template-columns:1fr}.ktg .ktc{max-width:15rem}}
+.ktr{display:grid;gap:.3rem;min-width:0}
+.figbox.ktr > div,.ktr .figbox{touch-action:manipulation}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.doc .ul{margin:0}

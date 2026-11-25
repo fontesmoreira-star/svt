@@ -586,7 +586,15 @@
       },
       {
        "id": "biodiversite-temps",
-       "titre": "La biodiversité change au cours du temps"
+       "titre": "La biodiversité change au cours du temps",
+       "activites": [
+        {
+         "fichier": "evolution-biodiversite-temps.html",
+         "tag": "Activité 2 · logiciel et TP virtuels",
+         "titre": "Comment la biodiversité a-t-elle évolué au cours du temps ?",
+         "desc": "Machine à remonter le temps (forêt de Guadeloupe, Crétacé, Jurassique, Carbonifère), foraminifères à la loupe binoculaire de part et d'autre de la limite K/T, carotte de roches en temps réel (iridium, magnétite, Deccan), grandes crises sur 540 Ma, causes de l'érosion de la biodiversité, Amazonie comparée au Luxembourg, de la téosinte au maïs. Deux versions : guidée ou exigeante."
+        }
+       ]
       },
       {
        "id": "forces-evolutives",
@@ -928,6 +936,24 @@
          "tag": "En classe · Fiche de révision animée",
          "titre": "Le métabolisme des cellules : la fiche animée",
          "desc": "Toute la fiche de révision du chapitre 2 en animations : les deux ateliers d'une cellule, deux micro-organismes mystères en culture, respiration, fermentations et photosynthèse à l'échelle des molécules, microscope virtuel (levures, euglènes, taille réelle), flux de matière autour du tilleul, trajet de l'amidon et amylase, voies du glucose, ExAO de graines de pois. Deux versions : guidée ou exigeante. Bilan « Ce qu'il faut retenir » à recopier."
+        }
+       ]
+      },
+      {
+       "id": "ch3-biodiversite",
+       "titre": "Chapitre 3 · Biodiversité actuelle et passée",
+       "activites": [
+        {
+         "chemin": "2nde/theme-1/echelles-biodiversite/trois-echelles-biodiversite.html",
+         "tag": "En classe · Activité · TP virtuels",
+         "titre": "Espèce, parentés et échelles de la biodiversité",
+         "desc": "Séance d'une heure : croisements de canards (notion d'espèce), groupes emboîtés et arbre de parenté, portraits, exploration d'un lac, d'une forêt et d'un champ. Deux versions au choix : guidée, ou lycée (réponses rédigées et argumentées, un calcul)."
+        },
+        {
+         "chemin": "2nde/theme-1/biodiversite-temps/evolution-biodiversite-temps.html",
+         "tag": "En classe · Activité 2 · logiciel et TP virtuels",
+         "titre": "Comment la biodiversité a-t-elle évolué au cours du temps ?",
+         "desc": "Machine à remonter le temps (forêt de Guadeloupe, Crétacé, Jurassique, Carbonifère), foraminifères à la loupe binoculaire de part et d'autre de la limite K/T, carotte de roches en temps réel (iridium, magnétite, Deccan), grandes crises sur 540 Ma, causes de l'érosion de la biodiversité, Amazonie comparée au Luxembourg, de la téosinte au maïs. Deux versions : guidée ou exigeante."
         }
        ]
       }
