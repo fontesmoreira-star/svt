@@ -593,6 +593,12 @@
          "tag": "Activité 2 · logiciel et TP virtuels",
          "titre": "Comment la biodiversité a-t-elle évolué au cours du temps ?",
          "desc": "Machine à remonter le temps (forêt de Guadeloupe, Crétacé, Jurassique, Carbonifère), foraminifères à la loupe binoculaire de part et d'autre de la limite K/T, carotte de roches en temps réel (iridium, magnétite, Deccan), grandes crises sur 540 Ma, causes de l'érosion de la biodiversité, Amazonie comparée au Luxembourg, de la téosinte au maïs. Deux versions : guidée ou exigeante."
+        },
+        {
+         "fichier": "organisation-vertebres.html",
+         "tag": "Activité 3 · TP virtuels et logiciel de classification",
+         "titre": "Décrire et comparer l'organisation des vertébrés",
+         "desc": "Carpe et grenouille : pôles et axes de polarité à nommer, animal à plier pour trouver le plan de symétrie, radiographie virtuelle (comparée à une roussette au squelette cartilagineux), tête, tronc et queue à délimiter, crâne, colonne et membres par rapport aux axes. Logiciel de classification inspiré de Phylogène : membres antérieurs de la mésange, de l'oreillard, de la tortue et de la grenouille à colorier, puis à aligner et à comparer avec l'aile d'un papillon. Deux versions : guidée ou exigeante."
         }
        ]
       },
@@ -954,6 +960,12 @@
          "tag": "En classe · Activité 2 · logiciel et TP virtuels",
          "titre": "Comment la biodiversité a-t-elle évolué au cours du temps ?",
          "desc": "Machine à remonter le temps (forêt de Guadeloupe, Crétacé, Jurassique, Carbonifère), foraminifères à la loupe binoculaire de part et d'autre de la limite K/T, carotte de roches en temps réel (iridium, magnétite, Deccan), grandes crises sur 540 Ma, causes de l'érosion de la biodiversité, Amazonie comparée au Luxembourg, de la téosinte au maïs. Deux versions : guidée ou exigeante."
+        },
+        {
+         "chemin": "2nde/theme-1/biodiversite-temps/organisation-vertebres.html",
+         "tag": "En classe · Activité 3 · TP virtuels et logiciel",
+         "titre": "Décrire et comparer l'organisation des vertébrés",
+         "desc": "Carpe et grenouille : pôles et axes de polarité à nommer, animal à plier pour trouver le plan de symétrie, radiographie virtuelle (comparée à une roussette au squelette cartilagineux), tête, tronc et queue à délimiter, crâne, colonne et membres par rapport aux axes. Logiciel de classification inspiré de Phylogène : membres antérieurs de la mésange, de l'oreillard, de la tortue et de la grenouille à colorier, puis à aligner et à comparer avec l'aile d'un papillon. Deux versions : guidée ou exigeante."
         }
        ]
       }
