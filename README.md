@@ -127,7 +127,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - ▫️ Chapitre 4 · Le monde microbien et la santé · à venir
 - ▫️ **Thème 3 · La planète Terre, l'environnement et l'action humaine** · à venir
 
-### [2nde SVT](https://fontesmoreira-star.github.io/svt/2nde/) · 12 activités
+### [2nde SVT](https://fontesmoreira-star.github.io/svt/2nde/) · 13 activités
 
 - 📌 **Toute l'année** · [Mes automatismes de 2nde](https://fontesmoreira-star.github.io/svt/2nde/automatismes.html)
 - 📂 **Thème 1 · La Terre, la vie et l'organisation du vivant** · [page](https://fontesmoreira-star.github.io/svt/2nde/theme-1/)
@@ -146,7 +146,8 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - 📁 **Chapitre 4 · La biodiversité change au cours du temps**
     - [Comment la biodiversité a-t-elle évolué au cours du temps ?](https://fontesmoreira-star.github.io/svt/2nde/theme-1/biodiversite-temps/evolution-biodiversite-temps.html) · Activité 2 · logiciel et TP virtuels
     - [Décrire et comparer l'organisation des vertébrés](https://fontesmoreira-star.github.io/svt/2nde/theme-1/biodiversite-temps/organisation-vertebres.html) · Activité 3 · TP virtuels et logiciel de classification
-  - ▫️ Chapitre 5 · Les forces évolutives : sélection naturelle et dérive génétique · à venir
+  - 📁 **Chapitre 5 · Les forces évolutives : sélection naturelle et dérive génétique**
+    - [La dérive génétique : quand le hasard modifie les populations](https://fontesmoreira-star.github.io/svt/2nde/theme-1/forces-evolutives/derive-genetique.html) · Activité 4 · logiciel de simulation
   - ▫️ Chapitre 6 · Communication intra-spécifique et sélection sexuelle · à venir
 - ▫️ **Thème 2 · Les enjeux contemporains de la planète** · à venir
   - ▫️ Chapitre 1 · L'érosion, processus et conséquences · à venir
