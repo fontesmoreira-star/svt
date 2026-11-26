@@ -1373,7 +1373,7 @@ const RESUME = `Le problème : ${PROBLEM}\n${HOME.goal}\n\nBilan à recopier\n${
 typo(GROUPS); typo(RAPPEL);
 
 /* ===== Moteur « parcours à étapes, deux versions » (dérivé de bio.js) · navigation, questions, correction, bilan =====
-   Données attendues : HOME (avec HOME.vers), GROUPS, RAPPEL, RESUME, bilanHTML, EXPERT (blocs de la version exigeante), WID. */
+   Données attendues : HOME (avec HOME.vers ; HOME.howL facultatif : consignes de la version exigeante dans le mode d'emploi), GROUPS, RAPPEL, RESUME, bilanHTML, EXPERT (blocs de la version exigeante), WID. */
 const LV = { easy: ["🟢 Facile", "easy", "🟢"], mid: ["🟡 Moyen", "mid", "🟡"], hard: ["🔴 Défi", "hard", "🔴"] };
 const COMPS = HOME.comps;
 const SIGN = "Mr Moreira, Vauban Luxembourg";
@@ -1510,8 +1510,8 @@ function renderHome(m) {
       <ul class="ul">
         <li>Fais les parties <b>dans l'ordre</b>, de 1 à ${GROUPS.length}${HOME.dur ? " : " + HOME.dur : ""}.</li>
         <li>Chaque étape contient une <b>manipulation</b> ou une <b>animation</b> : réalise-la avant de répondre.</li>
-        ${EXP() ? `<li>Rédige en phrases complètes, avec la méthode <b>je vois → je sais → j'en déduis</b>. Touche <b>Vérifier</b> : l'application repère les éléments attendus dans ta réponse (un point par élément). Seul le premier essai compte, puis tu complètes librement.</li>
-        <li>Le repérage est automatique (mots-clés) : ton professeur lit tes réponses rédigées dans ton bilan.</li>` : `<li>Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>`}
+        ${EXP() ? (HOME.howL || `<li>Rédige en phrases complètes, avec la méthode <b>je vois → je sais → j'en déduis</b>. Touche <b>Vérifier</b> : l'application repère les éléments attendus dans ta réponse (un point par élément). Seul le premier essai compte, puis tu complètes librement.</li>
+        <li>Le repérage est automatique (mots-clés) : ton professeur lit tes réponses rédigées dans ton bilan.</li>`) : `<li>Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>`}
         <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un.</li>
         <li>À la fin, l'onglet <b>Bilan</b> affiche le bilan de l'activité et te permet de télécharger ton résultat.</li>
       </ul></div>
