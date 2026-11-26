@@ -737,6 +737,12 @@
          "tag": "Simulation · 2 versions",
          "titre": "Activité 1 · Estimer un effectif par capture-marquage-recapture",
          "desc": "Un étang simulé : capturer, marquer, recapturer, calculer N̂ et l'écart à l'effectif réel ; tester grands échantillons et recaptures multiples, puis les pièges du terrain (marque, mélange, naissances, filet évité) ; 50 CMR automatiques et intervalles de confiance à 95 %. Version guidée ou exigeante."
+        },
+        {
+         "fichier": "modele-hardy-weinberg.html",
+         "tag": "Simulation · 2 versions",
+         "titre": "Activité 2 · Les populations évoluent-elles ? Le modèle de Hardy-Weinberg",
+         "desc": "Une population d'araignées paon : compter génotypes et allèles, faire se rencontrer les gamètes au hasard, construire le modèle de Hardy-Weinberg génération après génération (carré de croisement, tableur, Python), le confronter aux observations du manuel, puis tester sélection sexuelle, prédation, dérive, migration et mutation ; entraînement sur les groupes MN et la drépanocytose. Version guidée ou exigeante."
         }
        ]
       },

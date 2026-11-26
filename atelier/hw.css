@@ -1,0 +1,74 @@
+/* ---------- Terminale ES · 3.1 La biodiversité et son évolution · Activité 2 : le modèle de Hardy-Weinberg (complète mouv.css, lune.css et simc.css) ---------- */
+.hw{display:grid;grid-template-columns:minmax(0,1fr);gap:.75rem;min-width:0}
+.hw > *{min-width:0}
+.hw .seg{display:flex;flex-wrap:wrap}
+.hw .seg button{white-space:normal;line-height:1.25;flex:1 1 auto;min-width:0}
+.hwwrap{position:relative}
+.flyz{position:absolute;inset:0;pointer-events:none;overflow:visible;z-index:3}
+.flyb{position:absolute;display:grid;place-items:center;will-change:transform}
+.flyb .al{width:100%;height:100%;font-size:.85rem}
+/* allèles : une lettre toujours écrite (pas de couleur seule) */
+.al{display:inline-grid;place-items:center;width:1.65em;height:1.65em;border-radius:50%;font-weight:800;font-family:var(--f-display);line-height:1;vertical-align:middle;font-size:.95em}
+.al.A{background:var(--c1);color:var(--surface);border:2px solid var(--c1)}
+.al.a{background:var(--surface);color:var(--c2);border:2px solid var(--c2)}
+/* la population d'araignées */
+.spipop{position:relative;width:100%;touch-action:manipulation}
+.spb{position:absolute;left:0;top:0;padding:2px;margin:0;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:transform .6s ease,border-color .2s}
+.spb[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}
+.spb.seen::after{content:"✓";position:absolute;right:3px;top:1px;font-size:.7rem;font-weight:800;color:var(--ok);line-height:1}
+.spb:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.spg{width:100%;height:100%;display:block}
+.spg .legs{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.spg .ceph{fill:#5a4030;stroke:currentColor;stroke-width:1}
+.spgl{position:absolute;left:0;top:0;margin:0;font-weight:800;font-size:.85rem;color:var(--muted);transition:transform .6s ease}
+.spizoom{display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;padding:.6rem .7rem;border-radius:12px;background:var(--surface);border:1.5px solid var(--line);min-height:4rem}
+.spizoom .lead{margin:0}
+.spibig{width:110px;height:110px;flex:none;color:var(--ink)}
+/* les urnes */
+.urnbox{display:grid;gap:.5rem;border:2px dashed var(--line);border-radius:14px;padding:.6rem .7rem}
+.urn{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;padding:.45rem;border-radius:10px;background:var(--surface);min-height:2.4rem;width:100%;max-width:28rem}
+.urn .slot{aspect-ratio:1;display:grid;place-items:center;min-width:0}
+.urn .slot .al{width:100%;height:100%;font-size:min(.85rem,3.4vw);border-width:1.5px}
+.urn .slot .al.pick{outline:3px solid var(--warn);outline-offset:1px;animation:hwp .5s ease 2}
+@keyframes hwp{50%{transform:scale(1.25)}}
+.gurns{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.7rem}
+.gurns .urn{max-width:22rem}
+.gurn{display:grid;gap:.35rem;min-width:0}
+.gurn .kicker{margin:0}
+.zyg{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:.5rem .7rem;border-radius:12px;background:var(--accent-soft);min-height:3.2rem}
+.zyg .zs{display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:50%;border:2px dashed var(--line)}
+.zyg .zs .al{width:100%;height:100%}
+/* tableau de croisement */
+table.t.pun{font-size:.92rem}
+table.t.pun th,table.t.pun td{text-align:center;vertical-align:middle}
+table.t.pun .diag{font-size:.75rem;font-weight:700;color:var(--muted)}
+table.t.pun td.pc{display:table-cell}
+table.t.pun td.pc b,table.t.pun td.pc span{display:block;line-height:1.3}
+table.t.pun td.g0{background:color-mix(in srgb,var(--c1) 16%,transparent)}
+table.t.pun td.g1{background:color-mix(in srgb,var(--c3) 16%,transparent)}
+table.t.pun td.g2{background:color-mix(in srgb,var(--c2) 16%,transparent)}
+table.t.pun td.flash{animation:hwf .9s ease}
+@keyframes hwf{0%{box-shadow:inset 0 0 0 4px var(--warn)}100%{box-shadow:inset 0 0 0 0 transparent}}
+/* tableur */
+table.t.xls{font-size:.82rem;font-variant-numeric:tabular-nums}
+table.t.xls th,table.t.xls td{padding:.3rem .35rem;text-align:center}
+table.t.xls .xc,table.t.xls .xr{background:var(--surface-2);color:var(--muted);font-weight:700;font-size:.75rem}
+table.t.xls td{cursor:pointer;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+table.t.xls td[aria-current="true"]{outline:3px solid var(--accent);outline-offset:-3px;background:var(--accent-soft)}
+table.t.xls td:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.fx{display:flex;gap:.5rem;align-items:center;margin:0;padding:.35rem .6rem;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;overflow-wrap:anywhere;min-height:48px}
+.fxl{font-style:italic;font-weight:800;color:var(--accent);flex:none}
+/* Python */
+.code{margin:0;padding:.7rem .8rem;border-radius:10px;background:var(--surface-2);border:1.5px solid var(--line);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.8rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.code .cm{color:var(--muted);font-style:italic}
+.code .kw{color:var(--c3);font-weight:800}
+.code.out{background:var(--surface)}
+/* légendes */
+.hwleg{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.35rem .9rem}
+.hwleg li{display:flex;align-items:center;gap:.4rem;font-size:.9rem;background:none;padding:0}
+.hwleg .lg{display:inline-block;width:1.6rem;height:.85rem;border-radius:3px;flex:none}
+.hwleg .lg.dash{background:none;border:2.5px dashed var(--c2)}
+.hw .sht{display:none}
+@media (max-width:520px){.hw .lng{display:none}.hw .sht{display:inline}.hw p.sht{display:block;margin:0;font-size:.85rem}table.t.xls{font-size:.74rem}table.t.xls td{font-family:inherit}table.t.xls th,table.t.xls td{padding:.22rem .12rem}table.t.xls .xr,table.t.xls .xc{font-size:.65rem}table.t.pun td.pc span{font-size:.8rem}}
+@media (prefers-reduced-motion: reduce){.spb,.spgl{transition:none}.urn .slot .al.pick,table.t.pun td.flash{animation:none}}
+@media (max-width:520px){.spibig{width:84px;height:84px}table.t.xls{font-size:.74rem}table.t.xls th,table.t.xls td{padding:.25rem .2rem}table.t.pun{font-size:.82rem}table.t.pun th,table.t.pun td{padding-left:.25rem;padding-right:.25rem}}
