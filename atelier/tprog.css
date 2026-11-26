@@ -1,0 +1,53 @@
+/* ---------- 5e EIST · Mission 6 · Technologie · Activité 3 · Créer son programme (complète lune.css) ---------- */
+.atl{display:grid;gap:.9rem}
+@media (min-width:1050px){.atl{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start}.atl .stg{position:sticky;top:4.2rem}}
+.stg,.edw{display:grid;gap:.6rem;min-width:0}
+.ctl{display:flex;flex-wrap:wrap;gap:.8rem;align-items:flex-start}
+.ctl2{display:grid;gap:.5rem;flex:1 1 14rem;min-width:0}
+.pad{display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(3,56px);gap:5px;flex:none}
+.pad button{min-height:52px;min-width:52px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-size:1.3rem;font-weight:800;color:var(--ink);touch-action:manipulation}
+.pad button:active{background:var(--accent-soft);border-color:var(--accent)}
+.hands{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
+.hands .btn{min-height:48px;padding:0 .7rem}
+.vbar{display:flex;flex-wrap:wrap;gap:.4rem}
+.vbar button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem}
+.vbar button[aria-pressed="true"],[data-run][aria-pressed="true"],[data-fast][aria-pressed="true"],[data-flip][aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.instr{font-size:1.05rem;border-left:4px solid var(--accent);padding:.35rem .8rem;background:var(--accent-soft);border-radius:8px}
+/* l'éditeur de blocs */
+.prg{list-style:none;margin:0;padding:0;display:grid;gap:.55rem;counter-reset:blk}
+.pblk{border:2px solid #c9a227;border-left-width:8px;border-radius:12px;background:var(--surface);padding:.5rem .6rem;display:grid;gap:.4rem;transition:box-shadow .15s}
+.pblk.fire{box-shadow:0 0 0 3px var(--warn);background:var(--warn-soft)}
+.pbh,.pba{display:grid;grid-template-columns:5.3rem minmax(0,1fr) auto;gap:.4rem;align-items:center}
+.pba{grid-template-columns:5.3rem minmax(0,1fr)}
+@media (max-width:480px){.pbh{grid-template-columns:minmax(0,1fr) auto}.pba{grid-template-columns:1fr}.pbh .pkw{grid-column:1/-1}}
+.pkw{font-weight:900;font-size:.85rem;letter-spacing:.06em;color:#8a6d00}
+:root[data-theme="dark"] .pkw{color:#f0c94a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pkw{color:#f0c94a}}
+.pev,.pact,.padd{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.95rem;text-align:left;padding:.3rem .7rem;line-height:1.25;overflow-wrap:anywhere}
+.pev{background:#fff4c9;border-color:#c9a227;color:#3d2f00}
+.pev.empty,.padd.empty{border-style:dashed;border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+.pev.ro,.pact.ro{display:inline-flex;align-items:center;gap:.4rem;min-height:40px}
+.pacts{display:flex;flex-wrap:wrap;gap:.35rem}
+.pact{background:#dbeafd;border-color:#5b8ed6;color:#0f2a4d}
+.padd{border-style:dashed;font-weight:800}
+.pdel{min-height:48px;min-width:48px;padding:0 .6rem}
+.sw{display:inline-block;width:1rem;height:1rem;border-radius:50%;border:1.5px solid rgba(0,0,0,.4);margin-right:.35rem;vertical-align:-2px}
+.sw.off{background:repeating-linear-gradient(45deg,#ccc 0 3px,#888 3px 6px)}
+.choose{border:2px solid var(--accent);border-radius:12px;padding:.6rem;display:grid;gap:.35rem;background:var(--surface)}
+.cg{margin:.2rem 0 0;font-weight:800;font-size:.9rem}
+.cc{display:flex;flex-wrap:wrap;gap:.35rem}
+.chipe{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.92rem;padding:.3rem .7rem;text-align:left;line-height:1.2}
+.chipe:hover{border-color:var(--accent)}
+/* le robot-testeur */
+.tres{display:grid;gap:.35rem}
+.tlist{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+.tlist li{display:grid;grid-template-columns:1.6rem 1fr;gap:.4rem;border:1.5px solid var(--line);border-radius:10px;padding:.4rem .6rem;font-size:.95rem}
+.tlist li.ok{border-color:var(--ok);background:var(--ok-soft)} .tlist li.no{border-color:var(--bad);background:var(--bad-soft)}
+.tlist .ti{font-weight:900}
+.okm{color:var(--ok);font-weight:800;margin:0} .badm{color:var(--bad);font-weight:800;margin:0}
+.mprogs{display:grid;gap:.6rem}
+.mprog{border:1.5px solid var(--line);border-radius:12px;padding:.5rem .8rem}
+.mprog p{margin:0 0 .3rem}
+.mrow .mv{max-width:60%;min-width:6rem;white-space:normal;line-height:1.25;text-align:left}
+.chipb{white-space:normal;text-align:left;padding:.35rem .9rem}
+.rowq .seg button{white-space:normal;text-align:left;line-height:1.2;padding:.3rem .8rem}

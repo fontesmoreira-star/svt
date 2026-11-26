@@ -1,0 +1,1826 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Créer son programme avec Thymio</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
+   Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
+:root{
+  --fs:21px;
+  --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
+  --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
+  --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
+  --ok:#17703d; --ok-soft:#ddf1e4; --bad:#ad2318; --bad-soft:#fbe2de;
+  --info:#1d5bb0; --info-soft:#e1ebf9; --warn:#9c4f05; --warn-soft:#fdead3;
+  --key:#17703d; --key-soft:#ddf1e4; --err:#ad2318; --err-soft:#fbe2de;
+  --easy:#17703d; --mid:#7d5a00; --hard:#ad2318;
+  --c1:#0a6a76; --c2:#c0531a; --c3:#5a48b5; --c4:#2d7a31; --c5:#8a6400; --c6:#6f777c;
+  --grid:#dbe5e7; --shade:rgba(10,106,118,.10);
+  --f-display:"Charter","Iowan Old Style","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0}
+sub,sup{line-height:0;font-size:.72em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html.proj .wrap{max-width:none}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- bandeau ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.band .titles{min-width:0;flex:1 1 20rem}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
+.band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+.tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+
+/* ---------- onglets collants ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.tab .dot{font-size:0.9rem}
+
+main{padding-block:1.2rem 3rem}
+.view{display:grid;gap:1.1rem}
+.lead{color:var(--muted);max-width:44rem}
+.sec-title{font-size:1.45rem}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+
+/* ---------- cartes / panneaux ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.panel h3{font-size:1.15rem}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:.8rem}
+.card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
+.card-btn:hover{border-color:var(--accent)}
+.card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.mid{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- encadrés ---------- */
+.box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
+.box.err{background:var(--err-soft);border-color:var(--err)} .box.err>.lab{color:var(--err)}
+.box ul{margin:0;padding-left:1.2rem;display:grid;gap:.25rem}
+
+/* ---------- boutons ---------- */
+.btn{min-height:48px;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---------- options QCM / choix ---------- */
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
+.opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+
+.field{display:grid;gap:.3rem}
+.field label{font-weight:700;font-size:0.9rem}
+.inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
+.inp.wide{max-width:none}
+textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
+.inp.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.inp.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{color:var(--muted);font-weight:700}
+
+/* ---------- retour d'information ---------- */
+.fb{border-radius:12px;padding:.7rem .9rem;border:1.5px solid;display:grid;gap:.35rem}
+.fb .h{font-weight:800}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.ok .h{color:var(--ok)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)} .fb.bad .h{color:var(--bad)}
+.fb.neutral{background:var(--surface-2);border-color:var(--line)}
+.hints{display:grid;gap:.45rem}
+.hint{background:var(--surface-2);border-radius:10px;padding:.55rem .8rem;border-left:4px solid var(--mid);font-size:.92rem}
+.hint b{color:var(--mid)}
+.corr{background:var(--info-soft);border:1.5px solid var(--info);border-radius:12px;padding:.75rem .95rem;display:grid;gap:.4rem}
+.corr .h{font-weight:800;color:var(--info)}
+
+/* ---------- documents ---------- */
+.doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh .sim{font-weight:700;color:var(--warn)}
+.doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
+.tablewrap{overflow-x:auto;max-width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
+table.t td,table.t th{vertical-align:top}
+table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+table.t th{background:var(--surface-2);font-weight:800}
+table.t td.n{text-align:right}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+
+/* ---------- graphiques ---------- */
+.chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body)}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend svg{flex:none}
+
+/* ---------- niveaux ---------- */
+.lv{display:inline-flex;align-items:center;gap:.35rem;font-weight:800}
+.lv.easy{color:var(--easy)} .lv.mid{color:var(--mid)} .lv.hard{color:var(--hard)}
+
+/* ---------- bilan ---------- */
+.score-big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 1rem) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(16px,env(safe-area-inset-left,0px))}
+.overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
+.overlay h2{font-size:2.2rem}
+.overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
+.toast{font-weight:700;color:var(--ok)}
+
+/* ---------- divers ---------- */
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
+.eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
+.chartbox{display:grid;gap:.45rem;min-width:0}
+/* ---------- exercices : coefficients, ordre, critères ---------- */
+.coefs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:1.05rem}
+.coef{display:inline-flex;align-items:center;gap:.25rem;background:var(--surface-2);border-radius:12px;padding:.25rem}
+.coef button{min-width:48px;min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.coef output{min-width:1.6rem;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.coef .f{padding:0 .4rem;font-weight:700}
+.coef.is-ok{outline:2px solid var(--ok)} .coef.is-bad{outline:2px solid var(--bad)}
+.arrow{font-weight:800;color:var(--muted)}
+.order-list{display:grid;gap:.45rem}
+.order-item{display:flex;gap:.7rem;align-items:center;text-align:left;min-height:52px;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);color:var(--ink);font-size:.95rem}
+.order-item .n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted)}
+.order-item[data-pos]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.order-item[data-pos] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.order-item.is-ok{border-color:var(--ok);background:var(--ok-soft)} .order-item.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:.6rem}
+.rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
+.rowq .rt{font-size:.95rem}
+.pfb{font-size:0.9rem;font-weight:700}
+.pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
+.part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.part:first-child{border-top:0;padding-top:0}
+.part > .pl{font-weight:700}
+.crit{display:grid;gap:.4rem}
+.crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
+.crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.sci .inp{max-width:7rem}
+.sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
+
+/* ---------- 5e EIST · Vitesses et mouvements ---------- */
+:root{--trk:#dfe9ea;--dot:#11282e;--rov:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}}
+:root[data-theme="dark"]{--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+.gap{display:inline-block;min-width:4.5rem;border-bottom:3px dotted var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.recop{border:2px solid var(--key);border-radius:14px;background:var(--key-soft);padding:1rem 1.1rem;display:grid;gap:.6rem}
+.recop .lab{font-size:.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--key)}
+.recop p{font-size:1.05rem;line-height:1.6}
+.recop u{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800}
+h4{font-size:1rem}
+.match{display:grid;gap:.45rem}
+.mrow{display:flex;gap:.6rem;align-items:center;text-align:left;min-height:54px;padding:.45rem .7rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;width:100%}
+.mrow[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.mrow .me{font-size:1.5rem;flex:none;width:2rem;text-align:center}
+.mrow .mn{flex:1 1 auto;min-width:0}
+.mrow .mv{flex:none;min-width:5.2rem;text-align:center;border-radius:10px;padding:.25rem .5rem;border:2px dashed var(--muted);color:var(--muted);font-weight:800;font-variant-numeric:tabular-nums}
+.mrow .mv.has{border-style:solid;border-color:var(--accent);color:var(--ink);background:var(--surface)}
+.mrow.is-ok{border-color:var(--ok);background:var(--ok-soft)} .mrow.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.mrow .tag{flex:none;font-weight:800;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chipb{min-height:48px;padding:0 .9rem;border-radius:999px;border:2px solid var(--accent);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tabs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.7rem}
+.tabs3 > div{display:grid;gap:.3rem}
+.tabs3 .tn{font-weight:800}
+.gauge{height:1.2rem;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1.5px solid var(--line)}
+.gauge i{display:block;height:100%;background:var(--rov);transition:width .15s linear}
+.pilot{display:flex;flex-wrap:wrap;gap:.5rem}
+.pilot .btn{min-width:8.5rem}
+
+/* ---------- 5e EIST · Mission 5 · Activité 6 · Les phases de la Lune ---------- */
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.lab3{font-weight:800;font-size:.9rem}
+.pilot .btn{min-height:52px;min-width:0}
+.doc > .db > *{min-width:0}
+.res{display:grid;gap:.35rem}
+.res .tablewrap{max-width:100%}
+.res table.t td.n,.corr table.t td.n,.panel table.t td.n{text-align:left}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.chipb[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+/* simulateur : schéma et ciel côte à côte */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem;align-items:start}
+.wkb{display:flex;flex-wrap:wrap;gap:.35rem}
+.field input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+/* dessiner une Lune : deux moitiés à éclairer */
+.phg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.phr{display:grid;justify-items:center;align-content:start;gap:.4rem;padding:.65rem .5rem;border-radius:12px;background:var(--surface-2);border:2px solid transparent}
+.phr.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.phr.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.phr .tag{font-weight:800;font-size:.9rem}
+.phr.is-ok .tag{color:var(--ok)} .phr.is-bad .tag{color:var(--bad)}
+.pht{font-weight:800}
+.moon{display:flex;width:6.6rem;height:6.6rem;border-radius:50%;overflow:hidden;border:2.5px solid var(--ink);background:#2a2f36;flex:none}
+.moon.unset{border-style:dashed;border-color:var(--muted);background:var(--surface)}
+.mh{flex:1 1 50%;min-width:0;min-height:48px;border:0;margin:0;padding:0;background:#2a2f36;cursor:pointer;touch-action:manipulation}
+.mh.l{box-shadow:inset -1px 0 0 #6b7280}
+.moon.unset .mh{background:transparent}
+.mh[aria-pressed="true"]{background:#f6e7a1}
+.mh:focus-visible{outline:3px solid var(--accent);outline-offset:-4px}
+.phd{font-size:.9rem;text-align:center;min-height:2.6em;color:var(--muted);margin:0}
+.phz{min-height:48px;font-size:.9rem;padding:0 .7rem}
+.phz[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+/* bilan : tableau et bande des phases à recopier */
+.phtab td{vertical-align:middle}
+.phtab td svg{display:block;margin:0 auto .2rem}
+.phtab .pdt{display:block;font-size:.85rem;text-align:center;color:var(--muted)}
+.recop .lab2{font-weight:800;margin-top:.3rem}
+.phstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(6rem,1fr));gap:.5rem;justify-items:center}
+.phstrip figure{margin:0;display:grid;justify-items:center;gap:.25rem}
+.phstrip figcaption{font-size:.9rem;font-weight:700;text-align:center}
+/* deux versions : guidée / exigeante (repris de bio.css) */
+.vers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem}
+.vers .card-btn[aria-checked="true"]{border-color:var(--accent);border-width:2.5px;background:var(--accent-soft)}
+.vers .card-btn .t{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.vchip{min-height:48px;padding:0 .8rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;font-size:.9rem;white-space:nowrap}
+.pfb.mid{color:var(--warn)}
+.wc{font-size:.9rem}
+.grille{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.35rem}
+.grille li{display:grid;grid-template-columns:auto 1fr auto;gap:.3rem .7rem;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:.45rem .7rem;background:var(--surface);font-size:.92rem}
+.grille li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.grille .gk{font-weight:800;font-size:.9rem;color:var(--muted);white-space:nowrap}
+.grille .gt{font-weight:800;white-space:nowrap}
+.grille li.ok .gt{color:var(--ok)} .grille li.no .gt{color:var(--bad)}
+.grille .gs{grid-column:1/-1;justify-self:start}
+@media (max-width:560px){.grille li{grid-template-columns:1fr}.grille .gt{white-space:normal}}
+.redlist{display:grid;gap:.7rem}
+.red{border:1.5px solid var(--line);border-radius:12px;padding:.6rem .8rem;display:grid;gap:.25rem;background:var(--surface)}
+.red .rq{font-weight:800;font-size:.92rem}
+.red .rv{white-space:pre-wrap;overflow-wrap:anywhere}
+.part textarea.inp{min-height:9.5rem}
+@media (max-width:560px){.tabsw{flex-wrap:nowrap}#tabx{width:auto}.vchip .vl{display:none}.vchip{padding:0 .7rem;min-width:48px}}
+
+/* ---------- 5e EIST · Mission 6 · Technologie · Activité 3 · Créer son programme (complète lune.css) ---------- */
+.atl{display:grid;gap:.9rem}
+@media (min-width:1050px){.atl{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start}.atl .stg{position:sticky;top:4.2rem}}
+.stg,.edw{display:grid;gap:.6rem;min-width:0}
+.ctl{display:flex;flex-wrap:wrap;gap:.8rem;align-items:flex-start}
+.ctl2{display:grid;gap:.5rem;flex:1 1 14rem;min-width:0}
+.pad{display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(3,56px);gap:5px;flex:none}
+.pad button{min-height:52px;min-width:52px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-size:1.3rem;font-weight:800;color:var(--ink);touch-action:manipulation}
+.pad button:active{background:var(--accent-soft);border-color:var(--accent)}
+.hands{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
+.hands .btn{min-height:48px;padding:0 .7rem}
+.vbar{display:flex;flex-wrap:wrap;gap:.4rem}
+.vbar button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem}
+.vbar button[aria-pressed="true"],[data-run][aria-pressed="true"],[data-fast][aria-pressed="true"],[data-flip][aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.instr{font-size:1.05rem;border-left:4px solid var(--accent);padding:.35rem .8rem;background:var(--accent-soft);border-radius:8px}
+/* l'éditeur de blocs */
+.prg{list-style:none;margin:0;padding:0;display:grid;gap:.55rem;counter-reset:blk}
+.pblk{border:2px solid #c9a227;border-left-width:8px;border-radius:12px;background:var(--surface);padding:.5rem .6rem;display:grid;gap:.4rem;transition:box-shadow .15s}
+.pblk.fire{box-shadow:0 0 0 3px var(--warn);background:var(--warn-soft)}
+.pbh,.pba{display:grid;grid-template-columns:5.3rem minmax(0,1fr) auto;gap:.4rem;align-items:center}
+.pba{grid-template-columns:5.3rem minmax(0,1fr)}
+@media (max-width:480px){.pbh{grid-template-columns:minmax(0,1fr) auto}.pba{grid-template-columns:1fr}.pbh .pkw{grid-column:1/-1}}
+.pkw{font-weight:900;font-size:.85rem;letter-spacing:.06em;color:#8a6d00}
+:root[data-theme="dark"] .pkw{color:#f0c94a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pkw{color:#f0c94a}}
+.pev,.pact,.padd{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.95rem;text-align:left;padding:.3rem .7rem;line-height:1.25;overflow-wrap:anywhere}
+.pev{background:#fff4c9;border-color:#c9a227;color:#3d2f00}
+.pev.empty,.padd.empty{border-style:dashed;border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+.pev.ro,.pact.ro{display:inline-flex;align-items:center;gap:.4rem;min-height:40px}
+.pacts{display:flex;flex-wrap:wrap;gap:.35rem}
+.pact{background:#dbeafd;border-color:#5b8ed6;color:#0f2a4d}
+.padd{border-style:dashed;font-weight:800}
+.pdel{min-height:48px;min-width:48px;padding:0 .6rem}
+.sw{display:inline-block;width:1rem;height:1rem;border-radius:50%;border:1.5px solid rgba(0,0,0,.4);margin-right:.35rem;vertical-align:-2px}
+.sw.off{background:repeating-linear-gradient(45deg,#ccc 0 3px,#888 3px 6px)}
+.choose{border:2px solid var(--accent);border-radius:12px;padding:.6rem;display:grid;gap:.35rem;background:var(--surface)}
+.cg{margin:.2rem 0 0;font-weight:800;font-size:.9rem}
+.cc{display:flex;flex-wrap:wrap;gap:.35rem}
+.chipe{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.92rem;padding:.3rem .7rem;text-align:left;line-height:1.2}
+.chipe:hover{border-color:var(--accent)}
+/* le robot-testeur */
+.tres{display:grid;gap:.35rem}
+.tlist{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+.tlist li{display:grid;grid-template-columns:1.6rem 1fr;gap:.4rem;border:1.5px solid var(--line);border-radius:10px;padding:.4rem .6rem;font-size:.95rem}
+.tlist li.ok{border-color:var(--ok);background:var(--ok-soft)} .tlist li.no{border-color:var(--bad);background:var(--bad-soft)}
+.tlist .ti{font-weight:900}
+.okm{color:var(--ok);font-weight:800;margin:0} .badm{color:var(--bad);font-weight:800;margin:0}
+.mprogs{display:grid;gap:.6rem}
+.mprog{border:1.5px solid var(--line);border-radius:12px;padding:.5rem .8rem}
+.mprog p{margin:0 0 .3rem}
+.mrow .mv{max-width:60%;min-width:6rem;white-space:normal;line-height:1.25;text-align:left}
+.chipb{white-space:normal;text-align:left;padding:.35rem .9rem}
+.rowq .seg button{white-space:normal;text-align:left;line-height:1.2;padding:.3rem .8rem}
+
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">5e EIST · Mission 6 · Tempête de sable · Technologie · Activité 3</p><h1>Créer son propre programme avec le robot Thymio</h1><p class="sub">Lis les programmes préenregistrés, réussis les cinq défis de la fiche sur le Thymio virtuel, puis programme le robot pour qu'il traverse seul le labyrinthe jusqu'aux panneaux solaires. Deux versions : guidée ou experte.</p></div>
+<div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
+<main class="wrap" id="main"><p>Chargement…</p></main>
+<footer class="wrap foot">Aucune donnée n'est envoyée : les réponses et les programmes restent sur cet appareil. Le Thymio virtuel est un modèle simplifié du vrai robot. Lycée Français Vauban · EIST 5e.</footer>
+<noscript><p class="wrap">Cette application a besoin de JavaScript : ouvre le lien dans Safari (pas dans l'aperçu de Teams ou de Fichiers).</p></noscript>
+<script>
+/* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
+"use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
+
+/* ---------- stockage de confort (l'app marche sans) ---------- */
+const Store = {
+  key: "es-th1",
+  load(def) { let o = {}; try { o = JSON.parse(localStorage.getItem(this.key) || "{}") || {}; } catch (e) { o = {}; } return Object.assign({}, def, o); },
+  save(obj) { try { localStorage.setItem(this.key, JSON.stringify(obj)); } catch (e) {} }
+};
+
+/* ---------- nombres à la française ---------- */
+const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+const supStr = s => String(s).split("").map(c => SUP[c] || c).join("");
+function fmt(x, dec) {
+  if (x === null || x === undefined || Number.isNaN(x)) return "—";
+  let s = dec === undefined ? String(Math.round(x * 1e6) / 1e6) : Number(x).toFixed(dec);
+  let neg = s.startsWith("-"); if (neg) s = s.slice(1);
+  let [i, d] = s.split(".");
+  i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
+}
+function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
+  if (p === 0) return "0";
+  const e = Math.floor(Math.log10(Math.abs(p))); const m = p / Math.pow(10, e);
+  const mr = Math.round(m * 100) / 100;
+  if (e >= -1 && e <= 3) return fmt(p, p < 10 ? 2 : 0);
+  return (mr === 1 ? "" : fmt(mr) + " × ") + "10" + supStr(e);
+}
+/* lit « 1 020 », « 1,02e5 », « 1,02 × 10^5 », « 1,02x10⁵ », « 10⁵ », « −3 », « +12,4 °C » */
+function parseNum(str) {
+  if (str === null || str === undefined) return NaN;
+  let s = String(str).trim();
+  const SUPR = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-" };
+  s = s.replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m, g) => "10^" + g.split("").map(c => SUPR[c]).join(""));
+  s = s.replace(/[−–]/g, "-").replace(/[\s  ]/g, "").replace(/,/g, ".");
+  s = s.replace(/(°c|°|pa|hpa|bar|mbar|atm|mmhg|cm|mm|m|ans?|%|points?|pts?|\/an|°c\/siècle|°c\/an)+$/i, "");
+  let m = s.match(/^([+-]?\d*\.?\d+)(?:[x×*·]10\^?\(?([+-]?\d+)\)?)$/i);
+  if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+  m = s.match(/^([+-]?)10\^\(?([+-]?\d+)\)?$/);
+  if (m) return (m[1] === "-" ? -1 : 1) * Math.pow(10, parseInt(m[2], 10));
+  if (/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)) return parseFloat(s);
+  return NaN;
+}
+const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+
+/* ---------- affichage : taille, thème, projection ---------- */
+const Display = {
+  S: null, onChange: null,
+  init(S, save) {
+    this.S = S; this.save = save; this.apply();
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
+    $("#themeBtn").onclick = () => {
+      const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; this.apply(); save();
+    };
+    $("#projBtn").onclick = () => { S.proj = !S.proj; this.apply(); save(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => this.apply());
+  },
+  apply() {
+    const S = this.S, r = document.documentElement;
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
+    r.classList.toggle("proj", !!S.proj);
+    const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
+    const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
+    Charts.redrawAll();
+    if (this.onChange) this.onChange();
+  }
+};
+
+/* bouton à confirmation en deux temps (pas de confirm()) */
+function armButton(btn, label, confirmLabel, action) {
+  let t = null;
+  btn.onclick = () => {
+    if (!t) { btn.textContent = confirmLabel; btn.classList.add("warn"); t = setTimeout(() => { btn.textContent = label; btn.classList.remove("warn"); t = null; }, 4000); return; }
+    clearTimeout(t); t = null; btn.textContent = label; btn.classList.remove("warn"); action();
+  };
+}
+
+/* ======================= GRAPHIQUES (SVG redessiné à la largeur réelle) ======================= */
+const Charts = {
+  list: new Set(),
+  redrawAll() { this.list.forEach(c => { if (!document.body.contains(c.host)) this.list.delete(c); else c.draw(); }); }
+};
+let _rsT = null;
+window.addEventListener("resize", () => { clearTimeout(_rsT); _rsT = setTimeout(() => Charts.redrawAll(), 120); });
+
+const PAT = ["none", "dots", "diag", "cross", "horiz", "vert"];
+function patternOne(pid, color, p) {
+  let inner = "";
+  if (p === "dots") inner = `<circle cx="3" cy="3" r="1.3" style="fill:var(--surface)"/>`;
+  if (p === "diag") inner = `<path d="M-1,7 L7,-1" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "cross") inner = `<path d="M-1,7 L7,-1 M-1,-1 L7,7" style="stroke:var(--surface);stroke-width:1.1"/>`;
+  if (p === "horiz") inner = `<path d="M0,3 H6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "vert") inner = `<path d="M3,0 V6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  return `<pattern id="${pid}" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--${color})"/>${inner}</pattern>`;
+}
+function patDefs(id, colors) { return colors.map((c, i) => patternOne(`${id}-p${i}`, c, PAT[i % PAT.length])).join(""); }
+const DASH = i => (i % 4 === 1 ? "7 4" : i % 4 === 2 ? "2 4" : i % 4 === 3 ? "11 4 2 4" : "");
+function swatch(color, i, kind) {
+  if (kind === "line") return `<svg width="34" height="12" aria-hidden="true"><path d="M2 6 H32" style="stroke:var(--${color});stroke-width:3.2;fill:none;stroke-linecap:round" stroke-dasharray="${DASH(i)}"/></svg>`;
+  const pid = "sw" + Math.random().toString(36).slice(2, 8); const p = PAT[i % PAT.length];
+  const fill = p === "none" ? `var(--${color})` : `url(#${pid})`;
+  return `<svg width="20" height="20" aria-hidden="true">${p === "none" ? "" : `<defs>${patternOne(pid, color, p)}</defs>`}<rect x="1" y="1" width="18" height="18" rx="3" style="fill:${fill};stroke:var(--ink);stroke-width:.7"/></svg>`;
+}
+
+/* phase de l'eau */
+const PSAT = [[0.01, 611.657], [10, 1228], [20, 2339], [30, 4247], [40, 7385], [50, 12352], [60, 19946], [70, 31201], [80, 47414], [90, 70182], [100, 101418], [120, 198670], [140, 361540], [160, 618230], [180, 1002800], [200, 1554900], [220, 2319600], [240, 3346900], [260, 4692300], [280, 6416600], [300, 8587900], [320, 11284000], [340, 14594000], [360, 18666000], [374, 22064000]];
+const Water = {
+  Tt: 0.01, Pt: 611.657, Tc: 374, Pc: 2.2064e7,
+  psat(T) { if (T <= 0.01) return this.Pt; if (T >= 374) return this.Pc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (T <= t1) { const f = (T - t0) / (t1 - t0); return Math.pow(10, Math.log10(p0) + f * (Math.log10(p1) - Math.log10(p0))); } } return this.Pc; },
+  tsat(P) { if (P <= this.Pt) return this.Tt; if (P >= this.Pc) return this.Tc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (P <= p1) { const f = (Math.log10(P) - Math.log10(p0)) / (Math.log10(p1) - Math.log10(p0)); return t0 + f * (t1 - t0); } } return this.Tc; },
+  psub(T) { const K = T + 273.15; return Math.exp(9.550426 - 5723.265 / K + 3.53068 * Math.log(K) - 0.00728332 * K); },
+  tmelt(P) { return 0.01 - 7.4e-8 * (P - this.Pt); },
+  state(T, P) {
+    if (P >= this.Pc && T >= this.Tc) return "fluide supercritique";
+    if (P > this.Pt && T < this.tmelt(P)) return "solide (glace)";
+    if (P <= this.Pt && T < 0.01) return P > this.psub(T) ? "solide (glace)" : "gaz (vapeur)";
+    if (T >= this.Tc) return "gaz (vapeur)";
+    return P > this.psat(T) ? "liquide" : "gaz (vapeur)";
+  }
+};
+
+function mountChart(container, spec) {
+  container.innerHTML = "";
+  const id = "ch" + Math.random().toString(36).slice(2, 8);
+  const host = document.createElement("div"); host.className = "chart"; host.tabIndex = 0;
+  host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
+  const legend = document.createElement("div"); legend.className = "legend";
+  const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
+  readout.innerHTML = spec.readHint || CT.readHint;
+  container.append(host);
+  if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
+  container.append(readout);
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
+
+  const ch = { host, spec, sel: null, draw: null };
+  const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+
+  if (spec.type !== "phase" && legend.isConnected) {
+    const names = spec.type === "stack" ? spec.parts : spec.series.map(s => s.name);
+    const colors = spec.type === "stack" ? spec.colors : spec.series.map(s => s.color);
+    if (names.length > 1 || spec.type === "stack") legend.innerHTML = names.map((n, i) => `<span>${swatch(colors[i], i, spec.type === "line" ? "line" : "fill")}${esc(n)}</span>`).join("");
+    else legend.remove();
+  }
+
+  function axisText(x, y, txt, anchor, size, extra) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="fill:var(--ink);font-size:${size}px" ${extra || ""}>${esc(txt)}</text>`; }
+
+  ch.draw = function () {
+    const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
+    const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
+    let svg = "";
+    if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
+    else if (spec.type === "line") svg = drawLine(W, H, F, tk, tt);
+    else if (spec.type === "stack") svg = drawStack(W, F, tk, tt);
+    else if (spec.type === "phase") svg = drawPhase(W, H, F, tk, tt);
+    host.innerHTML = svg;
+  };
+
+  /* --- barres groupées --- */
+  let geo = {};
+  function drawBar(W, H, F, tk, tt) {
+    const S = spec.series, cats = spec.categories;
+    const L = F * 3.3, R = F * 0.8, T = F * 0.9, B = F * 3.2 + (spec.rotate ? F * 1.2 : 0);
+    const pw = W - L - R, ph = H - T - B;
+    const yMax = spec.yMax, yStep = spec.yStep;
+    const y = v => T + ph - (v / yMax) * ph;
+    let g = "";
+    for (let v = 0; v <= yMax + 1e-9; v += yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/>` + axisText(L - 6, y(v) + tk * 0.35, fmt(v), "end", tk); }
+    const gw = pw / cats.length, bw = Math.min(gw * 0.7 / S.length, F * 3.2);
+    geo = { bars: [] };
+    cats.forEach((c, ci) => {
+      const gx = L + gw * ci + (gw - bw * S.length) / 2;
+      S.forEach((s, si) => {
+        const v = s.values[ci]; const x = gx + bw * si; const yy = y(Math.max(v, 0));
+        const sel = ch.sel && ch.sel[0] === ci && ch.sel[1] === si;
+        g += `<rect x="${x + 1}" y="${yy}" width="${bw - 2}" height="${Math.max(T + ph - yy, 0)}" rx="3" style="fill:var(--${s.color});${sel ? "stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v);
+        if (spec.showValues !== false) g += axisText(x + bw / 2, yy - 5, lbl, "middle", tk, `font-weight="700"`);
+        geo.bars.push({ ci, si, x, w: bw });
+      });
+      const cx = L + gw * ci + gw / 2;
+      if (spec.rotate) g += `<text transform="translate(${cx},${T + ph + 8}) rotate(35)" style="fill:var(--ink);font-size:${tk}px">${esc(c)}</text>`;
+      else g += axisText(cx, T + ph + tk * 1.35, c, "middle", tk, `font-weight="700"`);
+    });
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- courbes --- */
+  function drawLine(W, H, F, tk, tt) {
+    const S = spec.series;
+    const L = F * 3.6, R = F * 1.1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const { xMin, xMax, yMin, yMax } = spec;
+    const X = v => L + (v - xMin) / (xMax - xMin) * pw, Y = v => T + ph - (v - yMin) / (yMax - yMin) * ph;
+    let g = "";
+    (spec.bands || []).forEach(b => { g += `<rect x="${X(b.x0)}" y="${T}" width="${X(b.x1) - X(b.x0)}" height="${ph}" style="fill:var(--shade)"/>` + (b.label ? axisText((X(b.x0) + X(b.x1)) / 2, T + tk * 1.1, b.label, "middle", tk * 0.92, `font-weight="700"`) : ""); });
+    const maxXt = Math.max(2, Math.floor(pw / (F * (spec.xTickW || 3.6))));
+    let xs = spec.xStep; while ((xMax - xMin) / xs > maxXt) xs *= 2;
+    for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
+    for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
+    (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
+    S.forEach((s, si) => {
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
+    });
+    if (ch.sel !== null) {
+      const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
+      S.forEach(s => { const p = s.pts.find(q => q[0] === xv); if (p) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--${s.color});stroke-width:3"/>`; });
+    }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    geo = { L, pw, X, xMin, xMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- barres empilées horizontales (cumul à 100 %) --- */
+  function drawStack(W, F, tk, tt) {
+    const rows = spec.rows, P = spec.parts;
+    const L = F * (spec.labelW || 5.6), R = F * 0.9, T = F * 0.5, rowH = F * 2.3, gap = F * 0.9, B = F * 3.1;
+    const pw = W - L - R; const H = T + rows.length * (rowH + gap) - gap + B;
+    const X = v => L + v / 100 * pw;
+    let g = `<defs>${patDefs(id, spec.colors)}</defs>`;
+    for (let v = 0; v <= 100; v += 20) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + rows.length * (rowH + gap) - gap}" style="stroke:var(--grid)"/>` + axisText(X(v), T + rows.length * (rowH + gap) - gap + tk * 1.35, fmt(v), "middle", tk);
+    geo = { segs: [] };
+    rows.forEach((r, ri) => {
+      const y0 = T + ri * (rowH + gap); let acc = 0;
+      g += axisText(L - 8, y0 + rowH / 2 - (r.sub ? tk * 0.2 : -tk * 0.35), r.label, "end", tk, `font-weight="700"`);
+      if (r.sub) g += axisText(L - 8, y0 + rowH / 2 + tk * 0.95, r.sub, "end", tk * 0.88);
+      r.values.forEach((v, pi) => {
+        if (v <= 0) return;
+        const x = X(acc), w = X(acc + v) - X(acc);
+        const sel = ch.sel && ch.sel[0] === ri && ch.sel[1] === pi;
+        const fill = PAT[pi % PAT.length] === "none" ? `var(--${spec.colors[pi]})` : `url(#${id}-p${pi})`;
+        g += `<rect x="${x}" y="${y0}" width="${w}" height="${rowH}" style="fill:${fill};stroke:var(--surface);stroke-width:1.5${sel ? ";stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = fmt(v) + " %";
+        if (w > tk * 3.4) g += `<rect x="${x + w / 2 - tk * 1.55}" y="${y0 + rowH / 2 - tk * 0.75}" width="${tk * 3.1}" height="${tk * 1.5}" rx="4" style="fill:var(--surface);opacity:.92"/>` + axisText(x + w / 2, y0 + rowH / 2 + tk * 0.36, lbl, "middle", tk * 0.92, `font-weight="800"`);
+        geo.segs.push({ ri, pi, x, w, y0, h: rowH });
+        acc += v;
+      });
+    });
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "Proportion (%)", "middle", tt, `font-weight="700"`);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- diagramme d'état de l'eau (pression en échelle logarithmique) --- */
+  function drawPhase(W, H, F, tk, tt) {
+    const L = F * 3.6, R = F * 1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const tMin = spec.tMin ?? -150, tMax = spec.tMax ?? 500, lpMin = spec.lpMin ?? 1, lpMax = spec.lpMax ?? 8;
+    const X = t => L + (t - tMin) / (tMax - tMin) * pw;
+    const Y = p => T + ph - (Math.log10(p) - lpMin) / (lpMax - lpMin) * ph;
+    const clipY = y => Math.min(Math.max(y, T), T + ph);
+    let g = `<defs><clipPath id="${id}-c"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+    // zones colorées
+    let sub = "", sat = "";
+    for (let t = tMin; t <= 0.01; t += 2) sub += (sub ? "L" : "M") + X(t).toFixed(1) + "," + Y(Math.max(Water.psub(t), Math.pow(10, lpMin - 3))).toFixed(1) + " ";
+    sub += "L" + X(0.01) + "," + Y(Water.Pt);
+    for (let t = 0.01; t <= 374; t += 2) sat += (sat ? "L" : "M") + X(t).toFixed(1) + "," + Y(Water.psat(t)).toFixed(1) + " ";
+    sat += "L" + X(374) + "," + Y(Water.Pc);
+    const Ptop = Math.pow(10, lpMax);
+    const meltTop = X(Water.tmelt(Ptop));
+    g += `<g clip-path="url(#${id}-c)">`;
+    g += `<path d="${sub.replace("M", "M" + X(tMin) + "," + Y(Ptop) + " L")} L${meltTop},${Y(Ptop)} Z" style="fill:var(--info-soft)"/>`;
+    g += `<path d="M${X(0.01)},${Y(Water.Pt)} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${meltTop},${Y(Ptop)} Z" style="fill:var(--ok-soft)"/>`;
+    g += `<path d="${sub} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${X(tMax)},${Y(Ptop)} L${X(tMax)},${T + ph + 50} L${X(tMin)},${T + ph + 50} Z" style="fill:var(--warn-soft)"/>`;
+    g += `</g>`;
+    for (let e = lpMin; e <= lpMax; e++) g += `<line x1="${L}" x2="${L + pw}" y1="${Y(Math.pow(10, e))}" y2="${Y(Math.pow(10, e))}" style="stroke:var(--grid)"/>` + axisText(L - 6, Y(Math.pow(10, e)) + tk * 0.35, "10" + supStr(e), "end", tk);
+    let step = [10, 20, 50, 100, 200, 500].find(s => (tMax - tMin) / s <= pw / (F * 2.6)) || 500;
+    for (let t = Math.ceil(tMin / step) * step; t <= tMax; t += step) g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(t), T + ph + tk * 1.35, fmt(t), "middle", tk);
+    g += `<g clip-path="url(#${id}-c)"><path d="${sub}" style="fill:none;stroke:var(--info);stroke-width:2.5"/><path d="${sat}" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><line x1="${X(0.01)}" y1="${Y(Water.Pt)}" x2="${meltTop}" y2="${Y(Ptop)}" style="stroke:var(--info);stroke-width:2.5"/></g>`;
+    g += `<circle cx="${X(0.01)}" cy="${Y(Water.Pt)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(0.01) + F * 0.35, Y(Water.Pt) + tk * 1.25, "point triple", "start", tk * 0.88, `font-weight="700"`);
+    if (Water.Pc <= Ptop) g += `<circle cx="${X(374)}" cy="${Y(Water.Pc)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(374), Y(Water.Pc) - F * 0.45, "point critique", "middle", tk * 0.88, `font-weight="700"`);
+    g += axisText(X(tMin) + F * 0.6, T + F * 1.4, "SOLIDE", "start", tt, `font-weight="800" letter-spacing=".08em"`);
+    const pl = Math.pow(10, lpMax - 0.5), tl = Math.min(Water.tsat(pl), tMax) / 2;
+    g += axisText(X(tl), Y(pl) + F * 0.4, "LIQUIDE", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    g += axisText(X(tMin + 0.86 * (tMax - tMin)), Y(Math.pow(10, lpMin + 0.35)), "GAZ", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    (spec.segments || []).forEach(s => {
+      const y = Y(s.P); g += `<line x1="${X(s.t0)}" x2="${X(s.t1)}" y1="${y}" y2="${y}" style="stroke:var(--${s.color || "c3"});stroke-width:${F * 0.32};stroke-linecap:round;opacity:.9"/>` + axisText(X(s.t0), y - F * 0.5, s.label, "start", tk, `font-weight="800"`);
+    });
+    (spec.points || []).forEach(p => { g += `<circle cx="${X(p.T)}" cy="${Y(p.P)}" r="${F * 0.3}" style="fill:var(--${p.color || "c3"});stroke:var(--surface);stroke-width:2"/>` + axisText(X(p.T) + F * 0.45, Y(p.P) - F * 0.35, p.label, "start", tk, `font-weight="800"`); });
+    if (ch.sel) { const [t, p] = ch.sel; g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><line x1="${L}" x2="${L + pw}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><circle cx="${X(t)}" cy="${Y(p)}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`; }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, "Température (°C)", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">Pression (Pa, échelle logarithmique)</text>`;
+    geo = { L, T, pw, ph, tMin, tMax, lpMin, lpMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- lecture au toucher --- */
+  function pick(evt) {
+    const svg = host.querySelector("svg"); if (!svg) return;
+    const r = svg.getBoundingClientRect(); const sx = (evt.clientX - r.left) * (svg.viewBox.baseVal.width / r.width); const sy = (evt.clientY - r.top) * (svg.viewBox.baseVal.height / r.height);
+    if (spec.type === "bar") { let best = null, bd = 1e9; geo.bars.forEach(b => { const d = Math.abs(sx - (b.x + b.w / 2)); if (d < bd) { bd = d; best = b; } }); if (best) setSel([best.ci, best.si]); }
+    else if (spec.type === "line") { const xv = geo.xMin + (sx - geo.L) / geo.pw * (geo.xMax - geo.xMin); setSel(nearestX(xv)); }
+    else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
+    else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
+  }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
+  function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
+  function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
+  function describe() {
+    if (spec.type === "bar") { const [ci, si] = ch.sel; const s = spec.series[si]; const v = s.values[ci]; return `<b>${esc(spec.categories[ci])}</b>${spec.series.length > 1 ? " · " + esc(s.name) : ""} : ${spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v)}${spec.unit ? " " + spec.unit : ""}`; }
+    if (spec.type === "line") { const xv = ch.sel; return `<b>${spec.xRead ? spec.xRead(xv) : fmt(xv)}</b> → ` + spec.series.map(s => { const p = s.pts.find(q => q[0] === xv); return p ? `${esc(s.name)} : ${spec.yRead ? spec.yRead(p[1]) : fmt(p[1])}` : null; }).filter(Boolean).join(" · "); }
+    if (spec.type === "stack") { const [ri, pi] = ch.sel; return `<b>${esc(spec.rows[ri].label)}</b> · ${esc(spec.parts[pi])} : ${fmt(spec.rows[ri].values[pi])} %`; }
+    if (spec.type === "phase") { const [t, p] = ch.sel; return `Point touché : <b>T ≈ ${fmt(Math.round(t))} °C</b> ; <b>P ≈ ${fmtPow(Number(p.toPrecision(2)))} Pa</b>${spec.readState ? ` → état de l'eau : <b>${Water.state(t, p)}</b>` : ""}`; }
+    return "";
+  }
+  host.addEventListener("pointerdown", e => { pick(e); });
+  host.addEventListener("pointermove", e => { if (e.buttons && e.pointerType === "mouse") pick(e); });
+  host.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault(); const dir = e.key === "ArrowRight" ? 1 : -1;
+    if (spec.type === "line") { const xs = allX(); let i = ch.sel === null ? 0 : xs.indexOf(ch.sel) + dir; i = Math.max(0, Math.min(xs.length - 1, i)); setSel(xs[i]); }
+    if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
+    if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
+  });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
+  ch.draw(); Charts.list.add(ch);
+  if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
+  return ch;
+}
+
+function buildTable(spec) {
+  let head = "", body = "";
+  if (spec.type === "bar") {
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name || spec.yTitle)}</th>`).join("")}</tr>`;
+    body = spec.categories.map((c, ci) => `<tr><td>${esc(c)}</td>${spec.series.map((s, si) => `<td class="n">${spec.valueLabel ? spec.valueLabel(s.values[ci], ci, si) : fmt(s.values[ci])}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "line") {
+    const xs = new Set(); spec.series.forEach(s => s.pts.forEach(p => xs.add(p[0])));
+    const X = Array.from(xs).sort((a, b) => a - b);
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr>`;
+    body = X.map(x => `<tr><td class="n">${spec.xFmt ? spec.xFmt(x) : fmt(x)}</td>${spec.series.map(s => { const p = s.pts.find(q => q[0] === x); return `<td class="n">${p ? (spec.yFmt ? spec.yFmt(p[1]) : fmt(p[1])) : "—"}</td>`; }).join("")}</tr>`).join("");
+  } else if (spec.type === "stack") {
+    head = `<tr><th>Niveau</th>${spec.parts.map(p => `<th>${esc(p)} (%)</th>`).join("")}</tr>`;
+    body = spec.rows.map(r => `<tr><td>${esc(r.label)}${r.sub ? " (" + esc(r.sub) + ")" : ""}</td>${r.values.map(v => `<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "phase") {
+    if (spec.table === "none") return null;
+    head = `<tr><th>Repère</th><th>Température</th><th>Pression</th></tr>`;
+    body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
+  }
+  const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  return d;
+}
+
+/* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
+const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
+let _dlP = null;
+function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
+setTimeout(() => { getDownloads(); }, 0);
+
+async function saveText(filename, text) {
+  if (inClaude()) {
+    const d = await getDownloads();
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
+  }
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
+}
+
+function renderBilanTools(container, getText, getShow, appSlug) {
+  container.innerHTML = `
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="row">
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
+    </div>
+    <p class="toast" id="bMsg" aria-live="polite"></p>
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
+  const inp = $("#eleve", container);
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
+  const msg = t => { $("#bMsg", container).textContent = t; };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bCp", container).onclick = () => {
+    const txt = getText(inp.value); const ta = $("#bTxt", container);
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
+  };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
+  $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
+}
+function showOverlay(html) {
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
+  document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
+  const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
+  c.onclick = close; document.addEventListener("keydown", k);
+}
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
+
+/* ===== Boîte à outils commune : typographie, SVG à la largeur réelle, commande d'animation ===== */
+const SIMUL = "Valeurs simulées";
+const NB = " ", NN = " ";
+const tbl = (head, rows) => `<div class="tablewrap"><table class="t"><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+/* ---------- typographie française appliquée aux contenus ---------- */
+function nb(s) {
+  return String(s).replace(/ ([?!;])/g, NN + "$1").replace(/ :(?=[ <]|$)/g, NB + ":").replace(/« /g, "«" + NB).replace(/ »/g, NB + "»")
+    .replace(/(\d) (\d{3})(?!\d)/g, "$1" + NN + "$2").replace(/(\d) (%|°C|m|cm|mm|mL|L|W|km|km²|km³|Mt|t|kg|ans|min|fois|millions)(?![\wà-ÿ²³])/g, "$1" + NB + "$2");
+}
+function typo(o) { if (typeof o === "string") return nb(o); if (Array.isArray(o)) return o.map(typo); if (o && typeof o === "object") { Object.keys(o).forEach(k => { if (typeof o[k] !== "function") o[k] = typo(o[k]); }); } return o; }
+
+/* ---------- SVG redessiné à la largeur réelle (texte toujours lisible) ---------- */
+const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+function liveSVG(host, draw) {
+  const o = { host, draw() { const W = Math.max(260, host.clientWidth || 320); host.innerHTML = draw(W, fsPx()); } };
+  o.draw(); Charts.list.add(o);
+  if (window.ResizeObserver) { let lw = host.clientWidth; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; o.draw(); } }).observe(host); }
+  return o;
+}
+const sT = (x, y, txt, a, size, extra) => `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${size.toFixed(1)}px" ${extra || ""}>${esc(txt)}</text>`;
+const TK = F => Math.max(15, F * 0.76);
+function arrow(x1, y1, x2, y2, w, color, op) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = Math.max(w * 1.1, 10), hw = Math.max(w * 0.95, 7);
+  const bx = x2 - Math.cos(a) * hl, by = y2 - Math.sin(a) * hl, nx = -Math.sin(a), ny = Math.cos(a);
+  return `<g style="opacity:${op || 1}"><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" style="stroke:var(--${color});stroke-width:${Math.max(w, 1.5).toFixed(1)}"/><polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${(bx + nx * hw).toFixed(1)},${(by + ny * hw).toFixed(1)} ${(bx - nx * hw).toFixed(1)},${(by - ny * hw).toFixed(1)}" style="fill:var(--${color})"/></g>`;
+}
+
+/* ---------- commande d'animation commune : Lancer / Pause / Recommencer ---------- */
+function animCtl(el, dur, onP) {
+  el.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+  const st = { p: 0, playing: false, lt: 0, raf: 0 }, b = el.querySelector('[data-a="run"]');
+  const lab = () => { b.textContent = st.playing ? CT.animPause : (st.p > 0 && st.p < 1) ? CT.animResume : CT.animRun; };
+  const frame = ts => {
+    if (!st.playing) return; if (!document.body.contains(el)) { st.playing = false; return; }
+    const dt = st.lt ? Math.min(100, ts - st.lt) : 0; st.lt = ts; st.p = Math.min(1, st.p + dt / dur);
+    if (st.p >= 1) st.playing = false; onP(st.p); lab(); if (st.playing) st.raf = requestAnimationFrame(frame);
+  };
+  st.play = () => { if (st.p >= 1) st.p = 0; st.playing = true; st.lt = 0; lab(); st.raf = requestAnimationFrame(frame); };
+  st.pause = () => { st.playing = false; cancelAnimationFrame(st.raf); lab(); };
+  st.set = p => { st.pause(); st.p = Math.max(0, Math.min(1, p)); onP(st.p); lab(); };
+  b.onclick = () => st.playing ? st.pause() : st.play();
+  el.querySelector('[data-a="reset"]').onclick = () => st.set(0);
+  lab(); onP(0); return st;
+}
+
+
+/* ===== Robot Thymio (5e EIST, Mission 6) : outils communs et dessin du robot vu du dessus, partagés par les activités Thymio ===== */
+const keep = () => { try { save(); } catch (e) {} if (typeof refreshTasks === "function") refreshTasks(); };
+const xst = () => S.x;
+const N1 = x => (+x).toFixed(1), N3 = x => (+x).toFixed(3);
+const RAD = Math.PI / 180;
+/* texte SVG dont le style optionnel complète le style de base */
+const sX = (x, y, txt, a, size, extra) => { extra = extra || ""; const m = extra.match(/style="([^"]*)"/); return `<text x="${N1(x)}" y="${N1(y)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${N1(size)}px;${m ? m[1] : ""}" ${extra.replace(/style="[^"]*"/, "")}>${esc(txt)}</text>`; };
+const press = (el, key, cur) => $$(`[data-${key}]`, el).forEach(b => b.setAttribute("aria-pressed", b.dataset[key] === String(cur) ? "true" : "false"));
+function loopWhile(el, fn) { let lt = 0; const st = ts => { if (!document.body.contains(el)) return; const dt = lt ? Math.min(0.1, (ts - lt) / 1000) : 0; lt = ts; fn(dt, ts); requestAnimationFrame(st); }; requestAnimationFrame(st); }
+const seen = key => { const X = xst(); X.seen = X.seen || {}; X.seen[key] = X.seen[key] || {}; return X.seen[key]; };
+const nSeen = key => Object.keys(((xst().seen || {})[key]) || {}).length;
+/* découpe un texte en lignes d'au plus n caractères */
+const wrapT = (t, n) => { const out = []; let cur = ""; String(t).split(" ").forEach(w => { if (cur && (cur + " " + w).length > n) { out.push(cur); cur = w; } else cur = cur ? cur + " " + w : w; }); if (cur) out.push(cur); return out; };
+
+/* ---------- le robot vu du dessus (schéma simplifié) : largeur 1, avant vers le haut (y négatif) ---------- */
+const MCOL = { rouge: "#d93030", vert: "#2fa84f", jaune: "#e3b800", violet: "#8e44c9", cyan: "#13b0c6", bleu: "#2f6fe0", off: "#c9d1d8" };
+const MNAME = { rouge: "rouge", vert: "vert", jaune: "jaune", violet: "violet", cyan: "cyan" };
+const FR = [[-0.42, -0.36], [-0.25, -0.55], [0, -0.62], [0.25, -0.55], [0.42, -0.36]], RR = [[-0.28, 0.5], [0.28, 0.5]], GR = [[-0.13, -0.44], [0.13, -0.44]];
+const BODY = "M-0.5,0.44 Q-0.5,0.5 -0.44,0.5 L0.44,0.5 Q0.5,0.5 0.5,0.44 L0.5,-0.12 C0.5,-0.48 0.28,-0.62 0,-0.62 C-0.28,-0.62 -0.5,-0.48 -0.5,-0.12 Z";
+const TOPLED = "M-0.4,0.4 L-0.4,-0.1 C-0.4,-0.4 -0.22,-0.52 0,-0.52 C0.22,-0.52 0.4,-0.4 0.4,-0.1 L0.4,0.4 Z";
+function robotSVG(x, y, th, s, o) {
+  o = o || {}; const ns = 'vector-effect="non-scaling-stroke"', sn = o.sens || {}, col = o.col || MCOL[o.mode] || MCOL.off;
+  let g = `<g transform="translate(${N1(x)} ${N1(y)}) rotate(${N1(th)}) scale(${N3(s)})">`;
+  if (o.ghost) return g + `<path d="${BODY}" style="fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 4" ${ns}/></g>`;
+  g += `<rect x="-0.63" y="-0.1" width="0.13" height="0.44" rx="0.04" style="fill:#2a2e33"/><rect x="0.5" y="-0.1" width="0.13" height="0.44" rx="0.04" style="fill:#2a2e33"/>`;
+  g += `<path d="${BODY}" style="fill:#fbfcfd;stroke:#56616b;stroke-width:1.6" ${ns}/>`;
+  g += `<path d="${TOPLED}" style="fill:${col};opacity:${o.col || (o.mode && o.mode !== "off") ? 0.62 : 0.35}"/>`;
+  /* capteurs au sol (sous le robot, vus par transparence) */
+  if (!o.noGround) GR.forEach((p, i) => { const c = o.gcol ? o.gcol[i] : (sn.g && sn.g[i] ? "#ff3b30" : "none"), z = o.gcol ? 1.7 : 1; g += `<rect x="${p[0] - 0.05 * z}" y="${p[1] - 0.04 * z}" width="${0.1 * z}" height="${0.08 * z}" rx="0.015" style="fill:${c};stroke:${o.gcol ? "#e53935" : "#56616b"};stroke-width:${o.gcol ? 2 : 1};${o.gcol ? "" : "stroke-dasharray:2 2"}" ${ns}/>`; });
+  /* les cinq touches : quatre flèches et le bouton central */
+  const bt = (d, k) => { const on = o.press === k; return `<path d="${d}" style="fill:${on ? "#fff59d" : "rgba(255,255,255,.8)"};stroke:${on ? "#e65100" : "#56616b"};stroke-width:${on ? 2.6 : 1}" ${ns}/>`; };
+  g += bt("M0,-0.37 L0.09,-0.23 L-0.09,-0.23 Z", "av") + bt("M0,0.33 L0.09,0.19 L-0.09,0.19 Z", "ar") + bt("M-0.31,-0.02 L-0.17,-0.11 L-0.17,0.07 Z", "g") + bt("M0.31,-0.02 L0.17,-0.11 L0.17,0.07 Z", "d");
+  g += `<circle cx="0" cy="-0.02" r="0.065" style="fill:${o.press === "c" ? "#fff59d" : "rgba(255,255,255,.8)"};stroke:#56616b;stroke-width:1" ${ns}/>`;
+  /* capteurs de proximité : cinq devant, deux derrière ; leur petit voyant rouge s'allume quand ils détectent */
+  const dot = (p, on) => (on ? `<circle cx="${p[0]}" cy="${p[1]}" r="0.085" style="fill:#ff3b30;opacity:.45"/>` : "") + `<circle cx="${p[0]}" cy="${p[1]}" r="0.035" style="fill:${on ? "#ff1a1a" : "#3a4047"}"/>`;
+  FR.forEach((p, i) => { g += dot(p, sn.f && sn.f[i]); });
+  RR.forEach((p, i) => { g += dot(p, sn.r && sn.r[i]); });
+  return g + "</g>";
+}
+/* coordonnées du monde d'un point du robot (repère du robot : avant = y négatif) */
+const toW = (P, lx, ly, sc) => { const c = Math.cos(P.th * RAD), s = Math.sin(P.th * RAD); return [P.x + (lx * c - ly * s) * sc, P.y + (lx * s + ly * c) * sc]; };
+
+
+/* ===== 5e EIST · Mission 6 · Activité 3 · Thymio virtuel : blocs, scènes, simulation et tests automatiques des défis (aucun affichage ici) ===== */
+const TCOL = { rouge: "#e53935", vert: "#43a047", bleu: "#1e88e5", violet: "#8e24aa", jaune: "#fdd835", blanc: "#f4f6f8" };
+const COLS = ["rouge", "vert", "bleu", "violet", "jaune", "blanc", "eteint"];
+const CNAME = { rouge: "rouge", vert: "vert", bleu: "bleu", violet: "violet", jaune: "jaune", blanc: "blanc", eteint: "éteint" };
+/* événements : « lorsque … » */
+const EVS = {
+  b_av: { g: "t", i: "▲", t: "le bouton avant est touché" }, b_ar: { g: "t", i: "▼", t: "le bouton arrière est touché" },
+  b_g: { g: "t", i: "◀", t: "le bouton gauche est touché" }, b_d: { g: "t", i: "▶", t: "le bouton droit est touché" }, b_c: { g: "t", i: "●", t: "le bouton central est touché" },
+  choc: { g: "c", i: "👋", t: "un choc est détecté (on tape sur le dos)" },
+  p_dev: { g: "p", i: "⬆", t: "un objet est détecté devant" }, p_g: { g: "p", i: "↖", t: "un objet est détecté à gauche" }, p_d: { g: "p", i: "↗", t: "un objet est détecté à droite" },
+  p_der: { g: "p", i: "⬇", t: "un objet est détecté derrière" }, p_rien: { g: "p", i: "∅", t: "rien n'est détecté devant" },
+  s_nn: { g: "s", i: "⚫⚫", t: "les deux capteurs au sol voient du noir" }, s_bn: { g: "s", i: "⚪⚫", t: "seul le capteur au sol gauche voit du blanc" },
+  s_nb: { g: "s", i: "⚫⚪", t: "seul le capteur au sol droit voit du blanc" }, s_bb: { g: "s", i: "⚪⚪", t: "les deux capteurs au sol voient du blanc" } };
+const EVG = { t: "👆 Les touches", c: "👋 Le choc", p: "📡 Les capteurs de proximité", s: "🔦 Les capteurs au sol" };
+/* actions */
+const ACTS = { m_av: { g: "m", i: "⬆", t: "rouler en avant" }, m_ar: { g: "m", i: "⬇", t: "rouler en arrière" }, m_g: { g: "m", i: "↶", t: "tourner à gauche" }, m_d: { g: "m", i: "↷", t: "tourner à droite" }, m_st: { g: "m", i: "⏹", t: "arrêter les moteurs" },
+  son: { g: "s", i: "🔊", t: "jouer un bip" } };
+COLS.forEach(c => { ACTS["d_" + c] = { g: "d", c, i: "💡", t: c === "eteint" ? "éteindre le dos" : `allumer le dos en ${CNAME[c]}` }; ACTS["v_" + c] = { g: "v", c, i: "💡", t: c === "eteint" ? "éteindre le ventre" : `allumer le ventre en ${CNAME[c]}` }; });
+const ACG = { m: "⚙ Les moteurs (roues)", d: "💡 La LED du dessus : le dos", v: "💡 La LED du dessous : le ventre", s: "🔊 Le haut-parleur" };
+const evTxt = e => EVS[e] ? EVS[e].t : "…", acTxt = a => ACTS[a] ? ACTS[a].t : "…";
+const lq = t => (/^[aeiouyéè]/i.test(t) ? "LORSQU'" : "LORSQUE ") + t;
+const progLines = prog => (prog || []).map(b => `${lq(evTxt(b.e))} ALORS ${b.a.length ? b.a.map(acTxt).join(" et ") : "…"}`);
+
+/* ---------- scènes (unités : largeur du robot = 1 ; y vers le bas) ---------- */
+const rectSegs = (x1, y1, x2, y2) => [[x1, y1, x2, y1], [x2, y1, x2, y2], [x2, y2, x1, y2], [x1, y2, x1, y1]];
+const STAD = (() => { const P = [], cx = 5, cy = 3.6, L = 2.2, R = 1.85, n = 40; for (let i = 0; i <= n; i++) P.push([cx - L + 2 * L * i / n, cy + R]); for (let i = 1; i <= n; i++) { const a = Math.PI / 2 - Math.PI * i / n; P.push([cx + L + R * Math.cos(a), cy + R * Math.sin(a)]); }
+  for (let i = 1; i <= n; i++) P.push([cx + L - 2 * L * i / n, cy - R]); for (let i = 1; i <= n; i++) { const a = -Math.PI / 2 - Math.PI * i / n; P.push([cx - L + R * Math.cos(a), cy + R * Math.sin(a)]); } return P; })();
+const SCENES = {
+  bac: { W: 7, H: 4.9, start: { x: 3.5, y: 2.8, th: 0 }, walls: rectSegs(0, 0, 7, 4.9), objs: [], hands: true, name: "le bac d'essai" },
+  trousses: { W: 8, H: 6.6, start: { x: 4, y: 3.3, th: 0 }, walls: rectSegs(0, 0, 8, 6.6), objs: [[2.9, 0.45, 5.1, 1.0, "trousse 1"], [2.9, 5.6, 5.1, 6.15, "trousse 2"]], name: "les deux trousses" },
+  piste: { W: 10, H: 7.2, start: { x: 4.2, y: 5.45, th: 90 }, walls: rectSegs(0, 0, 10, 7.2), objs: [], line: STAD, loop: true, name: "la piste noire" },
+  laby: { W: 10, H: 7, start: { x: 1.15, y: 5.6, th: 0 }, walls: [...rectSegs(0, 0, 10, 7), [2.3, 2.3, 2.3, 7], [2.3, 2.3, 7.7, 2.3], [7.7, 2.3, 7.7, 4.7], [4.6, 4.7, 7.7, 4.7]], objs: [], goal: [5.8, 2.45, 7.6, 4.6], name: "le labyrinthe" } };
+SCENES.trousses.objs.forEach(o => { o.segs = rectSegs(o[0], o[1], o[2], o[3]); });
+
+/* ---------- géométrie ---------- */
+const SFR = [[-0.42, -0.36, -40], [-0.25, -0.55, -20], [0, -0.62, 0], [0.25, -0.55, 20], [0.42, -0.36, 40]], SRR = [[-0.28, 0.5, 190], [0.28, 0.5, 170]], SGR = [[-0.13, -0.44], [0.13, -0.44]];
+const RANGE = 0.8, RBODY = 0.58, VMOT = 1.2, WMOT = 110, LWID = 0.6;
+const wpt = (P, lx, ly) => { const c = Math.cos(P.th * Math.PI / 180), s = Math.sin(P.th * Math.PI / 180); return [P.x + lx * c - ly * s, P.y + lx * s + ly * c]; };
+function rayHit(o, d, segs) { let best = Infinity; for (const g of segs) { const ex = g[2] - g[0], ey = g[3] - g[1], den = d[0] * ey - d[1] * ex; if (Math.abs(den) < 1e-9) continue; const qx = g[0] - o[0], qy = g[1] - o[1], t = (qx * ey - qy * ex) / den, u = (qx * d[1] - qy * d[0]) / den; if (t >= 0 && u >= 0 && u <= 1 && t < best) best = t; } return best; }
+const dSeg = (p, g) => { const dx = g[2] - g[0], dy = g[3] - g[1], L = dx * dx + dy * dy; let t = L ? ((p[0] - g[0]) * dx + (p[1] - g[1]) * dy) / L : 0; t = Math.max(0, Math.min(1, t)); return Math.hypot(p[0] - g[0] - t * dx, p[1] - g[1] - t * dy); };
+const dPoly = (p, P) => { let m = 1e9; for (let i = 1; i < P.length; i++) { const d = dSeg(p, [P[i - 1][0], P[i - 1][1], P[i][0], P[i][1]]); if (d < m) m = d; } return m; };
+
+/* ---------- simulation ---------- */
+function mkSim(sceneKey, prog, start) {
+  const sc = SCENES[sceneKey];
+  return { key: sceneKey, sc, prog, P: { ...(start || sc.start) }, v: 0, w: 0, top: "eteint", bot: "eteint", beep: 0, t: 0, nextS: 0, hands: [], f: [0, 0, 0, 0, 0], r: [0, 0], g: [1, 1], bumped: 0, bumpT: 0, fired: [], lastEv: null };
+}
+const simSegs = sim => { const out = sim.sc.walls.slice(); (sim.sc.objs || []).forEach(o => out.push(...o.segs)); sim.hands.forEach(h => out.push(...rectSegs(h[0] - 0.3, h[1] - 0.3, h[0] + 0.3, h[1] + 0.3))); return out; };
+function doAct(sim, a) {
+  const A = ACTS[a]; if (!A) return;
+  if (a === "m_av") { sim.v = VMOT; sim.w = 0; } else if (a === "m_ar") { sim.v = -VMOT; sim.w = 0; } else if (a === "m_g") { sim.v = 0; sim.w = -WMOT; } else if (a === "m_d") { sim.v = 0; sim.w = WMOT; } else if (a === "m_st") { sim.v = 0; sim.w = 0; }
+  else if (a === "son") sim.beep = 0.5; else if (A.g === "d") sim.top = A.c; else if (A.g === "v") sim.bot = A.c;
+}
+function fire(sim, e) { let any = false; sim.prog.forEach(b => { if (b.e === e) { b.a.forEach(a => doAct(sim, a)); any = true; } }); if (any) sim.lastEv = e; return any; }
+function sense(sim) {
+  const segs = simSegs(sim), P = sim.P;
+  sim.f = SFR.map(s => { const o = wpt(P, s[0], s[1]), a = (P.th + s[2]) * Math.PI / 180; return rayHit(o, [Math.sin(a), -Math.cos(a)], segs) <= RANGE ? 1 : 0; });
+  sim.r = SRR.map(s => { const o = wpt(P, s[0], s[1]), a = (P.th + s[2]) * Math.PI / 180; return rayHit(o, [Math.sin(a), -Math.cos(a)], segs) <= RANGE ? 1 : 0; });
+  sim.g = SGR.map(s => sim.sc.line && dPoly(wpt(P, s[0], s[1]), sim.sc.line) <= LWID / 2 ? 1 : 0); /* 1 = noir */
+}
+function conds(sim) {
+  const f = sim.f, dev = f[2] || (f[1] && f[3]), g = f[0] || (f[1] && !f[3]), d = f[4] || (f[3] && !f[1]), G = sim.g;
+  return { p_dev: !!dev, p_g: !!g, p_d: !!d, p_der: !!(sim.r[0] || sim.r[1]), p_rien: !f.some(Boolean), s_nn: !!(G[0] && G[1]), s_bn: !!(!G[0] && G[1]), s_nb: !!(G[0] && !G[1]), s_bb: !!(!G[0] && !G[1]) };
+}
+function simStep(sim, h) {
+  sim.t += h; sim.beep = Math.max(0, sim.beep - h);
+  if (sim.t >= sim.nextS) { sim.nextS = sim.t + 0.1; sense(sim); const C = conds(sim); sim.fired = []; sim.prog.forEach(b => { if (C[b.e]) { b.a.forEach(a => doAct(sim, a)); sim.fired.push(b); sim.lastEv = b.e; } }); }
+  const P = sim.P, th = P.th + sim.w * h, a = th * Math.PI / 180, nx = P.x + sim.v * Math.sin(a) * h, ny = P.y - sim.v * Math.cos(a) * h;
+  const segs = simSegs(sim);
+  if (sim.v && segs.some(g => dSeg([nx, ny], g) < RBODY)) { P.th = th; sim.bumped += h; sim.bumpT += h; } else { P.x = nx; P.y = ny; P.th = th; sim.bumpT = 0; }
+}
+function addHand(sim, where) {
+  const P = sim.P, off = { dev: [0, -1.35], g: [-1.0, -0.95], d: [1.0, -0.95], der: [0, 1.25] }[where]; if (!off) { sim.hands = []; return; }
+  sim.hands = [wpt(P, off[0], off[1])];
+}
+/* ---------- tests automatiques des défis : renvoient { ok, lines: [[bool, texte]] } ---------- */
+const run = (sim, T, h) => { const n = Math.round(T / (h || 1 / 60)); for (let i = 0; i < n; i++) simStep(sim, h || 1 / 60); };
+const ARROWS = [["b_av", "▲ avant"], ["b_ar", "▼ arrière"], ["b_g", "◀ gauche"], ["b_d", "▶ droite"]];
+/* diagnostic d'un robot qui n'a pas réussi */
+const diag = sim => sim.bumpT > 1.5 ? "Le robot est bloqué contre un obstacle : quel capteur le détecte ? Y a-t-il un bloc pour cette situation ?" : sim.v === 0 && sim.w !== 0 ? "Le robot tourne sur lui-même sans s'arrêter : quelle action le remettrait en route ?" : sim.v === 0 ? "Le robot s'est arrêté : quel bloc a déclenché « arrêter les moteurs » ?" : "Observe-le dans la simulation pour comprendre ce qui se passe.";
+const MOT = sim => sim.v > 0 ? "m_av" : sim.v < 0 ? "m_ar" : sim.w < 0 ? "m_g" : sim.w > 0 ? "m_d" : "m_st";
+const DEFIS = {
+  d1: { scene: "bac", test(prog) {
+    const L = [], cols = []; const sim = mkSim("bac", prog);
+    ARROWS.forEach(([e, n]) => { const before = sim.top; fire(sim, e); run(sim, 0.3); const c = sim.top; cols.push(c); L.push([c !== "eteint", c !== "eteint" ? `Bouton ${n} : le dos devient ${CNAME[c]}.` : `Bouton ${n} : le dos ne s'allume pas.`]); });
+    const distinct = new Set(cols.filter(c => c !== "eteint")).size === 4; L.push([distinct, distinct ? "Quatre couleurs différentes : une par flèche." : "Il faut une couleur différente pour chaque flèche."]);
+    return { ok: L.every(x => x[0]), lines: L }; } },
+  d2: { scene: "bac", test(prog) {
+    const L = [], n = prog.filter(b => b.e === "b_av").length; L.push([n === 1, n === 1 ? "Un seul bloc pour le bouton avant." : n ? `Il y a ${n} blocs pour le bouton avant : regroupe les actions dans un seul bloc.` : "Aucun bloc ne réagit au bouton avant."]);
+    const sim = mkSim("bac", prog); fire(sim, "b_av"); run(sim, 0.3);
+    L.push([sim.top === "rouge", sim.top === "rouge" ? "Le dos devient rouge." : `Le dos ${sim.top === "eteint" ? "ne s'allume pas" : "devient " + CNAME[sim.top]}.`]);
+    L.push([sim.bot === "rouge", sim.bot === "rouge" ? "Le ventre devient rouge." : `Le ventre ${sim.bot === "eteint" ? "ne s'allume pas" : "devient " + CNAME[sim.bot]}.`]);
+    return { ok: L.every(x => x[0]), lines: L }; } },
+  d3: { scene: "bac", test(prog) {
+    const L = [], want = { b_av: ["m_av", "bleu", "il avance", "bleu"], b_ar: ["m_ar", "violet", "il recule", "violet"], b_d: ["m_d", "vert", "il tourne à droite", "vert"], b_g: ["m_g", "rouge", "il tourne à gauche", "rouge"] };
+    ARROWS.forEach(([e, n]) => { const sim = mkSim("bac", prog); fire(sim, e); run(sim, 0.25); const w = want[e], m = MOT(sim) === w[0], c = sim.top === w[1];
+      L.push([m && c, `Bouton ${n} : ${m ? w[2] : "il devrait : " + w[2]}${c ? ", dos " + w[3] : ", le dos devrait être " + w[3]}.`]); });
+    const sim = mkSim("bac", prog); fire(sim, "b_av"); run(sim, 0.3); fire(sim, "choc"); const beep = sim.beep > 0; run(sim, 0.3); const st = MOT(sim) === "m_st";
+    L.push([st, st ? "Tape sur le dos : le robot s'arrête." : "Tape sur le dos : le robot devrait s'arrêter."]);
+    L.push([beep, beep ? "Il émet un son." : "Il devrait émettre un son en s'arrêtant."]);
+    L.push([sim.top === "blanc", sim.top === "blanc" ? "Son dos s'allume en blanc." : "Son dos devrait s'allumer en blanc."]);
+    return { ok: L.every(x => x[0]), lines: L }; } },
+  d4: { scene: "trousses", test(prog) {
+    const L = [], sim = mkSim("trousses", prog); run(sim, 1); const still = Math.hypot(sim.P.x - sim.sc.start.x, sim.P.y - sim.sc.start.y) < 0.05;
+    L.push([still, still ? "Avant d'appuyer sur un bouton, le robot attend." : "Le robot part tout seul : il doit attendre qu'on appuie sur le bouton avant."]);
+    fire(sim, "b_av"); let dir = 0, flips = 0, py = sim.P.y, run1 = 0; for (let i = 0; i < 24 * 60; i++) { simStep(sim, 1 / 60); const dy = sim.P.y - py; py = sim.P.y; run1 += Math.abs(dy); const d = dy < -1e-4 ? -1 : dy > 1e-4 ? 1 : 0; if (d && d !== dir) { if (dir && run1 >= 1) flips++; if (!dir || run1 >= 1) { dir = d; run1 = 0; } } }
+    const moved = flips >= 1 || dir !== 0, ar = flips >= 4;
+    L.push([moved, moved ? "Bouton avant : le robot se met en marche." : "Bouton avant : le robot ne démarre pas."]);
+    L.push([ar, ar ? `Il fait des allers-retours entre les trousses (${Math.floor(flips / 2)} allers-retours en 24 secondes).` : flips ? "Il change de sens, mais ne fait pas d'allers-retours sans fin : il reste bloqué contre une trousse." : "Il ne fait pas demi-tour devant les trousses."]);
+    fire(sim, "b_ar"); run(sim, 0.4); const x0 = sim.P.y; run(sim, 2); const stop = Math.abs(sim.P.y - x0) < 0.02 && MOT(sim) === "m_st";
+    L.push([stop, stop ? "Bouton arrière : le robot s'arrête." : "Bouton arrière : le robot devrait s'arrêter."]);
+    return { ok: L.every(x => x[0]), lines: L }; } },
+  d5: { scene: "piste", test(prog) {
+    const L = [], P = SCENES.piste.line, N = P.length - 1;
+    const near = p => { let b = 0, m = 1e9; P.forEach((q, i) => { const d = Math.hypot(p[0] - q[0], p[1] - q[1]); if (d < m) { m = d; b = i; } }); return b; };
+    [[SCENES.piste.start, "dans un sens", 1], [{ x: 5.8, y: 5.45, th: 270 }, "dans l'autre sens", -1]].forEach(([st, lab, sg]) => {
+      const sim = mkSim("piste", prog, st); fire(sim, "b_av"); let idx = near([sim.P.x, sim.P.y]), prog2 = 0, lost = false;
+      for (let i = 0; i < 40 * 60; i++) { simStep(sim, 1 / 60); if (i % 6) continue; if (dPoly([sim.P.x, sim.P.y], P) > 1.2) { lost = true; break; } const j = near([sim.P.x, sim.P.y]); let d = j - idx; if (d > N / 2) d -= N; if (d < -N / 2) d += N; prog2 += sg * d; idx = j; if (prog2 >= N) break; }
+      const pc = Math.max(0, Math.min(100, Math.round(prog2 / N * 100))), ok = prog2 >= N;
+      L.push([ok, ok ? `Piste parcourue ${lab} : le robot fait le tour complet en suivant la ligne.` : lost ? `Piste parcourue ${lab} : le robot quitte la ligne (après ${pc} % du tour).` : `Piste parcourue ${lab} : le robot ne fait pas le tour en 40 secondes (${pc} % du tour). ${diag(sim)}`]);
+    });
+    return { ok: L.every(x => x[0]), lines: L }; } },
+  laby: { scene: "laby", test(prog) {
+    const L = [], sim = mkSim("laby", prog), G = sim.sc.goal; fire(sim, "b_av"); let ok = false;
+    for (let i = 0; i < 120 * 60; i++) { simStep(sim, 1 / 60); if (sim.P.x > G[0] && sim.P.x < G[2] && sim.P.y > G[1] && sim.P.y < G[3]) { ok = true; break; } }
+    L.push([ok, ok ? `Le robot traverse le labyrinthe et arrive aux panneaux solaires en ${Math.round(sim.t)} secondes, sans aide.` : `En 2 minutes, le robot n'arrive pas aux panneaux solaires. ${diag(sim)}`]);
+    return { ok, lines: L, t: sim.t }; } } };
+
+/* ===== 5e EIST · Mission 6 · Activité 3 · Créer son programme : éditeur de blocs et Thymio virtuel (moteur : tprog_sim.js, dessin : robot.js) ===== */
+Store.key = "eist5-thymio-prog-v1";
+const WID = {}, LIVE = {};
+const clone = p => JSON.parse(JSON.stringify(p || []));
+const B_ = (e, ...a) => ({ e, a });
+/* les défis : scène, familles de blocs proposées en version guidée, programme de départ de la version guidée */
+const DFS = {
+  d1: { scene: "bac", E: ["t"], A: ["d", "v"], scaf: [B_("b_av"), B_("b_ar"), B_("b_g"), B_("b_d")] },
+  d2: { scene: "bac", E: ["t"], A: ["d", "v"], scaf: [B_("b_av")] },
+  d3: { scene: "bac", E: ["t", "c"], A: ["m", "d", "s"], scaf: [B_("b_av"), B_("b_ar"), B_("b_g"), B_("b_d"), B_("choc")] },
+  d4: { scene: "trousses", E: ["t", "p"], A: ["m"], scaf: [B_("b_av"), B_("p_dev"), B_("p_der"), B_("b_ar")] },
+  d5: { scene: "piste", E: ["t", "s"], A: ["m"], scaf: [B_("s_nn"), B_("s_bn"), B_("s_nb"), B_("s_bb")] },
+  laby: { scene: "laby", E: ["t", "p"], A: ["m"], scaf: [B_("b_av", "m_av"), B_("p_rien"), B_("p_g"), B_("p_d"), B_("p_dev")] } };
+const DNAME = { d1: "Défi 1 · un dos qui change de couleur", d2: "Défi 2 · un événement, deux actions", d3: "Défi 3 · un robot obéissant", d4: "Défi 4 · l'aller-retour sans fin", d5: "Défi 5 · le suiveur de ligne", laby: "Mission · le labyrinthe" };
+/* les programmes préenregistrés à lire (partie 1) : sans couleur, pour les reconnaître à leurs instructions */
+const PRESET = { A: [B_("p_rien", "m_st"), B_("p_dev", "m_ar"), B_("p_der", "m_av")], B: [B_("b_av", "m_av"), B_("b_ar", "m_ar"), B_("b_g", "m_g"), B_("b_d", "m_d"), B_("b_c", "m_st")],
+  C: [B_("p_rien", "m_av"), B_("p_g", "m_d"), B_("p_d", "m_g"), B_("p_dev", "m_ar")], D: [B_("p_rien", "m_st"), B_("p_dev", "m_av"), B_("p_g", "m_g"), B_("p_d", "m_d")] };
+const MAXB = 8, MAXA = 4;
+function progOf(k) { const X = xst(); X.progs = X.progs || {}; if (!X.progs[k]) X.progs[k] = (typeof EXP === "function" && EXP()) ? [] : clone(DFS[k].scaf); return X.progs[k]; }
+const okOf = k => !!((xst().ok || {})[k]);
+
+/* ---------- l'éditeur de blocs : LORSQUE (événement) → ALORS (actions) ---------- */
+function editor(host, opts) {
+  let open = null;
+  const allowE = () => (typeof EXP === "function" && EXP()) || !opts.E ? Object.keys(EVG) : opts.E, allowA = () => (typeof EXP === "function" && EXP()) || !opts.A ? Object.keys(ACG) : opts.A;
+  const sw = c => c === "eteint" ? `<i class="sw off"></i>` : `<i class="sw" style="background:${TCOL[c]}"></i>`;
+  const acHTML = a => { const A = ACTS[a]; return A.g === "d" || A.g === "v" ? `${sw(A.c)}${esc(A.t)}` : `<span aria-hidden="true">${A.i}</span> ${esc(A.t)}`; };
+  const evHTML = e => `<span aria-hidden="true">${EVS[e].i}</span> ${esc(EVS[e].t)}`;
+  const chooser = (b) => {
+    if (!open || open.b !== b) return "";
+    if (open.k === "ev") return `<div class="choose" role="group" aria-label="Choisir l'événement">${allowE().map(g => `<p class="cg">${EVG[g]}</p><div class="cc">${Object.keys(EVS).filter(e => EVS[e].g === g).map(e => `<button type="button" class="chipe" data-pe="${e}">${evHTML(e)}</button>`).join("")}</div>`).join("")}<div class="row"><button type="button" class="btn ghost" data-close>Fermer</button></div></div>`;
+    return `<div class="choose" role="group" aria-label="Choisir l'action">${allowA().map(g => `<p class="cg">${ACG[g]}</p><div class="cc">${Object.keys(ACTS).filter(a => ACTS[a].g === g).map(a => `<button type="button" class="chipe ${ACTS[a].g === "d" || ACTS[a].g === "v" ? "col" : ""}" data-pa="${a}">${acHTML(a)}</button>`).join("")}</div>`).join("")}<div class="row">${open.k === "rep" ? `<button type="button" class="btn ghost" data-rm>🗑 Retirer cette action</button>` : ""}<button type="button" class="btn ghost" data-close>Fermer</button></div></div>`;
+  };
+  const paint = () => {
+    const P = opts.get();
+    if (opts.ro) { host.innerHTML = `<ol class="prg ro">${P.map(b => `<li class="pblk"><div class="pbh"><span class="pkw">LORSQUE</span><span class="pev ro">${evHTML(b.e)}</span></div><div class="pba"><span class="pkw">ALORS</span><div class="pacts">${b.a.map(a => `<span class="pact ro">${acHTML(a)}</span>`).join("")}</div></div></li>`).join("")}</ol>`; return; }
+    host.innerHTML = `<ol class="prg">${P.map((b, i) => `<li class="pblk" data-b="${i}"><div class="pbh"><span class="pkw">LORSQUE</span><button type="button" class="pev ${b.e ? "" : "empty"}" data-ev="${i}" aria-label="Bloc ${i + 1}, événement : ${b.e ? esc(EVS[b.e].t) : "à choisir"}">${b.e ? evHTML(b.e) : "choisir un événement…"}</button><button type="button" class="btn ghost pdel" data-del="${i}" aria-label="Supprimer le bloc ${i + 1}">🗑</button></div>
+      <div class="pba"><span class="pkw">ALORS</span><div class="pacts">${b.a.map((a, j) => `<button type="button" class="pact" data-ac="${i}:${j}" aria-label="Bloc ${i + 1}, action ${j + 1} : ${esc(ACTS[a].t)}. Toucher pour changer.">${acHTML(a)}</button>`).join("")}${b.a.length < MAXA ? `<button type="button" class="padd ${b.a.length ? "" : "empty"}" data-add="${i}" aria-label="Bloc ${i + 1} : ajouter une action">+ action</button>` : ""}</div></div>${chooser(i)}</li>`).join("")}</ol>
+      <div class="row">${P.length < MAXB ? `<button type="button" class="btn ghost" data-newb>+ Ajouter un bloc</button>` : `<span class="lead">${MAXB} blocs au maximum.</span>`}</div>`;
+    const ch = () => { keep(); if (opts.onChange) opts.onChange(); paint(); };
+    $$("[data-ev]", host).forEach(b => b.onclick = () => { const i = +b.dataset.ev; open = open && open.b === i && open.k === "ev" ? null : { b: i, k: "ev" }; paint(); const n = $(".choose button", host); if (n) n.focus(); });
+    $$("[data-add]", host).forEach(b => b.onclick = () => { const i = +b.dataset.add; open = open && open.b === i && open.k === "add" ? null : { b: i, k: "add" }; paint(); const n = $(".choose button", host); if (n) n.focus(); });
+    $$("[data-ac]", host).forEach(b => b.onclick = () => { const [i, j] = b.dataset.ac.split(":").map(Number); open = { b: i, k: "rep", j }; paint(); const n = $(".choose button", host); if (n) n.focus(); });
+    $$("[data-pe]", host).forEach(b => b.onclick = () => { const i = open.b; P[i].e = b.dataset.pe; open = null; ch(); const n = $(`[data-ev="${i}"]`, host); if (n) n.focus(); });
+    $$("[data-pa]", host).forEach(b => b.onclick = () => { const i = open.b; if (open.k === "rep") P[i].a[open.j] = b.dataset.pa; else P[i].a.push(b.dataset.pa); open = null; ch(); const n = $(`[data-add="${i}"]`, host) || $(`[data-ev="${i}"]`, host); if (n) n.focus(); });
+    const rm = $("[data-rm]", host); if (rm) rm.onclick = () => { const i = open.b; P[i].a.splice(open.j, 1); open = null; ch(); const n = $(`[data-add="${i}"]`, host); if (n) n.focus(); };
+    const cl = $("[data-close]", host); if (cl) cl.onclick = () => { const i = open.b; open = null; paint(); const n = $(`[data-ev="${i}"]`, host); if (n) n.focus(); };
+    $$("[data-del]", host).forEach(b => armButton(b, "🗑", "Supprimer ?", () => { P.splice(+b.dataset.del, 1); open = null; ch(); }));
+    const nb2 = $("[data-newb]", host); if (nb2) nb2.onclick = () => { P.push({ e: null, a: [] }); open = { b: P.length - 1, k: "ev" }; ch(); const n = $(".choose button", host); if (n) n.focus(); };
+  };
+  paint();
+  return { paint, hl(set) { $$(".pblk", host).forEach((li, i) => li.classList.toggle("fire", set.has(i))); } };
+}
+
+/* ---------- le Thymio virtuel : scène, robot, touches, mains ---------- */
+function stage(host, opts) {
+  let alt = false; const ALT = { piste: { x: 5.8, y: 5.45, th: 270 } }[opts.scene];
+  let sim = mkSim(opts.scene, opts.prog()), pressK = null, pressT = 0, btnFire = new Map(), run = true, fast = false, done = false;
+  const sc = SCENES[opts.scene];
+  host.innerHTML = `<div class="figbox"></div>
+    <div class="ctl"><div class="pad" role="group" aria-label="Les touches du robot">${[["", "b_av", ""], ["b_g", "b_c", "b_d"], ["", "b_ar", ""]].flat().map(k => k ? `<button type="button" data-tk="${k}" aria-label="Toucher ${EVS[k].t.replace("le bouton ", "le bouton ").replace(" est touché", "")}">${EVS[k].i}</button>` : "<span></span>").join("")}</div>
+      <div class="ctl2"><button type="button" class="btn ghost" data-choc>👋 Taper sur le dos</button>${sc.hands ? `<div class="hands" role="group" aria-label="Placer ta main près du robot"><span class="lab3">✋ Ta main :</span>${[["dev", "devant"], ["g", "à gauche"], ["d", "à droite"], ["der", "derrière"], ["", "retirer"]].map(h => `<button type="button" class="btn ghost" data-hd="${h[0]}">${h[1]}</button>`).join("")}</div>` : ""}
+      <div class="row"><button type="button" class="btn ghost" data-home>↺ Replacer le robot</button>${ALT ? `<button type="button" class="btn ghost" data-flip aria-pressed="false">⇄ Départ dans l'autre sens</button>` : ""}<button type="button" class="btn ghost" data-run aria-pressed="false">⏸ Pause</button>${opts.fast ? `<button type="button" class="btn ghost" data-fast aria-pressed="false">⏩ Accéléré</button>` : ""}</div></div></div>
+    <p class="readout" aria-live="off"></p>`;
+  const k0 = () => sim, MOTX = { m_av: "roule en avant", m_ar: "roule en arrière", m_g: "tourne à gauche", m_d: "tourne à droite", m_st: "est arrêté" };
+  const fig = liveSVG($(".figbox", host), (W, F) => {
+    const S0 = k0(), k = W / sc.W, H = sc.H * k, tk = TK(F) * 0.8, P = S0.P;
+    let s = `<rect x="0" y="0" width="${W}" height="${N1(H)}" rx="12" style="fill:${sc.line ? "#fbfaf5" : "#e8edf1"}"/>`;
+    if (!sc.line) { for (let i = 1; i < sc.W; i++) s += `<line x1="${N1(i * k)}" x2="${N1(i * k)}" y1="0" y2="${N1(H)}" style="stroke:#d8dfe5;stroke-width:1"/>`; for (let j = 1; j < sc.H; j++) s += `<line y1="${N1(j * k)}" y2="${N1(j * k)}" x1="0" x2="${W}" style="stroke:#d8dfe5;stroke-width:1"/>`; }
+    if (sc.line) s += `<polyline points="${sc.line.map(p => `${N1(p[0] * k)},${N1(p[1] * k)}`).join(" ")}" style="fill:none;stroke:#121416;stroke-width:${N1(LWID * k)};stroke-linejoin:round;stroke-linecap:round"/>`;
+    if (sc.goal) { const [x1, y1, x2, y2] = sc.goal, ok = done; s += `<rect x="${N1(x1 * k)}" y="${N1(y1 * k)}" width="${N1((x2 - x1) * k)}" height="${N1((y2 - y1) * k)}" rx="6" style="fill:${ok ? "#d6f5dd" : "#fff4c9"};stroke:#c9a200;stroke-width:2;stroke-dasharray:6 4"/>`;
+      [0, 1].forEach(i => { const px = x1 + 0.25 + i * ((x2 - x1 - 0.5) / 2 + 0.05), py = y1 + 0.25; s += `<rect x="${N1(px * k)}" y="${N1(py * k)}" width="${N1(((x2 - x1 - 0.5) / 2 - 0.05) * k)}" height="${N1(1.0 * k)}" rx="3" style="fill:${ok ? "#2f6fe0" : "#3c5a86"};stroke:#1c2a40;stroke-width:1.5"/>`; });
+      s += sX((x1 + x2) / 2 * k, (y2 - 0.25) * k, ok ? "⚡ nettoyés !" : "panneaux", "middle", tk * 0.9, 'font-weight="800" style="fill:#5a4500"');
+      s += `<rect x="${N1(0.1 * k)}" y="${N1(5.15 * k)}" width="${N1(2.1 * k)}" height="${N1(1.8 * k)}" rx="6" style="fill:#dfe5ea;opacity:.7"/>` + sX(1.15 * k, 6.85 * k, "BASE", "middle", tk * 0.9, 'font-weight="800" style="fill:#1d2a33"'); }
+    sc.walls.forEach(g => { s += `<line x1="${N1(g[0] * k)}" y1="${N1(g[1] * k)}" x2="${N1(g[2] * k)}" y2="${N1(g[3] * k)}" style="stroke:#7a5a3c;stroke-width:${N1(Math.max(5, 0.16 * k))};stroke-linecap:round"/>`; });
+    (sc.objs || []).forEach(o => { s += `<rect x="${N1(o[0] * k)}" y="${N1(o[1] * k)}" width="${N1((o[2] - o[0]) * k)}" height="${N1((o[3] - o[1]) * k)}" rx="${N1(0.2 * k)}" style="fill:#2f6fb0;stroke:#173a63;stroke-width:2"/><line x1="${N1((o[0] + 0.25) * k)}" x2="${N1((o[2] - 0.25) * k)}" y1="${N1((o[1] + o[3]) / 2 * k)}" y2="${N1((o[1] + o[3]) / 2 * k)}" style="stroke:#c7d6ea;stroke-width:2;stroke-dasharray:3 3"/>` + sX((o[0] + o[2]) / 2 * k, (o[1] < sc.H / 2 ? o[3] + 0.15 : o[1] - 0.15) * k + (o[1] < sc.H / 2 ? tk : -4), o[4], "middle", tk * 0.9, 'font-weight="700" style="fill:#173a63"'); });
+    S0.hands.forEach(h => { s += `<text x="${N1(h[0] * k)}" y="${N1(h[1] * k + 0.3 * k)}" text-anchor="middle" style="font-size:${N1(0.8 * k)}px">✋</text>`; });
+    /* rayons des capteurs qui détectent */
+    const ray = (sp, on) => { if (!on) return ""; const o = wpt(P, sp[0], sp[1]), a = (P.th + sp[2]) * Math.PI / 180; return `<line x1="${N1(o[0] * k)}" y1="${N1(o[1] * k)}" x2="${N1((o[0] + Math.sin(a) * RANGE) * k)}" y2="${N1((o[1] - Math.cos(a) * RANGE) * k)}" style="stroke:#ff3b30;stroke-width:3;opacity:.55;stroke-linecap:round"/>`; };
+    SFR.forEach((sp, i) => { s += ray(sp, S0.f[i]); }); SRR.forEach((sp, i) => { s += ray(sp, S0.r[i]); });
+    if (S0.top === "blanc") s += `<circle cx="${N1(P.x * k)}" cy="${N1(P.y * k)}" r="${N1(0.8 * k)}" style="fill:#ffffff;stroke:#90a4ae;stroke-width:2;stroke-dasharray:4 3"/>`;
+    if (S0.bot !== "eteint") s += `<circle cx="${N1(P.x * k)}" cy="${N1(P.y * k)}" r="${N1(0.78 * k)}" style="fill:${TCOL[S0.bot]};opacity:.55"/>`;
+    s += robotSVG(P.x * k, P.y * k, P.th, k, { col: S0.top !== "eteint" ? TCOL[S0.top] : null, sens: { f: S0.f, r: S0.r }, gcol: sc.line ? S0.g.map(b => b ? "#000" : "#fff") : null, press: pressT > 0 ? pressK : null, noGround: !sc.line });
+    if (S0.beep > 0) s += `<text x="${N1((P.x + 0.75) * k)}" y="${N1((P.y - 0.55) * k)}" style="font-size:${N1(Math.max(tk * 1.4, 0.55 * k))}px;fill:#e65100;font-weight:800">♪</text>`;
+    return `<svg viewBox="0 0 ${W} ${N1(H)}" width="${W}" height="${N1(H)}" role="img" aria-label="${esc(`Vue du dessus : ${sc.name}. Le robot ${MOTX[MOT(S0)]}, dos ${CNAME[S0.top]}, ventre ${CNAME[S0.bot]}.`)}">${s}</svg>`;
+  });
+  const rd = () => { const S0 = sim, e = S0.lastEv; $(".readout", host).innerHTML = nb(`Dernier événement : <b>${e ? "lorsque " + esc(EVS[e].t) : "aucun"}</b> · moteurs : <b>${MOTX[MOT(S0)]}</b>`); };
+  const home = () => { sim = mkSim(opts.scene, opts.prog(), alt ? ALT : null); pressT = 0; btnFire.clear(); done = false; fig.draw(); rd(); };
+  const tap = e => { sim.prog = opts.prog(); fire(sim, e); sim.prog.forEach((b, i) => { if (b.e === e) btnFire.set(i, 0.6); }); if (e.startsWith("b_")) { pressK = { b_av: "av", b_ar: "ar", b_g: "g", b_d: "d", b_c: "c" }[e]; pressT = 0.5; } if (opts.onTap) opts.onTap(e); rd(); };
+  $$("[data-tk]", host).forEach(b => b.onclick = () => tap(b.dataset.tk));
+  $("[data-choc]", host).onclick = () => tap("choc");
+  $$("[data-hd]", host).forEach(b => b.onclick = () => { addHand(sim, b.dataset.hd); if (opts.onTap) opts.onTap("main"); fig.draw(); });
+  $("[data-home]", host).onclick = home;
+  const fl = $("[data-flip]", host); if (fl) fl.onclick = e => { alt = !alt; e.currentTarget.setAttribute("aria-pressed", String(alt)); home(); };
+  $("[data-run]", host).onclick = e => { run = !run; e.currentTarget.textContent = run ? "⏸ Pause" : "▶ Reprendre"; e.currentTarget.setAttribute("aria-pressed", String(!run)); };
+  const fb = $("[data-fast]", host); if (fb) fb.onclick = e => { fast = !fast; e.currentTarget.setAttribute("aria-pressed", String(fast)); };
+  let acc = 0;
+  loopWhile(host, dt => {
+    if (!run) return; sim.prog = opts.prog(); acc += dt * (fast ? 4 : 1); let n = 0;
+    while (acc >= 1 / 60 && n < 40) { simStep(sim, 1 / 60); acc -= 1 / 60; n++; }
+    pressT -= dt; btnFire.forEach((v, kk) => { if (v - dt <= 0) btnFire.delete(kk); else btnFire.set(kk, v - dt); });
+    if (sc.goal && !done) { const G = sc.goal; if (sim.P.x > G[0] && sim.P.x < G[2] && sim.P.y > G[1] && sim.P.y < G[3]) done = true; }
+    if (opts.onFire) { const set = new Set(btnFire.keys()); sim.fired.forEach(b => { const i = sim.prog.indexOf(b); if (i >= 0) set.add(i); }); opts.onFire(set); }
+    fig.draw(); if (Math.random() < 0.2) rd();
+  });
+  rd();
+  return { home, sim: () => sim };
+}
+
+/* ---------- un atelier de défi : le Thymio virtuel, l'éditeur et le robot-testeur ---------- */
+function atelier(el, k) {
+  const D = DFS[k], X = xst(); X.ok = X.ok || {}; X.tests = X.tests || {};
+  el.innerHTML = `<div class="atl"><div class="stg"></div><div class="edw"><p class="kicker">Mon programme · ${DNAME[k]}</p><div class="ed"></div>
+      <div class="row"><button type="button" class="btn" data-test>✅ Faire vérifier par le robot-testeur</button><button type="button" class="btn ghost" data-zero>↺ Repartir ${EXP() ? "de zéro" : "du modèle"}</button></div><div class="tres" aria-live="polite"></div></div></div>`;
+  let ed;
+  const st = stage($(".stg", el), { scene: D.scene, prog: () => progOf(k), fast: D.scene === "laby" || D.scene === "piste", onFire: set => ed && ed.hl(set) });
+  ed = editor($(".ed", el), { get: () => progOf(k), E: D.E, A: D.A, onChange: () => { $(".tres", el).innerHTML = ""; } });
+  const show = r => { $(".tres", el).innerHTML = `${r.ok ? `<p class="okm">${nb("✅ Défi réussi ! Le robot-testeur valide ton programme.")}</p>` : `<p class="badm">${nb("✗ Pas encore : lis ce qui ne va pas, corrige ton programme, puis teste-le à nouveau.")}</p>`}<ul class="tlist">${r.lines.map(l => `<li class="${l[0] ? "ok" : "no"}"><span class="ti">${l[0] ? "✓" : "✗"}</span><span>${nb(esc(l[1]))}</span></li>`).join("")}</ul>`; };
+  $("[data-test]", el).onclick = () => {
+    const P = progOf(k), empty = P.filter(b => !b.e || !b.a.length).length;
+    if (!P.length || empty) { $(".tres", el).innerHTML = `<p class="badm">${nb(!P.length ? "Ton programme est vide : ajoute au moins un bloc." : `${empty} bloc(s) incomplet(s) : chaque bloc a besoin d'un événement et d'au moins une action.`)}</p>`; return; }
+    const r = DEFIS[k].test(P); X.tests[k] = (X.tests[k] || 0) + 1; if (r.ok) X.ok[k] = 1; keep(); show(r);
+  };
+  armButton($("[data-zero]", el), `↺ Repartir ${EXP() ? "de zéro" : "du modèle"}`, "Effacer mon programme ?", () => { X.progs[k] = EXP() ? [] : clone(D.scaf); keep(); ed = editor($(".ed", el), { get: () => progOf(k), E: D.E, A: D.A, onChange: () => { $(".tres", el).innerHTML = ""; } }); st.home(); $(".tres", el).innerHTML = ""; });
+}
+Object.keys(DFS).forEach(k => { WID["atelier_" + k] = el => atelier(el, k); });
+
+/* ---------- lire les programmes préenregistrés et les essayer ---------- */
+WID.lecture = el => {
+  const X = xst(); X.loaded = X.loaded || {}; let cur = X.cur || "A"; const live = clone(PRESET[cur]);
+  el.innerHTML = `<p class="lead">${nb("Voici quatre programmes préenregistrés de Thymio, écrits avec les blocs du logiciel. Charge-les un par un dans le robot d'essai, puis place ta main autour de lui pour les tester.")}</p>
+    <div class="atl"><div class="edw"><div class="vbar" role="group" aria-label="Choisir le programme">${Object.keys(PRESET).map(p => `<button type="button" data-pg="${p}">Programme ${p}</button>`).join("")}</div><div class="ed"></div><p class="lead ldd"></p></div><div class="stg"></div></div>`;
+  const ed = editor($(".ed", el), { get: () => live, ro: true });
+  const st = stage($(".stg", el), { scene: "bac", prog: () => live, onFire: set => $$(".ed .pblk", el).forEach((li, i) => li.classList.toggle("fire", set.has(i))) });
+  const load = p => { cur = p; X.cur = p; X.loaded[p] = 1; keep(); live.splice(0, live.length, ...clone(PRESET[p])); ed.paint(); st.home(); press(el, "pg", p); $(".ldd", el).innerHTML = nb(`Le programme ${p} est chargé dans le robot d'essai. (${Object.keys(X.loaded).length}/4 programmes essayés)`); };
+  $$("[data-pg]", el).forEach(b => b.onclick = () => load(b.dataset.pg));
+  load(cur);
+};
+
+/* ===== 5e EIST · Mission 6 · Tempête de sable · Technologie · Activité 3 : contenus, d'après la fiche « Créer son propre programme à l'aide du logiciel de programmation » et le diaporama « Programmer Thymio » du professeur ===== */
+const PROBLEM = "Comment écrire un programme pour que le robot réalise une mission tout seul ?";
+const gap = `<span class="gap">………</span>`;
+const DORDER = ["d1", "d2", "d3", "d4", "d5", "laby"];
+const HOME = { slug: "programmer-thymio", short: "Créer son programme avec Thymio", last: "d1", lastG: "p4", lastK: 0, dur: "environ 1 heure, en une ou deux séances",
+  kicker: "Mission 6 · Tempête de sable · Phase 2 · Activité 3", title: "Programme ton robot, bloc par bloc",
+  intro: "Les astronautes confient le robot nettoyeur à ton équipe. Dans le logiciel de programmation, un programme est fait de blocs : « lorsque… » (un événement), puis « alors… » (des actions). Entraîne-toi sur le Thymio virtuel avec les défis de la fiche, puis fais traverser le labyrinthe au robot jusqu'aux panneaux solaires, sans l'aider.",
+  lab: "Le problème à résoudre", goal: "Objectif : réussir les défis de programmation, puis programmer le robot pour qu'il traverse seul le labyrinthe jusqu'aux panneaux solaires.",
+  fact: "Le rover Perseverance choisit lui-même son chemin entre les rochers de Mars : ses caméras repèrent les obstacles et son programme calcule la route, car ses pilotes, sur Terre, ne peuvent pas le guider en direct.",
+  parts: "Les quatre étapes de la mission", recop: "Fiche mémo à recopier dans le cahier",
+  txt: "ACTIVITÉ 3 · CRÉER SON PROPRE PROGRAMME AVEC LE ROBOT THYMIO\n5e EIST · Mission 6 · Tempête de sable · Technologie",
+  comps: { obs: "Observer, manipuler", algo: "Lire et écrire des instructions logiques", prog: "Programmer, tester, corriger", voc: "Utiliser le vocabulaire de la technologie", conn: "Mobiliser ses connaissances" },
+  gk: { vois: "Instruction attendue", sais: "Vocabulaire", deduis: "Écriture LORSQUE (SI)… ALORS…" },
+  howL: `<li>Programme sur le Thymio virtuel, teste, puis fais vérifier ton programme par le <b>robot-testeur</b>.</li><li>Écris tes instructions comme dans le logiciel : <b>LORSQUE</b> (ou SI) … <b>ALORS</b> …, une par ligne. Touche <b>Vérifier</b> : l'application repère les éléments attendus (un point par élément). Seul le premier essai compte, puis tu complètes librement. Ton professeur lit tes réponses rédigées dans ton bilan.</li>`,
+  vers: { g: { icon: "🧭", short: "Guidée", name: "Version guidée", q: "guidee", desc: "Les blocs « lorsque… » sont déjà posés : je choisis les bonnes actions, puis je réponds avec des étiquettes." },
+    l: { icon: "🚀", short: "Experte", name: "Version experte", q: "experte", desc: "Je construis mes programmes à partir de zéro, avec tous les blocs du logiciel, et j'écris mes instructions." } },
+  extraTitle: "Mes programmes",
+  extra: () => `MES PROGRAMMES\n${DORDER.map(k => `${DNAME[k]} : ${okOf(k) ? "réussi" : "pas encore réussi"} (${(xst().tests || {})[k] || 0} vérification(s))\n${((xst().progs || {})[k] || []).length ? progLines(xst().progs[k]).map(x => "  " + x).join("\n") : "  (vide)"}`).join("\n")}\n`,
+  extraHTML: () => `<div class="mprogs">${DORDER.map(k => { const p = (xst().progs || {})[k] || []; return `<div class="mprog"><p><b>${esc(DNAME[k])}</b> <span class="chip ${okOf(k) ? "ok" : ""}">${okOf(k) ? "✓ réussi" : "pas encore réussi"}</span></p>${p.length ? `<ol class="ul">${progLines(p).map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : `<p class="lead">Programme vide.</p>`}</div>`; }).join("")}</div>` };
+
+/* ---------- repérage des instructions rédigées (version experte) ---------- */
+const SEGS = n => n.split(/[.;!?\n]+|(?=\bsi\b|\blorsqu|\bquand\b)/);
+const RULE = (c, a) => (T, n) => SEGS(n).some(s => { const i = s.search(c); if (i < 0) return false; const r = s.slice(i), j = r.search(/\balors\b|,/); return a.test(j >= 0 ? r.slice(j) : r); });
+const AC = { av: /avanc|en avant|tout droit|vers l.avant/, td: /(tourn|pivot|vir|braqu|va|part|dirig)\w*.*droite/, tg: /(tourn|pivot|vir|braqu|va|part|dirig)\w*.*gauche/, tr: /tourn|pivot|vir|braqu/, st: /arret|stop|immobil|ne bouge (plus|pas)|freine/ };
+const CO = { dev: /devant|en face/, rien: /\brien\b|aucun|pas d.?objet|ne detecte pas|ne voit rien/, ga: /gauche/, dr: /droite/,
+  n2: /(deux|2|les capteurs|tous)(?:(?!alors)[^,])*?noir/, b2: /(deux|2|les capteurs|tous)(?:(?!alors)[^,])*?blanc/, gb: /gauche(?:(?!alors)[^,]){0,30}blanc|blanc(?:(?!alors)[^,]){0,30}gauche/, db: /droit(?:(?!alors)[^,]){0,30}blanc|blanc(?:(?!alors)[^,]){0,30}droit/ };
+const SIAL = { g: "deduis", lab: "Tu écris des instructions avec LORSQUE (ou SI) et ALORS", re: [/\bsi\b|\blorsqu|\bquand\b/, /\balors\b/] };
+const R = (lab, c, a) => ({ g: "vois", lab, re: [RULE(c, a)] });
+
+const DOC_BLOC = { title: "Document · Les blocs du logiciel de programmation", html: `<p>Dans le logiciel (Blockly4Thymio), un programme est fait de <b>blocs</b>. Chaque bloc commence par un <b>événement</b> : « lorsque le bouton avant est touché ». Puis viennent une ou plusieurs <b>actions</b> : « allumer la LED du dessus en rouge ».</p><p class="instr">Un bloc = une instruction logique : <b>LORSQUE</b> (SI) un événement se produit, <b>ALORS</b> le robot agit.</p>` };
+const DOC_VRAI = { title: "Sur le vrai robot", html: `<p>${"Connecte le robot en regardant la démonstration du professeur. Attention : les câbles sont très sensibles et se déconnectent facilement. Ne manipule pas trop le robot quand il est connecté !"}</p>` };
+const consigne = (t, x) => `<div class="box info"><p class="lab">🎯 ${t}</p><p>${nb(x)}</p></div>`;
+
+const BIL = ["Un programme est une suite de <u>blocs</u>. Chaque bloc est une <u>instruction logique</u> : <u>LORSQUE</u> un événement se produit, <u>ALORS</u> le robot réalise des actions.",
+  "L'<u>événement</u> est détecté par un <u>capteur</u> : touches, choc, capteurs de proximité, capteurs au sol.",
+  "Les <u>actions</u> sont réalisées par les <u>actionneurs</u> : moteurs (roues), LED, haut-parleur.",
+  "Un même événement peut déclencher <u>plusieurs actions</u>.",
+  "Une action reste active jusqu'à ce qu'une autre la remplace : « rouler en avant » fait rouler le robot jusqu'au prochain ordre.",
+  "Programmer, c'est écrire le programme, le <u>tester</u>, observer, puis <u>affiner</u> les instructions jusqu'à ce que le robot réussisse."];
+const bilanHTML = () => BIL.map(x => `<p>${nb(x)}</p>`).join("");
+const taskD = (k, label) => ({ t: "task", c: "prog", label, okMsg: "Le robot-testeur valide ton programme.", done: () => ({ ok: okOf(k), msg: okOf(k) ? "Défi réussi." : `Pas encore validé par le robot-testeur (${(xst().tests || {})[k] || 0} vérification(s)).` }) });
+const TASKL = "Programme le défi, teste-le sur le Thymio virtuel, puis fais-le vérifier par le robot-testeur.";
+const CAPACT = { t: "rows", c: "voc", label: "Capteur ou actionneur ?", choices: ["📥 Capteur", "📤 Actionneur"], rows: [{ txt: "Le bouton avant", a: 0 }, { txt: "La LED du dessus (le dos)", a: 1 }, { txt: "La LED du dessous (le ventre)", a: 1 }] };
+
+const GROUPS = [
+{ id: "p1", n: 1, icon: "🧩", tab: "Les blocs", title: "Le langage des blocs", sub: "Lire un programme, puis les défis 1 et 2 · environ 15 minutes.",
+  items: [
+  { id: "a0", lvl: "easy", title: "Lire un programme", docs: [DOC_BLOC],
+    widget: { title: "Atelier · Les programmes préenregistrés dans le robot d'essai", w: "lecture", sim: "Modèle simplifié" },
+    parts: [
+      { t: "task", c: "obs", label: "Charge et essaie les quatre programmes (place ta main autour du robot).", okMsg: "Les quatre programmes sont essayés.", done: () => { const n = Object.keys(xst().loaded || {}).length; return { ok: n >= 4, msg: `${n}/4 programmes essayés.` }; } },
+      { t: "match", c: "algo", label: "Quel comportement préenregistré chaque programme décrit-il ?", ask: "Choisis le comportement du", rows: [{ e: "A", txt: "Programme A", v: "Peureux (rouge)" }, { e: "B", txt: "Programme B", v: "Obéissant (violet)" }, { e: "C", txt: "Programme C", v: "Explorateur (jaune)" }, { e: "D", txt: "Programme D", v: "Amical (vert)" }] },
+      { t: "choice", c: "algo", label: "Un bloc « lorsque … alors … », c'est…", o: ["une instruction logique : SI un événement se produit, ALORS le robot agit", "la liste des pièces du robot", "un dessin du trajet du robot"], a: 0 }],
+    hints: ["Charge un programme, puis place ta main devant, à gauche, à droite ou derrière le robot. Pour le programme B, touche les flèches.", "Le peureux fuit la main, l'amical va vers elle, l'obéissant obéit aux flèches, l'explorateur roule tout seul et évite les obstacles.", "A : peureux · B : obéissant · C : explorateur · D : amical. Un bloc est une instruction logique."],
+    corr: "A : peureux (objet devant → il recule ; objet derrière → il avance). B : obéissant (il réagit aux flèches). C : explorateur (rien devant → il avance ; objet d'un côté → il tourne de l'autre côté). D : amical (il va vers l'objet, et s'arrête quand il ne voit rien). Chaque bloc est une instruction logique : LORSQUE (SI) un événement se produit, ALORS le robot agit." },
+  { id: "a1", lvl: "easy", title: "Défi 1 · Un dos qui change de couleur", docs: [DOC_VRAI],
+    intro: consigne("Défi 1", "À chaque fois qu'on appuie sur une touche fléchée, le dos de Thymio change de couleur : une couleur différente pour chaque touche."),
+    widget: { title: "Atelier · Le Thymio virtuel et mon programme", w: "atelier_d1", sim: "Modèle simplifié" },
+    parts: [
+      taskD("d1", TASKL),
+      { t: "num", c: "algo", label: "Combien de blocs ton programme contient-il ?", ans: 4, err: [[v => v === 1, "Un seul bloc ne réagit qu'à une seule flèche : il en faut un par flèche."]] },
+      { t: "choice", c: "voc", label: "Dans « lorsque le bouton avant est touché », le bouton avant est…", o: ["un capteur : il déclenche l'événement", "un actionneur : il réalise l'action", "le programme"], a: 0 }],
+    hints: ["Dans chaque bloc, touche « + action » et choisis une couleur dans « La LED du dessus : le dos ».", "Teste avec les flèches du Thymio virtuel : le dos doit changer de couleur à chaque flèche.", "Un bloc par flèche, soit 4 blocs ; dans chacun, « allumer le dos en … » avec une couleur différente. Le bouton est un capteur."],
+    corr: "4 blocs, un par flèche. Par exemple : lorsque le bouton avant est touché → allumer le dos en rouge ; arrière → vert ; gauche → bleu ; droite → jaune. Le bouton est un capteur : il déclenche l'événement. La LED est un actionneur." },
+  { id: "a2", lvl: "easy", title: "Défi 2 · Un événement, deux actions",
+    intro: consigne("Défi 2", "Quand on appuie sur la touche du haut, le dos et le ventre de Thymio deviennent rouges. Essaie de réussir ce défi avec un seul bloc !"),
+    widget: { title: "Atelier · Le Thymio virtuel et mon programme", w: "atelier_d2", sim: "Modèle simplifié" },
+    parts: [
+      taskD("d2", TASKL),
+      { t: "choice", c: "algo", label: "Dans ton bloc, il y a…", o: ["1 événement et 2 actions", "2 événements et 1 action", "2 événements et 2 actions"], a: 0 },
+      CAPACT],
+    hints: ["La touche du haut, c'est le bouton avant.", "Dans le même bloc, touche deux fois « + action » : une fois pour le dos, une fois pour le ventre.", "Lorsque le bouton avant est touché → allumer le dos en rouge et allumer le ventre en rouge. Bouton : capteur ; LED : actionneurs."],
+    corr: "Un seul bloc : lorsque le bouton avant est touché → allumer le dos en rouge + allumer le ventre en rouge. Un même événement peut déclencher plusieurs actions. Le bouton est un capteur ; les deux LED sont des actionneurs." }] },
+
+{ id: "p2", n: 2, icon: "🕹", tab: "Obéissant", title: "Le robot obéissant", sub: "Défi 3 · environ 10 minutes.",
+  items: [
+  { id: "b1", lvl: "mid", title: "Défi 3 · Un robot obéissant",
+    intro: consigne("Défi 3", "On dirige Thymio avec les flèches, comme dans le mode violet. Le dos change de couleur : vert quand il tourne à droite, rouge quand il tourne à gauche, bleu quand il avance, violet quand il recule. Pour arrêter Thymio, il faut taper sur son dos. Quand il s'arrête, il émet un son et s'allume en blanc."),
+    widget: { title: "Atelier · Le Thymio virtuel et mon programme", w: "atelier_d3", sim: "Modèle simplifié" },
+    parts: [
+      taskD("d3", TASKL),
+      { t: "choice", c: "conn", label: "Pour arrêter le robot, on tape sur son dos. Quel événement utilise-t-on ?", o: ["un choc est détecté", "le bouton central est touché", "rien n'est détecté devant"], a: 0 },
+      { t: "num", c: "algo", label: "Combien d'actions contient le bloc « un choc est détecté » ?", ans: 3, err: [[v => v === 2, "Relis la consigne : le robot s'arrête, émet un son… et s'allume en blanc."]] },
+      { t: "choice", c: "voc", label: "Le son est produit par…", o: ["le haut-parleur : un actionneur", "le micro : un capteur", "les LED : des actionneurs"], a: 0 }],
+    hints: ["Chaque flèche a deux actions : un mouvement (Les moteurs) et une couleur (Le dos).", "Le bloc « un choc est détecté » a trois actions : arrêter les moteurs, jouer un bip, allumer le dos en blanc.", "Avant → rouler en avant + dos bleu · arrière → rouler en arrière + dos violet · droite → tourner à droite + dos vert · gauche → tourner à gauche + dos rouge · choc → arrêter + bip + dos blanc."],
+    corr: "Lorsque le bouton avant est touché → rouler en avant + dos bleu. Arrière → rouler en arrière + dos violet. Droite → tourner à droite + dos vert. Gauche → tourner à gauche + dos rouge. Lorsqu'un choc est détecté → arrêter les moteurs + jouer un bip + dos blanc (3 actions). Le haut-parleur est un actionneur." }] },
+
+{ id: "p3", n: 3, icon: "📡", tab: "Capteurs", title: "Des capteurs qui commandent le robot", sub: "Défis 4 et 5 · environ 20 minutes.",
+  items: [
+  { id: "c1", lvl: "mid", title: "Défi 4 · L'aller-retour sans fin",
+    intro: consigne("Défi 4", "Deux trousses sont posées face à face. 1) Thymio se met en marche lorsqu'on appuie sur le bouton avant. 2) Il fait des allers-retours sans fin entre les deux trousses. 3) Pour l'arrêter, on appuie sur le bouton arrière."),
+    widget: { title: "Atelier · Le Thymio virtuel entre deux trousses", w: "atelier_d4", sim: "Modèle simplifié" },
+    parts: [
+      taskD("d4", TASKL),
+      { t: "choice", c: "conn", label: "Pourquoi le robot repart-il en avant quand il arrive près de la trousse 2 ?", o: ["Ses capteurs de proximité arrière la détectent : « objet détecté derrière » déclenche « rouler en avant »", "Il touche la trousse et rebondit", "Le bouton avant est encore enfoncé"], a: 0 },
+      { t: "choice", c: "algo", label: "Que se passe-t-il si on oublie le bloc « un objet est détecté derrière » ? Teste-le !", o: ["Le robot recule jusqu'à la trousse 2 et reste bloqué contre elle", "Le robot s'arrête au milieu", "Rien ne change"], a: 0 }],
+    hints: ["Quatre blocs : le départ, la trousse devant, la trousse derrière, l'arrêt.", "Une action reste active : « rouler en arrière » fait reculer le robot… jusqu'à ce qu'un autre événement change l'action.", "Bouton avant → rouler en avant · objet devant → rouler en arrière · objet derrière → rouler en avant · bouton arrière → arrêter les moteurs."],
+    corr: "Lorsque le bouton avant est touché → rouler en avant. Lorsqu'un objet est détecté devant → rouler en arrière. Lorsqu'un objet est détecté derrière → rouler en avant. Lorsque le bouton arrière est touché → arrêter les moteurs. Sans le bloc « derrière », le robot recule sans fin et reste bloqué contre la trousse 2." },
+  { id: "c2", lvl: "hard", title: "Défi 5 · Le suiveur de ligne",
+    intro: consigne("Défi 5", "Programme Thymio pour qu'il fasse le tour de la piste noire en suivant la ligne. Sur le vrai robot, construis ta piste avec les feuilles fournies par le professeur."),
+    widget: { title: "Atelier · Le Thymio virtuel sur la piste noire", w: "atelier_d5", sim: "Modèle simplifié" },
+    parts: [
+      taskD("d5", TASKL),
+      { t: "choice", c: "voc", label: "Quels capteurs déclenchent les événements de ton programme ?", o: ["les capteurs au sol, qui voient le noir ou le blanc", "les capteurs de proximité", "les touches"], a: 0 },
+      { t: "choice", c: "algo", label: "Seul le capteur gauche voit du blanc. Que doit faire le robot ?", o: ["Tourner à droite : la ligne est à sa droite", "Tourner à gauche : la ligne est à sa gauche", "S'arrêter : la ligne est finie"], a: 0 }],
+    hints: ["C'est le programme du robot nettoyeur de l'activité 2, écrit avec des blocs.", "Si le capteur gauche voit du blanc, le robot est sorti de la ligne par la gauche : la ligne est à sa droite.", "⚫⚫ → rouler en avant · ⚪⚫ → tourner à droite · ⚫⚪ → tourner à gauche · ⚪⚪ → arrêter les moteurs."],
+    corr: "Lorsque les deux capteurs au sol voient du noir → rouler en avant. Seul le capteur gauche voit du blanc → tourner à droite. Seul le capteur droit voit du blanc → tourner à gauche. Les deux voient du blanc → arrêter les moteurs (sur cette piste en boucle, cela n'arrive que si le robot se perd)." }] },
+
+{ id: "p4", n: 4, icon: "🧹", tab: "Mission", title: "Mission : le labyrinthe jusqu'aux panneaux solaires", sub: "Étape 3 de la fiche · environ 20 minutes.",
+  items: [
+  { id: "d1", lvl: "hard", title: "Traverser le labyrinthe", recop: true,
+    intro: consigne("Mission", "Le robot est posé à l'entrée du labyrinthe ; on appuie sur le bouton avant pour lancer le programme. Ensuite, interdit de toucher le robot ou d'activer ses capteurs avec la main. Interdit aussi d'utiliser les programmes préenregistrés !") + `<div class="box key"><p class="lab">✔ Point méthode · Affiner son programme</p><p>${nb("Je teste → j'observe quel bloc est actif (il s'encadre en orange) → je change une action ou l'ordre des blocs → je teste à nouveau. Quand deux blocs se déclenchent en même temps, c'est le dernier de la liste qui commande le robot virtuel.")}</p></div>`,
+    widget: { title: "Atelier · Le labyrinthe, de la base aux panneaux solaires", w: "atelier_laby", sim: "Modèle simplifié" },
+    parts: [
+      taskD("laby", "Programme le robot, teste-le, affine tes instructions, puis fais-le vérifier par le robot-testeur : il appuie sur le bouton avant et laisse le robot seul pendant 2 minutes."),
+      { t: "choice", c: "voc", label: "Quels capteurs ton robot utilise-t-il dans le labyrinthe ?", o: ["ses capteurs de proximité", "ses capteurs au sol", "seulement ses touches"], a: 0 },
+      { t: "choice", c: "algo", label: "Pourquoi faut-il le bloc « rien n'est détecté devant → rouler en avant » ?", o: ["Une action reste active : sans lui, le robot continuerait à tourner après un virage", "Pour que le robot s'arrête à la fin", "Pour allumer le dos du robot"], a: 0 },
+      { t: "choice", c: "prog", label: "Ton robot reste bloqué contre un mur. Que fais-tu ?", o: ["J'observe quel bloc est actif, j'affine mes instructions (action, ordre des blocs), puis je teste à nouveau", "Je pousse le robot avec la main", "Je recommence le même essai sans rien changer"], a: 0 }],
+    hints: ["Dans ce labyrinthe, tous les virages tournent du même côté. Lequel ?", "Il faut aussi corriger la trajectoire : un objet à gauche → tourner à droite ; un objet à droite → tourner à gauche. Et quand rien n'est devant → rouler en avant.", "Bouton avant → rouler en avant · rien devant → rouler en avant · objet à gauche → tourner à droite · objet à droite → tourner à gauche · objet devant → tourner à droite."],
+    corr: "Une solution : lorsque le bouton avant est touché → rouler en avant ; lorsque rien n'est détecté devant → rouler en avant ; lorsqu'un objet est détecté à gauche → tourner à droite ; à droite → tourner à gauche ; devant → tourner à droite (tous les virages de ce labyrinthe tournent à droite). Le robot utilise ses capteurs de proximité. D'autres solutions existent : le robot-testeur les accepte si le robot arrive seul aux panneaux. Recopie la fiche mémo dans ton cahier." }] }
+];
+const RAPPEL = { id: "r0", lvl: "easy", title: "Échauffement",
+  parts: [
+    { t: "choice", c: "conn", label: "Un capteur…", o: ["prélève une information sur l'environnement du robot", "agit sur l'environnement du robot", "décide de ce que fait le robot"], a: 0 },
+    { t: "choice", c: "voc", label: "« SI Thymio détecte un objet devant lui ALORS il recule » : quel actionneur réalise l'action ?", o: ["les roues (moteurs)", "les capteurs de proximité", "les touches"], a: 0 },
+    { t: "choice", c: "conn", label: "Activité 2 : pour suivre la ligne noire, le robot nettoyeur utilisait…", o: ["ses capteurs au sol", "ses capteurs de proximité", "ses touches"], a: 0 }],
+  hints: ["Un capteur « sent », un actionneur agit.", "Reculer, c'est un mouvement.", "Un capteur · les roues (moteurs) · les capteurs au sol."],
+  corr: "Un capteur prélève une information sur l'environnement du robot. Les roues (leurs moteurs) réalisent le mouvement : ce sont des actionneurs. Le suiveur de ligne utilise ses capteurs au sol." };
+
+/* ===== VERSION EXPERTE : programmes construits à partir de zéro, instructions écrites ===== */
+const EXPERT = {
+r0: { parts: [
+    { t: "word", c: "conn", label: `Un ${gap} prélève une information sur l'environnement du robot.`, ans: ["capteur", "capteurs"], err: [[["actionneur", "actionneurs"], "Un actionneur agit sur l'environnement."]] },
+    { t: "word", c: "voc", label: `Les moteurs (roues), les LED et le haut-parleur sont des ${gap}.`, ans: ["actionneurs", "actionneur"], err: [[["capteurs", "capteur"], "Ils agissent : ce ne sont pas des capteurs."]] },
+    { t: "word", c: "conn", label: `Pour suivre la ligne noire, le robot utilise ses ${gap}.`, ans: ["capteurs au sol", "capteur au sol", "capteurs de sol", "capteurs du sol", "capteurs sol"] }],
+  hints: ["Un capteur « sent », un actionneur agit.", "Ils produisent un mouvement, de la lumière, un son.", "capteur · actionneurs · capteurs au sol."] },
+a0: { parts: [
+    { t: "task", c: "obs", label: "Charge et essaie les quatre programmes (place ta main autour du robot).", okMsg: "Les quatre programmes sont essayés.", done: () => { const n = Object.keys(xst().loaded || {}).length; return { ok: n >= 4, msg: `${n}/4 programmes essayés.` }; } },
+    { t: "match", c: "algo", label: "Quel comportement préenregistré chaque programme décrit-il ?", ask: "Choisis le comportement du", rows: [{ e: "A", txt: "Programme A", v: "Peureux (rouge)" }, { e: "B", txt: "Programme B", v: "Obéissant (violet)" }, { e: "C", txt: "Programme C", v: "Explorateur (jaune)" }, { e: "D", txt: "Programme D", v: "Amical (vert)" }] },
+    { t: "redac", c: "algo", min: 15, label: "Explique comment tu as reconnu le programme de l'explorateur, en citant ses instructions.",
+      crit: [{ g: "vois", lab: "Rien devant → il roule en avant", re: [RULE(CO.rien, /avanc|roul/)] }, { g: "vois", lab: "Objet d'un côté → il tourne de l'autre côté (il évite)", re: [/tourn|evit|recul/] }, { g: "sais", lab: "Tu dis qu'il se déplace seul, sans jamais s'arrêter", re: [/seul|jamais|tout le temps|toujours|sans arret|n.?arrete pas|se promene|explor|ne s.?arrete/] }],
+      model: "Dans le programme C, lorsque rien n'est détecté devant, le robot roule en avant ; lorsqu'un objet est détecté d'un côté, il tourne de l'autre côté, et lorsqu'un objet est devant, il recule. Il n'a aucun bloc « arrêter les moteurs » : il se déplace tout seul en évitant les obstacles, c'est l'explorateur." }],
+  hints: ["Charge un programme, puis place ta main devant, à gauche, à droite ou derrière le robot. Pour le programme B, touche les flèches.", "Cherche le programme qui fait rouler le robot quand il ne voit rien.", "Lorsque rien n'est détecté devant → rouler en avant ; objet à gauche → tourner à droite ; objet à droite → tourner à gauche."] },
+a1: { parts: [
+    taskD("d1", TASKL),
+    { t: "word", c: "algo", label: `La partie « lorsque … » d'un bloc s'appelle l'${gap}.`, ans: ["événement", "evenement", "évènement"], err: [[["action", "actions"], "L'action vient après : « alors … »."]] },
+    { t: "num", c: "algo", label: "Combien de blocs ton programme contient-il ?", ans: 4, err: [[v => v === 1, "Un seul bloc ne réagit qu'à une seule flèche : il en faut un par flèche."]] }],
+  hints: ["Touche « + Ajouter un bloc », puis choisis l'événement dans « Les touches ».", "Un bloc par flèche ; dans chacun, « + action » → La LED du dessus : le dos.", "4 blocs · le mot cherché : événement."] },
+a2: { parts: [
+    taskD("d2", TASKL),
+    { t: "word", c: "algo", label: `Un même événement peut déclencher plusieurs ${gap}.`, ans: ["actions", "action"] },
+    CAPACT],
+  hints: ["La touche du haut, c'est le bouton avant.", "Dans le même bloc, ajoute deux actions : le dos et le ventre.", "Lorsque le bouton avant est touché → dos rouge + ventre rouge · actions · bouton : capteur, LED : actionneurs."] },
+b1: { parts: [
+    taskD("d3", TASKL),
+    { t: "redac", c: "algo", min: 12, label: "Écris l'instruction logique qui arrête le robot.",
+      crit: [{ g: "vois", lab: "L'événement : un choc (une tape sur le dos)", re: [/choc|tape|tapant|frappe|dos/] }, { g: "vois", lab: "Arrêter les moteurs", re: [/arret|stop|immobil/] }, { g: "vois", lab: "Jouer un son", re: [/son|bip|sonne|bruit|musique|note/] }, { g: "vois", lab: "Allumer le dos en blanc", re: [/blanc/] }, SIAL],
+      model: "LORSQU'un choc est détecté (on tape sur le dos), ALORS le robot arrête ses moteurs, joue un bip et allume son dos en blanc." },
+    { t: "num", c: "algo", label: "Combien d'actions contient ce bloc ?", ans: 3 }],
+  hints: ["Chaque flèche a deux actions : un mouvement et une couleur.", "Le choc se trouve dans « Le choc ». Trois actions : moteurs, son, dos.", "Lorsqu'un choc est détecté → arrêter les moteurs + jouer un bip + dos blanc."] },
+c1: { parts: [
+    taskD("d4", TASKL),
+    { t: "redac", c: "algo", min: 20, label: "Explique pourquoi ton robot fait des allers-retours sans fin.",
+      crit: [{ g: "vois", lab: "Trousse détectée devant → il recule", re: [RULE(/devant|en face|avant/, /recul|arriere/)] }, { g: "vois", lab: "Trousse détectée derrière → il avance", re: [RULE(/derriere|arriere/, /avanc|en avant/)] }, { g: "sais", lab: "Tu nommes les capteurs de proximité", re: [/capteur/, /proximit|infra/] }, { g: "sais", lab: "Tu dis que l'action reste active jusqu'au prochain événement", re: [/(reste|continue|jusqu|toujours|garde|sans fin|tant que)/] }],
+      model: "Lorsque les capteurs de proximité avant détectent la trousse 1, alors le robot roule en arrière. Cette action reste active jusqu'à ce que les capteurs arrière détectent la trousse 2 : alors il roule en avant, jusqu'à la trousse 1, et ainsi de suite, sans fin." },
+    { t: "choice", c: "algo", label: "Que se passe-t-il si on oublie le bloc « un objet est détecté derrière » ? Teste-le !", o: ["Le robot recule jusqu'à la trousse 2 et reste bloqué contre elle", "Le robot s'arrête au milieu", "Rien ne change"], a: 0 }],
+  hints: ["Quatre blocs : le départ, la trousse devant, la trousse derrière, l'arrêt.", "Une action reste active jusqu'à ce qu'un autre événement la change.", "Bouton avant → rouler en avant · objet devant → rouler en arrière · objet derrière → rouler en avant · bouton arrière → arrêter."] },
+c2: { parts: [
+    taskD("d5", TASKL),
+    { t: "redac", c: "algo", min: 30, label: "Écris ton programme sous forme d'instructions logiques, une par ligne.",
+      crit: [R("Deux capteurs sur le noir → rouler en avant", CO.n2, AC.av), R("Capteur gauche sur le blanc → tourner à droite", CO.gb, AC.td), R("Capteur droit sur le blanc → tourner à gauche", CO.db, AC.tg), SIAL],
+      model: "LORSQUE les deux capteurs au sol voient du noir ALORS rouler en avant.<br>LORSQUE seul le capteur gauche voit du blanc ALORS tourner à droite.<br>LORSQUE seul le capteur droit voit du blanc ALORS tourner à gauche.<br>LORSQUE les deux capteurs voient du blanc ALORS arrêter les moteurs." }],
+  hints: ["C'est le programme du robot nettoyeur de l'activité 2, avec des blocs « Les capteurs au sol ».", "Si le capteur gauche voit du blanc, la ligne est à la droite du robot.", "⚫⚫ → rouler en avant · ⚪⚫ → tourner à droite · ⚫⚪ → tourner à gauche · ⚪⚪ → arrêter."] },
+d1: { parts: [
+    taskD("laby", "Programme le robot, teste-le, affine tes instructions, puis fais-le vérifier par le robot-testeur : il appuie sur le bouton avant et laisse le robot seul pendant 2 minutes."),
+    { t: "redac", c: "algo", min: 30, label: "Écris ton programme sous forme d'instructions logiques, une par ligne.",
+      crit: [{ g: "vois", lab: "Le bouton avant lance le robot", re: [/bouton|touche|fleche/, /avan|lance|demarr|roul/] }, R("Rien devant → rouler en avant", CO.rien, AC.av), R("Objet devant → tourner", CO.dev, AC.tr), { g: "vois", lab: "Objet d'un côté → tourner de l'autre côté", re: [(T, n) => RULE(CO.ga, AC.td)(T, n) || RULE(CO.dr, AC.tg)(T, n)] }, SIAL],
+      model: "LORSQUE le bouton avant est touché ALORS rouler en avant.<br>LORSQUE rien n'est détecté devant ALORS rouler en avant.<br>LORSQU'un objet est détecté à gauche ALORS tourner à droite.<br>LORSQU'un objet est détecté à droite ALORS tourner à gauche.<br>LORSQU'un objet est détecté devant ALORS tourner à droite." },
+    { t: "choice", c: "voc", label: "Quels capteurs ton robot utilise-t-il dans le labyrinthe ?", o: ["ses capteurs de proximité", "ses capteurs au sol", "seulement ses touches"], a: 0 }],
+  hints: ["Observe le labyrinthe : tous les virages tournent du même côté.", "Une action reste active : après un virage, il faut un bloc pour repartir tout droit. Et pour ne pas frotter les murs, corrige la trajectoire avec les capteurs de gauche et de droite.", "Bouton avant → rouler en avant · rien devant → rouler en avant · objet à gauche → tourner à droite · objet à droite → tourner à gauche · objet devant → tourner à droite."] }
+};
+[RAPPEL, ...GROUPS.flatMap(g => g.items)].forEach(it => { if (EXPERT[it.id]) it.L = EXPERT[it.id]; });
+const RESUME = `Le problème : ${PROBLEM}\n${HOME.goal}\n\nFiche mémo à recopier\n${BIL.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}`;
+typo(GROUPS); typo(RAPPEL);
+
+/* ===== Moteur « parcours à étapes, deux versions » (dérivé de bio.js) · navigation, questions, correction, bilan =====
+   Données attendues : HOME (avec HOME.vers ; HOME.howL facultatif : consignes de la version exigeante dans le mode d'emploi), GROUPS, RAPPEL, RESUME, bilanHTML, EXPERT (blocs de la version exigeante), WID. */
+const LV = { easy: ["🟢 Facile", "easy", "🟢"], mid: ["🟡 Moyen", "mid", "🟡"], hard: ["🔴 Défi", "hard", "🔴"] };
+const COMPS = HOME.comps;
+const SIGN = "Mr Moreira, Vauban Luxembourg";
+const ITEMS = {};
+GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `Partie ${g.n} (${g.tab}) · étape ${i + 1} · ${it.title}` }; }));
+ITEMS.r0 = { it: RAPPEL, g: null, i: 0, label: "Accueil · " + RAPPEL.title };
+
+/* ---------- état ---------- */
+const DEF = { fs: 21, theme: null, proj: false, it: {}, itL: {}, mode: "g", view: "accueil", step: {}, x: {} };
+let S = Store.load(DEF);
+["it", "itL", "step", "x"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+/* ---------- deux versions dans le même fichier : guidée (g) ou exigeante (l) ---------- */
+{ const q = new URLSearchParams(location.search).get("version"); if (q === HOME.vers.l.q || q === "lycee" || q === "experte") S.mode = "l"; else if (q === HOME.vers.g.q || q === "guidee") S.mode = "g"; else if (S.mode !== "l") S.mode = "g"; }
+const EXP = () => S.mode === "l";
+const IT = () => EXP() ? S.itL : S.it;
+const ALLIT = [RAPPEL, ...GROUPS.flatMap(g => g.items)];
+ALLIT.forEach(it => { it.G = { parts: it.parts, hints: it.hints, pre: it.pre, intro: it.intro, corr: it.corr }; });
+function applyMode() { ALLIT.forEach(it => Object.assign(it, it.G, EXP() && it.L ? it.L : {})); document.documentElement.classList.toggle("exp", EXP()); }
+applyMode();
+const VX = () => HOME.vers[EXP() ? "l" : "g"], VNAME = () => VX().name;
+const save = () => Store.save(S);
+const scorable = p => p.t !== "text";
+function itState(id) { if (!IT()[id]) IT()[id] = { v: {}, hints: 0, crit: {} }; return IT()[id]; }
+const pw = p => p.t === "redac" ? p.crit.length : 1;
+const itemMax = it => it.parts.filter(scorable).reduce((n, p) => n + pw(p), 0);
+const rpts = r => r ? (r.pts !== undefined ? r.pts : r.ok ? 1 : 0) : 0;
+const corrShown = st => !!(st && st.first && (st.lastOk || (st.tries || 0) >= 2));
+function status(it) { const st = IT()[it.id]; if (!st || !st.first) return ["", "à faire"]; if (!itemMax(it)) return ["✓", "rédigé"]; return st.first.pts === st.first.max ? ["✓", "réussi au premier essai"] : ["◐", st.first.pts + "/" + st.first.max + " au premier essai"]; }
+
+/* ---------- vérification ---------- */
+const stripUnit = s => String(s === undefined || s === null ? "" : s).replace(/[\s  ]*[a-zA-Zéèµ°%²³₂][\sa-zA-Zéèµ°%²³₂.\/  ]*$/, "");
+const nzT = s => String(s === undefined || s === null ? "" : s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/Œ/g, "Oe").replace(/[’`]/g, "'").replace(/\s+/g, " ").trim();
+const nWords = s => (String(s || "").match(/[A-Za-zÀ-ÿ0-9]+/g) || []).length;
+const critHit = (c, T) => { const n = T.toLowerCase(); return [].concat(c.re).every(x => typeof x === "function" ? x(T, n) : x.test(n)); };
+const GK = Object.assign({ vois: "Je vois", sais: "Je sais", deduis: "J'en déduis" }, HOME.gk || {});
+function checkPart(p, val, self) {
+  if (p.t === "phase") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Dessine chaque Lune (touche « Rien d'éclairé » si aucune partie éclairée n'est visible)." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} Lune(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les Lunes sont justes." }; }
+  if (p.t === "redac") {
+    const T = nzT(val), min = p.min || 12;
+    if (!T) return { ok: false, empty: true, pts: 0, msg: "Réponse rédigée manquante." };
+    if (nWords(val) < min) return { ok: false, empty: true, pts: 0, msg: `Réponse rédigée trop courte : écris au moins ${min} mots, en phrases complètes.` };
+    const auto = p.crit.map(c => critHit(c, T)), hits = auto.map((h, i) => h || !!(self && self[i])), n = hits.filter(Boolean).length;
+    const cats = Object.keys(GK).filter(g => p.crit.some(c => c.g === g)).map(g => `${GK[g].toLowerCase()} ${p.crit.filter((c, i) => c.g === g && hits[i]).length}/${p.crit.filter(c => c.g === g).length}`).join(" · ");
+    return { ok: n === hits.length, pts: n, hits, auto, msg: n === hits.length ? `✓ ${n}/${n} éléments attendus repérés dans ta réponse.` : `◐ ${n}/${hits.length} éléments attendus repérés (${cats}).` };
+  }
+  if (p.t === "list") {
+    const n = nzT(val).toLowerCase(); if (!n) return { ok: false, empty: true, msg: "Réponse manquante." };
+    const found = p.need.filter(x => x.re.test(n)).length, extra = (p.bad || []).filter(x => x.re.test(n)).length;
+    if (found === p.need.length && !extra) return { ok: true, msg: `✓ Juste : ${found} élément(s) attendu(s), aucun en trop.` };
+    return { ok: false, msg: "✗ Pas encore : " + [`${found}/${p.need.length} élément(s) attendu(s) repéré(s)`, extra ? `${extra} élément(s) cité(s) à tort` : ""].filter(Boolean).join(" · ") + "." };
+  }
+  if (p.t === "word") {
+    const r = fuzzy(val, p.ans); if (r.empty) return { ok: false, empty: true, msg: "Réponse manquante." };
+    if (r.ok) return { ok: true, msg: (r.typo || (p.spell && normTxt(val) !== normTxt(p.ans[0]))) ? `✓ Juste. Orthographe exacte : « ${p.ans[0]} ».` : "✓ Juste." };
+    for (const [alts, m] of (p.err || [])) if (fuzzy(val, alts).ok) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : réfléchis encore, puis utilise un coup de pouce si besoin." };
+  }
+  if (p.t === "num") {
+    if (val === undefined || String(val).trim() === "") return { ok: false, empty: true, msg: "Réponse manquante." };
+    let v = parseNum(val); if (!Number.isFinite(v)) v = parseNum(stripUnit(val));
+    if (!Number.isFinite(v)) { const wv = ({ deux: 2, quatre: 4, huit: 8 })[normTxt(val)]; if (wv !== undefined) v = wv; }
+    if (!Number.isFinite(v)) return { ok: false, msg: "✗ Écris un nombre (la virgule est acceptée)." };
+    const A = [].concat(typeof p.ans === "function" ? p.ans() : p.ans);
+    if (A.some(a => near(v, a, p.tol || 0, 0))) return { ok: true, msg: "✓ Juste." };
+    for (const [f, m] of (p.err || [])) if (f(v)) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : vérifie ta lecture ou ton calcul." };
+  }
+  if (p.t === "choice") { if (val === undefined || val === null) return { ok: false, empty: true, msg: "Choisis une réponse." }; return val === p.a ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Faux. " + ((p.no && p.no[val]) || "Ce n'est pas la bonne proposition.") }; }
+  if (p.t === "multi") { const s = (val || []).slice().sort().join(","); if (!s) return { ok: false, empty: true, msg: "Choisis au moins une réponse." }; return s === p.a.slice().sort().join(",") ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Pas encore : il y a " + p.a.length + " bonnes réponses." }; }
+  if (p.t === "match") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Complète chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Tout est bien relié." }; }
+  if (p.t === "rows") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Réponds à chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} ligne(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les lignes sont justes." }; }
+  if (p.t === "order") { const v = val || []; if (v.length < p.keys.length) return { ok: false, empty: true, msg: "Place toutes les images." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} image(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Ordre juste." }; }
+  if (p.t === "shot") {
+    if (val === undefined || val === null) return { ok: false, empty: true, msg: "Photo manquante." };
+    const w = SHOTWIN[p.ph]; if (val >= w[0] && val <= w[1]) return { ok: true, msg: "✓ Bonne photo." };
+    const other = Object.entries(SHOTWIN).find(([k, x]) => k !== p.ph && val >= x[0] && val <= x[1]);
+    const NM = { pro: "la prophase : les chromosomes sont visibles, mais pas encore alignés", meta: "la métaphase : les chromosomes sont alignés au milieu", ana: "l'anaphase : les bâtonnets sont en train de s'écarter", telo: "la télophase : les bâtonnets sont déjà arrivés aux pôles" };
+    if (other) return { ok: false, msg: "✗ Faux. Ta photo montre " + NM[other[0]] + "." };
+    return { ok: false, msg: val < 0.3 ? "✗ Trop tôt : les chromosomes ne sont pas encore bien visibles." : val > 0.8 ? "✗ Trop tard : la cellule est déjà en train de se couper en deux." : "✗ Presque : ta photo est prise entre deux étapes. Avance ou recule un peu." };
+  }
+  if (p.t === "task") { const r = p.done(); return r.ok ? { ok: true, msg: "✓ " + p.okMsg } : { ok: false, empty: true, msg: "Termine d'abord la manipulation." }; }
+  if (p.t === "loop") { const v = val || []; if (v.length < p.items.length) return { ok: false, empty: true, msg: "Place toutes les étiquettes." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Boucle juste." }; }
+  return { ok: true, msg: "" };
+}
+function order(key, n) { const base = Array.from({ length: n }, (_, i) => i); let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) & 0x7fffffff; let r = shuffle(base, h); if (r.every((x, i) => x === i)) r = r.reverse(); return r; }
+
+/* ---------- documents ---------- */
+function docHTML(d) {
+  return `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${d.title}</span>${d.sim ? `<span class="sim">⚠ ${d.sim}</span>` : ""}</figcaption><div class="db">${d.html || ""}${d.w ? `<div data-w="${d.w}"></div>` : ""}${d.fig ? `<div class="figbox" data-fig="${d.fig}"></div>` : ""}${d.cap ? `<p class="cap">${d.cap}</p>` : ""}</div></figure>`;
+}
+function mountFigs(root) { $$("[data-w]", root).forEach(el => { if (el.dataset.mounted) return; el.dataset.mounted = "1"; WID[el.dataset.w](el); }); }
+
+/* ---------- navigation ---------- */
+const VIEWS = ["accueil", ...GROUPS.map(g => g.id), "bilan"];
+const grp = id => GROUPS.find(g => g.id === id);
+function gScore(g) { let pts = 0, max = 0, done = 0; g.items.forEach(it => { const st = IT()[it.id]; max += itemMax(it); if (st && st.first) { pts += st.first.pts; done++; } }); return { pts, max, done, n: g.items.length }; }
+function tabs() {
+  $("#tabs").innerHTML = VIEWS.map(v => {
+    if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Accueil</button>`;
+    if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Bilan</button>`;
+    const g = grp(v), sc = gScore(g);
+    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n} · ${g.tab}<span class="dot" aria-label="${sc.done} étape(s) faite(s) sur ${sc.n}">${sc.done}/${sc.n}</span></button>`;
+  }).join("");
+  $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
+  const tx = $("#tabx"); if (tx) { tx.innerHTML = `<button type="button" class="vchip" aria-label="${VNAME()} : changer de version">${VX().icon}<span class="vl"> ${VX().short}</span></button>`; tx.firstChild.onclick = () => { go("accueil"); const n = $("#vers"); if (n) { n.scrollIntoView({ block: "center" }); const b = $("[aria-checked='true']", n); if (b) b.focus(); } }; }
+}
+function setMode(m) { if (m === S.mode) return; S.mode = m; save(); applyMode(); go("accueil", true); const b = $(`#vers [data-mode="${m}"]`); if (b) b.focus(); }
+function go(v, noScroll) {
+  if (!VIEWS.includes(v)) v = "accueil";
+  S.view = v; save(); tabs();
+  if (location.hash !== "#" + v) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  const m = $("#main");
+  if (v === "accueil") renderHome(m); else if (v === "bilan") renderBilan(m); else renderGroup(m, grp(v));
+  if (!noScroll) window.scrollTo(0, 0);
+  const cur = $("#tabs [aria-current]"); if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+/* ---------- accueil ---------- */
+function renderHome(m) {
+  m.innerHTML = `<section class="view">
+    <div class="panel"><p class="kicker">${HOME.kicker}</p><h2 class="sec-title">${HOME.title}</h2>
+      <p>${nb(HOME.intro)}</p>
+      <div class="box info"><p class="lab">ℹ ${HOME.lab}</p><p><b>${nb(PROBLEM)}</b></p><p>${nb(HOME.goal)}</p></div>
+      <div class="box warn"><p class="lab">⚠ Le savais-tu ?</p><p>${nb(HOME.fact)}</p></div></div>
+    <div class="panel" id="vers"><p class="kicker">Choisis ta version</p>
+      <div class="vers" role="radiogroup" aria-label="Version de l'activité">
+        <button class="card-btn" type="button" role="radio" aria-checked="${!EXP()}" data-mode="g"><span class="t">${HOME.vers.g.icon} ${HOME.vers.g.name} ${!EXP() ? `<span class="chip ok">✓ choisie</span>` : ""}</span><span class="m">${HOME.vers.g.desc}</span></button>
+        <button class="card-btn" type="button" role="radio" aria-checked="${EXP()}" data-mode="l"><span class="t">${HOME.vers.l.icon} ${HOME.vers.l.name} ${EXP() ? `<span class="chip ok">✓ choisie</span>` : ""}</span><span class="m">${HOME.vers.l.desc}</span></button>
+      </div>
+      <p class="lead">Tu peux changer de version à tout moment : tes manipulations sont conservées, et chaque version garde ses réponses et son score.</p></div>
+    <article class="panel itemroot" id="item"></article>
+    <div><p class="kicker">${HOME.parts}</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Partie ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div class="panel"><p class="kicker">Mode d'emploi</p>
+      <ul class="ul">
+        <li>Fais les parties <b>dans l'ordre</b>, de 1 à ${GROUPS.length}${HOME.dur ? " : " + HOME.dur : ""}.</li>
+        <li>Chaque étape contient une <b>manipulation</b> ou une <b>animation</b> : réalise-la avant de répondre.</li>
+        ${EXP() ? (HOME.howL || `<li>Rédige en phrases complètes, avec la méthode <b>je vois → je sais → j'en déduis</b>. Touche <b>Vérifier</b> : l'application repère les éléments attendus dans ta réponse (un point par élément). Seul le premier essai compte, puis tu complètes librement.</li>
+        <li>Le repérage est automatique (mots-clés) : ton professeur lit tes réponses rédigées dans ton bilan.</li>`) : `<li>Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>`}
+        <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un.</li>
+        <li>À la fin, l'onglet <b>Bilan</b> affiche le bilan de l'activité et te permet de télécharger ton résultat.</li>
+      </ul></div>
+  </section>`;
+  $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
+  $$("[data-mode]", m).forEach(b => b.onclick = () => setMode(b.dataset.mode));
+  renderItem(RAPPEL, $("#item"));
+}
+
+/* ---------- vue d'un atelier ---------- */
+function indDone(ind) { return ind.items.every(id => { const st = IT()[id]; return st && st.first && (st.lastOk || !itemMax(ITEMS[id].it)); }); }
+function renderGroup(m, g) {
+  const k = Math.max(0, Math.min(g.items.length - 1, S.step[g.id] || 0)), it = g.items[k], gi = GROUPS.indexOf(g);
+  m.innerHTML = `<section class="view"><div><p class="kicker">Partie ${g.n} · ${VNAME()}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
+    ${(g.inds || []).length ? `<div class="panel"><p class="kicker">Indicateurs de réussite</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
+    <div class="stepper" role="group" aria-label="Étapes">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
+    <article class="panel itemroot" id="item"></article>
+    <div class="row" id="navx"></div></section>`;
+  $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
+  renderItem(it, $("#item"));
+  const nx = $("#navx"), nextG = GROUPS[gi + 1];
+  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Étape ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Étape ${k + 2} →</button>` : nextG ? `<button class="btn" type="button" data-c>${nextG.icon} Partie ${nextG.n} →</button>` : `<button class="btn" type="button" data-b>Voir mon bilan →</button>`}`;
+  const st = d => { S.step[g.id] = k + d; save(); renderGroup(m, g); window.scrollTo(0, 0); };
+  const a = $("[data-p]", nx); if (a) a.onclick = () => st(-1);
+  const b = $("[data-n]", nx); if (b) b.onclick = () => st(1);
+  const c = $("[data-c]", nx); if (c) c.onclick = () => go(nextG.id);
+  const d = $("[data-b]", nx); if (d) d.onclick = () => go("bilan");
+}
+function refreshChrome(it) {
+  tabs(); const g = ITEMS[it.id].g; if (!g) return;
+  $$(".stepper button").forEach((b, i) => { const x = g.items[i], s = status(x); b.innerHTML = `${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}`; b.setAttribute("aria-label", `Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}`); });
+  if (0) $$(".inds li").forEach((li, i) => { const d = g.inds[i], ok = indDone(d); li.classList.toggle("done", ok); $(".bx", li).textContent = ok ? "✓" : ""; $(".st", li).textContent = ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et "); });
+}
+
+/* ---------- une étape ---------- */
+let CUR = null;
+function refreshTasks() { if (!CUR || !document.body.contains(CUR.root)) return; CUR.it.parts.forEach((p, k) => { if (p.t === "task") { const n = $(`.part[data-k="${k}"] [data-task]`, CUR.root); if (n) n.innerHTML = p.done().msg; } }); }
+function renderItem(it, root) {
+  CUR = { it, root };
+  const id = it.id, st = itState(id), lvl = LV[it.lvl], locked = it.pre && st.pre === undefined;
+  root.innerHTML = `<p class="lv ${lvl[1]}">${lvl[0]}</p><h3 class="item-title">${it.title}</h3>${it.intro ? `<p>${it.intro}</p>` : ""}${(it.docs || []).map(docHTML).join("")}
+    ${it.pre ? `<div class="hypo" id="hypo"></div>` : ""}
+    ${it.live ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.liveTitle}</span></figcaption><div class="db"><div class="figbox" id="livefig"></div></div></figure>` : ""}
+    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Donne d'abord ton hypothèse : la manipulation se débloque ensuite.</p>` : ""}</div></figure>` : ""}
+    <div class="parts ${it.parts.every(p => p.t === "shot") ? "grid4" : ""}" style="display:grid;gap:.9rem" ${locked ? "hidden" : ""}>${it.parts.map((p, k) => `<div class="part" data-k="${k}"></div>`).join("")}</div>
+    <div class="row acts" ${locked ? "hidden" : ""}></div><div class="gfb" aria-live="polite"></div>
+    <div class="hints hz"></div><div class="after" style="display:grid;gap:.9rem"></div><div class="unl"></div>`;
+  mountFigs(root);
+  if (it.pre) paintPre(it, root);
+  if (it.widget && !locked) WID[it.widget.w]($("#wz", root));
+  if (it.live) root._live = liveSVG($("#livefig", root), (W, F) => LIVE[it.live](W, F, IT()[id].v));
+  it.parts.forEach((p, k) => renderPart(it, k, root));
+  paintActions(it, root);
+}
+function paintPre(it, root) {
+  const st = IT()[it.id], h = $("#hypo", root), fixed = !!st.first, shown = corrShown(st), pre = it.pre, good = pre.num ? st.pre === pre.n : st.pre === pre.a;
+  const tail = shown && st.pre !== undefined ? `<p class="pfb ${good ? "ok" : ""}">${good ? (pre.yes || "✓ Tu avais raison : ton hypothèse est confirmée.") : (pre.nope || "↻ Tu as révisé ton hypothèse de départ : c'est ainsi que l'on progresse.")}</p>` : fixed ? `<p class="lead">Hypothèse enregistrée.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothèse enregistrée : tu peux encore la changer avant de vérifier.</p>`;
+  const done = was => { save(); if (was) renderItem(it, root); else paintPre(it, root); };
+  if (pre.num) {
+    h.innerHTML = `<p class="hl" id="preL">🤔 ${pre.label} <span class="ctag">non noté</span></p><div class="row"><input class="inp" id="preN" inputmode="numeric" autocomplete="off" aria-labelledby="preL" value="${st.pre === undefined ? "" : st.pre}" ${fixed ? "disabled" : ""}><span class="unit">${pre.unit || ""}</span>${fixed ? "" : `<button type="button" class="btn" data-preok>Enregistrer mon hypothèse</button>`}</div><p class="pfb bad" id="preE" aria-live="polite"></p>${tail}`;
+    const ok = $("[data-preok]", h), inp = $("#preN", h);
+    const reg = () => { const v = parseNum(inp.value); if (!Number.isFinite(v) || v < 1 || v !== Math.round(v)) { $("#preE", h).textContent = "Écris un nombre entier."; return; } const was = st.pre === undefined; st.pre = v; done(was); const n = $(was ? ".parts textarea, .parts input, #wz button" : "[data-preok]", root); if (n) n.focus(); };
+    if (ok) { ok.onclick = reg; inp.addEventListener("keydown", ev => { if (ev.key === "Enter") reg(); }); }
+    return;
+  }
+  h.innerHTML = `<p class="hl">🤔 ${pre.label} <span class="ctag">non noté</span></p><div class="opts" role="radiogroup">${pre.o.map((o, j) => `<button type="button" class="opt" role="radio" aria-checked="${st.pre === j}" data-h="${j}" ${fixed ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div>${tail}`;
+  $$("[data-h]", h).forEach(b => b.onclick = () => { const was = st.pre === undefined; st.pre = +b.dataset.h; done(was); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); });
+}
+function renderPart(it, k, root) {
+  const id = it.id, p = it.parts[k], st = IT()[id], box = $(`.part[data-k="${k}"]`, root), v = st.v[k], pid = `${id}-p${k}`;
+  const checked = !!st.checked; const r = checked && scorable(p) ? checkPart(p, v, st.self && st.self[k]) : null;
+  let h = `<p class="pl" id="${pid}-l"><span class="muted">${k + 1}.</span> ${p.label} <span class="ctag">${COMPS[p.c || "conn"]}</span></p>${p.th ? `<div class="th" style="max-width:12rem;border-radius:10px;overflow:hidden;background:var(--surface-2)">${thumb(TAUREF[p.th])}</div>` : ""}`;
+  const okc = r ? (r.ok ? "is-ok" : "is-bad") : "";
+  if (p.t === "num") h += `<div class="row"><input id="${pid}" class="inp ${okc}" inputmode="decimal" autocomplete="off" aria-labelledby="${pid}-l" value="${esc(v || "")}"><span class="unit">${p.unit || ""}</span></div>`;
+  if (p.t === "word") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="${pid}-l" value="${esc(v || "")}" style="max-width:22rem"></div>`;
+  if (p.t === "choice") h += `<div class="opts" role="radiogroup" aria-labelledby="${pid}-l">${p.o.map((o, j) => { let cls = "", t = ""; if (checked && v === j) { cls = j === p.a ? "is-ok" : "is-bad"; t = j === p.a ? "✓ Juste" : "✗ Faux"; } return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${v === j}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${o}</span>${t ? `<span class="tag">${t}</span>` : ""}</button>`; }).join("")}</div>`;
+  if (p.t === "multi") h += `<div class="opts" role="group" aria-labelledby="${pid}-l">${p.o.map((o, j) => { const on = (v || []).includes(j); return `<button type="button" class="opt" aria-pressed="${on}" aria-checked="${on}" data-j="${j}"><span class="k" style="border-radius:6px">${on ? "✓" : ""}</span><span>${o}</span></button>`; }).join("")}</div>`;
+  if (p.t === "match") {
+    const cur = v || {}, used = Object.values(cur), ord = order(id + k, p.rows.length); let sel = box._sel; if (sel === undefined || cur[sel] !== undefined) sel = p.rows.findIndex((r, i) => cur[i] === undefined);
+    box._sel = sel;
+    h += `<div class="match">${p.rows.map((r, i) => { const has = cur[i] !== undefined, cls = checked && has ? (cur[i] === i ? "is-ok" : "is-bad") : ""; return `<button type="button" class="mrow ${cls}" data-mi="${i}" aria-pressed="${sel === i}"><span class="me" aria-hidden="true">${r.e}</span><span class="mn">${r.txt}</span><span class="mv ${has ? "has" : ""}">${has ? p.rows[cur[i]].v : "?"}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div>
+      <p class="lead">${sel >= 0 ? `${p.ask || "Choisis l'étiquette de"} : <b>${p.rows[sel].txt}</b>` : "Touche une ligne pour changer son étiquette."}</p><div class="chips">${ord.filter(j => !used.includes(j)).map(j => `<button type="button" class="chipb" data-mj="${j}">${p.rows[j].v}</button>`).join("")}</div>`;
+  }
+  if (p.t === "rows") h += `<div class="rows">${p.rows.map((row, i) => { const cur = (v || {})[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${(row.o || p.choices).map((c, j) => { const cls = checked && cur === j ? (j === row.a ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" aria-pressed="${cur === j}" data-i="${i}" data-j="${j}">${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${c}</button>`; }).join("")}</div></div>`; }).join("")}</div>`;
+  if (p.t === "order") {
+    const ord = order(id + k, p.keys.length), chosen = v || [];
+    h += `<div class="order-list pics">${ord.map(j => { const pos = chosen.indexOf(j); const cls = checked && pos >= 0 ? (pos === j ? "is-ok" : "is-bad") : ""; return `<button type="button" class="order-item ${cls}" data-j="${j}" ${pos >= 0 ? `data-pos="${pos + 1}"` : ""} aria-label="${esc(p.alts[j])}${pos >= 0 ? ", placée en position " + (pos + 1) : ""}"><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span class="th">${thumb(TAUREF[p.keys[j]])}</span>${cls ? `<span class="tag" style="margin-left:auto;font-weight:800">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div><div class="row"><button type="button" class="btn ghost" data-clear>Effacer l'ordre</button><span class="lead">Touche une image placée pour la retirer.</span></div>`;
+  }
+  if (p.t === "shot") {
+    const has = v !== undefined && v !== null;
+    h += `<div class="shot"><div class="frame ${has ? "has" : ""} ${okc}">${has ? thumb(v) : "Pas encore de photo"}</div><div class="row"><button type="button" class="btn" data-shot aria-label="${has ? "Refaire la photo" : "Prendre la photo"}">📸 ${has ? "Refaire" : "Photo"}</button></div></div>`;
+  }
+  if (p.t === "loop") {
+    const chosen = v || [], ord = order(id + k, p.items.length), solved = checked && r && r.ok;
+    h += `<div class="loopd"><span class="lhead" aria-hidden="true">▶</span><div class="lslot fixed"><span class="n">1</span><span>${p.start}</span></div>${p.items.map((_, i) => { const j = chosen[i], cls = checked && j !== undefined ? (j === i ? "is-ok" : "is-bad") : ""; return `<div class="larr" aria-hidden="true">↓</div><button type="button" class="lslot ${j !== undefined ? "filled" : ""} ${cls}" data-slot="${i}" ${j === undefined ? "disabled" : ""} aria-label="Case ${i + 2} : ${j !== undefined ? esc(p.items[j]) + ". Toucher pour retirer." : "vide"}"><span class="n">${i + 2}</span><span>${j !== undefined ? p.items[j] : `<span class="muted">…</span>`}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}<p class="lret">↺ ${solved ? p.back + " : retour à la case 1." : "puis retour à la case 1 : la boucle est bouclée."}</p></div>
+      <div class="bank">${ord.filter(j => !chosen.includes(j)).map(j => `<button type="button" class="order-item" data-j="${j}"><span class="n">+</span><span>${p.items[j]}</span></button>`).join("")}</div><p class="lead">Touche une étiquette pour la placer dans la première case libre. Touche une case remplie pour la vider.</p>`;
+  }
+  if (p.t === "task") h += `<p class="task ${okc}" data-task>${p.done().msg}</p>`;
+  if (p.t === "phase") h += `<div class="phg">${p.rows.map((row, i) => { const cur = (v || {})[i], has = cur !== undefined, L = has && (cur & 2), R = has && (cur & 1), cls = checked && has ? (cur === row.a ? "is-ok" : "is-bad") : ""; return `<div class="phr ${cls}" role="group" aria-label="${esc(row.txt)}"><p class="pht">${row.txt}</p><div class="moon ${has ? "" : "unset"}"><button type="button" class="mh l" data-i="${i}" data-b="2" aria-pressed="${!!L}" aria-label="${esc(row.txt)} : moitié gauche, ${L ? "éclairée" : "sombre"}"></button><button type="button" class="mh r" data-i="${i}" data-b="1" aria-pressed="${!!R}" aria-label="${esc(row.txt)} : moitié droite, ${R ? "éclairée" : "sombre"}"></button></div><p class="phd">${has ? PH_TXT[cur] : "Pas encore dessinée"}</p><button type="button" class="btn ghost phz" data-i="${i}" data-b="0" aria-pressed="${has && cur === 0}">🌑 Rien d'éclairé</button>${cls ? `<p class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</p>` : ""}</div>`; }).join("")}</div><p class="lead">Touche une moitié pour l'éclairer ou l'assombrir.</p>`;
+  if (p.t === "list") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" aria-labelledby="${pid}-l" value="${esc(v || "")}" placeholder="${esc(p.ph || "élément 1, élément 2, …")}" style="max-width:none;flex:1 1 16rem"></div><p class="lead">Écris seulement les éléments présents, séparés par des virgules.</p>`;
+  if (p.t === "redac") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead wc" data-wc></p>`;
+  if (p.t === "text") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead">Après validation : réponse modèle et grille d'auto-évaluation.</p>`;
+  const shownC = corrShown(st);
+  let grid = "";
+  if (p.t === "redac" && r && r.hits) grid = `<ul class="grille">${p.crit.map((c, i) => { const hit = r.hits[i], mine = hit && !r.auto[i]; return `<li class="${hit ? "ok" : "no"}"><span class="gk">${GK[c.g]}</span><span class="gl">${c.lab}</span><span class="gt">${mine ? "✓ validé par toi" : hit ? "✓ repéré" : "✗ non repéré"}</span>${!hit && shownC ? `<button type="button" class="btn ghost gs" data-self="${i}">Ma réponse le contient</button>` : ""}</li>`; }).join("")}</ul>`;
+  h += `<div class="pfbw" aria-live="polite">${r ? `<p class="pfb ${r.ok ? "ok" : p.t === "redac" && !r.empty ? "mid" : "bad"}">${r.msg}</p>` : ""}${grid}</div>`;
+  if (p.t === "redac" && shownC) h += `<div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${p.model}</p></div><p class="lead">Le repérage est automatique (mots-clés) et peut se tromper. Compare ta réponse à la réponse modèle : si un élément marqué ✗ figure bien dans ta réponse, valide-le toi-même. Ton professeur lit ta réponse dans ton bilan.</p>`;
+  box.innerHTML = h;
+  const setV = (val, rerender) => { st.v[k] = val; save(); if (rerender) renderPart(it, k, root); if (root._live) root._live.draw(); };
+  const clear = () => { $$(".is-ok,.is-bad", box).forEach(x => x.classList.remove("is-ok", "is-bad")); const f = $(".pfbw", box); if (f) f.innerHTML = ""; };
+  const refocus = sel => { const n = box.querySelector(sel); if (n) n.focus(); };
+  if (p.t === "redac") { const wc = $("[data-wc]", box), ta = box.querySelector("textarea"), up = () => { const n = nWords(ta.value), min = p.min || 12; wc.textContent = `${n} mot(s) · au moins ${min} mots attendus.`; }; up(); ta.addEventListener("input", up);
+    $$("[data-self]", box).forEach(b => b.onclick = () => { const i = +b.dataset.self; st.self = st.self || {}; st.self[k] = st.self[k] || {}; st.self[k][i] = true; const e = evalItem(it, st); st.lastPts = e.pts; st.lastOk = e.pts === itemMax(it); save(); renderPart(it, k, root); paintActions(it, root); refreshChrome(it); const n = $(`.part[data-k="${k}"] [data-self], .part[data-k="${k}"] textarea`, root); if (n) n.focus(); }); }
+  if (["num", "text", "word", "list", "redac"].includes(p.t)) { const inp = box.querySelector("input,textarea"); inp.addEventListener("input", () => { setV(inp.value, false); clear(); }); if (p.t !== "text" && p.t !== "redac") inp.addEventListener("keydown", ev => { if (ev.key === "Enter") { const b = $(".acts [data-check]", root); if (b) b.click(); } }); }
+  if (p.t === "choice") $$(".opt", box).forEach(b => b.onclick = () => { setV(+b.dataset.j, true); refocus(`.opt[data-j="${b.dataset.j}"]`); });
+  if (p.t === "multi") $$(".opt", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); });
+  if (p.t === "match") {
+    $$("[data-mi]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = +b.dataset.mi; delete cur[i]; box._sel = i; setV(cur, true); refocus(`[data-mi="${i}"]`); });
+    $$("[data-mj]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = box._sel; if (i === undefined || i < 0) return; cur[i] = +b.dataset.mj; box._sel = undefined; setV(cur, true); refocus(".chipb") || refocus(".mrow"); });
+  }
+  if (p.t === "phase") $$("[data-b]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}), i = +b.dataset.i, bit = +b.dataset.b; cur[i] = bit ? ((cur[i] || 0) ^ bit) : 0; setV(cur, true); refocus(`[data-i="${i}"][data-b="${bit}"]`); });
+  if (p.t === "rows") $$(".seg button", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); cur[+b.dataset.i] = +b.dataset.j; setV(cur, true); refocus(`[data-i="${b.dataset.i}"][data-j="${b.dataset.j}"]`); });
+  if (p.t === "order") { $$(".order-item", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); }); box.querySelector("[data-clear]").onclick = () => setV([], true); }
+  if (p.t === "shot") box.querySelector("[data-shot]").onclick = () => { setV(CELL.tau, true); refocus("[data-shot]"); };
+  if (p.t === "loop") {
+    $$(".bank [data-j]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.push(+b.dataset.j); setV(cur, true); refocus(".bank [data-j]") || refocus(`[data-slot="${cur.length - 1}"]`); });
+    $$("[data-slot]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.splice(+b.dataset.slot, 1); setV(cur, true); refocus(".bank [data-j]"); });
+  }
+}
+
+function evalItem(it, st) { const res = it.parts.map((p, k) => scorable(p) ? checkPart(p, st.v[k], st.self && st.self[k]) : null); return { res, pts: res.reduce((n, r) => n + rpts(r), 0) }; }
+function recopHTML() { return `<div class="recop"><p class="lab">✔ ${HOME.recop}</p>${bilanHTML()}</div>`; }
+
+function paintActions(it, root) {
+  const id = it.id, st = IT()[id]; const acts = $(".acts", root), gfb = $(".gfb", root), hints = $(".hz", root), after = $(".after", root);
+  const max = itemMax(it), hasText = it.parts.some(p => p.t === "text"), shown = corrShown(st);
+  acts.innerHTML = `<button class="btn" type="button" data-check>${max ? "Vérifier" : "Valider ma réponse"}</button>
+    ${st.hints < 3 && !(shown && st.lastOk) ? `<button class="btn ghost" type="button" data-hint>💡 Coup de pouce ${st.hints + 1}/3</button>` : ""}
+    <button class="btn ghost" type="button" data-reset>↺ Recommencer</button>`;
+  hints.innerHTML = it.hints.slice(0, st.hints).map((h, i) => `<p class="hint"><b>Coup de pouce ${i + 1}/3</b> · ${h}</p>`).join("");
+  if (st.first) {
+    const f = st.first;
+    gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ Tout est juste${f.pts === f.max ? (st.tries === 1 ? " du premier coup !" : ".") : " (après correction)."}</p><p>Score retenu (premier essai) : ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} coup(s) de pouce avant le premier essai` : ""}.</p></div>`
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} ${it.parts.some(p => pw(p) > 1) ? "point(s)" : "réponse(s) juste(s)"}.</p><p>${shown ? (it.parts.some(p => p.t === "redac") ? "Le corrigé et les réponses modèles sont affichés : complète tes réponses, puis vérifie à nouveau." : "Le corrigé est affiché ci-dessous : corrige les réponses marquées ✗, puis vérifie à nouveau.") : "Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé s'affichera au deuxième essai."} (Score retenu : ${f.pts}/${f.max}, premier essai.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Réponse enregistrée.</p><p>Compare-la à la réponse modèle, puis coche la grille.</p></div>`;
+  } else gfb.innerHTML = "";
+  let a = "";
+  if (shown && it.corr) a += `<div class="corr"><p class="h">Corrigé</p><p>${it.corr}</p>${it.corrx || ""}</div>`;
+  if (0) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Réponse rédigée · auto-évaluation</p><div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${it.model}</p></div><p><b>Coche ce que ta réponse contient :</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
+  if (shown && it.recop) a += recopHTML();
+  after.innerHTML = a;
+  const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
+  if (unl.dataset.state !== ustate) {
+    unl.dataset.state = ustate;
+    unl.innerHTML = ustate === "open" ? `<figure class="doc unlock" style="margin:0"><figcaption class="dh"><span>${it.unlock.title}</span>${it.unlock.sim ? `<span class="sim">⚠ ${it.unlock.sim}</span>` : ""}</figcaption><div class="db unlockz"></div></figure>` : ustate === "locked" ? `<p class="locked">🔒 Une simulation se débloque quand toutes les réponses sont justes.</p>` : "";
+    if (ustate === "open") WID[it.unlock.w]($(".unlockz", unl));
+  }
+  $("[data-check]", acts).onclick = () => {
+    const { res, pts } = evalItem(it, st);
+    const empty = res.some(r => r && r.empty);
+    const textEmpty = it.parts.some((p, k) => p.t === "text" && !String(st.v[k] || "").trim());
+    if ((empty || textEmpty) && !st.first) { const why = [...new Set(res.filter(r => r && r.empty && /courte|manipulation/.test(r.msg)).map(r => r.msg))].join(" ");
+      gfb.innerHTML = `<div class="fb neutral"><p class="h">Complète toutes les questions avant de vérifier.</p><p>${why ? why + " " : ""}Le premier essai n'est compté que lorsque tout est rempli.</p></div>`; gfb.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    st.checked = true; st.lastPts = pts; st.lastOk = pts === max; st.tries = (st.tries || 0) + 1;
+    if (!st.first) st.first = { pts, max, hints: st.hints, parts: res.map(r => r ? !!r.ok : null), pp: res.map(r => r ? rpts(r) : null), txt: it.parts.map((p, k) => p.t === "redac" ? String(st.v[k] || "").trim() : null) };
+    save();
+    it.parts.forEach((p, k) => renderPart(it, k, root)); if (it.pre) paintPre(it, root); paintActions(it, root); refreshChrome(it);
+    const g = $(".gfb", root); if (g && g.scrollIntoView) g.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const hb = $("[data-hint]", acts); if (hb) hb.onclick = () => { st.hints = Math.min(3, st.hints + 1); save(); paintActions(it, root); const hs = $$(".hz .hint", root); const last = hs[hs.length - 1]; if (last) last.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  armButton($("[data-reset]", acts), "↺ Recommencer", "Effacer mes réponses ?", () => { const keep = st.first; IT()[id] = { v: {}, hints: 0, crit: {}, pre: st.pre, first: keep, tries: keep ? st.tries : 0, lastOk: false }; save(); renderItem(it, root); refreshChrome(it); });
+  $$(".crit button", after).forEach(b => b.onclick = () => { const i = +b.dataset.ci; st.crit[i] = !st.crit[i]; save(); paintActions(it, root); const nb2 = $(`.after [data-ci="${i}"]`, root); if (nb2) nb2.focus(); });
+}
+
+/* ---------- bilan ---------- */
+function compStats() { const out = {}; Object.keys(COMPS).forEach(k => out[k] = { ok: 0, n: 0 }); Object.values(ITEMS).forEach(({ it }) => { const st = IT()[it.id]; if (!st || !st.first) return; it.parts.forEach((p, k) => { if (!scorable(p)) return; const c = p.c || "conn", w = pw(p); out[c].n += w; out[c].ok += st.first.pp ? (st.first.pp[k] || 0) : st.first.parts[k] ? w : 0; }); }); return out; }
+function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = IT()[it.id]; if (!st || !st.first) return; st.first.parts.forEach((ok, k) => { if (ok === false) out.push(`${label} · question ${k + 1}${it.parts[k] && it.parts[k].t === "redac" && st.first.pp ? ` (réponse rédigée : ${st.first.pp[k]}/${pw(it.parts[k])} éléments repérés)` : ""}`); }); }); return out; }
+const plain = x => String(x).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+function writtenParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = IT()[it.id]; it.parts.forEach((p, k) => { if (p.t !== "redac" && p.t !== "list") return; const v = st && st.v[k] ? String(st.v[k]).trim() : "", f = st && st.first && st.first.txt ? st.first.txt[k] : null; out.push({ label, q: plain(p.label), v, v1: f && f !== v ? f : "", score: p.t === "redac" && st && st.first && st.first.pp ? `${st.first.pp[k]}/${pw(p)} éléments repérés au premier essai` : "" }); }); }); return out; }
+function rScore() { const st = IT().r0; return { pts: st && st.first ? st.first.pts : 0, max: itemMax(RAPPEL), done: st && st.first ? 1 : 0, n: 1 }; }
+function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
+const gName = g => `Partie ${g.n} · ${g.title}`;
+const recopReady = () => corrShown(IT()[HOME.last]);
+function bilanText(name) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
+  let t = `${HOME.txt}\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN DE L'ÉLÈVE\nÉlève : ${name || "—"}\nDate : ${today()}\nVersion : ${EXP() ? HOME.vers.l.short.toLowerCase() + " (réponses rédigées ; repérage automatique des éléments attendus, à relire par le professeur)" : HOME.vers.g.short.toLowerCase()}\n\nPoints au premier essai\n- Accueil · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
+  GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} étapes faites)\n`; g.items.forEach((it, i) => { const st = IT()[it.id]; t += `    étape ${i + 1} ${LV[it.lvl][2]} ${it.title} : ${st && st.first ? st.first.pts + "/" + st.first.max + (st.first.hints ? ` (${st.first.hints} coup(s) de pouce)` : "") : "—"}\n`; }); });
+  t += `Total : ${T.pts}/${T.max} (${T.done}/${T.n} étapes faites)\n\nBilan par compétence (premier essai)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? c.ok + "/" + c.n : "—"}\n`; });
+  t += `\nQuestions ratées au premier essai (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- aucune"}\n`;
+  if (EXP()) { const w = writtenParts(); t += `\nMES RÉPONSES RÉDIGÉES (${w.filter(x => x.v).length}/${w.length})\n` + w.map(x => `\n${x.label}\nQuestion : ${x.q}\n${x.v1 ? "Réponse au premier essai : " + x.v1 + "\nRéponse finale : " : "Réponse : "}${x.v || "—"}${x.score ? "\n(" + x.score + ")" : ""}\n`).join(""); }
+  return clean(t + "\n" + HOME.extra() + `\n${SIGN}\n`);
+}
+function renderBilan(m) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
+  m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan de l'activité</h2><p class="lead"><b>${VNAME()}</b> · points comptés au premier essai. ${T.done}/${T.n} étapes faites.</p></div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie ${GROUPS.length}.</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Aller à la dernière étape</button></div>`}</div>
+    <div class="panel"><h3>${HOME.extraTitle || "Mes tableaux"}</h3>${HOME.extraHTML()}</div>
+    <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
+    <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Étapes faites</th><th>Points (premier essai)</th></tr></thead><tbody><tr><td>Accueil · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
+    <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const q = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${q * 100}%"></i></div></div>`; }).join("")}</div></div>
+    <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>Aucune pour l'instant.</p>"}</div>
+    ${EXP() ? `<div class="panel"><h3>Mes réponses rédigées</h3><p class="lead">Ton professeur les lit dans ton bilan : le repérage automatique ne remplace pas sa lecture.</p><div class="redlist">${writtenParts().map(x => `<div class="red"><p class="rq">${esc(x.label)}</p><p class="lead">${esc(x.q)}</p>${x.v1 ? `<p class="lead">Premier essai</p><p class="rv">${esc(x.v1)}</p><p class="lead">Réponse finale</p>` : ""}<p class="rv">${x.v ? esc(x.v) : "—"}</p>${x.score ? `<p class="lead">${x.score}</p>` : ""}</div>`).join("")}</div></div>` : ""}
+    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité (avec le bilan), tes tableaux, tes points par partie et par compétence${EXP() ? ", tes réponses rédigées" : ""} et les questions ratées au premier essai.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses (des deux versions) et toutes les manipulations de cette activité sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
+  const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step[HOME.lastG] = HOME.lastK; save(); go(HOME.lastG); };
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>${HOME.short} · ${VNAME()} · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} étapes)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Questions ratées au premier essai</span><b class="num">${ms.length}</b></div><div class="line"><span>Bilan de l'activité</span><b>${recopReady() ? "✓ débloqué" : "pas encore"}</b></div>`, HOME.slug);
+  armButton($("#reset"), "Tout effacer", "Confirmer l'effacement ?", () => { S.it = {}; S.itL = {}; S.step = {}; S.x = {}; save(); go("accueil"); });
+}
+
+/* ---------- démarrage ---------- */
+Display.init(S, save);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h && h !== S.view && VIEWS.includes(h)) go(h); });
+go(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (S.view || "accueil"), true);
+
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

@@ -952,9 +952,7 @@ function animCtl(el, dur, onP) {
 }
 
 
-/* ===== 5e EIST · Mission 6 · Tempête de sable · Technologie · Activité 2 · Découvrir la programmation avec Thymio : simulations ===== */
-Store.key = "eist5-thymio-v1";
-const WID = {}, LIVE = {};
+/* ===== Robot Thymio (5e EIST, Mission 6) : outils communs et dessin du robot vu du dessus, partagés par les activités Thymio ===== */
 const keep = () => { try { save(); } catch (e) {} if (typeof refreshTasks === "function") refreshTasks(); };
 const xst = () => S.x;
 const N1 = x => (+x).toFixed(1), N3 = x => (+x).toFixed(3);
@@ -975,12 +973,12 @@ const FR = [[-0.42, -0.36], [-0.25, -0.55], [0, -0.62], [0.25, -0.55], [0.42, -0
 const BODY = "M-0.5,0.44 Q-0.5,0.5 -0.44,0.5 L0.44,0.5 Q0.5,0.5 0.5,0.44 L0.5,-0.12 C0.5,-0.48 0.28,-0.62 0,-0.62 C-0.28,-0.62 -0.5,-0.48 -0.5,-0.12 Z";
 const TOPLED = "M-0.4,0.4 L-0.4,-0.1 C-0.4,-0.4 -0.22,-0.52 0,-0.52 C0.22,-0.52 0.4,-0.4 0.4,-0.1 L0.4,0.4 Z";
 function robotSVG(x, y, th, s, o) {
-  o = o || {}; const ns = 'vector-effect="non-scaling-stroke"', sn = o.sens || {}, col = MCOL[o.mode] || MCOL.off;
+  o = o || {}; const ns = 'vector-effect="non-scaling-stroke"', sn = o.sens || {}, col = o.col || MCOL[o.mode] || MCOL.off;
   let g = `<g transform="translate(${N1(x)} ${N1(y)}) rotate(${N1(th)}) scale(${N3(s)})">`;
   if (o.ghost) return g + `<path d="${BODY}" style="fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 4" ${ns}/></g>`;
   g += `<rect x="-0.63" y="-0.1" width="0.13" height="0.44" rx="0.04" style="fill:#2a2e33"/><rect x="0.5" y="-0.1" width="0.13" height="0.44" rx="0.04" style="fill:#2a2e33"/>`;
   g += `<path d="${BODY}" style="fill:#fbfcfd;stroke:#56616b;stroke-width:1.6" ${ns}/>`;
-  g += `<path d="${TOPLED}" style="fill:${col};opacity:${o.mode && o.mode !== "off" ? 0.62 : 0.35}"/>`;
+  g += `<path d="${TOPLED}" style="fill:${col};opacity:${o.col || (o.mode && o.mode !== "off") ? 0.62 : 0.35}"/>`;
   /* capteurs au sol (sous le robot, vus par transparence) */
   if (!o.noGround) GR.forEach((p, i) => { const c = o.gcol ? o.gcol[i] : (sn.g && sn.g[i] ? "#ff3b30" : "none"), z = o.gcol ? 1.7 : 1; g += `<rect x="${p[0] - 0.05 * z}" y="${p[1] - 0.04 * z}" width="${0.1 * z}" height="${0.08 * z}" rx="0.015" style="fill:${c};stroke:${o.gcol ? "#e53935" : "#56616b"};stroke-width:${o.gcol ? 2 : 1};${o.gcol ? "" : "stroke-dasharray:2 2"}" ${ns}/>`; });
   /* les cinq touches : quatre flèches et le bouton central */
@@ -995,6 +993,12 @@ function robotSVG(x, y, th, s, o) {
 }
 /* coordonnées du monde d'un point du robot (repère du robot : avant = y négatif) */
 const toW = (P, lx, ly, sc) => { const c = Math.cos(P.th * RAD), s = Math.sin(P.th * RAD); return [P.x + (lx * c - ly * s) * sc, P.y + (lx * s + ly * c) * sc]; };
+
+
+/* ===== 5e EIST · Mission 6 · Tempête de sable · Technologie · Activité 2 · Découvrir la programmation avec Thymio : simulations ===== */
+Store.key = "eist5-thymio-v1";
+const WID = {}, LIVE = {};
+/* outils communs et dessin du robot : robot.js */
 
 /* ---------- 1 · les pièces du robot : quatre vues, six numéros à tester ---------- */
 const VIEWS4 = [["dessus", "Vue du dessus", [1, 2]], ["dessous", "Vue du dessous", [3, 4, 6]], ["devant", "Vue de devant", [4, 5]], ["derriere", "Vue de derrière", [4, 5]]];

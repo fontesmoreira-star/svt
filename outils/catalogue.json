@@ -218,6 +218,12 @@
          "tag": "Activité 2",
          "titre": "Découvrir la programmation avec le robot Thymio",
          "desc": "Les pièces du robot sous quatre angles, capteurs et actionneurs, instructions SI… ALORS…, les modes rouge, violet, vert et jaune à décoder, puis le robot nettoyeur à programmer jusqu'aux panneaux solaires. Deux versions : guidée ou experte. Fiche mémo à recopier."
+        },
+        {
+         "fichier": "programmer-thymio.html",
+         "tag": "Activité 3",
+         "titre": "Créer son programme avec le robot Thymio",
+         "desc": "Un Thymio virtuel et un éditeur de blocs « lorsque… alors… » : lire les programmes préenregistrés, réussir les cinq défis de la fiche validés par un robot-testeur, puis faire traverser seul le labyrinthe au robot jusqu'aux panneaux solaires. Deux versions : guidée ou experte. Fiche mémo à recopier."
         }
        ]
       }
