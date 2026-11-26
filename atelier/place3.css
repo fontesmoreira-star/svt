@@ -1,0 +1,37 @@
+/* ---------- 3e SVT · Chapitre 3 · Activité 3 · La place de l'Homme dans l'évolution ---------- */
+.doc > .db > *{min-width:0}
+/* tableau de caractères */
+.mxw{max-width:100%}
+table.mx{border-collapse:separate;border-spacing:3px;width:100%;font-size:.88rem;table-layout:fixed}
+table.mx thead th{font-size:.8rem;font-weight:800;line-height:1.15;vertical-align:bottom;padding:.25rem .15rem;background:var(--surface-2);border-radius:6px;overflow-wrap:anywhere;hyphens:auto}
+table.mx thead th:first-child{width:28%}
+table.mx th[scope=row]{padding:0}
+.mxsp{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-weight:800;font-size:.85rem;text-align:left;padding:.2rem .35rem;line-height:1.15;overflow-wrap:anywhere}
+.mxsp[aria-pressed="true"]{border-color:var(--info);background:var(--info-soft)}
+table.mx td{padding:0}
+.mxc{position:relative;width:100%;min-height:48px;border-radius:8px;border:1.5px dashed var(--line);background:var(--surface);color:var(--muted);font-weight:800;font-size:.8rem;padding:0 .1rem;touch-action:manipulation}
+.mxc.on{background:#ffe866;color:#1b1a12;border:1.5px solid #c9a700}
+.mxc.off{background:var(--surface-2);color:var(--ink);border:1.5px solid var(--line)}
+.mxc.is-bad{outline:3px solid var(--bad);outline-offset:-3px}
+.mxc .mk{position:absolute;top:1px;right:3px;font-size:.75rem;color:var(--bad)}
+.mxc .mk.ok{color:var(--ok)}
+.mxc:focus-visible,.mxsp:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.mxcards{display:grid;gap:.6rem}
+.mxcard{border:1.5px solid var(--line);border-radius:12px;padding:.45rem;display:grid;gap:.4rem;background:var(--surface)}
+.mxrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(5rem,1fr));gap:.3rem}
+.mxcards .mxc{display:grid;place-items:center;padding:.3rem .2rem;line-height:1.15}
+.mxc .cn{font-size:.75rem;font-weight:700;color:inherit;opacity:.85;text-align:center}
+.mxc .cv{font-size:.85rem}
+@media (max-width:560px){table.mx{font-size:.8rem;border-spacing:2px}table.mx thead th{font-size:.72rem}.mxc{font-size:.7rem}.mxsp{font-size:.78rem}}
+/* boîtes emboîtées */
+.bxb button{font-size:.85rem}
+.bxz{display:grid;gap:.4rem}
+.bx{border:2.5px solid var(--bc);border-radius:12px;padding:.35rem .45rem .45rem;display:grid;gap:.35rem;background:color-mix(in srgb,var(--bc) 7%,var(--surface))}
+.bxt{margin:0;font-weight:800;font-size:.85rem;color:var(--ink);background:color-mix(in srgb,var(--bc) 28%,var(--surface));border-radius:6px;padding:.15rem .45rem;width:fit-content;max-width:100%}
+.bxs{display:flex;flex-wrap:wrap;gap:.3rem}
+.spt{display:inline-flex;align-items:center;gap:.25rem;border:1.5px solid var(--line);border-radius:999px;padding:.15rem .55rem;background:var(--surface);font-weight:700;font-size:.9rem}
+/* arbre : légende */
+.tlegw{display:flex;flex-wrap:wrap;gap:.2rem 1.4rem;margin-top:.3rem}
+.tleg{list-style:none;margin:0;padding:0;display:grid;gap:.15rem;font-size:.9rem}
+.tleg .tn{color:var(--bad);font-weight:800}
+.gsw{display:inline-block;width:1.4rem;height:.5rem;border-radius:3px;vertical-align:middle}

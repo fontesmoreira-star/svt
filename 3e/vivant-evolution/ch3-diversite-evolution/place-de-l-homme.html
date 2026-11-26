@@ -1,0 +1,1711 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Activité 3 · La place de l'Homme dans l'évolution</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Mise en page : bandeau pétrole pleine largeur, barre d'onglets collante, colonne de lecture centrée.
+   Identité Enseignement scientifique = bleu pétrole (repris de la fiche « Météo ou climat ? »). */
+:root{
+  --fs:21px;
+  --bg:#f2f6f6; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#11282e; --muted:#46616a; --line:#c6d5d8;
+  --band:#0c3c48; --band-ink:#eef6f7; --band-muted:#aacbd1; --band-line:#2b5c68;
+  --accent:#0a6a76; --accent-ink:#ffffff; --accent-soft:#d5ebee;
+  --ok:#17703d; --ok-soft:#ddf1e4; --bad:#ad2318; --bad-soft:#fbe2de;
+  --info:#1d5bb0; --info-soft:#e1ebf9; --warn:#9c4f05; --warn-soft:#fdead3;
+  --key:#17703d; --key-soft:#ddf1e4; --err:#ad2318; --err-soft:#fbe2de;
+  --easy:#17703d; --mid:#7d5a00; --hard:#ad2318;
+  --c1:#0a6a76; --c2:#c0531a; --c3:#5a48b5; --c4:#2d7a31; --c5:#8a6400; --c6:#6f777c;
+  --grid:#dbe5e7; --shade:rgba(10,106,118,.10);
+  --f-display:"Charter","Iowan Old Style","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d191c; --surface:#142429; --surface-2:#1b3036; --ink:#e5eff1; --muted:#a2b8bd; --line:#2c464d;
+  --band:#072a33; --band-ink:#e5f2f4; --band-muted:#8db4bc; --band-line:#1f4d58;
+  --accent:#55c1cc; --accent-ink:#04252b; --accent-soft:#143b42;
+  --ok:#62d495; --ok-soft:#153526; --bad:#ff8d82; --bad-soft:#3c1c19;
+  --info:#8fb9ff; --info-soft:#16273f; --warn:#f4a75b; --warn-soft:#382513;
+  --key:#62d495; --key-soft:#153526; --err:#ff8d82; --err-soft:#3c1c19;
+  --easy:#62d495; --mid:#f0c552; --hard:#ff8d82;
+  --c1:#55c1cc; --c2:#f2914f; --c3:#ab9eff; --c4:#7cc97f; --c5:#e3b64b; --c6:#a9b2b7;
+  --grid:#24393f; --shade:rgba(85,193,204,.13);
+  color-scheme:dark;
+}
+html{font-size:var(--fs);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.5;margin:0}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0}
+sub,sup{line-height:0;font-size:.72em}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:62rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html.proj .wrap{max-width:none}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- bandeau ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.band{background:var(--band);color:var(--band-ink)}
+.band .wrap{padding-block:1rem 1.1rem;display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;justify-content:space-between}
+.band .titles{min-width:0;flex:1 1 20rem}
+.eyebrow{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--band-muted)}
+.band h1{font-size:clamp(1.5rem,4.2vw,2.15rem);font-weight:700;margin-top:.3rem}
+.band .sub{color:var(--band-muted);margin-top:.35rem;font-size:.9rem;max-width:40rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.tbtn{min-height:48px;min-width:48px;padding:0 .75rem;border-radius:12px;border:1.5px solid var(--band-line);background:transparent;color:var(--band-ink);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.35rem}
+.tbtn[aria-pressed="true"]{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+.tbtn.strong{background:var(--band-ink);color:var(--band);border-color:var(--band-ink)}
+
+/* ---------- onglets collants ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;align-items:center}
+.tab{flex:none;min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid transparent;background:transparent;color:var(--muted);font-weight:700;font-size:0.9rem;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.tab[aria-current="page"]{background:var(--accent-soft);color:var(--ink);border-color:var(--accent)}
+.tab .dot{font-size:0.9rem}
+
+main{padding-block:1.2rem 3rem}
+.view{display:grid;gap:1.1rem}
+.lead{color:var(--muted);max-width:44rem}
+.sec-title{font-size:1.45rem}
+.kicker{font-size:0.9rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+
+/* ---------- cartes / panneaux ---------- */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.panel h3{font-size:1.15rem}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:.8rem}
+.card-btn{display:grid;gap:.35rem;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:.9rem 1rem;min-height:48px;color:var(--ink)}
+.card-btn:hover{border-color:var(--accent)}
+.card-btn .t{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.2}
+.card-btn .m{color:var(--muted);font-size:0.9rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;font-size:0.9rem;font-weight:800;letter-spacing:.03em;padding:.2rem .55rem;border-radius:999px;background:var(--surface-2);color:var(--muted);width:fit-content;max-width:100%}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.mid{background:var(--warn-soft);color:var(--warn)}
+
+/* ---------- encadrés ---------- */
+.box{border-radius:12px;padding:.75rem .95rem;border:1.5px solid;display:grid;gap:.4rem}
+.box > .lab{font-size:0.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.box.info{background:var(--info-soft);border-color:var(--info)} .box.info>.lab{color:var(--info)}
+.box.warn{background:var(--warn-soft);border-color:var(--warn)} .box.warn>.lab{color:var(--warn)}
+.box.key{background:var(--key-soft);border-color:var(--key)} .box.key>.lab{color:var(--key)}
+.box.err{background:var(--err-soft);border-color:var(--err)} .box.err>.lab{color:var(--err)}
+.box ul{margin:0;padding-left:1.2rem;display:grid;gap:.25rem}
+
+/* ---------- boutons ---------- */
+.btn{min-height:48px;padding:0 1rem;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent)}
+.btn.warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.btn[disabled]{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+
+/* ---------- options QCM / choix ---------- */
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;min-height:48px;padding:.65rem .85rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;line-height:1.35}
+.opt .k{flex:none;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;font-size:0.9rem;font-weight:800;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-checked="true"] .k{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+.opt.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt .tag{margin-left:auto;flex:none;font-weight:800;font-size:0.9rem}
+.opt.is-ok .tag{color:var(--ok)} .opt.is-bad .tag{color:var(--bad)}
+.opt[disabled]{cursor:default}
+
+.seg{display:inline-flex;flex-wrap:wrap;gap:.3rem}
+.seg button{min-height:48px;padding:0 .8rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:0.9rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg button.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.seg button.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+
+.field{display:grid;gap:.3rem}
+.field label{font-weight:700;font-size:0.9rem}
+.inp{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:.4rem .7rem;font-size:1rem;width:100%;max-width:16rem}
+.inp.wide{max-width:none}
+textarea.inp{min-height:7rem;max-width:none;line-height:1.45}
+.inp.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.inp.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.unit{color:var(--muted);font-weight:700}
+
+/* ---------- retour d'information ---------- */
+.fb{border-radius:12px;padding:.7rem .9rem;border:1.5px solid;display:grid;gap:.35rem}
+.fb .h{font-weight:800}
+.fb.ok{background:var(--ok-soft);border-color:var(--ok)} .fb.ok .h{color:var(--ok)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)} .fb.bad .h{color:var(--bad)}
+.fb.neutral{background:var(--surface-2);border-color:var(--line)}
+.hints{display:grid;gap:.45rem}
+.hint{background:var(--surface-2);border-radius:10px;padding:.55rem .8rem;border-left:4px solid var(--mid);font-size:.92rem}
+.hint b{color:var(--mid)}
+.corr{background:var(--info-soft);border:1.5px solid var(--info);border-radius:12px;padding:.75rem .95rem;display:grid;gap:.4rem}
+.corr .h{font-weight:800;color:var(--info)}
+
+/* ---------- documents ---------- */
+.doc{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;min-width:0}
+.doc > .dh{background:var(--surface-2);padding:.45rem .8rem;font-weight:800;font-size:0.9rem;display:flex;flex-wrap:wrap;gap:.3rem .7rem;justify-content:space-between}
+.doc > .dh .sim{font-weight:700;color:var(--warn)}
+.doc > .db{padding:.7rem .8rem;display:grid;gap:.6rem;min-width:0}
+.tablewrap{overflow-x:auto;max-width:100%}
+table.t{border-collapse:collapse;font-size:0.9rem;font-variant-numeric:tabular-nums;width:100%}
+table.t td,table.t th{vertical-align:top}
+table.t th,table.t td{border:1px solid var(--line);padding:.35rem .6rem;text-align:left}
+table.t th{background:var(--surface-2);font-weight:800}
+table.t td.n{text-align:right}
+details.tbl > summary{cursor:pointer;font-weight:700;font-size:0.9rem;min-height:44px;display:flex;align-items:center;color:var(--accent)}
+
+/* ---------- graphiques ---------- */
+.chart{position:relative;width:100%;min-width:0;touch-action:pan-y}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart svg text{font-family:var(--f-body)}
+.readout{font-size:0.9rem;min-height:1.6em;color:var(--ink);font-variant-numeric:tabular-nums}
+.readout b{color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:0.9rem}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.legend svg{flex:none}
+
+/* ---------- niveaux ---------- */
+.lv{display:inline-flex;align-items:center;gap:.35rem;font-weight:800}
+.lv.easy{color:var(--easy)} .lv.mid{color:var(--mid)} .lv.hard{color:var(--hard)}
+
+/* ---------- bilan ---------- */
+.score-big{font-family:var(--f-display);font-size:2.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+.bar > i{display:block;height:100%;background:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 1rem) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 1rem) max(16px,env(safe-area-inset-left,0px))}
+.overlay .in{max-width:60rem;margin:0 auto;display:grid;gap:1rem;font-size:1.5rem}
+.overlay h2{font-size:2.2rem}
+.overlay .line{display:flex;justify-content:space-between;gap:1rem;border-bottom:2px solid var(--line);padding-block:.5rem;flex-wrap:wrap}
+.copyarea{width:100%;min-height:9rem;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.9rem}
+.toast{font-weight:700;color:var(--ok)}
+
+/* ---------- divers ---------- */
+.foot{color:var(--muted);font-size:0.9rem;padding-block:1.5rem}
+.eq{font-size:1.05rem;padding:.5rem .7rem;background:var(--surface-2);border-radius:10px;overflow-x:auto;white-space:nowrap}
+.steps3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.steps3 > div{background:var(--surface-2);border-radius:12px;padding:.65rem .8rem;display:grid;gap:.25rem;align-content:start}
+.steps3 .s{font-size:0.9rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:560px){.band .wrap{align-items:flex-start}.tools{width:100%}}
+.chartbox{display:grid;gap:.45rem;min-width:0}
+/* ---------- exercices : coefficients, ordre, critères ---------- */
+.coefs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:1.05rem}
+.coef{display:inline-flex;align-items:center;gap:.25rem;background:var(--surface-2);border-radius:12px;padding:.25rem}
+.coef button{min-width:48px;min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:1.1rem;color:var(--ink)}
+.coef output{min-width:1.6rem;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.coef .f{padding:0 .4rem;font-weight:700}
+.coef.is-ok{outline:2px solid var(--ok)} .coef.is-bad{outline:2px solid var(--bad)}
+.arrow{font-weight:800;color:var(--muted)}
+.order-list{display:grid;gap:.45rem}
+.order-item{display:flex;gap:.7rem;align-items:center;text-align:left;min-height:52px;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface);color:var(--ink);font-size:.95rem}
+.order-item .n{flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid var(--muted);color:var(--muted)}
+.order-item[data-pos]{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.order-item[data-pos] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.order-item.is-ok{border-color:var(--ok);background:var(--ok-soft)} .order-item.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.rows{display:grid;gap:.6rem}
+.rowq{display:grid;gap:.4rem;padding:.6rem .7rem;border-radius:12px;background:var(--surface-2)}
+.rowq .rt{font-size:.95rem}
+.pfb{font-size:0.9rem;font-weight:700}
+.pfb.ok{color:var(--ok)} .pfb.bad{color:var(--bad)}
+.part{display:grid;gap:.5rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.part:first-child{border-top:0;padding-top:0}
+.part > .pl{font-weight:700}
+.crit{display:grid;gap:.4rem}
+.crit button{display:flex;gap:.6rem;align-items:flex-start;text-align:left;min-height:48px;padding:.5rem .75rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.92rem}
+.crit button .bx{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-weight:800;font-size:0.9rem}
+.crit button[aria-pressed="true"]{border-color:var(--ok);background:var(--ok-soft)}
+.crit button[aria-pressed="true"] .bx{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lvtabs{display:flex;flex-wrap:wrap;gap:.4rem}
+.lvtabs button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:0.9rem;color:var(--ink);display:inline-flex;gap:.4rem;align-items:center}
+.lvtabs button[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sci{display:inline-flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.sci .inp{max-width:7rem}
+.sci .inp.e{max-width:4.2rem}
+
+.animctl{gap:.5rem}
+.animctl .btn{min-height:48px}
+.ul{margin:0;padding-left:1.3rem;display:grid;gap:.35rem}
+.muted{color:var(--muted)}
+.qhead{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center}
+.qtext{font-family:var(--f-body);font-weight:700;font-size:1rem;line-height:1.4}
+.comps{display:grid;gap:.7rem}
+.comp{display:grid;gap:.3rem}
+.linkbtn{background:none;border:0;padding:0;min-height:44px;color:var(--accent);font-weight:700;text-decoration:underline;cursor:pointer}
+.tabsw{display:flex;gap:.5rem;align-items:center}
+.tabsl{display:flex;gap:.35rem;overflow-x:auto;padding-block:.45rem;scrollbar-width:thin;flex:1 1 auto;min-width:0}
+#tabx:empty{display:none}
+#tabx{flex:none}
+/* ---------- v2 : entraînement ---------- */
+.ctag{display:inline-block;margin-left:.35rem;padding:.05rem .5rem;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:.9rem;font-weight:700;vertical-align:middle}
+.card-btn.feature{border-color:var(--accent);background:var(--accent-soft)}
+.timer{display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--accent);border-radius:12px;padding:.15rem .25rem .15rem .6rem;background:var(--surface)}
+.timer .tt{font-weight:800;font-size:1rem;white-space:nowrap}
+.timer .tb{min-width:44px;min-height:44px;border:0;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:1rem}
+.timer.low{border-color:var(--warn)} .timer.low .tt{color:var(--warn)}
+.timer.over{border-color:var(--bad);background:var(--bad-soft)} .timer.over .tt{color:var(--bad)}
+.unlock{border-color:var(--accent);background:var(--accent-soft)}
+.dilat{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1rem;align-items:center}
+.dilat svg{width:100%;height:auto}
+.dsres{display:grid;gap:.2rem}
+input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+@media (max-width:560px){.dilat{grid-template-columns:1fr}.tabsw{flex-wrap:wrap}#tabx{width:100%}}
+.timelive{font-weight:800;color:var(--warn)}
+.lv.kq{color:var(--accent)}
+.wsep{border-top:1px solid var(--line);padding-top:1rem}
+.labsw{gap:.4rem}
+.labsw button{text-align:left}
+
+/* Identité SVT : bandeau vert foncé ; neutres teintés vert ; bandes « lumière » jaune pâle sur les courbes */
+:root{
+  --bg:#f3f6f2; --surface:#ffffff; --surface-2:#e8f0e7; --ink:#14251a; --muted:#46604d; --line:#c6d6c6;
+  --band:#1b4a2c; --band-ink:#eef7f0; --band-muted:#b3d3bc; --band-line:#3b6c4a;
+  --accent:#21703a; --accent-ink:#ffffff; --accent-soft:#d9eedf;
+  --shade:rgba(232,176,20,.20); --day:#fbe6a2; --day-ink:#3a2b00; --night:#1c2b21; --night-ink:#e7f1ea;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1710; --surface:#142118; --surface-2:#1b2c20; --ink:#e4efe6; --muted:#a2baa8; --line:#2b4432;
+  --band:#0e2a17; --band-ink:#e3f1e7; --band-muted:#92bea0; --band-line:#29513a;
+  --accent:#6fd08b; --accent-ink:#05200d; --accent-soft:#173a23;
+  --shade:rgba(240,196,60,.14); --day:#5b4a10; --day-ink:#fff1c2; --night:#050a06; --night-ink:#dfeae2;
+  color-scheme:dark;
+}
+
+/* ---------- 5e EIST · Vitesses et mouvements ---------- */
+:root{--trk:#dfe9ea;--dot:#11282e;--rov:#c0531a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}}
+:root[data-theme="dark"]{--trk:#1f353b;--dot:#e5eff1;--rov:#f2914f}
+.figbox{min-width:0;width:100%}
+.figbox svg{display:block;width:100%;height:auto;overflow:visible}
+.figbox svg text{font-family:var(--f-body)}
+.cap{font-size:.9rem;color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;gap:.4rem}
+.stepper button{min-height:48px;min-width:48px;padding:0 .8rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:800;font-size:.9rem;color:var(--ink);display:inline-flex;gap:.35rem;align-items:center}
+.stepper button[aria-current="step"]{border-color:var(--accent);background:var(--accent-soft)}
+.item-title{font-size:1.2rem}
+.locked{border-radius:12px;background:var(--surface-2);padding:1rem;font-weight:700;color:var(--muted);text-align:center}
+.gap{display:inline-block;min-width:4.5rem;border-bottom:3px dotted var(--accent);text-align:center;font-weight:800;color:var(--accent)}
+.recop{border:2px solid var(--key);border-radius:14px;background:var(--key-soft);padding:1rem 1.1rem;display:grid;gap:.6rem}
+.recop .lab{font-size:.9rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--key)}
+.recop p{font-size:1.05rem;line-height:1.6}
+.recop u{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800}
+h4{font-size:1rem}
+.match{display:grid;gap:.45rem}
+.mrow{display:flex;gap:.6rem;align-items:center;text-align:left;min-height:54px;padding:.45rem .7rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:.95rem;width:100%}
+.mrow[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.mrow .me{font-size:1.5rem;flex:none;width:2rem;text-align:center}
+.mrow .mn{flex:1 1 auto;min-width:0}
+.mrow .mv{flex:none;min-width:5.2rem;text-align:center;border-radius:10px;padding:.25rem .5rem;border:2px dashed var(--muted);color:var(--muted);font-weight:800;font-variant-numeric:tabular-nums}
+.mrow .mv.has{border-style:solid;border-color:var(--accent);color:var(--ink);background:var(--surface)}
+.mrow.is-ok{border-color:var(--ok);background:var(--ok-soft)} .mrow.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.mrow .tag{flex:none;font-weight:800;font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chipb{min-height:48px;padding:0 .9rem;border-radius:999px;border:2px solid var(--accent);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tabs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.7rem}
+.tabs3 > div{display:grid;gap:.3rem}
+.tabs3 .tn{font-weight:800}
+.gauge{height:1.2rem;border-radius:999px;background:var(--surface-2);overflow:hidden;border:1.5px solid var(--line)}
+.gauge i{display:block;height:100%;background:var(--rov);transition:width .15s linear}
+.pilot{display:flex;flex-wrap:wrap;gap:.5rem}
+.pilot .btn{min-width:8.5rem}
+
+/* ---------- 5e EIST · Mission 5 · Activité 6 · Les phases de la Lune ---------- */
+.opt3{display:grid;gap:.5rem}
+.opt3 > div{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:center}
+.lab3{font-weight:800;font-size:.9rem}
+.pilot .btn{min-height:52px;min-width:0}
+.doc > .db > *{min-width:0}
+.res{display:grid;gap:.35rem}
+.res .tablewrap{max-width:100%}
+.res table.t td.n,.corr table.t td.n,.panel table.t td.n{text-align:left}
+.mrow .mn,.mrow .mv,.rowq .rt{overflow-wrap:anywhere}
+.task{border-radius:12px;background:var(--surface-2);padding:.6rem .8rem;font-weight:700;font-size:.92rem;border:1.5px dashed var(--line)}
+.task.is-ok{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.chipb[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+/* simulateur : schéma et ciel côte à côte */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem;align-items:start}
+.wkb{display:flex;flex-wrap:wrap;gap:.35rem}
+.field input[type=range]{width:100%;min-height:48px;accent-color:var(--accent)}
+/* dessiner une Lune : deux moitiés à éclairer */
+.phg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));gap:.6rem}
+.phr{display:grid;justify-items:center;align-content:start;gap:.4rem;padding:.65rem .5rem;border-radius:12px;background:var(--surface-2);border:2px solid transparent}
+.phr.is-ok{border-color:var(--ok);background:var(--ok-soft)}
+.phr.is-bad{border-color:var(--bad);background:var(--bad-soft)}
+.phr .tag{font-weight:800;font-size:.9rem}
+.phr.is-ok .tag{color:var(--ok)} .phr.is-bad .tag{color:var(--bad)}
+.pht{font-weight:800}
+.moon{display:flex;width:6.6rem;height:6.6rem;border-radius:50%;overflow:hidden;border:2.5px solid var(--ink);background:#2a2f36;flex:none}
+.moon.unset{border-style:dashed;border-color:var(--muted);background:var(--surface)}
+.mh{flex:1 1 50%;min-width:0;min-height:48px;border:0;margin:0;padding:0;background:#2a2f36;cursor:pointer;touch-action:manipulation}
+.mh.l{box-shadow:inset -1px 0 0 #6b7280}
+.moon.unset .mh{background:transparent}
+.mh[aria-pressed="true"]{background:#f6e7a1}
+.mh:focus-visible{outline:3px solid var(--accent);outline-offset:-4px}
+.phd{font-size:.9rem;text-align:center;min-height:2.6em;color:var(--muted);margin:0}
+.phz{min-height:48px;font-size:.9rem;padding:0 .7rem}
+.phz[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+/* bilan : tableau et bande des phases à recopier */
+.phtab td{vertical-align:middle}
+.phtab td svg{display:block;margin:0 auto .2rem}
+.phtab .pdt{display:block;font-size:.85rem;text-align:center;color:var(--muted)}
+.recop .lab2{font-weight:800;margin-top:.3rem}
+.phstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(6rem,1fr));gap:.5rem;justify-items:center}
+.phstrip figure{margin:0;display:grid;justify-items:center;gap:.25rem}
+.phstrip figcaption{font-size:.9rem;font-weight:700;text-align:center}
+/* deux versions : guidée / exigeante (repris de bio.css) */
+.vers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem}
+.vers .card-btn[aria-checked="true"]{border-color:var(--accent);border-width:2.5px;background:var(--accent-soft)}
+.vers .card-btn .t{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.vchip{min-height:48px;padding:0 .8rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;font-size:.9rem;white-space:nowrap}
+.pfb.mid{color:var(--warn)}
+.wc{font-size:.9rem}
+.grille{list-style:none;margin:.4rem 0 0;padding:0;display:grid;gap:.35rem}
+.grille li{display:grid;grid-template-columns:auto 1fr auto;gap:.3rem .7rem;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:.45rem .7rem;background:var(--surface);font-size:.92rem}
+.grille li.ok{border-color:var(--ok);background:var(--ok-soft)}
+.grille .gk{font-weight:800;font-size:.9rem;color:var(--muted);white-space:nowrap}
+.grille .gt{font-weight:800;white-space:nowrap}
+.grille li.ok .gt{color:var(--ok)} .grille li.no .gt{color:var(--bad)}
+.grille .gs{grid-column:1/-1;justify-self:start}
+@media (max-width:560px){.grille li{grid-template-columns:1fr}.grille .gt{white-space:normal}}
+.redlist{display:grid;gap:.7rem}
+.red{border:1.5px solid var(--line);border-radius:12px;padding:.6rem .8rem;display:grid;gap:.25rem;background:var(--surface)}
+.red .rq{font-weight:800;font-size:.92rem}
+.red .rv{white-space:pre-wrap;overflow-wrap:anywhere}
+.part textarea.inp{min-height:9.5rem}
+@media (max-width:560px){.tabsw{flex-wrap:nowrap}#tabx{width:auto}.vchip .vl{display:none}.vchip{padding:0 .7rem;min-width:48px}}
+
+/* ---------- 3e SVT · Chapitre 3 · Activité 3 · La place de l'Homme dans l'évolution ---------- */
+.doc > .db > *{min-width:0}
+/* tableau de caractères */
+.mxw{max-width:100%}
+table.mx{border-collapse:separate;border-spacing:3px;width:100%;font-size:.88rem;table-layout:fixed}
+table.mx thead th{font-size:.8rem;font-weight:800;line-height:1.15;vertical-align:bottom;padding:.25rem .15rem;background:var(--surface-2);border-radius:6px;overflow-wrap:anywhere;hyphens:auto}
+table.mx thead th:first-child{width:28%}
+table.mx th[scope=row]{padding:0}
+.mxsp{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-weight:800;font-size:.85rem;text-align:left;padding:.2rem .35rem;line-height:1.15;overflow-wrap:anywhere}
+.mxsp[aria-pressed="true"]{border-color:var(--info);background:var(--info-soft)}
+table.mx td{padding:0}
+.mxc{position:relative;width:100%;min-height:48px;border-radius:8px;border:1.5px dashed var(--line);background:var(--surface);color:var(--muted);font-weight:800;font-size:.8rem;padding:0 .1rem;touch-action:manipulation}
+.mxc.on{background:#ffe866;color:#1b1a12;border:1.5px solid #c9a700}
+.mxc.off{background:var(--surface-2);color:var(--ink);border:1.5px solid var(--line)}
+.mxc.is-bad{outline:3px solid var(--bad);outline-offset:-3px}
+.mxc .mk{position:absolute;top:1px;right:3px;font-size:.75rem;color:var(--bad)}
+.mxc .mk.ok{color:var(--ok)}
+.mxc:focus-visible,.mxsp:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.mxcards{display:grid;gap:.6rem}
+.mxcard{border:1.5px solid var(--line);border-radius:12px;padding:.45rem;display:grid;gap:.4rem;background:var(--surface)}
+.mxrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(5rem,1fr));gap:.3rem}
+.mxcards .mxc{display:grid;place-items:center;padding:.3rem .2rem;line-height:1.15}
+.mxc .cn{font-size:.75rem;font-weight:700;color:inherit;opacity:.85;text-align:center}
+.mxc .cv{font-size:.85rem}
+@media (max-width:560px){table.mx{font-size:.8rem;border-spacing:2px}table.mx thead th{font-size:.72rem}.mxc{font-size:.7rem}.mxsp{font-size:.78rem}}
+/* boîtes emboîtées */
+.bxb button{font-size:.85rem}
+.bxz{display:grid;gap:.4rem}
+.bx{border:2.5px solid var(--bc);border-radius:12px;padding:.35rem .45rem .45rem;display:grid;gap:.35rem;background:color-mix(in srgb,var(--bc) 7%,var(--surface))}
+.bxt{margin:0;font-weight:800;font-size:.85rem;color:var(--ink);background:color-mix(in srgb,var(--bc) 28%,var(--surface));border-radius:6px;padding:.15rem .45rem;width:fit-content;max-width:100%}
+.bxs{display:flex;flex-wrap:wrap;gap:.3rem}
+.spt{display:inline-flex;align-items:center;gap:.25rem;border:1.5px solid var(--line);border-radius:999px;padding:.15rem .55rem;background:var(--surface);font-weight:700;font-size:.9rem}
+/* arbre : légende */
+.tlegw{display:flex;flex-wrap:wrap;gap:.2rem 1.4rem;margin-top:.3rem}
+.tleg{list-style:none;margin:0;padding:0;display:grid;gap:.15rem;font-size:.9rem}
+.tleg .tn{color:var(--bad);font-weight:800}
+.gsw{display:inline-block;width:1.4rem;height:.5rem;border-radius:3px;vertical-align:middle}
+
+</style>
+<script>
+/* Hébergement classique (GitHub Pages) : le bilan se télécharge comme un fichier .txt */
+(function(){
+  if(window.claude) return;
+  function save(o){
+    return new Promise(function(res,rej){
+      try{
+        var txt=(o&&o.data!=null)?String(o.data):"";
+        var blob=new Blob(["\ufeff"+txt],{type:"text/plain;charset=utf-8"});
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement("a");
+        a.href=url; a.download=(o&&o.filename)||"bilan.txt"; a.style.display="none";
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){URL.revokeObjectURL(url); a.remove();},15000);
+        res();
+      }catch(e){ rej({code:"failed"}); }
+    });
+  }
+  window.claude={use:function(name){
+    return name==="downloads" ? Promise.resolve({save:save}) : Promise.reject(new Error("indisponible"));
+  }};
+})();
+</script>
+</head>
+<body>
+<header class="band"><div class="wrap"><div class="titles"><p class="eyebrow">3e SVT · Diversité et évolution des êtres vivants · Activité 3</p><h1>La place de l'Homme dans l'évolution</h1><p class="sub">Remplis des tableaux de caractères, affiche les boîtes emboîtées, place les caractères sur l'arbre et entoure les groupes : d'abord chez les vertébrés, puis chez les primates. Deux versions : guidée ou exigeante.</p></div>
+<div class="tools" role="toolbar" aria-label="Affichage"><button class="tbtn" id="fsMinus" type="button" aria-label="Réduire la taille du texte">A−</button><button class="tbtn" id="fsPlus" type="button" aria-label="Agrandir la taille du texte">A+</button><button class="tbtn" id="themeBtn" type="button">☾ Sombre</button><button class="tbtn" id="projBtn" type="button" aria-pressed="false">⛶ Projection</button></div></div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap tabsw"><div id="tabs" class="tabsl"></div><div id="tabx"></div></div></nav>
+<main class="wrap" id="main"><p>Chargement…</p></main>
+<footer class="wrap foot">Aucune donnée n'est envoyée : les réponses restent sur cet appareil. Outil inspiré du logiciel Phylogène, simplifié ; données d'après la correction du professeur. Lycée Français Vauban · SVT 3e.</footer>
+<noscript><p class="wrap">Cette application a besoin de JavaScript : ouvre le lien dans Safari (pas dans l'aperçu de Teams ou de Fichiers).</p></noscript>
+<script>
+/* ===== Socle commun : affichage, stockage, nombres, graphiques, bilan ===== */
+"use strict";
+const CT = Object.assign({
+  locale: "fr-FR", dec: ",", readHint: "Touche le graphique pour lire une valeur.", table: "Tableau de valeurs", light: "☀ Clair", dark: "☾ Sombre",
+  dlNo: "Le téléchargement n'est pas disponible ici : utilise « Copier » ou « Montrer au professeur ».", dlOk: "Fichier proposé à l'enregistrement.", dlDeclined: "Enregistrement annulé.",
+  dlBusy: "Une demande est déjà ouverte : réessaie dans un instant.", dlFail: "Téléchargement impossible ici : utilise « Copier ».", dlDone: "Fichier téléchargé.",
+  name: "Prénom ou numéro (facultatif, reste sur cet appareil)", bDl: "⬇ Télécharger (.txt)", bCp: "⧉ Copier", bMail: "✉ Envoyer par mail", bShow: "👁 Montrer au professeur",
+  cpSel: "Texte sélectionné : copie-le avec ⌘C / Ctrl+C ou « Copier » du menu.", cpOk: "Bilan copié : colle-le où ton professeur l'a demandé.", mailOk: "Ta messagerie devrait s'ouvrir avec le bilan.",
+  bilanTxt: "Texte du bilan", close: "Fermer", student: "eleve", subject: "Bilan ",
+  animRun: "▶ Lancer", animPause: "⏸ Pause", animResume: "▶ Reprendre", animReset: "↺ Recommencer"
+}, (typeof window !== "undefined" && window.CORE_T) || {});
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+try { document.documentElement.lang = (window.TP_LANG || "fr"); } catch (e) {}
+
+/* ---------- stockage de confort (l'app marche sans) ---------- */
+const Store = {
+  key: "es-th1",
+  load(def) { let o = {}; try { o = JSON.parse(localStorage.getItem(this.key) || "{}") || {}; } catch (e) { o = {}; } return Object.assign({}, def, o); },
+  save(obj) { try { localStorage.setItem(this.key, JSON.stringify(obj)); } catch (e) {} }
+};
+
+/* ---------- nombres à la française ---------- */
+const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+const supStr = s => String(s).split("").map(c => SUP[c] || c).join("");
+function fmt(x, dec) {
+  if (x === null || x === undefined || Number.isNaN(x)) return "—";
+  let s = dec === undefined ? String(Math.round(x * 1e6) / 1e6) : Number(x).toFixed(dec);
+  let neg = s.startsWith("-"); if (neg) s = s.slice(1);
+  let [i, d] = s.split(".");
+  i = i.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return (neg ? "−" : "") + i + (d ? CT.dec + d : "");
+}
+function fmtPow(p) { /* 2.21e7 -> "2,21 × 10⁷" */
+  if (p === 0) return "0";
+  const e = Math.floor(Math.log10(Math.abs(p))); const m = p / Math.pow(10, e);
+  const mr = Math.round(m * 100) / 100;
+  if (e >= -1 && e <= 3) return fmt(p, p < 10 ? 2 : 0);
+  return (mr === 1 ? "" : fmt(mr) + " × ") + "10" + supStr(e);
+}
+/* lit « 1 020 », « 1,02e5 », « 1,02 × 10^5 », « 1,02x10⁵ », « 10⁵ », « −3 », « +12,4 °C » */
+function parseNum(str) {
+  if (str === null || str === undefined) return NaN;
+  let s = String(str).trim();
+  const SUPR = { "⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "⁻": "-" };
+  s = s.replace(/10([⁻⁰¹²³⁴⁵⁶⁷⁸⁹]+)/g, (m, g) => "10^" + g.split("").map(c => SUPR[c]).join(""));
+  s = s.replace(/[−–]/g, "-").replace(/[\s  ]/g, "").replace(/,/g, ".");
+  s = s.replace(/(°c|°|pa|hpa|bar|mbar|atm|mmhg|cm|mm|m|ans?|%|points?|pts?|\/an|°c\/siècle|°c\/an)+$/i, "");
+  let m = s.match(/^([+-]?\d*\.?\d+)(?:[x×*·]10\^?\(?([+-]?\d+)\)?)$/i);
+  if (m) return parseFloat(m[1]) * Math.pow(10, parseInt(m[2], 10));
+  m = s.match(/^([+-]?)10\^\(?([+-]?\d+)\)?$/);
+  if (m) return (m[1] === "-" ? -1 : 1) * Math.pow(10, parseInt(m[2], 10));
+  if (/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/i.test(s)) return parseFloat(s);
+  return NaN;
+}
+const near = (v, target, tolAbs, tolRel) => Number.isFinite(v) && Math.abs(v - target) <= Math.max(tolAbs || 0, Math.abs(target) * (tolRel || 0));
+/* saisie tolérante : accents, casse, articles, pluriel, fautes de frappe */
+function normTxt(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/[’'`]/g, " ").replace(/[^a-z0-9 ]+/g, " ").replace(/\b(le|la|les|l|un|une|des|du|de|d|au|aux|c|est|ce|sont)\b/g, " ").replace(/\s+/g, " ").trim(); }
+function lev(a, b) { const m = a.length, n = b.length; if (!m) return n; if (!n) return m; let p = Array.from({ length: n + 1 }, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+function fuzzy(input, answers) {
+  const x = normTxt(input); if (!x) return { empty: true };
+  const sg = t => t.replace(/(s|x)\b/g, "");
+  for (const a of answers) {
+    const y = normTxt(a); if (!y) continue;
+    if (x === y || sg(x) === sg(y) || (" " + x + " ").includes(" " + y + " ")) return { ok: true, exact: x === y };
+    const tol = y.length <= 4 ? 0 : y.length <= 9 ? 1 : 2;
+    if (lev(sg(x), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+    const words = x.split(" "); const yl = y.split(" ").length;
+    for (let i = 0; i + yl <= words.length; i++) if (lev(sg(words.slice(i, i + yl).join(" ")), sg(y)) <= tol) return { ok: true, typo: true, ref: a };
+  }
+  return { ok: false };
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function shuffle(a, seed) { const r = a.slice(); let x = seed || (Math.random() * 1e9) | 0; for (let i = r.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) & 0x7fffffff; const j = x % (i + 1); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+
+/* ---------- affichage : taille, thème, projection ---------- */
+const Display = {
+  S: null, onChange: null,
+  init(S, save) {
+    this.S = S; this.save = save; this.apply();
+    $("#fsMinus").onclick = () => { S.fs = Math.max(20, (S.fs || 21) - 2); this.apply(); save(); };
+    $("#fsPlus").onclick = () => { S.fs = Math.min(35, (S.fs || 21) + 2); this.apply(); save(); };
+    $("#themeBtn").onclick = () => {
+      const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      S.theme = dark ? "light" : "dark"; this.apply(); save();
+    };
+    $("#projBtn").onclick = () => { S.proj = !S.proj; this.apply(); save(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => this.apply());
+  },
+  apply() {
+    const S = this.S, r = document.documentElement;
+    const base = S.fs || 21; r.style.setProperty("--fs", Math.round(base * (S.proj ? 1.4 : 1)) + "px");
+    if (S.theme) r.setAttribute("data-theme", S.theme); else r.removeAttribute("data-theme");
+    r.classList.toggle("proj", !!S.proj);
+    const pb = $("#projBtn"); if (pb) pb.setAttribute("aria-pressed", S.proj ? "true" : "false");
+    const dark = S.theme ? S.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    const tb = $("#themeBtn"); if (tb) tb.innerHTML = dark ? CT.light : CT.dark;
+    Charts.redrawAll();
+    if (this.onChange) this.onChange();
+  }
+};
+
+/* bouton à confirmation en deux temps (pas de confirm()) */
+function armButton(btn, label, confirmLabel, action) {
+  let t = null;
+  btn.onclick = () => {
+    if (!t) { btn.textContent = confirmLabel; btn.classList.add("warn"); t = setTimeout(() => { btn.textContent = label; btn.classList.remove("warn"); t = null; }, 4000); return; }
+    clearTimeout(t); t = null; btn.textContent = label; btn.classList.remove("warn"); action();
+  };
+}
+
+/* ======================= GRAPHIQUES (SVG redessiné à la largeur réelle) ======================= */
+const Charts = {
+  list: new Set(),
+  redrawAll() { this.list.forEach(c => { if (!document.body.contains(c.host)) this.list.delete(c); else c.draw(); }); }
+};
+let _rsT = null;
+window.addEventListener("resize", () => { clearTimeout(_rsT); _rsT = setTimeout(() => Charts.redrawAll(), 120); });
+
+const PAT = ["none", "dots", "diag", "cross", "horiz", "vert"];
+function patternOne(pid, color, p) {
+  let inner = "";
+  if (p === "dots") inner = `<circle cx="3" cy="3" r="1.3" style="fill:var(--surface)"/>`;
+  if (p === "diag") inner = `<path d="M-1,7 L7,-1" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "cross") inner = `<path d="M-1,7 L7,-1 M-1,-1 L7,7" style="stroke:var(--surface);stroke-width:1.1"/>`;
+  if (p === "horiz") inner = `<path d="M0,3 H6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  if (p === "vert") inner = `<path d="M3,0 V6" style="stroke:var(--surface);stroke-width:1.4"/>`;
+  return `<pattern id="${pid}" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" style="fill:var(--${color})"/>${inner}</pattern>`;
+}
+function patDefs(id, colors) { return colors.map((c, i) => patternOne(`${id}-p${i}`, c, PAT[i % PAT.length])).join(""); }
+const DASH = i => (i % 4 === 1 ? "7 4" : i % 4 === 2 ? "2 4" : i % 4 === 3 ? "11 4 2 4" : "");
+function swatch(color, i, kind) {
+  if (kind === "line") return `<svg width="34" height="12" aria-hidden="true"><path d="M2 6 H32" style="stroke:var(--${color});stroke-width:3.2;fill:none;stroke-linecap:round" stroke-dasharray="${DASH(i)}"/></svg>`;
+  const pid = "sw" + Math.random().toString(36).slice(2, 8); const p = PAT[i % PAT.length];
+  const fill = p === "none" ? `var(--${color})` : `url(#${pid})`;
+  return `<svg width="20" height="20" aria-hidden="true">${p === "none" ? "" : `<defs>${patternOne(pid, color, p)}</defs>`}<rect x="1" y="1" width="18" height="18" rx="3" style="fill:${fill};stroke:var(--ink);stroke-width:.7"/></svg>`;
+}
+
+/* phase de l'eau */
+const PSAT = [[0.01, 611.657], [10, 1228], [20, 2339], [30, 4247], [40, 7385], [50, 12352], [60, 19946], [70, 31201], [80, 47414], [90, 70182], [100, 101418], [120, 198670], [140, 361540], [160, 618230], [180, 1002800], [200, 1554900], [220, 2319600], [240, 3346900], [260, 4692300], [280, 6416600], [300, 8587900], [320, 11284000], [340, 14594000], [360, 18666000], [374, 22064000]];
+const Water = {
+  Tt: 0.01, Pt: 611.657, Tc: 374, Pc: 2.2064e7,
+  psat(T) { if (T <= 0.01) return this.Pt; if (T >= 374) return this.Pc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (T <= t1) { const f = (T - t0) / (t1 - t0); return Math.pow(10, Math.log10(p0) + f * (Math.log10(p1) - Math.log10(p0))); } } return this.Pc; },
+  tsat(P) { if (P <= this.Pt) return this.Tt; if (P >= this.Pc) return this.Tc; for (let i = 1; i < PSAT.length; i++) { const [t1, p1] = PSAT[i]; const [t0, p0] = PSAT[i - 1]; if (P <= p1) { const f = (Math.log10(P) - Math.log10(p0)) / (Math.log10(p1) - Math.log10(p0)); return t0 + f * (t1 - t0); } } return this.Tc; },
+  psub(T) { const K = T + 273.15; return Math.exp(9.550426 - 5723.265 / K + 3.53068 * Math.log(K) - 0.00728332 * K); },
+  tmelt(P) { return 0.01 - 7.4e-8 * (P - this.Pt); },
+  state(T, P) {
+    if (P >= this.Pc && T >= this.Tc) return "fluide supercritique";
+    if (P > this.Pt && T < this.tmelt(P)) return "solide (glace)";
+    if (P <= this.Pt && T < 0.01) return P > this.psub(T) ? "solide (glace)" : "gaz (vapeur)";
+    if (T >= this.Tc) return "gaz (vapeur)";
+    return P > this.psat(T) ? "liquide" : "gaz (vapeur)";
+  }
+};
+
+function mountChart(container, spec) {
+  container.innerHTML = "";
+  const id = "ch" + Math.random().toString(36).slice(2, 8);
+  const host = document.createElement("div"); host.className = "chart"; host.tabIndex = 0;
+  host.setAttribute("role", "img"); host.setAttribute("aria-label", spec.alt || spec.title || "Graphique");
+  const legend = document.createElement("div"); legend.className = "legend";
+  const readout = document.createElement("div"); readout.className = "readout"; readout.setAttribute("aria-live", "polite");
+  readout.innerHTML = spec.readHint || CT.readHint;
+  container.append(host);
+  if (spec.legend !== false && spec.type !== "phase" && (spec.series || spec.parts)) container.append(legend);
+  container.append(readout);
+  let tableEl = null; if (spec.table !== false) { tableEl = buildTable(spec); if (tableEl) container.append(tableEl); }
+
+  const ch = { host, spec, sel: null, draw: null };
+  const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+
+  if (spec.type !== "phase" && legend.isConnected) {
+    const names = spec.type === "stack" ? spec.parts : spec.series.map(s => s.name);
+    const colors = spec.type === "stack" ? spec.colors : spec.series.map(s => s.color);
+    if (names.length > 1 || spec.type === "stack") legend.innerHTML = names.map((n, i) => `<span>${swatch(colors[i], i, spec.type === "line" ? "line" : "fill")}${esc(n)}</span>`).join("");
+    else legend.remove();
+  }
+
+  function axisText(x, y, txt, anchor, size, extra) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" style="fill:var(--ink);font-size:${size}px" ${extra || ""}>${esc(txt)}</text>`; }
+
+  ch.draw = function () {
+    const W = Math.max(260, host.clientWidth || container.clientWidth || 320);
+    const F = fsPx(); const tk = Math.max(15, F * 0.76), tt = Math.max(16, F * 0.82);
+    const H = spec.h ? spec.h * F : Math.round(Math.min(Math.max(W * 0.58, 15 * F), 24 * F));
+    let svg = "";
+    if (spec.type === "bar") svg = drawBar(W, H, F, tk, tt);
+    else if (spec.type === "line") svg = drawLine(W, H, F, tk, tt);
+    else if (spec.type === "stack") svg = drawStack(W, F, tk, tt);
+    else if (spec.type === "phase") svg = drawPhase(W, H, F, tk, tt);
+    host.innerHTML = svg;
+  };
+
+  /* --- barres groupées --- */
+  let geo = {};
+  function drawBar(W, H, F, tk, tt) {
+    const S = spec.series, cats = spec.categories;
+    const L = F * 3.3, R = F * 0.8, T = F * 0.9, B = F * 3.2 + (spec.rotate ? F * 1.2 : 0);
+    const pw = W - L - R, ph = H - T - B;
+    const yMax = spec.yMax, yStep = spec.yStep;
+    const y = v => T + ph - (v / yMax) * ph;
+    let g = "";
+    for (let v = 0; v <= yMax + 1e-9; v += yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--grid)"/>` + axisText(L - 6, y(v) + tk * 0.35, fmt(v), "end", tk); }
+    const gw = pw / cats.length, bw = Math.min(gw * 0.7 / S.length, F * 3.2);
+    geo = { bars: [] };
+    cats.forEach((c, ci) => {
+      const gx = L + gw * ci + (gw - bw * S.length) / 2;
+      S.forEach((s, si) => {
+        const v = s.values[ci]; const x = gx + bw * si; const yy = y(Math.max(v, 0));
+        const sel = ch.sel && ch.sel[0] === ci && ch.sel[1] === si;
+        g += `<rect x="${x + 1}" y="${yy}" width="${bw - 2}" height="${Math.max(T + ph - yy, 0)}" rx="3" style="fill:var(--${s.color});${sel ? "stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v);
+        if (spec.showValues !== false) g += axisText(x + bw / 2, yy - 5, lbl, "middle", tk, `font-weight="700"`);
+        geo.bars.push({ ci, si, x, w: bw });
+      });
+      const cx = L + gw * ci + gw / 2;
+      if (spec.rotate) g += `<text transform="translate(${cx},${T + ph + 8}) rotate(35)" style="fill:var(--ink);font-size:${tk}px">${esc(c)}</text>`;
+      else g += axisText(cx, T + ph + tk * 1.35, c, "middle", tk, `font-weight="700"`);
+    });
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- courbes --- */
+  function drawLine(W, H, F, tk, tt) {
+    const S = spec.series;
+    const L = F * 3.6, R = F * 1.1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const { xMin, xMax, yMin, yMax } = spec;
+    const X = v => L + (v - xMin) / (xMax - xMin) * pw, Y = v => T + ph - (v - yMin) / (yMax - yMin) * ph;
+    let g = "";
+    (spec.bands || []).forEach(b => { g += `<rect x="${X(b.x0)}" y="${T}" width="${X(b.x1) - X(b.x0)}" height="${ph}" style="fill:var(--shade)"/>` + (b.label ? axisText((X(b.x0) + X(b.x1)) / 2, T + tk * 1.1, b.label, "middle", tk * 0.92, `font-weight="700"`) : ""); });
+    const maxXt = Math.max(2, Math.floor(pw / (F * (spec.xTickW || 3.6))));
+    let xs = spec.xStep; while ((xMax - xMin) / xs > maxXt) xs *= 2;
+    for (let v = Math.ceil(xMin / xs) * xs; v <= xMax + 1e-9; v += xs) { g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(v), T + ph + tk * 1.35, spec.xFmt ? spec.xFmt(v) : fmt(v), "middle", tk); }
+    for (let v = Math.ceil(yMin / spec.yStep) * spec.yStep; v <= yMax + 1e-9; v += spec.yStep) { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--grid)${Math.abs(v) < 1e-9 && yMin < 0 ? ";stroke:var(--muted);stroke-width:1.4" : ""}"/>` + axisText(L - 6, Y(v) + tk * 0.35, spec.yFmt ? spec.yFmt(v) : fmt(v), "end", tk); }
+    (spec.hlines || []).forEach(hl => { g += `<line x1="${L}" x2="${L + pw}" y1="${Y(hl.y)}" y2="${Y(hl.y)}" style="stroke:var(--${hl.color || "muted"});stroke-width:2" stroke-dasharray="7 5"/>` + (hl.label ? axisText(L + 6, Y(hl.y) - 6, hl.label, "start", tk * 0.92, `font-weight="700"`) : ""); });
+    const cut = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut;
+    (spec.marks || []).filter(m => m.x <= cut + 1e-9).forEach(m => { g += `<line x1="${X(m.x)}" x2="${X(m.x)}" y1="${T}" y2="${T + ph}" style="stroke:var(--${m.color || "muted"});stroke-width:1.6" stroke-dasharray="5 4"/>` + axisText(X(m.x) + (m.anchor === "end" ? -5 : 5), T + tk * (1.1 + (m.row || 0) * 1.15), m.label, m.anchor || "start", tk * 0.9, `font-weight="800"`); });
+    S.forEach((s, si) => {
+      let pts = s.pts.filter(p => p[0] <= cut);
+      if (cut !== Infinity) { const nx = s.pts.find(p => p[0] > cut), last = pts[pts.length - 1]; if (nx && last) pts = pts.concat([[cut, last[1] + (nx[1] - last[1]) * (cut - last[0]) / (nx[0] - last[0])]]); }
+      if (!pts.length) return;
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + "," + Y(p[1]).toFixed(1)).join(" ");
+      g += `<path d="${d}" style="fill:none;stroke:var(--${s.color});stroke-width:${s.w || 3};stroke-linejoin:round;stroke-linecap:round" stroke-dasharray="${s.dash !== undefined ? s.dash : DASH(si)}"/>`;
+      if (spec.markers) s.pts.filter(p => p[0] <= cut).forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.17}" style="fill:var(--${s.color})"/>`; });
+      if (cut !== Infinity) { const hp = pts[pts.length - 1]; g += `<circle cx="${X(hp[0])}" cy="${Y(hp[1])}" r="${F * 0.26}" style="fill:var(--${s.color});stroke:var(--surface);stroke-width:2"/>`; }
+    });
+    if (ch.sel !== null) {
+      const xv = ch.sel; g += `<line x1="${X(xv)}" x2="${X(xv)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5" stroke-dasharray="3 3"/>`;
+      S.forEach(s => { const p = s.pts.find(q => q[0] === xv); if (p) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--${s.color});stroke-width:3"/>`; });
+    }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">${esc(spec.yTitle || "")}</text>`;
+    geo = { L, pw, X, xMin, xMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- barres empilées horizontales (cumul à 100 %) --- */
+  function drawStack(W, F, tk, tt) {
+    const rows = spec.rows, P = spec.parts;
+    const L = F * (spec.labelW || 5.6), R = F * 0.9, T = F * 0.5, rowH = F * 2.3, gap = F * 0.9, B = F * 3.1;
+    const pw = W - L - R; const H = T + rows.length * (rowH + gap) - gap + B;
+    const X = v => L + v / 100 * pw;
+    let g = `<defs>${patDefs(id, spec.colors)}</defs>`;
+    for (let v = 0; v <= 100; v += 20) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T + rows.length * (rowH + gap) - gap}" style="stroke:var(--grid)"/>` + axisText(X(v), T + rows.length * (rowH + gap) - gap + tk * 1.35, fmt(v), "middle", tk);
+    geo = { segs: [] };
+    rows.forEach((r, ri) => {
+      const y0 = T + ri * (rowH + gap); let acc = 0;
+      g += axisText(L - 8, y0 + rowH / 2 - (r.sub ? tk * 0.2 : -tk * 0.35), r.label, "end", tk, `font-weight="700"`);
+      if (r.sub) g += axisText(L - 8, y0 + rowH / 2 + tk * 0.95, r.sub, "end", tk * 0.88);
+      r.values.forEach((v, pi) => {
+        if (v <= 0) return;
+        const x = X(acc), w = X(acc + v) - X(acc);
+        const sel = ch.sel && ch.sel[0] === ri && ch.sel[1] === pi;
+        const fill = PAT[pi % PAT.length] === "none" ? `var(--${spec.colors[pi]})` : `url(#${id}-p${pi})`;
+        g += `<rect x="${x}" y="${y0}" width="${w}" height="${rowH}" style="fill:${fill};stroke:var(--surface);stroke-width:1.5${sel ? ";stroke:var(--ink);stroke-width:3" : ""}"/>`;
+        const lbl = fmt(v) + " %";
+        if (w > tk * 3.4) g += `<rect x="${x + w / 2 - tk * 1.55}" y="${y0 + rowH / 2 - tk * 0.75}" width="${tk * 3.1}" height="${tk * 1.5}" rx="4" style="fill:var(--surface);opacity:.92"/>` + axisText(x + w / 2, y0 + rowH / 2 + tk * 0.36, lbl, "middle", tk * 0.92, `font-weight="800"`);
+        geo.segs.push({ ri, pi, x, w, y0, h: rowH });
+        acc += v;
+      });
+    });
+    g += axisText(L + pw / 2, H - F * 0.35, spec.xTitle || "Proportion (%)", "middle", tt, `font-weight="700"`);
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- diagramme d'état de l'eau (pression en échelle logarithmique) --- */
+  function drawPhase(W, H, F, tk, tt) {
+    const L = F * 3.6, R = F * 1, T = F * 0.9, B = F * 3.2;
+    const pw = W - L - R, ph = H - T - B;
+    const tMin = spec.tMin ?? -150, tMax = spec.tMax ?? 500, lpMin = spec.lpMin ?? 1, lpMax = spec.lpMax ?? 8;
+    const X = t => L + (t - tMin) / (tMax - tMin) * pw;
+    const Y = p => T + ph - (Math.log10(p) - lpMin) / (lpMax - lpMin) * ph;
+    const clipY = y => Math.min(Math.max(y, T), T + ph);
+    let g = `<defs><clipPath id="${id}-c"><rect x="${L}" y="${T}" width="${pw}" height="${ph}"/></clipPath></defs>`;
+    // zones colorées
+    let sub = "", sat = "";
+    for (let t = tMin; t <= 0.01; t += 2) sub += (sub ? "L" : "M") + X(t).toFixed(1) + "," + Y(Math.max(Water.psub(t), Math.pow(10, lpMin - 3))).toFixed(1) + " ";
+    sub += "L" + X(0.01) + "," + Y(Water.Pt);
+    for (let t = 0.01; t <= 374; t += 2) sat += (sat ? "L" : "M") + X(t).toFixed(1) + "," + Y(Water.psat(t)).toFixed(1) + " ";
+    sat += "L" + X(374) + "," + Y(Water.Pc);
+    const Ptop = Math.pow(10, lpMax);
+    const meltTop = X(Water.tmelt(Ptop));
+    g += `<g clip-path="url(#${id}-c)">`;
+    g += `<path d="${sub.replace("M", "M" + X(tMin) + "," + Y(Ptop) + " L")} L${meltTop},${Y(Ptop)} Z" style="fill:var(--info-soft)"/>`;
+    g += `<path d="M${X(0.01)},${Y(Water.Pt)} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${meltTop},${Y(Ptop)} Z" style="fill:var(--ok-soft)"/>`;
+    g += `<path d="${sub} ${sat.replace("M", "L")} L${X(374)},${Y(Ptop)} L${X(tMax)},${Y(Ptop)} L${X(tMax)},${T + ph + 50} L${X(tMin)},${T + ph + 50} Z" style="fill:var(--warn-soft)"/>`;
+    g += `</g>`;
+    for (let e = lpMin; e <= lpMax; e++) g += `<line x1="${L}" x2="${L + pw}" y1="${Y(Math.pow(10, e))}" y2="${Y(Math.pow(10, e))}" style="stroke:var(--grid)"/>` + axisText(L - 6, Y(Math.pow(10, e)) + tk * 0.35, "10" + supStr(e), "end", tk);
+    let step = [10, 20, 50, 100, 200, 500].find(s => (tMax - tMin) / s <= pw / (F * 2.6)) || 500;
+    for (let t = Math.ceil(tMin / step) * step; t <= tMax; t += step) g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--grid)"/>` + axisText(X(t), T + ph + tk * 1.35, fmt(t), "middle", tk);
+    g += `<g clip-path="url(#${id}-c)"><path d="${sub}" style="fill:none;stroke:var(--info);stroke-width:2.5"/><path d="${sat}" style="fill:none;stroke:var(--c2);stroke-width:2.5"/><line x1="${X(0.01)}" y1="${Y(Water.Pt)}" x2="${meltTop}" y2="${Y(Ptop)}" style="stroke:var(--info);stroke-width:2.5"/></g>`;
+    g += `<circle cx="${X(0.01)}" cy="${Y(Water.Pt)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(0.01) + F * 0.35, Y(Water.Pt) + tk * 1.25, "point triple", "start", tk * 0.88, `font-weight="700"`);
+    if (Water.Pc <= Ptop) g += `<circle cx="${X(374)}" cy="${Y(Water.Pc)}" r="${F * 0.24}" style="fill:var(--ink)"/>` + axisText(X(374), Y(Water.Pc) - F * 0.45, "point critique", "middle", tk * 0.88, `font-weight="700"`);
+    g += axisText(X(tMin) + F * 0.6, T + F * 1.4, "SOLIDE", "start", tt, `font-weight="800" letter-spacing=".08em"`);
+    const pl = Math.pow(10, lpMax - 0.5), tl = Math.min(Water.tsat(pl), tMax) / 2;
+    g += axisText(X(tl), Y(pl) + F * 0.4, "LIQUIDE", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    g += axisText(X(tMin + 0.86 * (tMax - tMin)), Y(Math.pow(10, lpMin + 0.35)), "GAZ", "middle", tt, `font-weight="800" letter-spacing=".08em"`);
+    (spec.segments || []).forEach(s => {
+      const y = Y(s.P); g += `<line x1="${X(s.t0)}" x2="${X(s.t1)}" y1="${y}" y2="${y}" style="stroke:var(--${s.color || "c3"});stroke-width:${F * 0.32};stroke-linecap:round;opacity:.9"/>` + axisText(X(s.t0), y - F * 0.5, s.label, "start", tk, `font-weight="800"`);
+    });
+    (spec.points || []).forEach(p => { g += `<circle cx="${X(p.T)}" cy="${Y(p.P)}" r="${F * 0.3}" style="fill:var(--${p.color || "c3"});stroke:var(--surface);stroke-width:2"/>` + axisText(X(p.T) + F * 0.45, Y(p.P) - F * 0.35, p.label, "start", tk, `font-weight="800"`); });
+    if (ch.sel) { const [t, p] = ch.sel; g += `<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><line x1="${L}" x2="${L + pw}" y1="${Y(p)}" y2="${Y(p)}" style="stroke:var(--ink);stroke-width:1.4" stroke-dasharray="4 3"/><circle cx="${X(t)}" cy="${Y(p)}" r="${F * 0.3}" style="fill:var(--surface);stroke:var(--ink);stroke-width:3"/>`; }
+    g += `<line x1="${L}" x2="${L + pw}" y1="${T + ph}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/><line x1="${L}" x2="${L}" y1="${T}" y2="${T + ph}" style="stroke:var(--ink);stroke-width:1.5"/>`;
+    g += axisText(L + pw / 2, H - F * 0.35, "Température (°C)", "middle", tt, `font-weight="700"`);
+    g += `<text transform="translate(${F * 0.95},${T + ph / 2}) rotate(-90)" text-anchor="middle" style="fill:var(--ink);font-size:${tt}px;font-weight:700">Pression (Pa, échelle logarithmique)</text>`;
+    geo = { L, T, pw, ph, tMin, tMax, lpMin, lpMax };
+    return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${g}</svg>`;
+  }
+
+  /* --- lecture au toucher --- */
+  function pick(evt) {
+    const svg = host.querySelector("svg"); if (!svg) return;
+    const r = svg.getBoundingClientRect(); const sx = (evt.clientX - r.left) * (svg.viewBox.baseVal.width / r.width); const sy = (evt.clientY - r.top) * (svg.viewBox.baseVal.height / r.height);
+    if (spec.type === "bar") { let best = null, bd = 1e9; geo.bars.forEach(b => { const d = Math.abs(sx - (b.x + b.w / 2)); if (d < bd) { bd = d; best = b; } }); if (best) setSel([best.ci, best.si]); }
+    else if (spec.type === "line") { const xv = geo.xMin + (sx - geo.L) / geo.pw * (geo.xMax - geo.xMin); setSel(nearestX(xv)); }
+    else if (spec.type === "stack") { const s = geo.segs.find(q => sx >= q.x && sx <= q.x + q.w && sy >= q.y0 - 4 && sy <= q.y0 + q.h + 4); if (s) setSel([s.ri, s.pi]); }
+    else if (spec.type === "phase") { const t = geo.tMin + (sx - geo.L) / geo.pw * (geo.tMax - geo.tMin); const lp = geo.lpMax - (sy - geo.T) / geo.ph * (geo.lpMax - geo.lpMin); if (t < geo.tMin || t > geo.tMax || lp < geo.lpMin || lp > geo.lpMax) return; setSel([t, Math.pow(10, lp)]); }
+  }
+  function allX() { const c = (ch.cut === undefined || ch.cut === null) ? Infinity : ch.cut; const s = new Set(); spec.series.forEach(se => se.pts.forEach(p => { if (p[0] <= c) s.add(p[0]); })); return Array.from(s).sort((a, b) => a - b); }
+  function nearestX(xv) { const xs = allX(); let b = xs[0]; xs.forEach(x => { if (Math.abs(x - xv) < Math.abs(b - xv)) b = x; }); return b; }
+  function setSel(v) { ch.sel = v; ch.draw(); readout.innerHTML = describe(); }
+  function describe() {
+    if (spec.type === "bar") { const [ci, si] = ch.sel; const s = spec.series[si]; const v = s.values[ci]; return `<b>${esc(spec.categories[ci])}</b>${spec.series.length > 1 ? " · " + esc(s.name) : ""} : ${spec.valueLabel ? spec.valueLabel(v, ci, si) : fmt(v)}${spec.unit ? " " + spec.unit : ""}`; }
+    if (spec.type === "line") { const xv = ch.sel; return `<b>${spec.xRead ? spec.xRead(xv) : fmt(xv)}</b> → ` + spec.series.map(s => { const p = s.pts.find(q => q[0] === xv); return p ? `${esc(s.name)} : ${spec.yRead ? spec.yRead(p[1]) : fmt(p[1])}` : null; }).filter(Boolean).join(" · "); }
+    if (spec.type === "stack") { const [ri, pi] = ch.sel; return `<b>${esc(spec.rows[ri].label)}</b> · ${esc(spec.parts[pi])} : ${fmt(spec.rows[ri].values[pi])} %`; }
+    if (spec.type === "phase") { const [t, p] = ch.sel; return `Point touché : <b>T ≈ ${fmt(Math.round(t))} °C</b> ; <b>P ≈ ${fmtPow(Number(p.toPrecision(2)))} Pa</b>${spec.readState ? ` → état de l'eau : <b>${Water.state(t, p)}</b>` : ""}`; }
+    return "";
+  }
+  host.addEventListener("pointerdown", e => { pick(e); });
+  host.addEventListener("pointermove", e => { if (e.buttons && e.pointerType === "mouse") pick(e); });
+  host.addEventListener("keydown", e => {
+    if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return; e.preventDefault(); const dir = e.key === "ArrowRight" ? 1 : -1;
+    if (spec.type === "line") { const xs = allX(); let i = ch.sel === null ? 0 : xs.indexOf(ch.sel) + dir; i = Math.max(0, Math.min(xs.length - 1, i)); setSel(xs[i]); }
+    if (spec.type === "bar") { const n = spec.categories.length * spec.series.length; let k = ch.sel ? ch.sel[0] * spec.series.length + ch.sel[1] + dir : 0; k = (k + n) % n; setSel([Math.floor(k / spec.series.length), k % spec.series.length]); }
+    if (spec.type === "stack") { const flat = []; spec.rows.forEach((r, ri) => r.values.forEach((v, pi) => { if (v > 0) flat.push([ri, pi]); })); let k = ch.sel ? flat.findIndex(f => f[0] === ch.sel[0] && f[1] === ch.sel[1]) + dir : 0; k = (k + flat.length) % flat.length; setSel(flat[k]); }
+  });
+  if (spec.anim && spec.type === "line") {
+    const ctr = document.createElement("div"); ctr.className = "row animctl";
+    ctr.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+    container.insertBefore(ctr, readout);
+    const bRun = ctr.querySelector('[data-a="run"]');
+    ch.cut = spec.animStart === "empty" ? spec.xMin : null; ch.playing = false;
+    if (spec.animStart === "empty" && tableEl) { tableEl.hidden = true; }
+    const lab = () => { bRun.textContent = ch.playing ? CT.animPause : (ch.cut !== null && ch.cut > spec.xMin) ? CT.animResume : CT.animRun; };
+    const frame = ts => {
+      if (!ch.playing) return; if (!document.body.contains(host)) { ch.playing = false; return; }
+      const dt = ch.lt ? Math.min(100, ts - ch.lt) : 0; ch.lt = ts;
+      let c = (ch.cut === null ? spec.xMin : ch.cut) + (spec.xMax - spec.xMin) * dt / (spec.animDur || 6000);
+      if (c >= spec.xMax) { ch.cut = null; ch.playing = false; if (tableEl) tableEl.hidden = false; } else ch.cut = c;
+      ch.draw(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch); lab();
+      if (ch.playing) ch.raf = requestAnimationFrame(frame);
+    };
+    ch.play = () => { if (ch.cut === null) ch.cut = spec.xMin; ch.playing = true; ch.lt = 0; ch.sel = null; lab(); ch.raf = requestAnimationFrame(frame); };
+    ch.pause = () => { ch.playing = false; cancelAnimationFrame(ch.raf); lab(); };
+    bRun.onclick = () => ch.playing ? ch.pause() : ch.play();
+    ctr.querySelector('[data-a="reset"]').onclick = () => { ch.pause(); ch.cut = spec.xMin; ch.sel = null; ch.draw(); if (spec.onCut) spec.onCut(spec.xMin, ch); ch.play(); };
+    lab(); if (spec.onCut) spec.onCut(ch.cut === null ? spec.xMax : ch.cut, ch);
+  }
+  ch.draw(); Charts.list.add(ch);
+  if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; ch.draw(); } }).observe(host); }
+  return ch;
+}
+
+function buildTable(spec) {
+  let head = "", body = "";
+  if (spec.type === "bar") {
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name || spec.yTitle)}</th>`).join("")}</tr>`;
+    body = spec.categories.map((c, ci) => `<tr><td>${esc(c)}</td>${spec.series.map((s, si) => `<td class="n">${spec.valueLabel ? spec.valueLabel(s.values[ci], ci, si) : fmt(s.values[ci])}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "line") {
+    const xs = new Set(); spec.series.forEach(s => s.pts.forEach(p => xs.add(p[0])));
+    const X = Array.from(xs).sort((a, b) => a - b);
+    head = `<tr><th>${esc(spec.xTitle || "")}</th>${spec.series.map(s => `<th>${esc(s.name)}</th>`).join("")}</tr>`;
+    body = X.map(x => `<tr><td class="n">${spec.xFmt ? spec.xFmt(x) : fmt(x)}</td>${spec.series.map(s => { const p = s.pts.find(q => q[0] === x); return `<td class="n">${p ? (spec.yFmt ? spec.yFmt(p[1]) : fmt(p[1])) : "—"}</td>`; }).join("")}</tr>`).join("");
+  } else if (spec.type === "stack") {
+    head = `<tr><th>Niveau</th>${spec.parts.map(p => `<th>${esc(p)} (%)</th>`).join("")}</tr>`;
+    body = spec.rows.map(r => `<tr><td>${esc(r.label)}${r.sub ? " (" + esc(r.sub) + ")" : ""}</td>${r.values.map(v => `<td class="n">${fmt(v)}</td>`).join("")}</tr>`).join("");
+  } else if (spec.type === "phase") {
+    if (spec.table === "none") return null;
+    head = `<tr><th>Repère</th><th>Température</th><th>Pression</th></tr>`;
+    body = `<tr><td>Point triple</td><td class="n">0,01 °C</td><td class="n">611 Pa</td></tr><tr><td>Ébullition sous 1 atm</td><td class="n">100 °C</td><td class="n">1,013 × 10⁵ Pa</td></tr><tr><td>Point critique</td><td class="n">374 °C</td><td class="n">2,21 × 10⁷ Pa</td></tr>`;
+  }
+  const d = document.createElement("details"); d.className = "tbl"; if (spec.tableOpen) d.open = true;
+  d.innerHTML = `<summary>${CT.table}${spec.type === "phase" ? " (repères)" : ""}</summary><div class="tablewrap"><table class="t"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  return d;
+}
+
+/* ======================= BILAN : télécharger / copier / mail / montrer ======================= */
+const inClaude = () => !!(window.claude && typeof window.claude.use === "function");
+const canMail = () => !/claude/i.test(location.hostname || "");
+let _dlP = null;
+function getDownloads() { if (!inClaude()) return Promise.resolve(null); if (!_dlP) _dlP = window.claude.use("downloads").catch(() => null); return _dlP; }
+setTimeout(() => { getDownloads(); }, 0);
+
+async function saveText(filename, text) {
+  if (inClaude()) {
+    const d = await getDownloads();
+    if (!d) return { ok: false, msg: CT.dlNo };
+    try { await d.save({ filename, data: text }); return { ok: true, msg: CT.dlOk }; }
+    catch (e) { const c = e && e.code; if (c === "declined") return { ok: false, msg: CT.dlDeclined }; if (c === "rate_limited") return { ok: false, msg: CT.dlBusy }; return { ok: false, msg: CT.dlFail }; }
+  }
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" }); const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 2000); return { ok: true, msg: CT.dlDone };
+  } catch (e) { return { ok: false, msg: CT.dlFail }; }
+}
+
+function renderBilanTools(container, getText, getShow, appSlug) {
+  container.innerHTML = `
+    <div class="field"><label for="eleve">${CT.name}</label><input id="eleve" class="inp" autocomplete="off" maxlength="40"></div>
+    <div class="row">
+      <button class="btn" id="bDl" type="button">${CT.bDl}</button>
+      <button class="btn ghost" id="bCp" type="button">${CT.bCp}</button>
+      ${canMail() ? `<button class="btn ghost" id="bMail" type="button">${CT.bMail}</button>` : ""}
+      <button class="btn ghost" id="bShow" type="button">${CT.bShow}</button>
+    </div>
+    <p class="toast" id="bMsg" aria-live="polite"></p>
+    <textarea class="inp copyarea" id="bTxt" readonly hidden aria-label="${CT.bilanTxt}"></textarea>`;
+  const inp = $("#eleve", container);
+  try { inp.value = localStorage.getItem(Store.key + "-eleve") || ""; } catch (e) {}
+  inp.addEventListener("input", () => { try { localStorage.setItem(Store.key + "-eleve", inp.value); } catch (e) {} });
+  const msg = t => { $("#bMsg", container).textContent = t; };
+  $("#bDl", container).onclick = async () => { const r = await saveText(`bilan-${appSlug}-${(inp.value || CT.student).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]+/gi, "_")}.txt`, getText(inp.value)); msg(r.msg); };
+  $("#bCp", container).onclick = () => {
+    const txt = getText(inp.value); const ta = $("#bTxt", container);
+    const fallback = () => { ta.hidden = false; ta.value = txt; ta.focus(); ta.select(); msg(CT.cpSel); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => msg(CT.cpOk), fallback); else fallback();
+  };
+  const bm = $("#bMail", container); if (bm) bm.onclick = () => { const txt = getText(inp.value); location.href = "mailto:?subject=" + encodeURIComponent(CT.subject + appSlug) + "&body=" + encodeURIComponent(txt); msg(CT.mailOk); };
+  $("#bShow", container).onclick = () => showOverlay(getShow(inp.value));
+}
+function showOverlay(html) {
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="in">${html}<button class="btn" type="button" id="ovClose">${CT.close}</button></div>`;
+  document.body.appendChild(o); const c = $("#ovClose", o); c.focus();
+  const close = () => { o.remove(); document.removeEventListener("keydown", k); }; const k = e => { if (e.key === "Escape") close(); };
+  c.onclick = close; document.addEventListener("keydown", k);
+}
+const today = () => new Date().toLocaleDateString(CT.locale, { day: "numeric", month: "long", year: "numeric" });
+
+/* ===== Boîte à outils commune : typographie, SVG à la largeur réelle, commande d'animation ===== */
+const SIMUL = "Valeurs simulées";
+const NB = " ", NN = " ";
+const tbl = (head, rows) => `<div class="tablewrap"><table class="t"><thead><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+/* ---------- typographie française appliquée aux contenus ---------- */
+function nb(s) {
+  return String(s).replace(/ ([?!;])/g, NN + "$1").replace(/ :(?=[ <]|$)/g, NB + ":").replace(/« /g, "«" + NB).replace(/ »/g, NB + "»")
+    .replace(/(\d) (\d{3})(?!\d)/g, "$1" + NN + "$2").replace(/(\d) (%|°C|m|cm|mm|mL|L|W|km|km²|km³|Mt|t|kg|ans|min|fois|millions)(?![\wà-ÿ²³])/g, "$1" + NB + "$2");
+}
+function typo(o) { if (typeof o === "string") return nb(o); if (Array.isArray(o)) return o.map(typo); if (o && typeof o === "object") { Object.keys(o).forEach(k => { if (typeof o[k] !== "function") o[k] = typo(o[k]); }); } return o; }
+
+/* ---------- SVG redessiné à la largeur réelle (texte toujours lisible) ---------- */
+const fsPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) || 20;
+function liveSVG(host, draw) {
+  const o = { host, draw() { const W = Math.max(260, host.clientWidth || 320); host.innerHTML = draw(W, fsPx()); } };
+  o.draw(); Charts.list.add(o);
+  if (window.ResizeObserver) { let lw = host.clientWidth; new ResizeObserver(() => { const w = host.clientWidth; if (Math.abs(w - lw) > 4) { lw = w; o.draw(); } }).observe(host); }
+  return o;
+}
+const sT = (x, y, txt, a, size, extra) => `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${size.toFixed(1)}px" ${extra || ""}>${esc(txt)}</text>`;
+const TK = F => Math.max(15, F * 0.76);
+function arrow(x1, y1, x2, y2, w, color, op) {
+  const a = Math.atan2(y2 - y1, x2 - x1), hl = Math.max(w * 1.1, 10), hw = Math.max(w * 0.95, 7);
+  const bx = x2 - Math.cos(a) * hl, by = y2 - Math.sin(a) * hl, nx = -Math.sin(a), ny = Math.cos(a);
+  return `<g style="opacity:${op || 1}"><line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" style="stroke:var(--${color});stroke-width:${Math.max(w, 1.5).toFixed(1)}"/><polygon points="${x2.toFixed(1)},${y2.toFixed(1)} ${(bx + nx * hw).toFixed(1)},${(by + ny * hw).toFixed(1)} ${(bx - nx * hw).toFixed(1)},${(by - ny * hw).toFixed(1)}" style="fill:var(--${color})"/></g>`;
+}
+
+/* ---------- commande d'animation commune : Lancer / Pause / Recommencer ---------- */
+function animCtl(el, dur, onP) {
+  el.innerHTML = `<button class="btn" type="button" data-a="run"></button><button class="btn ghost" type="button" data-a="reset">${CT.animReset}</button>`;
+  const st = { p: 0, playing: false, lt: 0, raf: 0 }, b = el.querySelector('[data-a="run"]');
+  const lab = () => { b.textContent = st.playing ? CT.animPause : (st.p > 0 && st.p < 1) ? CT.animResume : CT.animRun; };
+  const frame = ts => {
+    if (!st.playing) return; if (!document.body.contains(el)) { st.playing = false; return; }
+    const dt = st.lt ? Math.min(100, ts - st.lt) : 0; st.lt = ts; st.p = Math.min(1, st.p + dt / dur);
+    if (st.p >= 1) st.playing = false; onP(st.p); lab(); if (st.playing) st.raf = requestAnimationFrame(frame);
+  };
+  st.play = () => { if (st.p >= 1) st.p = 0; st.playing = true; st.lt = 0; lab(); st.raf = requestAnimationFrame(frame); };
+  st.pause = () => { st.playing = false; cancelAnimationFrame(st.raf); lab(); };
+  st.set = p => { st.pause(); st.p = Math.max(0, Math.min(1, p)); onP(st.p); lab(); };
+  b.onclick = () => st.playing ? st.pause() : st.play();
+  el.querySelector('[data-a="reset"]').onclick = () => st.set(0);
+  lab(); onP(0); return st;
+}
+
+
+/* ===== 3e SVT · Chapitre 3 · Activité 3 · La place de l'Homme dans l'évolution : un « Phylogène » simplifié =====
+   D'après la fiche du professeur (logiciel Phylogène, collections « Vertébrés collège » et « Primates collège ») et sa correction :
+   tableau de caractères, boîtes emboîtées, arbre phylogénétique, groupes. */
+Store.key = "svt3-evo-act3-v1";
+const WID = {}, LIVE = {};
+const xst = () => { if (!S.x || typeof S.x !== "object") S.x = {}; return S.x; };
+const keep = () => { try { save(); } catch (e) {} if (typeof refreshTasks === "function") refreshTasks(); };
+const f1 = v => (+v).toFixed(1);
+const sX = (x, y, txt, a, size, extra) => { extra = extra || ""; const m = extra.match(/style="([^"]*)"/); return `<text x="${f1(x)}" y="${f1(y)}" text-anchor="${a || "start"}" style="fill:var(--ink);font-size:${f1(size)}px;${m ? m[1] : ""}" ${extra.replace(/style="[^"]*"/, "")}>${esc(txt)}</text>`; };
+let _cv = null;
+const txtW = (t, size) => { try { _cv = _cv || document.createElement("canvas").getContext("2d"); _cv.font = `700 ${size}px ${getComputedStyle(document.body).fontFamily}`; return _cv.measureText(t).width + size * 0.3; } catch (e) { return t.length * size * 0.6; } };
+const CIRC = ["①", "②", "③", "④", "⑤"];
+
+/* ---------- les deux collections (données de la correction du professeur) ---------- */
+const SETS = {
+  vert: { name: "Vertébrés", ch: [{ k: "poils", nm: "Poils" }, { k: "mam", nm: "Mamelles" }, { k: "amn", nm: "Amnios" }, { k: "doigts", nm: "Doigts" }, { k: "sq", nm: "Squelette osseux" }],
+    sp: [
+      { k: "chat", e: "🐈", nm: "Chat", m: "11111", info: "Mammifère carnivore. Son corps est couvert de poils ; la femelle allaite ses petits grâce à ses mamelles. L'embryon se développe dans une poche remplie de liquide, l'amnios. Ses quatre pattes se terminent par des doigts. Squelette osseux." },
+      { k: "crapaud", e: "🐸", nm: "Crapaud", m: "00011", info: "Amphibien. Peau nue, sans poils ni écailles ; pas de mamelles. Il pond des œufs sans coquille dans l'eau : l'embryon n'est pas entouré d'un amnios. Ses quatre pattes se terminent par des doigts. Squelette osseux." },
+      { k: "croco", e: "🐊", nm: "Crocodile", m: "00111", info: "Reptile. Peau couverte d'écailles, sans poils ; pas de mamelles. Il pond sur la terre ferme des œufs à coquille, dans lesquels l'embryon se développe dans un amnios. Ses quatre pattes se terminent par des doigts. Squelette osseux." },
+      { k: "gorille", e: "🦍", nm: "Gorille", m: "11111", info: "Grand singe. Corps couvert de poils ; la femelle allaite ses petits grâce à ses mamelles. L'embryon se développe dans un amnios. Mains et pieds terminés par des doigts. Squelette osseux." },
+      { k: "homme", e: "🧍", nm: "Homme", m: "11111", info: "Corps en partie couvert de poils ; la femme allaite ses enfants grâce à ses mamelles. L'embryon se développe dans un amnios. Mains et pieds terminés par des doigts. Squelette osseux." },
+      { k: "sardine", e: "🐟", nm: "Sardine", m: "00001", info: "Poisson. Corps couvert d'écailles, sans poils ; pas de mamelles. Elle pond ses œufs dans l'eau : pas d'amnios. Elle a des nageoires, sans doigts. Squelette osseux." }],
+    leaves: ["sardine", "crapaud", "croco", "chat", "homme", "gorille"],
+    traits: [["sq"], ["doigts"], ["amn"], ["poils", "mam"]],
+    groups: [{ nm: "Vertébrés", def: "au moins un squelette osseux", n: 6 }, { nm: "Tétrapodes", def: "au moins un squelette osseux et des doigts", n: 5 }, { nm: "Amniotes", def: "au moins un squelette osseux, des doigts et un amnios", n: 4 }, { nm: "Mammifères", def: "au moins un squelette osseux, des doigts, un amnios, des poils et des mamelles", n: 3 }] },
+  prim: { name: "Primates", ch: [{ k: "coc", nm: "Coccyx" }, { k: "nar", nm: "Narines rapprochées et orbites fermées" }, { k: "ong", nm: "Ongles plats et pouce opposable" }, { k: "poils", nm: "Poils" }],
+    sp: [
+      { k: "chat", e: "🐈", nm: "Chat", m: "0001", info: "Mammifère. Poils. Griffes, et non ongles plats ; pas de pouce opposable. Narines écartées ; orbites ouvertes vers l'arrière. Il a une queue." },
+      { k: "chimp", e: "🐒", nm: "Chimpanzé", m: "1111", info: "Grand singe d'Afrique. Poils. Ongles plats et pouce opposable. Narines rapprochées, tournées vers le bas ; orbites fermées vers l'arrière. Pas de queue : ses dernières vertèbres, soudées, forment un coccyx." },
+      { k: "gorille", e: "🦍", nm: "Gorille", m: "1111", info: "Grand singe d'Afrique. Poils. Ongles plats et pouce opposable. Narines rapprochées ; orbites fermées vers l'arrière. Pas de queue : il a un coccyx." },
+      { k: "homme", e: "🧍", nm: "Homme", m: "1111", info: "Poils. Ongles plats et pouce opposable. Narines rapprochées, tournées vers le bas ; orbites fermées vers l'arrière. Pas de queue : il a un coccyx." },
+      { k: "macaque", e: "🐵", nm: "Macaque", m: "0111", info: "Singe d'Asie et d'Afrique du Nord. Poils. Ongles plats et pouce opposable. Narines rapprochées, tournées vers le bas ; orbites fermées vers l'arrière. Il a une queue : pas de coccyx." },
+      { k: "tarsier", e: "👀", nm: "Tarsier", m: "0011", info: "Petit primate d'Asie du Sud-Est, actif la nuit, aux yeux énormes. Poils. Ongles plats et pouce opposable. Narines écartées ; orbites incomplètement fermées vers l'arrière. Longue queue." }],
+    leaves: ["chat", "tarsier", "macaque", "chimp", "gorille", "homme"],
+    traits: [["poils"], ["ong"], ["nar"], ["coc"]],
+    groups: [{ nm: "Mammifères", def: "des poils", n: 6 }, { nm: "Primates", def: "des poils, des ongles plats et un pouce opposable", n: 5 }, { nm: "Singes de l'Ancien Monde", def: "les caractères des primates, des narines rapprochées et des orbites fermées", n: 4 }, { nm: "Hominoïdes", def: "les caractères des singes de l'Ancien Monde et un coccyx", n: 3 }] } };
+Object.values(SETS).forEach(C => { C.spk = k => C.sp.find(s => s.k === k); C.has = (sk, ck) => C.spk(sk).m[C.ch.findIndex(c => c.k === ck)] === "1"; C.traitName = t => t.map(k => C.ch.find(c => c.k === k).nm).join(" + "); });
+const traitLabel = (C, t) => t.map((k, i) => { const n = C.ch.find(c => c.k === k).nm; return i ? n.charAt(0).toLowerCase() + n.slice(1) : n; }).join(" et ");
+
+/* ======================= 1 · Le tableau de caractères (cliquer : présent / absent) ======================= */
+const mxS = set => { const X = xst(); X.mx = X.mx || {}; X.mx[set] = X.mx[set] || {}; return X.mx[set]; };
+const mxCell = (set, sk, i) => { const r = mxS(set)[sk]; return r ? r[i] : "?"; };
+const mxErrors = set => { const C = SETS[set]; let e = 0, empty = 0; C.sp.forEach(s => C.ch.forEach((c, i) => { const v = mxCell(set, s.k, i); if (v === "?") empty++; else if (v !== s.m[i]) e++; })); return { e, empty }; };
+const mxOk = set => { const r = mxErrors(set); return !r.e && !r.empty; };
+function mkMatrice(set) {
+  return el => {
+    const C = SETS[set], X = xst(); X.mxSort = X.mxSort || {}; X.mxChk = X.mxChk || {}; X.mxFirst = X.mxFirst || {};
+    let info = null, marks = false;
+    el.innerHTML = `<p class="lead">${nb("Remplis le tableau : touche une case pour indiquer si le caractère est présent ou absent (touche encore pour changer). Le bouton 📄 ouvre les informations sur l'espèce.")}</p>
+      <div class="row"><button type="button" class="btn ghost" data-sort aria-pressed="false">↕ Organiser le tableau</button><button type="button" class="btn" data-chk>✔ Vérifier mon tableau</button></div>
+      <div class="tablewrap mxw"></div><div class="mxinfo" aria-live="polite"></div><p class="readout" aria-live="polite"></p>`;
+    const rowsOrder = () => { const L = C.sp.slice(); if (X.mxSort[set]) L.sort((a, b) => [...b.m].filter(c => c === "1").length - [...a.m].filter(c => c === "1").length); return L; };
+    const paint = () => {
+      const S2 = mxS(set);
+      const narrow = ($(".mxw", el).clientWidth || el.clientWidth || 600) < fsPx() * 27;
+      const cell = (s, c, i) => { const v = (S2[s.k] || "?".repeat(C.ch.length))[i], bad = marks && v !== "?" && v !== s.m[i], ok = marks && v === s.m[i]; return `<button type="button" class="mxc ${v === "1" ? "on" : v === "0" ? "off" : ""} ${bad ? "is-bad" : ""}" data-s="${s.k}" data-i="${i}" aria-label="${esc(s.nm + " : " + c.nm + " : " + (v === "1" ? "présent" : v === "0" ? "absent" : "pas encore rempli") + (bad ? ", à corriger" : ""))}">${narrow ? `<span class="cn">${c.nm}</span>` : ""}<span class="cv">${v === "1" ? "Présent" : v === "0" ? "Absent" : "?"}</span>${bad ? `<span class="mk">✗</span>` : ok ? `<span class="mk ok">✓</span>` : ""}</button>`; };
+      const spBtn = s => `<button type="button" class="mxsp" data-info="${s.k}" aria-pressed="${info === s.k}" aria-label="Informations sur : ${s.nm}"><span aria-hidden="true">${s.e}</span> ${s.nm} <span aria-hidden="true">📄</span></button>`;
+      const infoBox = s => `<div class="box info"><p class="lab">📄 ${s.e} ${s.nm}</p><p>${nb(s.info)}</p></div>`;
+      if (narrow) $(".mxw", el).innerHTML = `<div class="mxcards">${rowsOrder().map(s => `<div class="mxcard">${spBtn(s)}${info === s.k ? infoBox(s) : ""}<div class="mxrow">${C.ch.map((c, i) => cell(s, c, i)).join("")}</div></div>`).join("")}</div>`;
+      else $(".mxw", el).innerHTML = `<table class="mx"><thead><tr><th scope="col">Espèce</th>${C.ch.map(c => `<th scope="col">${c.nm}</th>`).join("")}</tr></thead><tbody>${rowsOrder().map(s => `<tr><th scope="row">${spBtn(s)}</th>${C.ch.map((c, i) => `<td>${cell(s, c, i)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+      $$("[data-s]", el).forEach(b => b.onclick = () => { const sk = b.dataset.s, i = +b.dataset.i, r = (S2[sk] || "?".repeat(C.ch.length)).split(""); r[i] = r[i] === "1" ? "0" : "1"; S2[sk] = r.join(""); marks = false; keep(); paint(); const n = $(`[data-s="${sk}"][data-i="${i}"]`, el); if (n) n.focus(); });
+      $$("[data-info]", el).forEach(b => b.onclick = () => { info = info === b.dataset.info ? null : b.dataset.info; paint(); });
+      const s = info && C.spk(info);
+      $(".mxinfo", el).innerHTML = s && !narrow ? infoBox(s) : "";
+      const r = mxErrors(set);
+      $(".readout", el).innerHTML = nb(r.empty ? `Cases remplies : <b>${C.sp.length * C.ch.length - r.empty}/${C.sp.length * C.ch.length}</b>.` : marks ? (r.e ? `✗ <b>${r.e}</b> case(s) à corriger (marquées ✗).` : "✓ Tableau juste !") : "Tableau rempli : touche « Vérifier mon tableau ».");
+      const sb = $("[data-sort]", el); sb.setAttribute("aria-pressed", !!X.mxSort[set]); sb.textContent = X.mxSort[set] ? "↕ Ordre de départ" : "↕ Organiser le tableau";
+    };
+    $("[data-sort]", el).onclick = () => { X.mxSort[set] = !X.mxSort[set]; keep(); paint(); };
+    if (window.ResizeObserver) { let lw = 0; new ResizeObserver(() => { const w = $(".mxw", el).clientWidth; if (Math.abs(w - lw) > 30) { lw = w; paint(); } }).observe($(".mxw", el)); }
+    $("[data-chk]", el).onclick = () => { const r = mxErrors(set); marks = true; if (!r.empty && X.mxFirst[set] === undefined) X.mxFirst[set] = r.e; X.mxChk[set] = (X.mxChk[set] || 0) + 1; keep(); paint(); };
+    paint();
+  };
+}
+WID.matV = mkMatrice("vert");
+WID.matP = mkMatrice("prim");
+
+/* ======================= 2 · Les boîtes emboîtées (afficher les boîtes, caractère par caractère) ======================= */
+const bxS = set => { const X = xst(); X.bx = X.bx || {}; X.bx[set] = X.bx[set] || []; return X.bx[set]; };
+const BXC = ["#c9a227", "#3f7fbf", "#b5651d", "#c2477a"];
+function mkBoites(set) {
+  return el => {
+    const C = SETS[set], A = bxS(set);
+    el.innerHTML = `<p class="lead">${nb("Touche les caractères les uns après les autres : chacun dessine une boîte autour des espèces qui le possèdent.")}</p>
+      <div class="seg bxb" role="group" aria-label="Caractères">${C.ch.map(c => `<button type="button" data-c="${c.k}" aria-pressed="false">${c.nm}</button>`).join("")}</div>
+      <div class="row"><button type="button" class="btn ghost" data-all>Afficher toutes les boîtes</button><button type="button" class="btn ghost" data-none>Effacer les boîtes</button></div>
+      <div class="bxz" aria-live="polite"></div>`;
+    const paint = () => {
+      $$("[data-c]", el).forEach(b => b.setAttribute("aria-pressed", A.includes(b.dataset.c)));
+      /* groupes de caractères ayant exactement les mêmes espèces, du plus partagé au moins partagé */
+      const sig = c => C.sp.map(s => C.has(s.k, c.k) ? 1 : 0).join("");
+      const groups = []; C.ch.forEach(c => { const g = groups.find(q => q.sig === sig(c)); if (g) g.ch.push(c); else groups.push({ sig: sig(c), ch: [c] }); });
+      groups.forEach(g => { g.n = [...g.sig].filter(x => x === "1").length; }); groups.sort((a, b) => b.n - a.n);
+      const act = groups.filter(g => g.ch.some(c => A.includes(c.k)));
+      const chips = L => L.length ? `<div class="bxs">${L.map(s => `<span class="spt">${s.e} ${s.nm}</span>`).join("")}</div>` : "";
+      const build = (lvl, inside) => {
+        if (lvl >= act.length) return chips(inside);
+        const g = act[lvl], sub = inside.filter(s => g.sig[C.sp.indexOf(s)] === "1"), own = inside.filter(s => !sub.includes(s));
+        return chips(own) + `<div class="bx" style="--bc:${BXC[groups.indexOf(g) % BXC.length]}"><p class="bxt">${g.ch.filter(c => A.includes(c.k)).map(c => c.nm).join(" · ")}</p>${build(lvl + 1, sub)}</div>`;
+      };
+      $(".bxz", el).innerHTML = act.length ? build(0, C.sp) : chips(C.sp) + `<p class="lead">Aucune boîte pour l'instant.</p>`;
+    };
+    $$("[data-c]", el).forEach(b => b.onclick = () => { const k = b.dataset.c, i = A.indexOf(k); if (i >= 0) A.splice(i, 1); else A.push(k); xst().bxSeen = xst().bxSeen || {}; if (C.ch.every(c => A.includes(c.k))) xst().bxSeen[set] = 1; keep(); paint(); });
+    $("[data-all]", el).onclick = () => { A.splice(0, A.length, ...C.ch.map(c => c.k)); xst().bxSeen = xst().bxSeen || {}; xst().bxSeen[set] = 1; keep(); paint(); };
+    $("[data-none]", el).onclick = () => { A.splice(0, A.length); keep(); paint(); };
+    paint();
+  };
+}
+WID.boxV = mkBoites("vert");
+WID.boxP = mkBoites("prim");
+
+/* ======================= 3 · L'arbre phylogénétique (racine à gauche, espèces à droite) ======================= */
+/* opts.traits : tableau de 4 étiquettes (ou null) ; opts.groups : 4 tableaux d'indices d'espèces (ordre de C.sp) ou null */
+function treeSVG(set, W, F, opts) {
+  const C = SETS[set], tk = TK(F) * 0.88, n = 6, rh = F * 1.75, top = F * 0.9, xr = F * 0.5;
+  const gw = opts.groups ? F * 0.62 : 0, labW = Math.max(...C.leaves.map(k => txtW(`${C.spk(k).e} ${C.spk(k).nm}`, tk))) + F * 0.4, lw = Math.min(W - xr - labW - gw * 4 - F * 0.3, F * 13), xl = xr + lw, dx = (lw - F * 1.4) / 4;
+  const y = i => top + i * rh, xn = k => xr + F * 1.4 + k * dx;
+  const c = []; c[3] = y(4); for (let k = 2; k >= 0; k--) c[k] = (y(k) + c[k + 1]) / 2;
+  const ln = (x1, y1, x2, y2) => `<line x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" style="stroke:var(--ink);stroke-width:2.6;stroke-linecap:round"/>`;
+  let g = ln(xr, c[0], xn(0), c[0]);
+  for (let k = 0; k < 3; k++) g += ln(xn(k), y(k), xn(k), c[k + 1]) + ln(xn(k), y(k), xl, y(k)) + ln(xn(k), c[k + 1], xn(k + 1), c[k + 1]);
+  g += ln(xn(3), y(3), xn(3), y(5)); [3, 4, 5].forEach(i => { g += ln(xn(3), y(i), xl, y(i)); });
+  for (let k = 0; k < 4; k++) g += `<rect x="${f1(xn(k) - F * 0.2)}" y="${f1(c[k] - F * 0.2)}" width="${f1(F * 0.4)}" height="${f1(F * 0.4)}" style="fill:#f2c200;stroke:var(--ink);stroke-width:1"/>`;
+  /* traits d'apparition des caractères : ① sur la racine, ②③④ entre les nœuds */
+  const tx = [[(xr + xn(0)) / 2, c[0]], [(xn(0) + xn(1)) / 2, c[1]], [(xn(1) + xn(2)) / 2, c[2]], [(xn(2) + xn(3)) / 2, c[3]]];
+  if (opts.traits) tx.forEach(([x, yy], i) => { const has = opts.traits[i] !== null && opts.traits[i] !== undefined; g += `<line x1="${f1(x)}" y1="${f1(yy - F * 0.45)}" x2="${f1(x)}" y2="${f1(yy + F * 0.45)}" style="stroke:${has ? "var(--bad)" : "var(--muted)"};stroke-width:3"/>` + sX(x, yy - F * 0.6, CIRC[i], "middle", tk, `font-weight="800" style="fill:${has ? "var(--bad)" : "var(--muted)"}"`); });
+  C.leaves.forEach((k, i) => { const s = C.spk(k); g += sX(xl + F * 0.3, y(i) + tk * 0.35, `${s.e} ${s.nm}`, "start", tk, 'font-weight="700"'); });
+  let H = y(5) + F * 1.1;
+  if (opts.groups) {
+    const gx0 = xl + labW + F * 0.1;
+    opts.groups.forEach((sel, j) => {
+      const col = `var(--c${j + 1})`, x = gx0 + j * gw, rows = (sel || []).map(si => C.leaves.indexOf(C.sp[si].k)).filter(r => r >= 0).sort((a, b) => a - b);
+      let r0 = null; rows.forEach((r, q) => { if (r0 === null) r0 = r; if (rows[q + 1] !== r + 1) { g += `<line x1="${f1(x)}" y1="${f1(y(r0) - rh * 0.4)}" x2="${f1(x)}" y2="${f1(y(r) + rh * 0.4)}" style="stroke:${col};stroke-width:4;stroke-linecap:round"/>`; r0 = null; } });
+      g += sX(x, y(0) - F * 0.35, String(j + 1), "middle", tk * 0.85, `font-weight="800" style="fill:${col}"`);
+    });
+  }
+  return { svg: g, H };
+}
+function legendHTML(set, opts) {
+  const C = SETS[set]; let h = "";
+  if (opts.traits) h += `<ul class="tleg">${opts.traits.map((t, i) => `<li><span class="tn">${CIRC[i]}</span> ${t ? esc(t) : `<span class="muted">? (à placer)</span>`}</li>`).join("")}</ul>`;
+  if (opts.groups) h += `<ul class="tleg">${C.groups.map((gq, j) => `<li><span class="gsw" style="background:var(--c${j + 1})"></span> ${j + 1} · ${gq.nm}</li>`).join("")}</ul>`;
+  return h;
+}
+const TRAITS_OK = set => SETS[set].traits.map(t => traitLabel(SETS[set], t));
+function liveTree(set, mode, off) {
+  off = off || 0;
+  return (W, F, v) => {
+    const C = SETS[set], m = (v && v[off]) || {};
+    const opts = mode === "traits" ? { traits: [0, 1, 2, 3].map(i => m[i] === undefined ? null : TRAITS_OK(set)[m[i]]) } : { traits: TRAITS_OK(set), groups: [0, 1, 2, 3].map(j => (v && v[off + j]) || []) };
+    const t = treeSVG(set, W, F, opts);
+    return `<svg viewBox="0 0 ${W} ${f1(t.H)}" width="${W}" height="${f1(t.H)}" role="img" aria-label="Arbre phylogénétique des ${C.name.toLowerCase()} : de la racine vers ${C.leaves.map(k => C.spk(k).nm).join(", ")}. Le dernier nœud porte trois branches.">${t.svg}</svg><div class="tlegw">${legendHTML(set, opts)}</div>`;
+  };
+}
+LIVE.traitsV = liveTree("vert", "traits");
+LIVE.groupsV = liveTree("vert", "groups");
+LIVE.traitsP = liveTree("prim", "traits", 1);
+LIVE.groupsP = liveTree("prim", "groups");
+
+/* ===== 3e SVT · Chapitre 3 · Activité 3 · La place de l'Homme dans l'évolution : contenus =====
+   D'après la fiche « Activité 3 » du professeur (Phylogène : vertébrés puis primates) et sa correction (tableaux, boîtes, arbres, bilan).
+   Les DS « évolution » n'y sont pas repris : aucune de leurs espèces (truite, grenouille, coq, cœlacanthe, lézard, souris, végétaux)
+   ni de leurs matrices de caractères. */
+const PROBLEM = "Quelle est la place de l'Homme parmi les êtres vivants, puis parmi les mammifères ?";
+const gap = `<span class="gap">………</span>`;
+const HOME = { slug: "place-de-l-homme", short: "La place de l'Homme dans l'évolution", last: "d1", lastG: "p4", lastK: 0, dur: "environ 55 minutes",
+  kicker: "Chapitre 3 · Diversité et évolution des êtres vivants · Activité 3", title: "Où se place l'Homme dans l'arbre du vivant ?",
+  intro: "Le chimpanzé est notre plus proche parent. Pour connaître la place de l'Homme parmi tous les êtres vivants, on peut comparer son ADN avec celui des autres espèces. On peut aussi comparer leurs caractères et construire des groupes emboîtés ou des arbres de parenté : c'est ce que tu vas faire, comme avec le logiciel Phylogène.",
+  lab: "Le problème à résoudre", goal: "Objectif : construire un tableau de caractères, des boîtes emboîtées et un arbre phylogénétique pour les vertébrés, puis pour les primates, et conclure.",
+  fact: "Le tarsier, un petit primate d'Asie, a des yeux immenses : chacun est à peu près aussi gros que son cerveau !",
+  parts: "Les quatre parties de l'activité", recop: "Fiche mémo à recopier dans le cahier",
+  txt: "ACTIVITÉ 3 · LA PLACE DE L'HOMME DANS L'ÉVOLUTION\n3e SVT · Chapitre 3 · Diversité et évolution des êtres vivants",
+  comps: { lire: "Extraire des informations de documents", mod: "Observer, manipuler (outil numérique)", repr: "Représenter des données", conn: "Mobiliser ses connaissances", rais: "Raisonner, argumenter" },
+  vers: { g: { icon: "🧭", short: "Guidée", name: "Version guidée", q: "guidee", desc: "Je réponds avec des choix et des étiquettes, pas à pas." },
+    l: { icon: "🔬", short: "Exigeante", name: "Version exigeante", q: "exigeante", desc: "Les mêmes tableaux, boîtes et arbres, mais j'écris mes réponses et je rédige mes justifications : je vois → je sais → j'en déduis." } },
+  extraTitle: "Mes tableaux de caractères",
+  extra: () => `MES TABLEAUX DE CARACTÈRES\n${myMx().map(x => "- " + x.replace(/<[^>]+>/g, "")).join("\n")}\n`,
+  extraHTML: () => `<ul class="ul">${myMx().map(x => `<li>${nb(x)}</li>`).join("")}</ul>` };
+function myMx() {
+  const X = xst(), F = X.mxFirst || {};
+  return ["vert", "prim"].map(set => `Tableau des ${SETS[set].name.toLowerCase()} : ${mxOk(set) ? "✓ juste" : "pas encore juste"}${F[set] !== undefined ? ` · <b>${F[set]}</b> erreur(s) à la première vérification` : ""}`);
+}
+
+/* ---------- documents ---------- */
+const grpDoc = (set, title, src) => ({ title, html: `<ul class="ul">${SETS[set].groups.map((g, j) => `<li><span class="gsw" style="background:var(--c${j + 1})"></span> <b>${j + 1} · ${g.nm}</b> : ${src === "fiche" ? "les espèces qui présentent " : "les espèces qui ont "}${g.def}.</li>`).join("")}</ul>` });
+const DOCGV = grpDoc("vert", "Les groupes à entourer (d'après la fiche)", "fiche");
+const DOCGP = grpDoc("prim", "Les groupes de la partie 2", "corr");
+
+/* ---------- fiche mémo : le bilan du professeur, puis la méthode ---------- */
+const BIL = ["L'Homme est un <u>vertébré tétrapode</u> : il possède en effet un crâne, des vertèbres et 4 pattes.",
+  "Il fait aussi partie des <u>amniotes</u> car son embryon se développe dans une poche appelée amnios.",
+  "Ses mamelles et ses poils en font un <u>mammifère</u>, alors que ses ongles plats et ses pouces opposables en font un <u>primate</u>.",
+  "Parmi les <u>primates</u>, il appartient à la famille des <u>grands singes</u> et des <u>hominoïdes</u>, parmi lesquels on trouve aussi le gorille et le chimpanzé, son plus proche parent.",
+  "Ces liens de parenté suggèrent une origine commune et des <u>ancêtres communs</u>, dont le plus récent est celui qu'il partage avec le chimpanzé.",
+  "Méthode : tableau de caractères → boîtes emboîtées → arbre. Plus un caractère est partagé, plus il est apparu tôt : il se place près de la racine. Chaque nœud ▪ représente un <u>ancêtre commun</u> qui possédait déjà tous les caractères placés avant lui.",
+  "Les caractères étudiés ne départagent pas le chimpanzé et le gorille : c'est la comparaison de l'<u>ADN</u> (activité 2) qui montre que le chimpanzé est notre plus proche parent."];
+const bilanHTML = () => BIL.map(x => `<p>${nb(x)}</p>`).join("");
+
+const spOpts = set => SETS[set].sp.map(s => `${s.e} ${s.nm}`);
+const spIdx = (set, ks) => ks.map(k => SETS[set].sp.findIndex(s => s.k === k));
+const leafSet = (set, n) => SETS[set].leaves.slice(6 - n);
+const trRows = set => TRAITS_OK(set).map((t, i) => ({ e: CIRC[i], txt: i === 0 ? "Trait ① (le plus près de la racine)" : i === 3 ? "Trait ④ (le plus récent)" : `Trait ${CIRC[i]}`, v: t }));
+const grpParts = set => SETS[set].groups.map((g, j) => ({ t: "multi", c: "repr", label: `Groupe ${j + 1} · ${g.nm} : quelles espèces entoures-tu ?`, o: spOpts(set), a: spIdx(set, leafSet(set, g.n)).sort((a, b) => a - b) }));
+const mxTask = set => ({ t: "task", c: "mod", label: `Remplis le tableau des ${SETS[set].name.toLowerCase()}, puis vérifie-le jusqu'à ce qu'il soit juste.`, okMsg: "Tableau juste.", done: () => { const r = mxErrors(set); return { ok: !r.e && !r.empty, msg: r.empty ? `${SETS[set].sp.length * SETS[set].ch.length - r.empty}/${SETS[set].sp.length * SETS[set].ch.length} cases remplies.` : r.e ? "Tableau rempli, mais pas encore juste : vérifie-le." : "Tableau juste." }; } });
+const bxTask = set => ({ t: "task", c: "mod", label: "Affiche toutes les boîtes, caractère par caractère.", okMsg: "Toutes les boîtes ont été affichées.", done: () => { const ok = !!(xst().bxSeen || {})[set]; return { ok, msg: ok ? "Toutes les boîtes ont été affichées." : "Affiche les boîtes de tous les caractères." }; } });
+const LIST = (lab, needs, bads, model) => ({ t: "list", c: "lire", label: lab, need: needs.map(r => ({ re: r })), bad: bads.map(r => ({ re: r })), ph: "caractère 1, caractère 2, …", model });
+
+const GROUPS = [
+{ id: "p1", n: 1, icon: "🦴", tab: "Le tableau", title: "Les vertébrés : le tableau de caractères", sub: "Chat, crapaud, crocodile, gorille, Homme et sardine · environ 10 minutes.",
+  items: [
+  { id: "a1", lvl: "easy", title: "Présent ou absent ?",
+    widget: { title: "Outil numérique · Le tableau de caractères (collection « Vertébrés »)", w: "matV" },
+    parts: [
+      mxTask("vert"),
+      { t: "choice", c: "lire", label: "Quel caractère est présent chez toutes les espèces du tableau ?", o: ["Le squelette osseux", "Les doigts", "L'amnios"], a: 0, no: { 1: "La sardine n'a pas de doigts.", 2: "Le crapaud et la sardine n'ont pas d'amnios." } },
+      { t: "multi", c: "lire", label: "Quelles espèces possèdent des poils et des mamelles ?", o: spOpts("vert"), a: spIdx("vert", ["chat", "gorille", "homme"]).sort((a, b) => a - b) },
+      { t: "choice", c: "lire", label: "Quelle espèce possède un amnios, mais ni poils ni mamelles ?", o: ["Le crocodile", "Le crapaud", "La sardine"], a: 0 }],
+    hints: ["Touche 📄 à côté du nom d'une espèce pour lire ses informations, puis remplis sa ligne.", "Le crapaud et la sardine pondent dans l'eau des œufs sans amnios ; la sardine a des nageoires, pas de doigts.", "Squelette osseux : toutes · poils et mamelles : chat, gorille, Homme · amnios sans poils : crocodile."],
+    corr: "Toutes les espèces ont un squelette osseux. Toutes sauf la sardine ont des doigts. Le chat, le gorille, l'Homme et le crocodile ont un amnios. Seuls le chat, le gorille et l'Homme ont des poils et des mamelles." }] },
+
+{ id: "p2", n: 2, icon: "📦", tab: "Boîtes et arbre", title: "Des boîtes emboîtées à l'arbre des vertébrés", sub: "Boîtes, traits sur la branche principale, groupes · environ 18 minutes.",
+  items: [
+  { id: "b1", lvl: "easy", title: "Les boîtes emboîtées",
+    widget: { title: "Outil numérique · Afficher les boîtes", w: "boxV" },
+    parts: [
+      bxTask("vert"),
+      { t: "match", c: "repr", label: "Range les boîtes de la plus grande à la plus petite.", ask: "Choisis le caractère de la", rows: TRAITS_OK("vert").map((t, i) => ({ e: String(i + 1), txt: i === 0 ? "Boîte 1 (la plus grande)" : i === 3 ? "Boîte 4 (la plus petite)" : `Boîte ${i + 1}`, v: t })) },
+      { t: "choice", c: "rais", label: "Pourquoi les poils et les mamelles forment-ils une seule boîte ?", o: ["Ils sont présents chez exactement les mêmes espèces", "Ce sont des caractères de l'Homme", "Ils sont apparus avant l'amnios"], a: 0 },
+      { t: "choice", c: "rais", label: "Plus une boîte est petite…", o: ["moins son caractère est partagé : il est apparu plus récemment", "plus son caractère est ancien", "plus les espèces qu'elle contient sont petites"], a: 0 }],
+    hints: ["Touche « Afficher toutes les boîtes », puis compte les espèces dans chaque boîte.", "La plus grande boîte contient les six espèces ; la plus petite, trois.", "Squelette osseux, doigts, amnios, poils et mamelles · mêmes espèces · plus petite = caractère apparu plus récemment."],
+    corr: "Les boîtes s'emboîtent : squelette osseux (6 espèces) ⊃ doigts (5) ⊃ amnios (4) ⊃ poils et mamelles (3). Les poils et les mamelles forment une seule boîte car ils sont présents chez exactement les mêmes espèces. Moins un caractère est partagé, plus il est apparu récemment." },
+  { id: "b2", lvl: "mid", title: "Placer les caractères sur l'arbre",
+    live: "traitsV", liveTitle: "L'arbre des vertébrés (les traits se placent avec tes réponses)",
+    parts: [
+      { t: "match", c: "repr", label: "Place par des traits, sur la branche principale, l'apparition de chaque caractère (du plus ancien au plus récent).", ask: "Choisis le caractère du", rows: trRows("vert") },
+      { t: "choice", c: "rais", label: "Le nœud ▪ d'où partent le chat, l'Homme et le gorille représente…", o: ["leur dernier ancêtre commun, qui possédait déjà des poils et des mamelles", "l'Homme", "une espèce actuelle"], a: 0 },
+      { t: "choice", c: "rais", label: "Pourquoi le chat, l'Homme et le gorille partent-ils du même nœud ?", o: ["Les caractères du tableau ne permettent pas de les départager", "Ce sont les trois espèces les plus grandes", "Ils vivent au même endroit"], a: 0 }],
+    hints: ["Le caractère le plus partagé (la plus grande boîte) apparaît le premier, près de la racine.", "Reprends l'ordre des boîtes de la plus grande à la plus petite.", "① squelette osseux · ② doigts · ③ amnios · ④ poils et mamelles · ancêtre commun · aucun caractère ne les départage."],
+    corr: "De la racine vers les feuilles : ① squelette osseux, ② doigts, ③ amnios, ④ poils et mamelles. Chaque nœud ▪ représente un ancêtre commun ; celui du chat, de l'Homme et du gorille possédait déjà poils et mamelles. Aucun caractère du tableau ne les départage : ils partent du même nœud." },
+  { id: "b3", lvl: "mid", title: "Entourer les groupes", docs: [DOCGV],
+    live: "groupsV", liveTitle: "L'arbre des vertébrés et tes groupes (barres de couleur)",
+    parts: [
+      ...grpParts("vert"),
+      { t: "choice", c: "rais", label: "L'Homme appartient…", o: ["aux quatre groupes : vertébrés, tétrapodes, amniotes et mammifères", "seulement au groupe des mammifères", "seulement aux vertébrés et aux mammifères"], a: 0 }],
+    hints: ["Pour chaque groupe, relis sa définition et coche les espèces qui ont au moins ces caractères.", "Les groupes s'emboîtent comme les boîtes : chaque groupe est inclus dans le précédent.", "Vertébrés : les 6 · tétrapodes : sans la sardine · amniotes : sans sardine ni crapaud · mammifères : chat, Homme, gorille · l'Homme est dans les quatre."],
+    corr: "Vertébrés : les six espèces. Tétrapodes : toutes sauf la sardine. Amniotes : le crocodile, le chat, l'Homme et le gorille. Mammifères : le chat, l'Homme et le gorille. L'Homme appartient aux quatre groupes." }] },
+
+{ id: "p3", n: 3, icon: "🐒", tab: "Les primates", title: "La place de l'Homme parmi les mammifères", sub: "Chat, chimpanzé, gorille, Homme, macaque et tarsier · environ 18 minutes.",
+  items: [
+  { id: "c1", lvl: "easy", title: "Le tableau des primates",
+    widget: { title: "Outil numérique · Le tableau de caractères (collection « Primates »)", w: "matP" },
+    parts: [
+      mxTask("prim"),
+      { t: "choice", c: "lire", label: "Quel caractère est présent chez toutes les espèces du tableau ?", o: ["Les poils", "Le coccyx", "Les ongles plats et le pouce opposable"], a: 0 },
+      { t: "multi", c: "lire", label: "Quelles espèces possèdent un coccyx ?", o: spOpts("prim"), a: spIdx("prim", ["chimp", "gorille", "homme"]).sort((a, b) => a - b) },
+      { t: "choice", c: "lire", label: "Quelle espèce n'a ni ongles plats ni pouce opposable ?", o: ["Le chat", "Le tarsier", "Le macaque"], a: 0 }],
+    hints: ["Touche 📄 à côté du nom d'une espèce pour lire ses informations.", "Coccyx = pas de queue : les dernières vertèbres sont soudées. Le macaque et le tarsier ont une queue.", "Poils : toutes · coccyx : chimpanzé, gorille, Homme · sans ongles plats : chat."],
+    corr: "Toutes les espèces ont des poils. Toutes sauf le chat ont des ongles plats et un pouce opposable. Le macaque, le chimpanzé, le gorille et l'Homme ont des narines rapprochées et des orbites fermées. Seuls le chimpanzé, le gorille et l'Homme ont un coccyx." },
+  { id: "c2", lvl: "mid", title: "Boîtes et arbre des primates",
+    widget: { title: "Outil numérique · Afficher les boîtes", w: "boxP" },
+    live: "traitsP", liveTitle: "L'arbre des primates (les traits se placent avec tes réponses)",
+    parts: [
+      bxTask("prim"),
+      { t: "match", c: "repr", label: "Place par des traits l'apparition de chaque caractère sur la branche principale (du plus ancien au plus récent).", ask: "Choisis le caractère du", rows: trRows("prim") },
+      { t: "choice", c: "rais", label: "D'après ces caractères, peut-on dire qui, du chimpanzé ou du gorille, est le plus proche parent de l'Homme ?", o: ["Non : tous les trois ont les mêmes caractères et partent du même nœud", "Oui : le gorille", "Oui : le macaque"], a: 0 },
+      { t: "choice", c: "conn", label: "Comment sait-on que le chimpanzé est notre plus proche parent ?", o: ["En comparant l'ADN (activité 2)", "En comparant leur taille", "En comparant leur nourriture"], a: 0 }],
+    hints: ["Affiche toutes les boîtes : la plus grande correspond au caractère le plus partagé.", "Ordre des boîtes : poils, puis ongles plats et pouce, puis narines et orbites, puis coccyx.", "① poils · ② ongles plats et pouce opposable · ③ narines rapprochées et orbites fermées · ④ coccyx · non · l'ADN."],
+    corr: "De la racine vers les feuilles : ① poils, ② ongles plats et pouce opposable, ③ narines rapprochées et orbites fermées, ④ coccyx. Le chimpanzé, le gorille et l'Homme partagent les mêmes caractères et partent du même nœud : ces caractères ne les départagent pas. C'est la comparaison de l'ADN qui montre que le chimpanzé est notre plus proche parent." },
+  { id: "c3", lvl: "mid", title: "Les groupes et la réponse au problème", docs: [DOCGP],
+    live: "groupsP", liveTitle: "L'arbre des primates et tes groupes (barres de couleur)",
+    parts: [
+      ...grpParts("prim"),
+      { t: "choice", c: "rais", label: "Réponse au problème : parmi les mammifères, l'Homme est…", o: ["un primate, un singe de l'Ancien Monde et un hominoïde, avec le chimpanzé et le gorille", "un primate, avec le tarsier seulement", "un mammifère qui n'appartient à aucun autre groupe"], a: 0 }],
+    hints: ["Pour chaque groupe, relis sa définition et coche les espèces qui ont tous ces caractères.", "Les groupes s'emboîtent : mammifères ⊃ primates ⊃ singes de l'Ancien Monde ⊃ hominoïdes.", "Mammifères : les 6 · primates : sans le chat · singes de l'Ancien Monde : macaque, chimpanzé, gorille, Homme · hominoïdes : chimpanzé, gorille, Homme."],
+    corr: "Mammifères : les six espèces. Primates : toutes sauf le chat. Singes de l'Ancien Monde : le macaque, le chimpanzé, le gorille et l'Homme. Hominoïdes : le chimpanzé, le gorille et l'Homme. Parmi les mammifères, l'Homme est un primate, un singe de l'Ancien Monde et un hominoïde, avec le chimpanzé et le gorille." }] },
+
+{ id: "p4", n: 4, icon: "✍", tab: "Bilan", title: "Le bilan", sub: "Le bilan à compléter, puis la fiche mémo · environ 7 minutes.",
+  items: [
+  { id: "d1", lvl: "easy", title: "Le bilan à compléter", recop: true,
+    parts: [
+      { t: "rows", c: "conn", label: "Choisis le mot qui complète chaque phrase du bilan.", choices: ["vertébré tétrapode", "amniotes", "mammifère", "primate", "hominoïdes", "ancêtres communs"],
+        rows: [{ txt: "L'Homme est un ……… : il possède en effet un crâne, des vertèbres et 4 pattes.", a: 0 }, { txt: "Il fait aussi partie des ……… car son embryon se développe dans une poche appelée amnios.", a: 1 },
+          { txt: "Ses mamelles et ses poils en font un ………", a: 2 }, { txt: "… alors que ses ongles plats et ses pouces opposables en font un ………", a: 3 },
+          { txt: "Parmi les primates, il appartient à la famille des grands singes et des ………, avec le gorille et le chimpanzé.", a: 4 }, { txt: "Ces liens de parenté suggèrent une origine commune et des ………", a: 5 }] }],
+    hints: ["Reprends tes deux arbres : de la racine vers l'Homme, quels groupes traverses-tu ?", "Amnios → amniotes · poils et mamelles → mammifère · ongles plats et pouce → primate · coccyx → hominoïdes.", "vertébré tétrapode · amniotes · mammifère · primate · hominoïdes · ancêtres communs."],
+    corr: "L'Homme est un vertébré tétrapode. Il fait partie des amniotes. Ses mamelles et ses poils en font un mammifère, ses ongles plats et ses pouces opposables un primate. Parmi les primates, il appartient aux grands singes et aux hominoïdes, avec le gorille et le chimpanzé, son plus proche parent. Ces liens de parenté suggèrent une origine commune et des ancêtres communs. Recopie la fiche mémo dans ton cahier." }] }
+];
+const RAPPEL = { id: "r0", lvl: "easy", title: "Échauffement : souviens-toi de l'activité 2",
+  parts: [
+    { t: "choice", c: "conn", label: "Dans un arbre de parenté, chaque nœud représente…", o: ["un ancêtre commun hypothétique", "une espèce actuelle", "une mutation"], a: 0 },
+    { t: "choice", c: "conn", label: "Dans un arbre de parenté, la longueur des branches…", o: ["n'a pas d'importance : seul l'ordre des séparations compte", "indique la taille des espèces", "indique leur âge"], a: 0 },
+    { t: "choice", c: "conn", label: "Deux espèces qui se ressemblent beaucoup…", o: ["ont probablement un ancêtre commun récent", "vivent forcément au même endroit", "sont forcément de la même taille"], a: 0 }],
+  hints: ["Pense à l'arbre de l'activité 2, dessiné à partir des pourcentages d'ADN.", "Relis la fiche méthode de l'activité 2 : « seul l'ordre… ».", "Ancêtre commun · seul l'ordre compte · ancêtre commun récent."],
+  corr: "Chaque nœud d'un arbre de parenté représente un ancêtre commun hypothétique ; seul l'ordre des séparations compte, pas la longueur des branches. Deux espèces qui se ressemblent beaucoup ont probablement un ancêtre commun récent." };
+
+/* ===== VERSION EXIGEANTE ===== */
+const EXPERT = {
+r0: { parts: [
+    { t: "word", c: "conn", label: `Dans un arbre de parenté, chaque nœud représente un ${gap} commun hypothétique.`, ans: ["ancêtre", "ancetre"] },
+    { t: "word", c: "conn", label: `Dans un arbre, seul l'ordre des ${gap} compte, pas la longueur des branches.`, ans: ["séparations", "separations", "séparation", "nœuds", "noeuds", "embranchements"] },
+    { t: "word", c: "conn", label: `D'après l'ADN (activité 2), notre plus proche parent est le ${gap}.`, ans: ["chimpanzé", "chimpanze"] }],
+  hints: ["Pense à l'arbre de l'activité 2.", "Relis la fiche méthode de l'activité 2.", "ancêtre · séparations · chimpanzé."] },
+a1: { parts: [
+    mxTask("vert"),
+    { t: "num", c: "lire", label: "Combien d'espèces du tableau possèdent des doigts ?", unit: "espèces", ans: 5 },
+    { t: "num", c: "lire", label: "Combien d'espèces du tableau possèdent un amnios ?", unit: "espèces", ans: 4 },
+    LIST("Cite les caractères du tableau que l'Homme partage avec le crocodile.", [/amnios/, /doigt/, /squelette|osseux|os\b/], [/poil/, /mamelle/], "amnios, doigts, squelette osseux")],
+  hints: ["Touche 📄 à côté du nom d'une espèce pour lire ses informations.", "Compare la ligne de l'Homme et celle du crocodile, case par case.", "Doigts : 5 espèces · amnios : 4 · Homme et crocodile : amnios, doigts, squelette osseux."],
+  corr: "Doigts : 5 espèces (toutes sauf la sardine). Amnios : 4 espèces (crocodile, chat, gorille, Homme). L'Homme partage avec le crocodile l'amnios, les doigts et le squelette osseux, mais pas les poils ni les mamelles." },
+b1: { parts: [
+    bxTask("vert"),
+    { t: "match", c: "repr", label: "Range les boîtes de la plus grande à la plus petite.", ask: "Choisis le caractère de la", rows: TRAITS_OK("vert").map((t, i) => ({ e: String(i + 1), txt: i === 0 ? "Boîte 1 (la plus grande)" : i === 3 ? "Boîte 4 (la plus petite)" : `Boîte ${i + 1}`, v: t })) },
+    { t: "redac", c: "rais", min: 25, label: "Le crocodile et le chat sont dans la boîte « Amnios », mais pas le crapaud. Qu'est-ce que cela indique sur leurs liens de parenté ?",
+      crit: [{ g: "vois", lab: "Tu dis que le crocodile et le chat partagent l'amnios, que le crapaud n'a pas", re: [/amnios/, /crocodile|chat|crapaud|partag|commun|tous les deux|les deux/] },
+        { g: "sais", lab: "Tu dis qu'un caractère partagé a été hérité d'un ancêtre commun", re: [/ancetre/, /herit|transmi|commun|partag|possedait/] },
+        { g: "deduis", lab: "Tu conclus que le crocodile et le chat sont plus proches parents entre eux qu'avec le crapaud", re: [/plus proche|plus apparent|plus de parent|ancetre commun plus recent|plus recent/] }],
+      model: "Je vois que le crocodile et le chat possèdent tous les deux un amnios, alors que le crapaud n'en a pas. Je sais qu'un caractère partagé par plusieurs espèces a été hérité de leur ancêtre commun. J'en déduis que le crocodile et le chat ont un ancêtre commun qui possédait un amnios, plus récent que celui qu'ils partagent avec le crapaud : ils sont plus proches parents entre eux qu'avec le crapaud." }],
+  hints: ["Affiche toutes les boîtes et compte les espèces dans chacune.", "Un caractère partagé a été hérité d'un ancêtre commun qui le possédait déjà.", "Squelette osseux, doigts, amnios, poils et mamelles · le chat et le crocodile ont un ancêtre commun plus récent."],
+  corr: "Les boîtes s'emboîtent : squelette osseux ⊃ doigts ⊃ amnios ⊃ poils et mamelles. Le crocodile et le chat ont hérité l'amnios d'un ancêtre commun que le crapaud ne partage pas : ils sont plus proches parents entre eux qu'avec le crapaud." },
+b2: { parts: [
+    { t: "match", c: "repr", label: "Place par des traits, sur la branche principale, l'apparition de chaque caractère (du plus ancien au plus récent).", ask: "Choisis le caractère du", rows: trRows("vert") },
+    { t: "word", c: "rais", label: `Le nœud ▪ d'où partent le chat, l'Homme et le gorille représente leur dernier ${gap} commun.`, ans: ["ancêtre", "ancetre"] },
+    LIST("Cite les caractères que possédait déjà l'ancêtre commun du crocodile et de l'Homme.", [/amnios/, /doigt/, /squelette|osseux|os\b/], [/poil/, /mamelle/], "amnios, doigts, squelette osseux")],
+  hints: ["Le caractère le plus partagé apparaît le premier, près de la racine.", "L'ancêtre commun du crocodile et de l'Homme est le nœud qui suit le trait ③.", "① squelette osseux · ② doigts · ③ amnios · ④ poils et mamelles · ancêtre · amnios, doigts, squelette osseux."],
+  corr: "① squelette osseux, ② doigts, ③ amnios, ④ poils et mamelles. Le nœud du chat, de l'Homme et du gorille est leur dernier ancêtre commun. L'ancêtre commun du crocodile et de l'Homme possédait déjà un squelette osseux, des doigts et un amnios, mais pas encore de poils ni de mamelles." },
+b3: { parts: [
+    ...grpParts("vert"),
+    { t: "redac", c: "rais", min: 25, label: "À quels groupes appartient l'Homme ? Justifie avec ses caractères.",
+      crit: [{ g: "vois", lab: "Vertébré : squelette osseux", re: [/vertebre/, /squelette|osseux|os\b/] },
+        { g: "vois", lab: "Tétrapode : doigts", re: [/tetrapode/, /doigt/] },
+        { g: "sais", lab: "Amniote : amnios", re: [/amniote/, /amnios/] },
+        { g: "deduis", lab: "Mammifère : poils et mamelles", re: [/mammifere/, /poil|mamelle/] }],
+      model: "L'Homme possède un squelette osseux : c'est un vertébré. Il a des doigts : c'est un tétrapode. Son embryon se développe dans un amnios : c'est un amniote. Il a des poils et des mamelles : c'est un mammifère. Il appartient donc aux quatre groupes." }],
+  hints: ["Pour chaque groupe, relis sa définition et coche les espèces qui ont au moins ces caractères.", "Les groupes s'emboîtent comme les boîtes.", "Vertébrés : 6 · tétrapodes : 5 · amniotes : 4 · mammifères : 3 · l'Homme est dans les quatre."],
+  corr: "Vertébrés : les six espèces ; tétrapodes : toutes sauf la sardine ; amniotes : crocodile, chat, Homme, gorille ; mammifères : chat, Homme, gorille. L'Homme est un vertébré (squelette osseux), un tétrapode (doigts), un amniote (amnios) et un mammifère (poils, mamelles)." },
+c1: { parts: [
+    mxTask("prim"),
+    { t: "num", c: "lire", label: "Combien d'espèces du tableau possèdent un coccyx ?", unit: "espèces", ans: 3 },
+    LIST("Cite les caractères du tableau que l'Homme partage avec le macaque.", [/poil/, /ongle|pouce/, /narine|orbite/], [/coccyx/], "poils, ongles plats et pouce opposable, narines rapprochées et orbites fermées")],
+  hints: ["Touche 📄 à côté du nom d'une espèce pour lire ses informations.", "Compare la ligne de l'Homme et celle du macaque : le macaque a-t-il une queue ?", "Coccyx : 3 espèces · Homme et macaque : poils, ongles plats et pouce opposable, narines rapprochées et orbites fermées."],
+  corr: "Seuls le chimpanzé, le gorille et l'Homme ont un coccyx. L'Homme partage avec le macaque les poils, les ongles plats et le pouce opposable, les narines rapprochées et les orbites fermées, mais pas le coccyx : le macaque a une queue." },
+c2: { parts: [
+    bxTask("prim"),
+    { t: "match", c: "repr", label: "Place par des traits l'apparition de chaque caractère sur la branche principale (du plus ancien au plus récent).", ask: "Choisis le caractère du", rows: trRows("prim") },
+    { t: "redac", c: "rais", min: 25, label: "Les caractères étudiés permettent-ils de dire qui, du chimpanzé ou du gorille, est le plus proche parent de l'Homme ? Comment peut-on le savoir ?",
+      crit: [{ g: "vois", lab: "Tu dis que le chimpanzé, le gorille et l'Homme ont les mêmes caractères et partent du même nœud", re: [/meme|memes|identiques|pareil|tous les trois|meme noeud|meme ancetre/] },
+        { g: "deduis", lab: "Tu conclus que ces caractères ne permettent pas de les départager", re: [/ne (permet|permettent)|pas possible|impossible|on ne peut|pas departager|non\b|ne suffi/] },
+        { g: "sais", lab: "Tu dis que c'est la comparaison de l'ADN qui montre que c'est le chimpanzé", re: [/adn|genetique|98/] }],
+      model: "Je vois que le chimpanzé, le gorille et l'Homme possèdent exactement les mêmes caractères et partent du même nœud de l'arbre. J'en déduis que ces caractères ne permettent pas de les départager. Je sais que la comparaison de l'ADN (activité 2) montre que le chimpanzé est l'espèce génétiquement la plus proche de nous : c'est notre plus proche parent." }],
+  hints: ["Affiche toutes les boîtes : la plus grande correspond au caractère le plus partagé.", "Regarde le dernier nœud de l'arbre : combien de branches en partent ?", "① poils · ② ongles plats et pouce · ③ narines et orbites · ④ coccyx · mêmes caractères → pas départagés → l'ADN."],
+  corr: "① poils, ② ongles plats et pouce opposable, ③ narines rapprochées et orbites fermées, ④ coccyx. Le chimpanzé, le gorille et l'Homme ont les mêmes caractères : ils partent du même nœud et ces caractères ne les départagent pas. C'est la comparaison de l'ADN qui montre que le chimpanzé est notre plus proche parent." },
+c3: { parts: [
+    ...grpParts("prim"),
+    { t: "redac", c: "rais", min: 30, label: "Réponds au problème : quelle est la place de l'Homme parmi les mammifères ? Justifie avec ses caractères.",
+      crit: [{ g: "vois", lab: "Primate : ongles plats et pouce opposable", re: [/primate/, /ongle|pouce/] },
+        { g: "sais", lab: "Singe de l'Ancien Monde : narines rapprochées et orbites fermées", re: [/ancien monde|singe/, /narine|orbite/] },
+        { g: "deduis", lab: "Hominoïde : coccyx, avec le chimpanzé et le gorille", re: [/hominoide|grand singe/, /coccyx|chimp|gorille/] }],
+      model: "Parmi les mammifères, l'Homme est un primate, car il a des ongles plats et un pouce opposable. C'est aussi un singe de l'Ancien Monde, car il a des narines rapprochées et des orbites fermées. Enfin, c'est un hominoïde, car il a un coccyx, comme le chimpanzé et le gorille." }],
+  hints: ["Pour chaque groupe, relis sa définition et coche les espèces qui ont tous ces caractères.", "Les groupes s'emboîtent : mammifères ⊃ primates ⊃ singes de l'Ancien Monde ⊃ hominoïdes.", "Primate (ongles, pouce) · singe de l'Ancien Monde (narines, orbites) · hominoïde (coccyx) avec chimpanzé et gorille."],
+  corr: "Mammifères : les six espèces ; primates : toutes sauf le chat ; singes de l'Ancien Monde : macaque, chimpanzé, gorille, Homme ; hominoïdes : chimpanzé, gorille, Homme. L'Homme est un primate (ongles plats, pouce opposable), un singe de l'Ancien Monde (narines rapprochées, orbites fermées) et un hominoïde (coccyx), avec le chimpanzé et le gorille." },
+d1: { parts: [
+    { t: "word", c: "conn", label: `L'Homme est un vertébré ${gap} : il possède en effet un crâne, des vertèbres et 4 pattes.`, ans: ["tétrapode", "tetrapode"] },
+    { t: "word", c: "conn", label: `Il fait aussi partie des ${gap}, car son embryon se développe dans une poche appelée amnios.`, ans: ["amniotes", "amniote"] },
+    { t: "word", c: "conn", label: `Ses mamelles et ses poils en font un ${gap}…`, ans: ["mammifère", "mammifere"] },
+    { t: "word", c: "conn", label: `… alors que ses ongles plats et ses pouces opposables en font un ${gap}.`, ans: ["primate"] },
+    { t: "word", c: "conn", label: `Parmi les primates, il appartient à la famille des grands singes et des ${gap}, avec le gorille et le chimpanzé.`, ans: ["hominoïdes", "hominoides", "hominoïde", "hominoide"] },
+    { t: "word", c: "conn", label: `Ces liens de parenté suggèrent une origine commune et des ancêtres ${gap}.`, ans: ["communs", "commun"] }],
+  hints: ["Reprends tes deux arbres : de la racine vers l'Homme, quels groupes traverses-tu ?", "Amnios → amniotes · poils et mamelles → mammifère · ongles plats et pouce → primate · coccyx → hominoïdes.", "tétrapode · amniotes · mammifère · primate · hominoïdes · communs."] }
+};
+[RAPPEL, ...GROUPS.flatMap(g => g.items)].forEach(it => { if (EXPERT[it.id]) it.L = EXPERT[it.id]; });
+const RESUME = `Le problème : ${PROBLEM}\n${HOME.goal}\n\nFiche mémo à recopier\n${BIL.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}`;
+typo(GROUPS); typo(RAPPEL);
+
+/* ===== Moteur « parcours à étapes, deux versions » (dérivé de bio.js) · navigation, questions, correction, bilan =====
+   Données attendues : HOME (avec HOME.vers ; HOME.howL facultatif : consignes de la version exigeante dans le mode d'emploi), GROUPS, RAPPEL, RESUME, bilanHTML, EXPERT (blocs de la version exigeante), WID. */
+const LV = { easy: ["🟢 Facile", "easy", "🟢"], mid: ["🟡 Moyen", "mid", "🟡"], hard: ["🔴 Défi", "hard", "🔴"] };
+const COMPS = HOME.comps;
+const SIGN = "Mr Moreira, Vauban Luxembourg";
+const ITEMS = {};
+GROUPS.forEach(g => g.items.forEach((it, i) => { ITEMS[it.id] = { it, g, i, label: `Partie ${g.n} (${g.tab}) · étape ${i + 1} · ${it.title}` }; }));
+ITEMS.r0 = { it: RAPPEL, g: null, i: 0, label: "Accueil · " + RAPPEL.title };
+
+/* ---------- état ---------- */
+const DEF = { fs: 21, theme: null, proj: false, it: {}, itL: {}, mode: "g", view: "accueil", step: {}, x: {} };
+let S = Store.load(DEF);
+["it", "itL", "step", "x"].forEach(k => { if (!S[k] || typeof S[k] !== "object") S[k] = {}; });
+/* ---------- deux versions dans le même fichier : guidée (g) ou exigeante (l) ---------- */
+{ const q = new URLSearchParams(location.search).get("version"); if (q === HOME.vers.l.q || q === "lycee" || q === "experte") S.mode = "l"; else if (q === HOME.vers.g.q || q === "guidee") S.mode = "g"; else if (S.mode !== "l") S.mode = "g"; }
+const EXP = () => S.mode === "l";
+const IT = () => EXP() ? S.itL : S.it;
+const ALLIT = [RAPPEL, ...GROUPS.flatMap(g => g.items)];
+ALLIT.forEach(it => { it.G = { parts: it.parts, hints: it.hints, pre: it.pre, intro: it.intro, corr: it.corr }; });
+function applyMode() { ALLIT.forEach(it => Object.assign(it, it.G, EXP() && it.L ? it.L : {})); document.documentElement.classList.toggle("exp", EXP()); }
+applyMode();
+const VX = () => HOME.vers[EXP() ? "l" : "g"], VNAME = () => VX().name;
+const save = () => Store.save(S);
+const scorable = p => p.t !== "text";
+function itState(id) { if (!IT()[id]) IT()[id] = { v: {}, hints: 0, crit: {} }; return IT()[id]; }
+const pw = p => p.t === "redac" ? p.crit.length : 1;
+const itemMax = it => it.parts.filter(scorable).reduce((n, p) => n + pw(p), 0);
+const rpts = r => r ? (r.pts !== undefined ? r.pts : r.ok ? 1 : 0) : 0;
+const corrShown = st => !!(st && st.first && (st.lastOk || (st.tries || 0) >= 2));
+function status(it) { const st = IT()[it.id]; if (!st || !st.first) return ["", "à faire"]; if (!itemMax(it)) return ["✓", "rédigé"]; return st.first.pts === st.first.max ? ["✓", "réussi au premier essai"] : ["◐", st.first.pts + "/" + st.first.max + " au premier essai"]; }
+
+/* ---------- vérification ---------- */
+const stripUnit = s => String(s === undefined || s === null ? "" : s).replace(/[\s  ]*[a-zA-Zéèµ°%²³₂][\sa-zA-Zéèµ°%²³₂.\/  ]*$/, "");
+const nzT = s => String(s === undefined || s === null ? "" : s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/œ/g, "oe").replace(/Œ/g, "Oe").replace(/[’`]/g, "'").replace(/\s+/g, " ").trim();
+const nWords = s => (String(s || "").match(/[A-Za-zÀ-ÿ0-9]+/g) || []).length;
+const critHit = (c, T) => { const n = T.toLowerCase(); return [].concat(c.re).every(x => typeof x === "function" ? x(T, n) : x.test(n)); };
+const GK = Object.assign({ vois: "Je vois", sais: "Je sais", deduis: "J'en déduis" }, HOME.gk || {});
+function checkPart(p, val, self) {
+  if (p.t === "phase") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Dessine chaque Lune (touche « Rien d'éclairé » si aucune partie éclairée n'est visible)." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} Lune(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les Lunes sont justes." }; }
+  if (p.t === "redac") {
+    const T = nzT(val), min = p.min || 12;
+    if (!T) return { ok: false, empty: true, pts: 0, msg: "Réponse rédigée manquante." };
+    if (nWords(val) < min) return { ok: false, empty: true, pts: 0, msg: `Réponse rédigée trop courte : écris au moins ${min} mots, en phrases complètes.` };
+    const auto = p.crit.map(c => critHit(c, T)), hits = auto.map((h, i) => h || !!(self && self[i])), n = hits.filter(Boolean).length;
+    const cats = Object.keys(GK).filter(g => p.crit.some(c => c.g === g)).map(g => `${GK[g].toLowerCase()} ${p.crit.filter((c, i) => c.g === g && hits[i]).length}/${p.crit.filter(c => c.g === g).length}`).join(" · ");
+    return { ok: n === hits.length, pts: n, hits, auto, msg: n === hits.length ? `✓ ${n}/${n} éléments attendus repérés dans ta réponse.` : `◐ ${n}/${hits.length} éléments attendus repérés (${cats}).` };
+  }
+  if (p.t === "list") {
+    const n = nzT(val).toLowerCase(); if (!n) return { ok: false, empty: true, msg: "Réponse manquante." };
+    const found = p.need.filter(x => x.re.test(n)).length, extra = (p.bad || []).filter(x => x.re.test(n)).length;
+    if (found === p.need.length && !extra) return { ok: true, msg: `✓ Juste : ${found} élément(s) attendu(s), aucun en trop.` };
+    return { ok: false, msg: "✗ Pas encore : " + [`${found}/${p.need.length} élément(s) attendu(s) repéré(s)`, extra ? `${extra} élément(s) cité(s) à tort` : ""].filter(Boolean).join(" · ") + "." };
+  }
+  if (p.t === "word") {
+    const r = fuzzy(val, p.ans); if (r.empty) return { ok: false, empty: true, msg: "Réponse manquante." };
+    if (r.ok) return { ok: true, msg: (r.typo || (p.spell && normTxt(val) !== normTxt(p.ans[0]))) ? `✓ Juste. Orthographe exacte : « ${p.ans[0]} ».` : "✓ Juste." };
+    for (const [alts, m] of (p.err || [])) if (fuzzy(val, alts).ok) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : réfléchis encore, puis utilise un coup de pouce si besoin." };
+  }
+  if (p.t === "num") {
+    if (val === undefined || String(val).trim() === "") return { ok: false, empty: true, msg: "Réponse manquante." };
+    let v = parseNum(val); if (!Number.isFinite(v)) v = parseNum(stripUnit(val));
+    if (!Number.isFinite(v)) { const wv = ({ deux: 2, quatre: 4, huit: 8 })[normTxt(val)]; if (wv !== undefined) v = wv; }
+    if (!Number.isFinite(v)) return { ok: false, msg: "✗ Écris un nombre (la virgule est acceptée)." };
+    const A = [].concat(typeof p.ans === "function" ? p.ans() : p.ans);
+    if (A.some(a => near(v, a, p.tol || 0, 0))) return { ok: true, msg: "✓ Juste." };
+    for (const [f, m] of (p.err || [])) if (f(v)) return { ok: false, msg: "✗ Faux. " + m };
+    return { ok: false, msg: "✗ Pas encore : vérifie ta lecture ou ton calcul." };
+  }
+  if (p.t === "choice") { if (val === undefined || val === null) return { ok: false, empty: true, msg: "Choisis une réponse." }; return val === p.a ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Faux. " + ((p.no && p.no[val]) || "Ce n'est pas la bonne proposition.") }; }
+  if (p.t === "multi") { const s = (val || []).slice().sort().join(","); if (!s) return { ok: false, empty: true, msg: "Choisis au moins une réponse." }; return s === p.a.slice().sort().join(",") ? { ok: true, msg: "✓ Juste." } : { ok: false, msg: "✗ Pas encore : il y a " + p.a.length + " bonnes réponses." }; }
+  if (p.t === "match") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Complète chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Tout est bien relié." }; }
+  if (p.t === "rows") { const v = val || {}; if (p.rows.some((r, i) => v[i] === undefined)) return { ok: false, empty: true, msg: "Réponds à chaque ligne." }; const bad = p.rows.filter((r, i) => v[i] !== r.a).length; return bad ? { ok: false, msg: `✗ ${bad} ligne(s) à corriger (marquées ✗).` } : { ok: true, msg: "✓ Toutes les lignes sont justes." }; }
+  if (p.t === "order") { const v = val || []; if (v.length < p.keys.length) return { ok: false, empty: true, msg: "Place toutes les images." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} image(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Ordre juste." }; }
+  if (p.t === "shot") {
+    if (val === undefined || val === null) return { ok: false, empty: true, msg: "Photo manquante." };
+    const w = SHOTWIN[p.ph]; if (val >= w[0] && val <= w[1]) return { ok: true, msg: "✓ Bonne photo." };
+    const other = Object.entries(SHOTWIN).find(([k, x]) => k !== p.ph && val >= x[0] && val <= x[1]);
+    const NM = { pro: "la prophase : les chromosomes sont visibles, mais pas encore alignés", meta: "la métaphase : les chromosomes sont alignés au milieu", ana: "l'anaphase : les bâtonnets sont en train de s'écarter", telo: "la télophase : les bâtonnets sont déjà arrivés aux pôles" };
+    if (other) return { ok: false, msg: "✗ Faux. Ta photo montre " + NM[other[0]] + "." };
+    return { ok: false, msg: val < 0.3 ? "✗ Trop tôt : les chromosomes ne sont pas encore bien visibles." : val > 0.8 ? "✗ Trop tard : la cellule est déjà en train de se couper en deux." : "✗ Presque : ta photo est prise entre deux étapes. Avance ou recule un peu." };
+  }
+  if (p.t === "task") { const r = p.done(); return r.ok ? { ok: true, msg: "✓ " + p.okMsg } : { ok: false, empty: true, msg: "Termine d'abord la manipulation." }; }
+  if (p.t === "loop") { const v = val || []; if (v.length < p.items.length) return { ok: false, empty: true, msg: "Place toutes les étiquettes." }; const bad = v.filter((x, i) => x !== i).length; return bad ? { ok: false, msg: `✗ ${bad} étiquette(s) mal placée(s) (marquées ✗).` } : { ok: true, msg: "✓ Boucle juste." }; }
+  return { ok: true, msg: "" };
+}
+function order(key, n) { const base = Array.from({ length: n }, (_, i) => i); let h = 7; for (const c of key) h = (h * 31 + c.charCodeAt(0)) & 0x7fffffff; let r = shuffle(base, h); if (r.every((x, i) => x === i)) r = r.reverse(); return r; }
+
+/* ---------- documents ---------- */
+function docHTML(d) {
+  return `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${d.title}</span>${d.sim ? `<span class="sim">⚠ ${d.sim}</span>` : ""}</figcaption><div class="db">${d.html || ""}${d.w ? `<div data-w="${d.w}"></div>` : ""}${d.fig ? `<div class="figbox" data-fig="${d.fig}"></div>` : ""}${d.cap ? `<p class="cap">${d.cap}</p>` : ""}</div></figure>`;
+}
+function mountFigs(root) { $$("[data-w]", root).forEach(el => { if (el.dataset.mounted) return; el.dataset.mounted = "1"; WID[el.dataset.w](el); }); }
+
+/* ---------- navigation ---------- */
+const VIEWS = ["accueil", ...GROUPS.map(g => g.id), "bilan"];
+const grp = id => GROUPS.find(g => g.id === id);
+function gScore(g) { let pts = 0, max = 0, done = 0; g.items.forEach(it => { const st = IT()[it.id]; max += itemMax(it); if (st && st.first) { pts += st.first.pts; done++; } }); return { pts, max, done, n: g.items.length }; }
+function tabs() {
+  $("#tabs").innerHTML = VIEWS.map(v => {
+    if (v === "accueil") return `<button class="tab" type="button" data-v="accueil">Accueil</button>`;
+    if (v === "bilan") return `<button class="tab" type="button" data-v="bilan">Bilan</button>`;
+    const g = grp(v), sc = gScore(g);
+    return `<button class="tab" type="button" data-v="${v}">${g.icon} ${g.n} · ${g.tab}<span class="dot" aria-label="${sc.done} étape(s) faite(s) sur ${sc.n}">${sc.done}/${sc.n}</span></button>`;
+  }).join("");
+  $$("#tabs .tab").forEach(b => { b.onclick = () => go(b.dataset.v); if (b.dataset.v === S.view) b.setAttribute("aria-current", "page"); });
+  const tx = $("#tabx"); if (tx) { tx.innerHTML = `<button type="button" class="vchip" aria-label="${VNAME()} : changer de version">${VX().icon}<span class="vl"> ${VX().short}</span></button>`; tx.firstChild.onclick = () => { go("accueil"); const n = $("#vers"); if (n) { n.scrollIntoView({ block: "center" }); const b = $("[aria-checked='true']", n); if (b) b.focus(); } }; }
+}
+function setMode(m) { if (m === S.mode) return; S.mode = m; save(); applyMode(); go("accueil", true); const b = $(`#vers [data-mode="${m}"]`); if (b) b.focus(); }
+function go(v, noScroll) {
+  if (!VIEWS.includes(v)) v = "accueil";
+  S.view = v; save(); tabs();
+  if (location.hash !== "#" + v) { try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  const m = $("#main");
+  if (v === "accueil") renderHome(m); else if (v === "bilan") renderBilan(m); else renderGroup(m, grp(v));
+  if (!noScroll) window.scrollTo(0, 0);
+  const cur = $("#tabs [aria-current]"); if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: "nearest", inline: "center" });
+}
+
+/* ---------- accueil ---------- */
+function renderHome(m) {
+  m.innerHTML = `<section class="view">
+    <div class="panel"><p class="kicker">${HOME.kicker}</p><h2 class="sec-title">${HOME.title}</h2>
+      <p>${nb(HOME.intro)}</p>
+      <div class="box info"><p class="lab">ℹ ${HOME.lab}</p><p><b>${nb(PROBLEM)}</b></p><p>${nb(HOME.goal)}</p></div>
+      <div class="box warn"><p class="lab">⚠ Le savais-tu ?</p><p>${nb(HOME.fact)}</p></div></div>
+    <div class="panel" id="vers"><p class="kicker">Choisis ta version</p>
+      <div class="vers" role="radiogroup" aria-label="Version de l'activité">
+        <button class="card-btn" type="button" role="radio" aria-checked="${!EXP()}" data-mode="g"><span class="t">${HOME.vers.g.icon} ${HOME.vers.g.name} ${!EXP() ? `<span class="chip ok">✓ choisie</span>` : ""}</span><span class="m">${HOME.vers.g.desc}</span></button>
+        <button class="card-btn" type="button" role="radio" aria-checked="${EXP()}" data-mode="l"><span class="t">${HOME.vers.l.icon} ${HOME.vers.l.name} ${EXP() ? `<span class="chip ok">✓ choisie</span>` : ""}</span><span class="m">${HOME.vers.l.desc}</span></button>
+      </div>
+      <p class="lead">Tu peux changer de version à tout moment : tes manipulations sont conservées, et chaque version garde ses réponses et son score.</p></div>
+    <article class="panel itemroot" id="item"></article>
+    <div><p class="kicker">${HOME.parts}</p><div class="grid-cards" style="margin-top:.5rem">${GROUPS.map(g => { const sc = gScore(g); return `<button class="card-btn" type="button" data-go="${g.id}"><span class="kicker">Partie ${g.n}</span><span class="t">${g.icon} ${g.title}</span><span class="m">${g.sub}</span><span class="row" style="gap:.3rem"><span class="chip ${sc.done === sc.n ? "ok" : sc.done ? "mid" : ""}">${sc.done}/${sc.n} étapes</span>${g.items.map(it => `<span aria-hidden="true">${LV[it.lvl][2]}</span>`).join("")}</span></button>`; }).join("")}</div></div>
+    <div class="panel"><p class="kicker">Mode d'emploi</p>
+      <ul class="ul">
+        <li>Fais les parties <b>dans l'ordre</b>, de 1 à ${GROUPS.length}${HOME.dur ? " : " + HOME.dur : ""}.</li>
+        <li>Chaque étape contient une <b>manipulation</b> ou une <b>animation</b> : réalise-la avant de répondre.</li>
+        ${EXP() ? (HOME.howL || `<li>Rédige en phrases complètes, avec la méthode <b>je vois → je sais → j'en déduis</b>. Touche <b>Vérifier</b> : l'application repère les éléments attendus dans ta réponse (un point par élément). Seul le premier essai compte, puis tu complètes librement.</li>
+        <li>Le repérage est automatique (mots-clés) : ton professeur lit tes réponses rédigées dans ton bilan.</li>`) : `<li>Touche <b>Vérifier</b> : la correction est immédiate. Seul le premier essai compte, puis tu corriges librement.</li>`}
+        <li>Bloqué ? Trois <b>coups de pouce</b> s'affichent un par un.</li>
+        <li>À la fin, l'onglet <b>Bilan</b> affiche le bilan de l'activité et te permet de télécharger ton résultat.</li>
+      </ul></div>
+  </section>`;
+  $$("[data-go]", m).forEach(b => b.onclick = () => go(b.dataset.go));
+  $$("[data-mode]", m).forEach(b => b.onclick = () => setMode(b.dataset.mode));
+  renderItem(RAPPEL, $("#item"));
+}
+
+/* ---------- vue d'un atelier ---------- */
+function indDone(ind) { return ind.items.every(id => { const st = IT()[id]; return st && st.first && (st.lastOk || !itemMax(ITEMS[id].it)); }); }
+function renderGroup(m, g) {
+  const k = Math.max(0, Math.min(g.items.length - 1, S.step[g.id] || 0)), it = g.items[k], gi = GROUPS.indexOf(g);
+  m.innerHTML = `<section class="view"><div><p class="kicker">Partie ${g.n} · ${VNAME()}</p><h2 class="sec-title">${g.icon} ${g.title}</h2><p class="lead">${g.sub}</p></div>
+    ${(g.inds || []).length ? `<div class="panel"><p class="kicker">Indicateurs de réussite</p><ul class="inds">${g.inds.map((d, i) => { const ok = indDone(d); return `<li class="${ok ? "done" : ""}"><span class="bx" aria-hidden="true">${ok ? "✓" : ""}</span><span><b>${i + 1}.</b> ${d.t} <span class="st">${ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et ")}</span></span></li>`; }).join("")}</ul></div>` : ""}
+    <div class="stepper" role="group" aria-label="Étapes">${g.items.map((x, i) => { const s = status(x); return `<button type="button" data-s="${i}" ${i === k ? 'aria-current="step"' : ""} aria-label="Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}">${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}</button>`; }).join("")}</div>
+    <article class="panel itemroot" id="item"></article>
+    <div class="row" id="navx"></div></section>`;
+  $$(".stepper button", m).forEach(b => b.onclick = () => { S.step[g.id] = +b.dataset.s; save(); renderGroup(m, g); window.scrollTo(0, 0); });
+  renderItem(it, $("#item"));
+  const nx = $("#navx"), nextG = GROUPS[gi + 1];
+  nx.innerHTML = `${k > 0 ? `<button class="btn ghost" type="button" data-p>← Étape ${k}</button>` : ""}${k < g.items.length - 1 ? `<button class="btn" type="button" data-n>Étape ${k + 2} →</button>` : nextG ? `<button class="btn" type="button" data-c>${nextG.icon} Partie ${nextG.n} →</button>` : `<button class="btn" type="button" data-b>Voir mon bilan →</button>`}`;
+  const st = d => { S.step[g.id] = k + d; save(); renderGroup(m, g); window.scrollTo(0, 0); };
+  const a = $("[data-p]", nx); if (a) a.onclick = () => st(-1);
+  const b = $("[data-n]", nx); if (b) b.onclick = () => st(1);
+  const c = $("[data-c]", nx); if (c) c.onclick = () => go(nextG.id);
+  const d = $("[data-b]", nx); if (d) d.onclick = () => go("bilan");
+}
+function refreshChrome(it) {
+  tabs(); const g = ITEMS[it.id].g; if (!g) return;
+  $$(".stepper button").forEach((b, i) => { const x = g.items[i], s = status(x); b.innerHTML = `${i + 1} <span aria-hidden="true">${LV[x.lvl][2]}</span>${s[0] ? `<span aria-hidden="true">${s[0]}</span>` : ""}`; b.setAttribute("aria-label", `Étape ${i + 1}, ${LV[x.lvl][0].split(" ")[1]}, ${s[1]}`); });
+  if (0) $$(".inds li").forEach((li, i) => { const d = g.inds[i], ok = indDone(d); li.classList.toggle("done", ok); $(".bx", li).textContent = ok ? "✓" : ""; $(".st", li).textContent = ok ? "✓ fait" : "à faire · étape" + (d.items.length > 1 ? "s " : " ") + d.items.map(id => ITEMS[id].i + 1).join(" et "); });
+}
+
+/* ---------- une étape ---------- */
+let CUR = null;
+function refreshTasks() { if (!CUR || !document.body.contains(CUR.root)) return; CUR.it.parts.forEach((p, k) => { if (p.t === "task") { const n = $(`.part[data-k="${k}"] [data-task]`, CUR.root); if (n) n.innerHTML = p.done().msg; } }); }
+function renderItem(it, root) {
+  CUR = { it, root };
+  const id = it.id, st = itState(id), lvl = LV[it.lvl], locked = it.pre && st.pre === undefined;
+  root.innerHTML = `<p class="lv ${lvl[1]}">${lvl[0]}</p><h3 class="item-title">${it.title}</h3>${it.intro ? `<p>${it.intro}</p>` : ""}${(it.docs || []).map(docHTML).join("")}
+    ${it.pre ? `<div class="hypo" id="hypo"></div>` : ""}
+    ${it.live ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.liveTitle}</span></figcaption><div class="db"><div class="figbox" id="livefig"></div></div></figure>` : ""}
+    ${it.widget ? `<figure class="doc" style="margin:0"><figcaption class="dh"><span>${it.widget.title}</span>${it.widget.sim ? `<span class="sim">⚠ ${it.widget.sim}</span>` : ""}</figcaption><div class="db" id="wz">${locked ? `<p class="locked">🔒 Donne d'abord ton hypothèse : la manipulation se débloque ensuite.</p>` : ""}</div></figure>` : ""}
+    <div class="parts ${it.parts.every(p => p.t === "shot") ? "grid4" : ""}" style="display:grid;gap:.9rem" ${locked ? "hidden" : ""}>${it.parts.map((p, k) => `<div class="part" data-k="${k}"></div>`).join("")}</div>
+    <div class="row acts" ${locked ? "hidden" : ""}></div><div class="gfb" aria-live="polite"></div>
+    <div class="hints hz"></div><div class="after" style="display:grid;gap:.9rem"></div><div class="unl"></div>`;
+  mountFigs(root);
+  if (it.pre) paintPre(it, root);
+  if (it.widget && !locked) WID[it.widget.w]($("#wz", root));
+  if (it.live) root._live = liveSVG($("#livefig", root), (W, F) => LIVE[it.live](W, F, IT()[id].v));
+  it.parts.forEach((p, k) => renderPart(it, k, root));
+  paintActions(it, root);
+}
+function paintPre(it, root) {
+  const st = IT()[it.id], h = $("#hypo", root), fixed = !!st.first, shown = corrShown(st), pre = it.pre, good = pre.num ? st.pre === pre.n : st.pre === pre.a;
+  const tail = shown && st.pre !== undefined ? `<p class="pfb ${good ? "ok" : ""}">${good ? (pre.yes || "✓ Tu avais raison : ton hypothèse est confirmée.") : (pre.nope || "↻ Tu as révisé ton hypothèse de départ : c'est ainsi que l'on progresse.")}</p>` : fixed ? `<p class="lead">Hypothèse enregistrée.</p>` : st.pre === undefined ? "" : `<p class="lead">Hypothèse enregistrée : tu peux encore la changer avant de vérifier.</p>`;
+  const done = was => { save(); if (was) renderItem(it, root); else paintPre(it, root); };
+  if (pre.num) {
+    h.innerHTML = `<p class="hl" id="preL">🤔 ${pre.label} <span class="ctag">non noté</span></p><div class="row"><input class="inp" id="preN" inputmode="numeric" autocomplete="off" aria-labelledby="preL" value="${st.pre === undefined ? "" : st.pre}" ${fixed ? "disabled" : ""}><span class="unit">${pre.unit || ""}</span>${fixed ? "" : `<button type="button" class="btn" data-preok>Enregistrer mon hypothèse</button>`}</div><p class="pfb bad" id="preE" aria-live="polite"></p>${tail}`;
+    const ok = $("[data-preok]", h), inp = $("#preN", h);
+    const reg = () => { const v = parseNum(inp.value); if (!Number.isFinite(v) || v < 1 || v !== Math.round(v)) { $("#preE", h).textContent = "Écris un nombre entier."; return; } const was = st.pre === undefined; st.pre = v; done(was); const n = $(was ? ".parts textarea, .parts input, #wz button" : "[data-preok]", root); if (n) n.focus(); };
+    if (ok) { ok.onclick = reg; inp.addEventListener("keydown", ev => { if (ev.key === "Enter") reg(); }); }
+    return;
+  }
+  h.innerHTML = `<p class="hl">🤔 ${pre.label} <span class="ctag">non noté</span></p><div class="opts" role="radiogroup">${pre.o.map((o, j) => `<button type="button" class="opt" role="radio" aria-checked="${st.pre === j}" data-h="${j}" ${fixed ? "disabled" : ""}><span class="k">${"ABCD"[j]}</span><span>${o}</span></button>`).join("")}</div>${tail}`;
+  $$("[data-h]", h).forEach(b => b.onclick = () => { const was = st.pre === undefined; st.pre = +b.dataset.h; done(was); const n = $(`[data-h="${st.pre}"]`, root); if (n) n.focus(); });
+}
+function renderPart(it, k, root) {
+  const id = it.id, p = it.parts[k], st = IT()[id], box = $(`.part[data-k="${k}"]`, root), v = st.v[k], pid = `${id}-p${k}`;
+  const checked = !!st.checked; const r = checked && scorable(p) ? checkPart(p, v, st.self && st.self[k]) : null;
+  let h = `<p class="pl" id="${pid}-l"><span class="muted">${k + 1}.</span> ${p.label} <span class="ctag">${COMPS[p.c || "conn"]}</span></p>${p.th ? `<div class="th" style="max-width:12rem;border-radius:10px;overflow:hidden;background:var(--surface-2)">${thumb(TAUREF[p.th])}</div>` : ""}`;
+  const okc = r ? (r.ok ? "is-ok" : "is-bad") : "";
+  if (p.t === "num") h += `<div class="row"><input id="${pid}" class="inp ${okc}" inputmode="decimal" autocomplete="off" aria-labelledby="${pid}-l" value="${esc(v || "")}"><span class="unit">${p.unit || ""}</span></div>`;
+  if (p.t === "word") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-labelledby="${pid}-l" value="${esc(v || "")}" style="max-width:22rem"></div>`;
+  if (p.t === "choice") h += `<div class="opts" role="radiogroup" aria-labelledby="${pid}-l">${p.o.map((o, j) => { let cls = "", t = ""; if (checked && v === j) { cls = j === p.a ? "is-ok" : "is-bad"; t = j === p.a ? "✓ Juste" : "✗ Faux"; } return `<button type="button" class="opt ${cls}" role="radio" aria-checked="${v === j}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${o}</span>${t ? `<span class="tag">${t}</span>` : ""}</button>`; }).join("")}</div>`;
+  if (p.t === "multi") h += `<div class="opts" role="group" aria-labelledby="${pid}-l">${p.o.map((o, j) => { const on = (v || []).includes(j); return `<button type="button" class="opt" aria-pressed="${on}" aria-checked="${on}" data-j="${j}"><span class="k" style="border-radius:6px">${on ? "✓" : ""}</span><span>${o}</span></button>`; }).join("")}</div>`;
+  if (p.t === "match") {
+    const cur = v || {}, used = Object.values(cur), ord = order(id + k, p.rows.length); let sel = box._sel; if (sel === undefined || cur[sel] !== undefined) sel = p.rows.findIndex((r, i) => cur[i] === undefined);
+    box._sel = sel;
+    h += `<div class="match">${p.rows.map((r, i) => { const has = cur[i] !== undefined, cls = checked && has ? (cur[i] === i ? "is-ok" : "is-bad") : ""; return `<button type="button" class="mrow ${cls}" data-mi="${i}" aria-pressed="${sel === i}"><span class="me" aria-hidden="true">${r.e}</span><span class="mn">${r.txt}</span><span class="mv ${has ? "has" : ""}">${has ? p.rows[cur[i]].v : "?"}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div>
+      <p class="lead">${sel >= 0 ? `${p.ask || "Choisis l'étiquette de"} : <b>${p.rows[sel].txt}</b>` : "Touche une ligne pour changer son étiquette."}</p><div class="chips">${ord.filter(j => !used.includes(j)).map(j => `<button type="button" class="chipb" data-mj="${j}">${p.rows[j].v}</button>`).join("")}</div>`;
+  }
+  if (p.t === "rows") h += `<div class="rows">${p.rows.map((row, i) => { const cur = (v || {})[i]; return `<div class="rowq"><span class="rt">${row.txt}</span><div class="seg" role="group" aria-label="${esc(row.txt)}">${(row.o || p.choices).map((c, j) => { const cls = checked && cur === j ? (j === row.a ? "is-ok" : "is-bad") : ""; return `<button type="button" class="${cls}" aria-pressed="${cur === j}" data-i="${i}" data-j="${j}">${cls === "is-ok" ? "✓ " : cls === "is-bad" ? "✗ " : ""}${c}</button>`; }).join("")}</div></div>`; }).join("")}</div>`;
+  if (p.t === "order") {
+    const ord = order(id + k, p.keys.length), chosen = v || [];
+    h += `<div class="order-list pics">${ord.map(j => { const pos = chosen.indexOf(j); const cls = checked && pos >= 0 ? (pos === j ? "is-ok" : "is-bad") : ""; return `<button type="button" class="order-item ${cls}" data-j="${j}" ${pos >= 0 ? `data-pos="${pos + 1}"` : ""} aria-label="${esc(p.alts[j])}${pos >= 0 ? ", placée en position " + (pos + 1) : ""}"><span class="n">${pos >= 0 ? pos + 1 : ""}</span><span class="th">${thumb(TAUREF[p.keys[j]])}</span>${cls ? `<span class="tag" style="margin-left:auto;font-weight:800">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}</div><div class="row"><button type="button" class="btn ghost" data-clear>Effacer l'ordre</button><span class="lead">Touche une image placée pour la retirer.</span></div>`;
+  }
+  if (p.t === "shot") {
+    const has = v !== undefined && v !== null;
+    h += `<div class="shot"><div class="frame ${has ? "has" : ""} ${okc}">${has ? thumb(v) : "Pas encore de photo"}</div><div class="row"><button type="button" class="btn" data-shot aria-label="${has ? "Refaire la photo" : "Prendre la photo"}">📸 ${has ? "Refaire" : "Photo"}</button></div></div>`;
+  }
+  if (p.t === "loop") {
+    const chosen = v || [], ord = order(id + k, p.items.length), solved = checked && r && r.ok;
+    h += `<div class="loopd"><span class="lhead" aria-hidden="true">▶</span><div class="lslot fixed"><span class="n">1</span><span>${p.start}</span></div>${p.items.map((_, i) => { const j = chosen[i], cls = checked && j !== undefined ? (j === i ? "is-ok" : "is-bad") : ""; return `<div class="larr" aria-hidden="true">↓</div><button type="button" class="lslot ${j !== undefined ? "filled" : ""} ${cls}" data-slot="${i}" ${j === undefined ? "disabled" : ""} aria-label="Case ${i + 2} : ${j !== undefined ? esc(p.items[j]) + ". Toucher pour retirer." : "vide"}"><span class="n">${i + 2}</span><span>${j !== undefined ? p.items[j] : `<span class="muted">…</span>`}</span>${cls ? `<span class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</span>` : ""}</button>`; }).join("")}<p class="lret">↺ ${solved ? p.back + " : retour à la case 1." : "puis retour à la case 1 : la boucle est bouclée."}</p></div>
+      <div class="bank">${ord.filter(j => !chosen.includes(j)).map(j => `<button type="button" class="order-item" data-j="${j}"><span class="n">+</span><span>${p.items[j]}</span></button>`).join("")}</div><p class="lead">Touche une étiquette pour la placer dans la première case libre. Touche une case remplie pour la vider.</p>`;
+  }
+  if (p.t === "task") h += `<p class="task ${okc}" data-task>${p.done().msg}</p>`;
+  if (p.t === "phase") h += `<div class="phg">${p.rows.map((row, i) => { const cur = (v || {})[i], has = cur !== undefined, L = has && (cur & 2), R = has && (cur & 1), cls = checked && has ? (cur === row.a ? "is-ok" : "is-bad") : ""; return `<div class="phr ${cls}" role="group" aria-label="${esc(row.txt)}"><p class="pht">${row.txt}</p><div class="moon ${has ? "" : "unset"}"><button type="button" class="mh l" data-i="${i}" data-b="2" aria-pressed="${!!L}" aria-label="${esc(row.txt)} : moitié gauche, ${L ? "éclairée" : "sombre"}"></button><button type="button" class="mh r" data-i="${i}" data-b="1" aria-pressed="${!!R}" aria-label="${esc(row.txt)} : moitié droite, ${R ? "éclairée" : "sombre"}"></button></div><p class="phd">${has ? PH_TXT[cur] : "Pas encore dessinée"}</p><button type="button" class="btn ghost phz" data-i="${i}" data-b="0" aria-pressed="${has && cur === 0}">🌑 Rien d'éclairé</button>${cls ? `<p class="tag">${cls === "is-ok" ? "✓ Juste" : "✗ Faux"}</p>` : ""}</div>`; }).join("")}</div><p class="lead">Touche une moitié pour l'éclairer ou l'assombrir.</p>`;
+  if (p.t === "list") h += `<div class="row"><input id="${pid}" class="inp wide ${okc}" autocomplete="off" autocapitalize="off" aria-labelledby="${pid}-l" value="${esc(v || "")}" placeholder="${esc(p.ph || "élément 1, élément 2, …")}" style="max-width:none;flex:1 1 16rem"></div><p class="lead">Écris seulement les éléments présents, séparés par des virgules.</p>`;
+  if (p.t === "redac") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead wc" data-wc></p>`;
+  if (p.t === "text") h += `<textarea id="${pid}" class="inp" aria-labelledby="${pid}-l" placeholder="Rédige ta réponse ici, en phrases complètes…">${esc(v || "")}</textarea><p class="lead">Après validation : réponse modèle et grille d'auto-évaluation.</p>`;
+  const shownC = corrShown(st);
+  let grid = "";
+  if (p.t === "redac" && r && r.hits) grid = `<ul class="grille">${p.crit.map((c, i) => { const hit = r.hits[i], mine = hit && !r.auto[i]; return `<li class="${hit ? "ok" : "no"}"><span class="gk">${GK[c.g]}</span><span class="gl">${c.lab}</span><span class="gt">${mine ? "✓ validé par toi" : hit ? "✓ repéré" : "✗ non repéré"}</span>${!hit && shownC ? `<button type="button" class="btn ghost gs" data-self="${i}">Ma réponse le contient</button>` : ""}</li>`; }).join("")}</ul>`;
+  h += `<div class="pfbw" aria-live="polite">${r ? `<p class="pfb ${r.ok ? "ok" : p.t === "redac" && !r.empty ? "mid" : "bad"}">${r.msg}</p>` : ""}${grid}</div>`;
+  if (p.t === "redac" && shownC) h += `<div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${p.model}</p></div><p class="lead">Le repérage est automatique (mots-clés) et peut se tromper. Compare ta réponse à la réponse modèle : si un élément marqué ✗ figure bien dans ta réponse, valide-le toi-même. Ton professeur lit ta réponse dans ton bilan.</p>`;
+  box.innerHTML = h;
+  const setV = (val, rerender) => { st.v[k] = val; save(); if (rerender) renderPart(it, k, root); if (root._live) root._live.draw(); };
+  const clear = () => { $$(".is-ok,.is-bad", box).forEach(x => x.classList.remove("is-ok", "is-bad")); const f = $(".pfbw", box); if (f) f.innerHTML = ""; };
+  const refocus = sel => { const n = box.querySelector(sel); if (n) n.focus(); };
+  if (p.t === "redac") { const wc = $("[data-wc]", box), ta = box.querySelector("textarea"), up = () => { const n = nWords(ta.value), min = p.min || 12; wc.textContent = `${n} mot(s) · au moins ${min} mots attendus.`; }; up(); ta.addEventListener("input", up);
+    $$("[data-self]", box).forEach(b => b.onclick = () => { const i = +b.dataset.self; st.self = st.self || {}; st.self[k] = st.self[k] || {}; st.self[k][i] = true; const e = evalItem(it, st); st.lastPts = e.pts; st.lastOk = e.pts === itemMax(it); save(); renderPart(it, k, root); paintActions(it, root); refreshChrome(it); const n = $(`.part[data-k="${k}"] [data-self], .part[data-k="${k}"] textarea`, root); if (n) n.focus(); }); }
+  if (["num", "text", "word", "list", "redac"].includes(p.t)) { const inp = box.querySelector("input,textarea"); inp.addEventListener("input", () => { setV(inp.value, false); clear(); }); if (p.t !== "text" && p.t !== "redac") inp.addEventListener("keydown", ev => { if (ev.key === "Enter") { const b = $(".acts [data-check]", root); if (b) b.click(); } }); }
+  if (p.t === "choice") $$(".opt", box).forEach(b => b.onclick = () => { setV(+b.dataset.j, true); refocus(`.opt[data-j="${b.dataset.j}"]`); });
+  if (p.t === "multi") $$(".opt", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); });
+  if (p.t === "match") {
+    $$("[data-mi]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = +b.dataset.mi; delete cur[i]; box._sel = i; setV(cur, true); refocus(`[data-mi="${i}"]`); });
+    $$("[data-mj]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); const i = box._sel; if (i === undefined || i < 0) return; cur[i] = +b.dataset.mj; box._sel = undefined; setV(cur, true); refocus(".chipb") || refocus(".mrow"); });
+  }
+  if (p.t === "phase") $$("[data-b]", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}), i = +b.dataset.i, bit = +b.dataset.b; cur[i] = bit ? ((cur[i] || 0) ^ bit) : 0; setV(cur, true); refocus(`[data-i="${i}"][data-b="${bit}"]`); });
+  if (p.t === "rows") $$(".seg button", box).forEach(b => b.onclick = () => { const cur = Object.assign({}, st.v[k] || {}); cur[+b.dataset.i] = +b.dataset.j; setV(cur, true); refocus(`[data-i="${b.dataset.i}"][data-j="${b.dataset.j}"]`); });
+  if (p.t === "order") { $$(".order-item", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); const j = +b.dataset.j; const i = cur.indexOf(j); if (i >= 0) cur.splice(i, 1); else cur.push(j); setV(cur, true); refocus(`[data-j="${j}"]`); }); box.querySelector("[data-clear]").onclick = () => setV([], true); }
+  if (p.t === "shot") box.querySelector("[data-shot]").onclick = () => { setV(CELL.tau, true); refocus("[data-shot]"); };
+  if (p.t === "loop") {
+    $$(".bank [data-j]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.push(+b.dataset.j); setV(cur, true); refocus(".bank [data-j]") || refocus(`[data-slot="${cur.length - 1}"]`); });
+    $$("[data-slot]", box).forEach(b => b.onclick = () => { const cur = (st.v[k] || []).slice(); cur.splice(+b.dataset.slot, 1); setV(cur, true); refocus(".bank [data-j]"); });
+  }
+}
+
+function evalItem(it, st) { const res = it.parts.map((p, k) => scorable(p) ? checkPart(p, st.v[k], st.self && st.self[k]) : null); return { res, pts: res.reduce((n, r) => n + rpts(r), 0) }; }
+function recopHTML() { return `<div class="recop"><p class="lab">✔ ${HOME.recop}</p>${bilanHTML()}</div>`; }
+
+function paintActions(it, root) {
+  const id = it.id, st = IT()[id]; const acts = $(".acts", root), gfb = $(".gfb", root), hints = $(".hz", root), after = $(".after", root);
+  const max = itemMax(it), hasText = it.parts.some(p => p.t === "text"), shown = corrShown(st);
+  acts.innerHTML = `<button class="btn" type="button" data-check>${max ? "Vérifier" : "Valider ma réponse"}</button>
+    ${st.hints < 3 && !(shown && st.lastOk) ? `<button class="btn ghost" type="button" data-hint>💡 Coup de pouce ${st.hints + 1}/3</button>` : ""}
+    <button class="btn ghost" type="button" data-reset>↺ Recommencer</button>`;
+  hints.innerHTML = it.hints.slice(0, st.hints).map((h, i) => `<p class="hint"><b>Coup de pouce ${i + 1}/3</b> · ${h}</p>`).join("");
+  if (st.first) {
+    const f = st.first;
+    gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ Tout est juste${f.pts === f.max ? (st.tries === 1 ? " du premier coup !" : ".") : " (après correction)."}</p><p>Score retenu (premier essai) : ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} coup(s) de pouce avant le premier essai` : ""}.</p></div>`
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} ${it.parts.some(p => pw(p) > 1) ? "point(s)" : "réponse(s) juste(s)"}.</p><p>${shown ? (it.parts.some(p => p.t === "redac") ? "Le corrigé et les réponses modèles sont affichés : complète tes réponses, puis vérifie à nouveau." : "Le corrigé est affiché ci-dessous : corrige les réponses marquées ✗, puis vérifie à nouveau.") : "Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé s'affichera au deuxième essai."} (Score retenu : ${f.pts}/${f.max}, premier essai.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Réponse enregistrée.</p><p>Compare-la à la réponse modèle, puis coche la grille.</p></div>`;
+  } else gfb.innerHTML = "";
+  let a = "";
+  if (shown && it.corr) a += `<div class="corr"><p class="h">Corrigé</p><p>${it.corr}</p>${it.corrx || ""}</div>`;
+  if (0) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Réponse rédigée · auto-évaluation</p><div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${it.model}</p></div><p><b>Coche ce que ta réponse contient :</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
+  if (shown && it.recop) a += recopHTML();
+  after.innerHTML = a;
+  const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
+  if (unl.dataset.state !== ustate) {
+    unl.dataset.state = ustate;
+    unl.innerHTML = ustate === "open" ? `<figure class="doc unlock" style="margin:0"><figcaption class="dh"><span>${it.unlock.title}</span>${it.unlock.sim ? `<span class="sim">⚠ ${it.unlock.sim}</span>` : ""}</figcaption><div class="db unlockz"></div></figure>` : ustate === "locked" ? `<p class="locked">🔒 Une simulation se débloque quand toutes les réponses sont justes.</p>` : "";
+    if (ustate === "open") WID[it.unlock.w]($(".unlockz", unl));
+  }
+  $("[data-check]", acts).onclick = () => {
+    const { res, pts } = evalItem(it, st);
+    const empty = res.some(r => r && r.empty);
+    const textEmpty = it.parts.some((p, k) => p.t === "text" && !String(st.v[k] || "").trim());
+    if ((empty || textEmpty) && !st.first) { const why = [...new Set(res.filter(r => r && r.empty && /courte|manipulation/.test(r.msg)).map(r => r.msg))].join(" ");
+      gfb.innerHTML = `<div class="fb neutral"><p class="h">Complète toutes les questions avant de vérifier.</p><p>${why ? why + " " : ""}Le premier essai n'est compté que lorsque tout est rempli.</p></div>`; gfb.scrollIntoView({ block: "nearest", behavior: "smooth" }); return; }
+    st.checked = true; st.lastPts = pts; st.lastOk = pts === max; st.tries = (st.tries || 0) + 1;
+    if (!st.first) st.first = { pts, max, hints: st.hints, parts: res.map(r => r ? !!r.ok : null), pp: res.map(r => r ? rpts(r) : null), txt: it.parts.map((p, k) => p.t === "redac" ? String(st.v[k] || "").trim() : null) };
+    save();
+    it.parts.forEach((p, k) => renderPart(it, k, root)); if (it.pre) paintPre(it, root); paintActions(it, root); refreshChrome(it);
+    const g = $(".gfb", root); if (g && g.scrollIntoView) g.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const hb = $("[data-hint]", acts); if (hb) hb.onclick = () => { st.hints = Math.min(3, st.hints + 1); save(); paintActions(it, root); const hs = $$(".hz .hint", root); const last = hs[hs.length - 1]; if (last) last.scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+  armButton($("[data-reset]", acts), "↺ Recommencer", "Effacer mes réponses ?", () => { const keep = st.first; IT()[id] = { v: {}, hints: 0, crit: {}, pre: st.pre, first: keep, tries: keep ? st.tries : 0, lastOk: false }; save(); renderItem(it, root); refreshChrome(it); });
+  $$(".crit button", after).forEach(b => b.onclick = () => { const i = +b.dataset.ci; st.crit[i] = !st.crit[i]; save(); paintActions(it, root); const nb2 = $(`.after [data-ci="${i}"]`, root); if (nb2) nb2.focus(); });
+}
+
+/* ---------- bilan ---------- */
+function compStats() { const out = {}; Object.keys(COMPS).forEach(k => out[k] = { ok: 0, n: 0 }); Object.values(ITEMS).forEach(({ it }) => { const st = IT()[it.id]; if (!st || !st.first) return; it.parts.forEach((p, k) => { if (!scorable(p)) return; const c = p.c || "conn", w = pw(p); out[c].n += w; out[c].ok += st.first.pp ? (st.first.pp[k] || 0) : st.first.parts[k] ? w : 0; }); }); return out; }
+function missedParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = IT()[it.id]; if (!st || !st.first) return; st.first.parts.forEach((ok, k) => { if (ok === false) out.push(`${label} · question ${k + 1}${it.parts[k] && it.parts[k].t === "redac" && st.first.pp ? ` (réponse rédigée : ${st.first.pp[k]}/${pw(it.parts[k])} éléments repérés)` : ""}`); }); }); return out; }
+const plain = x => String(x).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+function writtenParts() { const out = []; Object.values(ITEMS).forEach(({ it, label }) => { const st = IT()[it.id]; it.parts.forEach((p, k) => { if (p.t !== "redac" && p.t !== "list") return; const v = st && st.v[k] ? String(st.v[k]).trim() : "", f = st && st.first && st.first.txt ? st.first.txt[k] : null; out.push({ label, q: plain(p.label), v, v1: f && f !== v ? f : "", score: p.t === "redac" && st && st.first && st.first.pp ? `${st.first.pp[k]}/${pw(p)} éléments repérés au premier essai` : "" }); }); }); return out; }
+function rScore() { const st = IT().r0; return { pts: st && st.first ? st.first.pts : 0, max: itemMax(RAPPEL), done: st && st.first ? 1 : 0, n: 1 }; }
+function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
+const gName = g => `Partie ${g.n} · ${g.title}`;
+const recopReady = () => corrShown(IT()[HOME.last]);
+function bilanText(name) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
+  let t = `${HOME.txt}\n\nRÉSUMÉ DE L'ACTIVITÉ\n${RESUME}\n\nBILAN DE L'ÉLÈVE\nÉlève : ${name || "—"}\nDate : ${today()}\nVersion : ${EXP() ? HOME.vers.l.short.toLowerCase() + " (réponses rédigées ; repérage automatique des éléments attendus, à relire par le professeur)" : HOME.vers.g.short.toLowerCase()}\n\nPoints au premier essai\n- Accueil · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
+  GROUPS.forEach(g => { const s = gScore(g); t += `- ${gName(g)} : ${s.done ? s.pts + "/" + s.max : "—"} (${s.done}/${s.n} étapes faites)\n`; g.items.forEach((it, i) => { const st = IT()[it.id]; t += `    étape ${i + 1} ${LV[it.lvl][2]} ${it.title} : ${st && st.first ? st.first.pts + "/" + st.first.max + (st.first.hints ? ` (${st.first.hints} coup(s) de pouce)` : "") : "—"}\n`; }); });
+  t += `Total : ${T.pts}/${T.max} (${T.done}/${T.n} étapes faites)\n\nBilan par compétence (premier essai)\n`; Object.entries(COMPS).forEach(([k, lab]) => { const c = cs[k]; t += `- ${lab} : ${c.n ? c.ok + "/" + c.n : "—"}\n`; });
+  t += `\nQuestions ratées au premier essai (${ms.length})\n${ms.length ? ms.map(x => "- " + x).join("\n") : "- aucune"}\n`;
+  if (EXP()) { const w = writtenParts(); t += `\nMES RÉPONSES RÉDIGÉES (${w.filter(x => x.v).length}/${w.length})\n` + w.map(x => `\n${x.label}\nQuestion : ${x.q}\n${x.v1 ? "Réponse au premier essai : " + x.v1 + "\nRéponse finale : " : "Réponse : "}${x.v || "—"}${x.score ? "\n(" + x.score + ")" : ""}\n`).join(""); }
+  return clean(t + "\n" + HOME.extra() + `\n${SIGN}\n`);
+}
+function renderBilan(m) {
+  const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
+  m.innerHTML = `<section class="view"><div><p class="kicker">Bilan</p><h2 class="sec-title">Mon bilan de l'activité</h2><p class="lead"><b>${VNAME()}</b> · points comptés au premier essai. ${T.done}/${T.n} étapes faites.</p></div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie ${GROUPS.length}.</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Aller à la dernière étape</button></div>`}</div>
+    <div class="panel"><h3>${HOME.extraTitle || "Mes tableaux"}</h3>${HOME.extraHTML()}</div>
+    <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
+    <div class="panel"><h3>Par partie</h3><div class="tablewrap"><table class="t"><thead><tr><th>Partie</th><th>Étapes faites</th><th>Points (premier essai)</th></tr></thead><tbody><tr><td>Accueil · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
+    <div class="panel"><h3>Par compétence</h3><div class="comps">${Object.entries(COMPS).map(([k, lab]) => { const c = cs[k]; const q = c.n ? c.ok / c.n : 0; return `<div class="comp"><div class="row" style="justify-content:space-between"><span>${lab}</span><b class="num">${c.n ? c.ok + "/" + c.n : "—"}</b></div><div class="bar" aria-hidden="true"><i style="width:${q * 100}%"></i></div></div>`; }).join("")}</div></div>
+    <div class="panel"><h3>Questions ratées au premier essai</h3>${ms.length ? `<ul class="ul">${ms.map(x => `<li>${x}</li>`).join("")}</ul>` : "<p>Aucune pour l'instant.</p>"}</div>
+    ${EXP() ? `<div class="panel"><h3>Mes réponses rédigées</h3><p class="lead">Ton professeur les lit dans ton bilan : le repérage automatique ne remplace pas sa lecture.</p><div class="redlist">${writtenParts().map(x => `<div class="red"><p class="rq">${esc(x.label)}</p><p class="lead">${esc(x.q)}</p>${x.v1 ? `<p class="lead">Premier essai</p><p class="rv">${esc(x.v1)}</p><p class="lead">Réponse finale</p>` : ""}<p class="rv">${x.v ? esc(x.v) : "—"}</p>${x.score ? `<p class="lead">${x.score}</p>` : ""}</div>`).join("")}</div></div>` : ""}
+    <div class="panel"><h3>Transmettre mon bilan</h3><p class="lead">Le fichier contient le résumé de l'activité (avec le bilan), tes tableaux, tes points par partie et par compétence${EXP() ? ", tes réponses rédigées" : ""} et les questions ratées au premier essai.</p><div id="bt"></div></div>
+    <div class="panel"><h3>Recommencer</h3><p class="lead">Efface toutes les réponses (des deux versions) et toutes les manipulations de cette activité sur cet appareil.</p><div class="row"><button class="btn ghost" type="button" id="reset">Tout effacer</button></div></div></section>`;
+  const gd = $("#goD2"); if (gd) gd.onclick = () => { S.step[HOME.lastG] = HOME.lastK; save(); go(HOME.lastG); };
+  renderBilanTools($("#bt"), bilanText, name => `<p class="kicker">Bilan à montrer au professeur</p><h2>${esc(name || "Élève")}</h2><p>${HOME.short} · ${VNAME()} · ${today()}</p>${GROUPS.map(g => { const s = gScore(g); return `<div class="line"><span>${g.icon} ${gName(g)}</span><b class="num">${s.done ? s.pts + "/" + s.max : "—"} <span style="font-weight:400">(${s.done}/${s.n} étapes)</span></b></div>`; }).join("")}<div class="line"><span><b>Total (premier essai)</b></span><b class="num">${T.pts}/${T.max}</b></div><div class="line"><span>Questions ratées au premier essai</span><b class="num">${ms.length}</b></div><div class="line"><span>Bilan de l'activité</span><b>${recopReady() ? "✓ débloqué" : "pas encore"}</b></div>`, HOME.slug);
+  armButton($("#reset"), "Tout effacer", "Confirmer l'effacement ?", () => { S.it = {}; S.itL = {}; S.step = {}; S.x = {}; save(); go("accueil"); });
+}
+
+/* ---------- démarrage ---------- */
+Display.init(S, save);
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h && h !== S.view && VIEWS.includes(h)) go(h); });
+go(VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : (S.view || "accueil"), true);
+
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

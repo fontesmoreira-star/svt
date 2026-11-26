@@ -102,7 +102,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - 📁 **Chapitre 1 · Puberté et reproduction humaine**
     - [Devenir adulte : la puberté](https://fontesmoreira-star.github.io/svt/4e/corps-sante/puberte-reproduction/devenir-adulte.html) · Séance animée · 45 min
 
-### [3e SVT](https://fontesmoreira-star.github.io/svt/3e/) · 14 activités
+### [3e SVT](https://fontesmoreira-star.github.io/svt/3e/) · 15 activités
 
 - 📌 **Toute l'année** · [Mes automatismes de 3e](https://fontesmoreira-star.github.io/svt/3e/automatismes.html)
 - 📂 **Thème 1 · Le vivant et son évolution** · [page](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/)
@@ -122,6 +122,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - 📁 **Chapitre 3 · Diversité et évolution des êtres vivants**
     - [L'apparition d'un nouveau caractère](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch3-diversite-evolution/apparition-nouveau-caractere.html) · Activité 1
     - [Des comparaisons d'ADN](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch3-diversite-evolution/comparaisons-adn.html) · Activité 2
+    - [La place de l'Homme dans l'évolution](https://fontesmoreira-star.github.io/svt/3e/vivant-evolution/ch3-diversite-evolution/place-de-l-homme.html) · Activité 3
 - ▫️ **Thème 2 · Le corps humain et la santé** · à venir
   - ▫️ Chapitre 4 · Le monde microbien et la santé · à venir
 - ▫️ **Thème 3 · La planète Terre, l'environnement et l'action humaine** · à venir

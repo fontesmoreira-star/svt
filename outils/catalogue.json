@@ -466,6 +466,12 @@
          "tag": "Activité 2",
          "titre": "Des comparaisons d'ADN",
          "desc": "Comparateur d'ADN (deux humains, Homme et chimpanzé), règle de ressemblance avec cinq êtres vivants, deux lignées qui divergent depuis un ancêtre commun, arbre de parenté qui se dessine avec les réponses, puis le bilan. Deux versions : guidée ou exigeante."
+        },
+        {
+         "fichier": "place-de-l-homme.html",
+         "tag": "Activité 3",
+         "titre": "La place de l'Homme dans l'évolution",
+         "desc": "Un Phylogène simplifié : tableaux de caractères, boîtes emboîtées, traits sur l'arbre et groupes, chez les vertébrés puis chez les primates, puis le bilan. Deux versions : guidée ou exigeante."
         }
        ]
       }
