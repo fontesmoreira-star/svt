@@ -1,0 +1,33 @@
+/* ---------- 5e EIST · Mission 6 · Technologie · Activité 2 · Découvrir Thymio (complète lune.css) ---------- */
+.sitb .btn[aria-pressed="true"],.spd .btn[aria-pressed="true"],.mk .btn:focus-visible{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.vbar{display:flex;flex-wrap:wrap;gap:.4rem}
+.vbar button{min-height:48px;padding:0 .9rem;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:800;font-size:.95rem}
+.vbar button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.mk .btn{min-width:7rem}
+.modechip{display:inline-flex;align-items:center;gap:.45rem;font-weight:800;border-radius:999px;padding:.15rem .8rem;border:2px solid var(--line);background:var(--surface);margin-right:.3rem}
+.modechip i{display:inline-block;width:1.05rem;height:1.05rem;border-radius:50%;border:1.5px solid rgba(0,0,0,.35)}
+.padw{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.8rem;align-items:center}
+@media (max-width:560px){.padw{grid-template-columns:1fr}}
+.pad{display:grid;grid-template-columns:repeat(3,60px);grid-template-rows:repeat(3,60px);gap:6px;justify-content:center}
+.pad button{min-height:56px;min-width:56px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-size:1.5rem;font-weight:800;color:var(--ink);touch-action:manipulation}
+.pad button[aria-pressed="true"]{border-color:#8e44c9;background:#efe2f8;color:#3b1757}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1.1rem;font-size:.95rem;font-weight:700}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.legend i{width:1rem;height:1rem;border-radius:50%;display:inline-block;flex:none}
+.instr{font-size:1.1rem;border-left:4px solid var(--accent);padding:.35rem .8rem;background:var(--accent-soft);border-radius:8px}
+.pgrid{display:grid;gap:.9rem}
+@media (min-width:1050px){.pgrid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start}}
+.pgrid > div{display:grid;gap:.6rem;min-width:0}
+.prog{display:grid;gap:.5rem}
+.prow{border:1.5px solid var(--line);border-radius:12px;padding:.5rem .7rem;display:grid;gap:.35rem;background:var(--surface)}
+.prow.on{border-color:var(--warn);box-shadow:0 0 0 3px var(--warn) inset;background:var(--warn-soft)}
+.prow .pif{margin:0;font-weight:700}
+.pthen{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.5rem;align-items:center}
+@media (max-width:480px){.pthen{grid-template-columns:1fr}}
+.seg2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8.6rem),1fr));gap:.35rem}
+.seg2 button{min-height:48px;padding:0 .7rem;border-radius:10px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink);font-weight:700;font-size:.92rem}
+.seg2 button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.okm{color:var(--ok);font-weight:800} .badm{color:var(--bad);font-weight:800}
+.mrow .mv{max-width:60%;min-width:6rem;white-space:normal;line-height:1.25;text-align:left}
+.chipb{white-space:normal;text-align:left;padding:.35rem .9rem}
+.rowq .seg button{white-space:normal;text-align:left;line-height:1.2;padding:.3rem .8rem}

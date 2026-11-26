@@ -211,7 +211,15 @@
       },
       {
        "id": "programmation",
-       "titre": "Technologie · La programmation"
+       "titre": "Technologie · La programmation",
+       "activites": [
+        {
+         "fichier": "decouvrir-thymio.html",
+         "tag": "Activité 2",
+         "titre": "Découvrir la programmation avec le robot Thymio",
+         "desc": "Les pièces du robot sous quatre angles, capteurs et actionneurs, instructions SI… ALORS…, les modes rouge, violet, vert et jaune à décoder, puis le robot nettoyeur à programmer jusqu'aux panneaux solaires. Deux versions : guidée ou experte. Fiche mémo à recopier."
+        }
+       ]
       }
      ]
     },

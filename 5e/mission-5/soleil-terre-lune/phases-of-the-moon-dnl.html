@@ -1289,7 +1289,7 @@ c1: { parts: [
 const RESUME = `The mission question: ${PROBLEM}\n${HOME.goal}\n\nSummary to copy\n${BIL.map(x => "- " + x.replace(/<\/?u>/g, "")).join("\n")}\n- The four phases (Northern Hemisphere): new moon (nothing lit), first quarter (right half), full moon (whole disc), last quarter (left half).\n\nMy glossary\n${GLOSS.map(([en, fr]) => `- ${en} = ${fr}`).join("\n")}`;
 
 /* ===== Moteur « parcours à étapes, deux versions » (dérivé de bio.js) · navigation, questions, correction, bilan =====
-   Données attendues : HOME (avec HOME.vers), GROUPS, RAPPEL, RESUME, bilanHTML, EXPERT (blocs de la version exigeante), WID. */
+   Données attendues : HOME (avec HOME.vers ; HOME.howL facultatif : consignes de la version exigeante dans le mode d'emploi), GROUPS, RAPPEL, RESUME, bilanHTML, EXPERT (blocs de la version exigeante), WID. */
 const LV = { easy: ["🟢 Easy", "easy", "🟢"], mid: ["🟡 Medium", "mid", "🟡"], hard: ["🔴 Challenge", "hard", "🔴"] };
 const COMPS = HOME.comps;
 const SIGN = "Mr Moreira, Vauban Luxembourg";
@@ -1427,8 +1427,8 @@ function renderHome(m) {
         <li>Do the parts <b>in order</b>, from 1 to ${GROUPS.length}${HOME.dur ? ": " + HOME.dur : ""}.</li>
         <li>Each step has an <b>experiment</b> or an <b>animation</b>: do it before you answer.</li>
         <li>Tap 🔊 to hear an English word. The words in <i>italics</i> are in French. Your English is never marked down: what counts is the science.</li>
-        ${EXP() ? `<li>Write full sentences, with the method <b>I see → I know → so</b>. Use the sentence starters. Tap <b>Check</b>: the app looks for the expected elements in your answer (one point per element). Only your first try counts; then you can complete freely.</li>
-        <li>The check is automatic (key words): your teacher reads your written answers in your report.</li>` : `<li>Tap <b>Check</b>: feedback is immediate. Only your first try counts; then you can correct freely.</li>`}
+        ${EXP() ? (HOME.howL || `<li>Write full sentences, with the method <b>I see → I know → so</b>. Use the sentence starters. Tap <b>Check</b>: the app looks for the expected elements in your answer (one point per element). Only your first try counts; then you can complete freely.</li>
+        <li>The check is automatic (key words): your teacher reads your written answers in your report.</li>`) : `<li>Tap <b>Check</b>: feedback is immediate. Only your first try counts; then you can correct freely.</li>`}
         <li>Stuck? Three <b>hints</b> appear one by one.</li>
         <li>At the end, the <b>Report</b> tab shows the summary and lets you download your result.</li>
       </ul></div>

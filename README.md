@@ -35,7 +35,7 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
 <!-- plan:debut (généré par outils/generer_pages.py, ne pas modifier à la main) -->
 ## Plan du site
 
-### [5e EIST](https://fontesmoreira-star.github.io/svt/5e/) · 14 activités
+### [5e EIST](https://fontesmoreira-star.github.io/svt/5e/) · 15 activités
 
 - 📌 **Toute l'année** · [Mes automatismes de 5e](https://fontesmoreira-star.github.io/svt/5e/automatismes.html)
 - ▫️ **Mission 1 · Le système solaire · Les voyages dans l'espace …** · à venir
@@ -73,7 +73,8 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
 - 📂 **Mission 6 · Tempête de sable** · [page](https://fontesmoreira-star.github.io/svt/5e/mission-6/)
   - 📁 **Chapitre 1 · L'énergie éolienne**
     - [Peut-on utiliser l'énergie éolienne sur Mars ?](https://fontesmoreira-star.github.io/svt/5e/mission-6/energie-eolienne/eolienne-sur-mars.html) · Activité 1
-  - ▫️ Chapitre 2 · La programmation · à venir
+  - 📁 **Chapitre 2 · La programmation**
+    - [Découvrir la programmation avec le robot Thymio](https://fontesmoreira-star.github.io/svt/5e/mission-6/programmation/decouvrir-thymio.html) · Activité 2
 - ▫️ **Mission 7 · Nourrir les marsonautes · La nutrition des végétaux** · à venir
   - ▫️ Chapitre 1 · Nourrir les marsonautes · à venir
   - ▫️ Chapitre 2 · La nutrition des végétaux · à venir
