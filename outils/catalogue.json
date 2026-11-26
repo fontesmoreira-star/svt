@@ -454,6 +454,12 @@
          "tag": "Activité 1",
          "titre": "L'apparition d'un nouveau caractère",
          "desc": "Drosophiles d'un élevage, mouche à quatre ailes, labo des mutations (aile ou spermatozoïde ?), Lamarck ou Darwin pour le cou de la girafe, simulateur de troupeau, puis la fiche mémo. Deux versions : guidée ou exigeante."
+        },
+        {
+         "fichier": "comparaisons-adn.html",
+         "tag": "Activité 2",
+         "titre": "Des comparaisons d'ADN",
+         "desc": "Comparateur d'ADN (deux humains, Homme et chimpanzé), règle de ressemblance avec cinq êtres vivants, deux lignées qui divergent depuis un ancêtre commun, arbre de parenté qui se dessine avec les réponses, puis le bilan. Deux versions : guidée ou exigeante."
         }
        ]
       }

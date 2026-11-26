@@ -1,0 +1,34 @@
+/* ---------- 3e SVT · Chapitre 3 · Activité 2 · Des comparaisons d'ADN ---------- */
+.doc > .db > *{min-width:0}
+/* document 1 : cartes des espèces */
+.spg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,10.5rem),1fr));gap:.5rem}
+.spc{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:.5rem;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:.5rem .65rem;background:var(--surface)}
+.spc .se{grid-row:1/4;font-size:2rem;line-height:1}
+.spc .sn{font-weight:800;font-size:.95rem;line-height:1.2}
+.spc .sg{font-size:.85rem;color:var(--muted);line-height:1.2}
+.spc .sp{justify-self:start;margin-top:.2rem;font-weight:800;background:var(--warn-soft);border:1.5px solid var(--warn);border-radius:8px;padding:.05rem .45rem;font-variant-numeric:tabular-nums}
+.spc.ref{border-style:dashed}
+.spc.ref .sp{background:var(--surface-2);border-color:var(--line);font-weight:700}
+/* comparateur : séquences alignées */
+.seqw{display:grid;gap:.6rem}
+.seqb{display:grid;gap:.12rem .1rem;align-items:center;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:1rem}
+.seqb .sl,.dvr .sl{font-family:var(--f-body);font-weight:800;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sq{display:grid;place-items:center;min-height:1.7em;border-radius:5px;background:var(--surface-2);font-weight:700}
+.sq.d{background:var(--bad-soft);color:var(--bad);outline:2px solid var(--bad);outline-offset:-2px}
+.seqb .sq.x{background:transparent;color:var(--bad);font-weight:800}
+.seqb .sq:not(.d):not(.x):empty{background:transparent}
+/* règle de ressemblance */
+.spchips{display:flex;flex-wrap:wrap;gap:.4rem}
+.spchip{min-height:48px;padding:0 .8rem;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:.92rem;display:inline-flex;align-items:center;gap:.35rem}
+.spchip[aria-pressed="true"]{border-color:var(--accent);border-width:3px;background:var(--accent-soft)}
+.spchip:disabled{opacity:.7;border-style:dashed}
+.spchip .ok{color:var(--ok);font-weight:800}
+.rgfig{touch-action:manipulation;cursor:pointer}
+.rgalt{align-items:center}
+/* deux lignées qui divergent */
+.dvg{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.7rem;align-items:center}
+.dvs{display:grid;gap:.5rem}
+.dvr{display:grid;gap:.25rem}
+.dvl{display:grid;grid-template-columns:repeat(auto-fill,minmax(1.55em,1fr));gap:.12rem;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95rem}
+.meth{margin:0 0 .5rem}
+[data-map]{cursor:pointer;touch-action:manipulation}
