@@ -439,7 +439,15 @@
       },
       {
        "id": "ch3-diversite-evolution",
-       "titre": "Chapitre 3 · Diversité et évolution des êtres vivants"
+       "titre": "Chapitre 3 · Diversité et évolution des êtres vivants",
+       "activites": [
+        {
+         "fichier": "apparition-nouveau-caractere.html",
+         "tag": "Activité 1",
+         "titre": "L'apparition d'un nouveau caractère",
+         "desc": "Drosophiles d'un élevage, mouche à quatre ailes, labo des mutations (aile ou spermatozoïde ?), Lamarck ou Darwin pour le cou de la girafe, simulateur de troupeau, puis la fiche mémo. Deux versions : guidée ou exigeante."
+        }
+       ]
       }
      ]
     },
