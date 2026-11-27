@@ -1,5 +1,21 @@
 [
 [
+"Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé${it.recop ? \" et le bilan à recopier\" : \"\"} s'afficher${it.recop ? \"ont\" : \"a\"} au deuxième essai.",
+"Fix the answers marked ✗, then check again. The answer key${it.recop ? \" and the summary to copy\" : \"\"} appear${it.recop ? \"\" : \"s\"} on the second try."
+],
+[
+"`la dernière étape (partie ${GROUPS.length}, étape ${L.i + 1} · ${L.it.title})`",
+"`the last step (part ${GROUPS.length}, step ${L.i + 1} · ${L.it.title})`"
+],
+[
+"🔒 Le bilan se débloque à ${where} : réponds, puis touche « Vérifier ». Les autres étapes ne sont pas obligatoires pour l'obtenir.",
+"🔒 The summary unlocks at ${where}: answer, then tap “Check”. The other steps are not required to get it."
+],
+[
+"🔒 Presque ! Tu as vérifié ${where} une fois (${st.lastPts}/${itemMax(L.it)}). Complète ta réponse ou touche « Vérifier » une deuxième fois : le corrigé et le bilan s'affichent alors.",
+"🔒 Almost there! You have checked ${where} once (${st.lastPts}/${itemMax(L.it)}). Complete your answer or tap “Check” a second time: the answer key and the summary then appear."
+],
+[
 "<span class=\"chip ok\">✓ choisie</span>",
 "<span class=\"chip ok\">✓ chosen</span>"
 ],
@@ -478,10 +494,6 @@
 [
 "· points comptés au premier essai.",
 "· points counted on the first try."
-],
-[
-"🔒 Le bilan s'affiche quand tu as terminé la dernière étape de la partie ${GROUPS.length}.",
-"🔒 The summary appears once you have finished the mission report (part ${GROUPS.length})."
 ],
 [
 "🧩 Aller à la dernière étape",

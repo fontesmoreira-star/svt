@@ -1572,7 +1572,7 @@ function paintActions(it, root) {
   if (st.first) {
     const f = st.first;
     gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ All correct${f.pts === f.max ? (st.tries === 1 ? " on the first try!" : ".") : " (after correction)."}</p><p>Score kept (first try): ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} hint(s) used before the first try` : ""}.</p></div>`
-      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} ${it.parts.some(p => pw(p) > 1) ? "point(s)" : "correct answer(s)"}.</p><p>${shown ? (it.parts.some(p => p.t === "redac") ? "The answer key and the model answers are shown: complete your answers, then check again." : "The answer key is shown below: fix the answers marked ✗, then check again.") : "Fix the answers marked ✗, then check again. The answer key appears on the second try."} (Score kept: ${f.pts}/${f.max}, first try.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Answer saved.</p><p>Compare it with the model answer, then tick the grid.</p></div>`;
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} ${it.parts.some(p => pw(p) > 1) ? "point(s)" : "correct answer(s)"}.</p><p>${shown ? (it.parts.some(p => p.t === "redac") ? "The answer key and the model answers are shown: complete your answers, then check again." : "The answer key is shown below: fix the answers marked ✗, then check again.") : `Fix the answers marked ✗, then check again. The answer key${it.recop ? " and the summary to copy" : ""} appear${it.recop ? "" : "s"} on the second try.`} (Score kept: ${f.pts}/${f.max}, first try.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Answer saved.</p><p>Compare it with the model answer, then tick the grid.</p></div>`;
   } else gfb.innerHTML = "";
   let a = "";
   if (shown && it.corr) a += `<div class="corr"><p class="h">Answer key</p><p>${it.corr}</p>${it.corrx || ""}</div>`;
@@ -1611,6 +1611,12 @@ function rScore() { const st = IT().r0; return { pts: st && st.first ? st.first.
 function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
 const gName = g => `Part ${g.n} · ${g.title}`;
 const recopReady = () => corrShown(IT()[HOME.last]);
+/* verrou du bilan : seule la dernière étape compte (pas les autres étapes, pas l'autre version) ; message selon l'état de cette étape */
+function lockMsg() {
+  const L = ITEMS[HOME.last], st = IT()[HOME.last], where = `the last step (part ${GROUPS.length}, step ${L.i + 1} · ${L.it.title})`;
+  if (!st || !st.first) return `🔒 The summary unlocks at ${where}: answer, then tap “Check”. The other steps are not required to get it.`;
+  return `🔒 Almost there! You have checked ${where} once (${st.lastPts}/${itemMax(L.it)}). Complete your answer or tap “Check” a second time: the answer key and the summary then appear.`;
+}
 function bilanText(name) {
   const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
   let t = `${HOME.txt}\n\nACTIVITY SUMMARY\n${RESUME}\n\nSTUDENT REPORT\nStudent: ${name || "—"}\nDate: ${today()}\nVersion: ${EXP() ? HOME.vers.l.short.toLowerCase() + " (written answers; automatic check of expected elements, to be read by the teacher)" : HOME.vers.g.short.toLowerCase()}\n\nPoints on the first try\n- Home · ${RAPPEL.title} : ${r.done ? r.pts + "/" + r.max : "—"}\n`;
@@ -1623,7 +1629,7 @@ function bilanText(name) {
 function renderBilan(m) {
   const T = totals(), cs = compStats(), ms = missedParts(), r = rScore();
   m.innerHTML = `<section class="view"><div><p class="kicker">Report</p><h2 class="sec-title">My activity report</h2><p class="lead"><b>${VNAME()}</b> · points counted on the first try. ${T.done}/${T.n} steps done.</p></div>
-    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">🔒 The summary appears once you have finished the mission report (part ${GROUPS.length}).</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Go to the mission report</button></div>`}</div>
+    <div class="panel"><h3>${HOME.recop}</h3>${recopReady() ? recopHTML() : `<p class="locked">${lockMsg()}</p><div class="row"><button class="btn" type="button" id="goD2">🧩 Go to the mission report</button></div>`}</div>
     <div class="panel"><h3>${HOME.extraTitle || "My tables"}</h3>${HOME.extraHTML()}</div>
     <div class="panel"><p class="score-big">${T.pts}/${T.max}</p><div class="bar" aria-hidden="true"><i style="width:${T.max ? T.pts / T.max * 100 : 0}%"></i></div></div>
     <div class="panel"><h3>Per part</h3><div class="tablewrap"><table class="t"><thead><tr><th>Part</th><th>Steps done</th><th>Points (first try)</th></tr></thead><tbody><tr><td>Home · ${RAPPEL.title}</td><td class="n">${r.done}/1</td><td class="n">${r.done ? r.pts + "/" + r.max : "—"}</td></tr>${GROUPS.map(g => { const s = gScore(g); return `<tr><td>${g.icon} ${gName(g)}</td><td class="n">${s.done}/${s.n}</td><td class="n">${s.done ? s.pts + "/" + s.max : "—"}</td></tr>`; }).join("")}</tbody></table></div></div>
