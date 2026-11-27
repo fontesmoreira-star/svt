@@ -1,19 +1,15 @@
 [
 [
-"Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé${it.recop ? \" et le bilan à recopier\" : \"\"} s'afficher${it.recop ? \"ont\" : \"a\"} au deuxième essai.",
-"Fix the answers marked ✗, then check again. The answer key${it.recop ? \" and the summary to copy\" : \"\"} appear${it.recop ? \"\" : \"s\"} on the second try."
+"🔒 Le bilan se débloque dès que tu as vérifié ${where} une fois. Les autres étapes ne sont pas obligatoires pour l'obtenir.",
+"🔒 The summary unlocks as soon as you have checked ${where} once. The other steps are not required to get it."
+],
+[
+" Le bilan à recopier est déjà débloqué : il est ci-dessous et dans l'onglet Bilan.",
+" The summary to copy is already unlocked: it is below and in the Report tab."
 ],
 [
 "`la dernière étape (partie ${GROUPS.length}, étape ${L.i + 1} · ${L.it.title})`",
 "`the last step (part ${GROUPS.length}, step ${L.i + 1} · ${L.it.title})`"
-],
-[
-"🔒 Le bilan se débloque à ${where} : réponds, puis touche « Vérifier ». Les autres étapes ne sont pas obligatoires pour l'obtenir.",
-"🔒 The summary unlocks at ${where}: answer, then tap “Check”. The other steps are not required to get it."
-],
-[
-"🔒 Presque ! Tu as vérifié ${where} une fois (${st.lastPts}/${itemMax(L.it)}). Complète ta réponse ou touche « Vérifier » une deuxième fois : le corrigé et le bilan s'affichent alors.",
-"🔒 Almost there! You have checked ${where} once (${st.lastPts}/${itemMax(L.it)}). Complete your answer or tap “Check” a second time: the answer key and the summary then appear."
 ],
 [
 "<span class=\"chip ok\">✓ choisie</span>",

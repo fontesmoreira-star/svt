@@ -2200,12 +2200,12 @@ function paintActions(it, root) {
   if (st.first) {
     const f = st.first;
     gfb.innerHTML = max ? (st.lastOk ? `<div class="fb ok"><p class="h">✓ Tout est juste${f.pts === f.max ? (st.tries === 1 ? " du premier coup !" : ".") : " (après correction)."}</p><p>Score retenu (premier essai) : ${f.pts}/${f.max}${f.hints ? ` · ${f.hints} coup(s) de pouce avant le premier essai` : ""}.</p></div>`
-      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} ${it.parts.some(p => pw(p) > 1) ? "point(s)" : "réponse(s) juste(s)"}.</p><p>${shown ? (it.parts.some(p => p.t === "redac") ? "Le corrigé et les réponses modèles sont affichés : complète tes réponses, puis vérifie à nouveau." : "Le corrigé est affiché ci-dessous : corrige les réponses marquées ✗, puis vérifie à nouveau.") : `Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé${it.recop ? " et le bilan à recopier" : ""} s'afficher${it.recop ? "ont" : "a"} au deuxième essai.`} (Score retenu : ${f.pts}/${f.max}, premier essai.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Réponse enregistrée.</p><p>Compare-la à la réponse modèle, puis coche la grille.</p></div>`;
+      : `<div class="fb bad"><p class="h">✗ ${st.lastPts}/${max} ${it.parts.some(p => pw(p) > 1) ? "point(s)" : "réponse(s) juste(s)"}.</p><p>${shown ? (it.parts.some(p => p.t === "redac") ? "Le corrigé et les réponses modèles sont affichés : complète tes réponses, puis vérifie à nouveau." : "Le corrigé est affiché ci-dessous : corrige les réponses marquées ✗, puis vérifie à nouveau.") : "Corrige les réponses marquées ✗, puis vérifie à nouveau. Le corrigé s'affichera au deuxième essai." + (it.recop ? " Le bilan à recopier est déjà débloqué : il est ci-dessous et dans l'onglet Bilan." : "")} (Score retenu : ${f.pts}/${f.max}, premier essai.)</p></div>`) : `<div class="fb ok"><p class="h">✓ Réponse enregistrée.</p><p>Compare-la à la réponse modèle, puis coche la grille.</p></div>`;
   } else gfb.innerHTML = "";
   let a = "";
   if (shown && it.corr) a += `<div class="corr"><p class="h">Corrigé</p><p>${it.corr}</p>${it.corrx || ""}</div>`;
   if (0) a += `<div class="panel" style="background:var(--surface-2)"><p class="kicker">Réponse rédigée · auto-évaluation</p><div class="box info"><p class="lab">ℹ Réponse modèle</p><p>${it.model}</p></div><p><b>Coche ce que ta réponse contient :</b></p><div class="crit">${it.crit.map((c, i) => `<button type="button" aria-pressed="${!!st.crit[i]}" data-ci="${i}"><span class="bx">${st.crit[i] ? "✓" : ""}</span><span>${c}</span></button>`).join("")}</div><p class="lead">Auto-évaluation : ${Object.values(st.crit).filter(Boolean).length}/${it.crit.length} critères.</p></div>`;
-  if (shown && it.recop) a += recopHTML();
+  if (st.first && it.recop) a += recopHTML();
   after.innerHTML = a;
   const unl = $(".unl", root), ustate = !it.unlock ? "" : (shown && st.lastOk) ? "open" : st.first ? "locked" : "";
   if (unl.dataset.state !== ustate) {
@@ -2238,12 +2238,11 @@ function writtenParts() { const out = []; Object.values(ITEMS).forEach(({ it, la
 function rScore() { const st = IT().r0; return { pts: st && st.first ? st.first.pts : 0, max: itemMax(RAPPEL), done: st && st.first ? 1 : 0, n: 1 }; }
 function totals() { const r = rScore(); let pts = r.pts, max = r.max, done = r.done, n = 1; GROUPS.forEach(g => { const s = gScore(g); pts += s.pts; max += s.max; done += s.done; n += s.n; }); return { pts, max, done, n }; }
 const gName = g => `Partie ${g.n} · ${g.title}`;
-const recopReady = () => corrShown(IT()[HOME.last]);
-/* verrou du bilan : seule la dernière étape compte (pas les autres étapes, pas l'autre version) ; message selon l'état de cette étape */
+const recopReady = () => { const st = IT()[HOME.last]; return !!(st && st.first); };
+/* verrou du bilan : seule la dernière étape compte (pas les autres étapes, pas l'autre version) ; il saute dès sa première vérification */
 function lockMsg() {
-  const L = ITEMS[HOME.last], st = IT()[HOME.last], where = `la dernière étape (partie ${GROUPS.length}, étape ${L.i + 1} · ${L.it.title})`;
-  if (!st || !st.first) return `🔒 Le bilan se débloque à ${where} : réponds, puis touche « Vérifier ». Les autres étapes ne sont pas obligatoires pour l'obtenir.`;
-  return `🔒 Presque ! Tu as vérifié ${where} une fois (${st.lastPts}/${itemMax(L.it)}). Complète ta réponse ou touche « Vérifier » une deuxième fois : le corrigé et le bilan s'affichent alors.`;
+  const L = ITEMS[HOME.last], where = `la dernière étape (partie ${GROUPS.length}, étape ${L.i + 1} · ${L.it.title})`;
+  return `🔒 Le bilan se débloque dès que tu as vérifié ${where} une fois. Les autres étapes ne sont pas obligatoires pour l'obtenir.`;
 }
 function bilanText(name) {
   const T = totals(), cs = compStats(), ms = missedParts(), r = rScore(), clean = x => String(x).replace(/\u00a0|\u202f/g, " ");
