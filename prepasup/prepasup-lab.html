@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrépaSup Lab — Compagnon interactif (V2 • 6 h)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23123d2a'/%3E%3Cpath d='M20 12c0 14 24 26 24 40M44 12c0 14-24 26-24 40' stroke='%236fcf97' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M23 22h18M23 42h18M27 32h10' stroke='%23eaf5ee' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --navy: #0F172A;
+    --navy-light: #1E293B;
+    --coral: #E11D48;
+    --orange: #F97316;
+    --teal: #0D9488;
+    --teal-soft: #CCFBF1;
+    --coral-soft: #FFE4E6;
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --text: #0F172A;
+    --muted: #475569;
+    --border: #CBD5E1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding-bottom: 3rem;
+  }
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 4px solid var(--teal);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  header h1 { font-size: 1.35rem; letter-spacing: -0.02em; }
+  header h1 span { color: var(--orange); }
+  header p { font-size: 0.85rem; color: #94A3B8; }
+  .session-switch {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--navy-light);
+    padding: 0.3rem;
+    border-radius: 999px;
+  }
+  .session-btn {
+    border: none;
+    background: transparent;
+    color: #CBD5E1;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.88rem;
+    transition: all 0.2s;
+  }
+  .session-btn.active { background: var(--teal); color: #fff; }
+  .nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 960px;
+    margin: 1.25rem auto 0;
+    padding: 0 1rem;
+  }
+  .tab-btn {
+    flex: 1 1 180px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    color: var(--navy);
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .tab-btn small { display: block; font-weight: 500; color: var(--muted); font-size: 0.75rem; }
+  .tab-btn.active { border-color: var(--teal); background: #F0FDFA; box-shadow: 0 2px 8px rgba(13,148,136,0.12); }
+  main {
+    max-width: 960px;
+    margin: 1.25rem auto;
+    padding: 0 1rem;
+  }
+  .panel { display: none; animation: fadeIn 0.25s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(15,23,42,0.04);
+  }
+  .card h2 { font-size: 1.25rem; margin-bottom: 0.35rem; color: var(--navy); }
+  .subtitle { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.1rem; }
+  .btn {
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--teal); color: #fff; }
+  .btn-coral { background: var(--coral); color: #fff; }
+  .btn-navy { background: var(--navy); color: #fff; }
+  .btn-outline { background: #fff; color: var(--navy); border: 1.5px solid var(--border); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--teal-soft);
+    color: #0F766E;
+    margin-bottom: 0.6rem;
+  }
+  .badge-coral { background: var(--coral-soft); color: #BE123C; }
+  .option-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.55rem;
+  }
+  .option-btn {
+    flex: 1;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.15s;
+  }
+  .option-btn.selected { border-color: var(--teal); background: #F0FDFA; font-weight: 700; }
+  .option-btn.correct { border-color: #16A34A; background: #DCFCE7; }
+  .option-btn.wrong { border-color: var(--coral); background: var(--coral-soft); }
+  .option-btn.struck { text-decoration: line-through; opacity: 0.45; background: #F1F5F9; }
+  .strike-btn {
+    border: 1px solid var(--border);
+    background: #F8FAFC;
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .conf-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: #F8FAFC;
+    border-radius: 10px;
+    border: 1px dashed var(--border);
+  }
+  .conf-btn {
+    border: 1.5px solid var(--border);
+    background: #fff;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .conf-btn.selected { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .feedback {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 0.93rem;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok { background: #DCFCE7; border-left: 4px solid #16A34A; }
+  .feedback.ko { background: var(--coral-soft); border-left: 4px solid var(--coral); }
+  .big-display {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 14px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin: 1rem 0;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .words-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.65rem;
+    margin: 1rem 0;
+  }
+  .word-chip {
+    background: #F1F5F9;
+    border: 1.5px solid var(--border);
+    padding: 0.75rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .timer-circle {
+    font-size: 3.4rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--teal);
+    text-align: center;
+    margin: 0.8rem 0;
+  }
+  .step-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .step-pill {
+    flex: 1 1 110px;
+    padding: 0.55rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: #fff;
+  }
+  .step-pill.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .prompt-box {
+    background: #F8FAFC;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 0.9rem;
+  }
+  .prompt-box pre {
+    white-space: pre-wrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86rem;
+    color: #1E293B;
+    margin: 0.6rem 0;
+    background: #fff;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+  }
+  .stats-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  .stat-box {
+    flex: 1 1 140px;
+    background: #F1F5F9;
+    padding: 0.9rem;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .stat-box strong { display: block; font-size: 1.6rem; color: var(--navy); }
+  .stat-box.danger strong { color: var(--coral); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>PrépaSup <span>Lab</span></h1>
+    <p>Compagnon interactif hors-ligne • Atelier 6 h • M. Moreira</p>
+  </div>
+  <div class="session-switch">
+    <button class="session-btn active" onclick="switchSession(1)">Séance 1</button>
+    <button class="session-btn" onclick="switchSession(2)">Séance 2</button>
+  </div>
+</header>
+
+<nav id="tabs-s1" class="nav-tabs">
+  <button class="tab-btn active" onclick="openTab('m11', this)">1.1 Neuromythes<small>Quiz + confiance 0/1/2</small></button>
+  <button class="tab-btn" onclick="openTab('m12', this)">1.2 Labo Mémoire<small>Empan & Rappel actif</small></button>
+  <button class="tab-btn" onclick="openTab('m13', this)">1.3 Timer PREPA<small>Atelier chronométré 25 min</small></button>
+</nav>
+
+<nav id="tabs-s2" class="nav-tabs" style="display:none;">
+  <button class="tab-btn active" onclick="openTab('m21', this)">2.1 Reprise S1<small>5 situations de transfert</small></button>
+  <button class="tab-btn" onclick="openTab('m22', this)">2.2 Anagrammes<small>Expérience pression</small></button>
+  <button class="tab-btn" onclick="openTab('m23', this)">2.3 Prompts IA<small>Sparring-partner (1 clic)</small></button>
+  <button class="tab-btn" onclick="openTab('m24', this)">2.4 QCM Jour J<small>6 questions + 6 pièges</small></button>
+</nav>
+
+<main>
+  <!-- ==================== 1.1 NEUROMYTHES ==================== -->
+  <section id="m11" class="panel active">
+    <div class="card">
+      <span class="badge">Séance 1 • Module 1</span>
+      <h2>Neuromythes : mets tes croyances à l'épreuve</h2>
+      <p class="subtitle">Choisis une réponse, puis note ta confiance <strong>avant</strong> de valider (0 = je devine, 1 = j'hésite, 2 = je peux justifier).</p>
+      <div id="q11-container"></div>
+    </div>
+  </section>
+
+  <!-- ==================== 1.2 LABO MÉMOIRE ==================== -->
+  <section id="m12" class="panel">
+    <div class="card">
+      <span class="badge">Séance 1 • Module 2 • Expérience 1</span>
+      <h2>Limites de la mémoire de travail (7 mots tchèques)</h2>
+      <p class="subtitle">7 mots inconnus vont défiler (2 secondes par mot). Ne prends AUCUNE note. À la fin, écris tout ce que tu retiens.</p>
+      <div id="czech-display" class="big-display">Prêt ? Clique sur Lancer</div>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startCzech()">Lancer le défilement</button>
+        <button class="btn btn-outline" onclick="revealCzech()">Afficher les 7 mots (correction)</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="badge badge-coral">Séance 1 • Module 2 • Expérience 2</span>
+      <h2>Regarder ≠ Retenir (12 mots français — 20 secondes)</h2>
+      <p class="subtitle">Choisis ton groupe assigné par le professeur : <strong>Groupe A</strong> (relecture passive 20 s) ou <strong>Groupe B</strong> (lecture 10 s puis écran caché 10 s pour rappel actif).</p>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+        <button class="btn btn-coral" onclick="startWords('A')">Lancer Groupe A (Passif 20 s)</button>
+        <button class="btn btn-primary" onclick="startWords('B')">Lancer Groupe B (Actif 10 s + 10 s caché)</button>
+        <button class="btn btn-outline" onclick="revealWords()">Afficher la liste (correction)</button>
+      </div>
+      <div id="words-status" style="font-weight:700; color:var(--coral); margin-bottom:0.5rem;"></div>
+      <div id="words-grid" class="words-grid"></div>
+    </div>
+  </section>
+
+  <!-- ==================== 1.3 TIMER PREPA ==================== -->
+  <section id="m13" class="panel">
+    <div class="card">
+      <span class="badge">Séance 1 • Module 3 • Atelier binômes</span>
+      <h2>Timer guidé P • R • E • P • A (25 minutes)</h2>
+      <p class="subtitle">Clique sur une étape ou laisse le minuteur enchaîner avec un bip sonore discret à chaque transition.</p>
+      <div class="step-pills" id="prepa-pills"></div>
+      <div id="prepa-instruction" style="font-size:1.05rem; font-weight:700; text-align:center; color:var(--navy);"></div>
+      <div id="prepa-timer" class="timer-circle">04:00</div>
+      <div style="display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+        <button class="btn btn-primary" id="prepa-start-btn" onclick="togglePrepaTimer()">Démarrer</button>
+        <button class="btn btn-outline" onclick="resetPrepaStep()">Réinitialiser l'étape</button>
+        <button class="btn btn-navy" onclick="nextPrepaStep()">Étape suivante →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2.1 REPRISE S1 ==================== -->
+  <section id="m21" class="panel">
+    <div class="card">
+      <span class="badge">Séance 2 • Reprise active</span>
+      <h2>Quiz de transfert : 5 situations inédites</h2>
+      <p class="subtitle">Teste ta capacité à appliquer les principes de la Séance 1 dans de nouvelles situations réelles.</p>
+      <div id="q21-container"></div>
+    </div>
+  </section>
+
+  <!-- ==================== 2.2 ANAGRAMMES ==================== -->
+  <section id="m22" class="panel">
+    <div class="card">
+      <span class="badge badge-coral">Séance 2 • Module 6 • Expérience en direct</span>
+      <h2>Défi éclair : 3 anagrammes (30 secondes par mot)</h2>
+      <p class="subtitle">Ne regarde pas l'écran de ton voisin. Lève la main en silence dès que tu trouves un anagramme français valide.</p>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem;">
+        <button class="btn btn-navy" onclick="initAnagram('auto')">Assignation aléatoire (recommandé)</button>
+        <button class="btn btn-outline" onclick="initAnagram(1)">Série 1</button>
+        <button class="btn btn-outline" onclick="initAnagram(2)">Série 2</button>
+      </div>
+      <div id="ana-area" style="display:none;">
+        <div id="ana-word" class="big-display">—</div>
+        <div id="ana-timer" class="timer-circle" style="font-size:2.4rem;">30 s</div>
+        <div style="display:flex; justify-content:center; gap:0.7rem; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="startAnaTimer()">Lancer 30 s</button>
+          <button class="btn btn-coral" onclick="nextAnaWord()">Mot suivant →</button>
+          <button class="btn btn-outline" onclick="revealAnaDebrief()">Débriefing prof</button>
+        </div>
+        <div id="ana-debrief" class="feedback ok" style="margin-top:1rem;">
+          <strong>Débriefing (Impuissance acquise — Martin Seligman) :</strong><br>
+          • Série 1 : <em>BEAU → AUBE</em>, <em>OUTRE → ROUTE</em>, <em>PREMIER → EMPIRE + R (ou RÉPRIMER non, PREMIER → ÉPRIMER / RIMER... attendez : <strong>PREMIER → EMPIRE ? Non : P-R-E-M-I-E-R</strong> = <strong>PÉRIMER</strong> !)</em>.<br>
+          • Série 2 : <strong>PLUS</strong> n'a aucun anagramme courant en français ! Les élèves bloqués dès le mot 1 ressentent une pression sociale immédiate et décrochent plus vite sur le mot 3 (<em>PREMIER → PÉRIMER</em>), pourtant identique pour tous.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2.3 PROMPTS IA ==================== -->
+  <section id="m23" class="panel">
+    <div class="card">
+      <span class="badge">Séance 2 • Module 7 • Atelier pratique</span>
+      <h2>Boîte à prompts : l'IA sparring-partner</h2>
+      <p class="subtitle">Entre le thème de ton chapitre du Journal de pratique (L6) : les 3 prompts actifs se personnalisent automatiquement. Copie en 1 clic !</p>
+      <label for="ia-topic" style="font-weight:700; font-size:0.88rem; display:block; margin-bottom:0.35rem;">Ton chapitre ou notion à travailler :</label>
+      <input type="text" id="ia-topic" placeholder="Ex : La réplication de l'ADN / Le premier principe de la thermodynamique / La Ve République" oninput="renderPrompts()">
+      <div id="prompts-list"></div>
+    </div>
+  </section>
+
+  <!-- ==================== 2.4 QCM JOUR J ==================== -->
+  <section id="m24" class="panel">
+    <div class="card">
+      <span class="badge badge-coral">Séance 2 • Module 8 • Stratégie d'épreuve</span>
+      <h2>Simulateur QCM Jour J (6 questions pluridisciplinaires)</h2>
+      <p class="subtitle">Applique la méthode 4 temps : <strong>Lire → Cerner → Éliminer (bouton Barrer) → Valider avec confiance 0/1/2</strong>.</p>
+      <div id="q24-container"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+// ==================== NAVIGATION ====================
+function switchSession(num) {
+  document.querySelectorAll('.session-btn').forEach((b, i) => b.classList.toggle('active', i === num - 1));
+  document.getElementById('tabs-s1').style.display = num === 1 ? 'flex' : 'none';
+  document.getElementById('tabs-s2').style.display = num === 2 ? 'flex' : 'none';
+  const firstTab = document.querySelector(`#tabs-s${num} .tab-btn`);
+  firstTab.click();
+}
+function openTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ==================== WEB AUDIO BEEP ====================
+function playBeep(freq = 660, duration = 0.25) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(); osc.stop(ctx.currentTime + duration);
+  } catch(e) {}
+}
+
+// ==================== GENERIC QUIZ ENGINE ====================
+function mountQuiz(containerId, questions, enableStrike = false) {
+  const fid = containerId.replace(/\W/g, '_'); // nom de fonction valide (« q11-container » contient un tiret)
+  let idx = 0, score = 0, highConfErrors = 0;
+  let selectedOpt = null, selectedConf = null, validated = false;
+
+  function render() {
+    const el = document.getElementById(containerId);
+    if (idx >= questions.length) {
+      el.innerHTML = `
+        <div style="text-align:center; padding:1rem 0;">
+          <h3 style="font-size:1.4rem; margin-bottom:0.5rem;">Bilan terminé !</h3>
+          <div class="stats-row">
+            <div class="stat-box"><strong>${score} / ${questions.length}</strong>Bonnes réponses</div>
+            <div class="stat-box ${highConfErrors > 0 ? 'danger' : ''}"><strong>${highConfErrors}</strong>Pièges « 2 faux » (surconfiance)</div>
+          </div>
+          <p style="margin:1.1rem 0; color:var(--muted);">Un « 2 faux » est la donnée la plus précieuse : elle indique une croyance solide… mais erronée.</p>
+          <button class="btn btn-primary" onclick="restart_${fid}()">Recommencer</button>
+        </div>`;
+      return;
+    }
+    const q = questions[idx];
+    selectedOpt = null; selectedConf = null; validated = false;
+    let html = `<div style="font-size:0.82rem; font-weight:700; color:var(--muted); margin-bottom:0.4rem;">Question ${idx+1} / ${questions.length} ${q.tag ? '• ' + q.tag : ''}</div>`;
+    html += `<h3 style="font-size:1.08rem; margin-bottom:1rem;">${q.q}</h3>`;
+    q.opts.forEach((opt, i) => {
+      html += `<div class="option-row">
+        <button class="option-btn" id="${containerId}-opt-${i}" onclick="pickOpt_${fid}(${i})"><strong>${String.fromCharCode(65+i)}.</strong> ${opt}</button>
+        ${enableStrike ? `<button class="strike-btn" onclick="strikeOpt_${fid}(${i})">Barrer</button>` : ''}
+      </div>`;
+    });
+    html += `<div class="conf-bar">
+      <span style="font-size:0.85rem; font-weight:700;">Ta confiance :</span>
+      <button class="conf-btn" id="${containerId}-c0" onclick="pickConf_${fid}(0)">0 — Je devine</button>
+      <button class="conf-btn" id="${containerId}-c1" onclick="pickConf_${fid}(1)">1 — J'hésite</button>
+      <button class="conf-btn" id="${containerId}-c2" onclick="pickConf_${fid}(2)">2 — Je peux justifier</button>
+    </div>`;
+    html += `<button class="btn btn-navy" id="${containerId}-val" onclick="validate_${fid}()" disabled>Valider ma réponse</button> `;
+    html += `<button class="btn btn-primary" id="${containerId}-next" style="display:none;" onclick="next_${fid}()">Question suivante →</button>`;
+    html += `<div class="feedback" id="${containerId}-fb"></div>`;
+    el.innerHTML = html;
+  }
+
+  window[`pickOpt_${fid}`] = (i) => {
+    if (validated) return;
+    selectedOpt = i;
+    questions[idx].opts.forEach((_, k) => {
+      const b = document.getElementById(`${containerId}-opt-${k}`);
+      b.classList.toggle('selected', k === i);
+    });
+    checkReady();
+  };
+  window[`strikeOpt_${fid}`] = (i) => {
+    if (validated) return;
+    document.getElementById(`${containerId}-opt-${i}`).classList.toggle('struck');
+  };
+  window[`pickConf_${fid}`] = (c) => {
+    if (validated) return;
+    selectedConf = c;
+    [0,1,2].forEach(k => document.getElementById(`${containerId}-c${k}`).classList.toggle('selected', k === c));
+    checkReady();
+  };
+  function checkReady() {
+    document.getElementById(`${containerId}-val`).disabled = (selectedOpt === null || selectedConf === null);
+  }
+  window[`validate_${fid}`] = () => {
+    validated = true;
+    const q = questions[idx];
+    const isOk = selectedOpt === q.ans;
+    if (isOk) score++;
+    else if (selectedConf === 2) highConfErrors++;
+    document.getElementById(`${containerId}-opt-${q.ans}`).classList.add('correct');
+    if (!isOk) document.getElementById(`${containerId}-opt-${selectedOpt}`).classList.add('wrong');
+    const fb = document.getElementById(`${containerId}-fb`);
+    fb.className = `feedback show ${isOk ? 'ok' : 'ko'}`;
+    fb.innerHTML = `<strong>${isOk ? 'Exact !' : 'Piège !'}</strong> ${!isOk && selectedConf === 2 ? '<em>(Alerte surconfiance : 2 faux)</em><br>' : ''}${q.exp}`;
+    document.getElementById(`${containerId}-val`).style.display = 'none';
+    document.getElementById(`${containerId}-next`).style.display = 'inline-block';
+  };
+  window[`next_${fid}`] = () => { idx++; render(); };
+  window[`restart_${fid}`] = () => { idx = 0; score = 0; highConfErrors = 0; render(); };
+  render();
+}
+
+// ==================== DATA: 1.1 NEUROMYTHES (6 items) ====================
+mountQuiz('q11-container', [
+  { q: "Quelle affirmation sur le cerveau est correcte ?", opts: ["Nous utilisons seulement 10 % du cerveau.", "Différents réseaux sont mobilisés selon la tâche.", "Tout le cerveau est actif au maximum à chaque instant.", "Les zones au repos ne servent à rien."], ans: 1, exp: "Le chiffre de 10 % est un mythe. Différents réseaux cérébraux s'activent selon les tâches cognitives mobilisées." },
+  { q: "Être créatif signifie-t-il avoir un « cerveau droit » dominant ?", opts: ["Oui, si tu préfères les arts.", "Oui, si tu es gaucher.", "Oui, si un test de personnalité le dit.", "Non, cette étiquette ne décrit pas un profil cérébral établi."], ans: 3, exp: "Certaines fonctions sont latéralisées, mais la séparation « cerveau gauche logique / droit créatif » est un neuromythe (Nielsen et al., 2013)." },
+  { q: "Tu préfères les schémas. Quelle conclusion est scientifiquement justifiée ?", opts: ["Tu as une préférence, pas un profil qui impose ta méthode.", "Tu ne peux apprendre qu'avec des images.", "Écouter un cours t'empêche de mémoriser.", "Tous tes cours doivent devenir des dessins."], ans: 0, exp: "Les styles d'apprentissage (VAK) ne sont pas validés : le support se choisit selon le contenu à apprendre, pas selon une étiquette fixe." },
+  { q: "Que peut encore faire un cerveau adulte ?", opts: ["Apprendre uniquement des gestes déjà connus.", "Mémoriser sans jamais se modifier.", "Se modifier en réponse à certains apprentissages.", "Utiliser seulement les connexions de la petite enfance."], ans: 2, exp: "La plasticité cérébrale persiste toute la vie : l'entraînement modifie durablement les réseaux neuronaux (Draganski et al., 2004)." },
+  { q: "Écouter Mozart garantit-il une hausse durable de l'intelligence ?", opts: ["Oui, après dix minutes.", "Oui, mais seulement avant un contrôle.", "Oui, avec un casque.", "Non, cette promesse n'est pas établie."], ans: 3, exp: "L'effet Mozart est un raccourci médiatique sans gain durable d'intelligence. Évalue une méthode sur ce qu'elle te permet réellement d'apprendre." },
+  { q: "Une méthode « spéciale cerveau » n'a pas été sérieusement testée. Que conclure ?", opts: ["Elle est forcément efficace.", "Elle est forcément fausse.", "Son efficacité reste à établir par des tests adaptés.", "Son vocabulaire scientifique suffit à la valider."], ans: 2, exp: "L'absence de preuve n'est pas une preuve de fausseté : l'esprit critique exige de distinguer croyance réfutée, hypothèse ouverte et résultat étayé." }
+]);
+
+// ==================== DATA: 1.2 LABO MÉMOIRE ====================
+const czechWords = ["TUZKA", "STROM", "SVITIDLO", "LETADLO", "NIMOVITY", "MESTO", "CESTOVANI"];
+let czechInt = null;
+function startCzech() {
+  clearInterval(czechInt);
+  const disp = document.getElementById('czech-display');
+  let i = 0;
+  disp.textContent = czechWords[0];
+  playBeep(520, 0.12);
+  czechInt = setInterval(() => {
+    i++;
+    if (i < czechWords.length) {
+      disp.textContent = czechWords[i];
+      playBeep(520, 0.12);
+    } else {
+      clearInterval(czechInt);
+      disp.innerHTML = "STOP !<br><span style='font-size:1.1rem; font-weight:500; color:#94A3B8;'>Écris maintenant un maximum de mots de mémoire.</span>";
+      playBeep(880, 0.35);
+    }
+  }, 2000);
+}
+function revealCzech() {
+  clearInterval(czechInt);
+  document.getElementById('czech-display').innerHTML = `<span style="font-size:1.25rem; line-height:1.8;">${czechWords.join('  •  ')}</span>`;
+}
+
+const frWords = ["horizon", "paradoxe", "stratégie", "résilience", "équilibre", "mémoire", "langage", "perception", "contexte", "argument", "synthèse", "analogie"];
+let wordsInt = null;
+function startWords(group) {
+  clearInterval(wordsInt);
+  const grid = document.getElementById('words-grid');
+  const status = document.getElementById('words-status');
+  grid.innerHTML = frWords.map(w => `<div class="word-chip">${w}</div>`).join('');
+  let t = 20;
+  status.textContent = `Groupe ${group} — Temps restant : ${t} s`;
+  wordsInt = setInterval(() => {
+    t--;
+    if (group === 'B' && t === 10) {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:2rem; background:#0F172A; color:#fff; border-radius:10px; font-weight:700;">ÉCRAN CACHÉ — Essaie de retrouver les 12 mots de mémoire !</div>`;
+      playBeep(660, 0.2);
+    }
+    if (t > 0) {
+      status.textContent = `Groupe ${group} — Temps restant : ${t} s`;
+    } else {
+      clearInterval(wordsInt);
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:2rem; background:#E11D48; color:#fff; border-radius:10px; font-weight:700;">TEMPS ÉCOULÉ — Note tous les mots dont tu te souviens !</div>`;
+      status.textContent = "Terminé ! Compte ton score sur 12.";
+      playBeep(880, 0.4);
+    }
+  }, 1000);
+}
+function revealWords() {
+  clearInterval(wordsInt);
+  document.getElementById('words-status').textContent = "Liste complète des 12 mots :";
+  document.getElementById('words-grid').innerHTML = frWords.map(w => `<div class="word-chip">${w}</div>`).join('');
+}
+
+// ==================== 1.3 TIMER PREPA ====================
+const prepaSteps = [
+  { letter: "P", name: "Prendre connaissance", sec: 240, desc: "Lecture rapide du corpus : repère la structure, les titres et les mots-clés (4 min)." },
+  { letter: "R", name: "Réduire", sec: 600, desc: "Construis ta fiche Cornell ou ta Carte conceptuelle SANS recopier de phrases (10 min)." },
+  { letter: "E", name: "Évoquer", sec: 300, desc: "Cache le corpus et ta fiche : restitue les idées clés à voix basse ou au brouillon (5 min)." },
+  { letter: "P", name: "Pratiquer", sec: 240, desc: "Pose 3 questions flash à ton binôme à partir de ta colonne de gauche / carte (4 min)." },
+  { letter: "A", name: "Ancrer", sec: 120, desc: "Note les dates précises de tes 3 réactivations (J+1, J+3, J+7) sur ta fiche (2 min)." }
+];
+let pIdx = 0, pLeft = prepaSteps[0].sec, pInt = null;
+function renderPrepa() {
+  document.getElementById('prepa-pills').innerHTML = prepaSteps.map((s, i) =>
+    `<button class="step-pill ${i === pIdx ? 'active' : ''}" onclick="selectPrepa(${i})">${s.letter} • ${s.name}</button>`
+  ).join('');
+  document.getElementById('prepa-instruction').textContent = prepaSteps[pIdx].desc;
+  const m = String(Math.floor(pLeft / 60)).padStart(2, '0');
+  const s = String(pLeft % 60).padStart(2, '0');
+  document.getElementById('prepa-timer').textContent = `${m}:${s}`;
+}
+function selectPrepa(i) {
+  clearInterval(pInt); pInt = null;
+  document.getElementById('prepa-start-btn').textContent = "Démarrer";
+  pIdx = i; pLeft = prepaSteps[i].sec; renderPrepa();
+}
+function togglePrepaTimer() {
+  const btn = document.getElementById('prepa-start-btn');
+  if (pInt) { clearInterval(pInt); pInt = null; btn.textContent = "Reprendre"; return; }
+  btn.textContent = "Pause";
+  pInt = setInterval(() => {
+    pLeft--;
+    renderPrepa();
+    if (pLeft <= 0) {
+      playBeep(880, 0.45);
+      if (pIdx < prepaSteps.length - 1) { pIdx++; pLeft = prepaSteps[pIdx].sec; renderPrepa(); }
+      else { clearInterval(pInt); pInt = null; btn.textContent = "Terminé !"; }
+    }
+  }, 1000);
+}
+function resetPrepaStep() { selectPrepa(pIdx); }
+function nextPrepaStep() { if (pIdx < prepaSteps.length - 1) selectPrepa(pIdx + 1); }
+renderPrepa();
+
+// ==================== DATA: 2.1 REPRISE S1 (5 transfert) ====================
+mountQuiz('q21-container', [
+  { tag: "Transfert • Rappel actif", q: "Tu viens de lire la correction d'un exercice de physique et tout te semble parfaitement limpide. Que dois-tu faire pour vérifier ton apprentissage ?", opts: ["Surligner les formules clés et passer au chapitre suivant.", "Fermer la correction et refaire un exercice proche sans aide.", "Relire la correction deux fois demain matin.", "Recopier la correction au propre sur une fiche."], ans: 1, exp: "Comprendre une correction ≠ savoir produire la démarche seul. Seule une tentative sans support prouve la maîtrise." },
+  { tag: "Transfert • ICAP", q: "Parmi ces 4 activités de révision, laquelle correspond au niveau CONSTRUCTIF du modèle ICAP ?", opts: ["Écouter un podcast de révision dans le bus.", "Surligner en trois couleurs un polycopié de PASS.", "Transformer un texte de 2 pages en carte conceptuelle avec verbes de liaison.", "Recopier mot pour mot les définitions du professeur."], ans: 2, exp: "Surligner et recopier relèvent du niveau Actif (manipulation). Générer une carte avec ses propres liens relève du niveau Constructif." },
+  { tag: "Transfert • Répétition espacée", q: "Tu as 3 heures pour préparer un partiel prévu dans 10 jours. Quelle répartition maximise ta rétention ?", opts: ["3 h d'affilée la veille du partiel.", "1 h aujourd'hui + 1 h à J+3 + 1 h à J+7 avec auto-tests.", "3 h aujourd'hui pour être tranquille toute la semaine.", "Relire 30 min par jour sans jamais fermer le cours."], ans: 1, exp: "Espacer les réactivations et y intégrer du rappel actif contre directement la courbe d'oubli d'Ebbinghaus." },
+  { tag: "Transfert • Mémoire de travail", q: "Pourquoi un étudiant qui connaît ses définitions de base sur le bout des doigts réussit-il mieux les problèmes complexes ?", opts: ["Parce que son QI augmente.", "Parce que les automatismes libèrent sa mémoire de travail limitée.", "Parce qu'il n'a plus besoin de dormir.", "Parce qu'il peut faire du multitâche en épreuve."], ans: 1, exp: "La mémoire de travail est un goulot d'étranglement (~5–7 éléments). Automatiser les bases libère de la bande passante pour raisonner." },
+  { tag: "Transfert • QCM d'apprentissage", q: "Pourquoi fabriquer ses propres QCM en binôme est-il plus efficace que de relire ses notes ?", opts: ["Parce que c'est plus rapide.", "Parce que ça combine production (Constructif) et confrontation entre pairs (Interactif).", "Parce que ça garantit de tomber sur les mêmes questions au concours.", "Parce qu'on n'a plus besoin d'apprendre le cours."], ans: 1, exp: "Inventer des distracteurs crédibles exige une compréhension fine, et le débat en binôme active le niveau Interactif (le plus haut d'ICAP)." }
+]);
+
+// ==================== 2.2 ANAGRAMMES (SELIGMAN) ====================
+let anaSeries = 1, anaIdx = 0, anaTimer = null, anaSec = 30;
+const anaWords = { 1: ["BEAU", "OUTRE", "PREMIER"], 2: ["PLUS", "ENTIER", "PREMIER"] };
+function initAnagram(mode) {
+  anaSeries = mode === 'auto' ? (Math.random() < 0.5 ? 1 : 2) : mode;
+  anaIdx = 0;
+  document.getElementById('ana-area').style.display = 'block';
+  document.getElementById('ana-debrief').classList.remove('show');
+  showAnaWord();
+}
+function showAnaWord() {
+  clearInterval(anaTimer);
+  anaSec = 30;
+  document.getElementById('ana-word').textContent = `Mot ${anaIdx+1}/3 :  ${anaWords[anaSeries][anaIdx]}`;
+  document.getElementById('ana-timer').textContent = "30 s";
+}
+function startAnaTimer() {
+  clearInterval(anaTimer);
+  anaSec = 30;
+  anaTimer = setInterval(() => {
+    anaSec--;
+    document.getElementById('ana-timer').textContent = `${anaSec} s`;
+    if (anaSec <= 0) { clearInterval(anaTimer); playBeep(440, 0.4); document.getElementById('ana-timer').textContent = "STOP !"; }
+  }, 1000);
+}
+function nextAnaWord() {
+  if (anaIdx < 2) { anaIdx++; showAnaWord(); }
+  else { document.getElementById('ana-word').textContent = "Expérience terminée !"; clearInterval(anaTimer); }
+}
+function revealAnaDebrief() { document.getElementById('ana-debrief').classList.add('show'); }
+
+// ==================== 2.3 PROMPTS IA ====================
+function renderPrompts() {
+  const topic = document.getElementById('ia-topic').value.trim() || "[TON CHAPITRE ICI]";
+  const prompts = [
+    {
+      title: "1. Mode QCM piégeux (Rappel actif + Vigilance)",
+      text: `Agis comme un professeur exigeant de première année universitaire. Sur le thème « ${topic} », génère 4 QCM à 4 propositions (une seule bonne réponse) en glissant des pièges classiques (mot absolu, inversion de causalité, terme proche). Ne donne PAS les réponses tout de suite : attends que je réponde avec mon niveau de confiance (0, 1 ou 2), puis corrige chaque proposition.`
+    },
+    {
+      title: "2. Mode Socrate (Engagement constructif)",
+      text: `Je révise le chapitre « ${topic} ». Interroge-moi en mode socratique : pose-moi UNE seule question de compréhension à la fois, attends ma réponse, puis challenge mes imprécisions sans me donner la réponse complète tout de suite. Après 4 questions, fais-moi un bilan de mes points faibles.`
+    },
+    {
+      title: "3. Mode Critique d'explication (Feynman + Retour sur erreur)",
+      text: `Je vais t'expliquer de mémoire le mécanisme ou concept suivant : « ${topic} ». Évalue mon explication sur 3 critères : exactitude scientifique, logique des liens de cause à effet, et oublis majeurs. Indique-moi exactement ce que je dois corriger. Voici mon explication : [COLLE TON TEXTE ICI]`
+    }
+  ];
+  document.getElementById('prompts-list').innerHTML = prompts.map((p, i) => `
+    <div class="prompt-box">
+      <strong>${p.title}</strong>
+      <pre id="pr-${i}">${p.text}</pre>
+      <button class="btn btn-primary" style="padding:0.45rem 0.9rem; font-size:0.84rem;" onclick="copyPrompt(${i}, this)">Copier le prompt</button>
+    </div>`).join('');
+}
+function copyPrompt(i, btn) {
+  const txt = document.getElementById(`pr-${i}`).textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const old = btn.textContent;
+    btn.textContent = "Copié ✓";
+    setTimeout(() => btn.textContent = old, 1500);
+  });
+}
+renderPrompts();
+
+// ==================== DATA: 2.4 QCM JOUR J (6 questions pluridisciplinaires) ====================
+mountQuiz('q24-container', [
+  { tag: "Biologie / PASS • Piège : Absolu", q: "À propos du transport membranaire, quelle proposition est exacte ?", opts: ["Toute molécule hydrophile traverse librement la bicouche lipidique.", "Le transport actif consomme toujours de l'ATP directement par hydrolyse.", "La diffusion facilitée suit le gradient de concentration sans dépense d'énergie cellulaire.", "Aucun ion ne peut traverser une membrane plasmique."], ans: 2, exp: "Piège des absolus (« toute », « toujours », « aucun ») : le transport actif secondaire utilise un gradient ionique (pas directement l'ATP). Seule C est exacte." },
+  { tag: "Physique / Ingé • Piège : Inversion de causalité", q: "En thermodynamique, à propos de la température et de l'agitation thermique d'un gaz parfait :", opts: ["L'augmentation de la température est la conséquence d'une baisse de pression systématique.", "La température absolue est une mesure directe de l'énergie cinétique moyenne d'agitation des particules.", "Si l'énergie cinétique moyenne diminue, la température augmente proportionnellement.", "Un système isolé voit toujours son entropie diminuer au cours du temps."], ans: 1, exp: "Piège d'inversion et de contresens : pour un système isolé, l'entropie ne peut qu'augmenter ou rester constante (second principe)." },
+  { tag: "SHS / IEP-Droit • Piège : Mots proches", q: "Dans la Constitution de la Ve République française, quelle institution contrôle la conformité des lois à la Constitution ?", opts: ["Le Conseil d'État.", "La Cour de cassation.", "Le Conseil constitutionnel.", "Le Conseil économique, social et environnemental."], ans: 2, exp: "Piège des mots proches : le Conseil d'État est le juge administratif suprême ; c'est le Conseil constitutionnel qui contrôle la constitutionnalité des lois." },
+  { tag: "Biologie / PASS • Piège : Partiellement juste", q: "Concernant la mitose et la méiose chez les Eucaryotes :", opts: ["La mitose produit deux cellules génétiquement identiques et réduit de moitié le nombre de chromosomes.", "La méiose produit des gamètes haploïdes à partir d'une cellule diploïde grâce à deux divisions successives.", "La mitose comporte une seule division et ne concerne que les cellules bactériennes.", "La méiose produit deux cellules diploïdes identiques à la cellule mère."], ans: 1, exp: "Piège partiellement juste : en A, le début est vrai (« deux cellules identiques »), la fin est fausse (la mitose conserve le nombre de chromosomes)." },
+  { tag: "Logique / Méthodo • Piège : Double négation", q: "Quelle phrase est strictement équivalente à : « Il n'est pas faux d'affirmer que le sommeil ne nuit pas à la consolidation » ?", opts: ["Le sommeil nuit à la consolidation.", "Il est faux que le sommeil aide la consolidation.", "Le sommeil ne nuit pas à la consolidation.", "Le sommeil remplace entièrement les révisions."], ans: 2, exp: "Piège de la double négation : « il n'est pas faux de dire X » = « il est vrai que X ». Ici X = « le sommeil ne nuit pas à la consolidation »." },
+  { tag: "Sciences cognitives • Piège : Confusion exemple / règle", q: "Un étudiant obtient 18/20 en ayant révisé uniquement la veille au soir. Que peut-on en déduire ?", opts: ["Le bachotage est donc la meilleure stratégie pour tous les concours.", "Ce cas particulier ne prouve ni l'efficacité à long terme ni une règle générale.", "La répétition espacée est invalidée par cet exemple.", "Cet étudiant a forcément une mémoire photographique."], ans: 1, exp: "Piège exemple / règle : une réussite ponctuelle à court terme ne démontre ni la rétention à 1 mois ni une règle généralisable." }
+], true);
+</script>
+<footer data-signature style="text-align:center;font-size:.8rem;opacity:.75;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))">Mr Moreira · Vauban Luxembourg</footer>
+</body>
+</html>

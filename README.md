@@ -188,6 +188,10 @@ Le dossier `atelier/` contient les sources de toutes les apps, le script de cons
   - ▫️ 3.4 · Les modèles démographiques · à venir
   - ▫️ 3.5 · De la machine de Turing à l'intelligence artificielle · à venir
 
+### [PrépaSup](https://fontesmoreira-star.github.io/svt/prepasup/) · 1 activité
+
+- 📌 **Les outils de l'atelier** · [PrépaSup Lab · le compagnon des deux séances](https://fontesmoreira-star.github.io/svt/prepasup/prepasup-lab.html)
+
 ### [Terminale · Spécialité SVT](https://fontesmoreira-star.github.io/svt/terminale-spe/) · 1 activité
 
 - 📂 **Thème 1 · Génétique et évolution** · [page](https://fontesmoreira-star.github.io/svt/terminale-spe/genetique-evolution/)

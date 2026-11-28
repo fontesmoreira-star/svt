@@ -384,6 +384,9 @@ def theme_block(n, t, rel_theme, depth=1):
 SITE = "https://fontesmoreira-star.github.io/svt/"
 
 
+TOUTE_ANNEE = "Toute l'année"  # titre par défaut de la section « transversal » d'une rubrique (« titre_transversal » le remplace)
+
+
 def readme_plan():
     """Plan Thème / Chapitre de chaque niveau, réécrit dans README.md entre deux balises."""
     L = ["<!-- plan:debut (généré par outils/generer_pages.py, ne pas modifier à la main) -->", "## Plan du site", ""]
@@ -393,7 +396,7 @@ def readme_plan():
         lid = n["id"]
         L += [f'### [{n["titre"]}]({SITE}{lid}/) · {plural(level_count(n), "activité")}', ""]
         for a in n.get("transversal", []):
-            L.append(f'- 📌 **Toute l\'année** · [{a["titre"]}]({SITE}{where(a, lid)})')
+            L.append(f'- 📌 **{n.get("titre_transversal") or TOUTE_ANNEE}** · [{a["titre"]}]({SITE}{where(a, lid)})')
         for t in n["themes"]:
             k = theme_count(t)
             tt = theme_title(n, t)
@@ -459,7 +462,7 @@ def main():
 
         body = []
         if n.get("transversal"):
-            body.append('<section class="year"><h2>Toute l\'année</h2><div class="grid">'
+            body.append(f'<section class="year"><h2>{E(n["titre_transversal"]) if n.get("titre_transversal") else TOUTE_ANNEE}</h2><div class="grid">'
                         + "".join(card(a, href(a, a.get("fichier", ""), 1)) for a in n["transversal"]) + "</div></section>")
         pleins = [t for t in n["themes"] if theme_count(t)]
         if n["themes"]:

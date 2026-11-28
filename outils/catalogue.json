@@ -807,6 +807,23 @@
    ]
   },
   {
+   "id": "prepasup",
+   "titre": "PrépaSup",
+   "court": "PrépaSup",
+   "sous": "Réussir son entrée dans le supérieur · atelier méthodologique post-bac (2 × 3 h)",
+   "couleur": "es",
+   "titre_transversal": "Les outils de l'atelier",
+   "transversal": [
+    {
+     "fichier": "prepasup-lab.html",
+     "tag": "Compagnon interactif",
+     "titre": "PrépaSup Lab · le compagnon des deux séances",
+     "desc": "Séance 1 : neuromythes avec indice de confiance, labo mémoire (empan, rappel actif), minuteur PREPA. Séance 2 : quiz de transfert, expérience des anagrammes, boîte à prompts IA, simulateur QCM Jour J avec les pièges classiques."
+    }
+   ],
+   "themes": []
+  },
+  {
    "id": "terminale-spe",
    "titre": "Terminale · Spécialité SVT",
    "court": "Tle spé SVT",
